@@ -6,8 +6,167 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+body {
+    margin: 0;
+    padding: 0;
+}
+
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+
+.App {
+  display: flex;
+  max-width: 500px;
+  max-height: 1100px;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+  overflow: auto;
+  margin: auto;
+  padding: 10px;
+  justify-content: center;
+}
+
+.image-logo ,img {
+    width: 110px;
+    border-radius: 52px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 45%;
+    margin: auto;
+    animation-name: animar;
+    animation-duration: 5s;
+    animation-iteration-count: infinite;
+}
+
+
+@keyframes animar{
+  0% {
+    width: 100px;
+  }
+  10% {
+       width: 120px;
+  }
+  30% {
+      width: 100px;
+  }
+  60%{
+      width: 120px;
+  }
+  100% {
+      width: 100px;
+  }
+}
+
+
+.form-login {
+      position: relative;
+    margin: 50px  auto 100px auto;
+    margin-top: 17px;
+    display: grid;
+    margin: auto;
+}
+
+.username {
+    background: transparent;
+    border: solid 1px #b3aca7;
+    border-radius: 12px;
+    height: 2.1876em;
+    margin: 0;
+    display: block;
+    padding: 6px 0 7px;
+    min-width: 0;
+    background: none;
+    box-sizing: content-box;
+    animation-name: mui-auto-fill-cancel;
+    letter-spacing: inherit;
+    animation-duration: 10ms;
+    margin-top: 17px;
+    color: #726659;
+}
+
+.username  {
+    padding: 8.5px 14px;
+}
+
+.password {
+    background: transparent;
+    border: solid 1px #b3aca7;
+    border-radius: 12px;
+    height: 2.1876em;
+    margin: 0;
+    display: block;
+    padding: 6px 0 7px;
+    min-width: 0;
+    background: none;
+    box-sizing: content-box;
+    animation-name: mui-auto-fill-cancel;
+    letter-spacing: inherit;
+    animation-duration: 10ms;
+    margin-top: 17px;
+    color: #726659;
+
+}
+
+.password {
+     padding: 8.5px 14px;
+}
+
+
+.image-login  {
+    width: 130px;
+    border-radius: 100px;
+    display: flex;
+    margin: auto;
+}
+
+.button-login {
+    padding: 15px;
+    display: flex;
+    margin: auto;
+    width: 52%;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    margin-top: 17px;
+    border-radius: 11px;
+    border: none;
+    background: black;
+    color: white;
+    cursor: pointer;
+    max-width: 531px;
+    width: 100%;
+}
+
+.select-hotel {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.875em;
+    height: 49px;
+    padding: 0px 15px 0px 15px;
+    background: transparent;
+    outline: none;
+    color: #726659;
+    border: solid 1px #b3aca7;
+    transition: all 0.3s ease-in-out;
+    -webkit-transition: all 0.3s ease-in-out;
+    margin-top: 19px;
+    border-radius: 12px;
+    margin: auto;
+    width: 100%;
+    max-width: 531px;
+    margin-top: 17px;
+    }
+
+   
+    .no-found{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    
+    }

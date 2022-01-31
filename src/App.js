@@ -1,25 +1,31 @@
-import logo from './logo.svg';
 import './App.css';
+import {BrowserRouter,Switch,Route} from 'react-router-dom'
+import Login from './page/Login/Login';
+import { UseContextPorvider } from './context/UseContext';
+import Home from './page/Home/Home';
+import NoFound from './component/Nofound/Nofound';
+import { PrivateRoute } from './privateRoute/PrivateRoute';
+import { AutoProvider } from './privateRoute/AutoProvider';
+import {Provider} from 'react-redux'
+import store from './store/store';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-         hello
-        </a>
-      </header>
-    </div>
-  );
+
+    return (
+      <div >
+          <Provider store={store} >
+            <AutoProvider >
+                    <BrowserRouter>
+                        <Switch>
+                            <Route exact path='/' component={Login} />
+                            <PrivateRoute exact path='/home' component={Home} />
+                            <Route component={NoFound} />
+                        </Switch>   
+                    </BrowserRouter>
+            </AutoProvider>
+         </Provider>
+      </div>
+    );
 }
 
 export default App;
