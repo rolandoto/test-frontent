@@ -1,17 +1,20 @@
 import {createSlice} from '@reduxjs/toolkit'
 
+const initialState ={
+    username:"",
+    password:"",
+    hotel:"",
+    signInUser:false,
+    token:""
+}
 
-const jst = JSON.parse(sessionStorage.getItem('jwt'))
-console.log(jst)
 export const LoginSlice = createSlice({
     name:"Login",
-    initialState:{
-        jwt:null,
-        token:jst
-    },
+    initialState,
     reducers:{
         setLogin:(state,action)=>{
-            state.jwt = action.payload
+            state.email = action.payload.username;
+            state.signInUser = true;
         }
     }
 })

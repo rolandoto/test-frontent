@@ -7,7 +7,6 @@ const NoFound =() =>{
             <img  src={noFound} alt={noFound} />
         </div>
     )
-
 }   
 
 export default NoFound

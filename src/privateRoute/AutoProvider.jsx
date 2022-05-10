@@ -9,7 +9,7 @@ export const AutoProvider =({children}) =>{
         () => window.sessionStorage.getItem('name')
     )
     const [jwt,setJwt] =useState( 
-            () => sessionStorage.getItem('jwt') 
+            () =>  JSON.parse(sessionStorage.getItem('jwt')) 
         )
 
     const [show,setShow]= useState(false)
@@ -18,6 +18,7 @@ export const AutoProvider =({children}) =>{
         setShow(false) 
     },[jwt])
 
+    
 
     return (
         <Autoconext.Provider value={{jwt,setJwt,name,setName,show,setShow}}>

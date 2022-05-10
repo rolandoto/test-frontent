@@ -7,21 +7,39 @@ import NoFound from './component/Nofound/Nofound';
 import { PrivateRoute } from './privateRoute/PrivateRoute';
 import { AutoProvider } from './privateRoute/AutoProvider';
 import {Provider} from 'react-redux'
-import store from './store/store';
+import store from './store';
+import DetailCheckin from './page/DetailCheckin/DetailCheckin';
+import Header from './component/Header/Header';
+import Bictacoras from './page/Bitacoras/Bitacoras';
+import Checkout from './page/Checkout/Checkout';
+import Qr from './page/Qr/Qr';
+import CheckingPage from './page/CheckingPage/CheckingPage';
+import CheckingProcessOne from './page/CheckingPage/CheckingProcessOne';
+import CheckingProcessTwo from './page/CheckingPage/CheckingProcessTwo';
+import CheckingProcessThree from './page/CheckingPage/CheckingProcessThree';
 
 function App() {
-
+    
     return (
-      <div >
-          <Provider store={store} >
+      <div>
+        <Provider store={store} >
             <AutoProvider >
                     <BrowserRouter>
-                        <Switch>
-                            <Route exact path='/' component={Login} />
-                            <PrivateRoute exact path='/home' component={Home} />
-                            <Route component={NoFound} />
-                        </Switch>   
-                    </BrowserRouter>
+                        <Header />
+                            <Switch>
+                                <Route exact path='/' component={Login} /> 
+                                <PrivateRoute exact path='/Home' component={Home} />
+                                <PrivateRoute exact path="/Detail/:id" component={DetailCheckin} />
+                                <PrivateRoute exact path="/Checkout/:id" component={Checkout} />
+                                <PrivateRoute exact path="/Bictacoras"  component={Bictacoras}  />
+                                <PrivateRoute exact path="/Qr"  component={Qr}  />
+                                <PrivateRoute exact path="/CheckingPage" component={CheckingPage}  />
+                                <PrivateRoute exact path="/CheckingProcessOne" component={CheckingProcessOne}  />
+                                <PrivateRoute exact path="/CheckingProcessTwo" component={CheckingProcessTwo}  />
+                                <PrivateRoute exact path="/CheckingProcessThree" component={CheckingProcessThree}  />
+                                <Route component={NoFound} />
+                            </Switch>   
+                        </BrowserRouter>
             </AutoProvider>
          </Provider>
       </div>

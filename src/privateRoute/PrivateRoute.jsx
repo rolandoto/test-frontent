@@ -6,7 +6,7 @@ export const PrivateRoute =({component:RouteComponent,...rest}) =>{
     const {jwt} = useContext(AutoProvider)
 
       return (
-        <Route {...rest}
+        <Route {...rest}re
             render={routerPros =>
             !!jwt ? (
                 <RouteComponent {...routerPros} />

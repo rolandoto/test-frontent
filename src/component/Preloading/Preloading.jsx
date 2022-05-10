@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import UseUsers from '../../hooks/UseUser'
 import {useHistory} from 'react-router-dom'
+
 const Preloading =({isLogin}) =>{
 
     const history = useHistory()
@@ -17,7 +18,7 @@ const Preloading =({isLogin}) =>{
     const Img = ({logo}) =>{
         return (
                 <div className='container-image'>
-                <div className='color'></div>
+                    <div className='color'></div>
                     <img className='image-logo' src={logo} alt="logo" />
                 </div> 
             )

@@ -4,9 +4,12 @@ import { ServiceMotel } from '../service/ServiceListMotels'
 import { setList } from '../store/slice/motelsSlice'
 
 const UseListMotels =() =>{
+    
     const dispath = useDispatch()
     const {list}=  useSelector((state) =>state.listMotel)
+
     
+
     useEffect(() =>{
         ServiceMotel().then(index =>{
             dispath(setList(index))
