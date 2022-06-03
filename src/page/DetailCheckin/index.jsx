@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import Checking from "../../component/Checkin/Checkin"
+import Checking from "../../component/Checkin"
 import {useHistory} from "react-router-dom"
 const DetailCheckin =() =>{
     

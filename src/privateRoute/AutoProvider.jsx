@@ -16,7 +16,7 @@ export const AutoProvider =({children}) =>{
     
     useEffect(() =>{
         setShow(false) 
-    },[jwt])
+    },[setJwt])
 
     
 

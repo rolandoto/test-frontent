@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import Checking from "../../component/Checkin/Checkin"
+import Checking from "../../component/Checkin"
 import UseReservas from "../../hooks/UseReservas"
 import { ServiceReservas } from "../../service/ReservasService"
 

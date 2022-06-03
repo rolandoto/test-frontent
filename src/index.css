@@ -169,12 +169,12 @@ code {
     }
   
     .check{
-    display: grid;
-    grid-template-columns: auto auto auto auto auto auto auto auto auto auto auto auto auto;
-    padding: 10px;
-    grid-gap: 8px;
-    margin: auto;
-    max-width: 85%;
+      display: grid;
+      grid-template-columns: auto auto auto auto auto auto auto auto auto auto auto auto auto;
+      padding: 19px;
+      grid-gap: 8px;
+      margin: auto;
+      max-width: 48.9%;
   }
   
   .cuadro{
@@ -254,7 +254,7 @@ code {
     display: flex;
     flex-direction: column;
     margin: auto;
-    margin-top: 50px;
+    margin-top: 80px;
   }
 
   .border-ri{
@@ -273,7 +273,7 @@ code {
     background-color: whitesmoke;
     width: 300px;
     padding: 10px 20px;
-    height: 83vh;
+    height: 51vh;
     margin: 10vh auto;
     position: relative;
     border-radius: 37px;
@@ -397,7 +397,7 @@ td,th{
 }
 
 .App-Checking{
-  width: 50%;
+  width: 48%;
   margin: auto;
 }
 
@@ -455,7 +455,7 @@ td,th{
 
    .Button-bicta{
     margin: 2px;
-    padding: 0 3.5rem;
+    padding: 0 0.5rem;
     height: 2.81rem;
     line-height: 2.8rem;
     border-radius: 7px;
@@ -464,21 +464,29 @@ td,th{
     /* display: inline-grid; */
     width: 36%;
     font-size: 12px;
-    text-align: center;
-   }
-
+}
+  
   tbody{
     border: 1px solid gray;
     display: block;
     margin-top: 18px;
     padding: 17px;
     border-radius: 18px;
+    width: 51%;
   }
 
+
   .de{
-    width: 90%;
     margin: auto;
     border: none;
+    width: 64%;
+  }
+
+  .pe{
+    width: 48%;
+    margin: auto;
+    border: none;
+    margin-top: 40px;
   }
 
 td, th ,tr{border:none;}
@@ -493,7 +501,7 @@ td, th ,tr{border:none;}
   position: absolute;
   left: 0;
   right: 0;
-  bottom: 40%;
+  bottom: -223%;
   margin: auto;
   animation-name: animar;
   animation-duration: 5s;
@@ -501,7 +509,14 @@ td, th ,tr{border:none;}
 }
 
 .container-bicta{
-  height: 100vh;
+ 
+    margin-top: 3%;
+    display: flex;
+    /* max-width: 57%; */
+    /* margin: auto; */
+    width: 146%;
+    justify-content: center;
+    flex-direction: column;
 }
 
 .image-fume{
@@ -550,3 +565,169 @@ td, th ,tr{border:none;}
   width: 70%;
   text-align: justify;
  }
+
+
+ .pagination{
+  display: flex;
+  list-style: none;
+  border-radius: 0.25rem;
+  justify-content: center;
+  width: 90%;
+  margin: auto;
+  margin-top: 10px;
+  
+ }
+
+ .page-link{
+ 
+    border-top-left-radius: 0.25rem;
+    border-bottom-left-radius: 0.25rem;
+    color: #000;
+    
+ }
+
+ .page-item{
+  border: 1px solid grey;
+  padding: 3.5px;
+  color: black;
+}
+
+
+.container-formats{
+  width: 25%;
+  max-width: 2904px;
+  margin: auto;
+  overflow: hidden;
+  padding: 35px 0;
+  margin: auto;
+  max-height: 231px;
+  padding: 10px;
+}
+
+
+.container-f{
+  display: flex;
+  flex-direction: row;
+  margin: auto;
+  margin-top: 50px;
+}
+
+
+.row{
+  background: #dc3545;
+  height: 117px;
+  border-radius: 5px;
+}
+
+
+.contenedor {
+  width: 48.5%;
+  max-width: 3000px;
+  margin: auto;
+  overflow: hidden;
+  padding: 35px 0;
+  margin: auto;
+}
+
+.amarillo {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.icon-pdf{
+  text-align: right;
+}
+
+.text-title{
+  color: white;
+    padding: 10px;
+}
+
+.page-iteme{
+    color: white;
+    text-align: center;
+    background: #742d2d4f;
+}
+
+.page-iteme a{
+  color: white
+}
+
+.page-linke{
+  display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.icon-taxi{
+  display: flex;
+}
+
+.button-login-checkin {
+  padding: 15px;
+  display: flex;
+  margin: auto;
+  width: 52%;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  margin-top: 17px;
+  border-radius: 11px;
+  border: none;
+  background: black;
+  color: white;
+  cursor: pointer;
+  width: 100%;
+}
+  
+
+.go th{
+  width: 0px;
+}
+
+.accordion {
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+  transition: 0.4s;
+}
+
+.active, .accordion:hover {
+  background-color: #ccc; 
+}
+
+.panel {
+  padding: 0 18px;
+  display: none;
+  background-color: white;
+  overflow: hidden;
+}
+
+.container-contact{
+  margin-top: 4%;
+}
+
+.container-format{
+  margin-top: 3%;
+}
+
+.container-forgetfulnes{
+  margin-top: 3%;
+}
+
+.pots{
+  
+    margin: auto;
+    border: none;
+    width: 48.5%;
+    margin-top: 3%;
+  
+
+}

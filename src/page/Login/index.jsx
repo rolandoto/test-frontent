@@ -2,7 +2,7 @@ import React, {useState } from 'react'
 import UseUsers from '../../hooks/UseUser'
 import logo from '../../image/logo.jpeg'
 import {useHistory} from 'react-router-dom'
-import Preloading from '../../component/Preloading/Preloading'
+import Preloading from '../../component/Preloading'
 import UseListMotels from '../../hooks/UseListMotels'
 import signIn from '../../store/actions/userActions'
 import { useForm } from "react-hook-form";

@@ -7,9 +7,7 @@ const UseListMotels =() =>{
     
     const dispath = useDispatch()
     const {list}=  useSelector((state) =>state.listMotel)
-
     
-
     useEffect(() =>{
         ServiceMotel().then(index =>{
             dispath(setList(index))

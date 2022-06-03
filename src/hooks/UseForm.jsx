@@ -10,6 +10,7 @@ const UseForm =({name,lastName,phone,date}) =>{
         fecha:date
     })
 
+    
     const handleInputChange = (event) => {
         setDatos({
             ...datos,
@@ -24,4 +25,4 @@ const UseForm =({name,lastName,phone,date}) =>{
 
 }
 
-export default UseForm
+export default UseForm.use

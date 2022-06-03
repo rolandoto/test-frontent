@@ -23,8 +23,6 @@ const Preloading =({isLogin}) =>{
                 </div> 
             )
         }
-
-
     return  { 
         Img,loading
     }

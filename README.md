@@ -68,3 +68,27 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+
+const {data,loading} = UseListFormats()
+
+    const [currentPage, setCurrentPage] = useState(1);
+    const [postsPerPage] = useState(10);
+    
+
+    
+
+    const paginate = pageNumber => setCurrentPage(pageNumber);
+
+ 
+    const indexOfLastPost = currentPage * postsPerPage;
+    const indexOfFirstPost = indexOfLastPost - postsPerPage;
+    const currentPosts = data.link?.slice(indexOfFirstPost, indexOfLastPost); 
+
+    
+
+  <Post data={currentPosts} loading={loading}  />
+            <Pagination 
+                postsPerPage={postsPerPage}
+                totalPosts={data.link?.length}
+                paginate={paginate} />

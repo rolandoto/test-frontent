@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import CardBed from "../CardBed/CardBed";
+import CardBed from "../CardBed";
 import {Link} from "react-router-dom"
 import UseUsers from "../../hooks/UseUser";
 import { BiBed } from "react-icons/bi";

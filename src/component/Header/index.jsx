@@ -28,6 +28,7 @@ const Header  =() =>{
                             </div>
                                 <div className="title-user">
                                     <h1>Solicitar Prestamo</h1>
+                                    <h1>Certificado laboral </h1>
                                     <h1>Solicitar Vacaciones</h1>
                                     <h1>Horarios</h1>
                                     <h1>Comunicado Internos</h1>
@@ -44,7 +45,6 @@ const Header  =() =>{
                                 <li><h3>Hola,{jwt.result.name}</h3    ></li>
                             </ul>
                         </div>
-
                 <div>
                   <ul className="list-icon">
                     <Link to={`/Home`} >
@@ -63,31 +63,44 @@ const Header  =() =>{
                         <AiOutlineShoppingCart fontSize= {25}  /> 
                         <span className="title-icon" >Tienda</span>
                     </li>
-                    <li className="borde-icon">
-                        <BsBell fontSize={25}  />
-                        <span className="title-icon" >Reservas</span>
-                    </li>
+
+                    <Link to="/Booking">
+                        <li className="borde-icon">
+                            <BsBell fontSize={25}  />
+                            <span className="title-icon" >Reservas</span>
+                        </li>
+                    </Link>
+                    <Link to="/mantenimiento" >
                     <li className="borde-icon">
                         <VscSymbolProperty fontSize={25}/> 
                         <span className="title-icon" >Mantenimiento</span>
                     </li>
+                    </Link>
+                    <Link to="/Formatos">
                     <li className="borde-icon">
                         <BsFileEarmarkCheck fontSize={25}/>
                         <span className="title-icon" >Formatos</span>
                     </li>
+                    </Link>
+
+                    <Link to="/Forgetfulnes">
                     <li className="borde-icon">
                         <BsHandbag fontSize={25}  />
                         <span className="title-icon" >Olvidos</span> 
                     </li>
+                    </Link>
+                    <Link to="/Contact" >
                     <li className="borde-icon">
                         <BsPerson color="black" fontSize={25}/>
                         <span className="title-icon" >Contactos</span> 
                     </li>
+                    </Link>
                     <li className="borde-icon-taxi">
+                    <a  href={`https://taxi.webcoopebombas.com:8087/Account/LogIn?ReturnUrl=%2F`} target="_blank" className="icon-taxi">
                         <BiTaxi color="black" fontSize={25}/>
-                        <span className="title-icon" >Taxi</span>
+                      Taxi
+                      </a>
                     </li>
-                   
                   </ul>
               </div>
         </div>

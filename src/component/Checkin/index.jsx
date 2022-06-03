@@ -74,7 +74,7 @@ const Checking =({name,lastName,phone,endDate,handNext}) =>{
                             name="fecha"
                             value={datos.fecha}
                             /> 
-                        <button className='button-login' type='submit' onClick={handNext} >Siguiente</button>
+                        <button className='button-login-checkin' type='submit' onClick={handNext} >Siguiente</button>
                     </form>
         </div>
     )

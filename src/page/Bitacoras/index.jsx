@@ -1,13 +1,9 @@
 import React from "react"
-import TableBictacoras from "../../component/TableBictacoras/TableBictacoras";
+import TableBictacoras from "../../component/TableBictacoras";
 import UserListBictacoras from "../../hooks/UserListBictacoras"
-import UseUsers from "../../hooks/UseUser";
-import { Loading, Spacer } from "@nextui-org/react";
 import logo from '../../image/logo.jpeg'
 
 const Bictacoras  =() =>{
-
- 
 
   const {bicta,isLoading} =UserListBictacoras()
         
