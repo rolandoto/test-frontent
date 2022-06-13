@@ -52,23 +52,17 @@ const Booking =() =>{
       const [code,setCode] =useState("")
       const [name,setName] =useState("")
     
-
-     
-    
       const indexOfLastPost = currentPage * postsPerPage;
       const indexOfFirstPost = indexOfLastPost - postsPerPage;
       const currentPosts = pro?.slice(indexOfFirstPost, indexOfLastPost);
       
       const paginate = pageNumber => setCurrentPage(pageNumber);
 
-      
       const handSubmit =(e) =>{
           e.preventDefault()
           filtrar(name)
           filtrar(code)
       }
-    
-    
 
     if(!filtrar)  return null
 
@@ -97,7 +91,7 @@ const Booking =() =>{
                 </div>
                 <div>
                     <Post data={currentPosts} loading={loading}  />
-                    {pro.length >10 &&  <Pagination 
+                    {pro?.length >10 &&  <Pagination 
                       postsPerPage={postsPerPage}
                       totalPosts={booking.link?.length}
                       paginate={paginate} />

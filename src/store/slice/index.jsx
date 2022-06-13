@@ -3,11 +3,13 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 const initialState = {
   booking: [],
   loading: true,
-  status:"booking",
+  status:"idle",
   maintenance:[],
   forget: [],
   emegrcies: [],
   entities: [],
+  jwt:[],
+  error:""
 }
 
 export const getBooking = createAsyncThunk(
@@ -55,10 +57,8 @@ export const addPostInsertForget = createAsyncThunk("posts/addPostInsertForget",
        return resp
   })
 
-}
-)
-
-
+    }
+  )
 
 export const getEmercies = createAsyncThunk(
   'posts/getEmercies',
@@ -103,10 +103,8 @@ export const addPostMaintenance = createAsyncThunk("posts/addPostMaintenance",({
   }).then(resp=>{
        return resp
   })
-
-}
+  }
 )
-
 
 export const getFormat = createAsyncThunk(
   'posts/getFormat',
@@ -117,12 +115,16 @@ export const getFormat = createAsyncThunk(
   return res
 })
 
-
 export const BookingtSlice = createSlice({
   name: 'booking',
   initialState,
-  reducers: {},
+  reducers: {
+    setLogin:(state,action) =>{
+      state.jwt =action.payload
+    }
+  },
   extraReducers: {
+
     [getBooking.pending]: (state) => {
       state.status ="loading"
     },
@@ -133,28 +135,51 @@ export const BookingtSlice = createSlice({
     [getBooking.rejected]: (state) => {
       state.status = 'failed'
     },
+
     [getPostMaintenance.fulfilled]: (state,{payload}) => {
       state.maintenance = payload
     },
+    
+    [Forget.pending]: (state,{payload}) => {
+      state.status = "succeeded"
+    },
+    [Forget.rejected]: (state,{payload}) => {
+      state.status = "failed"
+    },
     [Forget.fulfilled]: (state,{payload}) => {
       state.forget= payload
+      state.status ="succeeded"
     },
+
+
     [addPostInsertForget.fulfilled]: (state,{payload}) => {
       console.log("exictoso")
     },
+
+
     [getEmercies.fulfilled]: (state,{payload}) => {
       state.emegrcies= payload
     },
     [updatePostmaintenance.fulfilled]: (state,{payload}) => {
         console.log("exictoso")
     },
+
     [addPostMaintenance.fulfilled]: (state,{payload}) => {
       console.log("exictoso")
   },
+
+
   [getFormat.fulfilled]: (state,{payload}) => {
     state.entities = payload
 },
   },
 })
+
+export const {setLogin} = BookingtSlice.actions
+
+export const selectAllPosts = (state) => state.listBooking;
+export const getPostsStatus = (state) => state.listBooking;
+
+
 
 export default BookingtSlice.reducer

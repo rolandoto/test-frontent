@@ -2,8 +2,10 @@ import React, { useCallback, useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import Day from "../../component/Day"
 import UseUsers from "../../hooks/UseUser"
-import { addPostInsertForget, Forget } from "../../store/slice"
+import { addPostInsertForget, Forget, selectAllPosts } from "../../store/slice"
 import { AiFillPlusCircle } from "react-icons/ai";
+
+
 const Forgetfulnes =() =>{
    
     const dispatch  = useDispatch()
@@ -13,17 +15,26 @@ const Forgetfulnes =() =>{
 
     const {forget}= useSelector((state) =>state.listBooking)
 
+    const [successful, setSuccessful] = useState(false);
+
     const handSubmit = useCallback(async({id_hotel,id_user,description,ubicacion}) =>{
-        await dispatch(addPostInsertForget({id_hotel,id_user,description,ubicacion}))
-        await  dispatch(Forget())
+        setSuccessful(false);
+             await dispatch(addPostInsertForget({id_hotel,id_user,description,ubicacion})).unwrap()
+                    .then(() => {
+                    setSuccessful(true);
+                    })
+                    .catch(() => {
+                    setSuccessful(false);
+                    });
         alert("agregado")
      },[])
-    
+     
+     
     useEffect(() =>{
             dispatch(Forget())
-    },[dispatch])
+    },[successful, setSuccessful])
 
-
+    console.log(successful)
 
     const post ={
         id_hotel:jwt.result.id_hotel,
@@ -81,7 +92,7 @@ const Forgetfulnes =() =>{
                          <tr key={e}>   
                             <td>{result}</td>
                             <td>{index.ubicacion}</td>
-                            <td  >{index.description}</td>
+                            <td>{index.description}</td>
                       </tr>
                     )
                 })} 

@@ -21,6 +21,7 @@ import Contact from './page/Contact';
 import Forgetfulnes from './page/Forgetfulness';
 import Booking from './page/Booking';
 import Maintenance from './page/Maintenance';
+import Store from './page/Store';
 
 
 function App() {
@@ -47,6 +48,7 @@ function App() {
                                 <PrivateRoute exact path="/Forgetfulnes" component={Forgetfulnes}/>
                                 <PrivateRoute exact path="/Booking" component={Booking}/>
                                 <PrivateRoute exact path="/mantenimiento" component={Maintenance}/>
+                                <PrivateRoute exact path="/store" component={Store}/>
                                 <Route component={NoFound} />
                             </Switch>   
                         </BrowserRouter>

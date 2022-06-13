@@ -51,8 +51,8 @@ const ShowBed =({bed}) =>{
                         </div>  
                 </div>}
                 {bed.map((index,e) =>(
-                    <div className="icon-bed" onClick={()=> handModal(e)} >
-                        <CardBed  key={e}  index={index} />
+                    <div className="icon-bed" onClick={()=> handModal(e)} key={e} >
+                        <CardBed   index={index} />
                     </div>
                 ))}
             </div>

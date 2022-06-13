@@ -1,8 +1,6 @@
 import { useCallback, useState } from "react"
 import { ServiceReservas } from "../service/ReservasService"
 
-
-
 const UseReservas =() =>{
 
     const [booking,setBookin] = useState()
@@ -17,6 +15,8 @@ const UseReservas =() =>{
             setLoading({error:true})
         })
     },[])
+
+    
 
     return {
         handBookin,

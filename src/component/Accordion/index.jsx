@@ -2,7 +2,7 @@ import React from "react"
 import "./Accordion.css"
 
 
-const Accordion =({title,active,setActive,acordionOne,accordionTwo,accordionThree,accordionFour,accordionFive,accordionSix,accordionSevent,accordionNone}) =>{
+const Accordion =({title,active,setActive,acordionOne,accordionTwo,accordionThree,accordionFour,accordionFive,accordionSix,accordionSevent,accordionNone,icone}) =>{
 
     const taOne = acordionOne && true
     const taTwo = accordionTwo && true
@@ -34,7 +34,8 @@ const Accordion =({title,active,setActive,acordionOne,accordionTwo,accordionThre
             <div className="accordione">
                 <div className="accordionHeading">
                     <div className="containero">
-                            <p>{title}</p>
+
+                            <p>{icone} {title}</p>
                             <span className="icon-accordion" onClick={(active ==title ? closed :open )} >{icon}</span>
                     </div>
                 </div>

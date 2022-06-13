@@ -7,7 +7,6 @@ import { BiTaxi } from "react-icons/bi";
 import {Link} from "react-router-dom"
 import { RiHome2Line } from "react-icons/ri";
 
-
 const Header  =() =>{
     const {jwt} = UseUsers()
 
@@ -16,7 +15,7 @@ const Header  =() =>{
     const handOpenModal =() =>{
         setUser(true)
     }
-    //esto es para que no muestre sino esta logeado
+   
     if(!jwt) return null
 
     return (
@@ -59,10 +58,13 @@ const Header  =() =>{
                             <span className="title-icon" >Bictacoras</span>
                         </li>
                     </Link>
-                    <li className="borde-icon">
-                        <AiOutlineShoppingCart fontSize= {25}  /> 
-                        <span className="title-icon" >Tienda</span>
-                    </li>
+
+                    <Link to="/store" >
+                        <li className="borde-icon">
+                            <AiOutlineShoppingCart fontSize= {25}  /> 
+                            <span className="title-icon" >Tienda</span>
+                        </li>
+                    </Link>
 
                     <Link to="/Booking">
                         <li className="borde-icon">
