@@ -11,7 +11,7 @@ const UserListBictacoras =() =>{
     const dispath = useDispatch()
     const {bicta}=  useSelector((state) =>state.bictacoras)
     const {jwt}  = UseUsers()
-    const id =jwt.result.id
+    const id =jwt.result.id_hotel
     
     useEffect(() =>{
         ServiceBictacoras({id}).then(index=>{

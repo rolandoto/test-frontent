@@ -1,0 +1,14 @@
+.tab-imbox{
+    width: 100%;
+    margin: auto;
+    border: none;
+  }
+  
+  .container-imbox{
+    display: flex;
+    width: 40%;
+  }
+
+  .container-imbox button{
+    margin-right: 10px;
+  }

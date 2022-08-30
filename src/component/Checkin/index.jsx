@@ -1,14 +1,26 @@
 import React, { useState } from "react"
 import UseForm from "../../hooks/UseForm"
 
-const Checking =({name,lastName,phone,endDate,handNext}) =>{
+const Checking =({name="",lastName="",phone="",endDate="",handNext=""}) =>{
 
     const end  = endDate ? endDate :null
     let today = new Date(end)
-    const date = today.toISOString().split('T')[0]
+    const date = today?.toISOString().split('T')[0]
 
-    const {handleInputChange,datos} =UseForm({name,lastName,phone,date})
+    const [datos, setDatos] = useState({
+        nombre: name,
+        apellido: lastName,
+        celular:phone,
+        fecha:date
+    })
 
+const handleInputChange = (event) => {
+    setDatos({
+        ...datos,
+        [event.target.name] : event.target.value
+    })
+}
+    
     const [raiting,setRaiting]= useState('')
 
     const cc =["CC","CE","PEP","P.P.T"]
@@ -25,7 +37,7 @@ const Checking =({name,lastName,phone,endDate,handNext}) =>{
                                                 className='select-list-checking' >
                                                 <option disabled >raiting tuype</option>
                                                 <option>Tipo de Documentos</option>
-                                                {cc.map(ratings => <option >
+                                                {cc?.map(ratings => <option >
                                                                         {ratings}
                                                                     </option> )}
                         </select>
@@ -40,7 +52,7 @@ const Checking =({name,lastName,phone,endDate,handNext}) =>{
                             className='username' 
                             name="nombre"
                             onChange={handleInputChange}
-                            value={datos.nombre}
+                            value={datos?.nombre}
                             />    
                         <input 
                             required
@@ -49,7 +61,7 @@ const Checking =({name,lastName,phone,endDate,handNext}) =>{
                             className='password'
                             onChange={handleInputChange}
                             name="apellido"
-                            value={datos.apellido}
+                            value={datos?.apellido}
                              />
                         
                         <input required 
@@ -58,7 +70,7 @@ const Checking =({name,lastName,phone,endDate,handNext}) =>{
                             className='username' 
                             onChange={handleInputChange}
                             name="celular"
-                            value={datos.celular}
+                            value={datos?.celular}
                             />    
                         <input 
                             required 
@@ -72,7 +84,7 @@ const Checking =({name,lastName,phone,endDate,handNext}) =>{
                             className='username'
                             onChange={handleInputChange}
                             name="fecha"
-                            value={datos.fecha}
+                            value={datos?.fecha}
                             /> 
                         <button className='button-login-checkin' type='submit' onClick={handNext} >Siguiente</button>
                     </form>

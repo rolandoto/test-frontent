@@ -10,15 +10,12 @@ const Post =({data,loading}) =>{
     let today = new Date(t)
     const day = today.toISOString().split('T')[0]
     
-
-
     const Ro =(even) =>{
         const to = (new Intl.NumberFormat('de-DE').format(even))
         
         return  <span>{to}</span>
     }
 
-   
     if(!data) return null
    
     return(

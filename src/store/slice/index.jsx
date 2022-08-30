@@ -9,10 +9,12 @@ const initialState = {
   emegrcies: [],
   entities: [],
   jwt:[],
-  error:""
+  error:"",
+  ressecion:[],
+  maintenanceRecepcion:[]
 }
 
-export const getBooking = createAsyncThunk(
+/*export const getBooking = createAsyncThunk(
   'posts/getBooking',
   async ({id}) => {
     const res = await fetch(`${process.env.REACT_APP_API_KEY}/api/listbooking/${id}`).then(
@@ -29,8 +31,6 @@ export const getPostMaintenance = createAsyncThunk(
   )
   return res
 })
-
-
 
 export const Forget = createAsyncThunk(
   'posts/Forget',
@@ -59,15 +59,18 @@ export const addPostInsertForget = createAsyncThunk("posts/addPostInsertForget",
 
     }
   )
+*/
 
 export const getEmercies = createAsyncThunk(
   'posts/getEmercies',
-  async () => {
-    const res = await fetch(`${process.env.REACT_APP_API_KEY}/api/numberemergencies`).then(
+  async ({id}) => {
+    const res = await fetch(`https://grupohoteles.co/api/getNumberEmergencyByIDHotel?id_hotel=${id}`).then(
     (data) => data.json()
   )
   return res
 })
+
+/*
 
 export const updatePostmaintenance = createAsyncThunk("posts/updatePostmaintenance",({id,options}) => {
      
@@ -105,11 +108,50 @@ export const addPostMaintenance = createAsyncThunk("posts/addPostMaintenance",({
   })
   }
 )
-
+*/
 export const getFormat = createAsyncThunk(
   'posts/getFormat',
   async ({id_hotel}) => {
-    const res = await fetch(`${process.env.REACT_APP_API_KEY}/api/listformats/${id_hotel}`).then(
+    const res = await fetch(`https://grupohoteles.co/api/getFormatosByIDHotel?id_hotel=${id_hotel}`).then(
+    (data) => data.json()
+  )
+  return res
+})
+
+
+
+export const postProduct = createAsyncThunk("posts/postProduct",async({product}) =>{
+
+  return fetch(`${process.env.REACT_APP_API_KEY}/api/productinvoince`,
+      {
+        method:'POST',
+        headers:{
+            'Content-type':'application/json'
+        },
+        body: JSON.stringify({product})
+    }).then(resp =>{
+        if(!resp.ok) throw new Error('Response is not ok')
+        return resp.json()
+    }).then(resp=>{
+        return resp
+    })
+})
+
+//http://localhost:4000/api/MinImboxrRecesion/2
+
+export const getImboxResesion = createAsyncThunk(
+  'posts/getImboxResesion',
+  async () => {
+    const res = await fetch(`${process.env.REACT_APP_API_KEY}/api/minImboxrecesion/2`).then(
+    (data) => data.json()
+  )
+  return res
+})
+
+export const getImboxMaintance = createAsyncThunk(
+  'posts/getImboxMaintance',
+  async () => {
+    const res = await fetch(`${process.env.REACT_APP_API_KEY}/api/minImboxMaintance/2`).then(
     (data) => data.json()
   )
   return res
@@ -123,63 +165,56 @@ export const BookingtSlice = createSlice({
       state.jwt =action.payload
     }
   },
-  extraReducers: {
+    extraReducers: {
+      /*
+      [getBooking.pending]: (state) => {
+        state.status ="loading"
+      },
+      [getBooking.fulfilled]: (state, { payload }) => {
+        state.status = 'succeeded'
+        state.booking = payload
+      },
+      [getBooking.rejected]: (state) => {
+        state.status = 'failed'
+      },*/
 
-    [getBooking.pending]: (state) => {
-      state.status ="loading"
-    },
-    [getBooking.fulfilled]: (state, { payload }) => {
-      state.status = 'succeeded'
-      state.booking = payload
-    },
-    [getBooking.rejected]: (state) => {
-      state.status = 'failed'
-    },
+     /* [getPostMaintenance.fulfilled]: (state,{payload}) => {
+        state.maintenance = payload
+      },
+      */
+      [getEmercies.fulfilled]: (state,{payload}) => {
+        state.emegrcies= payload
+      },
+      /*
+      [updatePostmaintenance.fulfilled]: (state,{payload}) => {
+          console.log("exictoso")
+      },
+      */  
 
-    [getPostMaintenance.fulfilled]: (state,{payload}) => {
-      state.maintenance = payload
-    },
-    
-    [Forget.pending]: (state,{payload}) => {
-      state.status = "succeeded"
-    },
-    [Forget.rejected]: (state,{payload}) => {
-      state.status = "failed"
-    },
-    [Forget.fulfilled]: (state,{payload}) => {
-      state.forget= payload
-      state.status ="succeeded"
-    },
+      /*
 
-
-    [addPostInsertForget.fulfilled]: (state,{payload}) => {
-      console.log("exictoso")
-    },
-
-
-    [getEmercies.fulfilled]: (state,{payload}) => {
-      state.emegrcies= payload
-    },
-    [updatePostmaintenance.fulfilled]: (state,{payload}) => {
+      [addPostMaintenance.fulfilled]: (state,{payload}) => {
         console.log("exictoso")
     },
-
-    [addPostMaintenance.fulfilled]: (state,{payload}) => {
-      console.log("exictoso")
-  },
-
-
-  [getFormat.fulfilled]: (state,{payload}) => {
-    state.entities = payload
-},
+    */
+      [postProduct.fulfilled]:(state,{payload}) =>{
+        console.log("exictoso")
+      },
+    [getFormat.fulfilled]: (state,{payload}) => {
+      state.entities = payload
+    },
+    [getImboxResesion.fulfilled]: (state, { payload }) => {
+      state.status = 'succeeded'
+      state.ressecion = payload
+    },
+    [getImboxMaintance.fulfilled]: (state, { payload }) => {
+      state.status = 'succeeded'
+      state.maintenanceRecepcion = payload
+    },
   },
 })
 
 export const {setLogin} = BookingtSlice.actions
-
-export const selectAllPosts = (state) => state.listBooking;
-export const getPostsStatus = (state) => state.listBooking;
-
 
 
 export default BookingtSlice.reducer

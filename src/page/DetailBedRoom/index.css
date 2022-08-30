@@ -1,0 +1,85 @@
+.title-bedroom{
+   display: block;   
+}
+
+.flex-bedrooms{
+    display: flex;
+    align-items: center;
+    margin-left: 16px;
+    align-items: center;
+    justify-content: center;
+    margin-top: 59px;
+    
+}
+
+.input-bedroom{
+box-sizing: border-box;
+width: 200px;
+height: 40px;
+left: 300px;
+top: 338px;
+background: #FFFFFF;
+border: 1px solid #BEBEBE;
+border-radius: 8px;
+}
+
+.flex-bedrooms li{
+    padding: 5px;
+    text-align: center;
+}
+
+.button-bedroom{
+width: 200px;
+height: 40px;
+background: #070707;
+border-radius: 8px;
+color: white;
+cursor: pointer;
+}
+
+.flex-bedrooms > li, button {
+    align-self: end;
+}
+
+.table{
+  font-family: arial, sans-serif  !important;
+  border-collapse: collapse !important;
+  width: 49% !important;
+}
+
+td, th {
+  border: 1px solid #dddddd !important;
+  text-align: left !important;
+  padding: 8px !important;
+  background: white;
+}
+
+.container-table{
+    display: flex;
+    justify-content: center;
+}
+
+.card-Bedrrom{
+        border-radius: 15px;
+        box-shadow: 0 0 20px rgb(0 0 0 / 15%);
+        padding: 80px 41px 40px;
+        height: 101%;
+        cursor: pointer;
+        text-align: center;
+        color: #808080;
+        font-weight: lighter;
+        width: 19%;
+    }
+
+.container-card{
+    display: flex;
+    justify-content: space-evenly;
+    max-width: 50%;
+    margin: auto;
+    margin-top: 50px;
+}
+
+.title-card{
+    font-size: 33px;
+    font-weight: 400;
+}

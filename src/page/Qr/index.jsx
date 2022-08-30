@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react"
 import Checking from "../../component/Checkin"
 import UseReservas from "../../hooks/UseReservas"
-import { ServiceReservas } from "../../service/ReservasService"
 
 const Qr =() =>{
 
@@ -10,8 +9,7 @@ const Qr =() =>{
     
     const handSubmit =(e)=>{
         e.preventDefault()
-        handBookin({id:qr})
-        setQr("")
+        handBookin({id:qr})   
     }
 
     return  (
@@ -19,7 +17,7 @@ const Qr =() =>{
             <h1>leer qr</h1>
             {booking  ? 
                 <div>
-                    {booking.map((index,e) =>(
+                    {booking?.map((index,e) =>(
                         <Checking  {...index} key={e}  />
                     ))}
                 </div>

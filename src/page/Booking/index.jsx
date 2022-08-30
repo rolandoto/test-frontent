@@ -5,19 +5,25 @@ import Post from "../../component/Post/Post"
 import UseUsers from "../../hooks/UseUser"
 import { getBooking } from "../../store/slice"
 import moment  from "moment"
+import UseTitle from "../../hooks/UseTitle"
 
 const Booking =() =>{
 
-    const dispatch = useDispatch()
-    const {jwt} = UseUsers()
+    /*UseTitle({title:"Reservas"})
 
+    const dispatch = useDispatch()
+
+    const {jwt} = UseUsers()
+    
     const t= moment().format();   
+
     let today = new Date(t)
+
     const day = today.toISOString().split('T')[0]
     
     const {booking,loading} = useSelector((state) => state.listBooking)
+    
     const [products,setProducts] = useState("")
-
 
     const accordionNone  = booking.link?.filter(index => {
       let todayone =  new Date(index.endDate)
@@ -29,7 +35,6 @@ const Booking =() =>{
    
     const pro = products ? products : accordionNone
 
-    
     useEffect(() =>{
           dispatch(getBooking({id:jwt.result.id_hotel}))
     },[dispatch,setProducts])
@@ -66,9 +71,9 @@ const Booking =() =>{
 
     if(!filtrar)  return null
 
-    return (
-        <div className="container-forgetfulnes" >
-                <div className="App-Checking"   >
+
+    /**
+     * <div className="App-Checking"   >
                     <form className='form-login' onSubmit={handSubmit} >
                         <input  
                             placeholder='Codigo'         
@@ -97,9 +102,12 @@ const Booking =() =>{
                       paginate={paginate} />
                     }
                 </div>
-               
+     */
+
+    return (
+        <div className="container-forgetfulnes" >
+                <h1>comentado</h1>
         </div>
-          
     )
 }
 

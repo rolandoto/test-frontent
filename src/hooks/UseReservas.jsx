@@ -16,8 +16,6 @@ const UseReservas =() =>{
         })
     },[])
 
-    
-
     return {
         handBookin,
         booking,

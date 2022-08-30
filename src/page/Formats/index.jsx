@@ -3,9 +3,12 @@ import UseListFormats from "../../hooks/UseListFormats"
 import { AiTwotoneDelete } from "react-icons/ai";
 import { BsFileEarmarkPdfFill, BsFileEarmarkPdf ,BsFillArrowRightCircleFill} from "react-icons/bs";
 import UseUsers from "../../hooks/UseUser";
+import UseTitle from "../../hooks/UseTitle";
 
 
 const Formats =() =>{
+
+    UseTitle({title:"Formatos"})    
 
     const {jwt} = UseUsers()
 
@@ -18,10 +21,10 @@ const Formats =() =>{
     return (
         <div className="container-format" >  
              <div className=" contenedor amarillo">
-                {data.link?.map((index,e) => (
+                {data.map((index,e) => (
                 <div className="container-formats" key={e}  >
                     <div className="row" >
-                        <span className="text-title">{index.name_centro_documental}</span> 
+                        <span className="text-title">{index.nombre}</span> 
                         <div className="icon-pdf" >
                             <BsFileEarmarkPdf color="#bb2d3b" size={60} />
                         </div>

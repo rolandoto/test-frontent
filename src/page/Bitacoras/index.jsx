@@ -1,12 +1,18 @@
 import React from "react"
 import TableBictacoras from "../../component/TableBictacoras";
 import UserListBictacoras from "../../hooks/UserListBictacoras"
+import UseTitle from "../../hooks/UseTitle";
 import logo from '../../image/logo.jpeg'
 
 const Bictacoras  =() =>{
 
+
+  UseTitle({title:"Bictacoras"})
+
   const {bicta,isLoading} =UserListBictacoras()
-        
+
+  console.log(bicta)
+
         return (
             <div className="container-bicta" >  
               {isLoading ?

@@ -8,7 +8,7 @@ const initialState = {
 export const getPosts = createAsyncThunk(
   'posts/getPosts',
   async ({id_hotel}) => {
-    const res = await fetch(`${process.env.REACT_APP_API_KEY}/api/listformats/${id_hotel}`).then(
+    const res = await fetch(`https://grupohoteles.co/api/getFormatosByIDHotel?id_hotel=${id_hotel}`).then(
     (data) => data.json()
   )
   return res

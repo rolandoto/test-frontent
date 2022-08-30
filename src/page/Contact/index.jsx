@@ -5,6 +5,7 @@ import { getEmercies } from "../../store/slice"
 import { FaAmbulance,FaRegHospital ,FaCross} from "react-icons/fa";
 import { BiClinic } from "react-icons/bi";
 import { MdLocalAirport,MdOutlineLocalPharmacy } from "react-icons/md";
+import UseTitle from "../../hooks/UseTitle";
 
 const Contact =() =>{
 
@@ -13,17 +14,19 @@ const Contact =() =>{
     const {emegrcies} = useSelector(state => state.listBooking)
     
     useEffect(() =>{
-            dispatch(getEmercies()) 
+            dispatch(getEmercies({id:2})) 
     },[dispatch])
 
-    const acordionOne  = emegrcies.link?.filter(index => index.servicio == 1)
-    const accordionTwo  = emegrcies.link?.filter(index => index.servicio == 2)
-    const accordionThree  = emegrcies.link?.filter(index => index.servicio == 3)
-    const accordionFour  = emegrcies.link?.filter(index => index.servicio == 4)
-    const accordionFive  = emegrcies.link?.filter(index => index.servicio == 5)
-    const accordionSix  = emegrcies.link?.filter(index => index.servicio == 6)
-    const accordionSevent  = emegrcies.link?.filter(index => index.servicio == 7)
-    const accordionNone  = emegrcies.link?.filter(index => index.servicio == 8)
+    const acordionOne  = emegrcies.filter(index => index.servicio == 1)
+    const accordionTwo  = emegrcies.filter(index => index.servicio == 2)
+    const accordionThree  = emegrcies.filter(index => index.servicio == 3)
+    const accordionFour  = emegrcies.filter(index => index.servicio == 4)
+    const accordionFive  = emegrcies.filter(index => index.servicio == 5)
+    const accordionSix  = emegrcies.filter(index => index.servicio == 6)
+    const accordionSevent  = emegrcies.filter(index => index.servicio == 7)
+    const accordionNone  = emegrcies.filter(index => index.servicio == 8)
+
+    UseTitle({title:"Contactos"})
     
     const [active,setActive] = useState("title1")
 

@@ -10,6 +10,7 @@ import confetti  from "canvas-confetti"
 import { Loading, Grid } from "@nextui-org/react";
 
 const Login =() =>{
+    const API_URL_FAVOTITES = 'https://api.thecatapi.com/v1/favourites?limit=2&api_key=c08d415f-dea7-4a38-bb28-7b2188202e46';
 
     const {iduser}=UseListMotels()
     const {login,isError,isLogin,isLoading} = UseUsers()
@@ -17,6 +18,10 @@ const Login =() =>{
     const [password,setPassword] = useState('')
     const [raiting,setRaiting]= useState('')
     const { Img,loading} = Preloading({isLogin})
+
+    const [prueba,setPrueba] = useState()
+
+    const all=[]
 
     const handRaiting =(e)=>{
         setRaiting(e.target.value)
@@ -70,9 +75,9 @@ const Login =() =>{
                                         <option disabled >raiting tuype</option>
                                         <option>Seleccionar Hotel</option>
                                         {iduser.map(ratings => <option 
-                                                                    value={ratings.id}   
-                                                                    key={ratings.id}>
-                                                                        {ratings.name}
+                                                                    value={ratings.id_hotel}   
+                                                                    key={ratings.id_hotel}>
+                                                                        {ratings.nombre}
                                                                 </option> )}
                                     </select>
                                 <button className='button-login' type='submit' >{isLoading  ?<Loading type="spinner" size="lg" />  :<span>iniciar sesion </span>} </button>
@@ -81,7 +86,6 @@ const Login =() =>{
                         </div>
                 </div> 
             )}
-            
         </div>
     )
 }

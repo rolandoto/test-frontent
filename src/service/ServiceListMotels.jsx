@@ -1,17 +1,17 @@
 const fromServiceMotels =apiresponse =>{
 
-     const {link} = apiresponse.LisMotel.data.result 
+     const link = apiresponse
          if(Array.isArray(link)){
                 const Motels  = link.map((mt) =>{
-                    const {id,name} = mt
-                    return {id,name}
+                    const {id_hotel,nombre} = mt
+                    return {id_hotel,nombre}
                 })
             return Motels
         }
 }
 
 export const ServiceMotel = () =>{
-    const url = `http://localhost:4000/api/listmotel`
+    const url = `https://grupohoteles.co/api/getHotels`
     return fetch(url)
        .then(res => res.json())
        .then(fromServiceMotels)

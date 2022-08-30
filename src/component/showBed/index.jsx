@@ -1,9 +1,7 @@
 import React, { useState } from "react";
 import CardBed from "../CardBed";
-import {Link} from "react-router-dom"
-import UseUsers from "../../hooks/UseUser";
-import { BiBed } from "react-icons/bi";
 import { useHistory } from "react-router-dom";
+import { IoMdCloseCircle } from "react-icons/io";
 
 const ShowBed =({bed}) =>{
 
@@ -40,7 +38,7 @@ const ShowBed =({bed}) =>{
                 {state && <div className="border-ri" >
                         <div className="content-Modal" >
                                 <div className="handclose" onClick={handClose}>
-                                    x
+                                   <IoMdCloseCircle   fontSize={30} color="black" />
                                 </div>
                                 <button className="button-login" onClick={handNextCheckin} >checkin</button>
                                 <button className='button-login' onClick={handNextCheckout}  >Check-out</button>

@@ -97,11 +97,17 @@ const Header  =() =>{
                         <span className="title-icon" >Contactos</span> 
                     </li>
                     </Link>
+                    <Link to="/imbox" >
+                    <li className="borde-icon">
+                        <BsPerson color="black" fontSize={25}/>
+                        <span className="title-icon" >caja menor</span> 
+                    </li>
+                    </Link>
                     <li className="borde-icon-taxi">
-                    <a  href={`https://taxi.webcoopebombas.com:8087/Account/LogIn?ReturnUrl=%2F`} target="_blank" className="icon-taxi">
-                        <BiTaxi color="black" fontSize={25}/>
-                      Taxi
-                      </a>
+                        <a  href={`https://taxi.webcoopebombas.com:8087/Account/LogIn?ReturnUrl=%2F`} target="_blank" className="icon-taxi">
+                            <BiTaxi color="black" fontSize={25}/>
+                        Taxi
+                        </a>
                     </li>
                   </ul>
               </div>

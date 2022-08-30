@@ -2,11 +2,11 @@ import UseUsers from "../hooks/UseUser"
 
 const fromServiceBictacoras =apiresponse =>{
 
-    const {link} = apiresponse.LisMotel.data.result 
-        if(Array.isArray(link)){
-               const Motels  = link.map((mt) =>{
-                   const {id,name,time,lugar,description,date} = mt
-                   return {id,name,time,lugar,description,date}
+    
+        if(Array.isArray(apiresponse)){
+               const Motels  = apiresponse.map((mt) =>{
+                   const {id_hotel,id_bitacora,nombre,apellido,fecha,hora,ubicacion,descripcion} = mt
+                   return {id_hotel,id_bitacora,nombre,apellido,fecha,hora,ubicacion,descripcion}
                })
            return Motels
        }
@@ -14,7 +14,7 @@ const fromServiceBictacoras =apiresponse =>{
 
 export const ServiceBictacoras = ({id}) =>{
   
-   const url = `http://localhost:4000/api/listbitacoras/7`
+   const url = `https://grupohoteles.co/api/getBitacoraByIDHotel?id_hotel=${id}`
    return fetch(url)
       .then(res => res.json())
       .then(fromServiceBictacoras)

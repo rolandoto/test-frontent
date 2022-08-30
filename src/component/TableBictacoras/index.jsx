@@ -13,7 +13,7 @@ const TableBictacoras =({children,bicta}) =>{
     return (
         <>
             {bicta.map((index,e) =>{
-                let today = new Date(index.date)
+                let today = new Date(index.fecha)
                 let day = weekday[today.getDay()]
                 const t = today.toISOString().split('T')[0]
                 countData= countData -1
@@ -35,10 +35,10 @@ const TableBictacoras =({children,bicta}) =>{
                                     <th>Descripcion</th>
                                 </tr>
                                 <tr>
-                                    <td>${index.name}</td>  
-                                    <td>${index.time}</td>   
-                                    <td>${index.lugar}</td> 
-                                    <td>${index.description}</td>
+                                    <td>${index.nombre}</td>  
+                                    <td>${index.hora}</td>   
+                                    <td>${index.ubicacion}</td> 
+                                    <td>${index.descripcion}</td>
                                 </tr> 
                             `;
                     da = t;
@@ -46,10 +46,10 @@ const TableBictacoras =({children,bicta}) =>{
                 } else {
                     html += `
                             <tr>
-                                <td>${index.name}</td>  
-                                <td>${index.time}</td>   
-                                <td>${index.lugar}</td> 
-                                <td>${index.description}</td> 
+                                <td>${index.nombre}</td>  
+                                <td>${index.hora}</td>   
+                                <td>${index.ubicacion}</td> 
+                                <td>${index.descripcion}</td>
                             </tr>
                            `;
                             da = t;
@@ -72,7 +72,6 @@ const TableBictacoras =({children,bicta}) =>{
                     </>
                 )
             })}
-      
         </>    
     )
 }   

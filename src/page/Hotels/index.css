@@ -1,0 +1,21 @@
+.container-hotels{
+    display: flex;
+    justify-content: center;
+    height: 100%;
+    margin: auto;
+    /* max-width: 1000px; */
+    margin: auto;
+    width: 90%;
+}
+
+
+.hotel-img{
+    max-width: 100%;
+    width: 7%;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgb(0 0 0 / 15%);
+    margin: auto;
+    padding: 70px 10px 10px;
+    height: 101%;
+    cursor: pointer;
+}

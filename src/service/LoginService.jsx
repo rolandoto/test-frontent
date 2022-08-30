@@ -1,17 +1,17 @@
-const ENDPOINT ='http://localhost:4000/api/auth/login'
+    const ENDPOINT ='http://localhost:4000/api/auth/login'
 
-const LoginService =({username,password,hotel})=>{
-    return fetch(`${ENDPOINT}`,{
-        method:'POST',
-        headers:{
-            'Content-type':'application/json'
-        },
-        body: JSON.stringify({username,password,hotel})
-    }).then(resp =>{
-        if(!resp.ok) throw new Error('Response is not ok')
-        return resp.json()
-    }).then(resp=>{
-         return resp
-    })
-}
-export default LoginService
+    const LoginService =({username,password,hotel})=>{
+        return fetch(`${ENDPOINT}`,{
+            method:'POST',
+            headers:{
+                'Content-type':'application/json'
+            },
+            body: JSON.stringify({username,password,hotel})
+        }).then(resp =>{
+            if(!resp.ok) throw new Error('Response is not ok')
+            return resp.json()
+        }).then(resp=>{
+            return resp
+        })
+    }
+    export default LoginService
