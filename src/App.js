@@ -29,6 +29,9 @@ import { useContext } from 'react';
 import Hotels from './page/Hotels';
 import DetailBedRoom from './page/DetailBedRoom';
 
+import Stores from './page/StoresListAdmin';
+import DetailStore from './page/DetailStore';
+
 
 function App() {
 
@@ -61,6 +64,8 @@ function App() {
                                         <PrivateRoute exact path="/Booking" component={Booking}/>
                                         <PrivateRoute exact path="/mantenimiento" component={Maintenance}/>
                                         <PrivateRoute exact path="/store" component={Store}/>
+                                        <PrivateRoute exact path="/Stores" component={Stores}/>
+                                        <PrivateRoute exact path="/DetailStore/:id" component={DetailStore} />
                                         <PrivateRoute exact path="/imbox" component={MinImbox}/>
                                         <Route component={NoFound} />
                                     </Switch>   

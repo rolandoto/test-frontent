@@ -16,6 +16,10 @@ const Home =() =>{
     const handNextHotels =() =>{
         history.push("/Hotels")
     }
+
+    const handNextStores = () => {
+        history.push('/Stores');
+    }
  
     return (
         <div>
@@ -26,7 +30,7 @@ const Home =() =>{
                         <span className='let-home' >Hotel</span>
                      </h3>
                 </div>
-                <div className='rowMenuCard-home '>
+                <div className='rowMenuCard-home ' onClick={handNextStores}>
                      <h3 class="itemName-home">
                         <RiStoreLine fontSize={24}/>
                         <span className='let-home' >Tienda</span>
