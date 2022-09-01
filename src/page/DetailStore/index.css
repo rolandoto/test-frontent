@@ -1,8 +1,8 @@
-.title-bedroom{
+.title-stores{
     display: block;   
  }
  
- .flex-bedrooms{
+ .flex-stores{
      display: flex;
      align-items: center;
      margin-left: 16px;
@@ -12,7 +12,7 @@
      
  }
  
- .input-bedroom{
+ .input-stores{
  box-sizing: border-box;
  width: 200px;
  height: 40px;
@@ -23,12 +23,12 @@
  border-radius: 8px;
  }
  
- .flex-bedrooms li{
+ .flex-stores li{
      padding: 5px;
      text-align: center;
  }
  
- .button-bedroom{
+ .button-stores{
  width: 200px;
  height: 40px;
  background: #070707;
@@ -37,7 +37,7 @@
  cursor: pointer;
  }
  
-.flex-bedrooms > li, button {
+.flex-stores > li, button {
     align-self: end;
 }
  
@@ -59,7 +59,7 @@
     justify-content: center;
 }
  
- .card-Bedrrom{
+ .card-stores{
     border-radius: 15px;
     box-shadow: 0 0 20px rgb(0 0 0 / 15%);
     padding: 80px 41px 40px;
