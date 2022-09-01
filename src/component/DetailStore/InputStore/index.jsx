@@ -1,35 +1,50 @@
 import React, { useContext, useState, useEffect } from "react"
-import ServiceInsertInto from "../../../service/ServiceInsertRooms"
-import ServicetypeRooms from "../../../service/ServicetypeRooms"
+import ServiceInsertProductAdmin from "../../../service/ServiceInsertProductAdmin"
+import ServiceTypeCategorys from "../../../service/ServiceTypeCategorys"
 
-const InputStore =({id}) =>{
+const InputStore = ({id}) => {
 
     const [state,setState] = useState()
     const [loading,setLoading] =useState({loading:false,error:false})
 
     useEffect(() =>{
-        ServicetypeRooms({id}).then(index =>{
+        ServiceTypeCategorys().then(index =>{
             setState(index)
         })
     }, [setState])
 
-    const [raiting,setRaiting]= useState()
-    const [name,setName] =useState()
+
+    const [category, setCategory] = useState()
+    const [name, setName] = useState()
+    const [amount, setAmount] = useState()
+    const [price, setPrice] = useState();
     
-    const handRaiting =(e)=>{
-        setRaiting(e.target.value)
+    const handCategory =(e)=>{
+        setCategory(e.target.value)
     } 
 
     const handChangeName=(e) =>{
         setName(e.target.value)
     }
+
+    const handChangeAmount = (e) => {
+        setAmount(e.target.value);
+    }
+
+    const handChangePrice = (e) => {
+        setPrice(e.target.value);
+    }
+
     
-    const handSubmitRooms =() =>{
+    
+    const handSubmitProduct =() =>{
         setLoading(({loading:true}))
-        ServiceInsertInto({id_hotel:id,id_habitaciones:raiting,name_num:name}).then(index =>{
-            setLoading({loading:false})
-            alert("guardado")
-            setName("")
+        ServiceInsertProductAdmin({ ID_Tipo_categoria: category, ID_Hoteles: id, Nombre: name, Cantidad: amount, Precio: price }).then(index =>{
+            setLoading({loading:false});
+            alert("guardado");
+            setName('');
+            setAmount('');
+            setPrice('');
         }).catch(e =>{
             setLoading({error:true})
         })
@@ -37,41 +52,42 @@ const InputStore =({id}) =>{
 
     return (
         <>
-            <ul className="flex-bedrooms" >
+            <ul className="flex-stores" >
                 {loading.error && <h1>error al Guardar</h1>}
                 {loading.loading && <h1> Guardardo</h1>}
 
                 <li>
-                    <label className="title-bedroom" >Tipo de categoria</label>
-                    <select onChange={handRaiting}  
-                            value={raiting} 
+                    <label className="title-stores" >Tipo de categoria</label>
+                    <select onChange={handCategory}  
+                            value={category} 
                             className='select-hotel-type'
                     >
                         <option disabled>Seleccionar categoria</option>
-                        {state?.map(ratings =>
+                        {state?.query?.map(category =>(
                             <option 
-                                value={ratings.id_tipoHabitacion}   
-                                key={ratings.id_tipoHabitacion}
-                            >
-                                {ratings.nombre}
-                            </option>
+                            value={category.ID}   
+                            key={category.ID}
+                        >
+                            {category.Nombre}
+                        </option>
+                        )
                         )}
                     </select>
                 </li>
                 <li>
-                    <label className="title-bedroom" >Nombre producto</label>
-                     <input className="input-bedroom" value={name}  type="text" onChange={handChangeName} />
+                    <label className="title-stores">Nombre producto</label>
+                    <input className="input-stores" value={name}  type="text" onChange={handChangeName} />
                 </li>
                 <li>
-                    <label className="title-bedroom">Cantidad</label>
-                     <input className="input-bedroom" value={name}  type="text" onChange={handChangeName} />
+                    <label className="title-stores">Cantidad</label>
+                    <input className="input-stores" value={amount}  type="text" onChange={handChangeAmount} />
                 </li>
                 <li>
-                    <label className="title-bedroom"  >Precio</label>
-                     <input className="input-bedroom" value={name}  type="text" onChange={handChangeName} />
+                    <label className="title-stores">Precio</label>
+                    <input className="input-stores" value={price}  type="text" onChange={handChangePrice} />
                 </li>
                 <li>
-                    <button className="button-bedroom" onClick={handSubmitRooms} >
+                    <button className="button-stores" onClick={handSubmitProduct} >
                         Agregar
                     </button>
                 </li>       
