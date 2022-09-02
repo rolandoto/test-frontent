@@ -6,14 +6,14 @@ const TableStore =({id}) =>{
     const [state,setState] = useState()
 
     useEffect(() =>{
-        fetch(`http://localhost:4000/api/admin/getroomsadmin/${id}`)
+        fetch(`http://localhost:4000/api/admin/getlistproductadmin/${id}`)
         .then(resp => resp.json())
         .then(data => setState(data))
     }, [])
 
     return (
-        <div className="container-table" >
-            <table className="table" >
+        <div className="container-table">
+            <table className="table">
                 <tr>
                     <th>Tipo de categoria</th>
                     <th>Nombre</th>
@@ -22,21 +22,22 @@ const TableStore =({id}) =>{
                     <th>Opciones</th>
                 </tr>
 
-                    {state?.ray.map(index =>{
+                {state?.query.map(index =>{
 
-                        return (
-                            <tr>
-                                <td>{index.nombre}</td>
-                                <td>{index.nombreEstado}</td>
-                                <td>{index.Numero}</td>
-                                <td>{index.precio}</td>
-                                <td>{index.precio_persona}</td>
-                            </tr>
-                        )
-                    })}
+                    return (
+                        <tr>
+                            <td>{index.Nombre_categoria}</td>
+                            <td>{index.Nombre}</td>
+                            <td>{index.Cantidad}</td>
+                            <td>{index.Precio}</td>
+                            <td></td>
+                        </tr>
+                    )
+                })}
             </table>
         </div>
     )
 
 }
+
 export default TableStore
