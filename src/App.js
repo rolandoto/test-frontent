@@ -32,6 +32,8 @@ import DetailBedRoom from './page/DetailBedRoom';
 import Stores from './page/StoresListAdmin';
 import DetailStore from './page/DetailStore';
 
+import Dashboard from './page-resesion/Dashboard';
+
 
 function App() {
 
@@ -116,6 +118,7 @@ if(val==2){
                             <Header />
                                 <Switch>
                                     <Route exact path='/' component={Login} /> 
+                                    <PrivateRoute exact path='/Dashboard' component={Dashboard} />
                                     <PrivateRoute exact path='/Home' component={HomeResesion} />
                                     <PrivateRoute exact path="/Detail/:id" component={DetailCheckin} />
                                     <PrivateRoute exact path="/Checkout/:id" component={Checkout} />
