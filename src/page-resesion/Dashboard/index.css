@@ -1,0 +1,241 @@
+.button-reservas {
+  padding: 12px;
+  /* display: flex; */
+  margin: auto;
+  width: 52%;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  margin-top: 21px;
+  border-radius: 11px;
+  border: none;
+  background: black;
+  color: white;
+  cursor: pointer;
+  width: 23%;
+  margin: 18px;
+}
+
+.content-Modal-dasboard {
+  background-color:  white;
+  width: 38%;
+  padding: 10px 20px;
+  height: auto;
+  margin: 10vh auto;
+  position: relative;
+  border-radius: 6px;
+  animation: pulse 0.1s ease;
+  z-index: 100 !important;
+  max-height: 80vh;
+  overflow:scroll;
+}
+
+.flex-container-dashboard{
+  display: flex;
+}
+
+.input-modal-dasboard {
+  background: transparent;
+  border: solid 1px #b3aca7;
+  border-radius: 12px;
+  height: 2.1876em;
+  margin: 0;
+  display: block;
+  padding: 6px 0 7px;
+  min-width: 0;
+  background: none;
+  box-sizing: content-box;
+  animation-name: mui-auto-fill-cancel;
+  letter-spacing: inherit;
+  animation-duration: 10ms;
+  margin-top: 17px;
+  color: #726659;
+  margin-left: 10px;
+}
+
+.title-modal-dashboard{
+  text-align: initial;
+}
+.title-modal-dashboard h1{
+  font-size: 24px;
+  color: #070707;;
+}
+
+.react-calendar-timeline {
+  width: 50% !important;
+  margin: auto;
+  overflow: scroll;
+  height: 68vh;
+}
+
+.list-booking-sticky{
+  width: 10%;
+}
+
+
+.select-hotel-dashboard {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.875em;
+  height: 49px;
+  padding: 0px 15px 0px 15px;
+  background: transparent;
+  outline: none;
+  color: #726659;
+  border: solid 1px #b3aca7;
+  transition: all 0.3s ease-in-out;
+  -webkit-transition: all 0.3s ease-in-out;
+  margin-top: 19px;
+  border-radius: 12px;
+  margin: auto;
+  width: 16%;
+  max-width: 531px;
+  margin-top: 17px;
+}
+  .container-button{
+    width: 52%;
+    margin: auto;
+}
+
+.contain{
+  max-width: 754px;
+    margin: auto;
+}
+
+
+.title-stores{
+  display: block;
+  text-align: initial;
+}
+
+
+/*
+    font-family: 'Lato', sans-serif;
+    font-size: 0.875em;
+    height: 40px;
+    padding: 0px 15px 0px 15px;
+    background: white;
+    outline: none;
+    color: #726659;
+    border: solid 1px black;
+    transition: all 0.3s ease-in-out;
+    -webkit-transition: all 0.3s ease-in-out;
+    margin-top: 19px;
+    border-radius: 7px;
+    margin: auto;
+    width: 152%;
+    max-width: 531px;
+}*/
+
+.input-stores-personality{
+  box-sizing: border-box;
+  width: 86px;
+  height: 40px;
+  left: 300px;
+  top: 338px;
+  background: #FFFFFF;
+  border: 1px solid black;
+  border-radius: 8px;
+  margin-top: 5px;
+}
+
+.input-stores-personality-one{
+  box-sizing: border-box;
+  width: 223px;
+  height: 40px;
+  left: 300px;
+  top: 338px;
+  background: #FFFFFF;
+  border: 1px solid black;
+  border-radius: 8px;
+  margin-top: 5px;
+}
+
+.select-hotel-type-personality-unica{
+  box-sizing: border-box;
+  width: 356px;
+  height: 40px;
+  left: 300px;
+  top: 338px;
+  background: #FFFFFF;
+  border: 1px solid black;
+  border-radius: 8px;
+  margin-top: 5px;
+}
+
+
+.input-stores-personality-two{
+  box-sizing: border-box;
+  width: 329px;
+  height: 40px;
+  left: 300px;
+  top: 338px;
+  background: #FFFFFF;
+  border: 1px solid black;
+  border-radius: 8px;
+  margin-top: 5px;
+}
+
+.contain-board{
+    background: white;
+    margin: -21px;
+    /* margin-top: 18px; */
+    margin-top: 15px;
+    border-radius: 8px;
+}
+
+.contain-board-one{
+  padding: 14px;
+  margin-top: 50px;
+}
+
+
+.input-selecto-dasboard-n1 {
+  box-sizing: border-box;
+  width: 200px;
+  height: 40px;
+  left: 300px;
+  top: 338px;
+  background: #FFFFFF;
+  border: 1px solid black;
+  border-radius: 8px;
+  margin-top: 5px;
+  background: grey;
+  border: none;
+}
+
+
+.button-reservas-type{
+  padding: 12px;
+  /* display: flex; */
+  margin: auto;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  margin-top: 21px;
+  border-radius: 11px;
+  border: solid rgb(192, 188, 188) 1px;
+  background: white;
+  color: gray;
+  cursor: pointer;
+  width: 15%;
+  margin: 18px;
+
+}
+
+
+.button-reservas-type-one{
+  padding: 12px;
+  /* display: flex; */
+  margin: auto;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  margin-top: 21px;
+  border-radius: 11px;
+  border: solid rgb(192, 188, 188) 1px;
+  background: white;
+  color: gray;
+  cursor: pointer;
+  width: 20%;
+  margin: 18px;
+}

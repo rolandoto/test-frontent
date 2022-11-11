@@ -1,46 +1,69 @@
 import React ,{useEffect, useState}  from "react"
 import { useDispatch, useSelector } from "react-redux"
 import Accordion from "../../component/Accordion"
-import { getEmercies } from "../../store/slice"
 import { FaAmbulance,FaRegHospital ,FaCross} from "react-icons/fa";
 import { BiClinic } from "react-icons/bi";
 import { MdLocalAirport,MdOutlineLocalPharmacy } from "react-icons/md";
 import UseTitle from "../../hooks/UseTitle";
+import useContactAction from "../../action/useContactAction";
+import UseUsers from "../../hooks/UseUser";
+import ContactTemplate from "../../templates/Contact";
+import useProgress from "../../hooks/useProgress";
+import LineProgress from "../../Ui/LineProgress";
 
 const Contact =() =>{
-
-    const dispatch= useDispatch()
-
-    const {emegrcies} = useSelector(state => state.listBooking)
-    
-    useEffect(() =>{
-            dispatch(getEmercies({id:2})) 
-    },[dispatch])
-
-    const acordionOne  = emegrcies.filter(index => index.servicio == 1)
-    const accordionTwo  = emegrcies.filter(index => index.servicio == 2)
-    const accordionThree  = emegrcies.filter(index => index.servicio == 3)
-    const accordionFour  = emegrcies.filter(index => index.servicio == 4)
-    const accordionFive  = emegrcies.filter(index => index.servicio == 5)
-    const accordionSix  = emegrcies.filter(index => index.servicio == 6)
-    const accordionSevent  = emegrcies.filter(index => index.servicio == 7)
-    const accordionNone  = emegrcies.filter(index => index.servicio == 8)
-
     UseTitle({title:"Contactos"})
-    
-    const [active,setActive] = useState("title1")
+    const {jwt} = UseUsers()
+    const {id_hotel}  = jwt.result
+    const {getContactById} = useContactAction()
+    const {loading,error,Contact
+                                } = useSelector((state) =>state.Contact)
+    const {progress} =useProgress({id:id_hotel})
 
+    const fethData = async() =>{
+        getContactById({id:id_hotel})
+    }
+
+    useEffect(() =>{
+        fethData()
+    },[id_hotel])
+
+    const acordionOne  = Contact.filter(index => index.servicio == 1)
+    const accordionTwo  = Contact.filter(index => index.servicio == 2)
+    const accordionThree  = Contact.filter(index => index.servicio == 3)
+    const accordionFour  = Contact.filter(index => index.servicio == 4)
+    const accordionFive  = Contact.filter(index => index.servicio == 5)
+    const accordionSix  = Contact.filter(index => index.servicio == 6)
+    const accordionSevent  = Contact.filter(index => index.servicio == 7)
+    const accordionNone  = Contact.filter(index => index.servicio == 8)
+
+    const fillContent =() =>{
+        if(progress< 100){
+            return <LineProgress  progress={progress} />
+        }
+        if(loading){
+            return <p>...Cargando</p>
+        }
+        if(error){
+            return <p>{error}</p>
+        }
+
+        return <ContactTemplate  
+                    acordionOne={acordionOne}
+                    accordionTwo={accordionTwo} 
+                    accordionThree={accordionThree}
+                    accordionFour={accordionFour}
+                    accordionFive={accordionFive}
+                    accordionSix={accordionSix}
+                    accordionSevent={accordionSevent}
+                    accordionNone={accordionNone}                              
+                    />
+    }
+ 
     return (
-        <div className="container-contact" >
-            <Accordion title={`Linea de emergencias y autoridades y entidades`} active={active}  setActive={setActive} acordionOne={acordionOne}  icone={<FaCross/>}  />
-            <Accordion title="Primeros auxilios" active={active}  setActive={setActive} accordionTwo={accordionTwo} icone={<FaCross/>} />
-            <Accordion title="Ambulacia" active={active}  setActive={setActive} accordionThree={accordionThree} icone={<FaAmbulance color="white" />} />
-            <Accordion title="Clinicas" active={active}  setActive={setActive} accordionFour={accordionFour} icone={<BiClinic color="white" />}  />
-            <Accordion title="Hospitales" active={active}  setActive={setActive} accordionFive={accordionFive} icone={<FaRegHospital color="white" />}  />
-            <Accordion title="Droguerias" active={active}  setActive={setActive} accordionSix={accordionSix}  icone={<MdOutlineLocalPharmacy color="whit" />}  />
-            <Accordion title="Servicios publicos" active={active}  setActive={setActive} accordionSevent={accordionSevent} icone={<MdLocalAirport color="white" />} />
-            <Accordion title="Terminales y aeropuerto" active={active}  setActive={setActive}  accordionNone={accordionNone} icone={<MdLocalAirport color="white" />} />
-        </div>
+        <>
+        {fillContent()}
+        </>
     )
 }
 export default Contact

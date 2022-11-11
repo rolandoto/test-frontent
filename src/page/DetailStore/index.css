@@ -19,9 +19,12 @@
  left: 300px;
  top: 338px;
  background: #FFFFFF;
- border: 1px solid #BEBEBE;
+ border: 1px solid black;
  border-radius: 8px;
+margin-top: 5px;
  }
+
+ 
  
  .flex-stores li{
      padding: 5px;
@@ -83,3 +86,4 @@
     font-size: 33px;
     font-weight: 400;
 }
+

@@ -1,19 +1,34 @@
 import {configureStore } from '@reduxjs/toolkit'
 import listMotel from './slice/motelsSlice'
 import loginSlice from './slice/LoginSlice'
-import bictacoras from './slice/Bictacoras'
-import listFormats from "./slice/ListFormats"
 import listBooking  from "./slice"
+import {FormatsSlice}  from "../reducers/formatsReducers"
+import {RoomsSlice}  from "../reducers/roomsReducers"
+import DashboardModalSlice from '../reducers/dashboardReducers'
+import { StoreSlice } from '../reducers/storeReducers'
+import { DetailDasboardSlice } from '../reducers/detailDashboardReducer'
+import { BitacorasSlice } from '../reducers/bictacorasReducers'
+import { ContactSlice } from '../reducers/contactReducers'
 
 const store = configureStore ({
     reducer:{
         //los nombres donde se llaman en el hooks
         listMotel,
         loginSlice,
-        bictacoras,
-        listFormats,
         listBooking,
+        Room:RoomsSlice.reducer,
+        Dashboard:DashboardModalSlice.reducer,
+        StoreAdmin:StoreSlice.reducer,
+        DetailDashboard:DetailDasboardSlice.reducer,
+        Bictacoras:BitacorasSlice.reducer,
+        Formats:FormatsSlice.reducer,
+        Contact:ContactSlice.reducer
     },
     devTools:true,
 })
+
+export const RootState = store.getState
+
+export const  AppDispatch = typeof store.dispatch
+
 export default store

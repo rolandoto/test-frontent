@@ -3,8 +3,9 @@
     border-bottom: none;
     position: relative;
     z-index: 99;
-    background-color: black;
-    color: white !important;
+    background-color: #fffafc;
+    color: black !important;
+    font-weight: 700 !important;
     box-shadow: var(--color-border-lightgray) 0 0 1rem;
   }
   
@@ -21,7 +22,8 @@
   }
 
   .rct-dateHeader  > span {
-    color: white !important;
+    color: black !important;
+    font-weight: 700;
   }
   
   .react-calendar-timeline .rct-dateHeader-primary {
@@ -31,24 +33,23 @@
   }
 
   .react-calendar-timeline .rct-dateHeader-primary > span {
-    color: var(--color-white) !important;
+    
     padding-right: 2.6rem;
-    text-transform: uppercase;
+   
   }
   
   /* Vertical lines */
   .react-calendar-timeline .rct-vertical-lines .rct-vl {
-    border: solid black 1px;
-    
+  
   }
   
   .react-calendar-timeline .rct-vertical-lines .rct-vl:nth-child(odd) {
-    border: solid black 1px;
+ 
+    width: 10px;
   }
   
   .react-calendar-timeline .rct-vertical-lines .rct-vl:nth-child(even) {
-    background: var(--color-lightgray);
-    border: solid black 1px;
+   
 
   }
 
@@ -57,3 +58,68 @@
     top: 0;
     z-index: 2000;
   }
+
+.modalNewBooking {
+  z-index: 200 !important;
+}
+
+.button-dasboard{
+  width: 799px;
+  height: 55px;
+  background: #070707;
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+  }
+
+  .button-dasboard-one{
+    width: 741px;
+    height: 55px;
+    background: #070707;
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
+    }
+
+  .container-button-dasboard{
+    display: flex;
+    justify-content: space-around;
+    width: 721px;
+  }
+
+  .container-button-dasboard-one{
+    display: flex;
+    justify-content: center;
+    margin-top: 38px;
+  }
+
+
+  .timeline-container {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    margin: 40px 0;
+}
+
+.timeline-container {
+    background-color: #e17b77;
+    content: '';
+    position: absolute;
+    left: calc(50% - 2px);
+    width: 500px !important;
+    height: 100%;
+}
+
+
+.react-calendar-timeline{
+  margin-top: 10px;
+} 
+
+.list-booking-sticky{
+  width: 10%;
+}
+
+.container-calender{
+  display: flex;
+    justify-content: initial;
+}

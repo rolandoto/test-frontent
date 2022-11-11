@@ -1,16 +1,9 @@
 import React, { useState ,useEffect} from "react"
 
 
-const TableStore =({id}) =>{
+const TableStore =({Store}) =>{
+
      
-    const [state,setState] = useState()
-
-    useEffect(() =>{
-        fetch(`http://localhost:4000/api/admin/getlistproductadmin/${id}`)
-        .then(resp => resp.json())
-        .then(data => setState(data))
-    }, [])
-
     return (
         <div className="container-table">
             <table className="table">
@@ -22,7 +15,7 @@ const TableStore =({id}) =>{
                     <th>Opciones</th>
                 </tr>
 
-                {state?.query.map(index =>{
+                {Store?.query?.map(index =>{
 
                     return (
                         <tr>

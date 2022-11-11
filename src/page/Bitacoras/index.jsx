@@ -1,20 +1,53 @@
-import React from "react"
-import TableBictacoras from "../../component/TableBictacoras";
-import UserListBictacoras from "../../hooks/UserListBictacoras"
+import React, { useEffect } from "react"
+import { useSelector } from "react-redux";
+import useBictacorasAction from "../../action/useBictacorasAction";
+import useProgress from "../../hooks/useProgress";
 import UseTitle from "../../hooks/UseTitle";
-import logo from '../../image/logo.jpeg'
+import UseUsers from "../../hooks/UseUser";
+import BictacorasTemplate from "../../templates/Bictacoras";
+import LineProgress from "../../Ui/LineProgress";
 
 const Bictacoras  =() =>{
+  const  {progress} = useProgress({id:"2"})
+  const {jwt}  = UseUsers()
+  const {getBictacorasById} =useBictacorasAction()
+  const {loading,Bitacoras,error
+                } =useSelector((state) => state.Bictacoras)
 
+  const state=useSelector((state) => state)
+
+  console.log(state)
+ 
 
   UseTitle({title:"Bictacoras"})
 
-  const {bicta,isLoading} =UserListBictacoras()
+  const fetchData =async() =>{
+      await getBictacorasById({id:jwt.result.id_hotel})
+  }
 
-  console.log(bicta)
+  useEffect(() =>{
+    fetchData()
+  },[])
 
-        return (
-            <div className="container-bicta" >  
+  const fillContent =()=>{
+
+    if(progress <100){
+      return <LineProgress progress={progress} />
+    }
+    if(loading){
+      return <p>...Cargando</p>
+    }
+    if(error){
+      return <p>{error}</p>
+    }
+
+    return <BictacorasTemplate Bitacoras={Bitacoras} />
+
+  }
+
+  /**  const {bicta,isLoading} =UserListBictacoras()
+
+   *   <div className="container-bicta">  
               {isLoading ?
               <div>
                 <div className='container-image'>
@@ -23,9 +56,14 @@ const Bictacoras  =() =>{
                     </div>
               </div>
                 :
-                <TableBictacoras bicta={bicta} />
+              
               }
             </div>  
+   * 
+   */
+
+        return (
+            <>{fillContent()}</>
         )
 }
 

@@ -34,7 +34,7 @@ const UseUsers =() =>{
             dispatch(setLogin(index.result.id_user))
             setState({loading:true,error:false})
             setTimeout(() =>{
-                history.push('/home')
+               
             },3000)
         }).catch((e) =>{
             console.log('no entro')

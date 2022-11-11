@@ -11,7 +11,7 @@ const ItemCard =({index,handCart}) =>{
     
     return ( 
         <> 
-            <div className="itemCard" key={index.id} ref={element} >
+            <div className="itemCard" key={index.ID} ref={element} >
                 {show  ? (
                         <div className="item-content" >
                                     <div className="add-cart" >
@@ -20,13 +20,13 @@ const ItemCard =({index,handCart}) =>{
                                         </div>
                                     </div>
                             <div className="icon-whatsapp" >
-                                    <h3 class="itemName">{index.name}</h3>
+                                    <h3 class="itemName">{index.Nombre}</h3>
                             </div>
 
                             {index.stock !=0   ? <span>disponible</span> : <span>no esta disponible</span> }
                                 <div className="botton" >
                                     <div>
-                                        <h3 class="price"><span>$ </span>{index.price}</h3>
+                                        <h3 class="price"><span>$ </span>{index.Precio}</h3>
                                     </div>
                                 </div>
                         </div>

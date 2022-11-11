@@ -66,7 +66,7 @@ const TableBictacoras =({children,bicta}) =>{
       
                 return (
                     <>
-                        <div>
+                        <div className="container-bicta" >
                             <table className="de"  dangerouslySetInnerHTML={{__html: htmlFinal}}/>
                         </div>  
                     </>

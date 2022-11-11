@@ -1,16 +1,8 @@
 import React, { useState } from "react"
 import { useEffect } from "react"
 
-const TableBedRoom =({id}) =>{
-     
-    const [state,setState] = useState()
-
-    useEffect(() =>{
-        fetch(`http://localhost:4000/api/admin/getroomsadmin/${id}`)
-        .then(resp => resp.json())
-        .then(data => setState(data))
-    }, [])
-
+const TableBedRoom =({Room}) =>{
+   
     return (
         <div className="container-table" >
             <table className="table" >
@@ -24,7 +16,7 @@ const TableBedRoom =({id}) =>{
                     <th>Cantidad maximos de personas</th>
                 </tr>
 
-                    {state?.ray.map(index =>{
+                    {Room?.ray?.map(index =>{
 
                         return (
                             <tr>

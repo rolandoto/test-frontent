@@ -10,12 +10,12 @@ const UseForm =({name,lastName,phone,date}) =>{
         fecha:date
     })
 
-const handleInputChange = (event) => {
-    setDatos({
-        ...datos,
-        [event.target.name] : event.target.value
-    })
-}
+    const handleInputChange = (event) => {
+        setDatos({
+            ...datos,
+            [event.target.name] : event.target.value
+        })
+    }
 
     return {
         handleInputChange,

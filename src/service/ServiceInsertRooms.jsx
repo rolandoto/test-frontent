@@ -8,6 +8,7 @@ const ServiceInsertInto =({id_hotel,id_habitaciones,name_num})=>{
         },
         body: JSON.stringify({id_hotel,id_habitaciones,name_num})
     }).then(resp =>{
+        if(!resp.ok) throw new Error('Response is not ok')
         return resp.json()
     }).then(resp=>{
         return resp

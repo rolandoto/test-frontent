@@ -6,31 +6,78 @@ import Timeline, {
   SidebarHeader,
   DateHeader
 } from "react-calendar-timeline";
-import { rooms, bookings } from "./dummy_data";
-import "react-calendar-timeline/lib/Timeline.css";
+import { ServiceReservas } from "./dummy_data";
+import 'react-calendar-timeline/lib/Timeline.css'
 import "./BookingsTimeline.css";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useContext } from "react";
 import AutoProvider  from "../../privateRoute/AutoProvider";
+import "./index.css"
+import { useSelector } from "react-redux";
+import { selectDashboard } from "../../reducers/dashboardReducers";
+import useDashboardAction from "../../action/useDashboardAction";
+import DashboardModal from "./DashboardModal";
+import { useHistory } from "react-router-dom";
+import CardStore from "../../component/DetailStore/CardStore";
+import ServicetypeRooms from "../../service/ServicetypeRooms";
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import Modal from '@mui/material/Modal';
 
-import ModalOptionBooking from './ModalOptionBooking.jsx';
+const style = {
+	position: 'absolute',
+	top: '50%',
+	left: '50%',
+	transform: 'translate(-50%, -50%)',
+	width: 400,
+	bgcolor: 'background.paper',
+	border: '2px solid #000',
+	boxShadow: 24,
+	p: 4,
+  };
 
 const Dashboard = (props) => {
+	const [open, setOpen] = useState(true);
+	const handleOpen = () =>{
+		setOpen(true);
+	} 
+	const handleClose = () => setOpen(false);
 
+	const [reservation,setReservas] = useState()
 	const [state,setSate] =useState()
-
-	const { handler, fillconten } = ModalOptionBooking();
-	const [save,setSave] =useState()
-
 	const {jwt} =useContext(AutoProvider)
+	const {toggleOpenDashBoard,toggleCloseDashboard} = useDashboardAction()
+	const {dashboardVisible} = useSelector(selectDashboard)
+	const history = useHistory()
 
-	useEffect(() =>{
-		fetch(`http://localhost:4000/api/resecion/getroomsresecion/${jwt.result.id_hotel}`)
-		.then(resp => resp.json())
-		.then(data => setSate(data.query))
-	},[]);
-
+	 const bookings = [
+	{
+	  id: 1,
+	  group: 3,
+	  title:`Reservas 365`,
+	  start_time: new Date(`2022-09-${8+1}`),
+	  end_time: new Date(`2022-09-${10+1}`),
+	  state:50
+	},
+	{
+	  id: 2,
+	  group: 1,
+	  title: "Reservas  3065",
+	  start_time: moment().add(-3, "day"),
+	  end_time: moment().add(1, "day"),
+	  state:3
+	},
+	{
+	  id: 3,
+	  group: 5,
+	  title: "Reservas  3065",
+	  start_time: moment().add(2, "day"),
+	  end_time: moment().add(4, "day"),
+	  state:2,
+	},
+  ];
+  
 	const { onCanvasClickParentUpdate } = props;
     const currentDate = moment();
 
@@ -49,36 +96,69 @@ const Dashboard = (props) => {
 		);
 	}
 
-	const onItemClick = (itemId, e, time, onItemSelectParentUpdate, hand) => {
-		console.log("claic")
-		const to = bookings.filter(index => index.id === itemId);
+	const onItemClick = (itemId, e, time, onItemSelectParentUpdate, hand) => {	
+		history.push(`/DetailDashboard/${itemId}`)
+	}
 
-		//console.log(to);
-		setSave(to)
-		//console.log(stater);
+	const [prueba,setPrueba] =useState(false)
 
-		handler();
-		//onItemSelectParentUpdate(itemId);
+	console.log(prueba)
+
+	const onItemDoubleclik =(itemId, e, time, onItemSelectParentUpdate, hand) =>{
+
+		return (
+			<div>
+				<Modal
+					open={open}
+					onClose={handleClose}
+					aria-labelledby="modal-modal-title"
+					aria-describedby="modal-modal-description">
+					<Box sx={style}>
+					<Typography id="modal-modal-title" variant="h6" component="h2">
+						Text in a modal
+					</Typography>
+					<Typography id="modal-modal-description" sx={{ mt: 2 }}>
+						Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+					</Typography>
+					</Box>
+				</Modal>
+			</div>
+		)
 	}
 
 	const itemRenderer = ({ item, itemContext, getItemProps }) => {
+		console.log(item)
 		return (
 			<div
 				{...getItemProps({
 				style: {
 					display: "flex",
 					alignItems: "center",
-					background: item.state === 2 ? "purple" : "green",
-					border: `3px solid ${
-					itemContext.selected ? "#fff700" : "transparent"
-					}`,
-					borderRadius: "12.5px",
-					boxShadow: "rgba(0, 0, 0, 0.16) 0 0.3rem 0.6rem"
+					background: "#3C8AE7",
+					border: `2px solid`,
+					borderRadius: "8px",
+					padding:"8px",
+					boxShadow: "rgba(0, 0, 0, 0.16) 0 0.3rem 0.6rem",
 				}
 				})}
+
+				onDoubleClick={() =>{
+					console.log("solor")
+				}}
+			  
 			>
+
+		
+      <div className="itemModal" style={{
+        left: "left",
+        right: "right"
+      }}>
+			{prueba && <span>{item.title}</span>}
+      </div>
+     
 				<div
-				style={{
+				style={
+					{
 					position: "sticky",
 					left: "0",
 					display: "inline-block",
@@ -86,7 +166,8 @@ const Dashboard = (props) => {
 					padding: "0 1rem",
 					textOverflow: "ellipsis",
 					whiteSpace: "nowrap"
-				}}
+				}
+			}
 				>
 				{itemContext.title}
 				</div>
@@ -109,14 +190,16 @@ const Dashboard = (props) => {
 			style={{
 				position: data.isMonth ? "sticky" : "static",
 				marginRight: data.isMonth ? "auto" : "inherit",
-				left: "0",
-				padding: "0 1rem",
+				left: "5rem",
+				padding: "0 10rem",
 				fontWeight:
-				isWeekendDay(intervalContext, data) ||
+				isWeekendDay(intervalContext, data) ||	
 				isCurrentDay(intervalContext, data)
-					? "400"
-					: "300",
-				color: isCurrentDay(intervalContext, data) ? "black" : "black"
+					? "100"
+					: "110",
+				color: isCurrentDay(intervalContext, data) ? "gray" : "gray",
+				width:"1%",
+
 			}}
 			>
 			{intervalContext.intervalText}
@@ -124,45 +207,133 @@ const Dashboard = (props) => {
 		</div>
 		);
 	}
+	
+	const [room,setRoom] = useState()
+	const [raiting,setRaiting]= useState('')
+
+	useEffect(() =>{
+        ServicetypeRooms({id:jwt.result.id_hotel}).then(index =>{
+            setRoom(index)
+        })
+    },[])
+
+
+
+	const [search,setSearch] =useState([])
+
+	const filtrar=(terminoBusqueda)=>{
+		console.log(terminoBusqueda)
+		let resultadosBusqueda= state.filter((elemento,index)=>{
+			if(elemento.ID_Tipo_habitaciones?.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())){
+				return elemento;
+			}
+		});
+		setSearch(resultadosBusqueda);
+		}
+
+	const handRaiting =(e)=>{
+		setRaiting(e.target.value)
+		filtrar(e.target.value)
+	}
+	console.log(room)
+
+	useEffect(() =>{
+		fetch(`http://localhost:4000/api/resecion/getroomsresecion/${jwt.result.id_hotel}`)
+		.then(resp => resp.json())
+		.then(data => {
+			const roomDefinid=[]
+			for(let i =0;i<data?.query?.length;i++){	
+				for(let e =0;e<data?.query?.length;e++){
+					const to= parseInt(data?.query[i]?.ID_Tipo_habitaciones)
+					const lo =(room[e]?.id_tipoHabitacion) 
+					if(to ==lo ){
+						roomDefinid.push({
+							title:`${data.query[i].title} ${room[e].nombre} `,
+							id:data?.query[i]?.id,
+							ID_Tipo_estados:data?.query[i]?.ID_Tipo_estados,
+							ID_Tipo_habitaciones:data?.query[i]?.ID_Tipo_habitaciones
+						})
+					}
+				}
+			}
+			setSate(roomDefinid)
+		})
+	},[room])
+
+	useEffect(() =>{
+		ServiceReservas().then(index=> {
+			setReservas(index)
+		})
+	},[setSearch])
+	
+	
+
+	if(search?.length ==0) {
+		setSearch(state)
+	}
 
 	if(!state)  return null
-
+	if(!reservation)return null
 	return (
-
 		<>
-		<Timeline
-			groups={state}
-			items={bookings}
-			defaultTimeStart={moment().startOf("day").add(-3, "day")}
-			defaultTimeEnd={moment().startOf("day").add(5, "day")}
-			sidebarWidth={200}
-			lineHeight={52}
-			itemHeightRatio={0.5}
-			canMove={false}                                                                             
-			maxZoom={365.24 * 86400 * 1000}
-			minZoom={60 * 60 * 1000}
-			itemRenderer={itemRenderer}
-			onItemClick={(itemId, e, time) => onItemClick(itemId, e, time)}
-			showCursorLine
-		>
-		  	<TimelineHeaders className="list-booking-sticky">
-				<SidebarHeader />
-				<DateHeader
-					unit="month"
-					labelFormat="MMMM"
-					headerData={{ isMonth: true }}
-					intervalRenderer={intervalRenderer}
-				/>
-				<DateHeader
-					unit="day"
-					labelFormat="D"
-					headerData={{ isMonth: false, currentDate }}
-					intervalRenderer={intervalRenderer}
-				/>
-		  	</TimelineHeaders>
+		<div className="container-calender">
+			<div className="container-button" >
+				<button className='button-reservas' onClick={toggleOpenDashBoard} >Crear reserva</button>
+				<button className='button-reservas-type'>Hacer Checking</button>
+				<select onChange={handRaiting}  
+												value={raiting} 
+												className='select-hotel-dashboard' >
+												<option >Tipo de Habitacion</option>
+												<option >Todas las Habitaciones</option>
+												
+											{room?.map(category =>(
+												<option 
+												value={category.id_tipoHabitacion}   
+												key={category.ID}
+											>
+												{category.nombre}
+											</option>
+											)
+											)}
+											</select>
+				
+				<button className='button-reservas-type'>Estados</button>
+				<button className='button-reservas-type-one'>Busquedas de Reservas</button>
+			
+			</div>
+		
+		 </div>
+		 <DashboardModal loading={dashboardVisible} toggleCloseDashboard={toggleCloseDashboard}/>
+			<Timeline
+				groups={search ? search : state}
+				items={ reservation}
+				defaultTimeStart={moment().startOf("day").add(-3, "day")}
+				defaultTimeEnd={moment().startOf("day").add(20, "day")}
+				maxZoom={100}
+				rightSidebarWidth={50}
+				itemHeightRatio={0.8}                                                             
+				lineHeight={34}
+				itemRenderer={itemRenderer}
+				onItemDoubleClick={true}
+				onItemClick={(itemId, e, time) => onItemClick(itemId, e, time)}
+				onCanvasContextMenu={(itemId, e, time) =>onItemDoubleclik()}
+				>
+				<TimelineHeaders className="list-booking-sticky">
+					<SidebarHeader />
+					<DateHeader
+						unit="month"
+						labelFormat="MMMM"
+						headerData={{ isMonth: true }}
+						intervalRenderer={intervalRenderer}
+					/>
+					<DateHeader
+						unit="day"
+						labelFormat="D"
+						headerData={{ isMonth: true, currentDate }}
+					/>
+				</TimelineHeaders>
 		</Timeline>
-
-		{fillconten({save})}
+		<CardStore />
 		</>
 	);
 

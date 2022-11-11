@@ -16,5 +16,3 @@ export const ServiceMotel = () =>{
        .then(res => res.json())
        .then(fromServiceMotels)
 }
-
-

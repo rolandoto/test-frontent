@@ -7,6 +7,7 @@ import { getBooking } from "../../store/slice"
 import moment  from "moment"
 import UseTitle from "../../hooks/UseTitle"
 
+
 const Booking =() =>{
 
     /*UseTitle({title:"Reservas"})
@@ -104,9 +105,11 @@ const Booking =() =>{
                 </div>
      */
 
+                
+
     return (
         <div className="container-forgetfulnes" >
-                <h1>comentado</h1>
+            
         </div>
     )
 }

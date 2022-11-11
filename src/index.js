@@ -7,11 +7,13 @@ import { AutoProvider } from './privateRoute/AutoProvider';
 
 ReactDOM.render(
   <React.StrictMode>
-    <NextUIProvider>
-    <AutoProvider >
-    <App />
-    </AutoProvider>
-    </NextUIProvider>
+    <NextUIProvider>  
+      <AutoProvider >
+    
+      <App />
+   
+      </AutoProvider>
+      </NextUIProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

@@ -5,11 +5,17 @@
 .flex-bedrooms{
     display: flex;
     align-items: center;
-    margin-left: 16px;
+    /* margin-left: 16px; */
+    /* align-items: center; */
+    /* justify-content: center; */
+    margin: 0;
+}
+
+.flex-bedrooms-detailroom{
+    display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: 59px;
-    
+    margin: 0;
 }
 
 .input-bedroom{
@@ -28,6 +34,11 @@ border-radius: 8px;
     text-align: center;
 }
 
+.flex-bedrooms-detailroom li{
+    padding: 5px;
+    text-align: center;
+}
+
 .button-bedroom{
 width: 200px;
 height: 40px;
@@ -38,6 +49,10 @@ cursor: pointer;
 }
 
 .flex-bedrooms > li, button {
+    align-self: end;
+}
+
+.flex-bedrooms-detailroom > li, button {
     align-self: end;
 }
 

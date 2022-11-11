@@ -4,7 +4,7 @@ import { ServiceBictacoras } from "../service/ServiceListBictacoras"
 import { setBitca } from "../store/slice/Bictacoras"
 import UseUsers from "./UseUser"
 
-
+//trabajando por ahora
 const UserListBictacoras =() =>{
     
     const [loading,setLoading] = useState(true)

@@ -8,33 +8,33 @@ function CartItem({index,Items,handTotal}) {
 
   const {carts,setCarts} = useContext(AutoProvider)
 
-  const handCartSum =({id}) =>{
-      const to =  carts.cart.find(index => index.id === id)
-      const ca =  Items.find(index => index.id === id)
+  const handCartSum =({ID}) =>{
+      const to =  carts.cart.find(index => index.ID === ID)
+      const ca =  Items?.query?.find(index => index.ID === ID)
       if(to){
         setQty(qty +1)
         to.quantity+=1
-        to.price+=ca.price
-        
+        to.Precio+=ca.Precio
+
       }
   } 
 
-  const handDelete =({id}) =>{
+  const handDelete =({ID}) =>{
     if(qty==1){
          setCarts({
            ...carts,
-           cart:[...carts.cart.filter(index =>  index.id !==id)]
+           cart:[...carts.cart.filter(index =>  index.ID !==ID)]
          })
     }else{
-        const to =  carts.cart.find(index => index.id === id)
-        const ca =  Items.find(index => index.id === id)
+        const to =  carts.cart.find(index => index.ID === ID)
+        const ca =   Items?.query?.find(index => index.ID === ID)
         setQty(qty -1)
         to.quantity-=1
-        to.price-=ca.price
+        to.Precio-=ca.Precio
     }
   }
 
-  const total  = carts.cart.reduce((acumlator,currentValue) => acumlator + currentValue.price,0 )
+  const total  = carts.cart.reduce((acumlator,currentValue) => acumlator + currentValue.Precio,0 )
 
 
   useEffect(() =>{
@@ -46,12 +46,12 @@ function CartItem({index,Items,handTotal}) {
   return (
     <>
  
-    <div className="cartItem" id={index.id}  >
+    <div className="cartItem" id={index.ID}  >
       <div className="imgBoxe">
-        <img src={index.imgSrc}  alt="" />
+        <img src={"Prueba"}  alt="" />
       </div>
         <div className="itemSection">
-            <h2 className="itemName">{index.name}</h2>
+            <h2 className="itemName">{index.Nombre}</h2>
             <div className="itemQuantity">
             <span>x{index.quantity}</span>
             <div className="quantity">
@@ -68,7 +68,7 @@ function CartItem({index,Items,handTotal}) {
         </div>
           <p className="itemPrice">
               <span className="dolorSign">$</span>{" "}
-              <span className="itemPriceValue">{index.price}</span>
+              <span className="itemPriceValue">{index.Precio}</span>
           </p>
     </div>
     </>

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 
-
 const Autoconext = React.createContext({})
 
 export const AutoProvider =({children}) =>{
@@ -11,7 +10,7 @@ export const AutoProvider =({children}) =>{
     
     const [jwt,setJwt] =useState( 
             () =>  JSON.parse(sessionStorage.getItem('jwt')) 
-        )
+    )
 
     const [show,setShow]= useState(false)
     
@@ -28,10 +27,9 @@ export const AutoProvider =({children}) =>{
     const [carts,setCarts] =useState(stateCart)
 
     return (
-        <Autoconext.Provider value={{jwt,setJwt,name,setName,show,setShow,carts,setCarts,qty, setQty}}>
-            {children}
-        </Autoconext.Provider>
+            <Autoconext.Provider value={{jwt,setJwt,name,setName,show,setShow,carts,setCarts,qty, setQty}}>
+                {children}
+            </Autoconext.Provider>
     )
 }
-
 export default Autoconext

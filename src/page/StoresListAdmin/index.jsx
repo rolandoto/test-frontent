@@ -23,10 +23,11 @@ const StoresListAdmin =() =>{
         history.push(`/DetailStore/${e}`)
     }
 
+    console.log(state)
     return(
         <div className="container-hotels" >
             {state?.map(index =>(
-                <img className="hotel-img" src={index.logo} alt="" onClick={() => handNextStore(index.id_hotel)}  />
+                <img className="hotel-img" src={index.logo} alt="" onClick={() => handNextStore(index.id_hotel)} />
             ))}
         </div>
     )

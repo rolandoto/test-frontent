@@ -9,8 +9,6 @@ import { getPosts } from "../store/slice/ListFormats"
 import { getPostMaintenance } from "../store/slice/Maintenance"
 import { getEmercies } from "../store/slice/NumberEmergencies"
 import { updatePost } from "../store/slice/UpdateMaintenance"
-
-
 const UseHook =() =>{
 
     const {jwt} = useContext(AutoProvider)
@@ -19,14 +17,11 @@ const UseHook =() =>{
     
     const state = useSelector((state) => state)
  
-
     useEffect(() => {
         dispatch(getPosts({id_hotel:jwt.result.id_hotel}))
         dispatch(getPostMaintenance({id:jwt.result.id_hotel}))  
     }, [])
-
    
-
         useEffect(() =>{
             dispatch(getEmercies())
             dispatch(getPostMaintenance({id:jwt.result.id_hotel}))   
@@ -36,16 +31,13 @@ const UseHook =() =>{
         dispatch(getPosts({id_hotel:jwt.result.id_hotel}))
     }, [])
    
-
     useEffect(() =>{
         dispatch(Forget())
     },[])
 
     useEffect(() =>{
         dispatch(getPostMaintenance({id:jwt.result.id_hotel}))   
-        
     },[])
-
 
     const handSubmitInsertForget = useCallback( async({id_hotel,id_user,description,ubicacion}) =>{
         await dispatch(addPostInsertForget({id_hotel,id_user,description,ubicacion}))
@@ -64,15 +56,12 @@ const UseHook =() =>{
         alert("se borrado")
     },[])
 
-
-
     return {
         handSubmitInsertForget,
         handAddMaintenance,
         handUpdateMaintenance,
         state
     }
-
 }
 
 export default UseHook
