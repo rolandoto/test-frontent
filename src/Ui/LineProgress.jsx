@@ -6,10 +6,9 @@ const LineProgress =({progress}) =>{
 
     return (
         <Box sx={{ width: '110%' }}>
-            <LinearProgress variant="determinate" value={progress} />
+            <LinearProgress variant="determinate" color="inherit" value={progress} />
         </Box>
     )
-
 }
 
 export default LineProgress

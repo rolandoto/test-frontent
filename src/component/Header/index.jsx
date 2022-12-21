@@ -15,7 +15,9 @@ const Header  =() =>{
     const handOpenModal =() =>{
         setUser(true)
     }
-   
+    
+    const val = jwt ?jwt.result.id_departamento : 2
+
     if(!jwt) return null
 
     return (

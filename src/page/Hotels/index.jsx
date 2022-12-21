@@ -17,7 +17,7 @@ const Hotels =() =>{
     const [state,setState] = useState()
 
     useEffect(() =>{
-       ServiceHotels({id:jwt.result.id_user}).then(index =>{
+       ServiceHotels({id:"5"}).then(index =>{
             setState(index)
        })
     },[])   
@@ -29,7 +29,9 @@ const Hotels =() =>{
     return(
         <div className="container-hotels" >
             {state?.map(index =>(
-                    <img className="hotel-img" src={index.logo} alt="" onClick={() => handNextBedrooms(index.id_hotel)}  />
+                    <span className="hotel-img-admin" src={index.logo} alt="" onClick={() => handNextBedrooms(index.id_hotel)}  >
+                        {index.nombre}
+                    </span>
             ))}
         </div>
     )

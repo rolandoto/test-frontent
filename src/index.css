@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -792,7 +796,7 @@ td, th ,tr{border:none;}
   .select-hotel-type{
     font-family: 'Lato', sans-serif;
     font-size: 0.875em;
-    height: 40px;
+    height: 61px;
     padding: 0px 15px 0px 15px;
     background: white;
     outline: none;
@@ -806,7 +810,32 @@ td, th ,tr{border:none;}
     width: 133%;
     max-width: 531px;
     margin-top: 5px;
-  }
+    background: #EBEBEB;
+    border: 0.5px solid #FFFFFF;
+    border-radius: 8px;
+}
+
+.select-hotel-type-admin-hotels{
+  font-family: 'Lato', sans-serif;
+  font-size: 0.875em;
+  height: 41px;
+  padding: 0px 15px 0px 15px;
+  background: white;
+  outline: none;
+  color: #726659;
+  border: solid 1px black;
+  transition: all 0.3s ease-in-out;
+  -webkit-transition: all 0.3s ease-in-out;
+  margin-top: 19px;
+  border-radius: 8px;
+  margin: auto;
+  width: 133%;
+  max-width: 531px;
+  margin-top: 5px;
+  
+  border: 0.5px solid #BEBEBE;
+  border-radius: 8px;
+}
 
   .select-hotel-type-personality{
     font-family: 'Lato', sans-serif;
@@ -816,7 +845,7 @@ td, th ,tr{border:none;}
     background: white;
     outline: none;
     color: #726659;
-    border: solid 1px black;
+    border: solid 1px #c5c5c5;
     transition: all 0.3s ease-in-out;
     -webkit-transition: all 0.3s ease-in-out;
     margin-top: 19px;
@@ -825,4 +854,30 @@ td, th ,tr{border:none;}
     width: 97px;
     max-width: 531px;
     margin-top: 5px;
+}
+
+.input-selecto-dasboard-n1-admin-hotels{
+  box-sizing: border-box;
+  width: 360px;
+  height: 41px;
+  left: 300px;
+  top: 338px;
+  border: 1px solid #858585;
+  border-radius: 8px;
+  margin-top: 5px;
+  border: none; 
+  border: 0.5px solid #BEBEBE;
+  border-radius: 8px;
+}
+
+.Container-Global-app{
+  display: flex;
+    max-width: 1300px;
+    max-height: 1100px;
+    flex-direction: column;
+    background: #fff;
+    height: 100vh;
+    width: 100vw;
+    overflow: auto;
+    margin: auto;
 }

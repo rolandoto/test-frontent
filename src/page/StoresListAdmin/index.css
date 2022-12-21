@@ -6,8 +6,19 @@
     /* max-width: 1000px; */
     margin: auto;
     width: 90%;
+    margin-top: 50px;
 }
 
+.container-hotels-admin-hotels{
+    display: flex;
+    justify-content: center;
+    height: 100%;
+    margin: auto;
+    /* max-width: 1000px; */
+    margin: auto;
+    width: 90%;
+    margin-top: 50px;
+}
 
 .hotel-img{
     max-width: 100%;

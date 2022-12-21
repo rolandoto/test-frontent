@@ -1,0 +1,5 @@
+.contain-state-global{
+    max-width: 249px;
+    margin: auto;
+    display: flex;
+}

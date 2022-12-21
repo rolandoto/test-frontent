@@ -1,0 +1,287 @@
+
+    .border-detail {
+        background: #EBEBEB;
+        padding: 10px;
+        border-radius: 10px;
+        margin: 5px;
+        width: 186px;
+        height: 111px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+}
+
+.container-detail-dasboard-in{
+    display: flex;
+    align-items: center;
+
+}
+
+.container-detail-dasboard-in-one{
+    display: flex;
+    align-items: center;
+    margin-top: 60px;
+}
+
+.desde-detail{
+    height: 50px;
+    border: none;
+    background: #EBEBEB;
+    border-radius: 8px;
+    margin: 4px;
+    width: 28%;
+    padding: 10px;
+}
+
+.desde-detail-two{
+    height: 50px;
+    border: none;
+    background: white;
+    border-radius: 8px;
+    margin: 4px;
+    width: 28%;
+    padding: 10px;
+}
+
+.desde-detail-two-one{
+    height: 50px;
+    border: none;
+    background: #EBEBEB;
+    border-radius: 8px;
+    margin: 4px;
+    width: 28%;
+    padding: 10px;
+}
+
+
+
+.desde-detail-three{
+    height: 50px;
+    border: none;
+    background: white;
+    border-radius: 8px;
+    margin: 4px;
+    width: 20%;
+    padding: 10px;
+    display: flex;
+}
+.desde-detail-three-one{
+    height: 50px;
+    border: none;
+    background: #EBEBEB;
+    border-radius: 8px;
+    margin: 4px;
+    width: 20%;
+    padding: 10px;
+    display: flex;
+}
+
+.container-flex-init-global{
+    justify-content: revert;
+    max-width: 959px;
+    margin: auto;
+    margin-top: 15;
+}
+
+.container-flex-init{
+    justify-content: revert;
+    max-width: 959px;
+    margin: auto;
+   
+}
+.cod-reserva{
+    font-weight: 400;
+    color: black;
+}
+
+.desde-detail-one{
+    height: 50px;
+    border: none;
+    background: #EBEBEB;
+    border-radius: 8px;
+    margin: 4px;
+    width: 20%;
+    padding: 10px;
+    display: flex;
+}
+
+.cd{
+    display: flex;
+}
+
+.init{
+    padding: 15px;
+    display: block;
+    max-width: 955px;
+    margin: auto;
+    background: #F4F4F4;
+    border-radius: 10px;
+}
+
+.container-flex-init-one{
+    display: flex;
+    justify-content: space-between;
+    max-width: 959px;
+    margin: auto;
+    margin-top: 25px;
+}
+
+.button-checking-detail{
+    border: none;
+    background: #00B712;
+    padding: 20px;
+    width: 288px;
+    border-radius: 8px;
+    color: white;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.button-checking-detail-one {
+    border: none;
+    background: #A3A3A3;
+    padding: 20px;
+    width: 100px;
+    border-radius: 8px;
+    color: white;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.title-button span{
+    text-align: center;
+}
+
+.desde-detail-two-title{
+    height: 30px;
+    border: none;
+    border-radius: 8px;
+    margin: 4px;
+    width: 28%;
+    padding: 10px;
+}
+
+.desde-detail-three-title-das{
+    height: 30px;
+    border: none;
+    border-radius: 8px;
+    margin: 4px;
+    width: 20%;
+    padding: 10px;
+    display: flex;
+}
+
+
+.desde-detail-three-das{
+    height: 30px;
+    border: none;
+    border-radius: 8px;
+    margin: 4px;
+    width: 20%;
+    padding: 10px;
+    display: flex;
+}
+
+.desde-detail-two-das{
+    height: 30px;
+    border: none;
+    border-radius: 8px;
+    margin: 4px;
+    width: 28%;
+    padding: 10px;
+}
+
+.title-code{
+    font-size: 17px;
+    font-weight: 500;
+}
+
+.button-checking-detail-one-das{
+    border: none;
+    background: black;
+    padding: 20px;
+    width: 160px;
+    border-radius: 8px;
+    color: white;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.button-checking-detail-one-das-one{
+    border: none;
+    background: #A3A3A3;
+    padding: 20px;
+    width: 160px;
+    border-radius: 8px;
+    color: white;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.button-checking-detail-one-dash{
+    border: none;
+    background: #A3A3A3;
+    width: 160px;
+    border-radius: 8px;
+    color: black;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    background: white;
+    border: solid 1px #847F7F;
+  }
+
+
+  .checkbox-round {
+    width: 2.3em;
+    height: 2.3em;
+    background-color: D9D9D9;
+    border-radius: 50%;
+    vertical-align: middle;
+    border: 1px solid #ddd;
+    appearance: none;
+    -webkit-appearance: none;
+    outline: none;
+    cursor: pointer;
+    align-items: center;
+    display: flex;
+    margin-right: 10px;
+
+}
+
+.checkbox-round-click {
+    background-color: rgb(1, 149, 255);
+}
+
+.container-checkbox{
+    display: flex;
+    align-items: center;
+}
+
+
+.ono{
+    margin-top: 10px;
+}

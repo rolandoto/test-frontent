@@ -18,10 +18,12 @@ const Login =() =>{
     const [password,setPassword] = useState('')
     const [raiting,setRaiting]= useState('')
     const { Img,loading} = Preloading({isLogin})
-
+    
     const [prueba,setPrueba] = useState()
 
     const all=[]
+
+    console.log(raiting)
 
     const handRaiting =(e)=>{
         setRaiting(e.target.value)

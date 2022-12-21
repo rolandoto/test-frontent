@@ -1,6 +1,6 @@
 const ENDPOINT ='https://grupohoteles.co/api/getHotelsByUser?id_user='
 
-const ServiceHotels =({id})=>{
+const ServiceHotels =({id})=>{  
     return fetch(`${ENDPOINT}${id}`,{
         method:'POST',
         headers:{

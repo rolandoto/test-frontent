@@ -14,6 +14,7 @@ const TableBictacoras =({children,bicta}) =>{
         <>
             {bicta.map((index,e) =>{
                 let today = new Date(index.fecha)
+                console.log(index.fecha)
                 let day = weekday[today.getDay()]
                 const t = today.toISOString().split('T')[0]
                 countData= countData -1

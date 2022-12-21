@@ -6,6 +6,7 @@ import useDetailDashboardAction from "../../action/useDetailDashboardAction";
 import useProgress from "../../hooks/useProgress";
 import DetailDasboard from "../../organisms/DetailDashboard";
 import LineProgress from "../../Ui/LineProgress";
+import moment from "moment/moment";
 
 const DetailDashboard =() =>{
     const {id} = useParams()    
@@ -17,7 +18,7 @@ const DetailDashboard =() =>{
     const fetchData =async() =>{
         await getDetailReservationById({id})
     }
-
+    
     useEffect(() =>{
         fetchData()
     },[id])
@@ -32,8 +33,8 @@ const DetailDashboard =() =>{
         if(error){
             return <p>...{error}</p>
         }
-
-    return <DetailDasboard  DetailDashboard={DetailDashboard} />
+ 
+    return    <DetailDasboard  DetailDashboard={DetailDashboard} fetchData={fetchData} />
 
     }
 

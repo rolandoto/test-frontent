@@ -3,7 +3,7 @@ import { date } from "yup";
 
 const fromRervas =(event)  =>{
   
-    const  to = event.query.map((index,e )=> {
+      const  to = event.query.map((index,e )=> {
       let daystart = new Date(index.Fecha_inicio)
       console.log(daystart);
       const start_time = daystart.toISOString().split('T')[0]
@@ -17,17 +17,26 @@ const fromRervas =(event)  =>{
 
       const id  = index.ID
 
+      const state  = index.ID_Tipo_estados
 
+      const name = index.Nombre
 
-      return {
-        end_time: daysend,
-        group,
-        id,
-        title,
-        start_time: daystart,
-        state:3
-      }
-    })
+      const document = index.Document
+
+      const code = index.Codigo_reserva
+
+        return {
+          end_time: daysend,
+          group,  
+          id,
+          title,
+          start_time: daystart,
+          state:state,
+          name,
+          document,
+          code
+        }
+      })
     return to
 }
 

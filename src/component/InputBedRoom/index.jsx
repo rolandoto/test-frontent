@@ -56,19 +56,36 @@ const InputBedRoom =({id,fetchData}) =>{
 
     return (
         <>
-            <ul className="flex-bedrooms-detailroom" >
-                    
-                <Selected 
-                        title="Tipos de Habitacion" 
-                        change={handleInputChange}  
-                        name="id_habitaciones" 
-                        state={mapresult} 
-                        />
-                
-                <Input 
-                        title="Numero o Nombre" 
-                        name="name_num"
-                        change={handleInputChange}     />
+            <ul className="select-hotel-type-admin" >
+               
+
+                <li>
+                            <label className="title-stores" >Tipos de Habitacion</label>
+                            <select onChange={handleInputChange}  
+                                    name="id_habitaciones"
+                                    className='select-hotel-type-admin-hotels'
+                            >
+                                <option >Seleccionar Tipos de habitaciones</option>
+                                {mapresult?.map(category =>(
+                                    <option 
+                                    value={category.ID}   
+                                    key={category.ID}
+                                >
+                                    {category.nombre}
+                                </option>
+                                )
+                                )}
+                            </select>
+                        </li>
+                                    
+                        <li>
+                                <label className="title-stores">Numero o Nombre</label>
+                                <input className="input-selecto-dasboard-n1-admin-hotels"  
+                                        name={"name_num"} 
+                                        type="text" 
+                                        onChange={handleInputChange}
+                                        placeholder="Numero o Nombre" />
+                            </li>
 
                 <li>
                     <button className="button-bedroom" onClick={handSubmitRooms} >

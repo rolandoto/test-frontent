@@ -706,7 +706,7 @@ const StoreTemplate =({Store}) =>{
         },
       ]
 
-    console.log(Store)
+    
 
     const [state,setState] = useState(false)
 
@@ -789,9 +789,12 @@ const StoreTemplate =({Store}) =>{
   }
 
     const [invoice,setInvoice] =useState(false)
-
     const [client,setClient] =useState("")
     const [identification,setIndentification] =useState("")
+
+    
+    
+
 
     const handModalInvoice =() =>{
       setOrganize(false)

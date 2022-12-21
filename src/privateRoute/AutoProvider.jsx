@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-
 const Autoconext = React.createContext({})
 
 export const AutoProvider =({children}) =>{

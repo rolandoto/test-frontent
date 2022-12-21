@@ -48,7 +48,7 @@ const HeaderRecepcion  =() =>{
                         </div>
                 <div>
                   <ul className="list-icon">
-                    <Link to={`/Dashboard`} >
+                    <Link to={`/Home`} >
                         <li className="borde-icon">
                             <RiHome2Line color="black" fontSize={25}/>
                             <span className="title-icon" >Home</span>
@@ -68,7 +68,7 @@ const HeaderRecepcion  =() =>{
                         </li>
                     </Link>
 
-                    <Link to="/Booking">
+                    <Link to="/search">
                         <li className="borde-icon">
                             <BsBell fontSize={25}  />
                             <span className="title-icon" >Reservas</span>

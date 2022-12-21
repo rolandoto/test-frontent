@@ -21,9 +21,11 @@ import DashboardModal from "./DashboardModal";
 import { useHistory } from "react-router-dom";
 import CardStore from "../../component/DetailStore/CardStore";
 import ServicetypeRooms from "../../service/ServicetypeRooms";
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Modal from '@mui/material/Modal';
+import ModalSate from "../../organisms/Modals/State";
+import ModalCleanLine from "../../organisms/Modals/Cleanline";
+import { selectDashboardChecking } from "../../reducers/dashboardCheckingReducer";
+import useDashboardCheckingAction from "../../action/useDashboardCheckingAction";
+import Checking from "./Checking";
 
 const style = {
 	position: 'absolute',
@@ -35,22 +37,26 @@ const style = {
 	border: '2px solid #000',
 	boxShadow: 24,
 	p: 4,
-  };
+}
 
 const Dashboard = (props) => {
 	const [open, setOpen] = useState(true);
+	const [reservation,setReservas] = useState()
+	const [state,setSate] =useState()
+	const [modalState,setModalState] =useState(false)
+	const [cleanline,setcleanline] =useState(false)
+	const [lookinfor,setLookingfor] =useState()
+	const {jwt} =useContext(AutoProvider)
+	const {toggleOpenDashBoard,toggleCloseDashboard} = useDashboardAction()
+	const {toggleOpenDashboardChecking,toggleCloseDashboardChecking}  = useDashboardCheckingAction()
+	const {dashboardVisible} = useSelector(selectDashboard)
+	const {checkingDasboardVisible} = useSelector(selectDashboardChecking)
+	const history = useHistory()
+
 	const handleOpen = () =>{
 		setOpen(true);
 	} 
 	const handleClose = () => setOpen(false);
-
-	const [reservation,setReservas] = useState()
-	const [state,setSate] =useState()
-	const {jwt} =useContext(AutoProvider)
-	const {toggleOpenDashBoard,toggleCloseDashboard} = useDashboardAction()
-	const {dashboardVisible} = useSelector(selectDashboard)
-	const history = useHistory()
-
 	 const bookings = [
 	{
 	  id: 1,
@@ -77,6 +83,24 @@ const Dashboard = (props) => {
 	  state:2,
 	},
   ];
+
+
+	const handClickState =() =>{
+		setModalState(true)
+	}
+
+	const handClickCloseState =() =>{
+		setModalState(false)
+	}
+
+	const handClikCleanline =() =>{
+		setcleanline(true)
+		setModalState(false)
+	}
+
+	const hanClickCloseCleanline =()=>{
+		setcleanline(false)
+	}
   
 	const { onCanvasClickParentUpdate } = props;
     const currentDate = moment();
@@ -102,53 +126,45 @@ const Dashboard = (props) => {
 
 	const [prueba,setPrueba] =useState(false)
 
-	console.log(prueba)
-
 	const onItemDoubleclik =(itemId, e, time, onItemSelectParentUpdate, hand) =>{
 
 		return (
 			<div>
-				<Modal
-					open={open}
-					onClose={handleClose}
-					aria-labelledby="modal-modal-title"
-					aria-describedby="modal-modal-description">
-					<Box sx={style}>
-					<Typography id="modal-modal-title" variant="h6" component="h2">
-						Text in a modal
-					</Typography>
-					<Typography id="modal-modal-description" sx={{ mt: 2 }}>
-						Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-					</Typography>
-					</Box>
-				</Modal>
 			</div>
 		)
 	}
 
 	const itemRenderer = ({ item, itemContext, getItemProps }) => {
-		console.log(item)
+		
+		let color 
+		if(item.state==0){
+			color = "#FFAD31"
+		}else if(item.state==1){
+			color ="#DD69D1"
+		}else if(item.state==2){
+			color ="#F94141"
+		}else if(item.state==3){
+			color ="#3C8AE7"
+		}else if(item.state==4){
+			color ="#0DC034"
+		}
 		return (
 			<div
 				{...getItemProps({
 				style: {
 					display: "flex",
 					alignItems: "center",
-					background: "#3C8AE7",
-					border: `2px solid`,
+					background: color,
+					border: ``,
 					borderRadius: "8px",
 					padding:"8px",
-					boxShadow: "rgba(0, 0, 0, 0.16) 0 0.3rem 0.6rem",
 				}
 				})}
 
 				onDoubleClick={() =>{
 					console.log("solor")
-				}}
-			  
+				}} 
 			>
-
-		
       <div className="itemModal" style={{
         left: "left",
         right: "right"
@@ -210,76 +226,137 @@ const Dashboard = (props) => {
 	
 	const [room,setRoom] = useState()
 	const [raiting,setRaiting]= useState('')
+	const [pruebareservas,setpruebareservas] =useState()
 
 	useEffect(() =>{
-        ServicetypeRooms({id:jwt.result.id_hotel}).then(index =>{
+        ServicetypeRooms({id:4}).then(index =>{
             setRoom(index)
         })
     },[])
 
-
-
 	const [search,setSearch] =useState([])
 
 	const filtrar=(terminoBusqueda)=>{
-		console.log(terminoBusqueda)
 		let resultadosBusqueda= state.filter((elemento,index)=>{
-			if(elemento.ID_Tipo_habitaciones?.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())){
+			if(elemento.ID_Tipo_habitaciones?.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
+			 || elemento.name?.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())){
 				return elemento;
 			}
 		});
 		setSearch(resultadosBusqueda);
 		}
 
+
+	const filtrarprueba=(terminoBusqueda)=>{
+		let resultadosBusqueda= reservation.filter((elemento,index)=>{
+			if(elemento.ID_Tipo_habitaciones?.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
+				|| elemento.name?.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())){
+				return elemento;
+			}
+		});
+		setpruebareservas(resultadosBusqueda);
+		}
+		
+
 	const handRaiting =(e)=>{
 		setRaiting(e.target.value)
 		filtrar(e.target.value)
 	}
-	console.log(room)
 
-	useEffect(() =>{
-		fetch(`http://localhost:4000/api/resecion/getroomsresecion/${jwt.result.id_hotel}`)
-		.then(resp => resp.json())
-		.then(data => {
-			const roomDefinid=[]
-			for(let i =0;i<data?.query?.length;i++){	
-				for(let e =0;e<data?.query?.length;e++){
-					const to= parseInt(data?.query[i]?.ID_Tipo_habitaciones)
-					const lo =(room[e]?.id_tipoHabitacion) 
-					if(to ==lo ){
-						roomDefinid.push({
-							title:`${data.query[i].title} ${room[e].nombre} `,
-							id:data?.query[i]?.id,
-							ID_Tipo_estados:data?.query[i]?.ID_Tipo_estados,
-							ID_Tipo_habitaciones:data?.query[i]?.ID_Tipo_habitaciones
-						})
+	const handLookingfor=(e) =>{
+		setLookingfor(e.target.value)
+		filtrarprueba(e.target.value)
+	}
+
+		useEffect(() =>{
+			fetch(`http://localhost:4000/api/resecion/getroomsresecion/${4}`)
+			.then(resp => resp.json())
+			.then(data => {
+				const roomDefinid=[]
+				for(let i =0;i<data?.query?.length;i++){	
+					for(let e =0;e<data?.query?.length;e++){
+						const to= parseInt(data?.query[i]?.ID_Tipo_habitaciones)
+						const lo =(room[e]?.id_tipoHabitacion) 
+						if(to ==lo ){
+							roomDefinid.push({
+								title:`${data.query[i].title} ${room[e].nombre} `,
+								id:data?.query[i]?.id,
+								ID_Tipo_estados:data?.query[i]?.ID_Tipo_estados,
+								ID_Tipo_habitaciones:data?.query[i]?.ID_Tipo_habitaciones
+							})
+						}
 					}
 				}
-			}
-			setSate(roomDefinid)
-		})
-	},[room])
+				setSate(roomDefinid)
+				setSearch(roomDefinid)
+			})
+		},[room])
 
 	useEffect(() =>{
 		ServiceReservas().then(index=> {
 			setReservas(index)
+			setpruebareservas(index)
 		})
 	},[setSearch])
 	
-	
-
 	if(search?.length ==0) {
 		setSearch(state)
 	}
 
+	const handClickSearch=() =>{
+		history.push("/search")
+	}
+
+	const handClickReservaction =() =>{
+		history.push("/Createreservaction")
+	}
+
+	const days = [
+		"Lunes",
+		"Martes",
+		"Miercoles",
+		"Jueves",
+		"Viernes",
+		"Sabado",
+		"Domingo"
+	];
+	const months = [
+		"Enero",
+		"Febrero",
+		"Marzo",
+		"Abril",
+		"Mayo",
+		"Junio",
+		"Julio",
+		"Agosto",
+		"Septiembre",
+		"Octubre",
+		"Noviembre",
+		"Diciembre"
+	];
+  
+  const locale = {
+	localize: {
+	  day: (n) => days[n],
+	  month: (n) => months[n]
+	},
+	formatLong: {
+	  date: () => "mm/dd/yyyy"
+	}
+  };
+  const handChecking =() =>{
+	history.push("/checking")
+}	
+	if(!pruebareservas) return null
+	if(!search)  return null
 	if(!state)  return null
 	if(!reservation)return null
 	return (
 		<>
 		<div className="container-calender">
 			<div className="container-button" >
-				<button className='button-reservas' onClick={toggleOpenDashBoard} >Crear reserva</button>
-				<button className='button-reservas-type'>Hacer Checking</button>
+				<button className='button-reservas' onClick={handClickReservaction} >Crear reserva</button>
+				<button className='button-reservas-type' onClick={handChecking} >Hacer Checking</button>
 				<select onChange={handRaiting}  
 												value={raiting} 
 												className='select-hotel-dashboard' >
@@ -297,22 +374,33 @@ const Dashboard = (props) => {
 											)}
 											</select>
 				
-				<button className='button-reservas-type'>Estados</button>
-				<button className='button-reservas-type-one'>Busquedas de Reservas</button>
+				<button className='button-reservas-type' onClick={handClickState}>Estados</button>
+				<input className='button-reservas-type-one' placeholder="Busquedas de Reservas" value={lookinfor}  onChange={handLookingfor}  />
 			
 			</div>
-		
 		 </div>
-		 <DashboardModal loading={dashboardVisible} toggleCloseDashboard={toggleCloseDashboard}/>
+		 <ModalSate 
+		 			modalState={modalState} 
+		 			handClickCloseState={handClickCloseState} 
+					handClikCleanline={handClikCleanline} />
+
+		 <ModalCleanLine 	
+		 				cleanline={cleanline} 
+		 				hanClickCloseCleanline={hanClickCloseCleanline}  />
+		 
+
+		 <Checking  
+		 			loading={checkingDasboardVisible}  
+		 			toggleCloseDashboardChecking={toggleCloseDashboardChecking}  />
 			<Timeline
-				groups={search ? search : state}
-				items={ reservation}
+				groups={search}
+				items={ pruebareservas}
 				defaultTimeStart={moment().startOf("day").add(-3, "day")}
 				defaultTimeEnd={moment().startOf("day").add(20, "day")}
 				maxZoom={100}
-				rightSidebarWidth={50}
-				itemHeightRatio={0.8}                                                             
-				lineHeight={34}
+				rightSidebarWidth={40}
+				itemHeightRatio={0.9}                                                             
+				lineHeight={40}
 				itemRenderer={itemRenderer}
 				onItemDoubleClick={true}
 				onItemClick={(itemId, e, time) => onItemClick(itemId, e, time)}
@@ -321,13 +409,15 @@ const Dashboard = (props) => {
 				<TimelineHeaders className="list-booking-sticky">
 					<SidebarHeader />
 					<DateHeader
+						 locale={locale}
 						unit="month"
 						labelFormat="MMMM"
-						headerData={{ isMonth: true }}
+						headerData={{ isMonth: false }}
 						intervalRenderer={intervalRenderer}
 					/>
 					<DateHeader
 						unit="day"
+						locale={locale}
 						labelFormat="D"
 						headerData={{ isMonth: true, currentDate }}
 					/>

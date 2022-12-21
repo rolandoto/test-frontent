@@ -39,7 +39,7 @@ const Bictacoras  =() =>{
     }
     if(error){
       return <p>{error}</p>
-    }
+    } 
 
     return <BictacorasTemplate Bitacoras={Bitacoras} />
 

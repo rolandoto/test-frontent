@@ -9,6 +9,8 @@ import { StoreSlice } from '../reducers/storeReducers'
 import { DetailDasboardSlice } from '../reducers/detailDashboardReducer'
 import { BitacorasSlice } from '../reducers/bictacorasReducers'
 import { ContactSlice } from '../reducers/contactReducers'
+import RoomsModalCheckingSlice from '../reducers/dashboardCheckingReducer'
+
 
 const store = configureStore ({
     reducer:{
@@ -18,11 +20,12 @@ const store = configureStore ({
         listBooking,
         Room:RoomsSlice.reducer,
         Dashboard:DashboardModalSlice.reducer,
+        Checking:RoomsModalCheckingSlice.reducer,
         StoreAdmin:StoreSlice.reducer,
         DetailDashboard:DetailDasboardSlice.reducer,
         Bictacoras:BitacorasSlice.reducer,
         Formats:FormatsSlice.reducer,
-        Contact:ContactSlice.reducer
+        Contact:ContactSlice.reducer,
     },
     devTools:true,
 })
