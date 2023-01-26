@@ -107,7 +107,6 @@ margin-top: 5px;
 .container-card{
     display: flex;
     justify-content: space-evenly;
-    max-width: 51%;
     margin: auto;
     margin-top: 50px;
 }
