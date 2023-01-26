@@ -933,6 +933,10 @@ function WacomGSS_SignatureSDK(_onDetectRunning, service_port)
                    "paddingX": checkVar(paddingX),
                    "paddingY": checkVar(paddingY)
                  };
+
+                 function utf8_to_b64(str) {
+                  return window.btoa(unescape(encodeURIComponent(str)));
+                }
       function callback(server_data) 
       {
         var status = parseInt(server_data.status);
@@ -945,12 +949,13 @@ function WacomGSS_SignatureSDK(_onDetectRunning, service_port)
             bmp.handle = server_data.bitmapHandle;
             bmp.isBase64 = (1 == server_data.isBase64 ? true : false);
 
+  
             bmp.image.onload = function () { _onRenderBitmap(thisptr, bmp, status); };
             if (bmp.isBase64) {
-              bmp.image.src = 'data:image/' + mime_type + ';base64,' + server_data.base64;
+              bmp.image.src =  `data:image/bmp;base64,${server_data.base64}`;
             }
             else {
-              bmp.image.src = server_url + server_data.bitmapHandle + "?session=" + sigsdkptr.session;
+           
             }
           }
           else if (1 == server_data.isBase64)

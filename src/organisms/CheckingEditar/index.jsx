@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -13,23 +13,33 @@ import "./style.css"
 import { useHistory } from "react-router-dom";
 
 const CheckingEditarOrganism =({DetailDashboard,id}) =>{
+  const [quyery,setQuery] =useState()
+
+    useEffect(() =>{
+        fetch(`http://localhost:4000/api/resecion/getdetailchecking/${id}`)
+        .then(resp => resp.json())
+        .then(data=> setQuery(data.query))
+    },[])
 
     const history = useHistory()
+      console.log(quyery)
 
       const huespe =[]
-      for(let i=0;i<DetailDashboard?.length;i++){
-        if(DetailDashboard[i+1] !==undefined){
-            huespe.push(DetailDashboard[i])
-        }
-       
+      for(let i=0;i<quyery?.length;i++){
+        if(quyery[i-1] !==undefined){
+            huespe.push(quyery[i])
+        }       
       }
-
 
       const handEditar =(e) =>{
         history.push(`/editarpersonas/${e}`)
       }
-  
-      if(DetailDashboard.length ==1) {
+
+
+      
+      console.log(huespe)
+
+      if(quyery?.length ==1) {
         return (
             <Container>
                 <h1>no hay huespedes</h1>
@@ -43,8 +53,8 @@ const CheckingEditarOrganism =({DetailDashboard,id}) =>{
             <TableContainer component={Paper}>
                 <LoadingDetail  
                             loading={true}
-                            titleLoading={"Personas hospedadas"}  />
-                <Table sx={{ minWidth: 650 ,marginTop:15}} size="small" aria-label="a dense table">
+                            titleLoading={"Acompañante"}  />
+                <Table sx={{ minWidth: 650 ,marginTop:1}} size="small" aria-label="a dense table">
                     
                 <TableHead>
                     <TableRow>
@@ -61,7 +71,7 @@ const CheckingEditarOrganism =({DetailDashboard,id}) =>{
                         {row.Nombre}
                         </TableCell>
                         <TableCell>{row.Apellido} </TableCell>
-                        <TableCell className="editar-checking" onClick={() => handEditar(row.id_persona)}  ><AiOutlineEdit fontSize={30} color="black" /></TableCell>
+                        <TableCell className="editar-checking" onClick={() => handEditar(row.huespedes)}  ><AiOutlineEdit fontSize={30} color="black" /></TableCell>
                     </TableRow>
                     ))}
                 </TableBody>

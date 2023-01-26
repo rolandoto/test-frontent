@@ -11,11 +11,20 @@ function CartItem({index,Items,handTotal}) {
   const handCartSum =({ID}) =>{
       const to =  carts.cart.find(index => index.ID === ID)
       const ca =  Items?.query?.find(index => index.ID === ID)
-      if(to){
-        setQty(qty +1)
-        to.quantity+=1
-        to.Precio+=ca.Precio
+      const avaible = carts.cart.find(item => item.ID ==index.ID)
 
+      const re = avaible.quantity
+
+      const be = avaible.Cantidad
+
+      if(re == be){
+
+      }else{
+        if(to){
+          setQty(qty +1)
+          to.quantity+=1
+          to.Precio+=ca.Precio
+      }
       }
   } 
 
@@ -36,12 +45,9 @@ function CartItem({index,Items,handTotal}) {
 
   const total  = carts.cart.reduce((acumlator,currentValue) => acumlator + currentValue.Precio,0 )
 
-
   useEffect(() =>{
     handTotal({total})
   },[total])
-
- 
 
   return (
     <>

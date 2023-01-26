@@ -29,6 +29,9 @@ const Bictacoras  =() =>{
     fetchData()
   },[])
 
+
+  console.log(Bitacoras)
+
   const fillContent =()=>{
 
     if(progress <100){

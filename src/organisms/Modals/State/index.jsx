@@ -7,6 +7,7 @@ import "./style.css"
 
 const ModalSate  =({modalState,handClickCloseState,handClikCleanline}) =>{
 
+    
 
     return (
         <>

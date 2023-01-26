@@ -9,11 +9,11 @@
   margin-top: 21px;
   border-radius: 11px;
   border: none;
-  background: black;
+  background: #DD69D1;
   color: white;
   cursor: pointer;
   width: 23%;
-  margin: 18px;
+  margin-right:11px
 }
 
 .content-Modal-dasboard {
@@ -56,6 +56,7 @@
 
 .title-modal-dashboard{
   text-align: initial;
+  margin-top: 30px;
 }
 
 .title-modal-dashboard h1{
@@ -69,6 +70,7 @@
   overflow: scroll;
   height: 68vh;
   overflow-x: hidden;
+  margin-top: 9px;
 }
 
 .list-booking-sticky{
@@ -78,30 +80,32 @@
 .select-hotel-dashboard {
   font-family: 'Lato', sans-serif;
   font-size: 0.875em;
-  height: 49px;
-  padding: 0px 15px 0px 15px;
+  height: 44px;
+  padding: 1px 19px 4px 16px;
   background: transparent;
   outline: none;
   color: #726659;
   border: solid 1px #b3aca7;
   transition: all 0.3s ease-in-out;
   -webkit-transition: all 0.3s ease-in-out;
-  margin-top: 19px;
-  border-radius: 12px;
+  border-radius: 8px;
   margin: auto;
   width: 16%;
   max-width: 531px;
   margin-top: 17px;
+  margin-right: 11px;
+  padding-top: 10px;
 }
   .container-button{
     width: 52%;
     margin: auto;
+    margin-left: 25%;
 }
 
 .contain{
   max-width: 1066px;
     margin: auto;
-    margin-top: 52px;
+    margin-top: 9px;
 }
 
 
@@ -131,7 +135,7 @@
 
 .input-stores-personality{
   box-sizing: border-box;
-  width: 145px;
+  width: 228px;
   height: 40px;
   left: 300px;
   top: 338px;
@@ -247,7 +251,7 @@
 
 .input-selecto-dasboard-n1{
   box-sizing: border-box;
-  width: 360px;
+  width: 273px;
   height: 60px;
   left: 300px;
   top: 338px;
@@ -262,24 +266,58 @@
 }
 
 
-.button-reservas-type{
-  padding: 12px;
+.button-reservas-type {
+  padding: 10px 23px 10px 16px;
   /* display: flex; */
   margin: auto;
   text-align: center;
   justify-content: center;
   align-items: center;
   margin-top: 21px;
-  border-radius: 11px;
+  border-radius: 8px;
   border: solid rgb(192, 188, 188) 1px;
   background: white;
   color: gray;
   cursor: pointer;
-  width: 15%;
-  margin: 18px;
-
+  width: 11%;
+  margin-right: 11px;
+  background: #898989;
+  color: white;
+  border: none;
 }
 
+.button-reservas-type-one-two{
+  padding: 10px;
+  margin: auto;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  margin-top: 21px;
+  border-radius: 8px;
+  border: solid rgb(192, 188, 188) 1px;
+  background: #00B712;
+  color:white;
+  cursor: pointer;
+  width: 11%;
+  margin-right: 11px;
+}
+
+.button-reservas-type-one-one{
+  padding: 10px;
+  /* display: flex; */
+  margin: auto;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  margin-top: 21px;
+  border-radius: 8px;
+  border: solid rgb(192, 188, 188) 1px;
+  background: black;
+  color: white;
+  cursor: pointer;
+  width: 11%;
+  margin-right: 11px;
+}
 
 .button-reservas-type-one{
   padding: 12px;
@@ -288,14 +326,17 @@
   text-align: center;
   justify-content: center;
   align-items: center;
-  margin-top: 21px;
-  border-radius: 11px;
+  margin-top: 29px;
+  border-radius: 8px;
   border: solid rgb(192, 188, 188) 1px;
   background: white;
   color: gray;
   cursor: pointer;
   width: 20%;
-  margin: 18px;
+  margin-right: 11px;
+  height: 45px;
+  padding: 1px 19px 4px 16px;
+
 }
 
 .input-stores-personality-thre{
@@ -368,6 +409,31 @@
     cursor: pointer;
 }
 
+.button-dasboard-six-one{
+  width: 164px;
+  height: 40px;
+  background: #070707;
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.button-dasboard-six-one-one-one{
+  width: 164px;
+  height: 48px;
+  background: #070707;
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .button-dasboard-sevent{
     width: 267px;
     height: 40px;
@@ -400,7 +466,7 @@
 }
 
 .input-searching{
-  width: 382%;
+  width: 274%;
   height: 53px;
   background: #FFFFFF;
   border: 1px solid #858585;
@@ -604,10 +670,15 @@
 
 
 hr{
-  color:#c5c5c5 ;
-  width: 99%;
-  height: 0.9px;
-  }
+  color: black;
+    width: 100%;
+    height: -1.1px;
+    /* padding-top: 21px; */
+    background: black;
+    height: 2px;
+    margin-bottom: 12px;
+    margin-top: 8px;
+}
 
   .select-hotel-type-rooms-finis-dasboard{
     font-family: 'Lato', sans-serif;
@@ -626,6 +697,28 @@ hr{
     border: 1px solid #c5c5c5;
     border-radius: 8px;
     margin-top: 5px;
+  }
+
+  .select-hotel-type-rooms-finis-dasboard-finish-one{
+    font-family: 'Lato', sans-serif;
+    font-size: 0.875em;
+    padding: 0px 15px 0px 15px;
+    outline: none;
+    color: black;
+    margin: auto;
+    max-width: 531px;
+    box-sizing: border-box;
+    width: 150px;
+    height: 40px;
+    left: 300px;
+    top: 338px;
+    background: #FFFFFF;
+    border: 1px solid #c5c5c5;
+    border-radius: 8px;
+    margin-top: 5px;
+    background: black;
+    border: none;
+    color: white;
   }
 
   .button-dasboard-thre-dasboard{
@@ -660,3 +753,71 @@ hr{
   cursor: pointer;
 }
 
+
+.button-dasboard-nine-one{
+  width: 190px;
+  height: 40px;
+  background: #00B712;
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+}
+
+.button-dasboard-sevent-two{
+  width: 230px;
+  height: 40px;
+  background: #F94141;
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+  border: none;
+}
+
+.button-dasboard-sevent-one{
+  width: 230px;
+  height: 40px;
+  background: #898989;
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+  border: none;
+}
+
+
+.button-remove{
+  cursor: pointer;
+}
+
+.flex-bedrooms-finis-one{
+  display: flex;
+  justify-content: end;
+  margin-bottom: -22px;
+  margin-top: 4px;
+}
+
+.flex-contan-one{
+  margin-right: 4px;
+}
+
+.container-skeleto{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.App-new-skeleto{
+  display: flex;
+  max-width: 52%;
+  max-height: 1100px;
+  flex-direction: column;
+  background: #fff;
+  height: 100vh;
+  width: 100vw;
+  /* box-shadow: 0 0 50px rgb(0 0 0 / 40%); */
+ 
+  margin: auto;
+}
+
+.border-sekeleton{
+  border-radius: 15px !important;
+}

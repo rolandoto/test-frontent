@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { postProduct } from "../../store/slice";
 import { useEffect } from "react";
 
-const Invoince =({carts, setInvoice,priceCart,client,identification,raiting}) =>{
+const Invoince =({carts=[], setInvoice,priceCart,client,identification,raiting}) =>{
         
     const dispatch  = useDispatch()
     const t= moment().format();   
@@ -54,16 +54,15 @@ const Invoince =({carts, setInvoice,priceCart,client,identification,raiting}) =>
                                             <span className="title-invoince-cart" >Iva</span>
                                     </div>
 
-                                <div className="container-invoince" >
-                                    {carts?.cart.map(index =>(
+                                {carts && <div className="container-invoince" >
+                                    {carts?.map(index =>(
                                         <div className="carts-invoince">
                                             <span className="title-invoince-cart">{index.name}</span>   
                                             <span className="valo title-invoince-cart ">{index.price}</span> 
                                             <span className="title-invoince-cart" >0</span>              
                                         </div>
                                     ))}
-                                </div>
-                                
+                                </div>}
                                 <div className="sub-total title-invoince-cart sub-total-top ">
                                     <span>Sub Total</span>
                                     <span> {priceCart} </span>

@@ -43,7 +43,7 @@ StringBuffer.prototype.toString = function toString()
 
 var Base64 =
 {
-    codex : "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",
+    codex : "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+A=",
 
     encode : function (input)
     {
@@ -114,11 +114,11 @@ var Base64 =
     },
 	
 	utf8_encode: function ( str ) {
-		return Base64.encode(unescape(encodeURIComponent( str )));
+		return (unescape(encodeURIComponent( str )));
 	},
 
 	utf8_decode:function ( str ) {
-		return decodeURIComponent(escape(Base64.decode( str )));
+		return (escape(Base64.decode( str )));
 	}
 }
 

@@ -27,7 +27,9 @@ const StoresListAdmin =() =>{
     return(
         <div className="container-hotels" >
             {state?.map(index =>(
-                <img className="hotel-img" src={index.logo} alt="" onClick={() => handNextStore(index.id_hotel)} />
+                <span className="hotel-img" src={index.logo} alt="" onClick={() => handNextStore(index.id_hotel)} >
+                    {index.nombre}
+                </span>
             ))}
         </div>
     )

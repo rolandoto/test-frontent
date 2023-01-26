@@ -15,7 +15,6 @@
 // This function sets up the main properties to be used for the display depending on which
 // STU has been detected.
 
-
 function CPad_STU(padWidth, padHeight, checkBoxSize)
 {
   //print ("Defining pad for width/height : " + padWidth + "/" + padHeight);
@@ -129,9 +128,6 @@ function CPad_STU(padWidth, padHeight, checkBoxSize)
   }
 }
 
-
-
-
 // This function sets up the object definitions for the first screen in the wizard sequence
 function screen_Display1(pad, buttonTextSource)
 { 
@@ -139,7 +135,7 @@ function screen_Display1(pad, buttonTextSource)
   this.stepMsg1 = new textObject();
   this.stepMsg1.xPos = "right";
   this.stepMsg1.yPos = 2;
-  this.stepMsg1.textString = "Step 1 de 3";
+  this.stepMsg1.textString = "Pantalla  1 de 3";
   this.stepMsg1.fontName = pad.Font;
   this.stepMsg1.fontBold = true;
   this.stepMsg1.fontSize = pad.TextSize;
@@ -147,22 +143,26 @@ function screen_Display1(pad, buttonTextSource)
  
   // Object 2 - set up the "Check boxes provide options...." text message
   this.infoText = new textObject();
-  this.infoText.textString = "Check boxes provide options for the signing process and can be transferred to the document";
+  this.infoText.textString = "CONTRATO DE HOSPEDAJE. 1. Conforme a los artículos 79 y 81 de la Ley 300 de 1996, la Tarjeta de Registro Hotelero conforma el contrato de hospedaje celebrado entre el HOTEL y el HUÉSPED. El contrato es aceptado por la firma del HUÉSPED. El presente contrato es de adhesión, por tal motivo el HUÉSPED se adhiere a las estipulaciones aquí contenidas. 2. El HUÉSPED conoce y acepta el tipo de habitación, la tarifa cobrada por el servicio de hospedaje así como las fechas de ingreso y de salida consignadas en esta Tarjeta de Registro Hotelero. 3. La hora para efectuar el check in es a partir de las 15:00 horas y para efectuar el check out es hasta las 13:00 horas y que el ingreso temprano (early check in) o salida  tarde (late check out) podrá generar costos adicionales. La mora en el pago causara intereses de mora a la tasa máxima permitida, conforme al articulo 884 del código de comercio. 4. El HUÉSPED acepta que la suma liquida de dinero que conste en la factura presta merito ejecutivo. 5. El HUÉSPED conoce que la tarifa del hospedaje deberá ser prepagada y los consumos adicionales garantizados mediante tarjeta de crédito o depósito. En caso que la garantía sea tarjeta de crédito, el HUÉSPED autoriza el diligenciamiento del voucher y su presentación ante la respectiva entidad bancaria. 6. El HOTEL a su discrecionalidad se reserva el derecho de admitir el ingreso de huéspedes adicionales o acompañantes. Todo menor de edad debe hospedarse en compañía de los padres y portar sus respectivos documentos de identificación. 7. El HOTEL se reserva el derecho de ingreso de mascotas a sus instalaciones. El HOTEL es 100% libre de humo Su incumplimiento da lugar a la terminación del contrato y a la imposición de multas establecidas en el contrato. 8. El HUÉSPED puede ejercer derecho al retracto únicamente en compras no presenciales realizadas a través de portales web o en la central de reservas telefónica. La solicitud debe realizarla en máximo cinco (5) días hábiles posteriores a la confirmación de la compra. Si la fecha de ingreso es antes de los cinco días, no procederá el derecho al retracto y en caso de cancelación se aplicaran las condiciones de cancelación y devolución y que son: ";
   this.infoText.fontName = pad.Font;
-  this.infoText.fontBold = pad.TextBold;
-  this.infoText.fontSize = pad.TextSize;  
+  this.infoText.fontForeColor = "";
+  this.infoText.fontBackColor = "";
+
+  this.infoText = new textObject();
+  this.infoText.textString = "- Si la cancelación de la reserva se realiza de 8 o mas días antes de la fecha de check in, se realizará una devolución del 80% correspondiente al valor depositado. - Si la cancelación de la reserva se realiza dentro de 8 a 3 días antes del check in se cobrara el 50% del valor depositado. - Si la cancelación de la reserva se realiza dentro de las 48 horas antes del check in se cobrara la totalidad del valor depositado. - En caso que estando alojado tenga una salida anticipada y se haya realizado el pago total del alojamiento, tendrá un saldo a favor que podrá utilizar en cualquier establecimiento operado por Grupo Hoteles en las ciudades de Medellín y Cartagena, que deberá redimirse en 1 año. Una vez recibida la solicitud, te reintegraremos el valor de devolución en un término máximo de 30 días calendarios contados a partir de tu solicitud. Lo realizaremos mediante consignación bancaria al titular de la reserva o mediante reversión de tarjeta de crédito. 9. El HUÉSPED autoriza irrevocablemente al HOTEL, sus titulares y operadores para recolectar, usar y tratar los datos personales suministrados por el HUÉSPED en la Tarjeta de Registro Hotelero con fines comerciales y de conformidad con las políticas de tratamiento de datos personales. El HUÉSPED autoriza la consulta y reporte ante centrales de riesgo de información sobre el cumplimiento de las obligaciones y/o pago de los servicios de hospedajes u hoteleros. El HUÉSPED, en su condición de titular de los datos personales, gozará de todos los derechos de ley y en particular tendrá derecho a conocer, acceder, actualizar y rectificar sus datos personales, revocar la autorización concedida o solicitar la supresión de información cuando ello sea procedente. El HUÉSPED declara que conoce las políticas de tratamiento de datos personales y que pueden ser consultadas en la página wwww.galleryhotel.co/politicasdatospersonales.pdf. 10. El HUÉSPED se adhiere a la totalidad de las estipulaciones contractuales del contrato de hospedaje y que obran en el sitio web wwww.galleryhotel.co/contratodehospedaje.pdf. El HUÉSPED declara que conoce la totalidad de las estipulaciones contractuales detalladas en la pagina web. El HOTEL, su titular y/o su operador pueden variar o modificar la versión de las condiciones del contrato de hospedaje en cualquier momento. Es obligación del HUÉSPED asegurarse de verificar las condiciones integras y actuales en el sitio web. ";
+  this.infoText.fontName = pad.Font;
   this.infoText.fontForeColor = "";
   this.infoText.fontBackColor = "";
   
   switch (pad.Range)
   {
     case padRange.STU300:
-      this.infoText.xPos = 10;
-      this.infoText.yPos = 20;
+      this.infoText.xPos = 5;
+      this.infoText.yPos = 10;
       break;
     case padRange.STU430:
-      this.infoText.xPos = 10;
-      this.infoText.yPos = 40;
+      this.infoText.xPos = 5;
+      this.infoText.yPos = 10;
       // If using large check box the text message must be moved up
       if (pad.CheckSize == checkSize.STU430_Large)
       {
@@ -182,53 +182,27 @@ function screen_Display1(pad, buttonTextSource)
   }
   
   // Set up the details for the check box object
-  this.checkboxObj = new checkboxObject();
+  this.checkboxObj = new textObject()
   
   // If we are setting up the STU 300 definitions for the large checkbox sample then we need to adjust the position
   // of the check box otherwise the screen gets too crowded
   if (pad.Range == padRange.STU300 && pad.CheckSize == checkSize.STU300_Large)
   {
-    this.checkboxObj.xPos = pad.Width / 4;
-    this.checkboxObj.yPos = 44;
+   
   }
   else
   if (pad.Range == padRange.STU430 && pad.CheckSize == checkSize.STU430_Large)
   {
-    this.checkboxObj.xPos = pad.Width/8;
-    this.checkboxObj.yPos = pad.Height/2 - 25;
+    
   }
   else
   {
-    this.checkboxObj.xPos = pad.Width/6;
-    this.checkboxObj.yPos = pad.Height/2;
+   
   }
-  this.checkboxObj.options = CHECKBOX_USETICKSYMBOL;
-  this.checkboxObj.fontName = pad.Font;
-  this.checkboxObj.fontSize = pad.CheckSize;
-
   // Set up the details of the "I am signing as a representative" text box
   this.signingText = new textObject();
   // If we are setting up the STU 300 definitions for the large checkbox sample then we need to adjust the position
   // of the "I am signing..." text to prevent overlapping
-  if (pad.Range == padRange.STU300 && pad.CheckSize == checkSize.STU300_Large)
-  {
-     this.signingText.xPos = this.checkboxObj.xPos + 2 * pad.CheckSize;
-     this.signingText.yPos = 44 + pad.CheckSize - pad.TextSize;
-  }
-  else
-  if (pad.Range == padRange.STU430 && pad.CheckSize == checkSize.STU430_Large)
-  {
-     this.signingText.xPos = this.checkboxObj.xPos + 2 * pad.CheckSize;
-     this.signingText.yPos = this.checkboxObj.yPos + pad.CheckSize - pad.TextSize;
-  }
-  else
-  {
-    this.signingText.xPos = this.checkboxObj.xPos + 2 * pad.CheckSize;
-    this.signingText.yPos = pad.Height/2 + pad.CheckSize - pad.TextSize;
-  }
-  this.signingText.textString = "I am signing as a representative";
-  this.signingText.fontSize = pad.TextSize;
-  this.signingText.fontName = pad.Font;
   
   if (pad.Range == padRange.STU5X0)
   {
@@ -273,16 +247,6 @@ function screen_Display1(pad, buttonTextSource)
   }
 }
 
-
-
-
-
-
-
-
-
-
-
 // This function sets up the object definitions for the second screen in the wizard sequence
 function screen_Display2(pad, buttonTextSource)
 {
@@ -290,7 +254,7 @@ function screen_Display2(pad, buttonTextSource)
   this.stepMsg2 = new textObject();
   this.stepMsg2.xPos = "right";
   this.stepMsg2.yPos = 2;
-  this.stepMsg2.textString = "Step 2 of 3";
+  this.stepMsg2.textString = "Pantalla 2 de 3";
   this.stepMsg2.fontName = pad.Font;
   this.stepMsg2.fontBold = true;
   this.stepMsg2.fontSize = pad.TextSize;
@@ -300,7 +264,7 @@ function screen_Display2(pad, buttonTextSource)
 
   // Set up the informational text object
   this.infoObject = new textObject();
-  this.infoObject.textString = "Radio buttons provide options for the signing process and can be transferred to the document";
+  this.infoObject.textString = "Importante información: Esta totalmente PROHIBIDO FUMAR en las instalaciones del hotel, Recuerda que la clave wifi es: familiagh";
   this.infoObject.fontName = "Verdana";
   this.infoObject.type = "txt";
   
@@ -340,13 +304,13 @@ function screen_Display2(pad, buttonTextSource)
 
   // Next define the radio buttons
   this.maleRadio = new radioObject();
-  this.maleRadio.buttonLabel = "Male";
+  this.maleRadio.buttonLabel = "Estoy de acuerdo";
   this.maleRadio.groupName = "Gender";
-  this.maleRadio.buttonChecked = true;
+  this.maleRadio.buttonChecked = false;
   
   if (pad.Range == padRange.STU5X0)
   {
-    this.maleRadio.fontForeColor = padColors.GREEN;
+    this.maleRadio.fontForeColor = padColors.BLACK;
     this.maleRadio.fontBackColor = padColors.WHITE;
   }
   else
@@ -366,26 +330,26 @@ function screen_Display2(pad, buttonTextSource)
     case padRange.STU300:
       this.maleRadio.xPos = 50;
       this.maleRadio.yPos = 50;
-      this.femaleRadio.xPos = 240;
-      this.femaleRadio.yPos = 50;
+      this.femaleRadio.xPos = 1;
+      this.femaleRadio.yPos = 1;
       break;
     case padRange.STU430:
       this.maleRadio.xPos = 40;
       this.maleRadio.yPos = 90;
-      this.femaleRadio.xPos = 200;
-      this.femaleRadio.yPos = 90;
+      this.femaleRadio.xPos = 1;
+      this.femaleRadio.yPos = 1;
       break;
     case padRange.STU500:
       this.maleRadio.xPos = 100;
       this.maleRadio.yPos = 220;
-      this.femaleRadio.xPos = 350;
-      this.femaleRadio.yPos = 220;
+      this.femaleRadio.xPos = 1;
+      this.femaleRadio.yPos = 1;
       break;
     case padRange.STU5X0:
       this.maleRadio.xPos = 100;
       this.maleRadio.yPos = 220;
-      this.femaleRadio.xPos = 500;
-      this.femaleRadio.yPos = 220;
+      this.femaleRadio.xPos = 1;
+      this.femaleRadio.yPos = 1220;
       break;
   }  
 
@@ -420,12 +384,141 @@ function screen_Display2(pad, buttonTextSource)
   this.cancelButton = setupPreviousButton(pad, buttonTextSource);
 }
 
+function screen_Display4(pad, buttonTextSource)
+{
+  // Set up the "Step 2 of 3" text message object
+  this.stepMsg2 = new textObject();
+  this.stepMsg2.xPos = "right";
+  this.stepMsg2.yPos = 2;
+  this.stepMsg2.textString = "Pantalla 2 de 3";
+  this.stepMsg2.fontName = pad.Font;
+  this.stepMsg2.fontBold = true;
+  this.stepMsg2.fontSize = pad.TextSize;
+  this.stepMsg2.fontForeColor = "";
+  this.stepMsg2.fontBackColor = "";
+  this.stepMsg2.type = "txt";
 
+  // Set up the informational text object
+  this.infoObject = new textObject();
+  this.infoObject.textString = "Importante información: Esta totalmente PROHIBIDO FUMAR en las instalaciones del hotel, Recuerda que la clave wifi es: familiagh";
+  this.infoObject.fontName = "Verdana";
+  this.infoObject.type = "txt";
+  
+  if (pad.Range == padRange.STU5X0)
+  {
+    this.infoObject.fontForeColor = padColors.BLUE;
+    this.infoObject.fontBackColor = padColors.WHITE;
+  }
+  else
+  {
+    this.infoObject.fontForeColor = "";
+    this.infoObject.fontBackColor = "";
+  }
+  
+  switch (pad.Range)
+  {
+    case padRange.STU300:
+      this.infoObject.xPos = 10;
+      this.infoObject.yPos = 20;
+      this.infoObject.fontSize = 8;
+      this.infoObject.fontBold = false;
+      break;
+    case padRange.STU430:
+      this.infoObject.xPos = 10;
+      this.infoObject.yPos = 40;
+      this.infoObject.fontSize = 9;
+      this.infoObject.fontBold = true;
+      break;
+    case padRange.STU500:
+    case padRange.STU5X0:
+      this.infoObject.xPos = 30;
+      this.infoObject.yPos = 120;
+      this.infoObject.fontSize = 16;
+      this.infoObject.fontBold = false;
+      break;
+  }
 
+  // Next define the radio buttons
+  this.maleRadio = new radioObject();
+  this.maleRadio.buttonLabel = "Estoy de acuerdo";
+  this.maleRadio.groupName = "Gender";
+  this.maleRadio.buttonChecked = false;
+  
+  if (pad.Range == padRange.STU5X0)
+  {
+    this.maleRadio.fontForeColor = padColors.BLACK;
+    this.maleRadio.fontBackColor = padColors.WHITE;
+  }
+  else
+  {
+    this.maleRadio.fontForeColor = "";
+    this.maleRadio.fontBackColor = "";
+  }
 
+  // Now the second radio button - the "Female" option
+  this.femaleRadio = new radioObject();
+  this.femaleRadio.buttonLabel = "Female";
+  this.femaleRadio.groupName = "Gender";
+  this.femaleRadio.buttonChecked = false;
+  
+  switch (pad.Range)
+  {
+    case padRange.STU300:
+      this.maleRadio.xPos = 50;
+      this.maleRadio.yPos = 50;
+      this.femaleRadio.xPos = 1;
+      this.femaleRadio.yPos = 1;
+      break;
+    case padRange.STU430:
+      this.maleRadio.xPos = 40;
+      this.maleRadio.yPos = 90;
+      this.femaleRadio.xPos = 1;
+      this.femaleRadio.yPos = 1;
+      break;
+    case padRange.STU500:
+      this.maleRadio.xPos = 100;
+      this.maleRadio.yPos = 220;
+      this.femaleRadio.xPos = 1;
+      this.femaleRadio.yPos = 1;
+      break;
+    case padRange.STU5X0:
+      this.maleRadio.xPos = 100;
+      this.maleRadio.yPos = 220;
+      this.femaleRadio.xPos = 1;
+      this.femaleRadio.yPos = 1220;
+      break;
+  }  
 
+  // Set up the "Press NEXT to continue" object  
+  this.nextToContinue = setupContinueText(pad, buttonTextSource);
+  
+  // Set up the rectangle object for display aesthetics
+  this.step1Rectangle = new rectangleObject();
+  this.step1Rectangle.lineWidth = 1;
+  
+  if (pad.Range == padRange.STU300)
+  {
+    this.step1Line = new lineObject();
+    this.step1Line.x1Pos = 5;
+    this.step1Line.y1Pos = 15;
+    this.step1Line.x2Pos = pad.Width-3;
+    this.step1Line.y2Pos = 15; 
+    this.step1Line.lineWidth = 1;
+    this.step1Line.options = SOLIDLINE;
+  }
+  else
+  {
+    this.step1Rectangle.x1Pos = "left";
+    this.step1Rectangle.y1Pos = pad.Height/8;
+    this.step1Rectangle.x2Pos = "right";
+    this.step1Rectangle.y2Pos = pad.Height*4/5;  
+    this.step1Rectangle.options = OUTLINE;
+  }
 
-
+  // Set up the Next and Previous button objects using separate functions
+  this.nextButton = setupNextButton(pad, buttonTextSource);
+  this.cancelButton = setupPreviousButton(pad, buttonTextSource);
+}
 // This function sets up the object definitions for the third screen in the wizard sequence
 function screen_Display3(pad, buttonTextSource)
 {
@@ -475,7 +568,7 @@ function screen_Display3(pad, buttonTextSource)
   this.pleaseSign = new textObject();
   this.pleaseSign.xPos = "center";
   this.pleaseSign.yPos = pad.yText;
-  this.pleaseSign.textString = "Please now sign below";
+  this.pleaseSign.textString = "Por favor firma";
   this.pleaseSign.fontBold = pad.TextBold;
   this.pleaseSign.fontSize = pad.TextSize;
   this.pleaseSign.fontName = pad.Font;
@@ -722,11 +815,6 @@ function screen_Display3(pad, buttonTextSource)
   }
 }
 
-
-
-
-
-
 // Function to set up the properties of the Next button 
 function setupNextButton(pad, buttonTextSource)
 {
@@ -777,12 +865,6 @@ function setupNextButton(pad, buttonTextSource)
   } 
   return this.nextButton;
 }
-
-
-
-
-
-
 
 
 // Function to set up the properties of the Cancel button
@@ -954,7 +1036,7 @@ function setupContinueText(pad, buttonTextSource)
     }
     else
     {
-      nextToContinue.textString = "When you are ready press NEXT to continue";
+      nextToContinue.textString = "";
     }
   }
   return nextToContinue;
@@ -986,16 +1068,16 @@ function setButtonImageFile(buttonTextSource, currentPadRange, imagePrefix)
   switch (currentPadRange)
   {
     case padRange.STU300:
-      imageFile = filePath + imagePrefix + "300.png";
+      imageFile = filePath  + "300.png";
       break;
     case padRange.STU430:
-      imageFile = filePath + imagePrefix + "430.png";
+      imageFile = filePath  + "430.png";
       break;
     case padRange.STU500:
-      imageFile = filePath + imagePrefix + "500.png";
+      imageFile = filePath  + "500.png";
       break;
     case padRange.STU5X0:
-      imageFile = filePath + imagePrefix + "530.png";
+      imageFile = filePath  + "530.png";
       break;
   }
   return imageFile;

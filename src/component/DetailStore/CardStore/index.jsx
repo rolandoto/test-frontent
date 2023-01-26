@@ -1,36 +1,88 @@
 import React from "react";
+import { CiDatabase } from "react-icons/ci";
 
-const CardStore =() =>{
+const CardStore =({countRoom}) =>{
+
+    const count    = countRoom?.length
 
     return (
         <div>
             <ul  className="container-card" >
-                <li className="card-stores" >
-                    <div>
-                        <h1 className="title-card" >30.0000</h1>
-                        <span>Habitacion</span>
+                <li className="card-stores  card-One" >
+                    <CiDatabase color="white"  fontSize={50} className="content-icon-card" />
+                    <div className="center-title"  >
+                        <h4 className="title-card-one" >$.324,100  </h4>
+                        <span className="text-venta"  >Venta dia</span>
                     </div>
                 </li>
+                <li className="card-stores" >
+                    <div className="center-flex" >
+
+                            <div className="center-title two-title"  > 
+                                <span className="text-venta"  >Ocupacion:</span>
+                                <span className="text-venta  two-title-one"   > 89 Huespedes </span>
+                            </div>
+
+
+                            <div className="" >
+                                <div className="content-habitaciones-one">
+                                    <h4 className="title-card-one po ">{count}</h4>
+                                </div>
+
+                                <div className="center-title"> 
+                                    <span className="text-venta-two">Habitaciones ocupadas</span>
+                                </div>
+                            </div>
+
+                    </div>
+                  
+                   
+                </li>
 
                 <li className="card-stores" >
-                    <h1 className="title-card" >4</h1>
-                    <span>Tipos de habitaciones</span>
+                    <div className="center-flex" >
+
+                            <div className="center-title two-title"  > 
+                                <span className="text-venta"  >Ocupacion:</span>
+                                <span className="text-venta  two-title-one"> 89 Huespedes </span>
+                            </div>
+
+
+                            <div className="" >
+                                <div className="content-habitaciones-one">
+                                    <h4 className="title-card-one po ">7</h4>
+                                </div>
+
+                                <div className="center-title"> 
+                                    <span className="text-venta-two">Habitaciones Bloqueadas</span>
+                                </div>
+                            </div>
+
+                    </div>
+                  
+                   
                 </li>
 
                 <li className="card-stores" >
-                    <h1 className="title-card" >Med</h1>
-                    <span>Ciudad</span>
-                </li>
+                    <div className="center-flex" >
 
-                <li className="card-stores" >
-                    <h1 className="title-card" >26.000.00</h1>
-                    <span>Proyeccion MES 80%</span>
+                            <div className="center-title two-title"  > 
+                                <span className="text-venta"  >Ocupacion:</span>
+                                <span className="text-venta  two-title-one"   > 89 Huespedes </span>
+                            </div>
+
+
+                            <div className="" >
+                                <div className="content-habitaciones-one">
+                                    <h4 className="title-card-one po ">12</h4>
+                                </div>
+
+                                <div className="center-title"> 
+                                    <span className="text-venta-two">Habitaciones Asear</span>
+                                </div>
+                            </div>
+                    </div> 
                 </li>
-                <li className="card-stores" >
-                    <h1 className="title-card"  >86.000.000</h1>
-                    <span>Proyecion ANO 80%</span>
-                </li>
-                
             </ul>  
         </div>
     )

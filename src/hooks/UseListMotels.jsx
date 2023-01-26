@@ -14,7 +14,7 @@ const UseListMotels =() =>{
         }).catch((e) =>{
             console.error(e)
         })
-    },[ ])
+    },[setList])
 
     return {
         iduser:list

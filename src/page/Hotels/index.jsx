@@ -17,7 +17,7 @@ const Hotels =() =>{
     const [state,setState] = useState()
 
     useEffect(() =>{
-       ServiceHotels({id:"5"}).then(index =>{
+       ServiceHotels({id:"13"}).then(index =>{
             setState(index)
        })
     },[])   

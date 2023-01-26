@@ -14,4 +14,4 @@ const DetailStoreTemplate =({id,fetchData,Store}) =>{
     )
 
 }
-export default DetailStoreTemplate
+export default DetailStoreTemplate  

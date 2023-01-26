@@ -1,0 +1,235 @@
+.flex-bedrooms-checking-modal-checkout{
+    /* margin-left: 16px; */
+    /* align-items: center; */
+    /* justify-content: center; */
+    /* margin: 0; */
+    /* display: flex; */
+    /* justify-content: space-between; */
+    display: contents;
+}
+
+.input-searching-input-checkout{
+    /* width: 382%; */
+    height: 53px;
+    /* background: #FFFFFF; */
+    /* border: 1px solid #858585; */
+    border-radius: 8px;
+    margin-top: 5px;
+    background: #EFEFEF;
+    width: 100%;
+}
+
+.container-store-checkout{
+    display: flex;
+    background: #EFEFEF;
+    width: 476px;
+    border-radius: 8px;
+    align-items: center;
+    color: #000000;
+}
+
+.container-store-checkout-three{
+    display: flex;
+    background: #EFEFEF;
+    width: 476px;
+    border-radius: 8px;
+    align-items: end;
+    color: #000000;
+}
+
+.container-store-checkout-two{
+    display: flex;
+    width: auto;
+    border-radius: 8px;
+    align-items: center;
+    color: #000000;
+    /* padding: 10px; */
+    padding: 4px;
+}
+
+.container-checkout-border{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 8px;
+}
+
+.resume-title-valor{
+     background: #EFEFEF;
+     height: 53px;
+     border-radius: 8px;
+    display: flex;
+    align-items: center;
+    margin-top: 8px;
+}
+.title-resumen{
+    padding: 10px;
+}
+
+.container-store-checkout-one{
+    display: flex;
+    width: auto;
+    border-radius: 8px;
+    align-items: center;
+    color: #000000;   
+}
+
+.border-checkout{
+    background: #EFEFEF;
+    width: auto;
+    border-radius: 8px;
+    padding: 5px;
+}
+
+.border-checkout-one{
+    background: white;
+    width: auto;
+    border-radius: 8px;
+    padding: 5px;
+}
+
+
+.total-checkout{
+    background: #EFEFEF;
+    padding: 6px;
+    width: auto;
+    border-radius: 8px;
+    width: 190px;
+}
+
+.box{
+    display: block;
+}
+.text-tarea{
+    border: solid 1px #EFEFEF;
+    border-radius: 8px;
+    background: #EFEFEF;
+    height: 140px;
+}
+
+.text-tarea-one{
+    border: solid 1px #EFEFEF;
+    border-radius: 8px;
+    width: 470px;
+    height: 209px;
+    padding: 2px;
+}
+
+.button-checkout{
+    background: #00B712;
+    display: flex;
+    justify-content: center;
+    /* height: 51px; */
+    padding: 15px;
+    border-radius: 8px;
+    color: white;
+}
+
+.dow{
+    margin-top: 9px;
+}
+
+.totalPricecheckout{
+    width: auto;
+    border-radius: 8px;
+    padding: 2px;
+}
+
+.totalPricecheckout-two{
+    width: auto;
+    border-radius: 8px;
+    padding: 2px;
+}
+
+.totalPricecheckout-two-finish{
+    width: 117px;
+    border-radius: 8px;
+    padding: 2px;
+}
+
+.total-store-checkout{
+    width: auto;
+    background: white;
+    border-radius: 8px;
+    padding: 2px;
+}
+
+.totalPricecheckout-one{
+    background: white;
+    display: flex;
+    justify-content: center;
+    padding: 40px;
+    border-radius: 8px;
+}
+
+.totalPricecheckout-two-one{
+    background: white;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.flex-checkout{
+    display: flex;
+    align-items: center;
+}
+
+.select-hotel-checkout{
+    font-family: 'Lato', sans-serif;
+    font-size: 0.875em;
+    height: 32px;
+    padding: 0px 15px 0px 15px;
+    background: white;
+    outline: none;
+    color: #726659;
+    border: solid 1px white;
+    transition: all 0.3s ease-in-out;
+    -webkit-transition: all 0.3s ease-in-out;
+    border-radius: 8px;
+    margin: auto;
+    width: 100%;
+    max-width: 531px;
+    margin-left: 10px;
+}
+
+.totalPricecheckout-one-three{
+    background: white;
+    display: grid;
+    justify-content: center;
+    padding: 23px;
+    border-radius: 8px;
+    height: auto;
+    width: 164px;
+}
+
+.one-v-total{
+    height: 108px;
+    align-items: center;
+}
+
+.container-border-checkout{
+    display: flex;
+    background: #efefef;
+    width: 50%;
+    border-radius: 8px;
+    justify-content: space-between;
+    margin: 3px;
+}
+
+
+.totalPricecheckout-one-three-fini{
+    background: white;
+    display: grid;
+    justify-content: center;
+    /* padding: 23px; */
+    border-radius: 8px;
+    height: auto;
+    width: 100px;
+}
+.container-checkout-border-one{
+    display: flex;
+    /* justify-content: space-between; */
+    align-items: center;
+    align-items: flex-start;
+}

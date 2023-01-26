@@ -9,6 +9,8 @@ import { IoMdCloseCircle } from "react-icons/io";
 import DebitCard from "../../component/DebitCard/DebitCard";
 import MenuItem from "../../component/MenuItems/MenuItems";
 import  AutoProvider  from "../../privateRoute/AutoProvider";
+import { ServiceReservas } from "../../page-resesion/Dashboard/dummy_data";
+import ServiceaInsertCart from "../../service/serviceaInsertCart";
 
 const StoreTemplate =({Store}) =>{
 
@@ -45,6 +47,13 @@ const StoreTemplate =({Store}) =>{
           id: 5,
           itemId: "Adultos",
           name: "Adultos",
+          imgSrc:
+            "https://github.com/rolandoto/image-pms/blob/main/1-05-removebg-preview.png?raw=true",
+        } ,
+        {
+          id: 6,
+          itemId: "Lenceria",
+          name: "Lencería multas",
           imgSrc:
             "https://github.com/rolandoto/image-pms/blob/main/1-05-removebg-preview.png?raw=true",
         } 
@@ -754,6 +763,7 @@ const StoreTemplate =({Store}) =>{
     const to =  carts.cart.find(index => index.ID === evt.ID)
 
     if(!to) {
+     
       return  setCarts({
           ...carts,
           cart:[...carts.cart,{...evt,quantity:1}]
@@ -761,7 +771,7 @@ const StoreTemplate =({Store}) =>{
       }
     }
 
-    const {carts,setCarts} = useContext(AutoProvider)
+    const {carts,setCarts,jwt} = useContext(AutoProvider)
 
     const [priceCart,setPriceCart] =useState()
 
@@ -791,10 +801,14 @@ const StoreTemplate =({Store}) =>{
     const [invoice,setInvoice] =useState(false)
     const [client,setClient] =useState("")
     const [identification,setIndentification] =useState("")
+    const [peopleReservation,setPeopleReservation] =useState()
+    const [peopleId,setPeopleId] =useState()
 
-    
-    
+    const handChange =(e) =>{
+      setPeopleId(e.target.value)
+    }
 
+    console.log(peopleId)
 
     const handModalInvoice =() =>{
       setOrganize(false)
@@ -802,6 +816,37 @@ const StoreTemplate =({Store}) =>{
     }
 
 
+    useEffect(() =>{
+      ServiceReservas({id:jwt.result.id_hotel}).then(index =>{
+        setPeopleReservation(index)
+      })
+    },[setPeopleReservation])
+
+    const data ={
+      ID_Reserva:peopleId,
+      Cart:carts.cart,
+      ID_Hoteles:jwt.result.id_hotel,
+    }
+    
+    const handSubmitInsertCart =() =>{
+       ServiceaInsertCart({data}).then(index =>{
+          window.location.reload()
+       }).catch(e=> {
+          console.log(e)
+       })
+    }
+
+    const {cart} = carts
+    const currenCart =[]
+
+    for(let i=0;i<cart.length;i++){
+      currenCart.push({
+          name:cart[i].Nombre,
+          price:cart[i].Precio
+        })
+    }
+
+    console.log(currenCart)
         return (    
             <div className="mainContainer">
                 <div className="rowContainer" >
@@ -830,8 +875,25 @@ const StoreTemplate =({Store}) =>{
                                         <IoMdCloseCircle   fontSize={30} color="black" />
                                     </div>
                                 <div  className="form-login">
-                                    <input type="text" className="username" placeholder="Numero habitacion"  />
-                                    <button className='button-login'>Agregar habitacion</button>
+                                      <li>
+                                                <label className="title-stores" >Asignar Habitacion</label>
+                                                <select onChange={handChange}
+                                                        value={peopleId}
+                                                        name="disponibilidad"
+                                                        className='select-hotel-type-rooms'>
+                                                    <option></option>
+                                                    {peopleReservation?.map(category =>(
+                                                        <option 
+                                                        value={category.id}   
+                                                        key={category.id}
+                                                    >
+                                                        {category.title}
+                                                    </option>
+                                                    )
+                                                    )}
+                                                </select>
+                                      </li>
+                                    <button className='button-login' onClick={handSubmitInsertCart} >asignar habitacion</button>
                                 </div> 
                             </div>
                     </div>
@@ -851,7 +913,7 @@ const StoreTemplate =({Store}) =>{
 
                     {invoice && <Invoince
                                         setInvoice={setInvoice} 
-                                        carts={carts}
+                                        carts={currenCart}
                                         priceCart={priceCart}
                                         client={client} 
                                         identification={identification}

@@ -23,8 +23,6 @@ const Login =() =>{
 
     const all=[]
 
-    console.log(raiting)
-
     const handRaiting =(e)=>{
         setRaiting(e.target.value)
     }

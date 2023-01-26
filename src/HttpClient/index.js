@@ -89,7 +89,7 @@ const GetDetailReservation=(url="") =>{
 }
 
 const GetBictacoras=(url="") =>{
-  return fetch((`https://grupohoteles.co/api/getBitacoraByIDHotel?${url}`),{
+  return fetch((`https://grupo-hoteles.com/api/getBitacoraByIDHotel?${url}`),{
     method: 'GET',
     headers: {
       Accept: 'application/json',
@@ -102,7 +102,7 @@ const GetBictacoras=(url="") =>{
 }
 
 const GetFormats=(url="") =>{
- return fetch((`https://grupohoteles.co/api/getFormatosByIDHotel?${url}`),{
+ return fetch((`https://grupo-hoteles.com/api/getFormatosByIDHotel?${url}`),{
     method:"GET",
     headers:{
       Accept:"application/json",
@@ -112,7 +112,7 @@ const GetFormats=(url="") =>{
 }
 
 const GetContact =(url="") =>{
-  return fetch((`https://grupohoteles.co/api/getNumberEmergencyByIDHotel?${url}`),{
+  return fetch((`https://grupo-hoteles.com/api/getNumberEmergencyByIDHotel?${url}`),{
     method:"GET",
     headers:{
       Accept:"application/json",

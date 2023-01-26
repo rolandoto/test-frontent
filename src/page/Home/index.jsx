@@ -1,11 +1,14 @@
-import React, { useEffect } from 'react'
+import React, { useContext, useEffect } from 'react'
 import UseTitle from '../../hooks/UseTitle';
 import { RiStoreLine } from "react-icons/ri";
 import { RiHotelLine } from "react-icons/ri";
 import { IoAnalyticsOutline } from "react-icons/io5";
 import {useHistory} from "react-router-dom"
+import  AutoProvider  from '../../privateRoute/AutoProvider';
 
 const Home =() =>{
+
+    const {jwt} =useContext(AutoProvider)
 
     const history = useHistory() 
 
@@ -14,12 +17,14 @@ const Home =() =>{
 
 
     const handNextHotels =() =>{
-        history.push("/Hotels")
+        history.push(`/DetailBedRoom/${jwt.result.id_hotel}`)
     }
 
     const handNextStores = () => {
-        history.push('/Stores');
+        history.push(`/DetailStore/${jwt.result.id_hotel}`)
     }
+
+    
  
     return (
         <div>

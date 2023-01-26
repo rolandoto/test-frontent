@@ -25,6 +25,9 @@ const Formats =() =>{
         fethData()
     },[id_hotel])
 
+
+    console.log({"entities":entities})
+
     const fillContent =() =>{
         if(progress< 100){
             return <LineProgress progress={progress} />

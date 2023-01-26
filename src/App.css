@@ -2,6 +2,16 @@
   text-align: center;
 }
 
+body{
+    font-optical-sizing: auto;
+      /* font-family: "Roboto rev=1"; */
+      font-weight: 100;
+      font-style: normal;
+      font-stretch: normal;
+      line-height: initial;
+      font-size: 16px !important;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -35,4 +45,54 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+input{
+  padding:10px;
+
+}
+
+.Button-Contrato{
+  display: flex;
+  justify-content: end;
+  list-style: none;
+}
+
+.text-contracto{
+  width: 100px;
+}
+
+.button-checking-detail-finis{
+  border: none;
+    background: #00B712;
+    padding: 20px;
+    width: 167px;
+    border-radius: 8px;
+    color: white !important;
+    height: 48px;
+    align-items: center;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+}
+.button-checking-detail-finis >a{
+  text-decoration: none;
+}
+
+.icon-taxi{
+  color: white;
+}
+
+.flex-button-contract{
+  display: flex;
+}
+
+.flex-contan-one{
+  margin-right: 4px !important;
+}
+
+.center-title{
+  display: grid;
+  height: 73px;
 }

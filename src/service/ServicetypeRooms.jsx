@@ -1,4 +1,4 @@
-const ENDPOINT ='https://grupohoteles.co/api/getTypeRoomsByIDHotel?id_hotel='
+const ENDPOINT ='https://grupo-hoteles.com/api/getTypeRoomsByIDHotel?id_hotel='
 
 const ServicetypeRooms =({id})=>{
     return fetch(`${ENDPOINT}${id}`,{

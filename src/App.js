@@ -17,7 +17,7 @@ import Booking from './page/Booking';
 import Maintenance from './page/Maintenance';
 import Store from './page/Store';
 import MinImbox from './page/MinImbox';
-import { useContext } from 'react';
+import React, { useContext,Suspense } from 'react';
 import Hotels from './page/Hotels';
 import DetailBedRoom from './page/DetailBedRoom';
 import Stores from './page/StoresListAdmin';
@@ -33,16 +33,24 @@ import DetailChecking from './page-resesion/DetailChecking';
 import Nochecking from './page-resesion/no-checking';
 import CheckingEditar from './page-resesion/CheckingEditar';
 import EditarPersonas from './page-resesion/EditarPersonas';
+import Checkingn2 from './page-resesion/Checkingn2';
+import Contracto from  './page-resesion/Contracto'
+import HotelDashboard from './page-resesion/HotelDashbord';
+import Checkout from './page-resesion/Checkout';
+import Comunicate from './page/Comunicate';
+import HeaderComunicate from './component/Header/HeaderComunicate';
+
 
 function App() {
 
     const {jwt} =useContext(AutoProvider)
 
-    const val = jwt ?jwt.result.id_departamento : 2
+    const val = jwt ?jwt.result.id_permissions : 2
 
     if(val ==1){
         return (
             <div>
+               
                 <Provider store={store} >
                             <BrowserRouter>
                                 <Header />
@@ -68,9 +76,9 @@ function App() {
                                 </BrowserRouter>
                         </Provider>
                  </div>
-    );
+            );
 }   
-if(val==14){
+else if(val==14){
     return (
         <div>
             <Provider store={store} >
@@ -96,7 +104,7 @@ if(val==14){
     );
 }
 
-if(val==2){
+else if(val==2){
     return (
         <div>
             <Provider store={store} >
@@ -123,12 +131,29 @@ if(val==2){
                                 <PrivateRoute exact path="/nochecking" component={Nochecking}  />
                                 <PrivateRoute exact path="/checkingediatar/:id" component={CheckingEditar}  />
                                 <PrivateRoute exact path="/editarpersonas/:id" component={EditarPersonas}  />
+                                <PrivateRoute exact path="/checkingin2/:id" component={Checkingn2}  />
+                                <PrivateRoute exact path="/contracto"  component={Contracto}  />
+                                <PrivateRoute exact path="/Checkout/:id"  component={Checkout}  />
                                 <Route component={NoFound} />
                             </Switch>   
                     </BrowserRouter>
             </Provider>
         </div>
         );
+}else{
+
+        return (
+            <Provider store={store} >
+                <BrowserRouter>
+                    <HeaderComunicate />
+                        <Switch>
+                            <Route exact path='/' component={Login} /> 
+                            <PrivateRoute exact path='/Home' component={Comunicate} />
+                            <Route component={NoFound} />
+                        </Switch>   
+                </BrowserRouter>
+            </Provider>
+        )
     }
 }
 export default App;

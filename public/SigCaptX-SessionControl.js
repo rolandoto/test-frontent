@@ -210,7 +210,6 @@ var wizardEventController =
 					buttonTextSource = textSource.STANDARD;
 				}
 			}
-      
       //print("Calling screen1 with button source " + buttonTextSource);
       display_1 = new screen_Display1(pad, buttonTextSource);
       if (numScreenDisplays >= 2)
@@ -221,12 +220,14 @@ var wizardEventController =
       {
         display_3 = new screen_Display3(pad, buttonTextSource);
       }
-      if (numScreenDisplays >= 3)
+
+      if (numScreenDisplays >= 4)
       {
-        display_4 = new screen_Display1(pad, buttonTextSource);
+        display_3 = new screen_Display4(pad, buttonTextSource);
+        step4();
       }
      //print("Pad type: " + pad.Type);
-      step1();
+     step1();
     }
     else
     {
@@ -234,7 +235,6 @@ var wizardEventController =
     }
   }
 }
-
 
 /* This function is called if connection with the SigCaptX service has to be re-initiated because for whatever reason it has stopped or failed */
 function actionWhenRestarted(callback) 

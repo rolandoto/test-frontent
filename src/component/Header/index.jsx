@@ -6,6 +6,8 @@ import { BsFileEarmarkCheck,BsHandbag,BsPerson,BsBell,BsPersonCircle } from "rea
 import { BiTaxi } from "react-icons/bi";
 import {Link} from "react-router-dom"
 import { RiHome2Line } from "react-icons/ri";
+import { Avatar, Grid } from "@nextui-org/react";
+
 
 const Header  =() =>{
     const {jwt} = UseUsers()
@@ -21,7 +23,7 @@ const Header  =() =>{
     if(!jwt) return null
 
     return (
-        <div className="navbar" >
+            <div className="navbar" >
             {user &&  <div className="border-ri-user" >
                         <div className="content-Modal-user" >
                             <div className="handclose-user" onClick={() => setUser(false)}>
@@ -39,10 +41,21 @@ const Header  =() =>{
                                 </div>
                             </div>
                         </div>}
-           
+          
                         <div >
                             <ul className="user-icon-header" >
-                                <li><BsPersonCircle color="black"  fontSize={25} onClick={handOpenModal} /></li>
+                                <li>
+                            <Grid.Container>
+                                <Grid onClick={handOpenModal} >
+                                <Avatar
+                                size="lg"
+                                src="https://i.pravatar.cc/150?u=a04258114e29026702d"
+                                color="success"
+                                bordered
+                                width={10}
+                                />
+                            </Grid>
+                            </Grid.Container></li>
                                 <li><h3>Hola,{jwt.result.name}</h3    ></li>
                             </ul>
                         </div>
@@ -61,14 +74,14 @@ const Header  =() =>{
                         </li>
                     </Link>
 
-                    <Link to="/store" >
+                    <Link to={`/DetailStorerecepcion/${jwt.result.id_hotel}`}  >
                         <li className="borde-icon">
                             <AiOutlineShoppingCart fontSize= {25}  /> 
                             <span className="title-icon" >Tienda</span>
                         </li>
                     </Link>
 
-                    <Link to="/Booking">
+                    <Link to="/search">
                         <li className="borde-icon">
                             <BsBell fontSize={25}  />
                             <span className="title-icon" >Reservas</span>

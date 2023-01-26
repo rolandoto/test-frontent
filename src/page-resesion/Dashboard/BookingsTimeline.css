@@ -248,3 +248,102 @@ text-decoration-line: overline;
   align-items: center;
   padding: 10px;
 }
+
+
+.App-new {
+  display: flex;
+  max-width: 500px;
+  max-height: 1100px;
+  flex-direction: column;
+  background: #fff;
+  height: auto;
+  width: 100vw;
+  overflow: auto;
+  margin: auto;
+}
+
+.image-pdf{
+  width: 106px;
+}
+
+.container-flex{
+  display: flex;
+    justify-content: space-between;
+    margin: initial;
+}
+
+.container-pdf-title{
+  font-size: 20px;
+  font-weight: 500;
+}
+
+
+.span-realizar{
+  color: #898989;
+}
+
+.container-parrafo {
+  margin-top: 10px;
+}
+
+hr.border {
+  margin-top: 40px;
+  border-top: 3px dashed grey;
+}
+
+.parrafo {
+  color: #787878;
+}
+
+
+.container-flex-entrada {
+  display: flex;
+  justify-content: space-around;
+}
+
+.one {
+  margin-top: 20px;
+}
+
+
+.two {
+  margin-top: 10px !important;
+}
+
+.codigo-reservation {
+  width: 200px;
+  height: auto;
+  margin-top: 10px;
+}
+
+.flex-comprobante {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+}
+
+.container-consulte {
+  margin-top: 10px;
+}
+.consulte {
+  color: #787878;
+}
+
+
+.flex-index-reservation{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flex-contant{
+  margin-right: 5px;
+}
+
+.flex-contan{
+  margin-right: 5px;
+}
+
+.flex-contan-one{
+  margin-right: 4px;
+}

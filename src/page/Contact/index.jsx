@@ -28,6 +28,8 @@ const Contact =() =>{
         fethData()
     },[id_hotel])
 
+    console.log(Contact)
+
     const acordionOne  = Contact.filter(index => index.servicio == 1)
     const accordionTwo  = Contact.filter(index => index.servicio == 2)
     const accordionThree  = Contact.filter(index => index.servicio == 3)

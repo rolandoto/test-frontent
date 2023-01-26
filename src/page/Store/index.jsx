@@ -26,9 +26,7 @@ const Store =() => {
 
     return (
       <div className="container-hotels" >
-          {state?.map(index =>(
-              <img className="hotel-img" src={index.logo} alt="" onClick={() => handNextBedrooms(index.id_hotel)}  />
-          ))}
+        
       </div>
     )
 

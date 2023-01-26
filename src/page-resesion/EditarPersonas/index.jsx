@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import Container from "../../Ui/Container";
 import ServicetypeRooms from "../../service/ServicetypeRooms";
 import moment from "moment";
 import ServiceUpdatePersonas from "../../service/ServiceUpdatePersonas";
 import LoadingDetail from "../../Ui/LoadingDetail";
+import  AutoProvider  from "../../privateRoute/AutoProvider";
 
 const EditarPersonas =() =>{
     const history =useHistory()
@@ -20,14 +21,28 @@ const EditarPersonas =() =>{
     const [correo,setCorreo] =useState()
     const [celular,setCelular] =useState()
     const [loading,setLoading] =useState(false)
+    const {jwt} = useContext(AutoProvider)
 
+    const resulrEditar = state?.find(index => index.huespedes ==id)
 
-    const resulrEditar = state?.find(index => index.id_persona ==id)
+    console.log({"copy":resulrEditar})
+
+    const init  =   moment(resulrEditar?.Fecha_inicio).utc().format('MM/DD/YYYY')
+    const fin = moment(resulrEditar?.Fecha_final).utc().format('MM/DD/YYYY')
+
+    var fechaInicio =  new Date(init).getTime() 
+    var fechaFin    = new Date(fin).getTime() 
+
+    var diff = fechaFin - fechaInicio  
+    
+    const day =diff/(1000*60*60*24)
 
     const docu = tipoDocumento?.find(index =>  index?.ID == resulrEditar?.ID_Tipo_documento)
 
     const resultFinish = room?.find(index=>index?.id_tipoHabitacion == state?.ID_Tipo_habitaciones)
 
+    const i = moment(resulrEditar?.Fecha_inicio).utc().format('YYYY/MM/DD')
+    const f = moment(resulrEditar?.Fecha_final).utc().format('YYYY/MM/DD')
     const n = moment(resulrEditar?.Fecha_nacimiento).utc().format('YYYY/MM/DD')
     
     useEffect(() =>{
@@ -43,7 +58,7 @@ const EditarPersonas =() =>{
     }
     
     useEffect(() =>{
-        ServicetypeRooms({id:4}).then(index =>{
+        ServicetypeRooms({id:jwt.result.id_hotel}).then(index =>{
             setRoom(index)
         })
       fetch("https://grupohoteles.co/api/getTipeDocument")
@@ -69,113 +84,150 @@ const EditarPersonas =() =>{
     })
   }
 
-    
+  const habitacion = room?.find(index=>index?.id_tipoHabitacion == resulrEditar?.ID_Tipo_habitaciones)
+
+  console.log(resulrEditar?.Nombre)
+
   if(!docu) return null
+
   
     return (
-        <Container>
-             <LoadingDetail loading={loading}  titleLoading="guardado correctame"/>
-                 <div className="init" >
-               
-                <form className="container-flex-init" >
+        <>
+            <div className="container-flex-init-global"  >
 
-                <div className="container-detail-dasboard-in" > 
-                    <span className="desde-detail-three-das" > Nombre </span>
-                    <span className="desde-detail-three-das" >Apellido </span>
-                    <span className="desde-detail-two-das" >Tipo de Documento</span>    
-                    <span  className="desde-detail-three-das">No documento</span>
-                </div>
+            <LoadingDetail loading={loading}  titleLoading="guardado correctame"/>
+            <LoadingDetail loading={true}  titleLoading="Editar personas"/>
+
+            <div className="container-detail-dasboard-in-one" >
+              <div className="border-detail" >
+                   <span>{day} noches</span>
+              </div>
+
+              <div className="border-detail" >
+                   <span>{resulrEditar?.Valor_habitacion}</span>
+              </div>
+
+              <div className="border-detail" >
+                   <span>{habitacion?.nombre}</span>
+              </div>
+
+              <div className="border-detail" >
+                   <span>{resulrEditar?.nombre_pago}</span>
+              </div>
+              <div className="border-detail" >
+                   <span>Abono {resulrEditar?.Abono} </span>
+              </div>
+          </div>
+
+            <div  className="container-flex-init-global" >
+                <div className="container-detail-dasboard-in" >
+                <input type="text" className="desde-detail" readOnly={true} defaultValue={i} />
+                <input type="text" className="desde-detail" readOnly={true} name="Fecha"  defaultValue={f}  />
+                <h2 className="cod-reserva" ><span className="title-code" >COD:</span> X14A-</h2>
+            </div>
+            </div>
+
+                        <div className="init" >
                     
-                        <div className="container-detail-dasboard-in" >
-                        <input  type="text" 
-                                className="desde-detail-three"  
-                                placeholder="Nombre" 
-                                defaultValue={resulrEditar?.nombre}
-                                onChange={(e) => setNombre(e.target.value)}
-                                />
+                            <form className="container-flex-init" >
 
-                        <input  type="text" 
-                                className="desde-detail-three" 
-                                name="Apellido"  
-                                placeholder="Apellido" 
-                                defaultValue={resulrEditar?.Apellido}
-                                onChange={(e) => setApellido(e.target.value)}
-                                 />
+                            <div className="container-detail-dasboard-in" > 
+                                <span className="desde-detail-three-das" > Nombre </span>
+                                <span className="desde-detail-three-das" >Apellido </span>
+                                <span className="desde-detail-two-das" >Tipo de Documento</span>    
+                                <span  className="desde-detail-three-das">No documento</span>
+                            </div>
+                                    <div className="container-detail-dasboard-in" >
+                                    <input  type="text" 
+                                            className="desde-detail-three"  
+                                            placeholder="Nombre" 
+                                            defaultValue={resulrEditar?.Nombre}
+                                            onChange={(e) => setNombre(e.target.value)}
+                                            />
 
-                        <input  type="text" 
-                                className="desde-detail-two" 
-                                placeholder="Tipo de documento"
-                                name="Fecha" 
-                                readOnly={true}
-                                defaultValue={docu?.nombre}
-                                
-                                   />
+                                    <input  type="text" 
+                                            className="desde-detail-three" 
+                                            name="Apellido"  
+                                            placeholder="Apellido" 
+                                            defaultValue={resulrEditar?.Apellido}
+                                            onChange={(e) => setApellido(e.target.value)}
+                                            />
 
-                        <input  type="text" 
-                                className="desde-detail-two" 
-                                name="Fecha" 
-                                placeholder="No Documento"  
-                                onChange={(e) => setDocumento(e.target.value)}
-                                defaultValue={resulrEditar?.Num_documento}
-                                 />
+                                    <input  type="text" 
+                                            className="desde-detail-two" 
+                                            placeholder="Tipo de documento"
+                                            name="Fecha" 
+                                            readOnly={true}
+                                            defaultValue={docu?.nombre}
+                                            
+                                            />
+
+                                    <input  type="text" 
+                                            className="desde-detail-two" 
+                                            name="Fecha" 
+                                            placeholder="No Documento"  
+                                            onChange={(e) => setDocumento(e.target.value)}
+                                            defaultValue={resulrEditar?.Num_documento}
+                                            />
+                                </div>
+                            </form>
+                        <form className="container-flex-init" >
+
+            
+            <div className="container-detail-dasboard-in" > 
+                <span className="desde-detail-three-das" > Fecha Nacimiento </span>
+                <span className="desde-detail-three-das" >Nacionalidad </span>
+                <span className="desde-detail-two-das" >Correo electronico</span>    
+                <span  className="desde-detail-three-das">Celular</span>
+            </div>
+
+            <div className="container-detail-dasboard-in" >
+                <input  type="text" 
+                        className="desde-detail-three" 
+                        placeholder="Fecha Nacimiento"
+                    
+                        onChange={(e) => setNacimiento(e.target.value)}
+                        defaultValue={n}
+                        />
+
+                <input  type="text" 
+                        className="desde-detail-three"
+                        name="Fecha" 
+                        placeholder="Nacionalidad"   
+                        defaultValue={resulrEditar?.nombre}
+                        readOnly={true}
+                        />
+
+                <input  type="text" 
+                        className="desde-detail-two" 
+                        name="Correo" 
+                        placeholder="Correo  electronico"  
+                        defaultValue={resulrEditar?.Correo}
+                        onChange={(e) => setCorreo(e.target.value)}
+                        />
+
+                <input  type="text" 
+                        className="desde-detail-two" 
+                        name="Celular"  
+                        placeholder="Celular"  
+                        defaultValue={resulrEditar?.Celular}
+                        onChange={(e) => setCelular(e.target.value)}
+                        />
+            </div>
+        </form>
+
+        <div className="container-flex-init-one" >
+                    
+
+                    <div>
+                        <button className="button-checking-detail-one-das-one" onClick={handClick} > <span> Guardar </span></button>
                     </div>
-                </form>
-      
-                <form className="container-flex-init" >
 
-      
-<div className="container-detail-dasboard-in" > 
-      <span className="desde-detail-three-das" > Fecha Nacimiento </span>
-      <span className="desde-detail-three-das" >Nacionalidad </span>
-      <span className="desde-detail-two-das" >Correo electronico</span>    
-      <span  className="desde-detail-three-das">Celular</span>
-  </div>
+                    </div>
+                </div>
 
-      <div className="container-detail-dasboard-in" >
-        <input  type="text" 
-                className="desde-detail-three" 
-                placeholder="Fecha Nacimiento"
-              
-                onChange={(e) => setNacimiento(e.target.value)}
-                defaultValue={n}
-                   />
-
-        <input  type="text" 
-                className="desde-detail-three"
-                name="Fecha" 
-                placeholder="Nacionalidad"   
-                defaultValue={resulrEditar?.nacionalidad}
-                readOnly={true}
-                />
-
-        <input  type="text" 
-                className="desde-detail-two" 
-                name="Correo" 
-                placeholder="Correo  electronico"  
-                defaultValue={resulrEditar?.Correo}
-                onChange={(e) => setCorreo(e.target.value)}
-                 />
-
-        <input  type="text" 
-                className="desde-detail-two" 
-                name="Celular"  
-                placeholder="Celular"  
-                defaultValue={resulrEditar?.Celular}
-                onChange={(e) => setCelular(e.target.value)}
-                />
-    </div>
-</form>
-
-<div className="container-flex-init-one" >
-              
-
-            <div>
-                <button className="button-checking-detail-one-das-one" onClick={handClick} > <span> Editar </span></button>
-            </div>
-
-            </div>
         </div>
-        </Container>
+        </>
     )
 
 }

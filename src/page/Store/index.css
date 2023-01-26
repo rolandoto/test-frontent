@@ -124,6 +124,12 @@
         
 }
 
+.icon-cantidad{
+  position: absolute;
+  top: 64px;
+  left: 262px;
+}
+
 .add-cart{
   left: 250px;
   position: absolute;

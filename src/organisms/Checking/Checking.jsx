@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { IoMdCloseCircle } from "react-icons/io";
 import { ServiceReservas } from "../../page-resesion/Dashboard/dummy_data";
 import "./style.css"
@@ -6,6 +6,7 @@ import {useHistory} from "react-router-dom"
 import { HiOutlinePlusCircle } from "react-icons/hi2";
 import Container from "../../Ui/Container";
 import LoadingDetail from "../../Ui/LoadingDetail";
+import  AutoProvider  from "../../privateRoute/AutoProvider";
 
 
 const Checking =() =>{
@@ -13,10 +14,11 @@ const Checking =() =>{
     const [search,setSearch] =useState("")
     const [reservas,SetReservas] =useState()
     const [preReservas,SetPresewrvas]=useState()
+    const {jwt} = useContext(AutoProvider)
     const history = useHistory()
 
     useEffect(() =>{
-		ServiceReservas().then(index=> {
+		ServiceReservas({id:jwt.result.id_hotel}).then(index=> {
 			SetPresewrvas(index)
             setSearch(index)
 		})
@@ -25,11 +27,14 @@ const Checking =() =>{
     const handClick =(e) =>{
         history.push(`/detailchecking/${e}`)
     }
-    
+
+    console.log(preReservas)
+
     const filtrar=(terminoBusqueda)=>{
         let resultadosBusqueda= preReservas.filter((elemento,index)=>{
             if(elemento.name.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
              ||elemento.title.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
+             ||elemento.document.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
             ){
             return elemento;
             }
@@ -48,36 +53,31 @@ const Checking =() =>{
         history.push("/nochecking")
     }
 
+    
     return  <>
 
     <Container>
-           <div className="container-checking-global"   >
+           <div className="container-checking-global">
+                            <div>
+                           
 
-        
-                            <div  >
-                            <LoadingDetail  
-                                                        loading={true}
-                                                        titleLoading={"Buscar Reserva"}  />
-                                
-                                <div className="contain" >
-                                    <div className="handclose" >
-                                    
-                                    </div>
-                                </div>
+                                <div className="contain-search">
+                    <LoadingDetail   titleLoading={"Busquedad Checking"} 
+                            loading={true}
+                            />
+                    <ul className="flex-bedrooms-search">   
+                            <li>
+                                <label className="title-stores">Busquedas de Reservas:</label>
 
-                                <ul className="flex-bedrooms-checking-modal">  
-                                
-                                            <li  >      
-                                              
-                                                <input className="input-searching"  placeholder="Buscar Reservas" name="Buscar" type="text" onChange={handChangeSearch} />
-                                            
-                                            </li>
+                                     <input className="input-stores-personality-nine-search"  placeholder="Buscar Reservas" name="Buscar" type="text" onChange={handChangeSearch} />
+                            </li>   
+                            <li>
+                                <button className="button-dasboard-thre-search-finish" onClick={handClickNextWolking} ><HiOutlinePlusCircle fontSize={30} color="white"  /> <span>Wolking</span>  </button>
+                            </li>
+                    </ul>
 
-                                            <li>
-                                                        <button className="button-wolking" onClick={handClickNextWolking} ><HiOutlinePlusCircle fontSize={30} color="white"  /> <span>Wolking</span>  </button>
-                                            </li>
-
-                                </ul>
+                    
+                </div>
 
                                 <div className="container-search-filter" >
                                 {reservas?.map((index,e) =>( 
@@ -95,11 +95,8 @@ const Checking =() =>{
                                                                 </a>
                                                             </div>   
                                                         </div>
-                                                    </li>
-
-                                                   
+                                                    </li>  
                                             </ul>
-                                  
                                     </section>
                                 ))}
                                 </div>

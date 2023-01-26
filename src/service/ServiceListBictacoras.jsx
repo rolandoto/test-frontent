@@ -14,7 +14,7 @@ const fromServiceBictacoras =apiresponse =>{
 
 export const ServiceBictacoras = ({id}) =>{
   
-   const url = `https://grupohoteles.co/api/getBitacoraByIDHotel?id_hotel=${id}`
+   const url = `https://grupo-hoteles.com/api/getBitacoraByIDHotel?id_hotel=${id}`
    return fetch(url)
       .then(res => res.json())
       .then(fromServiceBictacoras)

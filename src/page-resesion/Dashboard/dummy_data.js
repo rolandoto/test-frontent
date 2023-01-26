@@ -40,9 +40,9 @@ const fromRervas =(event)  =>{
     return to
 }
 
-export const ServiceReservas =() =>{
+export const ServiceReservas =({id}) =>{
 
-  return fetch("http://localhost:4000/api/resecion/getreservarecepcion")
+  return fetch(`http://localhost:4000/api/resecion/getreservarecepcion/${id}`)
   .then(resp  => resp.json())
   .then(data=> fromRervas(data))
 }

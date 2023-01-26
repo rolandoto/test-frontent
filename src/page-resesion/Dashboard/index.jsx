@@ -18,7 +18,7 @@ import { useSelector } from "react-redux";
 import { selectDashboard } from "../../reducers/dashboardReducers";
 import useDashboardAction from "../../action/useDashboardAction";
 import DashboardModal from "./DashboardModal";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import CardStore from "../../component/DetailStore/CardStore";
 import ServicetypeRooms from "../../service/ServicetypeRooms";
 import ModalSate from "../../organisms/Modals/State";
@@ -26,6 +26,21 @@ import ModalCleanLine from "../../organisms/Modals/Cleanline";
 import { selectDashboardChecking } from "../../reducers/dashboardCheckingReducer";
 import useDashboardCheckingAction from "../../action/useDashboardCheckingAction";
 import Checking from "./Checking";
+import { VscVerified,VscSymbolEvent ,VscSignOut,VscSearch,VscRecord} from "react-icons/vsc";
+import Skeleton from "@mui/material/Skeleton";
+import Stack from "@mui/material/Stack";
+
+const useCountRoom =({id}) =>{
+	const [count,setCount] =useState()
+
+	useEffect(() =>{
+		fetch(`http://localhost:4000/api/resecion/huespecount/${13}`)
+		.then(resp => resp.json())
+		.then(data => setCount(data.query))
+	},[setCount])
+
+	return {count}
+}
 
 const style = {
 	position: 'absolute',
@@ -40,6 +55,7 @@ const style = {
 }
 
 const Dashboard = (props) => {
+	const {id} = useParams()
 	const [open, setOpen] = useState(true);
 	const [reservation,setReservas] = useState()
 	const [state,setSate] =useState()
@@ -52,38 +68,125 @@ const Dashboard = (props) => {
 	const {dashboardVisible} = useSelector(selectDashboard)
 	const {checkingDasboardVisible} = useSelector(selectDashboardChecking)
 	const history = useHistory()
+	const {count} =useCountRoom({id:jwt.result.id_hotel})
+	const [loadingSkeleto,setLoadingSkeleto] =useState(true)
 
+	const Skele =() =>{
+		return (
+		   <Stack spacing={1} className="App-new-skeleto">
+			 <ul className="container-flex">
+			   <Skeleton
+				 variant="text"
+				 width={250}
+				 height={80}
+				 className="border-sekeleton"
+			   />
+			   <Skeleton
+				 variant="text"
+				 sx={{ fontSize: "1rem" }}
+				 width={150}
+				 height={80}
+				 className="border-sekeleton"
+			   />
+			   <Skeleton
+				 variant="text"
+				 sx={{ fontSize: "1rem" }}
+				 width={150}
+				 height={80}
+				 className="border-sekeleton"
+			   />
+			   <Skeleton
+				 variant="text"
+				 sx={{ fontSize: "1rem" }}
+				 width={150}
+				 height={80}
+				 className="border-sekeleton"
+			   />
+			   <Skeleton
+				 variant="text"
+				 sx={{ fontSize: "1rem" }}
+				 width={150}
+				 height={80}
+				 className="border-sekeleton"
+			   />
+			   <Skeleton
+				 variant="text"
+				 sx={{ fontSize: "1rem" }}
+				 width={150}
+				 height={80}
+				 className="border-sekeleton"
+			   />
+			 </ul>
+		  
+			 <ul className="container-flex">
+			 <	Skeleton variant="rectangular" width={1320} height={600} />
+			 </ul>
+		
+			 <ul className="container-flex">
+			   <Skeleton
+				 variant="text"
+				 sx={{ fontSize: "1rem" }}
+				 width={320}
+				 height={200}
+				 className="border-sekeleton"
+			   />
+			   <Skeleton
+				 variant="text"
+				 sx={{ fontSize: "1rem" }}
+				 width={300}
+				 height={200}
+				 className="border-sekeleton"
+			   />
+			   <Skeleton
+				 variant="text"
+				 sx={{ fontSize: "1rem" }}
+				 width={300}
+				 height={200}
+				 className="border-sekeleton"
+			   />
+			   <Skeleton
+				 variant="text"
+				 sx={{ fontSize: "1rem" }}
+				 width={300}
+				 height={200}
+				 className="border-sekeleton"
+			   />
+			 </ul>
+		 </Stack>
+		)
+   }
+	
 	const handleOpen = () =>{
 		setOpen(true);
 	} 
 	const handleClose = () => setOpen(false);
-	 const bookings = [
-	{
-	  id: 1,
-	  group: 3,
-	  title:`Reservas 365`,
-	  start_time: new Date(`2022-09-${8+1}`),
-	  end_time: new Date(`2022-09-${10+1}`),
-	  state:50
-	},
-	{
-	  id: 2,
-	  group: 1,
-	  title: "Reservas  3065",
-	  start_time: moment().add(-3, "day"),
-	  end_time: moment().add(1, "day"),
-	  state:3
-	},
-	{
-	  id: 3,
-	  group: 5,
-	  title: "Reservas  3065",
-	  start_time: moment().add(2, "day"),
-	  end_time: moment().add(4, "day"),
-	  state:2,
-	},
-  ];
 
+	const bookings = [
+		{
+		id: 1,
+		group: 3,
+		title:`Reservas 365`,
+		start_time: new Date(`2022-09-${8+1}`),
+		end_time: new Date(`2022-09-${10+1}`),
+		state:50
+		},
+		{
+		id: 2,
+		group: 1,
+		title: "Reservas  3065",
+		start_time: moment().add(-3, "day"),
+		end_time: moment().add(1, "day"),
+		state:3
+		},
+		{
+		id: 3,
+		group: 5,
+		title: "Reservas  3065",
+		start_time: moment().add(2, "day"),
+		end_time: moment().add(4, "day"),
+		state:2,
+		},
+	];
 
 	const handClickState =() =>{
 		setModalState(true)
@@ -120,8 +223,9 @@ const Dashboard = (props) => {
 		);
 	}
 
-	const onItemClick = (itemId, e, time, onItemSelectParentUpdate, hand) => {	
-		history.push(`/DetailDashboard/${itemId}`)
+	const onItemClick = (itemId, e, time, onItemSelectParentUpdate) => {	
+		//history.push(`/DetailDashboard/${itemId}`)
+		console.log(itemId)
 	}
 
 	const [prueba,setPrueba] =useState(false)
@@ -135,7 +239,7 @@ const Dashboard = (props) => {
 	}
 
 	const itemRenderer = ({ item, itemContext, getItemProps }) => {
-		
+		console.log(item)
 		let color 
 		if(item.state==0){
 			color = "#FFAD31"
@@ -169,7 +273,7 @@ const Dashboard = (props) => {
         left: "left",
         right: "right"
       }}>
-			{prueba && <span>{item.title}</span>}
+
       </div>
      
 				<div
@@ -229,35 +333,34 @@ const Dashboard = (props) => {
 	const [pruebareservas,setpruebareservas] =useState()
 
 	useEffect(() =>{
-        ServicetypeRooms({id:4}).then(index =>{
+        ServicetypeRooms({id:jwt.result.id_hotel}).then(index =>{
             setRoom(index)
         })
-    },[])
+    },[setRoom])
+
 
 	const [search,setSearch] =useState([])
 
 	const filtrar=(terminoBusqueda)=>{
-		let resultadosBusqueda= state.filter((elemento,index)=>{
-			if(elemento.ID_Tipo_habitaciones?.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
-			 || elemento.name?.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())){
+		let resultadosBusqueda= state?.filter((elemento,index)=>{
+			if(elemento?.ID_Tipo_habitaciones?.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
+			 || elemento?.name?.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())){
 				return elemento;
 			}
 		});
 		setSearch(resultadosBusqueda);
 		}
-
-
+		
 	const filtrarprueba=(terminoBusqueda)=>{
-		let resultadosBusqueda= reservation.filter((elemento,index)=>{
-			if(elemento.ID_Tipo_habitaciones?.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
-				|| elemento.name?.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())){
+		let resultadosBusqueda= reservation?.filter((elemento,index)=>{
+			if(elemento?.ID_Tipo_habitaciones?.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
+				|| elemento?.name?.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())){
 				return elemento;
 			}
 		});
 		setpruebareservas(resultadosBusqueda);
 		}
 		
-
 	const handRaiting =(e)=>{
 		setRaiting(e.target.value)
 		filtrar(e.target.value)
@@ -269,32 +372,41 @@ const Dashboard = (props) => {
 	}
 
 		useEffect(() =>{
-			fetch(`http://localhost:4000/api/resecion/getroomsresecion/${4}`)
+			fetch(`http://localhost:4000/api/resecion/getroomsresecion/${jwt.result.id_hotel}`)
 			.then(resp => resp.json())
 			.then(data => {
-				const roomDefinid=[]
-				for(let i =0;i<data?.query?.length;i++){	
-					for(let e =0;e<data?.query?.length;e++){
-						const to= parseInt(data?.query[i]?.ID_Tipo_habitaciones)
-						const lo =(room[e]?.id_tipoHabitacion) 
-						if(to ==lo ){
-							roomDefinid.push({
-								title:`${data.query[i].title} ${room[e].nombre} `,
-								id:data?.query[i]?.id,
-								ID_Tipo_estados:data?.query[i]?.ID_Tipo_estados,
-								ID_Tipo_habitaciones:data?.query[i]?.ID_Tipo_habitaciones
-							})
+				if(!data.ok){
+					console.log("true")
+				}else{
+					console.log(data)
+					const roomDefinid=[]
+					for(let i =0;i<data?.query?.length;i++){	
+						for(let e =0;e<data?.query?.length;e++){
+							const to= parseInt(data?.query[i]?.ID_Tipo_habitaciones)
+							const lo =(room[e]?.id_tipoHabitacion) 
+							if(to ==lo ){
+								roomDefinid.push({
+									title:`${data?.query[i]?.title} ${room[e]?.nombre} `,
+									id:data?.query[i]?.id,
+									ID_Tipo_estados:data?.query[i]?.ID_Tipo_estados,
+									ID_Tipo_habitaciones:data?.query[i]?.ID_Tipo_habitaciones
+								})
+							}else{
+								console.log("error")
+							}
 						}
 					}
+					setSate(roomDefinid)
+					setSearch(roomDefinid)
 				}
-				setSate(roomDefinid)
-				setSearch(roomDefinid)
 			})
 		},[room])
 
+
 	useEffect(() =>{
-		ServiceReservas().then(index=> {
+		ServiceReservas({id:jwt.result.id_hotel}).then(index=> {
 			setReservas(index)
+			console.log(index)
 			setpruebareservas(index)
 		})
 	},[setSearch])
@@ -309,6 +421,10 @@ const Dashboard = (props) => {
 
 	const handClickReservaction =() =>{
 		history.push("/Createreservaction")
+	}
+
+	const hanclickReservation =() =>{
+		history.push("/search")
 	}
 
 	const days = [
@@ -335,63 +451,87 @@ const Dashboard = (props) => {
 		"Diciembre"
 	];
   
-  const locale = {
-	localize: {
-	  day: (n) => days[n],
-	  month: (n) => months[n]
-	},
-	formatLong: {
-	  date: () => "mm/dd/yyyy"
+	const locale = {
+		localize: {
+		day: (n) => days[n],
+		month: (n) => months[n]
+		},
+		formatLong: {
+		date: () => "mm/dd/yyyy"
+		}
+	};
+	const handChecking =() =>{
+		history.push("/checking")
+	}	
+
+	setTimeout(() => {
+		setLoadingSkeleto(false)
+	}, 3000);
+
+
+	const handContext =(action, item, time, resizeEdge) =>{
+
+			if (time < new Date().getTime()) {
+			  var newTime = Math.ceil(new Date().getTime() / (15*60*1000)) * (15*60*1000);
+			  return newTime;
+			}
+		   
+			return time
+		
 	}
-  };
-  const handChecking =() =>{
-	history.push("/checking")
-}	
+	
+	if(loadingSkeleto) return Skele()
 	if(!pruebareservas) return null
 	if(!search)  return null
 	if(!state)  return null
 	if(!reservation)return null
 	return (
 		<>
-		<div className="container-calender">
-			<div className="container-button" >
-				<button className='button-reservas' onClick={handClickReservaction} >Crear reserva</button>
-				<button className='button-reservas-type' onClick={handChecking} >Hacer Checking</button>
-				<select onChange={handRaiting}  
-												value={raiting} 
-												className='select-hotel-dashboard' >
-												<option >Tipo de Habitacion</option>
-												<option >Todas las Habitaciones</option>
-												
-											{room?.map(category =>(
-												<option 
-												value={category.id_tipoHabitacion}   
-												key={category.ID}
-											>
-												{category.nombre}
-											</option>
-											)
-											)}
-											</select>
-				
-				<button className='button-reservas-type' onClick={handClickState}>Estados</button>
-				<input className='button-reservas-type-one' placeholder="Busquedas de Reservas" value={lookinfor}  onChange={handLookingfor}  />
-			
+			<div className="container-calender">
+				<div className="container-button" >
+					<button className='button-reservas' onClick={handClickReservaction} ><div className="flex-index-reservation" ><VscVerified fontSize={18} className="flex-contant" color="white"  /><span>Crear reserva</span></div></button>
+					<button className='button-reservas-type-one-two' onClick={handChecking} ><div className="flex-index-reservation"><VscSymbolEvent fontSize={18} className="flex-contan"  color="white" /><span> Check in</span> </div></button>
+					<button className='button-reservas-type-one-one'><div className="flex-index-reservation" ><VscSignOut className="flex-contan"  color="white" fontSize={18}  /><span>Checkout</span> </div> </button>
+					<select onChange={handRaiting}  
+													value={raiting} 
+													className='select-hotel-dashboard' >
+													<option >Ver habitaciones</option>
+													<option >Todas las Habitaciones</option>
+													
+												{room?.map(category =>(
+													<option 
+													value={category.id_tipoHabitacion}   
+													key={category.ID}
+												>
+													{category.nombre}
+												</option>
+												)
+												)}
+												</select>
+					
+					<button className='button-reservas-type' onClick={handClickState}>
+					<div className="flex-index-reservation" ><VscRecord className="flex-contan-one" color="white"  fontSize={18} /><span>Estados</span></div></button>
+					<button className='button-reservas-type-one '   onClick={hanclickReservation} >
+							<div className="flex-index-reservation">
+									<VscSearch className="flex-contan-one"  color="grey" fontSize={18} /> <span>Buscar reservas</span>
+							</div>
+							 
+					</button>	
+				</div>
 			</div>
-		 </div>
-		 <ModalSate 
-		 			modalState={modalState} 
-		 			handClickCloseState={handClickCloseState} 
-					handClikCleanline={handClikCleanline} />
+			<ModalSate 
+						modalState={modalState} 
+						handClickCloseState={handClickCloseState} 
+						handClikCleanline={handClikCleanline} />
 
-		 <ModalCleanLine 	
-		 				cleanline={cleanline} 
-		 				hanClickCloseCleanline={hanClickCloseCleanline}  />
-		 
+			<ModalCleanLine 	
+							cleanline={cleanline} 
+							hanClickCloseCleanline={hanClickCloseCleanline}  />
+			
 
-		 <Checking  
-		 			loading={checkingDasboardVisible}  
-		 			toggleCloseDashboardChecking={toggleCloseDashboardChecking}  />
+			<Checking  
+						loading={checkingDasboardVisible}  
+						toggleCloseDashboardChecking={toggleCloseDashboardChecking}  />
 			<Timeline
 				groups={search}
 				items={ pruebareservas}
@@ -402,7 +542,8 @@ const Dashboard = (props) => {
 				itemHeightRatio={0.9}                                                             
 				lineHeight={40}
 				itemRenderer={itemRenderer}
-				onItemDoubleClick={true}
+				onItemDoubleClick={false}
+				moveResizeValidator={(action, itemId, time, resizeEdge)  => handContext(action, itemId, time, resizeEdge)}
 				onItemClick={(itemId, e, time) => onItemClick(itemId, e, time)}
 				onCanvasContextMenu={(itemId, e, time) =>onItemDoubleclik()}
 				>
@@ -423,7 +564,7 @@ const Dashboard = (props) => {
 					/>
 				</TimelineHeaders>
 		</Timeline>
-		<CardStore />
+		<CardStore  countRoom={count} />
 		</>
 	);
 
