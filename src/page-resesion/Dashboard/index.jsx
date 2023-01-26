@@ -30,6 +30,8 @@ import { VscVerified,VscSymbolEvent ,VscSignOut,VscSearch,VscRecord} from "react
 import Skeleton from "@mui/material/Skeleton";
 import Stack from "@mui/material/Stack";
 import { config } from "../../config";
+import dayjs from 'dayjs';
+import 'dayjs/locale/es';
 
 const useCountRoom =({id}) =>{
 	const [count,setCount] =useState()
@@ -55,7 +57,10 @@ const style = {
 	p: 4,
 }
 
+	
 const Dashboard = (props) => {
+
+
 	const {id} = useParams()
 	const [open, setOpen] = useState(true);
 	const [reservation,setReservas] = useState()
@@ -480,6 +485,8 @@ const Dashboard = (props) => {
 			return time
 		
 	}
+
+	moment.locale('es');
 	
 	if(loadingSkeleto) return Skele()
 	if(!pruebareservas) return null
@@ -539,14 +546,17 @@ const Dashboard = (props) => {
 				defaultTimeStart={moment().startOf("day").add(-3, "day")}
 				defaultTimeEnd={moment().startOf("day").add(20, "day")}
 				maxZoom={100}
-				rightSidebarWidth={40}
+				rightSidebarWidth={100}
 				itemHeightRatio={0.9}                                                             
 				lineHeight={40}
+				sidebarWidth={300}
 				itemRenderer={itemRenderer}
 				onItemDoubleClick={false}
 				moveResizeValidator={(action, itemId, time, resizeEdge)  => handContext(action, itemId, time, resizeEdge)}
 				onItemClick={(itemId, e, time) => onItemClick(itemId, e, time)}
 				onCanvasContextMenu={(itemId, e, time) =>onItemDoubleclik()}
+				
+  				
 				>
 				<TimelineHeaders className="list-booking-sticky">
 					<SidebarHeader />

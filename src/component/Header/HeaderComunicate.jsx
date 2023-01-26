@@ -128,7 +128,7 @@ const HeaderComunicate =() =>{
                 </li>
 
                 <li className="borde-icon-taxi" onClick={handClose} >
-                        <a   className="icon-taxi">  
+                        <a className="icon-taxi">  
                         Cerrar sesión
                         </a>
                     </li>
