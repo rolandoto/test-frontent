@@ -16,7 +16,6 @@
     import { useFormik } from "formik";
     import { CiCirclePlus,CiCircleRemove } from "react-icons/ci";
     import * as Yup from "yup";
-    import Pdf from "react-to-pdf";
     import CircularProgress from '@mui/material/CircularProgress';
     import NumberFormat from "react-number-format";
     import Skeleton from "@mui/material/Skeleton";
@@ -242,7 +241,7 @@
         }
        
 
-        const PdfComprobante =({resultHuespe,findRoomOne}) =>{
+        /*const PdfComprobante =({resultHuespe,findRoomOne}) =>{
             return (
                 <div className="App-new"> 
                     <Pdf targetRef={ref} x={50} filename="code-example.pdf" >
@@ -367,7 +366,7 @@
             )
         } 
 
-    
+    */
         
         const history =useHistory()
         const {loading,toggleCloseDashboard,toggleOpenDashboardChecking} = props
@@ -871,11 +870,7 @@
         
         let totalMaximopersona = parseInt(findRoomOne?.max_persona) - totalPersonas +1
        
-        if(statePdf) {
-            return <PdfComprobante  resultHuespe={resultHuespe}
-                                    findRoomOne={findRoomOne} />
-        }
-     
+       
         const MAX_VAL = 5;
         
         const withValueCap = (inputObj) => {
