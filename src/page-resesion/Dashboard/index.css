@@ -65,13 +65,23 @@
 }
 
 .react-calendar-timeline {
-  width: 60% !important;
+  width: 124% !important;
   margin: auto;
   overflow: scroll;
   height: 68vh;
   overflow-x: hidden;
   margin-top: 9px;
+  display: flex;
+  max-width: 1480px;
+  max-height: 1100px;
+  flex-direction: column;
+  /* background: #fff; */
+  height: 100vh;
+  width: 100vw;
+  /* box-shadow: 0 0 50px rgb(0 0 0 / 40%); */
+  overflow: auto;
 }
+
 
 .list-booking-sticky{
   width: 10%;
@@ -92,14 +102,24 @@
   margin: auto;
   width: 16%;
   max-width: 531px;
-  margin-top: 17px;
+  margin-top: 22px;
   margin-right: 11px;
   padding-top: 10px;
 }
   .container-button{
-    width: 52%;
+    width: 63%; 
+    /* margin: auto; */
+    /* margin-left: 25%; */
+    display: flex;
+    max-width: 1515px;
+    max-height: 1100px;
+    /* flex-direction: column; */
+    background: #fff;
+    /* height: 100vh; */
+    width: 100vw;
+    /* box-shadow: 0 0 50px rgb(0 0 0 / 40%); */
+    overflow: auto;
     margin: auto;
-    margin-left: 25%;
 }
 
 .contain{
@@ -326,7 +346,7 @@
   text-align: center;
   justify-content: center;
   align-items: center;
-  margin-top: 29px;
+  margin-top: 21px;
   border-radius: 8px;
   border: solid rgb(192, 188, 188) 1px;
   background: white;
