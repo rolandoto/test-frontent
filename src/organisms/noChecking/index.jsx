@@ -18,6 +18,7 @@ import { CiCirclePlus,CiCircleRemove } from "react-icons/ci";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import { useHistory } from "react-router-dom";
+import { config } from "../../config";
 
 const NoCheckingOrganism =(props) =>{
 
@@ -161,10 +162,10 @@ const NoCheckingOrganism =(props) =>{
             minimumFractionDigits: 0
         })
 
-
+    
         const [disponibilidad,setDisponibilidad] =useState()
         useEffect(() =>{
-            fetch(`http://localhost:4000/api/resecion/getroomdetalle/${fecha}`)
+            fetch(`${config.serverRoute}/api/resecion/getroomdetalle/${fecha}`)
             .then(index=> index.json())
             .then(data =>setDisponibilidad(data))
         },[fecha])
@@ -242,25 +243,27 @@ const NoCheckingOrganism =(props) =>{
             .then(data => setBedroom(data))
         },[])
         useEffect(() =>{
-            fetch("http://localhost:4000/api/resecion/gettypepet")
+            
+            fetch(`${config.serverRoute}/api/resecion/gettypepet`)
             .then(res => res.json())
             .then(data  => setPet(data))
         },[])
 
         useEffect(() =>{
-            fetch("https://grupohoteles.co/api/getTipeDocument")
+            
+            fetch(`${config.serverRoute}/api/getTipeDocument`)
             .then(res => res.json())
             .then(data => setDocument(data))
         },[])    
-
+       
         useEffect(() =>{
-            fetch("http://localhost:4000/api/resecion/getcanales")
+            fetch(`${config.serverRoute}/api/resecion/getcanales`)
             .then(resp  => resp.json())
             .then(data =>setchanel(data))
         },[])
 
         useEffect(() =>{
-            fetch("http://localhost:4000/api/resecion/getcountry")
+            fetch(`${config.serverRoute}/api/resecion/getcountry`)
             .then(resp => resp.json())
             .then(data=> setCountry(data))
         },[])

@@ -18,6 +18,7 @@ const DetailDashboard =() =>{
     const fetchData =async() =>{
         await getDetailReservationById({id})
     }
+
     
     useEffect(() =>{
         fetchData()

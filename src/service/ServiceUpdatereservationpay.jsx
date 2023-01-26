@@ -1,4 +1,6 @@
-const ENDPOINT ='http://localhost:4000/api/resecion/updateDetailPagos'
+import { config } from "../config"
+
+const ENDPOINT =`${config.serverRoute}/api/resecion/updateDetailPagos`
 
 const ServiceUpdateReservationpay =({id,dataOne})=>{
     return fetch(`${ENDPOINT}/${id}`,{

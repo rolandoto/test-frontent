@@ -16,7 +16,7 @@ const CheckingEditarOrganism =({DetailDashboard,id}) =>{
   const [quyery,setQuery] =useState()
 
     useEffect(() =>{
-        fetch(`http://localhost:4000/api/resecion/getdetailchecking/${id}`)
+        fetch(`https://railway.grupo-hoteles.com/api/resecion/getdetailchecking/${id}`)
         .then(resp => resp.json())
         .then(data=> setQuery(data.query))
     },[])

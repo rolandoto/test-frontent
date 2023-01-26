@@ -1,5 +1,6 @@
 import moment from "moment";
 import { date } from "yup";
+import { config } from "../../config";
 
 const fromRervas =(event)  =>{
   
@@ -42,7 +43,7 @@ const fromRervas =(event)  =>{
 
 export const ServiceReservas =({id}) =>{
 
-  return fetch(`http://localhost:4000/api/resecion/getreservarecepcion/${id}`)
+  return fetch(`${config.serverRoute}/api/resecion/getreservarecepcion/${id}`)
   .then(resp  => resp.json())
   .then(data=> fromRervas(data))
 }

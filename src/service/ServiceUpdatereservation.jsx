@@ -1,4 +1,6 @@
-const ENDPOINT ='http://localhost:4000/api/resecion/updatereservation'
+import { config } from "../config"
+
+const ENDPOINT =`${config.serverRoute}/api/resecion/updatereservation`
 
 const ServiceUpdateReservation =({id,data})=>{
     return fetch(`${ENDPOINT}/${id}`,{

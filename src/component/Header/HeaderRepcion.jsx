@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useContext, useState } from "react"
 import UseUsers from "../../hooks/UseUser"
 import { AiOutlineSafetyCertificate ,AiOutlineShoppingCart} from "react-icons/ai";
 import { VscSymbolProperty } from "react-icons/vsc";
@@ -7,8 +7,9 @@ import { BiTaxi } from "react-icons/bi";
 import {Link} from "react-router-dom"
 import { RiHome2Line } from "react-icons/ri";
 import { Avatar, Grid } from "@nextui-org/react";
+import  AutoProvider  from "../../privateRoute/AutoProvider";
 const HeaderRecepcion  =() =>{
-    
+    const {setJwt} = useContext(AutoProvider)
     const {jwt} = UseUsers()
 
     const [user,setUser] = useState(false)
@@ -18,6 +19,11 @@ const HeaderRecepcion  =() =>{
     }
     
     const val = jwt ?jwt.result.id_departamento : 2
+
+    const handClose =() =>{
+        sessionStorage.removeItem('jwt')
+        setJwt(null)
+    }
 
     if(!jwt) return null
 
@@ -123,6 +129,12 @@ const HeaderRecepcion  =() =>{
                             Taxi
                             </a>
                         </li>
+
+                        <li className="borde-icon-taxi" onClick={handClose}>
+                        <a   className="icon-taxi">  
+                        Cerrar sesión
+                        </a>
+                    </li>
                     </ul>
                 </div>
             </div>

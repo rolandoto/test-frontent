@@ -25,6 +25,7 @@ import { CiEdit } from "react-icons/ci";
 import ServiceAddHuespedes from "../../service/ServiceAddHuespedes";
 import UseListMotels from "../../hooks/UseListMotels";
 import UsePrice from "../../hooks/UsePrice";
+import { config } from "../../config";
 
 const DetailDasboard =(props) =>{
     const {id} = useParams()
@@ -292,11 +293,12 @@ const DetailDasboard =(props) =>{
       .then(res => res.json())
       .then(data => setDocument(data))
 
-      fetch(`http://localhost:4000/api/resecion/getcartreservaction/${id}`)
+      fetch(`${config.serverRoute}/api/resecion/getcartreservaction/${id}`)
       .then(resp => resp.json())
       .then(data =>setProduct(data.query))
 
-      fetch("http://localhost:4000/api/resecion/getcountry")
+     
+      fetch(`${config.serverRoute}/api/resecion/getcountry`)
       .then(resp => resp.json())
       .then(data=> setCountry(data))
 
@@ -306,8 +308,7 @@ const DetailDasboard =(props) =>{
       fetch("https://grupohoteles.co/api/getTipeDocument")
       .then(index =>index.json())
       .then(data => setTipoDocumento(data))
-
-      fetch(`http://localhost:4000/api/resecion/getdetailchecking/${id}`)
+      fetch(`${config.serverRoute}/api/resecion/getdetailchecking/${id}`)
       .then(resp => resp.json())
       .then(data=> setQuery(data?.query))
    

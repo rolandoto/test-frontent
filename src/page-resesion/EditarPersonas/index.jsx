@@ -6,6 +6,7 @@ import moment from "moment";
 import ServiceUpdatePersonas from "../../service/ServiceUpdatePersonas";
 import LoadingDetail from "../../Ui/LoadingDetail";
 import  AutoProvider  from "../../privateRoute/AutoProvider";
+import { config } from "../../config";
 
 const EditarPersonas =() =>{
     const history =useHistory()
@@ -46,7 +47,7 @@ const EditarPersonas =() =>{
     const n = moment(resulrEditar?.Fecha_nacimiento).utc().format('YYYY/MM/DD')
     
     useEffect(() =>{
-        fetch(`http://localhost:4000/api/resecion/getdetailhuespedes/${id}`)    
+        fetch(`${config.serverRoute}/api/resecion/getdetailhuespedes/${id}`)    
         .then(index => index.json())
         .then(data  => setSatate(data.link))
     },[])

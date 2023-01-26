@@ -9,6 +9,7 @@ import "./style.css"
 import { Loading ,Grid} from "@nextui-org/react";
 import ServiceAvaiblereservation from "../../../service/ServiceAviableReception";
 import LoadingDetail from "../../../Ui/LoadingDetail";
+import { config } from "../../../config";
 
 const ModalCleanLine =({cleanline,hanClickCloseCleanline}) =>{
 
@@ -107,11 +108,11 @@ const ModalCleanLine =({cleanline,hanClickCloseCleanline}) =>{
             setLoadingReservation({error:true})
         })
     }
-
+    
 
     const [disponibilidad,setDisponibilidad] =useState()
     useEffect(() =>{
-        fetch(`http://localhost:4000/api/resecion/getroomdetalle/${change.habitaciones}`)
+        fetch(`${config.serverRoute}/api/resecion/getroomdetalle/${change.habitaciones}`)
         .then(index=> index.json())
         .then(data =>setDisponibilidad(data))
     },[change.habitaciones])

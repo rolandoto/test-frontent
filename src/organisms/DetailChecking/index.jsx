@@ -11,6 +11,7 @@ import  AutoProvider  from "../../privateRoute/AutoProvider";
 import ServiceUpdateReservationpay from "../../service/ServiceUpdatereservationpay";
 import { CiCirclePlus,CiCircleRemove } from "react-icons/ci";
 import ServiceAddHuespedes from "../../service/ServiceAddHuespedes";
+import { config } from "../../config";
 
 const DetailChekingOrganism =({id}) =>{
     const history = useHistory()
@@ -30,7 +31,7 @@ const DetailChekingOrganism =({id}) =>{
     const [country,setCountry] =useState()
     
     useEffect(() =>{
-        fetch(`http://localhost:4000/api/resecion/getdetailchecking/${id}`)
+        fetch(`${config.serverRoute}/api/resecion/getdetailchecking/${id}`)
         .then(resp => resp.json())
         .then(data=> setQuery(data.query))
     },[])
@@ -257,7 +258,8 @@ const DetailChekingOrganism =({id}) =>{
     },[]) 
     
     useEffect(() =>{
-        fetch("http://localhost:4000/api/resecion/getcountry")
+       
+        fetch( `${config.serverRoute}/api/resecion/getcountry`)
         .then(resp => resp.json())
         .then(data=> setCountry(data))
     },[])

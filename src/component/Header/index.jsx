@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useContext, useState } from "react"
 import UseUsers from "../../hooks/UseUser"
 import { AiOutlineSafetyCertificate ,AiOutlineShoppingCart} from "react-icons/ai";
 import { VscSymbolProperty } from "react-icons/vsc";
@@ -7,9 +7,10 @@ import { BiTaxi } from "react-icons/bi";
 import {Link} from "react-router-dom"
 import { RiHome2Line } from "react-icons/ri";
 import { Avatar, Grid } from "@nextui-org/react";
-
+import  AutoProvider  from "../../privateRoute/AutoProvider";
 
 const Header  =() =>{
+    const {setJwt} = useContext(AutoProvider)
     const {jwt} = UseUsers()
 
     const [user,setUser] = useState(false)
@@ -19,6 +20,12 @@ const Header  =() =>{
     }
     
     const val = jwt ?jwt.result.id_departamento : 2
+    
+    const handClose =() =>{
+        sessionStorage.removeItem('jwt')
+        setJwt(null)
+    }
+
 
     if(!jwt) return null
 
@@ -122,6 +129,11 @@ const Header  =() =>{
                         <a  href={`https://taxi.webcoopebombas.com:8087/Account/LogIn?ReturnUrl=%2F`} target="_blank" className="icon-taxi">
                             <BiTaxi color="black" fontSize={25}/>
                         Taxi
+                        </a>
+                    </li>
+                    <li className="borde-icon-taxi" onClick={handClose} >
+                        <a   className="icon-taxi">  
+                        Cerrar sesión
                         </a>
                     </li>
                   </ul>

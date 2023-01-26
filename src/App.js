@@ -47,6 +47,8 @@ function App() {
 
     const val = jwt ?jwt.result.id_permissions : 2
 
+
+
     if(val ==1){
         return (
             <div>

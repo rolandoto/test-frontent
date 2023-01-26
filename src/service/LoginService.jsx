@@ -1,4 +1,6 @@
-    const ENDPOINT ='http://localhost:4000/api/auth/login'
+import { config } from "../config"
+
+    const ENDPOINT = `${config.serverRoute}/api/auth/login`
 
     const LoginService =({username,password,hotel})=>{
         return fetch(`${ENDPOINT}`,{

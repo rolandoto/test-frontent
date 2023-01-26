@@ -6,6 +6,7 @@ import ServicetypeRooms from "../../service/ServicetypeRooms"
 import  AutoProvider  from "../../privateRoute/AutoProvider"
 import { useParams } from "react-router-dom"
 import Invoince from "../../component/Invoince"
+import { config } from "../../config"
 
 const CheckoutOrganism =({DetailDashboard}) =>{
     const {id} = useParams()
@@ -79,7 +80,7 @@ const CheckoutOrganism =({DetailDashboard}) =>{
     const resultFinish = room?.find(index=>index?.id_tipoHabitacion == resultDashboard?.ID_Tipo_habitaciones)
 
     useEffect(() =>{
-        fetch(`http://localhost:4000/api/resecion/getcartreservaction/${id}`)
+        fetch(`${config.serverRoute}/api/resecion/getcartreservaction/${id}`)
         .then(resp => resp.json())
         .then(data =>setDate(data.query)  )
     },[setDate])

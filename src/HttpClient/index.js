@@ -1,5 +1,6 @@
+import { config } from "../config"
 
-const BASE_URL = 'http://localhost:4000/api/admin/'
+const BASE_URL =`${config.serverRoute}/api/admin/`
 
 const readUrl = (url = '') =>
   url.startsWith('http://') || url.startsWith('https://')
@@ -13,7 +14,7 @@ const readUrl = (url = '') =>
       : new Error('Response is not ok')
 
   const get = (url = '', headers = {}) =>
-    fetch((`http://localhost:4000/api/admin/${url}`), {
+    fetch((`${config.serverRoute}/api/admin/${url}`), {
       method: 'GET',
       headers: {
         Accept: 'application/json',
@@ -22,7 +23,7 @@ const readUrl = (url = '') =>
     }).then(isOk)
 
   const post =({id_hotel,id_habitaciones,name_num}) =>{
-     return fetch((`http://localhost:4000/api/admin/inserintoroomsadmin`),{
+     return fetch((`${config.serverRoute}/api/admin/inserintoroomsadmin`),{
         method:"POST",
         body:JSON.stringify({id_hotel,id_habitaciones,name_num}),
         headers:{
@@ -36,7 +37,7 @@ const readUrl = (url = '') =>
   }
 
   const GetAdminStore =(url = '', headers = {}) =>{
-    return fetch((`http://localhost:4000/api/admin/${url}`), {
+    return fetch((`${config.serverRoute}/api/admin/${url}`), {
       method: 'GET',
       headers: {
         Accept: 'application/json',
@@ -46,7 +47,7 @@ const readUrl = (url = '') =>
   }
 
   const PostAdminStore =( {ID_Tipo_categoria, ID_Hoteles, Nombre, Cantidad, Precio}) =>{
-    return fetch((`http://localhost:4000/api/admin/insertintostoreadmin`),{
+    return fetch((`${config.serverRoute}/api/admin/insertintostoreadmin`),{
        method:"POST",
        body:JSON.stringify({ID_Tipo_categoria, ID_Hoteles, Nombre, Cantidad, Precio}),
        headers:{
@@ -62,7 +63,7 @@ const readUrl = (url = '') =>
  //recepcion endopoint
 
  const PostAvaible =({habitaciones,desde,hasta}) =>{
-    return fetch(("http://localhost:4000/api/resecion/validateavaible"),{
+    return fetch((`${config.serverRoute}/api/resecion/validateavaible`),{
       method:"POST",
       body:JSON.stringify({habitaciones,desde,hasta}),
       headers:{
@@ -76,7 +77,7 @@ const readUrl = (url = '') =>
  }
 
 const GetDetailReservation=(url="") =>{
-  return fetch((`http://localhost:4000/api/resecion/${url}`), {
+  return fetch((`${config.serverRoute}/api/resecion/${url}`), {
     method: 'GET',
     headers: {
       Accept: 'application/json',
@@ -89,7 +90,7 @@ const GetDetailReservation=(url="") =>{
 }
 
 const GetBictacoras=(url="") =>{
-  return fetch((`https://grupo-hoteles.com/api/getBitacoraByIDHotel?${url}`),{
+  return fetch((`${config.serverRoute}/api/getBitacoraByIDHotel?${url}`),{
     method: 'GET',
     headers: {
       Accept: 'application/json',
@@ -102,7 +103,7 @@ const GetBictacoras=(url="") =>{
 }
 
 const GetFormats=(url="") =>{
- return fetch((`https://grupo-hoteles.com/api/getFormatosByIDHotel?${url}`),{
+ return fetch((`${config.serverRoute}/api/getFormatosByIDHotel?${url}`),{
     method:"GET",
     headers:{
       Accept:"application/json",
@@ -112,7 +113,7 @@ const GetFormats=(url="") =>{
 }
 
 const GetContact =(url="") =>{
-  return fetch((`https://grupo-hoteles.com/api/getNumberEmergencyByIDHotel?${url}`),{
+  return fetch((`${config.serverRoute}/api/getNumberEmergencyByIDHotel?${url}`),{
     method:"GET",
     headers:{
       Accept:"application/json",

@@ -1,4 +1,7 @@
-const ENDPOINT ='http://localhost:4000/api/resecion/insertcartreservation'
+import { config } from "../config"
+
+const ENDPOINT =`${config.serverRoute}/api/resecion/insertcartreservation`
+
 
 const ServiceaInsertCart =({data})=>{
     return fetch(`${ENDPOINT}/`,{

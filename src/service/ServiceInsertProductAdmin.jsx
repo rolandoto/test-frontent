@@ -1,4 +1,6 @@
-const ENDPOINT = 'http://localhost:4000/api/admin/insertintostoreadmin';
+import { config } from "../config";
+
+const ENDPOINT =`${config.serverRoute}/api/admin/insertintostoreadmin`
 
 const ServiceInsertProductAdmin = ({ ID_Tipo_categoria, ID_Hoteles, Nombre, Cantidad, Precio }) => {
 

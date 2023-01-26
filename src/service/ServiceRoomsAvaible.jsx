@@ -1,4 +1,6 @@
-const ENDPOINT ='http://localhost:4000/api/resecion/roomsavaible'
+import { config } from "../config"
+
+const ENDPOINT =`${config.serverRoute}/api/resecion/roomsavaible`
 
     const ServiceRoomsAviable =({desde,hasta,habitaciones,ID_Habitaciones})=>{
         return fetch(`${ENDPOINT}`,{

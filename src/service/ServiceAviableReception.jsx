@@ -1,4 +1,6 @@
-const ENDPOINT ='http://localhost:4000/api/resecion/validateavaible'
+import { config } from "../config"
+
+const ENDPOINT =`${config.serverRoute}/api/resecion/validateavaible`
 
     const ServiceAvaiblereservation =({desde,hasta,habitaciones,disponibilidad,id_estados_habitaciones,ID_Canal,Adultos,Ninos,ID_Talla_mascota,Infantes,Noches,Nombre,huespe,Observacion,valor,ID_Tipo_Forma_pago,abono,valor_habitacion,Tipo_persona})=>{
         return fetch(`${ENDPOINT}`,{

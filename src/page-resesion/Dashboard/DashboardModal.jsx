@@ -21,6 +21,7 @@
     import Skeleton from "@mui/material/Skeleton";
     import Stack from "@mui/material/Stack";
     import UseListMotels from "../../hooks/UseListMotels";
+import { config } from "../../config";
 
     const ref = React.createRef();
 
@@ -485,8 +486,9 @@
         })
 
         const [disponibilidad,setDisponibilidad] =useState()
+       
         useEffect(() =>{
-            fetch(`http://localhost:4000/api/resecion/getroomdetalle/${fecha}`)
+            fetch(`${config.serverRoute}/api/resecion/getroomdetalle/${fecha}`)
             .then(index=> index.json())
             .then(data =>setDisponibilidad(data))
         },[fecha])
@@ -556,11 +558,12 @@
         })
 
         useEffect(() =>{
-            fetch("http://localhost:4000/api/resecion/getcanales")
+         
+            fetch(`${config.serverRoute}/api/resecion/getcanales`)
             .then(resp  => resp.json())
             .then(data =>setchanel(data))
-
-            fetch("http://localhost:4000/api/resecion/getcountry")
+           
+            fetch(`${config.serverRoute}/api/resecion/getcountry`)
             .then(resp => resp.json())
             .then(data=> setCountry(data))
 
@@ -568,7 +571,8 @@
             .then(res => res.json())
             .then(data => setDocument(data))
 
-            fetch("http://localhost:4000/api/resecion/gettypepet")
+           
+            fetch(`${config.serverRoute}/api/resecion/gettypepet`)
             .then(res => res.json())
             .then(data  => setPet(data))
 

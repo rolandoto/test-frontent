@@ -1,3 +1,5 @@
+import { config } from "../config"
+
 const fromServiceReservas =apiresponse =>{
 
     const {link} = apiresponse.reservas.data.result 
@@ -6,7 +8,8 @@ const fromServiceReservas =apiresponse =>{
 
 export const ServiceReservas = ({id}) =>{
 
-   const url = `http://localhost:4000/api/reservas/${id}`
+   const url = `${config.serverRoute}/api/reservas/${id}`
+   
    return fetch(url)
       .then(res => res.json())
       .then(fromServiceReservas)

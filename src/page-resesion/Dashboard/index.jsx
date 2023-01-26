@@ -29,12 +29,13 @@ import Checking from "./Checking";
 import { VscVerified,VscSymbolEvent ,VscSignOut,VscSearch,VscRecord} from "react-icons/vsc";
 import Skeleton from "@mui/material/Skeleton";
 import Stack from "@mui/material/Stack";
+import { config } from "../../config";
 
 const useCountRoom =({id}) =>{
 	const [count,setCount] =useState()
 
 	useEffect(() =>{
-		fetch(`http://localhost:4000/api/resecion/huespecount/${13}`)
+		fetch(`${config.serverRoute}/api/resecion/huespecount/${13}`)
 		.then(resp => resp.json())
 		.then(data => setCount(data.query))
 	},[setCount])
@@ -372,7 +373,7 @@ const Dashboard = (props) => {
 	}
 
 		useEffect(() =>{
-			fetch(`http://localhost:4000/api/resecion/getroomsresecion/${jwt.result.id_hotel}`)
+			fetch(`${config.serverRoute}/api/resecion/getroomsresecion/${jwt.result.id_hotel}`)
 			.then(resp => resp.json())
 			.then(data => {
 				if(!data.ok){

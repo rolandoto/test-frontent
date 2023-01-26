@@ -1,4 +1,6 @@
-const ENDPOINT ='http://localhost:4000/api/resecion/handaddhuespe'
+import { config } from "../config"
+
+const ENDPOINT =`${config.serverRoute}/api/resecion/handaddhuespe`
 
 const ServiceAddHuespedes =({id,huespe,data,dataPay})=>{
     return fetch(`${ENDPOINT}/${id}`,{

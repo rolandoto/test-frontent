@@ -1,4 +1,6 @@
-const ENDPOINT ='http://localhost:4000/api/admin/getcategoryadmin'
+import { config } from "../config";
+
+const ENDPOINT =`${config.serverRoute}/api/admin/getcategoryadmin`
 
 const ServiceTypeCategorys = () => {
     return fetch(`${ENDPOINT}`,{
