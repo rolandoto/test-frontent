@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import moment from "moment";
-import "moment/locale/sl";
+import "moment/locale/es";
 import Timeline, {
   TimelineHeaders,
   SidebarHeader,
@@ -30,8 +30,7 @@ import { VscVerified,VscSymbolEvent ,VscSignOut,VscSearch,VscRecord} from "react
 import Skeleton from "@mui/material/Skeleton";
 import Stack from "@mui/material/Stack";
 import { config } from "../../config";
-import dayjs from 'dayjs';
-import 'dayjs/locale/es';
+import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
 
 const useCountRoom =({id}) =>{
 	const [count,setCount] =useState()
@@ -90,71 +89,70 @@ const Dashboard = (props) => {
 			   <Skeleton
 				 variant="text"
 				 sx={{ fontSize: "1rem" }}
-				 width={150}
+				 width={250}
 				 height={80}
 				 className="border-sekeleton"
 			   />
 			   <Skeleton
 				 variant="text"
 				 sx={{ fontSize: "1rem" }}
-				 width={150}
+				 width={250}
 				 height={80}
 				 className="border-sekeleton"
 			   />
 			   <Skeleton
 				 variant="text"
 				 sx={{ fontSize: "1rem" }}
-				 width={150}
+				 width={200}
 				 height={80}
 				 className="border-sekeleton"
 			   />
 			   <Skeleton
 				 variant="text"
 				 sx={{ fontSize: "1rem" }}
-				 width={150}
+				 width={250}
 				 height={80}
 				 className="border-sekeleton"
 			   />
 			   <Skeleton
 				 variant="text"
 				 sx={{ fontSize: "1rem" }}
-				 width={150}
+				 width={250}
 				 height={80}
 				 className="border-sekeleton"
 			   />
 			 </ul>
 		  
 			 <ul className="container-flex">
-			 <	Skeleton variant="rectangular" width={1320} height={600} />
+			 <Skeleton variant="rectangular" width={1494} height={600} />
 			 </ul>
-		
 			 <ul className="container-flex">
 			   <Skeleton
 				 variant="text"
 				 sx={{ fontSize: "1rem" }}
-				 width={320}
-				 height={200}
+				 width={365}
+				 height={210}
 				 className="border-sekeleton"
 			   />
 			   <Skeleton
 				 variant="text"
 				 sx={{ fontSize: "1rem" }}
-				 width={300}
-				 height={200}
+				 width={365}
+				 height={210}
 				 className="border-sekeleton"
 			   />
 			   <Skeleton
 				 variant="text"
 				 sx={{ fontSize: "1rem" }}
-				 width={300}
-				 height={200}
+				 width={365}
+				 height={210}
 				 className="border-sekeleton"
 			   />
 			   <Skeleton
 				 variant="text"
 				 sx={{ fontSize: "1rem" }}
-				 width={300}
-				 height={200}
+				 width={365}
+				 height={210}
 				 className="border-sekeleton"
 			   />
 			 </ul>
@@ -212,7 +210,7 @@ const Dashboard = (props) => {
 	}
   
 	const { onCanvasClickParentUpdate } = props;
-    const currentDate = moment();
+    const currentDate = moment().locale("es")
 
 	const isWeekendDay = (intervalContext, data) => {
 		if (data.isMonth) {
@@ -230,8 +228,7 @@ const Dashboard = (props) => {
 	}
 
 	const onItemClick = (itemId, e, time, onItemSelectParentUpdate) => {	
-		//history.push(`/DetailDashboard/${itemId}`)
-		console.log(itemId)
+		history.push(`/DetailDashboard/${itemId}`)
 	}
 
 	const [prueba,setPrueba] =useState(false)
@@ -377,37 +374,36 @@ const Dashboard = (props) => {
 		filtrarprueba(e.target.value)
 	}
 
-		useEffect(() =>{
-			fetch(`${config.serverRoute}/api/resecion/getroomsresecion/${jwt.result.id_hotel}`)
-			.then(resp => resp.json())
-			.then(data => {
-				if(!data.ok){
-					console.log("true")
-				}else{
-					console.log(data)
-					const roomDefinid=[]
-					for(let i =0;i<data?.query?.length;i++){	
-						for(let e =0;e<data?.query?.length;e++){
-							const to= parseInt(data?.query[i]?.ID_Tipo_habitaciones)
-							const lo =(room[e]?.id_tipoHabitacion) 
-							if(to ==lo ){
-								roomDefinid.push({
-									title:`${data?.query[i]?.title} ${room[e]?.nombre} `,
-									id:data?.query[i]?.id,
-									ID_Tipo_estados:data?.query[i]?.ID_Tipo_estados,
-									ID_Tipo_habitaciones:data?.query[i]?.ID_Tipo_habitaciones
-								})
-							}else{
-								console.log("error")
-							}
+	useEffect(() =>{
+		fetch(`${config.serverRoute}/api/resecion/getroomsresecion/${jwt.result.id_hotel}`)
+		.then(resp => resp.json())
+		.then(data => {
+			if(!data.ok){
+				console.log("true")
+			}else{
+				console.log(data)
+				const roomDefinid=[]
+				for(let i =0;i<data?.query?.length;i++){	
+					for(let e =0;e<data?.query?.length;e++){
+						const to= parseInt(data?.query[i]?.ID_Tipo_habitaciones)
+						const lo =(room[e]?.id_tipoHabitacion) 
+						if(to ==lo ){
+							roomDefinid.push({
+								title:`${data?.query[i]?.title} ${room[e]?.nombre} `,
+								id:data?.query[i]?.id,
+								ID_Tipo_estados:data?.query[i]?.ID_Tipo_estados,
+								ID_Tipo_habitaciones:data?.query[i]?.ID_Tipo_habitaciones
+							})
+						}else{
+							console.log("error")
 						}
 					}
-					setSate(roomDefinid)
-					setSearch(roomDefinid)
 				}
-			})
-		},[room])
-
+				setSate(roomDefinid)
+				setSearch(roomDefinid)
+			}
+		})
+	},[room])
 
 	useEffect(() =>{
 		ServiceReservas({id:jwt.result.id_hotel}).then(index=> {
@@ -470,10 +466,9 @@ const Dashboard = (props) => {
 		history.push("/checking")
 	}	
 
-	setTimeout(() => {
+	setTimeout(() =>{
 		setLoadingSkeleto(false)
-	}, 3000);
-
+	},3000)
 
 	const handContext =(action, item, time, resizeEdge) =>{
 
@@ -486,8 +481,6 @@ const Dashboard = (props) => {
 		
 	}
 
-	moment.locale('es');
-	
 	if(loadingSkeleto) return Skele()
 	if(!pruebareservas) return null
 	if(!search)  return null
@@ -500,9 +493,11 @@ const Dashboard = (props) => {
 					<button className='button-reservas' onClick={handClickReservaction} ><div className="flex-index-reservation" ><VscVerified fontSize={18} className="flex-contant" color="white"  /><span>Crear reserva</span></div></button>
 					<button className='button-reservas-type-one-two' onClick={handChecking} ><div className="flex-index-reservation"><VscSymbolEvent fontSize={18} className="flex-contan"  color="white" /><span> Check in</span> </div></button>
 					<button className='button-reservas-type-one-one'><div className="flex-index-reservation" ><VscSignOut className="flex-contan"  color="white" fontSize={18}  /><span>Checkout</span> </div> </button>
+					<button className='button-reservas-type' onClick={handClickState}>
+					<div className="flex-index-reservation" ><VscRecord className="flex-contan-one" color="white"  fontSize={18} /><span>Estados</span></div></button>
 					<select onChange={handRaiting}  
 													value={raiting} 
-													className='select-hotel-dashboard' >
+													className='button-reservas-type-one button-reservas-type-space ' >
 													<option >Ver habitaciones</option>
 													<option >Todas las Habitaciones</option>
 													
@@ -517,11 +512,10 @@ const Dashboard = (props) => {
 												)}
 												</select>
 					
-					<button className='button-reservas-type' onClick={handClickState}>
-					<div className="flex-index-reservation" ><VscRecord className="flex-contan-one" color="white"  fontSize={18} /><span>Estados</span></div></button>
+					
 					<button className='button-reservas-type-one '   onClick={hanclickReservation} >
-							<div className="flex-index-reservation">
-									<VscSearch className="flex-contan-one"  color="grey" fontSize={18} /> <span>Buscar reservas</span>
+							<div className="flex-index-reservation-one">
+									<VscSearch className="flex-contan-one"  color="grey" fontSize={18} /> <span >Buscar reservas</span>
 							</div>
 							 
 					</button>	
@@ -535,43 +529,36 @@ const Dashboard = (props) => {
 			<ModalCleanLine 	
 							cleanline={cleanline} 
 							hanClickCloseCleanline={hanClickCloseCleanline}  />
-			
-
 			<Checking  
 						loading={checkingDasboardVisible}  
 						toggleCloseDashboardChecking={toggleCloseDashboardChecking}  />
 			<Timeline
 				groups={search}
 				items={ pruebareservas}
-				defaultTimeStart={moment().startOf("day").add(-3, "day")}
-				defaultTimeEnd={moment().startOf("day").add(20, "day")}
+				defaultTimeStart={moment().startOf("day").add(-8, "day")}
+				defaultTimeEnd={moment().startOf("day").add(10, "day")}
 				maxZoom={100}
 				rightSidebarWidth={100}
 				itemHeightRatio={0.9}                                                             
-				lineHeight={40}
-				sidebarWidth={300}
+				lineHeight={45}
+				sidebarWidth={155}
 				itemRenderer={itemRenderer}
 				onItemDoubleClick={false}
 				moveResizeValidator={(action, itemId, time, resizeEdge)  => handContext(action, itemId, time, resizeEdge)}
 				onItemClick={(itemId, e, time) => onItemClick(itemId, e, time)}
-				onCanvasContextMenu={(itemId, e, time) =>onItemDoubleclik()}
-				
-  				
-				>
+				onCanvasContextMenu={(itemId, e, time) =>onItemDoubleclik()}>
 				<TimelineHeaders className="list-booking-sticky">
 					<SidebarHeader />
 					<DateHeader
-						 locale={locale}
 						unit="month"
 						labelFormat="MMMM"
-						headerData={{ isMonth: false }}
+						headerData={{ isMonth: false}}
 						intervalRenderer={intervalRenderer}
 					/>
 					<DateHeader
 						unit="day"
-						locale={locale}
 						labelFormat="D"
-						headerData={{ isMonth: true, currentDate }}
+						headerData={{ isMonth: false, currentDate, }}
 					/>
 				</TimelineHeaders>
 		</Timeline>

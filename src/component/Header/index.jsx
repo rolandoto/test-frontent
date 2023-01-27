@@ -8,6 +8,7 @@ import {Link} from "react-router-dom"
 import { RiHome2Line } from "react-icons/ri";
 import { Avatar, Grid } from "@nextui-org/react";
 import  AutoProvider  from "../../privateRoute/AutoProvider";
+import { RiLogoutBoxLine } from "react-icons/ri";
 
 const Header  =() =>{
     const {setJwt} = useContext(AutoProvider)
@@ -55,12 +56,12 @@ const Header  =() =>{
                             <Grid.Container>
                                 <Grid onClick={handOpenModal} >
                                 <Avatar
-                                size="lg"
-                                src="https://i.pravatar.cc/150?u=a04258114e29026702d"
-                                color="success"
-                                bordered
-                                width={10}
-                                />
+                                    size="lg"
+                                    src={jwt.result.photo}
+                                    color="success"
+                                    bordered
+                                    width={10}
+                                    />
                             </Grid>
                             </Grid.Container></li>
                                 <li><h3>Hola,{jwt.result.name}</h3    ></li>
@@ -122,7 +123,7 @@ const Header  =() =>{
                     <Link to="/imbox" >
                     <li className="borde-icon">
                         <BsPerson color="black" fontSize={25}/>
-                        <span className="title-icon" >caja menor</span> 
+                        <span className="title-icon" >Caja menor</span> 
                     </li>
                     </Link>
                     <li className="borde-icon-taxi">
@@ -131,10 +132,10 @@ const Header  =() =>{
                         Taxi
                         </a>
                     </li>
-                    <li className="borde-icon-taxi" onClick={handClose} >
-                        <a   className="icon-taxi">  
-                        Cerrar sesión
-                        </a>
+                    <li className="borde-icon-logout" onClick={handClose}>
+                            <a   className="icon-taxi">  
+                            <RiLogoutBoxLine fontSize={25} color="white"  />
+                            </a>
                     </li>
                   </ul>
               </div>

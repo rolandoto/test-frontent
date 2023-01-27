@@ -8,6 +8,7 @@ import {Link} from "react-router-dom"
 import { RiHome2Line } from "react-icons/ri";
 import { Avatar, Grid } from "@nextui-org/react";
 import  AutoProvider  from "../../privateRoute/AutoProvider";
+import { RiLogoutBoxLine } from "react-icons/ri";
 
 const HeaderComunicate =() =>{
     const {setJwt} = useContext(AutoProvider)
@@ -50,12 +51,12 @@ const HeaderComunicate =() =>{
                         <Grid.Container>
                             <Grid onClick={handOpenModal} >
                             <Avatar
-                            size="lg"
-                            src="https://i.pravatar.cc/150?u=a04258114e29026702d"
-                            color="success"
-                            bordered
-                            width={10}
-                            />
+                                    size="lg"
+                                    src={jwt.result.photo}
+                                    color="success"
+                                    bordered
+                                    width={10}
+                                    />
                         </Grid>
                         </Grid.Container></li>
                             <li><h3>Hola,{jwt.result.name}</h3></li>
@@ -117,20 +118,20 @@ const HeaderComunicate =() =>{
                 <Link to="" >
                 <li className="borde-icon">
                     <BsPerson color="black" fontSize={25}/>
-                    <span className="title-icon" >caja menor</span> 
+                    <span className="title-icon" >Caja menor</span> 
                 </li>
                 </Link>
                 <li className="borde-icon-taxi">
-                    <a  href={`https://taxi.webcoopebombas.com:8087/Account/LogIn?ReturnUrl=%2F`} target="_blank" className="icon-taxi">
+                    <a  href={`https://grupo-hoteles.com/storage/app/dataHotel/personal/1095850873-1048017721-foto-perfil-WhatsApp Image 2021-10-13 at 9.01.08 AM.jpeg`} target="_blank" className="icon-taxi">
                         <BiTaxi color="black" fontSize={25}/>
                     Taxi
                     </a>
                 </li>
 
-                <li className="borde-icon-taxi" onClick={handClose} >
-                        <a className="icon-taxi">  
-                        Cerrar sesión
-                        </a>
+                <li className="borde-icon-logout" onClick={handClose}>
+                            <a   className="icon-taxi">  
+                            <RiLogoutBoxLine fontSize={25} color="white"  />
+                            </a>
                     </li>
               </ul>
           </div>

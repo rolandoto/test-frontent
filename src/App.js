@@ -80,7 +80,7 @@ function App() {
                  </div>
             );
 }   
-else if(val==14){
+else if(val==7){
     return (
         <div>
             <Provider store={store} >
@@ -88,16 +88,28 @@ else if(val==14){
                         <Header />
                             <Switch>
                                 <Route exact path='/' component={Login} /> 
+                                <PrivateRoute exact path='/Home' component={Dashboard} />
+                                <PrivateRoute exact path="/DetailDashboard/:id" component={DetailDashboard} />  
+                                <PrivateRoute exact path="/store" component={Store}/>
+                                <PrivateRoute exact path="/DetailStoreRecepcion/:id" component={DetailStoreRecepcion} />
+                                <PrivateRoute  exact path="Booking"       />
                                 <PrivateRoute exact path="/Detail/:id" component={DetailCheckin} />
                                 <PrivateRoute exact path="/Bictacoras"  component={Bictacoras}  />
                                 <PrivateRoute exact path="/Formatos" component={Formats}/>
                                 <PrivateRoute exact path="/Contact" component={Contact}/>
                                 <PrivateRoute exact path="/Forgetfulnes" component={Forgetfulnes}/>
-                                <PrivateRoute exact path="/Booking" component={Booking}/>
                                 <PrivateRoute exact path="/mantenimiento" component={Maintenance}/>
-                                <PrivateRoute exact path="/store" component={Store}/>
-                                <PrivateRoute exact path="/DetailStorerecepcion/:id" component={DetailStoreRecepcion} />
                                 <PrivateRoute exact path="/imbox" component={MinImbox}/>
+                                <PrivateRoute exact path="/search" component={Search}  />
+                                <PrivateRoute exact path="/checking" component={Checking}  />
+                                <PrivateRoute exact path="/Createreservaction" component={CreateReservaction}  />
+                                <PrivateRoute exact path="/detailchecking/:id" component={DetailChecking}  />
+                                <PrivateRoute exact path="/nochecking" component={Nochecking}  />
+                                <PrivateRoute exact path="/checkingediatar/:id" component={CheckingEditar}  />
+                                <PrivateRoute exact path="/editarpersonas/:id" component={EditarPersonas}  />
+                                <PrivateRoute exact path="/checkingin2/:id" component={Checkingn2}  />
+                                <PrivateRoute exact path="/contracto"  component={Contracto}  />
+                                <PrivateRoute exact path="/Checkout/:id"  component={Checkout}  />
                                 <Route component={NoFound} />
                             </Switch>   
                         </BrowserRouter>

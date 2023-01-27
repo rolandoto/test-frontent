@@ -336,6 +336,12 @@ hr.border {
   justify-content: center;
 }
 
+.flex-index-reservation-one{
+  display: flex;
+  align-items: center;
+  justify-content: initial;
+}
+
 .flex-contant{
   margin-right: 5px;
 }
