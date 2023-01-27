@@ -87,9 +87,10 @@
 
   .container-button-dasboard{
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
     margin-top: -4px;
-   /* width: 721px;*/
+    width: 721px;
+    margin: auto;
   }
 
   .container-button-dasboard-one{
@@ -248,7 +249,6 @@ text-decoration-line: overline;
   align-items: center;
   padding: 10px;
 }
-
 
 .App-new {
   display: flex;

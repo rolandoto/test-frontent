@@ -65,8 +65,6 @@ const CheckoutOrganism =({DetailDashboard}) =>{
         } 
       ];
 
-
-
     const init  =   moment(resultDashboard?.Fecha_inicio).utc().format('MM/DD/YYYY')
     const fin = moment(resultDashboard?.Fecha_final).utc().format('MM/DD/YYYY')
 
@@ -107,7 +105,6 @@ const CheckoutOrganism =({DetailDashboard}) =>{
     const priceSnacks = Snacks?.reduce((acum,current) => {
         return acum  + current.Cantidad * current.Precio
     },0)
-
 
     const totalSouvenir = Souvenir?.reduce((acum,current) => {
         return acum  + current.Cantidad
@@ -375,9 +372,9 @@ const CheckoutOrganism =({DetailDashboard}) =>{
             name:data[i].Nombre_producto,
             price:data[i].Precio
         })
-    }
+    }   
 
-    
+
     const handCloseInvoince =() =>{
         setInvoice(false)
     }
@@ -809,7 +806,6 @@ const CheckoutOrganism =({DetailDashboard}) =>{
                                 
                         </div>
                 </div>
-            
             <div className="container-checkout-border-one" >
             <div className="container-store-checkout-one box" >
                     <div className="container-checkbox " >
@@ -848,13 +844,11 @@ const CheckoutOrganism =({DetailDashboard}) =>{
                             type="checkbox" 
                             className={`checkbox-round`}
                         /> Retencion de iva
-                        
                     </div>
-
             </div>
 
             <div className="button-checkout" >
-                <button>imprimir factura</button>
+                <button>Enviar factura</button>
             </div>
 
         </div>

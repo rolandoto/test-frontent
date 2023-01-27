@@ -97,18 +97,7 @@ const ModalCleanLine =({cleanline,hanClickCloseCleanline}) =>{
         })
     }
 
-    const handClickReservation =() =>{
-        setLoadingReservation({loading:true})
-        ServiceAvaiblereservation({desde:dataAvaible.desde,hasta:dataAvaible.hasta,habitaciones:dataAvaible.habitaciones,disponibilidad:dataAvaible.disponibilidad,id_estados_habitaciones:1,ID_Canal:change.canal_reserva,Adultos:change.adultos,Ninos:change.niños,ID_Talla_mascota:0,Infantes:change.infantes,Noches:0,huespe,Observacion:0,valor:0,ID_Tipo_Forma_pago:change.ID_Tipo_Forma_pago,abono:0,valor_habitacion:0,Tipo_persona:0,huespe}).then(index =>{
-            setLoadingReservation({loading:false})
-            window.location.reload();
-            console.log(index)
-        }).catch(e =>{
-            console.log(e)
-            setLoadingReservation({error:true})
-        })
-    }
-    
+   
 
     const [disponibilidad,setDisponibilidad] =useState()
     useEffect(() =>{
@@ -198,15 +187,13 @@ const ModalCleanLine =({cleanline,hanClickCloseCleanline}) =>{
                                                         name="habitaciones" 
                                                         change={handleInputChange}
                                                          />
-                                            </ul>
-                            
-
+                                                        
                             <ul className="flex-bedrooms">
                                 <li>
                                     <label className="title-stores" >Asignar Habitacion</label>
                                     <select onChange={handleInputChange}  
                                             name="disponibilidad"
-                                            className='select-hotel-type-rooms'>
+                                            className='select-hotel-type-one'>
                                         <option></option>
                                         {disponibilidad?.query?.map(category =>(
                                             <option 
@@ -220,24 +207,15 @@ const ModalCleanLine =({cleanline,hanClickCloseCleanline}) =>{
                                     </select>
                                 </li>     
                             </ul>
-
-
+                        </ul>
+                        
                             <ul className="container-button-dasboard" >
                                 <li>
                                     <button className="button-CleanLine"  onClick={handClick}  >
-                                       Validar
+                                       Bloquear Habitacion
                                     </button>
                                 </li> 
                             </ul> 
-                          
-                            {loadinghabilitada.loading&&<ul className="container-button-dasboard" >
-                                <li>
-                                    <button className="button-CleanLine"  onClick={handClickReservation}  >
-                                        Bloquear habitacion
-                                    </button>
-                                </li> 
-                            </ul> 
-                            }
                     </div>
                 </div>
             </div>

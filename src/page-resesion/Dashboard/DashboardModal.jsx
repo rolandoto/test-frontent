@@ -407,6 +407,7 @@ import { config } from "../../config";
         const [fechaTwo,setFechaTwo] =useState()
         const [asignar,setAsignar] =useState()
         const [loadingSkeleto,setLoadingSkeleto] =useState(true)
+        const [decuento,setDescuento] =useState(0)
 
         const handAsignar =(event)  =>{
             setTo(false)
@@ -683,7 +684,7 @@ import { config } from "../../config";
 
         const valor_habiatcion =  PriceDay *countSeguro + count  + resultValuePersona
 
-        const global  = formatter.format(totalResultglobal)
+        const global  = formatter.format(totalResultglobal -decuento)
 
         const value_habitacion = formatter.format(valor_habiatcion)
 
@@ -1114,7 +1115,7 @@ import { config } from "../../config";
                                                         
                                                             <li>
                                                                 <label className="title-stores">No Documento</label>
-                                                                <input className="input-stores-personality-finish" required name="Num_documento" type="text" value={item.Num_documento}  onChange={(event) =>  handleInpuHuespe(event, index)} />
+                                                                <input className="input-stores-personality-finish" required name="Num_documento" type="number" value={item.Num_documento}  onChange={(event) =>  handleInpuHuespe(event, index)} />
                                                             </li>  
                                                     </ul>
 
@@ -1212,12 +1213,12 @@ import { config } from "../../config";
                                                             )}
                                                         </select>
                                                     </li>
+
                                                     <li>
-                                                    <label className="title-stores">Descuento</label>
-                                                        <button className="button-dasboard-thre "   >
-                                                                <span>COP 0  </span> 
-                                                        </button>
-                                                </li>
+                                                        <label className="title-stores">Descuento</label>
+                                                        <input className="button-dasboard-thre not-number " type="number" onChange={(e) => setDescuento(e.target.value) }    />
+                                                      
+                                                     </li>
 
                                                 <li>
                                                     <label className="title-stores">Abono reserva</label>

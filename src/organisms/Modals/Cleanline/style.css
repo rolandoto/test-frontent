@@ -1,11 +1,11 @@
 .button-CleanLine{
-    width: 741px;
+    width: 1051px;
     height: 55px;
     background: #DD69D1;
     border-radius: 8px;
     color: white;
     cursor: pointer;
-    }
+}
 
 .contain-cleanline {
     max-width: 754px;
