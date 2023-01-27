@@ -457,12 +457,11 @@ import { config } from "../../config";
             canal_reserva:null,
             observacion:"",
             ID_Tipo_Forma_pago:null,
-            abono:null,
+            abono:0,
             descuento:null,
             valor:null,
         })
 
-        
 
         const fechaInicio = new  Date(fechaOne).getTime()
 
@@ -680,7 +679,7 @@ import { config } from "../../config";
 
         const resultValuePersona = findRoom?.precio_persona * aditional *  ResultDay
 
-        const totalResultglobal =  PriceDay *countSeguro + count - change.abono + resultValuePersona
+        const totalResultglobal =  PriceDay *countSeguro + count - change.abono + resultValuePersona -decuento
 
         const valor_habiatcion =  PriceDay *countSeguro + count  + resultValuePersona
 

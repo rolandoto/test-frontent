@@ -20,6 +20,8 @@ const CheckoutOrganism =({DetailDashboard}) =>{
     const [filterFinish,setFilterFinish] =useState()
     const [invoince,setInvoice] =useState(false)
 
+    
+
     const MenuItems = [
         {
           id: 1,
@@ -415,7 +417,22 @@ const CheckoutOrganism =({DetailDashboard}) =>{
     const filterSearch = searchFilter?.find(index => index.id == filterFinish)
     
     const findPersona =  resultDashboard.tipo_persona == "persona"
-    const findEmpresa = resultDashboard.tipo_persona =="empresa"
+    const findEmpresa = resultDashboard.tipo_persona =="empresa"    
+
+    console.log(resultDashboard)
+
+    const valor_habitacion =  resultDashboard.valor_habitacion
+    const iva =  parseInt(valor_habitacion *19/100)
+        
+    const formatter = new Intl.NumberFormat('en-US', {
+        style: 'currency',  
+        currency: 'COP',
+        minimumFractionDigits: 0
+    })
+
+    const valor_habitacion_total =formatter.format(valor_habitacion)
+    const ivaTo = formatter.format(iva)
+    const totalAll =formatter.format(parseInt( valor_habitacion) + parseInt( iva))
 
     const handClickSearc =(event) =>{
         setFilterFinish(event)
@@ -439,6 +456,9 @@ const CheckoutOrganism =({DetailDashboard}) =>{
                                             <li className="totalPricecheckout-two" >{resultDashboard.nacionalidad}</li>                
                                     </ul> 
      */
+
+
+    
 
     if(findEmpresa)
     return (
@@ -584,12 +604,12 @@ const CheckoutOrganism =({DetailDashboard}) =>{
 
                     <div>
                         <ul>
-                            <li className="totalPricecheckout-one-three " ><span>Sub total:</span> 
-                            <span>Iva:</span>
-                            <span>V Tota${totalStore ?totalStore : 0 }</span>
+                            <li className="totalPricecheckout-one-three-finish"><span>Sub total:{valor_habitacion_total}</span> 
+                            <span>Iva: {ivaTo} </span>
+                            <span>V Tota$: {totalAll}</span>
                             </li>  
                                         
-                            <li className="totalPricecheckout-two-one" >Imprimir</li>                     
+                            <li className="totalPricecheckout-two-one" >Enviar</li>                     
                         </ul>  
                     </div>
                     
@@ -789,7 +809,7 @@ const CheckoutOrganism =({DetailDashboard}) =>{
                     <div>
                         <ul>
                             <li className="totalPricecheckout-one-three" ><span>Sub total:</span> 
-                            <span>Iva:</span>
+                            <span>Iva: </span>
                             <span>V Tota${totalStore ?totalStore : 0 }</span>
                             </li>  
                                         

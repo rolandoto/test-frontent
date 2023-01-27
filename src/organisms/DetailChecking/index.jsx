@@ -12,6 +12,7 @@ import ServiceUpdateReservationpay from "../../service/ServiceUpdatereservationp
 import { CiCirclePlus,CiCircleRemove } from "react-icons/ci";
 import ServiceAddHuespedes from "../../service/ServiceAddHuespedes";
 import { config } from "../../config";
+import ServiceUpdateReservation from "../../service/ServiceUpdatereservation";
 
 const DetailChekingOrganism =({id}) =>{
     const history = useHistory()
@@ -51,6 +52,7 @@ const DetailChekingOrganism =({id}) =>{
     const [ninos,setNinos] = useState()
     const [infantes,setInfantes] =useState()
     const [valid,setValid] =useState(true)
+    
     
     function handleOnChange(event) {
         setTipoPersona("persona")
@@ -101,7 +103,6 @@ const DetailChekingOrganism =({id}) =>{
         fetchData()
         },[id])
 
-        
 
         useEffect(() =>{
             ServicetypeRooms({id:jwt.result.id_hotel}).then(index =>{
@@ -153,6 +154,7 @@ const DetailChekingOrganism =({id}) =>{
             history.push(`/checkingin2/${id}`)
             handUpdateConfirms()
             handPay()
+            handSubmit()
         }
        
       }
@@ -343,8 +345,18 @@ const DetailChekingOrganism =({id}) =>{
         })
     }
 
+    let dataTwo ={
+        Tipo_persona:tipoPersonas
+    } 
 
-    console.log(quyery)
+      const handSubmit =() =>{
+            ServiceUpdateReservation({id:resulDetailDashboard.id_persona,data:dataTwo}).then(index =>{
+            console.log(index)
+        }).catch(e =>{
+            console.log(e)
+        })
+                
+    }
   
     if(!resultFinish) return null
         return (
@@ -658,17 +670,17 @@ const DetailChekingOrganism =({id}) =>{
 
                             <div className="container-checkbox" >
                             <input   type="checkbox" 
-                                        className={`checkbox-round  ${findPersona && "checkbox-round-click"} `}
+                                        className={`checkbox-round  ${isChecked && "checkbox-round-click"} `}
                                         onChange={handleOnChange}
+                                        defaultValue={(e) =>findPersona && setIsChecked(true)}        
                                         checked={isChecked}/> Persona
                                 
                             </div> 
 
                         <div className="container-checkbox" >
                         <input   type="checkbox" 
-                                        className={`checkbox-round  ${findEmpresa && "checkbox-round-click"} `}
+                                         className={`checkbox-round  ${isChecke && "checkbox-round-click"} `}
                                         onChange={handleOnChanger}
-                                        readOnly={true}
                                         checked={isChecked}/> Empresa
                         </div> 
 

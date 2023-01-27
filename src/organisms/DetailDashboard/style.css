@@ -109,8 +109,8 @@
 .container-flex-init-global{
     justify-content: revert;
     max-width: 959px;
-    margin: auto;
     margin-top: 15;
+    margin: auto !important;
 }
 
 .container-flex-init{

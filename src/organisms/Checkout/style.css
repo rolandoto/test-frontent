@@ -203,6 +203,16 @@
     width: 164px;
 }
 
+.totalPricecheckout-one-three-finish{
+    background: white;
+    display: grid;
+    justify-content: center;
+    padding: 23px;
+    border-radius: 8px;
+    height: auto;
+    width: auto;
+}
+
 .one-v-total{
     height: 108px;
     align-items: center;

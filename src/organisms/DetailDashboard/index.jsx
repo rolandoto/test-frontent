@@ -564,7 +564,7 @@ const priceLenceria = Lenceria?.reduce((acum,current) => {
                             className={`checkbox-round  ${isChecked && "checkbox-round-click"} `}
                             onChange={handleOnChange}
                             defaultValue={(e) =>findPersona && setIsChecked(true)}       
-                            checked={isChecked}/> Persona
+                            checked={isChecked} /> Persona
                     
                 </div> 
               <div className="container-checkbox" >
@@ -677,7 +677,7 @@ const priceLenceria = Lenceria?.reduce((acum,current) => {
                                                 )}
                                       </select>
 
-                                  <input  type="text" 
+                                  <input  type="number" 
                                           className="desde-detail-two" 
                                           name="Num_documento" 
                                           placeholder="Numero de documento"
