@@ -681,9 +681,9 @@ import { config } from "../../config";
 
         const totalResultglobal =  PriceDay *countSeguro + count - change.abono + resultValuePersona -decuento
 
-        const valor_habiatcion =  PriceDay *countSeguro + count  + resultValuePersona
+        const valor_habiatcion =  PriceDay *countSeguro + count  + resultValuePersona -decuento
 
-        const global  = formatter.format(totalResultglobal -decuento)
+        const global  = formatter.format(totalResultglobal)
 
         const value_habitacion = formatter.format(valor_habiatcion)
 
