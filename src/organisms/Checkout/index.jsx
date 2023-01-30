@@ -445,6 +445,8 @@ const CheckoutOrganism =({DetailDashboard}) =>{
         filtrar(e.target.value)
     }
 
+    
+
     /**
      * 
      * <ul>
@@ -457,7 +459,7 @@ const CheckoutOrganism =({DetailDashboard}) =>{
                                     </ul> 
      */
 
-
+    
     
 
     if(findEmpresa)

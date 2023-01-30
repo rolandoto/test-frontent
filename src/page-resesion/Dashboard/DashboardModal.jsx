@@ -612,7 +612,7 @@ import { config } from "../../config";
         const findCanalReserva = chanel?.query?.find(index => index.ID ==parseInt(change.canal_reserva))
 
         const findRoom = room?.find(index => index.id_tipoHabitacion == fecha)
-
+        console.log(findRoom)
         const resultFindRoom =  formatter.format(findRoom?.precio)
 
         const resultValuepeople =formatter.format(countSeguro)
@@ -871,11 +871,14 @@ import { config } from "../../config";
         const findRoomOne =  room?.find(index => index?.id_tipoHabitacion == fecha)
 
         const totalPersonas= parseInt( change?.adultos) + parseInt( change.niños)
+
+        let countMax=0
         
-        let totalMaximopersona = parseInt(findRoomOne?.max_persona) - totalPersonas +1
-       
-       
-        const MAX_VAL = 5;
+        let totalMaximopersona = parseInt(findRoomOne?.max_persona)
+        countMax=totalMaximopersona
+        
+        
+        const MAX_VAL = 6;
         
         const withValueCap = (inputObj) => {
           const { value } = inputObj;
@@ -974,7 +977,7 @@ import { config } from "../../config";
                                                             type="number" 
                                                             onChange={handleInputChange}
                                                             placeholder="0" 
-                                                            max={totalMaximopersona+1}
+                                                            max={countMax}
                                                             defaultValue={0}
                                                             min={0}
                                                             isAllowed={withValueCap}  />
@@ -989,7 +992,7 @@ import { config } from "../../config";
                                                             type="number" 
                                                             onChange={handleInputChange}
                                                             placeholder="0"
-                                                            max={totalMaximopersona+1}
+                                                            max={totalMaximopersona}
                                                             defaultValue={0}
                                                             min={0} 
                                                             isAllowed={withValueCap} />
