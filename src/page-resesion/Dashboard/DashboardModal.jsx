@@ -645,15 +645,15 @@ import { config } from "../../config";
         })
         
         const e = parseInt( change?.adultos) +  parseInt(change?.niños)
-
+ 
         const  min = parseInt(findRoom?.persona)
 
         const max = parseInt(findRoom?.max_persona)
-
+      
         const p = e ? e :2
 
         let arr = new Array(p)
-
+        
         let r =[] 
 
     let persona =0
@@ -661,12 +661,16 @@ import { config } from "../../config";
 
     for(let i  =0;i<arr?.length;i++){
         r.push(i)
-    }
+    } 
 
-        if(change.habitaciones){
+  
+
+
             for(let e =0;e<r.length;e++){
+
                 if(r[e]+1 <= min){
                     persona +=1
+                 
                 }else if(r[e]+1 >max){
                   
                 }else if(r[e]+1 == max){
@@ -675,10 +679,11 @@ import { config } from "../../config";
                     aditional+=1
                 }
             }
-        }
 
+
+        console.log({"adicional":aditional})
         const resultValuePersona = findRoom?.precio_persona * aditional *  ResultDay
-
+        console.log(resultValuePersona)
         const totalResultglobal =  PriceDay *countSeguro + count - change.abono + resultValuePersona -decuento
 
         const valor_habiatcion =  PriceDay *countSeguro + count  + resultValuePersona -decuento
@@ -877,7 +882,7 @@ import { config } from "../../config";
         let totalMaximopersona = parseInt(findRoomOne?.max_persona)
         countMax=totalMaximopersona
         
-        
+
         const MAX_VAL = 6;
         
         const withValueCap = (inputObj) => {
@@ -885,7 +890,7 @@ import { config } from "../../config";
           if (value <= MAX_VAL) return true;
           return false;
         };
-
+        console.log(change)
         if(!room)  return null
 
         return (
