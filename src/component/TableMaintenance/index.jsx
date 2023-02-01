@@ -1,16 +1,17 @@
-import React ,{useState} from "react"
+import React ,{useEffect, useState} from "react"
 import Day from "../Day"
 import { AiTwotoneDelete } from "react-icons/ai";
 import "./index.css"
 import { useDispatch } from "react-redux";
 import { AiFillPlusCircle } from "react-icons/ai";
 import UseUsers from "../../hooks/UseUser";
+import ServicePostMaintance from "../../service/ServicePostMaintance";
 
-const TableMaintenance =({data,handUpdate,handSubmit}) =>{
-
+const TableMaintenance =() =>{
     const [ubication,setUbicacion] = useState()
     const [news,setNew] = useState()
-
+    const [data,setData] =useState()
+    const [loading,setLoading] =useState(false)
     const dispatch = useDispatch()
 
     const {jwt} = UseUsers()
@@ -29,11 +30,6 @@ const TableMaintenance =({data,handUpdate,handSubmit}) =>{
     const {room} = post
     const {novelty} = post
 
-    const handAdd =(e) =>{
-        e.preventDefault()
-        handSubmit({id_hotel,id_user_recepcion,id_user_mantenimiento,room,novelty})
-    }
-
     const options =(e) =>{
     
         if(e ==1){
@@ -43,15 +39,54 @@ const TableMaintenance =({data,handUpdate,handSubmit}) =>{
         }
     }
 
+    
+    
+    useEffect(() =>{
+        fetch(`https://grupo-hoteles.com/api/getMantenimiento?id_hotel=${id_hotel}`)
+        .then(index=> index.json())
+        .then(data =>setData(data) )
+    },[loading])
+
+    const tiempoTranscurrido = Date.now();
+    const hoy = new Date(tiempoTranscurrido);
+    const day_now = hoy.toISOString();
+   
     const handIconUpdate =(e)=>{
-        handUpdate({e})
-    }
-    
-    
-    
+        e.preventDefault()
+        ServicePostMaintance({id:id_hotel,id_user_recepcion:id_user_recepcion,id_user_mantenimiento:1,startDate:day_now,room:ubication,novelty:news,options:1}).then(index =>{
+            setLoading(true)
+            setUbicacion("")
+            setNew("")
+            }
+        ).catch(e =>{
+            console.log(e)
+        })
+    }       
+
+    /**{data?.link?.map((index,e) => {
+                  
+        let today = new Date(index.startDate)
+        const result = today.toISOString().split('T')[0]
+
+          if(index.options !=2){
+              return (
+                  <tr key={e}>
+                      <td>{result}</td>
+                      <td>{index.room}</td>
+                      <td>{index.name}</td>
+                      <td>{index.novelty}</td>
+                      <td>{index.observations}</td>
+                      <td>{options(index.options)}</td>
+                      <td><AiTwotoneDelete color="red" size={25} className="delete-maintence"    /> </td>
+               </tr>
+          )}
+      })} 
+    **/
+
+      
     return (
-        <div className="container-forgetfulnes" >
-            <div className="App-Checking"  onSubmit={handAdd}  >
+        <div className="container-bicta" >
+            <div   onSubmit={handIconUpdate}  >
                 <form className='form-login' >
                     <input required 
                         placeholder='Ubicacion'         
@@ -67,11 +102,14 @@ const TableMaintenance =({data,handUpdate,handSubmit}) =>{
                         value={news}
                         onChange={(e) =>  setNew(e.target.value)}
                         /> 
+                        
                         <button className='button-login-checkin' type='submit' ><AiFillPlusCircle size={30} color="white" /></button>
                 </form>
             </div>
-            <table className="pe">
-                <thead className="go">
+
+            <tbody>
+            <table   className="de">
+                <thead >
                     <tr>
                         <th>Fecha</th>
                         <th>Ubicacion</th>
@@ -79,14 +117,12 @@ const TableMaintenance =({data,handUpdate,handSubmit}) =>{
                         <th>Novedad</th>
                         <th>Oservaciones</th>
                         <th>Estado</th>
-                        <th>Opciones</th>
                     </tr>
                 </thead>
-                {data.link.map((index,e) => {
-                  
+
+                {data?.map((index,e) => {  
                   let today = new Date(index.startDate)
                   const result = today.toISOString().split('T')[0]
-
                     if(index.options !=2){
                         return (
                             <tr key={e}>
@@ -96,12 +132,11 @@ const TableMaintenance =({data,handUpdate,handSubmit}) =>{
                                 <td>{index.novelty}</td>
                                 <td>{index.observations}</td>
                                 <td>{options(index.options)}</td>
-                                <td><AiTwotoneDelete color="red" size={25} className="delete-maintence" onClick={() => handIconUpdate(index.id_app_mantenimiento)}   /> </td>
-                         </tr>
-                        )
-                    }
+                            </tr>
+                    )}
                 })} 
             </table>
+            </tbody>
         </div>
     )
 }

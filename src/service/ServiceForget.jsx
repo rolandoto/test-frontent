@@ -1,14 +1,14 @@
 
 
-const ENDPOINT =`https://grupo-hoteles.com/api/updateFormulario`
+const ENDPOINT =`https://grupo-hoteles.com/api/postReporte-olvidos`
 
-    const ServiceFormulariosCheckout =({id,status,fecha_ingreso,fecha_salida,valortotal})=>{
+    const ServiceForget =({id_hotel,id_user,date,description,ubicacion})=>{
         return fetch(`${ENDPOINT}`,{
             method:'POST',
             headers:{
                 'Content-type':'application/json'
             },  
-            body: JSON.stringify({id,status,fecha_ingreso,fecha_salida,valortotal})
+            body: JSON.stringify({id_hotel,id_user,date,description,ubicacion})
         }).then(resp =>{
             if(!resp.ok) throw new Error('Response is not ok')
             return resp.json()
@@ -16,4 +16,4 @@ const ENDPOINT =`https://grupo-hoteles.com/api/updateFormulario`
             return resp
         })
     }
-    export default ServiceFormulariosCheckout
+    export default ServiceForget

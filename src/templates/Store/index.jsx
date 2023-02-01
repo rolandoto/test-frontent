@@ -55,7 +55,7 @@ const StoreTemplate =({Store}) =>{
           itemId: "Lenceria",
           name: "Lencería multas",
           imgSrc:
-            "https://github.com/rolandoto/image-pms/blob/main/1-05-removebg-preview.png?raw=true",
+            "https://github.com/rolandoto/image-pms/blob/main/Captura_de_pantalla_2023-01-30_115354-removebg-preview.png?raw=true",
         } 
       ];
 

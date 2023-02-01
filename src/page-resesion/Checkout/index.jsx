@@ -14,7 +14,6 @@ const Checkout =() =>{
     const {loading,error,DetailDashboard
     } = useSelector((state) => state.DetailDashboard)
 
-
     const fetchData =async() =>{
         await getDetailReservationById({id})
     }

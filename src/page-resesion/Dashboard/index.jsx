@@ -76,6 +76,8 @@ const Dashboard = (props) => {
 	const {count} =useCountRoom({id:jwt.result.id_hotel})
 	const [loadingSkeleto,setLoadingSkeleto] =useState(true)
 
+	
+
 	const Skele =() =>{
 		return (
 		   <Stack spacing={1} className="App-new-skeleto">

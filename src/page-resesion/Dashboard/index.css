@@ -125,7 +125,7 @@
 .contain{
   max-width: 1066px;
     margin: auto;
-    margin-top: 9px;
+    margin-top: 60px;
 }
 
 
@@ -788,11 +788,10 @@ hr{
   cursor: pointer;
 }
 
-
 .button-dasboard-nine-one{
   width: 190px;
   height: 40px;
-  background: #00B712;
+  background: #13a722d4;
   border-radius: 8px;
   color: white;
   cursor: pointer;
@@ -801,7 +800,8 @@ hr{
 .button-dasboard-sevent-two{
   width: 230px;
   height: 40px;
-  background: #F94141;
+  background: 
+  #eb6b7f;
   border-radius: 8px;
   color: white;
   cursor: pointer;

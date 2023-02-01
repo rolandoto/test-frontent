@@ -1,14 +1,14 @@
 
+const ENDPOINT =`https://grupo-hoteles.com/api/postCancelUpdate`
 
-const ENDPOINT =`https://grupo-hoteles.com/api/updateFormulario`
 
-    const ServiceFormulariosCheckout =({id,status,fecha_ingreso,fecha_salida,valortotal})=>{
+    const ServiceUpdateReservationWeb =({id,cancelado })=>{
         return fetch(`${ENDPOINT}`,{
             method:'POST',
             headers:{
                 'Content-type':'application/json'
             },  
-            body: JSON.stringify({id,status,fecha_ingreso,fecha_salida,valortotal})
+            body: JSON.stringify({id,cancelado})
         }).then(resp =>{
             if(!resp.ok) throw new Error('Response is not ok')
             return resp.json()
@@ -16,4 +16,5 @@ const ENDPOINT =`https://grupo-hoteles.com/api/updateFormulario`
             return resp
         })
     }
-    export default ServiceFormulariosCheckout
+export default ServiceUpdateReservationWeb
+

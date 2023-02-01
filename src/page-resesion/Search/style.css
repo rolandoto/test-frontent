@@ -25,6 +25,7 @@
     align-items: center;
     margin: 0;
     padding: 5px;
+    justify-content: space-between;
 }
 
 .flex-bedrooms-search li{
@@ -59,7 +60,21 @@
 .button-dasboard-thre-search-finish{
     width: 511px;
     height: 55px;
-    background: #00B712;
+    background: #13a722d4;
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
+    margin: 0;
+    margin-top: 28px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.button-dasboard-thre-search-finish-finish-one{
+    width: 511px;
+    height: 55px;
+    background: #eb6b7f;
     border-radius: 8px;
     color: white;
     cursor: pointer;

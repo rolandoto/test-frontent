@@ -90,7 +90,7 @@ const GetDetailReservation=(url="") =>{
 }
 
 const GetBictacoras=(url="") =>{
-  return fetch((`${config.serverRoute}/api/getBitacoraByIDHotel?${url}`),{
+  return fetch((`https://grupo-hoteles.com/api/getBitacoraByIDHotel?${url}`),{
     method: 'GET',
     headers: {
       Accept: 'application/json',
@@ -103,7 +103,7 @@ const GetBictacoras=(url="") =>{
 }
 
 const GetFormats=(url="") =>{
- return fetch((`${config.serverRoute}/api/getFormatosByIDHotel?${url}`),{
+ return fetch((`https://grupo-hoteles.com/api/getFormatosByIDHotel?${url}`),{
     method:"GET",
     headers:{
       Accept:"application/json",
@@ -113,7 +113,17 @@ const GetFormats=(url="") =>{
 }
 
 const GetContact =(url="") =>{
-  return fetch((`${config.serverRoute}/api/getNumberEmergencyByIDHotel?${url}`),{
+  return fetch((`https://grupo-hoteles.com/api/getNumberEmergencyByIDHotel?${url}`),{
+    method:"GET",
+    headers:{
+      Accept:"application/json",
+      "Content-Type":"application/json"
+    }
+  }).then(isOk)
+}
+
+const getForget =(url="") =>{
+  return fetch((`https://grupo-hoteles.com/api/getReporte-olvidos?${url}`),{
     method:"GET",
     headers:{
       Accept:"application/json",
@@ -131,6 +141,7 @@ const GetContact =(url="") =>{
     GetDetailReservation,
     GetBictacoras,
     GetFormats,
-    GetContact
+    GetContact,
+    getForget
   }
   

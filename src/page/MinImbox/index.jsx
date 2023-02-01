@@ -20,7 +20,7 @@ const MinImbox =() =>{
     },[dispatch])
 
     return (
-        <div className="container-forgetfulnes" >
+        <div className="container-bicta" >
             <Imbox  imbox={ressecion} title="Caja menor Recepcion" />
             <Imbox  imbox={maintenanceRecepcion} title="Caja Menor Recepcion" />
         </div>

@@ -4,7 +4,9 @@ import TableBictacoras from "../../component/TableBictacoras";
 const BictacorasTemplate =({Bitacoras}) =>{
 
     return (
-        <TableBictacoras bicta={Bitacoras} />
+        <>
+            <TableBictacoras bicta={Bitacoras} />
+        </>
     )
 }
 

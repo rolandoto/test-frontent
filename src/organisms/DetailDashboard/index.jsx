@@ -60,6 +60,8 @@ const DetailDasboard =(props) =>{
     const findEmpresa = resultDashboard.tipo_persona =="empresa"
     const findFirma = resultDashboard.Firma =="1"
     
+    
+
     const formatter = new Intl.NumberFormat('en-US', {
       style: 'currency',  
       currency: 'COP',
@@ -241,7 +243,10 @@ const DetailDasboard =(props) =>{
     }
 
     const hanClickDetailCheckout =() =>{
-      history.push(`/Checkout/${id}`)
+      if(findFirma){
+        history.push(`/Checkout/${id}`)
+      }
+      
     }
 
     const handChecking =() =>{
@@ -554,7 +559,7 @@ const priceLenceria = Lenceria?.reduce((acum,current) => {
                   </button>
               </div>
               <div>
-                  <button className="button-checking-detail-checkout" onClick={hanClickDetailCheckout}  >
+                  <button className="  button-checking-detail-checkout" onClick={hanClickDetailCheckout}  >
                       <span className="title-button"  >Checkout</span>
                   </button>
               </div>

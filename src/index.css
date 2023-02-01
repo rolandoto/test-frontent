@@ -517,16 +517,18 @@ td,th{
   tbody{
     border: 1px solid gray;
     display: block;
-    margin-top: 18px;
+     margin-top: 18px; 
     padding: 17px;
     border-radius: 18px;
-    width: 51%;
+    
   }
+
+
 
   .de{
     margin: auto;
     border: none;
-    width: 64%;
+    width: 100%;
   }
 
   .pe{
@@ -556,12 +558,21 @@ td, th ,tr{border:none;}
 }
 
 .container-bicta{
-    display: flex;
-    /* max-width: 57%; */
-    /* margin: auto; */
-    width: 146%;
-    justify-content: center;
-    flex-direction: column;
+  display: flex;
+  /* max-width: 57%; */
+  /* margin: auto; */
+  /* width: 146%; */
+  justify-content: center;
+  flex-direction: column;
+  display: flex;
+  max-width: 1501px;
+  /* max-height: 1100px; */
+  flex-direction: column;
+  background: #fff;
+  /* height: 100vh; */
+  width: 100vw;
+  overflow: auto;
+  margin: auto;
 }
 
 .image-fume{
@@ -726,7 +737,6 @@ td, th ,tr{border:none;}
   width: 100%;
 }
   
-
 .go th{
   width: 0px;
 }
@@ -915,4 +925,26 @@ td, th ,tr{border:none;}
     width: 100vw;
     overflow: auto;
     margin: auto;
+}
+
+
+.cursor{
+  cursor: pointer;
+  text-align: center;
+}
+
+.cursor-one{
+  cursor: pointer;
+}
+
+.cancel{
+  background: #f97878;
+  color: white;
+  padding: 2px;
+  border-radius: 5px;
+  margin-left: 10px;
+}
+
+.descri{
+  width: 1000px;
 }

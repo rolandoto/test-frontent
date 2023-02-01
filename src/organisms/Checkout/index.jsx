@@ -7,6 +7,7 @@ import  AutoProvider  from "../../privateRoute/AutoProvider"
 import { useParams } from "react-router-dom"
 import Invoince from "../../component/Invoince"
 import { config } from "../../config"
+import ServiceFormulariosCheckout from "../../service/ServiceFormulariosCheckout"
 
 const CheckoutOrganism =({DetailDashboard}) =>{
     const {id} = useParams()
@@ -144,7 +145,7 @@ const CheckoutOrganism =({DetailDashboard}) =>{
 
     const totalStore = priceLenceria+priceAdultos+priceDrogueria+priceSouvenir+priceSnacks+priceBebidas
 
-  
+    console.log(resultDashboard)
 
     /**
      *  <div className="container-search-filter" >
@@ -433,6 +434,7 @@ const CheckoutOrganism =({DetailDashboard}) =>{
     const valor_habitacion_total =formatter.format(valor_habitacion)
     const ivaTo = formatter.format(iva)
     const totalAll =formatter.format(parseInt( valor_habitacion) + parseInt( iva))
+    const total_Valor = parseInt(valor_habitacion+ iva)
 
     const handClickSearc =(event) =>{
         setFilterFinish(event)
@@ -447,6 +449,8 @@ const CheckoutOrganism =({DetailDashboard}) =>{
 
     
 
+    
+
     /**
      * 
      * <ul>
@@ -458,8 +462,21 @@ const CheckoutOrganism =({DetailDashboard}) =>{
                                             <li className="totalPricecheckout-two" >{resultDashboard.nacionalidad}</li>                
                                     </ul> 
      */
-
+    let inicio = new Date(resultDashboard?.Fecha_inicio)
+    const fechaInicio = inicio.toISOString().split('T')[0]
     
+    const final=  new Date(resultDashboard?.Fecha_final)   
+    const FechaFinal = final.toISOString().split('T')[0]
+
+
+    const handServiFormularios =() =>{
+        ServiceFormulariosCheckout({id:filterSearch.id,status:"2",fecha_ingreso:fechaInicio,fecha_salida:FechaFinal,valortotal:total_Valor}).then(index =>{
+            alert("guardado")
+        }).catch(e => {
+           alert("error al guardar")
+        }) 
+    }
+
     
 
     if(findEmpresa)
@@ -610,8 +627,7 @@ const CheckoutOrganism =({DetailDashboard}) =>{
                             <span>Iva: {ivaTo} </span>
                             <span>V Tota$: {totalAll}</span>
                             </li>  
-                                        
-                            <li className="totalPricecheckout-two-one" >Enviar</li>                     
+                                                            
                         </ul>  
                     </div>
                     
@@ -619,57 +635,14 @@ const CheckoutOrganism =({DetailDashboard}) =>{
 
 
                     <div className="container-store-checkout-two" >
-                         
-                                    <textarea id="w3review" placeholder="Observacion de la factura" className="text-tarea-one" name="w3review" rows="4" cols="50"></textarea>
-                                
+                            <textarea id="w3review" placeholder="Observacion de la factura" className="text-tarea-one" name="w3review" rows="4" cols="50"></textarea>    
                         </div>
                 </div>
             
-            <div className="container-checkout-border-one" >
-            <div className="container-store-checkout-one box" >
-                    <div className="container-checkbox " >
-                        <input   
-                            type="checkbox" 
-                            className={`checkbox-round`}
-                        /> Retencion
-                        
-                    </div>
-                    <div className="container-checkbox " >
-                        <input   
-                            type="checkbox" 
-                            className={`checkbox-round`}
-                        /> Retencion Ica
-                        
-                    </div>
+            
 
-                    <div className="container-checkbox " >
-                        <input   
-                            type="checkbox" 
-                            className={`checkbox-round`}
-                        /> Desocupar habitacion
-                        
-                    </div>
-                    <div className="container-checkbox " >
-                        <input   
-                            type="checkbox" 
-                            className={`checkbox-round`}
-                        /> Retencion de iva
-                        
-                    </div>
-                </div> 
-
-                <div className="container-checkbox " >
-                        <input   
-                            type="checkbox" 
-                            className={`checkbox-round`}
-                        /> Retencion de iva
-                        
-                    </div>
-
-            </div>
-
-            <div className="button-checkout" >
-                <button>imprimir factura</button>
+            <div className="button-checkout" onClick={handServiFormularios} >
+                <button>Imprimir factura</button>
             </div>
 
         </div>

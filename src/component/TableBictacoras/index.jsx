@@ -19,11 +19,11 @@ const TableBictacoras =({children,bicta}) =>{
                 const t = today.toISOString().split('T')[0]
                 countData= countData -1
                 if (start && t != da ) {
-                    start = false
-                    html += `<div></table>`;
+                    start = false   
+                    html += `<div></table>  </tbody>`;
                 }
                 if( t != da ) {
-                    html += `<table key={${e}} >    
+                    html += ` <tbody class="tbody" > <table key={${e}} >    
                                      <tr>
                                         <th class="Button-bicta">
                                             ${t} - ${day} - ${jwt.result.hotel}
@@ -33,7 +33,7 @@ const TableBictacoras =({children,bicta}) =>{
                                     <th>Reporta</th>
                                     <th>Hora</th>
                                     <th>Lugar</th>
-                                    <th>Descripcion</th>
+                                    <th class="descri" >Descripcion</th>
                                 </tr>
                                 <tr>
                                     <td>${index.nombre}</td>  
@@ -50,7 +50,7 @@ const TableBictacoras =({children,bicta}) =>{
                                 <td>${index.nombre}</td>  
                                 <td>${index.hora}</td>   
                                 <td>${index.ubicacion}</td> 
-                                <td>${index.descripcion}</td>
+                                <td class="descri" >${index.descripcion}</td>
                             </tr>
                            `;
                             da = t;
@@ -59,11 +59,13 @@ const TableBictacoras =({children,bicta}) =>{
                 if ( countData == 0 ) {
                     start = false
 
-                    html += `</table>`;
+                    html += `</table> </tbody>`;
 
                     htmlFinal = html;
                     html = "";
                 }
+
+                
       
                 return (
                     <>

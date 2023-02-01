@@ -6,14 +6,14 @@ const fromRervas =(event)  =>{
   
       const  to = event.query.map((index,e )=> {
       let daystart = new Date(index.Fecha_inicio)
-      console.log(daystart);
+   
       const start_time = daystart.toISOString().split('T')[0]
       
       let daysend = new Date(index.Fecha_final)
       const end_time = daysend.toISOString().split('T')[0]
 
       const group = index.ID_Habitaciones
-
+      console.log(index)
       const title = index.Title
 
       const id  = index.ID
@@ -21,6 +21,8 @@ const fromRervas =(event)  =>{
       const state  = index.ID_Tipo_estados
 
       const name = index.Nombre
+      
+      const last_name = index.Last_name
 
       const document = index.Document
 
@@ -35,7 +37,8 @@ const fromRervas =(event)  =>{
           state:state,
           name,
           document,
-          code
+          code,
+          last_name:last_name
         }
       })
     return to

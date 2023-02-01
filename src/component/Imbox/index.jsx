@@ -10,7 +10,7 @@ const Imbox =({imbox,title}) =>{
     
     return (
         <>        
-            <div className="App-Checking" >
+            <div  >
                 <button className="Button-bicta">{title}</button>
                     <form className='form-login' >
                             <input required 
@@ -43,8 +43,8 @@ const Imbox =({imbox,title}) =>{
                         </div>
                     </form>
             </div>
-            <div className="App-Checking" >
-                <table className="tab-imbox">
+            <div  >
+                <table className="de">
                     <thead className="go">
                         <tr>
                             <th>Fecha</th>

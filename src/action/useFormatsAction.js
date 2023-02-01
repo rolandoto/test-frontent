@@ -10,7 +10,6 @@ const useFormatsAction =() =>{
         dispatch(loading())
         try {
             const response = await HttpClient.GetFormats(`id_hotel=${id}`)
-            
             if(response){
                 dispatch(setFormats(response))
             }else{
