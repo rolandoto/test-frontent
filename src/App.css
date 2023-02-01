@@ -96,3 +96,7 @@ input{
   display: grid;
   height: 73px;
 }
+
+.dispaly-one{
+  display: none;
+}

@@ -1138,7 +1138,7 @@ const DashboardModal = (props) => {
                                                         
                                                             <li>
                                                                 <label className="title-stores">No Documento</label>
-                                                                <input className="input-stores-personality-finish" required name="Num_documento" type="number" value={item.Num_documento}  onChange={(event) =>  handleInpuHuespe(event, index)} />
+                                                                <input className="input-stores-personality-finish" required name="Num_documento" type="text" value={item.Num_documento}  onChange={(event) =>  handleInpuHuespe(event, index)} />
                                                             </li>  
                                                     </ul>
 

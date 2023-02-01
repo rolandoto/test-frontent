@@ -503,7 +503,7 @@
     outline: none;
     border: none;
     width: 100%;
-    padding: 10px 20px;
+    padding: 0px 0px 0px 0px;
     background: #404040;
     border-radius: 14px;
     color: #faf9fb;
@@ -511,6 +511,11 @@
     font-weight: 600;
     letter-spacing: 2px;
     cursor: pointer;
+    display: flex;
+    justify-content: center;
+    width: 275px;
+    margin: auto;
+    height: 59px;
   }
   
   .addSomeItem {
