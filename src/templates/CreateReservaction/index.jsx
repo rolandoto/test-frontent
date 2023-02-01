@@ -11,9 +11,6 @@ const TemplateCreateReservaction =() =>{
 	const {toggleOpenDashboardChecking,toggleCloseDashboardChecking}  = useDashboardCheckingAction()
     const {dashboardVisible} = useSelector(selectDashboard)
     
-
-
-    
     return (
         <DashboardModal 	
 		 				

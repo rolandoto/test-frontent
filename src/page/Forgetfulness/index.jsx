@@ -31,9 +31,9 @@ const Forgetfulnes =() =>{
     const handSubmit =(e) =>{
         e.preventDefault()
         ServiceForget({id_hotel:id,id_user,date:day_now,description:descriptione,ubicacion:ubicacione}).then(index =>{
-            setDescription(null)
-            setBbicacion(null)
-            fetchData()
+                setDescription(null)
+                setBbicacion(null)
+                fetchData()
         }).catch(e =>{
             alert("no guardado")
         })
