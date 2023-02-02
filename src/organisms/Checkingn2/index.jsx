@@ -85,8 +85,7 @@ const Checkingn2Organism =({id}) =>{
         Abono:resulDetailDashboard?.valor_habitacion
       } 
 
-      console.log(dataOne)
-
+    
     const handFirmar =() =>{
         ServiceUpdateReservation({id:resulDetailDashboard.id_persona,data}).then(index =>{
             console.log(index)
@@ -110,7 +109,7 @@ const Checkingn2Organism =({id}) =>{
 
     const totalPrice = UsePrice({number:resulDetailDashboard?.valor_habitacion -resulDetailDashboard?.valor_abono})
 
-    console.log()
+
 
     const toPriceAbono= UsePrice({number:resulDetailDashboard?.valor_abono})
 

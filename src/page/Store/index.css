@@ -14,22 +14,15 @@
     width: 130px;
 }
     
-.rowContainer{
-    align-items: center;
-    display: flex;
-    margin: 10px 0;
-    overflow-y: hidden;
-    padding: 10px 0;
-}
+
 
 .mainContainer{
-    height: auto;
-    padding: 10px 10px 100px;
-    width: 50%;
-    margin: auto;
-    margin-top: 7.1%;
+  height: auto;
+  padding: 10px 10px 100px;
+  width: 50%;
+  /* margin: auto; */
+  margin-top: 7.1%;
 }
-
 
 .rowMenuCard {
     width: 156px;
@@ -52,6 +45,13 @@
     .rowContainer{
         justify-content: space-between;
     }
+    .rowContainer{
+      align-items: center;
+      display: flex;
+      margin: 10px 0;
+       width: 100%;
+      padding: 10px 0;
+  }
     
   }
 
@@ -291,7 +291,7 @@
    
     .mainContainer {
       padding: 10px 30px;
-     overflow-y: hidden;
+     overflow-y: none ;
     }
     .rightMenu {
       position: fixed;
@@ -300,6 +300,17 @@
       top: 0px;
       padding: 20px 15px;
     }
+    .imgBox{
+      align-items: center;
+      border-radius: 100vw;
+      display: flex;
+      height: 125px;
+      justify-content: center;
+      position: absolute;
+      top: 159px;
+      width: 130px;
+  }
+    
   }
 
   .debitCardContainer {
