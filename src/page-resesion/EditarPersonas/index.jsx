@@ -22,7 +22,11 @@ const EditarPersonas =() =>{
     const [correo,setCorreo] =useState()
     const [celular,setCelular] =useState()
     const [loading,setLoading] =useState(false)
+    const [nacionalidad,setNacionalidad] =useState()
+    const [country,setCountry] =useState()
     const {jwt} = useContext(AutoProvider)
+
+    console.log(nacionalidad)
 
     const resulrEditar = state?.find(index => index.huespedes ==id)
 
@@ -65,6 +69,9 @@ const EditarPersonas =() =>{
       fetch("https://grupohoteles.co/api/getTipeDocument")
       .then(index =>index.json())
       .then(data => setTipoDocumento(data))
+      fetch(`${config.serverRoute}/api/resecion/getcountry`)
+            .then(resp => resp.json())
+            .then(data=> setCountry(data))
   },[])
 
 
@@ -74,7 +81,8 @@ const EditarPersonas =() =>{
         Apellido:apellido,
         Fecha_nacimiento:nacimiento,
         Correo:correo,
-        Celular:celular
+        Celular:celular,
+        ID_Prefijo:nacionalidad
   }
 
   const handClick =() =>{
@@ -191,13 +199,23 @@ const EditarPersonas =() =>{
                         defaultValue={n}
                         />
 
-                <input  type="text" 
-                        className="desde-detail-three"
-                        name="Fecha" 
-                        placeholder="Nacionalidad"   
-                        defaultValue={resulrEditar?.nombre}
-                        readOnly={true}
-                        />
+              
+                                                            <select required  onChange={(e) => setNacionalidad(e.target.value)} 
+                                                                        name={"Nacionalidad"}
+                                                                        defaultValue={resulrEditar?.nombre}
+                                                                        className="desde-detail-three">
+                                                                    <option >{resulrEditar?.nombre}</option>
+                                                                    {country?.query?.map(category =>(
+                                                                        <option 
+                                                                        value={category.ID}   
+                                                                        key={category.ID}
+                                                                    >
+                                                                        {category.nombre}
+                                                                    </option>
+                                                                    )
+                                                                    )}
+                                                                </select>
+                  
 
                 <input  type="text" 
                         className="desde-detail-two" 
