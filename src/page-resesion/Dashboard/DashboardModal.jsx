@@ -346,11 +346,6 @@ const DashboardModal = (props) => {
         const {loading,toggleCloseDashboard,toggleOpenDashboardChecking} = props
 
         const [room,setRoom] = useState()
-        
-       
-
-    
-
         const [cost, setCost] = useState(0);
         const [state,setState] = useState()
         const [pet,setPet] = useState()
@@ -854,7 +849,7 @@ const DashboardModal = (props) => {
         let totalMaximopersona = parseInt(findRoomOne?.max_persona)
         countMax=totalMaximopersona
         
-
+        
         const MAX_VAL = 6;
         
         const withValueCap = (inputObj) => {

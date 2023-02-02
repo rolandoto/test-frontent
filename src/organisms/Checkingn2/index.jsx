@@ -10,6 +10,7 @@ import  AutoProvider  from "../../privateRoute/AutoProvider";
 import ServiceUpdateReservation from "../../service/ServiceUpdatereservation";
 import UsePrice from "../../hooks/UsePrice";
 import ServiceUpdateReservationpay from "../../service/ServiceUpdatereservationpay";
+import ServiceStatus from "../../service/ServiceStatus";
 
 const Checkingn2Organism =({id}) =>{
     const history = useHistory()
@@ -19,8 +20,6 @@ const Checkingn2Organism =({id}) =>{
     const {loading,error,DetailDashboard} = useSelector((state) => state.DetailDashboard)
     const {jwt} =useContext(AutoProvider)
     
-    
-
     const fetchData =async() =>{
         await getDetailReservationById({id})
     }   
@@ -30,6 +29,8 @@ const Checkingn2Organism =({id}) =>{
     },[id])
 
     const  resulDetailDashboard = DetailDashboard[0]
+
+    console.log(resulDetailDashboard)
     
     const init  =   moment(resulDetailDashboard?.Fecha_inicio).utc().format('MM/DD/YYYY')
     const fin = moment(resulDetailDashboard?.Fecha_final).utc().format('MM/DD/YYYY')
@@ -77,15 +78,18 @@ const Checkingn2Organism =({id}) =>{
       const hanClickinContracto =() =>{
         window.location.href =(`/contracto`)
          handFirmar()
+         handUpdateStatus()
       }
 
       let dataOne ={
         Abono:resulDetailDashboard?.valor_habitacion
       } 
+
+      console.log(dataOne)
+
     const handFirmar =() =>{
         ServiceUpdateReservation({id:resulDetailDashboard.id_persona,data}).then(index =>{
             console.log(index)
-            
             }).catch(e =>{
             console.log(e)
         })
@@ -96,13 +100,24 @@ const Checkingn2Organism =({id}) =>{
         })
     }
 
+    const handUpdateStatus =() =>{
+        ServiceStatus({id,ID_Tipo_Estados_Habitaciones:3}).then(index=>{
+            console.log(index)
+        }).catch(e =>{
+            console.log(e)
+        })
+    }
+
     const totalPrice = UsePrice({number:resulDetailDashboard?.valor_habitacion -resulDetailDashboard?.valor_abono})
+
+    console.log()
 
     const toPriceAbono= UsePrice({number:resulDetailDashboard?.valor_abono})
 
     const toPriceHabitacion = UsePrice({number:resulDetailDashboard?.valor_habitacion})
 
     if(!resultFinish) return null
+
     return (
         <>
             <div className="container-flex-init-global" >

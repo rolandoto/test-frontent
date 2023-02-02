@@ -344,6 +344,8 @@ const Dashboard = (props) => {
     },[setRoom])
 
 
+	console.log(state)
+	
 	const [search,setSearch] =useState([])
 
 	const filtrar=(terminoBusqueda)=>{
@@ -406,6 +408,8 @@ const Dashboard = (props) => {
 			}
 		})
 	},[room])
+
+	console.log(pruebareservas)
 
 	useEffect(() =>{
 		ServiceReservas({id:jwt.result.id_hotel}).then(index=> {
@@ -482,6 +486,8 @@ const Dashboard = (props) => {
 			return time
 		
 	}
+
+	console.log(pruebareservas	)
 
 	if(loadingSkeleto) return Skele()
 	if(!pruebareservas) return null

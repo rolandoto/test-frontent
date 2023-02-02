@@ -54,7 +54,8 @@ const DetailDasboard =(props) =>{
   
     const {progress} =useProgress({id})
     const resultDashboard = DetailDashboard[0] 
-    
+
+    console.log({"price":resultDashboard})
 
     const findPersona =  resultDashboard.tipo_persona == "persona"
     const findEmpresa = resultDashboard.tipo_persona =="empresa"
@@ -384,7 +385,7 @@ const DetailDasboard =(props) =>{
       }
 }   
 
-  const totalAlojamiento = resultFinish?.precio * day
+  const totalAlojamiento = resultDashboard?.valor_dia_habitacion * day
   const bebidas  = product?.filter(index => index.ID_Categoria ==1)    
   const Snacks  = product?.filter(index => index.ID_Categoria ==2)    
   const Souvenir  = product?.filter(index => index.ID_Categoria ==3)    

@@ -100,3 +100,7 @@ input{
 .dispaly-one{
   display: none;
 }
+
+.image-qr{
+  margin: auto;
+}

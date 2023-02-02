@@ -52,6 +52,7 @@
     .rowContainer{
         justify-content: space-between;
     }
+    
   }
 
   .rowMenuCard.active, .rowMenuCard:hover {
@@ -290,6 +291,7 @@
    
     .mainContainer {
       padding: 10px 30px;
+     overflow-y: hidden;
     }
     .rightMenu {
       position: fixed;
@@ -729,6 +731,7 @@
     /* margin-top: 10px; */
     overflow-y: scroll;
     overflow-x: hidden;
+    height: auto;
 
 }
 
