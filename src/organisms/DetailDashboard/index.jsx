@@ -237,7 +237,6 @@ const DetailDasboard =(props) =>{
       },
     ];
 
-
     const handClickNextChecking =() =>{
       history.push("/checking")
     }
@@ -245,8 +244,7 @@ const DetailDasboard =(props) =>{
     const hanClickDetailCheckout =() =>{
       if(findFirma){
         history.push(`/Checkout/${id}`)
-      }
-      
+      } 
     }
 
     const handChecking =() =>{
@@ -262,7 +260,6 @@ const DetailDasboard =(props) =>{
           setLoadingFecha({error:true})
         })
     }
-
 
     const docu = tipoDocumento?.find(index =>  index?.ID == resultDashboard.ID_Tipo_documento)
 
@@ -286,11 +283,11 @@ const DetailDasboard =(props) =>{
           Nacionalidad:""
     })
 
-    const handleInpuHuespe =(event, index) =>{
-      setHuespe({
-        ...huespe,
-        [event.target.name] : event.target.value
-    })
+      const handleInpuHuespe =(event, index) =>{
+        setHuespe({
+          ...huespe,
+          [event.target.name] : event.target.value
+      })
     }
 
     useEffect(() =>{
@@ -302,7 +299,6 @@ const DetailDasboard =(props) =>{
       .then(resp => resp.json())
       .then(data =>setProduct(data.query))
 
-     
       fetch(`${config.serverRoute}/api/resecion/getcountry`)
       .then(resp => resp.json())
       .then(data=> setCountry(data))
@@ -333,24 +329,22 @@ const DetailDasboard =(props) =>{
   }else if(estadia==1){
     const nochesPay = 1*countSeguro
       const subtotal=resultFinish.precio_persona*1
-      count=subtotal + nochesPay + parseInt(resultDashboard?.valor_habitacion)
-      
+      count=subtotal + nochesPay + parseInt(resultDashboard?.valor_habitacion) 
   }else {
     count=resultDashboard?.valor_habitacion
   }
 
-    let dataOne ={
-      Abono:Abono,
-      Valor:count,
-      Valor_habitacion:count
-    } 
-
+  let dataOne ={
+    Abono:Abono,
+    Valor:count,
+    Valor_habitacion:count
+  } 
 
   let dataCountPeople ={
     Adultos:adultos,
     Ninos:ninos,
     infantes:infantes
-}
+  }
 
   const hanAdd=() =>{
     if (huespe.Tipo_documento =="" || huespe.Num_documento =="" || huespe.Nombre ==""|| huespe.Apellido ==""|| huespe.Celular ==""|| huespe.Correo ==""|| huespe.Fecha_nacimiento =="" || huespe.Ciudad ==""|| huespe.Nacionalidad =="" ){
@@ -366,22 +360,28 @@ const DetailDasboard =(props) =>{
   }
 
   const handSubmit =() =>{
-    ServiceUpdateReservation({id:resultDashboard.id_persona,data}).then(index =>{
-      console.log(index)
-      setLoading({loading:true})
-  }).catch(e =>{
-    console.log(e)
-    setLoading({error:false})
-  })
+        ServiceAddHuespedes({id,huespe,data:dataCountPeople,dataPay:dataOne}).then(index =>{
+          console.log(index)
+          window.location.reload()
+      }).catch(e =>{
+          console.log("error")
+      })
+        ServiceUpdateReservation({id:resultDashboard.id_persona,data}).then(index =>{
+          console.log(index)
+          setLoading({loading:true})
+      }).catch(e =>{
+        console.log(e)
+        setLoading({error:false})
+      })
 
-  if(dataOne.Abono !=="COPNaN"){
-    ServiceUpdateReservationpay({id,dataOne}).then(index =>{
-      console.log(index)
-      
-  }).catch(e =>{
-    console.log(e)
-  })
-  }
+      if(dataOne.Abono !=="COPNaN"){
+        ServiceUpdateReservationpay({id,dataOne}).then(index =>{
+          console.log(index)
+          
+      }).catch(e =>{
+        console.log(e)
+      })
+      }
 }   
 
   const totalAlojamiento = resultFinish?.precio * day
@@ -396,47 +396,47 @@ const DetailDasboard =(props) =>{
   const totalBebidas = bebidas?.reduce((acum,current) => {
     return acum  + current.Cantidad
 },0)
+
 const priceBebidas = bebidas?.reduce((acum,current) => {
     return acum  + current.Cantidad * current.Precio
 },0)
 
-
-
 const totalSnacks = Snacks?.reduce((acum,current) => {
     return acum  + current.Cantidad
 },0)
+
 const priceSnacks = Snacks?.reduce((acum,current) => {
     return acum  + current.Cantidad * current.Precio
 },0)
 
-
 const totalSouvenir = Souvenir?.reduce((acum,current) => {
     return acum  + current.Cantidad
 },0)
+
 const priceSouvenir = Souvenir?.reduce((acum,current) => {
     return acum  + current.Cantidad * current.Precio
 },0)
 
-
 const totalDrogueria = Drogueria?.reduce((acum,current) => {
     return acum  + current.Cantidad
 },0)
+
 const priceDrogueria = Drogueria?.reduce((acum,current) => {
     return acum  + current.Cantidad * current.Precio
 },0)
 
-
 const totalAdultos = Adultos?.reduce((acum,current) => {
     return acum  + current.Cantidad
 },0)
+
 const priceAdultos = Adultos?.reduce((acum,current) => {
     return acum  + current.Cantidad * current.Precio
 },0)
 
-
 const totalLenceria = Lenceria?.reduce((acum,current) => {
     return acum  + current.Cantidad
 },0)
+
 const priceLenceria = Lenceria?.reduce((acum,current) => {
     return acum  + current.Cantidad * current.Precio
 },0)
@@ -633,7 +633,7 @@ const priceLenceria = Lenceria?.reduce((acum,current) => {
                                 priceLenceria={priceLenceria}
                                 Lenceria={Lenceria}
                                  />}
-             {pago && <Pagos pagos={resultDashboard} />}
+          {pago && <Pagos pagos={resultDashboard} />}
         </div>       
       </form>
       </div>
@@ -648,13 +648,13 @@ const priceLenceria = Lenceria?.reduce((acum,current) => {
                           </div>
                               <div className="container-detail-dasboard-in" >
                                 
-                                      <input  className="desde-detail-three"     
-                                              name="Nombre"  
-                                              type={"text"} 
-                                              placeholder="Nombre" 
-                                              value={item.Nombre} 
-                                              onChange={handleInpuHuespe}
-                                              required  />
+                                  <input  className="desde-detail-three"     
+                                          name="Nombre"  
+                                          type={"text"} 
+                                          placeholder="Nombre" 
+                                          value={item.Nombre} 
+                                          onChange={handleInpuHuespe}
+                                          required  />
 
                                   <input  type="text" 
                                           className="desde-detail-three" 
@@ -682,7 +682,7 @@ const priceLenceria = Lenceria?.reduce((acum,current) => {
                                                 )}
                                       </select>
 
-                                  <input  type="number" 
+                                  <input  type="text" 
                                           className="desde-detail-two" 
                                           name="Num_documento" 
                                           placeholder="Numero de documento"

@@ -436,6 +436,8 @@ const CheckoutOrganism =({DetailDashboard}) =>{
     const totalAll =formatter.format(parseInt( valor_habitacion) + parseInt( iva))
     const total_Valor = parseInt(valor_habitacion+ iva)
 
+    
+
     const handClickSearc =(event) =>{
         setFilterFinish(event)
         setSearch(null)
