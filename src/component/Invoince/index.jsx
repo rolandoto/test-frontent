@@ -116,12 +116,13 @@ const Invoince =({carts=[], setInvoice,priceCart,client,identification,raiting})
                             
                                 <span className="invoince grupo title-invoince-cart to-cart-grupo" >WWW.GRUPO-HOTLELES.COM</span>
                                
-                            </div>            
+                            </div>  
+                            <button id="demo" className= {`  "dispaly-one"}    checkOut  sub-total-top`} onClick={handSubmit}>
+                                                            <span className="itemName">Imprimir</span>
+                                                    </button>          
                     </div>
 
-                    <button id="demo" className= {`  "dispaly-one"}    checkOut  sub-total-top`} onClick={handSubmit}>
-                                                            <span className="itemName">Imprimir</span>
-                                                    </button>
+                    
                       
                              
                 </div>
