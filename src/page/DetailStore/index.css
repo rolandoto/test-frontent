@@ -3,12 +3,16 @@
  }
  
  .flex-stores{
-     display: flex;
-     align-items: center;
-     margin-left: 16px;
-     align-items: center;
-     justify-content: center;
-     margin-top: 59px;
+    display: flex;
+    margin-left: 16px;
+    align-items: center;
+    justify-content: center;
+    margin-top: 59px;
+    display: flex;
+    max-width: 1503px;
+    background: #fff;
+    overflow: hidden;
+    margin: auto;
      
  }
  
