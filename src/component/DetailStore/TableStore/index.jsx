@@ -5,8 +5,9 @@ const TableStore =({Store}) =>{
 
      
     return (
-        <div className="container-table">
-            <table className="table">
+        <div className="container-bicta">
+            <tbody>
+            <table className="de">
                 <tr>
                     <th>Tipo de categoria</th>
                     <th>Nombre</th>
@@ -28,6 +29,7 @@ const TableStore =({Store}) =>{
                     )
                 })}
             </table>
+            </tbody>
         </div>
     )
 
