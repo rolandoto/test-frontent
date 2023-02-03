@@ -27,7 +27,7 @@
     /* box-shadow: 0 0 50px rgb(0 0 0 / 40%); */
     overflow: auto;
     margin: auto;
-    margin-top: 122px;
+    margin-top: 122px;  
 }
 
 .rowMenuCard {
@@ -748,6 +748,23 @@
     /* margin-top: 10px; */
     overflow-y: scroll;
     overflow-x: hidden;
+    height: auto;
+
+}
+
+.content-Modal-store-one{
+  background-color: whitesmoke;
+    width: 300px;
+    padding: 10px 20px;
+    margin: 10vh auto;
+    position: relative;
+    border-radius: 6px;
+    animation: pulse 0.1s ease;
+    /* margin-top: 12%; */
+    min-height: 280px;
+    /* max-height: 686px; */
+    /* margin-top: 10px; */
+    /* overflow-x: hidden; */
     height: auto;
 
 }

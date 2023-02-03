@@ -436,7 +436,7 @@ const CheckoutOrganism =({DetailDashboard}) =>{
     const totalAll =formatter.format(parseInt( valor_habitacion) + parseInt( iva))
     const total_Valor = parseInt(valor_habitacion+ iva)
 
-    
+
 
     const handClickSearc =(event) =>{
         setFilterFinish(event)
@@ -448,8 +448,6 @@ const CheckoutOrganism =({DetailDashboard}) =>{
         setSearch(e.target.value)
         filtrar(e.target.value)
     }
-
-    
 
     
 
@@ -479,11 +477,31 @@ const CheckoutOrganism =({DetailDashboard}) =>{
         }) 
     }
 
-    
+    const [loading,setLoading] =useState(false)
+
+    const handLoading =() =>{
+        setLoading(true)
+    }
+
+    const handLoadingOne =() =>{
+        setLoading(false)
+    }
 
     if(findEmpresa)
     return (
-        <> 
+        <>     
+            {invoince  && <Invoince
+                                                setInvoice={handCloseInvoince} 
+                                                carts={cart}
+                                                priceCart={totalPrice}
+                                                client={filterSearch?.name_people} 
+                                                identification={filterSearch?.num_id}
+                                                raiting={"dasd"} 
+                                                loading={loading}
+                                                handLoading={handLoading}
+                                                handLoadingOne={handLoadingOne}/>
+                                    }
+        {loading ? null  :
         <div className="container-flex-init-global" >
             <LoadingDetail
                 loading={true}
@@ -517,15 +535,7 @@ const CheckoutOrganism =({DetailDashboard}) =>{
                                 </div>
                             
 
-                            {invoince  && <Invoince
-                                        setInvoice={handCloseInvoince} 
-                                        carts={cart}
-                                        priceCart={totalPrice}
-                                        client={filterSearch?.name_people} 
-                                        identification={filterSearch?.num_id}
-                                        raiting={"dasd"} />
-                            }
-            <div className="container-checkout-border" >
+              <div className="container-checkout-border" >
                         <div className="container-store-checkout-three" >
                                 <div>
                                     <ul>
@@ -642,21 +652,35 @@ const CheckoutOrganism =({DetailDashboard}) =>{
                 </div>
             
             
-
+                                        
             <div className="button-checkout" onClick={handServiFormularios} >
                 <button>Imprimir factura</button>
             </div>
 
         </div>
+         }
         </>
     )
     else{
         return (
             <>
+              {invoince  && <Invoince
+                                        setInvoice={handCloseInvoince} 
+                                        carts={cart}
+                                        priceCart={totalPrice}
+                                        client={resultDashboard?.Nombre} 
+                                        identification={resultDashboard?.Num_documento}
+                                        raiting={"dasd"}
+                                        loading={loading}
+                                        handLoading={handLoading}
+                                        handLoadingOne={handLoadingOne} />
+                            }
+
+        {loading ? null  :            
              <div className="container-flex-init-global" >
             <LoadingDetail
                 loading={true}
-                titleLoading={"Checkout Persona"}  />
+                titleLoading={"Checkout persona natural"}  />
                 <div className="container-search-filter" >
                                 {preSearchFilter?.map((index,e) =>( 
                                     <section className='section-Search' key={`section-${e}`} onClick={() => handClickSearc(index.id)}  >
@@ -678,14 +702,7 @@ const CheckoutOrganism =({DetailDashboard}) =>{
                                 ))}
                                 </div>
                             
-                            {invoince  && <Invoince
-                                        setInvoice={handCloseInvoince} 
-                                        carts={cart}
-                                        priceCart={totalPrice}
-                                        client={resultDashboard?.Nombre} 
-                                        identification={resultDashboard?.Num_documento}
-                                        raiting={"dasd"} />
-                            }
+                          
                 <div className="container-checkout-border" >
                             <div className="container-store-checkout-three" >
                                     <div>
@@ -809,38 +826,10 @@ const CheckoutOrganism =({DetailDashboard}) =>{
                         <input   
                             type="checkbox" 
                             className={`checkbox-round`}
-                        /> Retencion
+                        /> Incluir Tiendas
                         
-                    </div>
-                    <div className="container-checkbox " >
-                        <input   
-                            type="checkbox" 
-                            className={`checkbox-round`}
-                        /> Retencion Ica
-                        
-                    </div>
+                        </div>
 
-                    <div className="container-checkbox " >
-                        <input   
-                            type="checkbox" 
-                            className={`checkbox-round`}
-                        /> Desocupar habitacion
-                        
-                    </div>
-                    <div className="container-checkbox " >
-                        <input   
-                            type="checkbox" 
-                            className={`checkbox-round`}
-                        /> Retencion de iva
-                        
-                    </div>
-                </div> 
-
-                <div className="container-checkbox " >
-                        <input   
-                            type="checkbox" 
-                            className={`checkbox-round`}
-                        /> Retencion de iva
                     </div>
             </div>
 
@@ -849,6 +838,7 @@ const CheckoutOrganism =({DetailDashboard}) =>{
             </div>
 
         </div>
+        }
             </>
         )
     }

@@ -4,7 +4,7 @@ const Comunicate =() =>{
 
     return (
         <div className='container-hotels'>
-            <h1>comuncate con el adminstrado</h1>
+            <h1>Comunicate con el adminstrado</h1>
         </div>
     )
 }

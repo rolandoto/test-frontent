@@ -20,13 +20,13 @@ const CardStore =({countRoom}) =>{
 
                             <div className="center-title two-title"  > 
                                 <span className="text-venta"  >Ocupacion:</span>
-                                <span className="text-venta  two-title-one"   > 89 Huespedes </span>
+                                <span className="text-venta  two-title-one"   > 0 Huespedes </span>
                             </div>
 
 
                             <div className="" >
                                 <div className="content-habitaciones-one">
-                                    <h4 className="title-card-one po ">{count}</h4>
+                                    <h4 className="title-card-one po ">0</h4>
                                 </div>
 
                                 <div className="center-title"> 
@@ -44,13 +44,13 @@ const CardStore =({countRoom}) =>{
 
                             <div className="center-title two-title"  > 
                                 <span className="text-venta"  >Ocupacion:</span>
-                                <span className="text-venta  two-title-one"> 89 Huespedes </span>
+                                <span className="text-venta  two-title-one"> 0 Huespedes </span>
                             </div>
 
 
                             <div className="" >
                                 <div className="content-habitaciones-one">
-                                    <h4 className="title-card-one po ">7</h4>
+                                    <h4 className="title-card-one po ">0</h4>
                                 </div>
 
                                 <div className="center-title"> 
@@ -68,13 +68,13 @@ const CardStore =({countRoom}) =>{
 
                             <div className="center-title two-title"  > 
                                 <span className="text-venta"  >Ocupacion:</span>
-                                <span className="text-venta  two-title-one"   > 89 Huespedes </span>
+                                <span className="text-venta  two-title-one"   > 0 Huespedes </span>
                             </div>
 
 
                             <div className="" >
                                 <div className="content-habitaciones-one">
-                                    <h4 className="title-card-one po ">12</h4>
+                                    <h4 className="title-card-one po ">0</h4>
                                 </div>
 
                                 <div className="center-title"> 

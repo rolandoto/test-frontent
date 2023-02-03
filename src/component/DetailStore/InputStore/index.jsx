@@ -75,7 +75,7 @@ const InputStore = ({id,fetchData}) => {
                     change={handleInputChange} />
 
                 <li>
-                    <button className="button-stores" onClick={handSubmitProduct} >
+                    <button className="button-stores-admin" onClick={handSubmitProduct} >
                         Agregar
                     </button>
                 </li>       

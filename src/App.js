@@ -40,12 +40,12 @@ import Checkout from './page-resesion/Checkout';
 import Comunicate from './page/Comunicate';
 import HeaderComunicate from './component/Header/HeaderComunicate';
 
-
+    
 function App() {
 
     const {jwt} =useContext(AutoProvider)
 
-    const val = jwt ?jwt.result.id_permissions : 2
+    const val = 1
 
 
 
