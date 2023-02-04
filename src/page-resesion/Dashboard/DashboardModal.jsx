@@ -849,7 +849,7 @@ const DashboardModal = (props) => {
         let totalMaximopersona = parseInt(findRoomOne?.max_persona)
         countMax=totalMaximopersona
         
-        
+
         const MAX_VAL = 6;
         
         const withValueCap = (inputObj) => {
@@ -936,16 +936,15 @@ const DashboardModal = (props) => {
 
                                                 </div>
                                                 <ul className="flex-bedrooms">
-                                                    <Input  title="Fecha desde"  
-                                                            type="date" 
-                                                            name="desde" 
-                                                            change={handleFechaOne}
-                                                            value={fechaOne} />
-                                                    <Input  title="Fecha hasta" 
-                                                            type="date" 
-                                                            name="hasta" 
-                                                            value={fechaTwo}
-                                                            change={handleFechaTwo} />
+                                                  
+                                                    <li>
+                                                        <label className="title-stores">Fecha desde</label>
+                                                        <input className="input-selecto-dasboard-n1-reservaction"   name="desde"  type="date" onChange={handleFechaOne}  value={fechaOne} />
+                                                    </li>
+                                                    <li>
+                                                        <label className="title-stores">Fecha desde</label>
+                                                        <input className="input-selecto-dasboard-n1-reservaction"      name="hasta"   type="date"  onChange={handleFechaTwo}   value={fechaTwo} />
+                                                    </li>
                                                     <Selected 
                                                             title="Tipo de habitacion" 
                                                             state={habi} 

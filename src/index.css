@@ -558,21 +558,19 @@ td, th ,tr{border:none;}
 }
 
 .container-bicta{
-  display: flex;
-  /* max-width: 57%; */
-  /* margin: auto; */
-  /* width: 146%; */
-  justify-content: center;
-  flex-direction: column;
-  display: flex;
-  max-width: 1501px;
-  /* max-height: 1100px; */
-  flex-direction: column;
-  background: #fff;
-  /* height: 100vh; */
-  width: 100vw;
-  overflow: auto;
-  margin: auto;
+  max-width: 57%; 
+    /* margin: auto; */
+    /* width: 146%; */
+    justify-content: center;
+    display: flex;
+    max-width: 1485px;
+    /* max-height: 1100px; */
+    flex-direction: column;
+    background: #fff;
+    /* height: 100vh; */
+    width: 100vw;
+    overflow: auto;
+    margin: auto;
 }
 
 .image-fume{
@@ -755,7 +753,7 @@ td, th ,tr{border:none;}
 }
 
 .active, .accordion:hover {
-  background-color: #ccc; 
+ 
 }
 
 .panel {

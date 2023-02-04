@@ -285,6 +285,37 @@
   padding: 18px;
 }
 
+.input-selecto-dasboard-n1-reservaction{
+  box-sizing: border-box;
+  width: 232px;
+  height: 60px;
+  left: 300px;
+  top: 338px;
+  border: 1px solid #858585;
+  margin-top: 5px;
+  border: none;
+  background: #EBEBEB;
+  border: 0.5px solid #FFFFFF;
+  border-radius: 8px;
+  padding: 18px;
+}
+
+.input-selecto-dasboard-n1-create{
+  box-sizing: border-box;
+  width: 310px;
+  height: 60px;
+  left: 300px;
+  top: 338px;
+  border: 1px solid #858585;
+  border-radius: 8px;
+  margin-top: 5px;
+  border: none;
+  background: #EBEBEB;
+  border: 0.5px solid #FFFFFF;
+  border-radius: 8px;
+  padding: 18px;
+}
+
 
 .button-reservas-type {
   padding: 10px 23px 10px 16px;

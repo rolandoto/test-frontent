@@ -18,15 +18,15 @@
 
 .mainContainer{
   display: flex;
-    max-width: 1076px;
-    /* max-height: 1100px; */
-    flex-direction: column;
-    background: #fff;
-    /* height: 100vh; */
-    width: 100vw;
-    /* box-shadow: 0 0 50px rgb(0 0 0 / 40%); */
-    margin: auto;
-    margin-top: 122px;  
+  max-width: 1499px;
+  max-height: 1100px;
+  flex-direction: column;
+  background: #fff;
+  height: 100vh;
+  width: 100vw;
+  /* box-shadow: 0 0 50px rgb(0 0 0 / 40%); */
+  margin: auto;
+  margin-top: 122px;  
 }
 
 .rowMenuCard {
@@ -81,9 +81,9 @@
     display: grid;
     grid-gap: 10px;
     gap: 10px;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     /* padding: 10px; */
-    width: 99%;
+    width: 90%;
     margin-top: 40px;
 }
 
@@ -100,7 +100,7 @@
     .itemCard  {
       height: 153px;
       margin: auto;
-      width: 329px;
+      width: 365px;
 
     }
 }
@@ -133,11 +133,11 @@
 .icon-cantidad{
   position: absolute;
   top: 64px;
-  left: 262px;
+  left: 280px;
 }
 
 .add-cart{
-  left: 250px;
+  left: 269px;
   position: absolute;
   top: 11px;
   display: flex;
@@ -265,7 +265,7 @@
 .rightMenu {
     position: fixed;
     z-index: 1;
-    transform: translateX(0%);
+    transform: translateX(60%);
     top: unset;
     padding: 20px 15px;
   }
@@ -287,22 +287,40 @@
     box-shadow: 0px 3px 20px rgba(0, 0, 0, 0.1);
   }
   
-  .rightMenu.active {
+  .rightMenu {
     transform: translateX(0%);
+  }
+
+  
+
+  .ocultar{
+    position: absolute;
+    left: -45px;
+    top: 353px;
+    padding: 22px;
+    color: white;
+  }
+
+
+  .ocultar.active{
+    transform: rotate(178deg);
+  }
+
+  .rightMenu.active {
+    transform: translateX(80%);
   }
 
   
 @media screen and (min-width: 950px) {
    
     .mainContainer {
-      padding: 10px 30px;
      overflow-y: none ;
     }
     .rightMenu {
       position: fixed;
       z-index: 1;
       transform: translateX(0%);
-      top: 0px;
+      top: 52px;
       padding: 20px 15px;
     }
     .imgBox{

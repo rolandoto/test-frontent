@@ -11,7 +11,7 @@ import MenuItem from "../../component/MenuItems/MenuItems";
 import  AutoProvider  from "../../privateRoute/AutoProvider";
 import { ServiceReservas } from "../../page-resesion/Dashboard/dummy_data";
 import ServiceaInsertCart from "../../service/serviceaInsertCart";
-
+import { AiFillCaretRight } from "react-icons/ai";
 const StoreTemplate =({Store}) =>{
 
     const MenuItems = [
@@ -846,6 +846,21 @@ const StoreTemplate =({Store}) =>{
         })
     }
 
+    useEffect(() => {
+      const toggleIcon = document.querySelector(".toggleMenu");
+      console.log(toggleIcon)
+      toggleIcon.addEventListener("click", () => {
+        document.querySelector(".rightMenu").classList.toggle("active");
+        console.log(true)
+      });
+
+      toggleIcon.addEventListener("click", () => {
+        document.querySelector(".ocultar").classList.toggle("active");
+        console.log(true)
+      });
+    }, []);
+    
+
     console.log(currenCart)
         return (    
             <div className="mainContainer">
@@ -921,6 +936,7 @@ const StoreTemplate =({Store}) =>{
                     }
                         </div>
                         <div className="rightMenu">
+                          <button className=" toggleMenu  ocultar" > <AiFillCaretRight fontSize={50} color="black" /></button>
                             <div className="debitCardContainer">
                                 <div className="debitCard">
                                     <DebitCard />

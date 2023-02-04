@@ -129,7 +129,7 @@ else if(val==2){
                                 <PrivateRoute exact path='/Home' component={Dashboard} />
                                 <PrivateRoute exact path="/DetailDashboard/:id" component={DetailDashboard} />  
                                 <PrivateRoute exact path="/store" component={Store}/>
-                                <PrivateRoute exact path="/DetailStoreRecepcion/:id" component={DetailStoreRecepcion} />
+                                <PrivateRoute exact path="/DetailStorerecepcion/:id" component={DetailStoreRecepcion} />
                                 <PrivateRoute  exact path="Booking"       />
                                 <PrivateRoute exact path="/Detail/:id" component={DetailCheckin} />
                                 <PrivateRoute exact path="/Bictacoras"  component={Bictacoras}  />
