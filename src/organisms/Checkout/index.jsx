@@ -922,7 +922,7 @@ const Factura  =({Room,Valor_dia_habitacion,resultFinish,comprobante,setComproba
       const pdf = new jsPDF({
         orientation: "landscape",
     
-        format:  [550, 600 ]
+        format:  [canvas.width, canvas.height ]
       });
       pdf.addImage(imgData, "JPEG", 0, 0);
       // pdf.output("dataurlnewwindow");
@@ -1051,7 +1051,7 @@ const FacturaCompany  =({Room,Valor_dia_habitacion,resultFinish,comprobante,setC
       const pdf = new jsPDF({
         orientation: "landscape",
     
-        format:  [550, 600 ]
+        format:  [canvas.width, canvas.height ]
       });
       pdf.addImage(imgData, "JPEG", 0, 0);
       // pdf.output("dataurlnewwindow");
