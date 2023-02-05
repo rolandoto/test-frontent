@@ -955,11 +955,7 @@ const Factura  =({Room,Valor_dia_habitacion,resultFinish,comprobante,setComproba
             
             <div className="text-center" >
                 <h1>HOTEL FLORENCIA PLAZA</h1>
-                <h3>NIT:3194070907</h3>
                 <h4>Crr 41 no 10-41</h4>
-                <h4>3194070907</h4>
-                <h4>gerencia@grupo-hoteles.com</h4>
-                <h4>Medellin</h4>
             </div>
           <div>
 

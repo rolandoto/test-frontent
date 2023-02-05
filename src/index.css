@@ -948,28 +948,28 @@ td, th ,tr{border:none;}
 }
 
 .text-center{
-  text-align: center;
+  text-align: left;
 }
 
 .table-factura{
   width: 100%;
   margin: auto;
   margin-top: 5%;
-  border: solid 3px black;
+  border: solid 3px rgb(204, 203, 203) !important;
   box-shadow: none;
   border-radius: none;
 }
 
 .table-factura >tr th{
  
-  border: solid 3px black;
+  border: solid 3px rgb(204, 203, 203) !important;
  
 }
 
 .table-factura-one{
   width: 100%;
   margin: auto;
-  border: solid 3px black;
+  border: solid 3px rgb(204, 203, 203) !important;
   box-shadow: none;
 }
 
@@ -1006,25 +1006,25 @@ td, th ,tr{border:none;}
 }
 
 .global-factura th,td {
-  border: 1px solid black !important;
+  border: 1px solid rgb(204, 203, 203) !important;
   text-align: left;
   border-radius: 0px !important;
   font-weight: 600;
 }
 
 .global-factura td, tr  {
-  border: solid 3px black !important;
+  border: solid 1px rgb(204, 203, 203) !important;
 }
 
 .global-factura{
   padding: 15px;  
   width: 1000px;
-  border:  solid  5px black !important;
+  border:  solid  1px rgb(204, 203, 203) !important;
   border-radius: 0px  !important;
 }
 
 .table-factura-one >   th,td{
-  border: 1px solid black !important;
+  border: 1px solid rgb(204, 203, 203) !important;
   text-align: left;
   padding: 8px;
   border-radius: 0px !important;
