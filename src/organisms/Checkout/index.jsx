@@ -8,6 +8,11 @@ import { useParams } from "react-router-dom"
 import Invoince from "../../component/Invoince"
 import { config } from "../../config"
 import ServiceFormulariosCheckout from "../../service/ServiceFormulariosCheckout"
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
+import UsePrice from "../../hooks/UsePrice"
+import { height, maxHeight } from "@mui/system"
+import ServiceStatus from "../../service/ServiceStatus"
 
 const CheckoutOrganism =({DetailDashboard}) =>{
     const {id} = useParams()
@@ -20,8 +25,11 @@ const CheckoutOrganism =({DetailDashboard}) =>{
     const [preSearchFilter,setPreSearchFilter] =useState()
     const [filterFinish,setFilterFinish] =useState()
     const [invoince,setInvoice] =useState(false)
+    const [comprobante,setComprobante] =useState(false)
 
-    
+    const handComprobante =() =>{
+        setComprobante(true)
+    }   
 
     const MenuItems = [
         {
@@ -433,7 +441,7 @@ const CheckoutOrganism =({DetailDashboard}) =>{
 
     const valor_habitacion_total =formatter.format(valor_habitacion)
     const ivaTo = formatter.format(iva)
-    const totalAll =formatter.format(parseInt( valor_habitacion) + parseInt( iva))
+    const totalAll =formatter.format(parseInt( valor_habitacion))
     const total_Valor = parseInt(valor_habitacion+ iva)
 
 
@@ -485,6 +493,14 @@ const CheckoutOrganism =({DetailDashboard}) =>{
 
     const handLoadingOne =() =>{
         setLoading(false)
+    }
+
+    const handUpdateStatus =() =>{
+        ServiceStatus({id,ID_Tipo_Estados_Habitaciones:1}).then(index=>{
+           window.location.href = "/home"
+        }).catch(e =>{
+            console.log(e)
+        })
     }
 
     if(findEmpresa)
@@ -657,6 +673,23 @@ const CheckoutOrganism =({DetailDashboard}) =>{
                 <button>Imprimir factura</button>
             </div>
 
+            <div className="button-checkout-one" onClick={handComprobante}  >
+                <button>Descargar Comprobante</button>
+            </div>
+
+            <div className="button-checkout-two-finally" onClick={handUpdateStatus}  >
+                <button>Finalizar Checkout</button>
+            </div>
+
+            {comprobante &&  <FacturaCompany Room={resultFinish}
+                    Valor_dia_habitacion={resultDashboard}
+                    resultFinish={resultFinish}
+                    filterSearch={filterSearch}
+                    resultDashboard={resultDashboard}
+                    comprobante={comprobante}
+                    setComprobante={setComprobante} />
+}
+
         </div>
          }
         </>
@@ -804,7 +837,7 @@ const CheckoutOrganism =({DetailDashboard}) =>{
                         <ul>
                             <li className="totalPricecheckout-one-three" ><span>Sub total:</span> 
                             <span>Iva: </span>
-                            <span>V Tota${totalStore ?totalStore : 0 }</span>
+                            <span>V Tota$: {totalAll}</span>
                             </li>  
                                         
                             <li className="totalPricecheckout-two-one" >Imprimir</li>                     
@@ -836,7 +869,21 @@ const CheckoutOrganism =({DetailDashboard}) =>{
             <div className="button-checkout" >
                 <button>Enviar factura</button>
             </div>
+            <div className="button-checkout-one" onClick={handComprobante}  >
+                <button>Descargar Comprobante</button>
+            </div>
 
+            
+            <div className="button-checkout-two-finally" onClick={handUpdateStatus}  >
+                <button>Finalizar Checkout</button>
+            </div>
+
+            {comprobante &&   <Factura Room={resultFinish}
+                    Valor_dia_habitacion={resultDashboard}
+                    resultFinish={resultFinish}
+                    comprobante={comprobante}
+                    setComprobante={setComprobante} />
+                                        }
         </div>
         }
             </>
@@ -846,3 +893,270 @@ const CheckoutOrganism =({DetailDashboard}) =>{
 }
 
 export default CheckoutOrganism
+
+
+const Factura  =({Room,Valor_dia_habitacion,resultFinish,comprobante,setComprobante}) =>{
+    let docToPrint = React.createRef();
+    let startDate = new Date(Valor_dia_habitacion.Fecha_inicio);
+    let startDateOne = new Date(Valor_dia_habitacion.Fecha_inicio);
+    let endDate = new Date(Valor_dia_habitacion.Fecha_final);
+    const toPrice = parseInt(Valor_dia_habitacion?.valor_dia_habitacion)
+    const valor_dia = UsePrice({number:toPrice})
+
+    const rayDate = []
+    for (let date = startDate; date <= endDate; date.setDate(date.getDate() + 1)) {
+        let month = date.toLocaleString("default", { month: "long" });
+            rayDate.push({
+            Fecha:(  date.getDate()+" " +month) ,
+            Room:Room?.nombre,
+            Price:valor_dia.price
+            })
+    }   
+    const fecha =  startDateOne.toISOString().split('T')[0]
+    const fechaOne = endDate.toISOString().split('T')[0]
+
+  const printDocument = () => {
+    const input = docToPrint.current;
+    html2canvas(input).then((canvas) => {
+      const imgData = canvas.toDataURL("image/png");
+      const pdf = new jsPDF({
+        orientation: "landscape",
+    
+        format:  [550, 600 ]
+      });
+      pdf.addImage(imgData, "JPEG", 0, 0);
+      // pdf.output("dataurlnewwindow");
+      pdf.save("Up4-receipt.pdf");
+    });
+  };
+
+  useEffect(() =>{
+    printDocument()
+  },[comprobante])
+
+
+  setTimeout(() => {
+    setComprobante(false)
+  }, 1000);
+  
+
+  
+  const totalAll = Valor_dia_habitacion?.valor_dia_habitacion * rayDate?.length
+  const toPriceAll = UsePrice({number:totalAll})
+
+    return (<div>
+        <div>
+
+        </div>
+        <div ref={docToPrint} className="global-factura" style={{
+          borderRadius: "5px",
+        }} >
+
+            
+            <div className="text-center" >
+                <h1>HOTEL FLORENCIA PLAZA</h1>
+                <h3>NIT:3194070907</h3>
+                <h4>Crr 41 no 10-41</h4>
+                <h4>3194070907</h4>
+                <h4>gerencia@grupo-hoteles.com</h4>
+                <h4>Medellin</h4>
+            </div>
+          <div>
+
+          <table className="table-factura-one">
+              <tr>
+                <th>Nombre</th>
+                <th>Apellido </th>
+                <th className="tarifa-val" >Nacionalidad </th>
+                <th className="fecha-entrada-val" >Telefono</th>
+                <th className="fecha-sal" >Documento</th>
+              </tr>
+              <tr>
+                <th>{Valor_dia_habitacion?.Nombre}</th>
+                <th>{Valor_dia_habitacion?.Apellido} </th>
+                <th className="tarifa-val" >{Valor_dia_habitacion?.nacionalidad}</th>
+                <th className="fecha-entrada-val" >{Valor_dia_habitacion?.Celular}</th>
+                <th className="fecha-sal" >{Valor_dia_habitacion?.Celular}</th>
+              </tr>
+            </table>
+            
+          <table className="table-factura">
+          <tr>
+                <th className="No-person" >No. PERSONAS</th>
+                <th className="Tarifa" >Tarifa</th>
+                <th className="fecha-entrada" >Fecha entrada</th>
+                <th className="fecha-salida" >Fecha salida</th>
+                <th>Habitacion</th>
+              </tr>
+            </table>
+            
+          <table className="table-factura-one">
+              <tr>
+                <th>Adultos: {Valor_dia_habitacion?.Adultos}</th>
+                <th>Menores: {Valor_dia_habitacion?.Ninos} </th>
+                <th className="tarifa-val" >0 </th>
+                <th className="fecha-entrada-val" >{fecha} </th>
+                <th className="fecha-sal" >{fechaOne}</th>
+                <th className="room-detail" >{resultFinish?.nombre}</th>
+              </tr>
+            </table>
+            <table className="table-factura-one">
+              <tr>
+                <th>Fecha</th>
+                <th>Conceptos</th>
+                <th>Cargos</th>
+                <th>Saldo</th>
+              </tr>
+           
+                {rayDate.map((item,index)=>(
+                    <tr>
+                        <td>{item.Fecha}</td>
+                        <td>{item.Room}</td>
+                        <td>{item.Price}</td>
+                        <td>{item.Price}</td>
+                  </tr>
+                ))}
+            
+            </table>
+            <table className="table-factura-one">
+              <tr>
+                <th>Valor total : {toPriceAll.price}</th>
+              </tr>
+            </table> 
+          </div>
+        </div>
+      </div>)
+}
+
+const FacturaCompany  =({Room,Valor_dia_habitacion,resultFinish,comprobante,setComprobante,filterSearch}) =>{
+    let docToPrint = React.createRef();
+    let startDate = new Date(Valor_dia_habitacion.Fecha_inicio);
+    let startDateOne = new Date(Valor_dia_habitacion.Fecha_inicio);
+    let endDate = new Date(Valor_dia_habitacion.Fecha_final);
+    const toPrice = parseInt(Valor_dia_habitacion?.valor_dia_habitacion)
+    const valor_dia = UsePrice({number:toPrice})
+
+    const rayDate = []
+    for (let date = startDate; date <= endDate; date.setDate(date.getDate() + 1)) {
+        let month = date.toLocaleString("default", { month: "long" });
+            rayDate.push({
+            Fecha:(  date.getDate()+" " +month) ,
+            Room:Room?.nombre,
+            Price:valor_dia.price
+            })
+    }   
+    const fecha =  startDateOne.toISOString().split('T')[0]
+    const fechaOne = endDate.toISOString().split('T')[0]
+
+  const printDocument = () => {
+    const input = docToPrint.current;
+    html2canvas(input).then((canvas) => {
+      const imgData = canvas.toDataURL("image/png");
+      const pdf = new jsPDF({
+        orientation: "landscape",
+    
+        format:  [550, 600 ]
+      });
+      pdf.addImage(imgData, "JPEG", 0, 0);
+      // pdf.output("dataurlnewwindow");
+      pdf.save("Up4-receipt.pdf");
+    });
+  };
+
+  useEffect(() =>{
+    printDocument()
+  },[comprobante])
+
+
+  setTimeout(() => {
+    setComprobante(false)
+  }, 2000);
+  
+
+  
+  const totalAll = Valor_dia_habitacion?.valor_dia_habitacion * rayDate?.length
+  const toPriceAll = UsePrice({number:totalAll})
+ 
+    return (<div>
+        <div>
+
+        </div>
+        <div ref={docToPrint} className="global-factura" style={{
+          borderRadius: "5px",
+        }} >
+
+            
+            <div className="text-center" >
+                <h1>HOTEL FLORENCIA PLAZA</h1>
+                <h3>NIT:3194070907</h3>
+                <h4>Crr 41 no 10-41</h4>
+                <h4>3194070907</h4>
+                <h4>gerencia@grupo-hoteles.com</h4>
+                <h4>Medellin</h4>
+            </div>
+          <div>
+
+          <table className="table-factura-one">
+              <tr>
+                <th>Nombre empresa</th>
+                <th>Nit </th>
+                <th className="tarifa-val" >Correo </th>
+                <th className="fecha-entrada-val" >Direccion</th>
+                <th className="fecha-sal" >Telefono</th>
+              </tr>
+              <tr>
+                <th>{filterSearch?.name_people}</th>
+                <th>{filterSearch?.num_id} </th>
+                <th className="tarifa-val" >{filterSearch?.email_people}</th>
+                <th className="fecha-entrada-val" >{filterSearch?.direccion_people}</th>
+                <th className="fecha-sal" >{filterSearch?.number_people}</th>
+              </tr>
+            </table>
+            
+          <table className="table-factura">
+          <tr>
+                <th className="No-person" >No. PERSONAS</th>
+                <th className="Tarifa" >Tarifa</th>
+                <th className="fecha-entrada" >Fecha entrada</th>
+                <th className="fecha-salida" >Fecha salida</th>
+                <th>Habitacion</th>
+              </tr>
+            </table>
+            
+          <table className="table-factura-one">
+              <tr>
+                <th>Adultos: {Valor_dia_habitacion?.Adultos}</th>
+                <th>Menores: {Valor_dia_habitacion?.Ninos} </th>
+                <th className="tarifa-val" >0 </th>
+                <th className="fecha-entrada-val" >{fecha} </th>
+                <th className="fecha-sal" >{fechaOne}</th>
+                <th className="room-detail" >{resultFinish?.nombre}</th>
+              </tr>
+            </table>
+            <table className="table-factura-one">
+              <tr>
+                <th>Fecha</th>
+                <th>Conceptos</th>
+                <th>Cargos</th>
+                <th>Saldo</th>
+              </tr>
+           
+                {rayDate.map((item,index)=>(
+                    <tr>
+                        <td>{item.Fecha}</td>
+                        <td>{item.Room}</td>
+                        <td>{item.Price}</td>
+                        <td>{item.Price}</td>
+                  </tr>
+                ))}
+            
+            </table>
+            <table className="table-factura-one">
+              <tr>
+                <th>Valor total : {toPriceAll.price}</th>
+              </tr>
+            </table> 
+          </div>
+        </div>
+      </div>)
+}

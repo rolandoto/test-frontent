@@ -165,6 +165,7 @@
     max-width: 959px;
     margin: auto;
     margin-top: 25px;
+    align-items: end;
 }
 
 .button-checking-detail{
@@ -388,6 +389,45 @@
     display: flex;
     justify-content: center;
     cursor: pointer;
+}
+
+.button-checking-detail-firma-po{
+    border: none;
+    background: #F94141;
+    padding: 20px;
+    width: 160px;
+    border-radius: 8px;
+    color: white;
+    height: 48px;
+    align-items: center;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+    margin-top: 10px    ;
+}
+
+.button-checking-detail-edita-po{
+    border: none;
+    background: #b2acac;
+    padding: 20px;
+    width: 160px;
+    border-radius: 8px;
+    color: white;
+    height: 48px;
+    align-items: center;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.container-flex-init-one-container-delete{
+    display: block;
+    justify-content: space-between;
+    max-width: 959px;
+    margin: auto;
+    margin-top: 25px;
 }
 
 .top-detail {

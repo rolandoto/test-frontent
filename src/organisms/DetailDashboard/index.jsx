@@ -26,6 +26,7 @@ import ServiceAddHuespedes from "../../service/ServiceAddHuespedes";
 import UseListMotels from "../../hooks/UseListMotels";
 import UsePrice from "../../hooks/UsePrice";
 import { config } from "../../config";
+import ServiDelteReservation from "../../service/ServiDelecteReservation";
 
 const DetailDasboard =(props) =>{
     const {id} = useParams()
@@ -442,6 +443,16 @@ const priceLenceria = Lenceria?.reduce((acum,current) => {
     return acum  + current.Cantidad * current.Precio
 },0)
 
+
+const hanDelete =() =>{
+  ServiDelteReservation({id}).then(index =>{
+    console.log(index)
+    window.location.href="/Home"
+}).catch(e =>{
+    console.log("error")
+})
+}
+
   if(!docu) return null
   if(!resultFinish)  return null
     
@@ -587,11 +598,22 @@ const priceLenceria = Lenceria?.reduce((acum,current) => {
             <div>
                 <button className="button-checking-detail-one-das" > <span> Total cobro {cobrar}  </span></button>
             </div>
-            <div>
-                <button className="button-checking-detail-one" onClick={state ? handChangeEdit :handChangeSave}> <span>{item}</span></button>
-            </div>
+            
       
       </div>
+
+      <div className="container-flex-init-one-container-delete" >
+          <div>
+              <button className="button-checking-detail-edita-po" onClick={state ? handChangeEdit :handChangeSave}> <span>{item}</span></button>
+            </div>
+            <div>
+                  <button className="button-checking-detail-firma-po"  onClick={hanDelete} >
+                      <span className="title-button"  >Cancelar reserva</span>
+                  </button>
+              </div>
+      
+      </div>
+
 
       {!stateButton && 
       <div className="init  top-detail " >

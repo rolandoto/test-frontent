@@ -946,3 +946,86 @@ td, th ,tr{border:none;}
 .descri{
   width: 1000px;
 }
+
+.text-center{
+  text-align: center;
+}
+
+.table-factura{
+  width: 100%;
+  margin: auto;
+  margin-top: 5%;
+  border: solid 3px black;
+  box-shadow: none;
+  border-radius: none;
+}
+
+.table-factura >tr th{
+ 
+  border: solid 3px black;
+ 
+}
+
+.table-factura-one{
+  width: 100%;
+  margin: auto;
+  border: solid 3px black;
+  box-shadow: none;
+}
+
+.No-person{
+  width: 235px;
+}
+
+.Tarifa{
+  width: 99px;
+}
+
+.room-detail{
+  width: 175px;
+}
+
+.fecha-entrada{
+  width: 210px;
+}
+
+.fecha-salida{
+  width: 240px;
+}
+
+.tarifa-val{
+  width: 100px;
+}
+
+
+.fecha-entrada-val{
+  width: 210px;
+}
+.fecha-sal{
+  width: 239px;
+}
+
+.global-factura th,td {
+  border: 1px solid black !important;
+  text-align: left;
+  border-radius: 0px !important;
+  font-weight: 600;
+}
+
+.global-factura td, tr  {
+  border: solid 3px black !important;
+}
+
+.global-factura{
+  padding: 15px;  
+  width: 1000px;
+  border:  solid  5px black !important;
+  border-radius: 0px  !important;
+}
+
+.table-factura-one >   th,td{
+  border: 1px solid black !important;
+  text-align: left;
+  padding: 8px;
+  border-radius: 0px !important;
+}

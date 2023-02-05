@@ -124,6 +124,27 @@
     color: white;
 }
 
+.button-checkout-one{
+    background: #00B712;
+    display: flex;
+    justify-content: center;
+    /* height: 51px; */
+    padding: 15px;
+    border-radius: 8px;
+    color: white;
+    margin-top: 10px;
+}
+.button-checkout-two-finally{
+    background: #F94141;
+    display: flex;
+    justify-content: center;
+    /* height: 51px; */
+    padding: 15px;
+    border-radius: 8px;
+    color: white;
+    margin-top: 10px;
+}
+
 .dow{
     margin-top: 9px;
 }
