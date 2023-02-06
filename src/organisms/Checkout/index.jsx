@@ -79,7 +79,6 @@ const CheckoutOrganism =({DetailDashboard}) =>{
     const init  =   moment(resultDashboard?.Fecha_inicio).utc().format('MM/DD/YYYY')
     const fin = moment(resultDashboard?.Fecha_final).utc().format('MM/DD/YYYY')
 
-    
     useEffect(() =>{
         ServicetypeRooms({id:jwt.result.id_hotel}).then(index =>{
             setRoom(index)
@@ -479,7 +478,7 @@ const CheckoutOrganism =({DetailDashboard}) =>{
 
     const handServiFormularios =() =>{
         ServiceFormulariosCheckout({id:filterSearch.id,status:"2",fecha_ingreso:fechaInicio,fecha_salida:FechaFinal,valortotal:total_Valor}).then(index =>{
-            alert("guardado")
+            alert("Factura enviada")
         }).catch(e => {
            alert("error al guardar")
         }) 
@@ -502,7 +501,7 @@ const CheckoutOrganism =({DetailDashboard}) =>{
             console.log(e)
         })
     }
-
+    
     if(findEmpresa)
     return (
         <>     
@@ -694,7 +693,7 @@ const CheckoutOrganism =({DetailDashboard}) =>{
                         </div>
 
                         <div className="button-checkout-two-finally" onClick={handUpdateStatus}  >
-                            <button>Finalizar checkout</button>
+                            <button>checkout</button>
                         </div>
                     </div>
                 </div>

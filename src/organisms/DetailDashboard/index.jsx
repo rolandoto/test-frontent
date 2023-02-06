@@ -394,6 +394,7 @@ const DetailDasboard =(props) =>{
   const Adultos  = product?.filter(index => index.ID_Categoria ==5)    
   const Lenceria  = product?.filter(index => index.ID_Categoria ==6)  
 
+  console.log({"bebidas":Lenceria})
 
   const totalBebidas = bebidas?.reduce((acum,current) => {
     return acum  + current.Cantidad
@@ -453,6 +454,10 @@ const hanDelete =() =>{
 })
 }
 
+
+
+const toPriceNigth = UsePrice({number:resultDashboard.valor_dia_habitacion})
+
   if(!docu) return null
   if(!resultFinish)  return null
     
@@ -482,6 +487,9 @@ const hanDelete =() =>{
               <div className="border-detail" >
                    <span>{valor_habitacion}</span>
               </div>
+              <div className="border-detail" >
+                   <span>Valor noche {toPriceNigth.price}</span>
+              </div>
 
               <div className="border-detail" >
                    <span>{resultFinish?.nombre}</span>
@@ -493,6 +501,7 @@ const hanDelete =() =>{
               <div className="border-detail" >
                    <span>Abono {valor_abono}</span>
               </div>
+             
           </div>
       </div>
         <div  className="container-flex-init-global" >
@@ -575,6 +584,22 @@ const hanDelete =() =>{
                       <span className="title-button"  >Checkout</span>
                   </button>
               </div>
+              <div>
+                  <button className="button-checking-detail-firma-po"  onClick={hanDelete} >
+                      <span className="title-button"  >Cancelar reserva</span>
+                  </button>
+              </div>
+
+              <div>
+              <button className="button-checking-detail-edita-po" onClick={state ? handChangeEdit :handChangeSave}> <span>{item}</span></button>
+            </div>
+            <div>
+                  <button className="button-checking-detail-firma-po"  onClick={hanDelete} >
+                      <span className="title-button"  >Comprobante</span>
+                  </button>
+              </div>
+
+            
 
                 <div className="container-checkbox" >
                     <input   type="checkbox" 
@@ -603,14 +628,7 @@ const hanDelete =() =>{
       </div>
 
       <div className="container-flex-init-one-container-delete" >
-          <div>
-              <button className="button-checking-detail-edita-po" onClick={state ? handChangeEdit :handChangeSave}> <span>{item}</span></button>
-            </div>
-            <div>
-                  <button className="button-checking-detail-firma-po"  onClick={hanDelete} >
-                      <span className="title-button"  >Cancelar reserva</span>
-                  </button>
-              </div>
+         
       
       </div>
 
@@ -892,7 +910,7 @@ const Consumo =(props) =>{
   const totalTopriceDrogueria = UsePrice({number:priceDrogueria})
   const totalTopriceAdultos = UsePrice({number:priceAdultos})
   const totalTopriceLenceria = UsePrice({number:priceLenceria})
-
+  console.log({"totalLenceria":totalLenceria})
   if(!habitacion) return null
 
   return (
