@@ -27,6 +27,7 @@ import UseListMotels from "../../hooks/UseListMotels";
 import UsePrice from "../../hooks/UsePrice";
 import { config } from "../../config";
 import ServiDelteReservation from "../../service/ServiDelecteReservation";
+import ServePdf from "../../service/PdfServe";
 
 const DetailDasboard =(props) =>{
     const {id} = useParams()
@@ -38,6 +39,8 @@ const DetailDasboard =(props) =>{
     const history = useHistory()
     const {iduser} = UseListMotels()
     const {jwt} = useContext(AutoProvider)
+
+
 
    const FindIdHotel=(hotel) =>{
      return hotel.id_hotel == jwt.result.id_hotel
@@ -56,7 +59,7 @@ const DetailDasboard =(props) =>{
     const {progress} =useProgress({id})
     const resultDashboard = DetailDashboard[0] 
 
-    console.log({"price":resultDashboard})
+
 
     const findPersona =  resultDashboard.tipo_persona == "persona"
     const findEmpresa = resultDashboard.tipo_persona =="empresa"
@@ -394,9 +397,9 @@ const DetailDasboard =(props) =>{
   const Adultos  = product?.filter(index => index.ID_Categoria ==5)    
   const Lenceria  = product?.filter(index => index.ID_Categoria ==6)  
 
-  console.log({"bebidas":Lenceria})
+  console.log(product)
 
-  const totalBebidas = bebidas?.reduce((acum,current) => {
+    const totalBebidas = bebidas?.reduce((acum,current) => {
     return acum  + current.Cantidad
 },0)
 
@@ -445,16 +448,34 @@ const priceLenceria = Lenceria?.reduce((acum,current) => {
 },0)
 
 
-const hanDelete =() =>{
-  ServiDelteReservation({id}).then(index =>{
-    console.log(index)
-    window.location.href="/Home"
-}).catch(e =>{
-    console.log("error")
-})
-}
+  const hanDelete =() =>{
+    ServiDelteReservation({id}).then(index =>{
+      console.log(index)
+      window.location.href="/Home"
+  }).catch(e =>{
+      console.log("error")
+  })
+} 
 
+const [pdfOne,setPdfOne] =useState()
 
+const hancPdf =() =>{
+  ServePdf({codigoReserva:resultDashboard?.Num_documento,Nombre:resultDashboard?.Nombre,room:resultFinish?.nombre,adults:resultDashboard?.Adultos,children:resultDashboard?.Ninos,tituloReserva:resultDashboard?.Nombre,abono:resultDashboard?.valor_abono,formaPago:resultDashboard?.forma_pago,telefono:resultDashboard.Celular,identificacion:resultDashboard.Num_documento,correo:resultDashboard.Correo,urllogo:"https://github.com/rolandoto/image-pms/blob/main/WhatsApp%20Image%202023-02-06%20at%203.49.08%20PM.jpeg?raw=true"}).then(index => {
+    const link = document.createElement('a')
+    link.href =index;
+    link.setAttribute('target', '_blank');
+    link.download = 'Documento.pdf';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link) 
+      setPdfOne(index)
+  }).catch(e =>{
+    console.log(e)
+  })
+  
+} 
+
+console.log(resultDashboard)
 
 const toPriceNigth = UsePrice({number:resultDashboard.valor_dia_habitacion})
 
@@ -594,7 +615,7 @@ const toPriceNigth = UsePrice({number:resultDashboard.valor_dia_habitacion})
               <button className="button-checking-detail-edita-po" onClick={state ? handChangeEdit :handChangeSave}> <span>{item}</span></button>
             </div>
             <div>
-                  <button className="button-checking-detail-firma-po"  onClick={hanDelete} >
+                  <button className="button-checking-detail-firma-po"  onClick={hancPdf} >
                       <span className="title-button"  >Comprobante</span>
                   </button>
               </div>
@@ -628,7 +649,14 @@ const toPriceNigth = UsePrice({number:resultDashboard.valor_dia_habitacion})
       </div>
 
       <div className="container-flex-init-one-container-delete" >
-         
+      <textarea                                           rows="10" 
+                                                        
+                                                        cols="217" 
+                                                        placeholder="Observacion" 
+                                                        name="observacion"
+                                                        defaultValue={resultDashboard.Observacion}
+      
+                                                        className="obs" ></textarea>  
       
       </div>
 
@@ -649,7 +677,7 @@ const toPriceNigth = UsePrice({number:resultDashboard.valor_dia_habitacion})
           {consumo && <Consumo  day={day} 
                                 habitacion={resultFinish?.nombre}
                                 totalAlojamiento={totalAlojamiento}
-                               
+                                product={product}
                                 totalBebidas={totalBebidas}
                                 priceBebidas={priceBebidas}
                                 bebidas={bebidas}
