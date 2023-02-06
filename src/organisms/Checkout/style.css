@@ -22,7 +22,7 @@
 .container-store-checkout{
     display: flex;
     background: #EFEFEF;
-    width: 476px;
+    width: 735px;
     border-radius: 8px;
     align-items: center;
     color: #000000;
@@ -31,7 +31,7 @@
 .container-store-checkout-three{
     display: flex;
     background: #EFEFEF;
-    width: 476px;
+    width: 745px;
     border-radius: 8px;
     align-items: end;
     color: #000000;
@@ -106,26 +106,39 @@
     height: 140px;
 }
 
-.text-tarea-one{
+.text-tarea-one {
     border: solid 1px #EFEFEF;
     border-radius: 8px;
-    width: 470px;
-    height: 209px;
+    width: 505px;
+    height: 266px;
     padding: 2px;
 }
-
 .button-checkout{
-    background: #00B712;
+    background: #13a722d4;
     display: flex;
     justify-content: center;
     /* height: 51px; */
     padding: 15px;
     border-radius: 8px;
     color: white;
+    padding: 14px;
+    margin-top: 12px;
+}
+
+.button-checkout-three{
+    background: #13a722d4;
+    display: flex;
+    justify-content: center;
+    /* height: 51px; */
+    padding: 15px;
+    border-radius: 8px;
+    color: white;
+    padding: 14px;
+    margin-top: 13px;
 }
 
 .button-checkout-one{
-    background: #00B712;
+    background: #13a722d4;
     display: flex;
     justify-content: center;
     /* height: 51px; */
@@ -133,6 +146,7 @@
     border-radius: 8px;
     color: white;
     margin-top: 10px;
+    padding: 14px;
 }
 .button-checkout-two-finally{
     background: #F94141;
@@ -143,6 +157,7 @@
     border-radius: 8px;
     color: white;
     margin-top: 10px;
+    padding: 14px;
 }
 
 .dow{
@@ -183,12 +198,13 @@
 }
 
 .totalPricecheckout-two-one{
-    background: white;
+    background: #13a722d4;
     padding: 10px;
     display: flex;
     justify-content: center;
     border-radius: 8px;
     cursor: pointer;
+    color: white;
 }
 
 .flex-checkout{
@@ -221,7 +237,7 @@
     padding: 23px;
     border-radius: 8px;
     height: auto;
-    width: 164px;
+    width: 438px;
 }
 
 .totalPricecheckout-one-three-finish{
@@ -231,7 +247,7 @@
     padding: 23px;
     border-radius: 8px;
     height: auto;
-    width: auto;
+    width: 436px;
 }
 
 .one-v-total{

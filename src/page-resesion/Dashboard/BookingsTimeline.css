@@ -75,22 +75,24 @@
 
     
   .button-dasboard-one-one{
-    width: 1061px;
+    width: 1493px;
     height: 49px;
     background: #070707;
     border-radius: 8px;
     color: white;
     cursor: pointer;
-    background:     #13a722d4;
+    background: #13a722d4;
     border: none;
+    margin-left: -4px;
     }
 
   .container-button-dasboard{
     display: flex;
-    justify-content: center;
+    /* justify-content: center; */
     margin-top: -4px;
-    width: 721px;
-    margin: auto;
+    width: 760px;
+    /* margin: auto; */
+    margin-left: 9px;
   }
 
   .container-button-dasboard-one{
@@ -149,7 +151,7 @@
 
 .input-selecto-dasboard-n1-name{
   box-sizing: border-box;
-    width: 200px;
+    width: 354px;
     height: 40px;
     left: 300px;
     top: 338px;
@@ -157,6 +159,7 @@
     border: 1px solid #c5c5c5;
     border-radius: 8px;
     margin-top: 5px;
+    margin-left: 4px;
 }
 
 .select-hotel-type-personality-identificacion{

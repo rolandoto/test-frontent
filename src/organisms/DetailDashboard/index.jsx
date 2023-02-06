@@ -820,7 +820,7 @@ const Huesped =({quyery,handEditar,handChangeSubmit ,stateButton}) =>{
             <LoadingDetail  
                             loading={true}
                             titleLoading={"Huespedes"}  />
-                <Table sx={{width:770 ,marginTop:4}} size="small" aria-label="a dense table"> 
+                <Table sx={{width:1300 ,marginTop:4}} size="small" aria-label="a dense table"> 
                  
                 <TableHead>
                     <TableRow>
@@ -903,7 +903,7 @@ const Consumo =(props) =>{
               <LoadingDetail  
                               loading={true}
                               titleLoading={"Consumos"}  />
-                  <Table sx={{width:770 ,marginTop:4}} size="small" aria-label="a dense table"> 
+                  <Table sx={{width:1300 ,marginTop:4}} size="small" aria-label="a dense table"> 
                   <TableHead>
                       <TableRow>
                       <TableCell align="right">Cantidad</TableCell>
@@ -986,7 +986,7 @@ const Pagos =(props) =>{
            <LoadingDetail  
                            loading={true}
                            titleLoading={"Pagos"}  />
-               <Table sx={{width:770 ,marginTop:4}} size="small" aria-label="a dense table"> 
+               <Table sx={{width:1300 ,marginTop:4}} size="small" aria-label="a dense table"> 
                <TableHead>
                    <TableRow>
                    <TableCell align="right">Valor</TableCell>

@@ -123,7 +123,6 @@
 }
 
 .contain{
-  max-width: 1066px;
     margin: auto;
     margin-top: 60px;
 }
@@ -155,7 +154,7 @@
 
 .input-stores-personality{
   box-sizing: border-box;
-  width: 228px;
+  width: 346px;
   height: 40px;
   left: 300px;
   top: 338px;
@@ -163,7 +162,9 @@
   border: 1px solid #c5c5c5;
   border-radius: 8px;
   margin-top: 5px;
+  margin-left: 3px;
 }
+
 
 .input-stores-personality-one{
   box-sizing: border-box;
@@ -209,19 +210,7 @@
 
 .input-stores-personality-one--fininsh-prefijo{
   box-sizing: border-box;
-    width: 269px;
-    height: 40px;
-    left: 300px;
-    top: 338px;
-    background: #FFFFFF;
-    border: 1px solid #c5c5c5;
-    border-radius: 8px;
-    margin-top: 5px;
-}
-
-.input-stores-personality-finish{
-  box-sizing: border-box;
-  width: 281px;
+  width: 336px;
   height: 40px;
   left: 300px;
   top: 338px;
@@ -231,9 +220,22 @@
   margin-top: 5px;
 }
 
+.input-stores-personality-finish{
+  box-sizing: border-box;
+    width: 381px;
+    height: 40px;
+    left: 300px;
+    top: 338px;
+    background: #FFFFFF;
+    border: 1px solid #c5c5c5;
+    border-radius: 8px;
+    margin-top: 5px;
+}
+
+
 .select-hotel-type-personality-unica{
   box-sizing: border-box;
-  width: 252px;
+  width: 301px;
   height: 40px;
   left: 300px;
   top: 338px;
@@ -287,17 +289,17 @@
 
 .input-selecto-dasboard-n1-reservaction{
   box-sizing: border-box;
-  width: 232px;
-  height: 60px;
-  left: 300px;
-  top: 338px;
-  border: 1px solid #858585;
-  margin-top: 5px;
-  border: none;
-  background: #EBEBEB;
-  border: 0.5px solid #FFFFFF;
-  border-radius: 8px;
-  padding: 18px;
+    width: 363px;
+    height: 60px;
+    left: 300px;
+    top: 338px;
+    border: 1px solid #858585;
+    margin-top: 5px;
+    border: none;
+    background: #EBEBEB;
+    border: 0.5px solid #FFFFFF;
+    border-radius: 8px;
+    padding: 18px;
 }
 
 .input-selecto-dasboard-n1-create{
@@ -406,26 +408,26 @@
 
 .input-stores-personality-thre{
   box-sizing: border-box;
-  width: 236px;
-  height: 40px;
-  left: 300px;
-  top: 338px;
-  background: #FFFFFF;
-  border: 1px solid #c5c5c5;
-  border-radius: 8px;
-  margin-top: 5px;
+    width: 356px;
+    height: 40px;
+    left: 300px;
+    top: 338px;
+    background: #FFFFFF;
+    border: 1px solid #c5c5c5;
+    border-radius: 8px;
+    margin-top: 5px;
 }
 
 .input-stores-personality-four{
   box-sizing: border-box;
-  width: 236px;
-  height: 40px;
-  left: 300px;
-  top: 338px;
-  background: #FFFFFF;
-  border: 1px solid #c5c5c5;
-  border-radius: 8px;
-  margin-top: 5px;
+    width: 321px;
+    height: 40px;
+    left: 300px;
+    top: 338px;
+    background: #FFFFFF;
+    border: 1px solid #c5c5c5;
+    border-radius: 8px;
+    margin-top: 5px;
 }
 
 .input-stores-personality-nine{
@@ -442,7 +444,7 @@
 
 .input-stores-personality-five{
   box-sizing: border-box;
-  width: 216px;
+  width: 353px;
   height: 40px;
   left: 300px;
   top: 338px;
@@ -461,7 +463,7 @@
   border: 1px solid #c5c5c5;
   color: black;
   font-weight: 600;
-  width: 120px;
+  width: 223px;
 } 
 
 
@@ -476,7 +478,7 @@
 }
 
 .button-dasboard-six-one{
-  width: 164px;
+  width: 250px;
   height: 40px;
   background: #070707;
   border-radius: 8px;
@@ -820,7 +822,7 @@ hr{
 }
 
 .button-dasboard-nine-one{
-  width: 190px;
+  width: 360px;
   height: 40px;
   background: #13a722d4;
   border-radius: 8px;
@@ -829,24 +831,24 @@ hr{
 }
 
 .button-dasboard-sevent-two{
-  width: 230px;
-  height: 40px;
-  background: 
-  #eb6b7f;
-  border-radius: 8px;
-  color: white;
-  cursor: pointer;
-  border: none;
+  width: 284px;
+    height: 40px;
+    background: #eb6b7f;
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
+    border: none;
 }
 
+
 .button-dasboard-sevent-one{
-  width: 230px;
-  height: 40px;
-  background: #898989;
-  border-radius: 8px;
-  color: white;
-  cursor: pointer;
-  border: none;
+  width: 305px;
+    height: 40px;
+    background: #898989;
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
+    border: none;
 }
 
 

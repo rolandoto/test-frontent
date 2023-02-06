@@ -4,7 +4,7 @@
         padding: 10px;
         border-radius: 10px;
         margin: 5px;
-        width: 186px;
+        width: 289px;
         height: 111px;
         display: flex;
         align-items: center;
@@ -107,15 +107,14 @@
 }
 
 .container-flex-init-global{
-    justify-content: revert;
-    max-width: 959px;
+    max-width: 1490px;
     margin-top: 15;
     margin: auto !important;
 }
 
 .container-flex-init{
     justify-content: revert;
-    max-width: 959px;
+    max-width: 1490px;
     margin: auto;
    
 }
@@ -153,7 +152,7 @@
 .init{
     padding: 15px;
     display: block;
-    max-width: 955px;
+    max-width: 1490px;
     margin: auto;
     background: #F4F4F4;
     border-radius: 10px;
@@ -162,7 +161,7 @@
 .container-flex-init-one{
     display: flex;
     justify-content: space-between;
-    max-width: 959px;
+    max-width: 1490px;
     margin: auto;
     margin-top: 25px;
     align-items: end;
@@ -269,11 +268,10 @@
     border: none;
     background: black;
     padding: 20px;
-    width: 160px;
+    width: 283px;
     border-radius: 8px;
     color: white;
     height: 48px;
-    display: flex;
     align-items: center;
     text-align: center;
     display: flex;
@@ -350,7 +348,7 @@
     border: none;
     background: black;
     padding: 20px;
-    width: 160px;
+    width: 384px;
     border-radius: 8px;
     color: white;
     height: 48px;
@@ -380,7 +378,7 @@
     border: none;
     background: #a8bdaa;
     padding: 20px;
-    width: 160px;
+    width: 375px;
     border-radius: 8px;
     color: white;
     height: 48px;
@@ -395,7 +393,7 @@
     border: none;
     background: #F94141;
     padding: 20px;
-    width: 160px;
+    width: 375px;
     border-radius: 8px;
     color: white;
     height: 48px;
@@ -411,7 +409,7 @@
     border: none;
     background: #b2acac;
     padding: 20px;
-    width: 160px;
+    width: 375px;
     border-radius: 8px;
     color: white;
     height: 48px;
@@ -425,7 +423,7 @@
 .container-flex-init-one-container-delete{
     display: block;
     justify-content: space-between;
-    max-width: 959px;
+    max-width: 1490px;
     margin: auto;
     margin-top: 25px;
 }

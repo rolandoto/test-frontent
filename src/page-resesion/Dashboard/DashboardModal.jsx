@@ -1254,7 +1254,7 @@ const DashboardModal = (props) => {
                                                             <li>
                                             <textarea    rows="10" 
                                                         
-                                                            cols="149" 
+                                                            cols="215" 
                                                             placeholder="Observacion" 
                                                             name="observacion"
                                                             defaultValue={ObservationAll}  

@@ -586,9 +586,9 @@ const CheckoutOrganism =({DetailDashboard}) =>{
                                 <div>
                                     <ul>
                                     <li className="totalPricecheckout-one-three one-v-total     " >
-                                            <span>V Tota${totalStore ?totalStore : 0 }</span>
+                                            <span>Valor consumo ${totalStore ?totalStore : 0 }</span>
                                     </li>        
-                                        <li className="totalPricecheckout-two-one" onClick={handOpenInvoince} >Imprimir</li>                     
+                                       
                                     </ul>  
                                 </div>
 
@@ -646,7 +646,10 @@ const CheckoutOrganism =({DetailDashboard}) =>{
                                         <option></option>
                                     </select>
                             </li>   
-                        </ul>                 
+                        </ul> 
+                        <div className="container-checkout-border-one" >
+           
+            </div>                
                     </div>
 
                     <div>
@@ -655,7 +658,17 @@ const CheckoutOrganism =({DetailDashboard}) =>{
                             <span>Iva: {ivaTo} </span>
                             <span>V Tota$: {totalAll}</span>
                             </li>  
-                                                            
+                            <div className="container-store-checkout-one box" >
+
+                    <div className="container-checkbox " >
+                        <input   
+                            type="checkbox" 
+                            className={`checkbox-round`}
+                        /> Incluir tienda
+                        
+                        </div>
+
+                    </div>                               
                         </ul>  
                     </div>
                     
@@ -665,30 +678,39 @@ const CheckoutOrganism =({DetailDashboard}) =>{
                     <div className="container-store-checkout-two" >
                             <textarea id="w3review" placeholder="Observacion de la factura" className="text-tarea-one" name="w3review" rows="4" cols="50"></textarea>    
                         </div>
+
+                    <div>
+
+                        <div className="button-checkout-three" onClick={handOpenInvoince} >
+                            <button>Imprimir POS tienda</button>
+                        </div>
+                            
+                        <div className="button-checkout" onClick={handServiFormularios} >
+                            <button>Enviar factura electronica</button>
+                        </div>
+
+                        <div className="button-checkout-one" onClick={handComprobante}  >
+                            <button>Descargar comprobante</button>
+                        </div>
+
+                        <div className="button-checkout-two-finally" onClick={handUpdateStatus}  >
+                            <button>Finalizar checkout</button>
+                        </div>
+                    </div>
                 </div>
             
+
             
                                         
-            <div className="button-checkout" onClick={handServiFormularios} >
-                <button>Imprimir factura</button>
-            </div>
-
-            <div className="button-checkout-one" onClick={handComprobante}  >
-                <button>Descargar Comprobante</button>
-            </div>
-
-            <div className="button-checkout-two-finally" onClick={handUpdateStatus}  >
-                <button>Finalizar Checkout</button>
-            </div>
-
-            {comprobante &&  <FacturaCompany Room={resultFinish}
+          
+        {comprobante && <FacturaCompany Room={resultFinish}
                     Valor_dia_habitacion={resultDashboard}
                     resultFinish={resultFinish}
                     filterSearch={filterSearch}
                     resultDashboard={resultDashboard}
                     comprobante={comprobante}
                     setComprobante={setComprobante} />
-}
+        }
 
         </div>
          }
@@ -842,6 +864,7 @@ const CheckoutOrganism =({DetailDashboard}) =>{
                                         
                             <li className="totalPricecheckout-two-one" >Imprimir</li>                     
                         </ul>  
+                        
                     </div>
                     
                 </div>
@@ -854,16 +877,7 @@ const CheckoutOrganism =({DetailDashboard}) =>{
                         </div>
                 </div>
             <div className="container-checkout-border-one" >
-            <div className="container-store-checkout-one box" >
-                    <div className="container-checkbox " >
-                        <input   
-                            type="checkbox" 
-                            className={`checkbox-round`}
-                        /> Incluir Tiendas
-                        
-                        </div>
-
-                    </div>
+            
             </div>
 
             <div className="button-checkout" >
@@ -878,12 +892,12 @@ const CheckoutOrganism =({DetailDashboard}) =>{
                 <button>Finalizar Checkout</button>
             </div>
 
-            {comprobante &&   <Factura Room={resultFinish}
+        {comprobante &&  <Factura Room={resultFinish}
                     Valor_dia_habitacion={resultDashboard}
                     resultFinish={resultFinish}
                     comprobante={comprobante}
                     setComprobante={setComprobante} />
-                                        }
+        }                           
         </div>
         }
             </>
@@ -1083,12 +1097,10 @@ const FacturaCompany  =({Room,Valor_dia_habitacion,resultFinish,comprobante,setC
 
             
             <div className="text-center" >
-                <h1>HOTEL FLORENCIA PLAZA</h1>
-                <h3>NIT:3194070907</h3>
-                <h4>Crr 41 no 10-41</h4>
-                <h4>3194070907</h4>
-                <h4>gerencia@grupo-hoteles.com</h4>
-                <h4>Medellin</h4>
+                <h5>HOTEL FLORENCIA PLAZA</h5>
+                <h5>NIT:900768373-3</h5>
+                <h5>CR 41A #10-41</h5>
+                <h5>3053638733</h5>
             </div>
           <div>
 
@@ -1131,10 +1143,10 @@ const FacturaCompany  =({Room,Valor_dia_habitacion,resultFinish,comprobante,setC
             </table>
             <table className="table-factura-one">
               <tr>
-                <th>Fecha</th>
-                <th>Conceptos</th>
-                <th>Cargos</th>
-                <th>Saldo</th>
+                <th>FECHA</th>
+                <th>CONCEPTO</th>
+                <th>CARGO</th>
+                <th>SALDO</th>
               </tr>
            
                 {rayDate.map((item,index)=>(

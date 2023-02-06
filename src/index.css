@@ -569,7 +569,6 @@ td, th ,tr{border:none;}
     background: #fff;
     /* height: 100vh; */
     width: 100vw;
-    overflow: auto;
     margin: auto;
 }
 
@@ -826,10 +825,8 @@ td, th ,tr{border:none;}
     border: solid 1px black;
     transition: all 0.3s ease-in-out;
     -webkit-transition: all 0.3s ease-in-out;
-    margin-top: 19px;
-    border-radius: 8px;
     margin: auto;
-    width: 330px;
+    width: 394px;
     max-width: 531px;
     margin-top: 5px;
     background: #EBEBEB;
@@ -839,22 +836,22 @@ td, th ,tr{border:none;}
 
 .select-hotel-type-one{
   font-family: 'Lato', sans-serif;
-  font-size: 0.875em;
-  height: 61px;
-  padding: 0px 15px 0px 15px;
-  background: white;
-  outline: none;
-  color: #726659;
-  border: solid 1px black;
-  transition: all 0.3s ease-in-out;
-  -webkit-transition: all 0.3s ease-in-out;
-  margin: auto;
-  width: 243px;
-  max-width: 531px;
-  margin-top: 5px;
-  background: #EBEBEB;
-  border: 0.5px solid #FFFFFF;
-  border-radius: 8px;
+    font-size: 0.875em;
+    height: 61px;
+    padding: 0px 15px 0px 15px;
+    background: white;
+    outline: none;
+    color: #726659;
+    border: solid 1px black;
+    transition: all 0.3s ease-in-out;
+    -webkit-transition: all 0.3s ease-in-out;
+    margin: auto;
+    width: 339px;
+    max-width: 531px;
+    margin-top: 5px;
+    background: #EBEBEB;
+    border: 0.5px solid #FFFFFF;
+    border-radius: 8px;
 }
 
 
@@ -954,7 +951,7 @@ td, th ,tr{border:none;}
 .table-factura{
   width: 100%;
   margin: auto;
-  margin-top: 5%;
+  margin-top: 1%;
   border: solid 3px rgb(204, 203, 203) !important;
   box-shadow: none;
   border-radius: none;
@@ -971,6 +968,7 @@ td, th ,tr{border:none;}
   margin: auto;
   border: solid 3px rgb(204, 203, 203) !important;
   box-shadow: none;
+  margin-top: 1%;
 }
 
 .No-person{

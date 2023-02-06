@@ -35,19 +35,15 @@ import CheckingEditar from './page-resesion/CheckingEditar';
 import EditarPersonas from './page-resesion/EditarPersonas';
 import Checkingn2 from './page-resesion/Checkingn2';
 import Contracto from  './page-resesion/Contracto'
-import HotelDashboard from './page-resesion/HotelDashbord';
 import Checkout from './page-resesion/Checkout';
 import Comunicate from './page/Comunicate';
 import HeaderComunicate from './component/Header/HeaderComunicate';
-
 
 function App() {
 
     const {jwt} =useContext(AutoProvider)
 
     const val = jwt ?jwt.result.id_permissions : 2
-
-
 
     if(val ==1){
         return (
@@ -155,7 +151,6 @@ else if(val==2){
         </div>
         );
 }else{
-
         return (
             <Provider store={store} >
                 <BrowserRouter>
