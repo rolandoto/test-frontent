@@ -389,7 +389,12 @@ const CheckoutOrganism =({DetailDashboard}) =>{
     }
 
     const handOpenInvoince =() =>{
-        setInvoice(true)
+        if(cart.length ==0){
+            alert("no hay productos en la tienda")
+        }else{
+            setInvoice(true)
+        }
+       
     }
                 
     useEffect(() =>{
@@ -930,6 +935,8 @@ const Factura  =({Room,Valor_dia_habitacion,resultFinish,comprobante,setComproba
     const toPrice = parseInt(Valor_dia_habitacion?.valor_dia_habitacion)
     const valor_dia = UsePrice({number:toPrice})
 
+    console.log({"resultFinish":resultFinish})
+
     const rayDate = []
     for (let date = startDate; date <= endDate; date.setDate(date.getDate() + 1)) {
         let month = date.toLocaleString("default", { month: "long" });
@@ -1020,7 +1027,7 @@ const Factura  =({Room,Valor_dia_habitacion,resultFinish,comprobante,setComproba
                 <th className="tarifa-val" >0 </th>
                 <th className="fecha-entrada-val" >{fecha} </th>
                 <th className="fecha-sal" >{fechaOne}</th>
-                <th className="room-detail" >{resultFinish?.nombre}</th>
+                <th className="room-detail" >{resultFinish?.nombre} {Valor_dia_habitacion?.Numero}</th>
               </tr>
             </table>
             <table className="table-factura-one">
@@ -1151,7 +1158,7 @@ const FacturaCompany  =({Room,Valor_dia_habitacion,resultFinish,comprobante,setC
                 <th className="tarifa-val" >0 </th>
                 <th className="fecha-entrada-val" >{fecha} </th>
                 <th className="fecha-sal" >{fechaOne}</th>
-                <th className="room-detail" >{resultFinish?.nombre}</th>
+                <th className="room-detail" >{resultFinish?.nombre} {Valor_dia_habitacion?.Numero}</th>
               </tr>
             </table>
             <table className="table-factura-one">

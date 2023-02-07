@@ -28,6 +28,7 @@ import UsePrice from "../../hooks/UsePrice";
 import { config } from "../../config";
 import ServiDelteReservation from "../../service/ServiDelecteReservation";
 import ServePdf from "../../service/PdfServe";
+import confirm, { Button, alert } from "react-alert-confirm";
 
 const DetailDasboard =(props) =>{
     const {id} = useParams()
@@ -319,7 +320,9 @@ const DetailDasboard =(props) =>{
       .then(data=> setQuery(data?.query))
    
   },[setQuery]) 
-  
+
+  var numDefinish =  parseInt(resultDashboard?.valor_habitacion);
+  var formattedNum = numDefinish.toLocaleString();  
   const valor_habitacion = formatter.format(resultDashboard?.valor_habitacion)
   const valor_abono =  formatter.format(resultDashboard?.valor_abono)
   const total_Cobrar = resultDashboard?.valor_habitacion - resultDashboard?.valor_abono
@@ -506,14 +509,14 @@ const toPriceNigth = UsePrice({number:resultDashboard.valor_dia_habitacion})
                    <span>{day} noches</span>
               </div>
               <div className="border-detail" >
-                   <span>{valor_habitacion}</span>
+                   <span>Total hab: {formattedNum}</span>
               </div>
               <div className="border-detail" >
                    <span>Valor hospedaje {toPriceNigth.price}</span>
               </div>
 
               <div className="border-detail" >
-                   <span>{resultFinish?.nombre}</span>
+                   <span>{resultFinish?.nombre} {resultDashboard.Numero}</span>
               </div>
 
               <div className="border-detail" >

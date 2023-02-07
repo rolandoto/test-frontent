@@ -76,9 +76,10 @@ const Checkingn2Organism =({id}) =>{
       },[])
 
       const hanClickinContracto =() =>{
-        window.location.href =(`/contracto`)
-         handFirmar()
+        handFirmar()
          handUpdateStatus()
+        window.location.href =(`/contracto`)
+         
       }
 
       let dataOne ={

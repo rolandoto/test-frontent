@@ -38,6 +38,7 @@ import Contracto from  './page-resesion/Contracto'
 import Checkout from './page-resesion/Checkout';
 import Comunicate from './page/Comunicate';
 import HeaderComunicate from './component/Header/HeaderComunicate';
+import InformeConsolidado from './page-resesion/InformeConsolidado';
 
 function App() {
 
@@ -106,6 +107,7 @@ else if(val==7){
                                 <PrivateRoute exact path="/checkingin2/:id" component={Checkingn2}  />
                                 <PrivateRoute exact path="/contracto"  component={Contracto}  />
                                 <PrivateRoute exact path="/Checkout/:id"  component={Checkout}  />
+                                <PrivateRoute exact path="/informeconsolidado"  component={InformeConsolidado}  />
                                 <Route component={NoFound} />
                             </Switch>   
                         </BrowserRouter>
@@ -144,6 +146,7 @@ else if(val==2){
                                 <PrivateRoute exact path="/checkingin2/:id" component={Checkingn2}  />
                                 <PrivateRoute exact path="/contracto"  component={Contracto}  />
                                 <PrivateRoute exact path="/Checkout/:id"  component={Checkout}  />
+                                <PrivateRoute exact path="/informeconsolidado"  component={InformeConsolidado}  />
                                 <Route component={NoFound} />
                             </Switch>   
                     </BrowserRouter>
