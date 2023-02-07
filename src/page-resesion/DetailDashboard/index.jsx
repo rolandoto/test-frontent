@@ -19,7 +19,6 @@ const DetailDashboard =() =>{
         await getDetailReservationById({id})
     }
 
-    
     useEffect(() =>{
         fetchData()
     },[id])
@@ -35,9 +34,7 @@ const DetailDashboard =() =>{
             return <p>...{error}</p>
         }
  
-    return    <DetailDasboard  DetailDashboard={DetailDashboard} fetchData={fetchData} />
-
-    }
+    return    <DetailDasboard  DetailDashboard={DetailDashboard} fetchData={fetchData} />}
 
     return (
         <>

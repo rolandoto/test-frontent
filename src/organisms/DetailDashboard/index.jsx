@@ -509,7 +509,7 @@ const toPriceNigth = UsePrice({number:resultDashboard.valor_dia_habitacion})
                    <span>{valor_habitacion}</span>
               </div>
               <div className="border-detail" >
-                   <span>Valor noche {toPriceNigth.price}</span>
+                   <span>Valor hospedaje {toPriceNigth.price}</span>
               </div>
 
               <div className="border-detail" >

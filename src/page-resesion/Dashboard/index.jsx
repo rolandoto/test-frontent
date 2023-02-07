@@ -474,7 +474,7 @@ const Dashboard = (props) => {
 
 	setTimeout(() =>{
 		setLoadingSkeleto(false)
-	},3000)
+	},500)
 
 	const handContext =(action, item, time, resizeEdge) =>{
 
