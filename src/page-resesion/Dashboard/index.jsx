@@ -4,7 +4,11 @@ import "moment/locale/es";
 import Timeline, {
   TimelineHeaders,
   SidebarHeader,
-  DateHeader
+  DateHeader,
+  TimelineMarkers,
+  CustomMarker,
+  TodayMarker,
+  CursorMarker
 } from "react-calendar-timeline";
 import { ServiceReservas } from "./dummy_data";
 import 'react-calendar-timeline/lib/Timeline.css'
@@ -487,7 +491,10 @@ const Dashboard = (props) => {
 		
 	}
 
-	console.log(pruebareservas	)
+	
+
+	const [selected, setSelected] = useState(new Date());
+	
 
 	if(loadingSkeleto) return Skele()
 	if(!pruebareservas) return null
@@ -552,6 +559,7 @@ const Dashboard = (props) => {
 				sidebarWidth={155}
 				itemRenderer={itemRenderer}
 				onItemDoubleClick={false}
+				
 				moveResizeValidator={(action, itemId, time, resizeEdge)  => handContext(action, itemId, time, resizeEdge)}
 				onItemClick={(itemId, e, time) => onItemClick(itemId, e, time)}
 				onCanvasContextMenu={(itemId, e, time) =>onItemDoubleclik()}>
@@ -569,6 +577,27 @@ const Dashboard = (props) => {
 						headerData={{ isMonth: false, currentDate, }}
 					/>
 				</TimelineHeaders>
+				<TimelineMarkers>
+          {/* <TodayMarker /> */}
+          {/* <CustomMarker date={moment().valueOf()} /> */}
+          <CustomMarker date={moment().startOf("day").add(0, "day")}>
+            {({ styles, date }) => {
+              const customStyles = {
+                ...styles,
+                backgroundColor: "#5dc968d4",
+                width: "69px",
+				
+              };
+              return (
+                <div
+                  style={customStyles}
+                  onClick={(event) => console.log("done")}
+                />
+              );
+            }}
+          </CustomMarker>
+          <CursorMarker />
+        </TimelineMarkers>
 		</Timeline>
 		<CardStore  countRoom={count} />
 		</>

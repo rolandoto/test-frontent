@@ -77,8 +77,8 @@ const Checkingn2Organism =({id}) =>{
 
       const hanClickinContracto =() =>{
         handFirmar()
-         handUpdateStatus()
-        window.location.href =(`/contracto`)
+        handUpdateStatus()
+      
          
       }
 
@@ -102,7 +102,7 @@ const Checkingn2Organism =({id}) =>{
 
     const handUpdateStatus =() =>{
         ServiceStatus({id,ID_Tipo_Estados_Habitaciones:3}).then(index=>{
-            console.log(index)
+            window.location.href =(`/contracto`)
         }).catch(e =>{
             console.log(e)
         })

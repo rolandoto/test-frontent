@@ -1,9 +1,10 @@
-import React, { useContext } from "react"
+import React, { useContext, useEffect } from "react"
 import ContainerGlobal from "../../Ui/ContainerGlobal"
 import LoadingDetail from "../../Ui/LoadingDetail"
 import { useState } from "react";
 import ServiceInformesConsolidado from "../../service/ServiceInformeConsolidado";
 import   AutoProvider  from "../../privateRoute/AutoProvider";
+import ServiceDescargar from "../../service/ServiceDescargarInformeConso";
 
 const InformeConsolidado = () => {
 
@@ -201,18 +202,47 @@ const InformeConsolidado = () => {
 
     const tiempoTranscurrido = Date.now();
     const hoy = new Date(tiempoTranscurrido);
-    const day_now = hoy.toISOString();
+    
+    const f = new Date();
+   
+    const formatDate = (d) => {
+    return d.getFullYear()+ "/"+(d.getMonth() + 1) +"/" + d.getDate() 
+    }
+    const fecha = formatDate(f)
 
     const {id_hotel,id_user} = jwt.result
+    console.log(id_user)
+    const [loading,setLoading] =useState(false)
+
+
+    
 
     const handInformes=(e) =>{
-     
-        ServiceInformesConsolidado({id_hotel,id_user,date:"2022/02/07",habitaciones_ocupadas:roomBusy,habitaciones_sinVender:roomSell,efectivo_total:efectivoTotal,otrosMedios_total:otrosMedios,dolares_total:dolarespesos,gastos_NoCajaMenor:gastos,t_debito:targetaDebito,t_credito:targetaCredito,transferencia:tranferencia,pago_agil:pagoAgil,bitcoin:bitcon,payonner:payoner,dolares:dolares,euros:euros,puntos_aeropuerto:aeropuerto,puntos_lavanderia:lavenderia,puntos_turismo:turismo,puntos_seguroHotelero:seguro,ventas_souvenirs:souvenir,ventas_bebidas:bebidas,ventas_snacks:snak,ventas_jacuzzi:jacuzzi,observaciones:observation,img_rack:file.name}).then(index =>{
-            console.log(index)
+        ServiceInformesConsolidado({id_hotel,id_user,date:fecha,habitaciones_ocupadas:roomBusy,habitaciones_sinVender:roomSell,efectivo_total:efectivoTotal,otrosMedios_total:otrosMedios,dolares_total:dolarespesos,gastos_NoCajaMenor:gastos,t_debito:targetaDebito,t_credito:targetaCredito,transferencia:tranferencia,pago_agil:pagoAgil,bitcoin:bitcon,payonner:payoner,dolares:dolares,euros:euros,puntos_aeropuerto:aeropuerto,puntos_lavanderia:lavenderia,puntos_turismo:turismo,puntos_seguroHotelero:seguro,ventas_souvenirs:souvenir,ventas_bebidas:bebidas,ventas_snacks:snak,ventas_jacuzzi:jacuzzi,observaciones:observation,img_rack:file.name}).then(index =>{
+            if(index.OK =="TRUE"){
+                ServiceDescargar({idUser:id_user}).then(e=>{
+                    const link = document.createElement('a')
+                    link.href =e.url;
+                    link.setAttribute('target', '_blank');
+                    link.download = 'Documento.pdf';
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link) 
+                }).catch(e =>{
+                    console.log(e)
+                })
+            }else{
+                setLoading(false)
+            }
         }).catch(e =>{
-                console.log(e)
-            })
-            e.preventDefault()
+        console.log(e)
+        })
+        e.preventDefault()
+    }
+
+    if(loading){
+           
+        
     }
 
     return (
