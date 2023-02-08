@@ -290,9 +290,9 @@ const InformeConsolidado = () => {
         <form  className="container-flex-init" >
         <div className="container-detail-dasboard-in" > 
 
-        <span className="desde-detail-two-title" > Efectivo total:</span>
-        <span className="desde-detail-two-title" >Otros medios: </span>
-        <span className="desde-detail-three-title-das" >Dolares/Euros en pesos:</span>    
+        <span className="desde-detail-two-title-informe" > Efectivo total:</span>
+        <span className="desde-detail-two-title-informe-one" >Otros medios: </span>
+        <span className="desde-detail-three-title-das-informe" >Dolares/Euros en pesos:</span>    
         <span className="desde-detail-three-title-das" >Gastos (NO CAJA MENOR):</span>    
 
             </div>
@@ -328,14 +328,11 @@ const InformeConsolidado = () => {
             </div>
         </form>  
 
-
-        
-
          <form  className="container-flex-init" >
         <div className="container-detail-dasboard-in" > 
 
-        <span className="desde-detail-two-title" > T. Debito </span>
-        <span className="desde-detail-two-title" >T. Credito </span>
+        <span className="desde-detail-two-title-informe-all" > T. Debito </span>
+        <span className="desde-detail-two-title-informe-all" >T. Credito </span>
         <span className="desde-detail-three-title-das" > Transferencia</span>    
         <span className="desde-detail-three-title-das" >Pago agil</span>    
         <span className="desde-detail-three-title-das" >Bitcoin</span>    
@@ -414,9 +411,9 @@ const InformeConsolidado = () => {
         <form  className="container-flex-init" >
         <div className="container-detail-dasboard-in" > 
 
-        <span className="desde-detail-two-title" >  Aeropuerto:</span>
-        <span className="desde-detail-two-title" >Lavanderia:</span>
-        <span className="desde-detail-three-title-das" >Turismo:</span>
+        <span className="desde-detail-two-title-informe" >  Aeropuerto:</span>
+        <span className="desde-detail-two-title-informe" >Lavanderia:</span>
+        <span className="desde-detail-three-title-das-informe" >Turismo:</span>
         <span className="desde-detail-three-title-das" >Seguro hotelero:</span>      
             </div>
               <div className="container-detail-dasboard-in" > 
@@ -457,9 +454,9 @@ const InformeConsolidado = () => {
         <form  className="container-flex-init" >
         <div className="container-detail-dasboard-in" > 
 
-        <span className="desde-detail-two-title" > Souvenirs </span>
-        <span className="desde-detail-two-title" >Bedidas: </span>
-        <span className="desde-detail-three-title-das" >Snacks:</span>    
+        <span className="desde-detail-two-title-informe" > Souvenirs </span>
+        <span className="desde-detail-two-title-informe" >Bedidas: </span>
+        <span className="desde-detail-three-title-das-informe" >Snacks:</span>    
         <span className="desde-detail-three-title-das" >Espuma de jacuzzi:</span>    
 
             </div>

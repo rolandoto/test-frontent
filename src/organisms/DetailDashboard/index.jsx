@@ -113,6 +113,12 @@ const DetailDasboard =(props) =>{
       const [estadia,setStadia] =useState()
       const [error,setError] =useState(false)
       const [product,setProduct] =useState()
+      const [observacion,setObservacion] =useState()
+
+
+      const handChangeObservation =(e) =>{
+        setObservacion(e.target.value)
+      }
 
       const handChanEstadia =(e) =>{
         setStadia(e.target.value)
@@ -349,10 +355,11 @@ const DetailDasboard =(props) =>{
   let dataCountPeople ={
     Adultos:adultos,
     Ninos:ninos,
-    infantes:infantes
+    infantes:infantes,
+    Observacion:observacion
   }
 
-
+  console.log(dataCountPeople)
 
   const hanAdd=() =>{
     if (huespe.Tipo_documento =="" || huespe.Num_documento =="" || huespe.Nombre ==""|| huespe.Apellido ==""|| huespe.Celular ==""|| huespe.Correo ==""|| huespe.Fecha_nacimiento =="" || huespe.Ciudad ==""|| huespe.Nacionalidad =="" ){
@@ -478,7 +485,6 @@ const hancPdf =() =>{
   
 } 
 
-console.log(resultDashboard)
 
 const toPriceNigth = UsePrice({number:resultDashboard.valor_dia_habitacion})
 
@@ -658,7 +664,7 @@ const toPriceNigth = UsePrice({number:resultDashboard.valor_dia_habitacion})
                                                         placeholder="Observacion" 
                                                         name="observacion"
                                                         defaultValue={resultDashboard.Observacion}
-      
+                                                        onChange={handChangeObservation}
                                                         className="obs" ></textarea>  
       
       </div>
