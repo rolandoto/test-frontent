@@ -1,40 +1,240 @@
-import React from "react"
+import React, { useContext } from "react"
 import ContainerGlobal from "../../Ui/ContainerGlobal"
 import LoadingDetail from "../../Ui/LoadingDetail"
 import { useState } from "react";
+import ServiceInformesConsolidado from "../../service/ServiceInformeConsolidado";
+import   AutoProvider  from "../../privateRoute/AutoProvider";
 
 const InformeConsolidado = () => {
 
     const [value, setValue] = useState("");
+    const [file, setFile] = useState(null);
+    const [roomBusy,setRoomroomBusy] =useState("")
+    const [roomSell,setRoomSell] =useState("")
+    const [efectivoTotal,setEfectivoTotal] =useState("")
+    const [otrosMedios,setOtrosMedios]=useState("")
+    const [dolarespesos,setDolarespesos]=useState("")
+    const [gastos,setGastos] =useState("")
+    const [targetaDebito,setTargetaDebito] =useState("")
+    const [targetaCredito,setTargetaCredito] =useState("")
+    const [tranferencia,setTranferencia] =useState("")
+    const [pagoAgil,setPagoAgil] =useState("")
+    const [bitcon,setBitcon] =useState("")
+    const [payoner,setPayoner] =useState("")
+    const [dolares,setDolares]=useState("")
+    const [euros,setEuros]=useState("")
+    const [aeropuerto,setAeropuerto]=useState("")
+    const [lavenderia,setLavenderia]=useState("")
+    const [turismo,setTurismo]=useState("")
+    const [seguro,setGuro]=useState("")
+    const [souvenir,setSouvenir] =useState("")
+    const [bebidas,setBebidas] =useState("")
+    const [snak,setSnak] =useState("")
+    const [jacuzzi,setJacuzzi] =useState("")
+    const [observation,setObservation] =useState("")
 
-  const handleChange = event => {
-    let newValue = event.target.value;
-    if (newValue >= 0) {
-      setValue(newValue);
+
+    const data ={
+        id_user:1,
+        id_hotel:1,
+        date:"2021-05-05",
+        habitaciones_ocupadas:roomBusy,
+        habitaciones_sinVender:roomSell,
+        efectivo_total:efectivoTotal,
+        otrosMedios_total:otrosMedios,
+        dolares_total:dolarespesos,
+        gastos_NoCajaMenor:gastos,
+        t_debito:targetaDebito,
+        t_credito:targetaCredito,
+        transferencia:tranferencia,
+        pago_agil:pagoAgil,
+        bitcoin:bitcon,
+        payonner:payoner,
+        dolares:dolares,
+        euros:euros,
+        puntos_aeropuerto:aeropuerto,
+        lavanderia:lavenderia,
+        turismo:turismo,
+        seguro:seguro,
+        souvenir:souvenir,
+        bebidas:bebidas,
+        snak:snak,
+        jacuzzi:jacuzzi,
+        observaciones:observation,
+        img_rack:file
     }
-  };
+
+    console.log(file)
+    
+  
+    const {jwt} =useContext(AutoProvider)
+
+    const handleChangegastors = event => {
+        let newValue = event.target.value;
+        setGastos(newValue);
+    };
+
+    const handleChangeroomBusy = event => {
+        let newValue = event.target.value;
+        setRoomroomBusy(newValue);
+    };
+
+    const handleChangeroomSell = event => {
+        let newValue = event.target.value;
+        setRoomSell(newValue);
+    };
+
+    const handleChangeefectivoTotal = event => {
+        let newValue = event.target.value;
+        setEfectivoTotal(newValue);
+    };
+
+    const handleChangesetOtrosMedios = event => {
+        let newValue = event.target.value;
+        setOtrosMedios(newValue);
+    };
+
+    const handleChangedolarespesos = event => {
+        let newValue = event.target.value;
+        setDolarespesos(newValue);
+    };
+
+    const handleChangetargetaDebito = event => {
+        let newValue = event.target.value;
+        setTargetaDebito(newValue);
+    };
+
+    const handleChangetargetaCredito = event => {
+        let newValue = event.target.value;
+        setTargetaCredito(newValue);
+    };
+
+    const handleChangetranferencia = event => {
+        let newValue = event.target.value;
+        setTranferencia(newValue);
+    };
+
+    const handleChangepagoAgil = event => {
+        let newValue = event.target.value;
+        setPagoAgil(newValue);
+    };
+    const handleChangebitcon = event => {
+        let newValue = event.target.value;
+        setBitcon(newValue);
+    };
+
+
+    const handleChangepayoner = event => {
+        let newValue = event.target.value;
+        setPayoner(newValue);
+    };
+
+
+
+    const handleChangedolares = event => {
+        let newValue = event.target.value;
+        setDolares(newValue);
+    };
+
+
+
+    const handleChangeeuros = event => {
+        let newValue = event.target.value;
+        setEuros(newValue);
+    };
+
+
+
+    const handleChangeaeropuerto = event => {
+        let newValue = event.target.value;
+        setAeropuerto(newValue);
+    };
+
+
+
+    const handleChangelavenderia = event => {
+        let newValue = event.target.value;
+        setLavenderia(newValue);
+    };
+
+
+    const handleChangeturismo = event => {
+        let newValue = event.target.value;
+        setTurismo(newValue);
+    };
+
+
+    const handleChangeseguro= event => {
+        let newValue = event.target.value;
+        setBebidas(newValue);
+    };
+
+
+    const handleChangesouvenir= event => {
+        let newValue = event.target.value;
+        setSouvenir(newValue);
+    };
+
+
+    const handleChangebebidas= event => {
+        let newValue = event.target.value;
+        setGuro(newValue);
+    };
+
+
+    const handleChangesnak= event => {
+        let newValue = event.target.value;
+        setSnak(newValue);
+    };
+
+
+    const handleChangejacuzzi= event => {
+        let newValue = event.target.value;
+        setJacuzzi(newValue);
+    };
+
+
+    const handleChangeobservation= event => {
+        let newValue = event.target.value;
+        setObservation(newValue);
+    };
+
+    const tiempoTranscurrido = Date.now();
+    const hoy = new Date(tiempoTranscurrido);
+    const day_now = hoy.toISOString();
+
+    const {id_hotel,id_user} = jwt.result
+
+    const handInformes=(e) =>{
+     
+        ServiceInformesConsolidado({id_hotel,id_user,date:"2022/02/07",habitaciones_ocupadas:roomBusy,habitaciones_sinVender:roomSell,efectivo_total:efectivoTotal,otrosMedios_total:otrosMedios,dolares_total:dolarespesos,gastos_NoCajaMenor:gastos,t_debito:targetaDebito,t_credito:targetaCredito,transferencia:tranferencia,pago_agil:pagoAgil,bitcoin:bitcon,payonner:payoner,dolares:dolares,euros:euros,puntos_aeropuerto:aeropuerto,puntos_lavanderia:lavenderia,puntos_turismo:turismo,puntos_seguroHotelero:seguro,ventas_souvenirs:souvenir,ventas_bebidas:bebidas,ventas_snacks:snak,ventas_jacuzzi:jacuzzi,observaciones:observation,img_rack:file.name}).then(index =>{
+            console.log(index)
+        }).catch(e =>{
+                console.log(e)
+            })
+            e.preventDefault()
+    }
 
     return (
         <ContainerGlobal>
              <LoadingDetail
                         loading={true}
                         titleLoading={"Informe consolidado"}  />
-            <div className="init" >
+            <div className="init " >
         <form  className="container-flex-init" >
         <div className="container-detail-dasboard-in" > 
 
-        <span className="desde-detail-two-title" > Habitaciones ocupadas </span>
-        <span className="desde-detail-two-title" >Habitaciones sin vender: </span>
-        <span className="desde-detail-three-title-das" >Subir pantallazo del rack soho</span>    
+        <span className="desde-detail-two-title" > Habitaciones ocupadas:</span>
+        <span className="desde-detail-two-title" >Habitaciones sin vender:</span>
+        <span className="desde-detail-three-title-das" >Subir pantallazo del rack soho:</span>    
 
             </div>
               <div className="container-detail-dasboard-in" > 
-                <input type="number" 
+                <input type="text"
                       className="desde-detail-two"  
                       placeholder="Habitaciones ocupadas" 
                       name="Adultos"
-                      value={value} onChange={handleChange}
-                      
+                      onChange={handleChangeroomBusy}
                         />  
              
                 <input 
@@ -42,117 +242,259 @@ const InformeConsolidado = () => {
                       name="Fecha" 
                       placeholder="Habitaciones sin vender"  
                       type="number" 
+                      onChange={handleChangeroomSell}
                 />
                 <input
                       className="desde-detail-two" 
                       name="Fecha" 
                       placeholder="Subir pantallazo del rack soho"  
-                      type="number" 
+                      type="file" 
+                      onChange={(e) => setFile(e.target.files[0])}
                 />
             </div>
-        </form>
+        </form>     
+
+      </div>
+
+      <div className="init top-one " >
+        <form  className="container-flex-init" >
+        <div className="container-detail-dasboard-in" > 
+
+        <span className="desde-detail-two-title" > Efectivo total:</span>
+        <span className="desde-detail-two-title" >Otros medios: </span>
+        <span className="desde-detail-three-title-das" >Dolares/Euros en pesos:</span>    
+        <span className="desde-detail-three-title-das" >Gastos (NO CAJA MENOR):</span>    
+
+            </div>
+              <div className="container-detail-dasboard-in" > 
+                <input type="number" 
+                      className="desde-detail-two"  
+                      placeholder="Efectivo total" 
+                      name="Adultos"
+                      onChange={handleChangeefectivoTotal}
+                        />  
+             
+                <input 
+                      className="desde-detail-two" 
+                      name="Fecha" 
+                      placeholder="Otros medios"  
+                      type="number" 
+                      onChange={handleChangesetOtrosMedios}
+                />
+                <input
+                      className="desde-detail-two" 
+                      name="Fecha" 
+                      placeholder="Dolares/Euros en pesos"  
+                      type="number" 
+                      onChange={handleChangedolarespesos}
+                />
+                <input
+                      className="desde-detail-two" 
+                      name="Fecha" 
+                      placeholder="Gastos (NO CAJA MENOR)"  
+                      type="number" 
+                      onChange={handleChangegastors}
+                />
+            </div>
+        </form>  
+
+
+        
+
+         <form  className="container-flex-init" >
+        <div className="container-detail-dasboard-in" > 
+
+        <span className="desde-detail-two-title" > T. Debito </span>
+        <span className="desde-detail-two-title" >T. Credito </span>
+        <span className="desde-detail-three-title-das" > Transferencia</span>    
+        <span className="desde-detail-three-title-das" >Pago agil</span>    
+        <span className="desde-detail-three-title-das" >Bitcoin</span>    
+        <span className="desde-detail-three-title-das" >Payonner</span>    
+        <span className="desde-detail-three-title-das" >Dolares</span>    
+        <span className="desde-detail-three-title-das" >Euros</span>    
+
+            </div>
+              <div className="container-detail-dasboard-in" > 
+                <input type="number" 
+                      className="desde-detail-two"  
+                      placeholder="T. Debito" 
+                      name="Adultos"
+                      onChange={handleChangetargetaDebito}
+                        />  
+             
+                <input 
+                      className="desde-detail-two" 
+                      name="Fecha" 
+                      placeholder="T. Credito "  
+                      type="number" 
+                      onChange={handleChangetargetaCredito}
+                />
+                <input
+                      className="desde-detail-two" 
+                      name="Fecha" 
+                      placeholder="Transferencia"  
+                      type="number" 
+                      onChange={handleChangetranferencia}
+                />
+                <input
+                      className="desde-detail-two" 
+                      name="Fecha" 
+                      placeholder="Pago agil"  
+                      type="number" 
+                      onChange={handleChangepagoAgil}
+                />
+
+                <input
+                      className="desde-detail-two" 
+                      name="Fecha" 
+                      placeholder="Bitcoin"  
+                      type="number" 
+                      onChange={handleChangebitcon}
+                />
+
+                <input
+                      className="desde-detail-two" 
+                      name="Fecha" 
+                      placeholder="Payonner"  
+                      type="number" 
+                      onChange={handleChangepayoner}
+                />
+
+                <input
+                      className="desde-detail-two" 
+                      name="Fecha" 
+                      placeholder="Dolares"  
+                      type="number" 
+                      onChange={handleChangedolares}
+                />
+
+                    <input
+                      className="desde-detail-two" 
+                      name="Fecha" 
+                      placeholder="Euros"  
+                      type="number" 
+                      onChange={handleChangeeuros}
+                />
+            </div>
+        </form>      
+      </div>
+
+
+      <div className="init  top-one" >
+        <form  className="container-flex-init" >
+        <div className="container-detail-dasboard-in" > 
+
+        <span className="desde-detail-two-title" >  Aeropuerto:</span>
+        <span className="desde-detail-two-title" >Lavanderia:</span>
+        <span className="desde-detail-three-title-das" >Turismo:</span>
+        <span className="desde-detail-three-title-das" >Seguro hotelero:</span>      
+            </div>
+              <div className="container-detail-dasboard-in" > 
+                <input type="number" 
+                      className="desde-detail-two"  
+                      placeholder="Aeropuerto" 
+                      name="Adultos"
+                      onChange={handleChangeaeropuerto}
+                        />  
+             
+                <input 
+                      className="desde-detail-two" 
+                      name="Fecha" 
+                      placeholder="Lavanderia"  
+                      type="number" 
+                      onChange={handleChangelavenderia}
+                />
+                <input
+                      className="desde-detail-two" 
+                      name="Fecha" 
+                      placeholder="Turismo"  
+                      type="number" 
+                      onChange={handleChangeturismo}
+                />
+
+                <input
+                      className="desde-detail-two" 
+                      name="Fecha" 
+                      placeholder="Seguro hotelero"  
+                      type="number" 
+                      onChange={handleChangeseguro}
+                />
+            </div>
+
+            
+        </form>     
 
         <form  className="container-flex-init" >
         <div className="container-detail-dasboard-in" > 
 
-        <span className="desde-detail-two-title" > Efectivo total </span>
-        <span className="desde-detail-two-title" >Otros medio: </span>
-        <span className="desde-detail-three-title-das" > Dolares/Euros en pesos</span>    
-        <span className="desde-detail-two-das" >Gastos (NO CAJA MENOR)</span>    
+        <span className="desde-detail-two-title" > Souvenirs </span>
+        <span className="desde-detail-two-title" >Bedidas: </span>
+        <span className="desde-detail-three-title-das" >Snacks:</span>    
+        <span className="desde-detail-three-title-das" >Espuma de jacuzzi:</span>    
 
             </div>
               <div className="container-detail-dasboard-in" > 
-              <input  type="text" 
-                                        className="desde-detail-three"  
-                                        placeholder="Nombre" 
-                                     
-                                        />
+                <input type="number" 
+                      className="desde-detail-two"  
+                      placeholder="Souvenirs" 
+                      name="Adultos"
+                      onChange={handleChangesouvenir}
+                        />  
+             
+                <input 
+                      className="desde-detail-two" 
+                      name="Fecha" 
+                      placeholder="Bedidas"  
+                      type="number" 
+                      onChange={handleChangebebidas}
+                />
+                <input
+                      className="desde-detail-two" 
+                      name="Fecha" 
+                      placeholder="Snacks"  
+                      type="number" 
+                      onChange={handleChangesnak}
+                />
 
-                                <input  type="text" 
-                                        className="desde-detail-three" 
-                                        name="Apellido"  
-                                        placeholder="Apellido" 
-                                      
-                                        />
-
-                                <input  type="text" 
-                                        className="desde-detail-two" 
-                                        placeholder="Tipo de documento"
-                                        name="Fecha" 
-                                       
-                                        />
-
-                                <input  type="text" 
-                                        className="desde-detail-two" 
-                                        name="Fecha" 
-                                        placeholder="No Documento"  
-                                      
-                                        />
+                <input
+                      className="desde-detail-two" 
+                      name="Fecha" 
+                      placeholder="Espuma de jacuzzi"  
+                      type="number"
+                      onChange={handleChangejacuzzi} 
+                />
             </div>
-        </form>
 
+            
+        </form>     
 
+      </div>
+
+      <div className="init top-one  " >
         <form  className="container-flex-init" >
         <div className="container-detail-dasboard-in" > 
 
-        <span className="desde-detail-two-title" > Efectivo total </span>
-        <span className="desde-detail-two-title" >Otros medio: </span>
-        <span className="desde-detail-three-title-das" > Dolares/Euros en pesos</span>    
-        <span className="desde-detail-two-das" >Gastos (NO CAJA MENOR)</span>    
-
             </div>
               <div className="container-detail-dasboard-in" > 
-                                <input  type="text" 
-                                        className="desde-detail-three"  
-                                        placeholder="Nombre" 
-                                     
-                                        />
+              <textarea                                           rows="10" 
+                                                        onChange={handleChangeobservation}
+                                                        cols="217" 
+                                                        placeholder="Observacion" 
+                                                        name="observacion"
+                                                        className="obs" ></textarea>  
+            </div>
+        </form>     
+        </div>
 
-                                <input  type="text" 
-                                        className="desde-detail-three" 
-                                        name="Apellido"  
-                                        placeholder="Apellido" 
-                                      
-                                        />
-
-                                <input  type="text" 
-                                        className="desde-detail-two" 
-                                        placeholder="Tipo de documento"
-                                        name="Fecha" 
-                                       
-                                        />
-
-                                <input  type="text" 
-                                        className="desde-detail-two" 
-                                        name="Fecha" 
-                                        placeholder="No Documento"  
-                                      
-                                        />
-
-                                <input  type="text" 
-                                        className="desde-detail-two" 
-                                        name="Fecha" 
-                                        placeholder="No Documento"  
-                                      
-                                        />
-                                <input  type="text" 
-                                            className="desde-detail-two" 
-                                            name="Fecha" 
-                                            placeholder="No Documento"  
-                                        
-                                            />
-                                <input  type="text" 
-                                            className="desde-detail-two" 
-                                            name="Fecha" 
-                                            placeholder="No Documento"  
-                                        
-                                            />
-                                <input  type="text" 
-                                            className="desde-detail-two" 
-                                            name="Fecha" 
-                                            placeholder="No Documento"  
-                                        
-                                            />
+        <div className="init " >
+        <form  className="container-flex-init" >
+            <div className="container-detail-dasboard-in" >
+            <div className="button-checkout-one" onClick={(e) =>{
+                e.preventDefault()
+                handInformes()
+            }} >
+                            <button>Guardar informe (Solo se puede guardar una vez)</button>
+                        </div>
             </div>
         </form>
 

@@ -1027,3 +1027,7 @@ td, th ,tr{border:none;}
   padding: 8px;
   border-radius: 0px !important;
 }
+
+.top-one{
+  margin-top: 8px !important;
+}

@@ -51,11 +51,7 @@ const DetailDasboard =(props) =>{
 
    let countSeguro =0
    
-   if(hotel?.segurohotelero ==0){
-        countSeguro=0
-   }else{
-        countSeguro = parseInt(hotel?.valorseguro)
-   }
+   
   
     const {progress} =useProgress({id})
     const resultDashboard = DetailDashboard[0] 
@@ -328,20 +324,22 @@ const DetailDasboard =(props) =>{
   const total_Cobrar = resultDashboard?.valor_habitacion - resultDashboard?.valor_abono
   const cobrar = formatter.format(total_Cobrar)
 
-  let count=0
+  let count
 
-  if(quyery?.length>=resultFinish?.persona && estadia ==2){
-      const nochesPay = day*countSeguro
-      const subtotal=resultFinish.precio_persona*day
-      count=subtotal + nochesPay + parseInt(resultDashboard?.valor_habitacion)
-  }else if(estadia==1){
-    const nochesPay = 1*countSeguro
-      const subtotal=resultFinish.precio_persona*1
-      count=subtotal + nochesPay + parseInt(resultDashboard?.valor_habitacion) 
-  }else {
-    count=resultDashboard?.valor_habitacion
-  }
-
+  if(quyery?.length>=resultFinish?.persona){
+      if(estadia ==2){
+        const nochesPay = day
+        const subtotal=resultFinish?.precio_persona*day
+        count=subtotal  + parseInt(resultDashboard?.valor_habitacion)
+      console.log(true)
+      }else if(estadia ==1){
+          const nochesPay = 1
+          const subtotal=resultFinish?.precio_persona*nochesPay
+          count=subtotal  + parseInt(resultDashboard?.valor_habitacion)
+      }
+    }else{
+      count= count ? count : parseInt(resultDashboard?.valor_habitacion)
+    }
   let dataOne ={
     Abono:Abono,
     Valor:count,
@@ -353,6 +351,8 @@ const DetailDasboard =(props) =>{
     Ninos:ninos,
     infantes:infantes
   }
+
+
 
   const hanAdd=() =>{
     if (huespe.Tipo_documento =="" || huespe.Num_documento =="" || huespe.Nombre ==""|| huespe.Apellido ==""|| huespe.Celular ==""|| huespe.Correo ==""|| huespe.Fecha_nacimiento =="" || huespe.Ciudad ==""|| huespe.Nacionalidad =="" ){
