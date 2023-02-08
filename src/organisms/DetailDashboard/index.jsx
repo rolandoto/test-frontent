@@ -499,7 +499,7 @@ function handleClickBasic() {
       },
       {
         label: 'No',
-        onClick: () => alert('Click No')
+        onClick: () => console.log("no")
       }
     ]
   });

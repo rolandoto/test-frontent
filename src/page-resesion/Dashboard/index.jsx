@@ -566,7 +566,7 @@ const Dashboard = (props) => {
 				<TimelineHeaders className="list-booking-sticky">
 					<SidebarHeader />
 					<DateHeader
-						unit="month"
+						unit="MONTH"
 						labelFormat="MMMM"
 						headerData={{ isMonth: false}}
 						intervalRenderer={intervalRenderer}
@@ -575,6 +575,12 @@ const Dashboard = (props) => {
 						unit="day"
 						labelFormat="D"
 						headerData={{ isMonth: false, currentDate, }}
+					/>
+
+					<DateHeader
+						unit="day"
+						labelFormat="ddd"
+						headerData={{ isMonth: true, currentDate, }}
 					/>
 				</TimelineHeaders>
 				<TimelineMarkers>
