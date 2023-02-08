@@ -28,7 +28,9 @@ import UsePrice from "../../hooks/UsePrice";
 import { config } from "../../config";
 import ServiDelteReservation from "../../service/ServiDelecteReservation";
 import ServePdf from "../../service/PdfServe";
-import confirm, { Button, alert } from "react-alert-confirm";
+import { confirmAlert } from "react-confirm-alert"; // Import
+import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
+
 
 const DetailDasboard =(props) =>{
     const {id} = useParams()
@@ -486,6 +488,24 @@ const hancPdf =() =>{
 } 
 
 
+function handleClickBasic() {
+  confirmAlert({
+    title: 'Eliminar Reserva',
+    message: 'Estas seguro de eliminar la reserva',
+    buttons: [
+      {
+        label: 'Yes',
+        onClick: () => hanDelete()
+      },
+      {
+        label: 'No',
+        onClick: () => alert('Click No')
+      }
+    ]
+  });
+}
+
+
 const toPriceNigth = UsePrice({number:resultDashboard.valor_dia_habitacion})
 
   if(!docu) return null
@@ -615,7 +635,7 @@ const toPriceNigth = UsePrice({number:resultDashboard.valor_dia_habitacion})
                   </button>
               </div>
               <div>
-                  <button className="button-checking-detail-firma-po"  onClick={hanDelete} >
+                  <button className="button-checking-detail-firma-po"  onClick={handleClickBasic} >
                       <span className="title-button"  >Cancelar reserva</span>
                   </button>
               </div>
