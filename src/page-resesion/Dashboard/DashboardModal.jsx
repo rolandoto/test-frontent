@@ -372,6 +372,7 @@ const DashboardModal = (props) => {
         const [asignar,setAsignar] =useState()
         const [loadingSkeleto,setLoadingSkeleto] =useState(true)
         const [decuento,setDescuento] =useState(0)
+        const [observacion,setObservacion] =useState()
 
         const handAsignar =(event)  =>{
             setTo(false)
@@ -426,6 +427,8 @@ const DashboardModal = (props) => {
             valor:null,
         })
 
+
+        console.log(change)
 
         const fechaInicio = new  Date(fechaOne).getTime()
 
@@ -804,7 +807,7 @@ const DashboardModal = (props) => {
 
         if(valid){
             setLoadingReservation({loading:true})
-            ServiceAvaiblereservation({desde:dataAvaible.desde,hasta:dataAvaible.hasta,habitaciones:dataAvaible.habitaciones,disponibilidad:dataAvaible.disponibilidad,id_estados_habitaciones:0,ID_Canal:change.canal_reserva,Adultos:change.adultos,Ninos:change.niños,ID_Talla_mascota:change.talla_perro,Infantes:change.infantes,Noches:ResultDay,huespe,Observacion:ObservationAll,valor:totalResultglobal,ID_Tipo_Forma_pago:change.ID_Tipo_Forma_pago,abono:change.abono,valor_habitacion:valor_habiatcion,Tipo_persona:tipoPersonas,valor_dia_habitacion:default_Value}).then(index =>{
+            ServiceAvaiblereservation({desde:dataAvaible.desde,hasta:dataAvaible.hasta,habitaciones:dataAvaible.habitaciones,disponibilidad:dataAvaible.disponibilidad,id_estados_habitaciones:0,ID_Canal:change.canal_reserva,Adultos:change.adultos,Ninos:change.niños,ID_Talla_mascota:change.talla_perro,Infantes:change.infantes,Noches:ResultDay,huespe,Observacion:change.observacion,valor:totalResultglobal,ID_Tipo_Forma_pago:change.ID_Tipo_Forma_pago,abono:change.abono,valor_habitacion:valor_habiatcion,Tipo_persona:tipoPersonas,valor_dia_habitacion:default_Value}).then(index =>{
                 setTimeout(() => {
                     setLoadingReservation({loading:false}) 
                 }, 5000);

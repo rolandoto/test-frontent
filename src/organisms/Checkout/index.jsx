@@ -429,7 +429,9 @@ const CheckoutOrganism =({DetailDashboard}) =>{
     const filterSearch = searchFilter?.find(index => index.id == filterFinish)
     
     const findPersona =  resultDashboard.tipo_persona == "persona"
-    const findEmpresa = resultDashboard.tipo_persona =="empresa"    
+    const findEmpresa = resultDashboard.tipo_persona =="empresa"  
+    
+    const totalPersona =  resultDashboard.tipo_persona =="persona"?"Natural":"Juridica"
 
     console.log(resultDashboard)
 
@@ -760,7 +762,41 @@ const CheckoutOrganism =({DetailDashboard}) =>{
                                     </section>
                                 ))}
                                 </div>
-                            
+                                <div className="container-store-checkout" >
+                                    <div className="container-store-checkout" >
+                                    <div>
+                                        <ul>
+                                            <li className="totalPricecheckout-two" >Nombre:</li>           
+                                            <li className="totalPricecheckout-two" >Documento:</li>           
+                                            <li className="totalPricecheckout-two" >Correo:</li>        
+                                           
+                                                     
+                                        </ul>                 
+                                    </div>
+                                    <div>
+                                        <ul>
+                                                <li className="totalPricecheckout-two" >{resultDashboard.Nombre} {resultDashboard.Apellido}</li>           
+                                                <li className="totalPricecheckout-two" >{resultDashboard.Num_documento}</li>           
+                                                <li className="totalPricecheckout-two" >{resultDashboard.Correo}</li>   
+                                              
+                                                               
+                                        </ul>  
+                                    </div>
+
+                                    <div>
+                                            <li className="totalPricecheckout-two" >Telefono:</li>      
+                                            <li className="totalPricecheckout-two" >Nacionalidad:</li> 
+                                            <li className="totalPricecheckout-two" >Tipo persona:</li> 
+                                    </div>
+
+                                    <div>
+                                        <li className="totalPricecheckout-two" >{resultDashboard.Celular}</li>         
+                                        <li className="totalPricecheckout-two" >{resultDashboard.nacionalidad}</li>  
+                                        <li className="totalPricecheckout-two" >{totalPersona}</li>  
+                                    </div>
+                                    
+                                </div>
+                            </div>
                           
                 <div className="container-checkout-border" >
                             <div className="container-store-checkout-three" >
@@ -803,30 +839,7 @@ const CheckoutOrganism =({DetailDashboard}) =>{
                                     </div>
                             </div>
 
-                            <div className="container-store-checkout" >
-                                    <div className="container-store-checkout" >
-                                    <div>
-                                        <ul>
-                                            <li className="totalPricecheckout-two" >Nombre:</li>           
-                                            <li className="totalPricecheckout-two" >Cedula:</li>           
-                                            <li className="totalPricecheckout-two" >Correo:</li>        
-                                            <li className="totalPricecheckout-two" >Telefono:</li>      
-                                            <li className="totalPricecheckout-two" >Nacionalidad:</li> 
-                                                     
-                                        </ul>                 
-                                    </div>
-                                    <div>
-                                        <ul>
-                                                <li className="totalPricecheckout-two" >{resultDashboard.Nombre} {resultDashboard.Apellido}</li>           
-                                                <li className="totalPricecheckout-two" >{resultDashboard.Num_documento}</li>           
-                                                <li className="totalPricecheckout-two" >{resultDashboard.Correo}</li>   
-                                                <li className="totalPricecheckout-two" >{resultDashboard.Celular}</li>         
-                                                <li className="totalPricecheckout-two" >{resultDashboard.nacionalidad}</li>  
-                                                               
-                                        </ul>  
-                                    </div>
-                                </div>
-                            </div>
+
                 </div>
             
 
@@ -948,7 +961,7 @@ const Factura  =({Room,Valor_dia_habitacion,resultFinish,comprobante,setComproba
     }   
     const fecha =  startDateOne.toISOString().split('T')[0]
     const fechaOne = endDate.toISOString().split('T')[0]
-
+  
   const printDocument = () => {
     const input = docToPrint.current;
     html2canvas(input).then((canvas) => {
@@ -974,7 +987,7 @@ const Factura  =({Room,Valor_dia_habitacion,resultFinish,comprobante,setComproba
   }, 1000);
   
 
-  
+  console.log(rayDate)
   const totalAll = Valor_dia_habitacion?.valor_dia_habitacion * rayDate?.length
   const toPriceAll = UsePrice({number:totalAll})
 
