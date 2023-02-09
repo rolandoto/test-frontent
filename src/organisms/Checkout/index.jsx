@@ -598,9 +598,9 @@ const CheckoutOrganism =({DetailDashboard}) =>{
                                  <div className="container-store-checkout" >
                                 <div>
                                     <ul>
-                                        <li className="totalPricecheckout-two negrita" >Nombre empresa:</li>           
-                                        <li className="totalPricecheckout-two negrita" >Nit:</li>           
-                                        <li className="totalPricecheckout-two negrita" >Correo:</li>           
+                                        <li className="totalPricecheckout-two negrita let-persona" >Nombre empresa:</li>           
+                                        <li className="totalPricecheckout-two negrita let-persona" >Nit:</li>           
+                                        <li className="totalPricecheckout-two negrita let-persona" >Correo:</li>           
                                                      
                                     </ul>                 
                                 </div>
@@ -633,13 +633,13 @@ const CheckoutOrganism =({DetailDashboard}) =>{
                             <div className="container-store-checkout-three" >
                                     <div>
                                         <ul>
-                                            <li className="totalPricecheckout-two-finish-one negrita" >Cantidad personas:</li>   
-                                            <li className="totalPricecheckout-two-finish-one negrita" >Cantidad noches: </li>   
-                                            <li className="totalPricecheckout-two-finish-one negrita" >Tipo habitacion:</li>   
-                                            <li className="totalPricecheckout-two-finish-one negrita" >Valor por noche:</li>   
-                                            <li className="totalPricecheckout-two-finish-one negrita" >Persona adiciona:l</li> 
-                                            <li className="totalPricecheckout-two-finish-one  negrita" >Hora Adicional:</li> 
-                                            <li className="totalPricecheckout-two-finish-one negrita" >Ealy check in:</li>  
+                                            <li className="totalPricecheckout-two-finish-one negrita let-persona"  >Cantidad personas:</li>   
+                                            <li className="totalPricecheckout-two-finish-one negrita let-persona" >Cantidad noches: </li>   
+                                            <li className="totalPricecheckout-two-finish-one negrita let-persona" >Tipo habitacion:</li>   
+                                            <li className="totalPricecheckout-two-finish-one negrita let-persona" >Valor por noche:</li>   
+                                            <li className="totalPricecheckout-two-finish-one negrita let-persona" >Persona adiciona:l</li> 
+                                            <li className="totalPricecheckout-two-finish-one  negrita let-persona" >Hora Adicional:</li> 
+                                            <li className="totalPricecheckout-two-finish-one negrita let-persona" >Ealy check in:</li>  
                                         </ul>                 
                                     </div>
                                     <div className="ri-two">
@@ -695,13 +695,13 @@ const CheckoutOrganism =({DetailDashboard}) =>{
                                 <div>
                                     <ul>
                                        {MenuItems.map(index => (
-                                         <li className="totalPricecheckout-two-finish negrita" >{index?.name}:</li>
+                                         <li className="totalPricecheckout-two-finish negrita let-persona" >{index?.name}:</li>
                                        ))}              
                                     </ul>                 
                                 </div>
                                 
 
-                                <div className="ri-two" >
+                                <div className="be-two" >
                                     <ul>
                                         <li className="totalPricecheckout" >${priceBebidas ?priceBebidas : 0 }</li>           
                                         <li className="totalPricecheckout" >${priceSnacks ?priceSnacks :0}</li>           
@@ -739,17 +739,9 @@ const CheckoutOrganism =({DetailDashboard}) =>{
 
             <div className="container-store-checkout-two" >
                              
-                    
-                   
-                  
-                   
-                    
                 
-
-
                    
-                    <div>
-    
+            <div className="container-flex-buttton-checkout" >    
                         <div className="button-checkout" onClick={handServiFormularios} >
                             <button>Enviar electronica  e imprimir comprobante</button>
                         </div>
@@ -829,9 +821,9 @@ const CheckoutOrganism =({DetailDashboard}) =>{
                                     <div className="container-store-checkout-one" >
                                     <div>
                                         <ul>
-                                            <li className="totalPricecheckout-two negrita" >Nombre:</li>           
-                                            <li className="totalPricecheckout-two negrita" >Documento:</li>           
-                                            <li className="totalPricecheckout-two negrita" >Correo:</li>        
+                                            <li className="totalPricecheckout-two negrita let-persona " >Nombre:</li>           
+                                            <li className="totalPricecheckout-two negrita let-persona" >Documento:</li>           
+                                            <li className="totalPricecheckout-two negrita let-persona" >Correo:</li>        
                                            
                                                      
                                         </ul>                 
@@ -847,7 +839,7 @@ const CheckoutOrganism =({DetailDashboard}) =>{
                                     </div>
 
                                     <div>
-                                            <li className="totalPricecheckout-two negrita" >Telefono:</li>      
+                                            <li className="totalPricecheckout-two negrita " >Telefono:</li>      
                                             <li className="totalPricecheckout-two negrita" >Nacionalidad:</li> 
                                             <li className="totalPricecheckout-two negrita" >Tipo persona:</li> 
                                     </div>
@@ -865,13 +857,13 @@ const CheckoutOrganism =({DetailDashboard}) =>{
                             <div className="container-store-checkout-three" >
                                     <div>
                                         <ul>
-                                            <li className="totalPricecheckout-two-finish-one negrita" >Cantidad personas:</li>   
-                                            <li className="totalPricecheckout-two-finish-one negrita" >Cantidad noches: </li>   
-                                            <li className="totalPricecheckout-two-finish-one negrita" >Tipo habitacion:</li>   
-                                            <li className="totalPricecheckout-two-finish-one negrita" >Valor por noche:</li>   
-                                            <li className="totalPricecheckout-two-finish-one negrita" >Persona Adicional:</li> 
-                                            <li className="totalPricecheckout-two-finish-one negrita" >Hora Adicional:</li> 
-                                            <li className="totalPricecheckout-two-finish-one negrita" >Ealy check in:</li>  
+                                            <li className="totalPricecheckout-two-finish-one negrita let-persona" >Cantidad personas:</li>   
+                                            <li className="totalPricecheckout-two-finish-one negrita  let-persona" >Cantidad noches: </li>   
+                                            <li className="totalPricecheckout-two-finish-one negrita let-persona" >Tipo habitacion:</li>   
+                                            <li className="totalPricecheckout-two-finish-one negrita let-persona" >Valor por noche:</li>   
+                                            <li className="totalPricecheckout-two-finish-one negrita let-persona" >Persona Adicional:</li> 
+                                            <li className="totalPricecheckout-two-finish-one negrita let-persona" >Hora Adicional:</li> 
+                                            <li className="totalPricecheckout-two-finish-one negrita let-persona" >Ealy check in:</li>  
                                         </ul>                 
                                     </div>
                                     <div className="ri-two">
@@ -898,7 +890,7 @@ const CheckoutOrganism =({DetailDashboard}) =>{
                                                 <span  >Hospedaje hotel</span>
                                             </div>
                                           
-                                            <span className="price-store" >{formattedNum} <span className="no-price" > Pesos COP</span>  </span>
+                                            <span className="no-price" >$</span>  <span className="price-store" >{formattedNum} <span className="no-price" >COP</span>  </span>
                                           </li>
                                           
                                         </ul>  
@@ -913,11 +905,11 @@ const CheckoutOrganism =({DetailDashboard}) =>{
                                     <div>
                                         <ul>
                                         {MenuItems.map(index => (
-                                            <li className="totalPricecheckout-two-finish negrita" >{index?.name}:</li>
+                                            <li className="totalPricecheckout-two-finish negrita let-persona" >{index?.name}:</li>
                                         ))}              
                                         </ul>                 
                                     </div>
-                                    <div className="ri-two">
+                                    <div className="re-two">
                                         
                                         <ul>
                                         <li className="totalPricecheckout" >${priceBebidas ?priceBebidas : 0 }</li>           
@@ -940,7 +932,7 @@ const CheckoutOrganism =({DetailDashboard}) =>{
                                                 <span  >Tienda hotel</span>
                                             </div>
                                           
-                                            <span className="price-store" >{formatteOne} <span className="no-price" > Pesos COP</span>  </span>
+                                            <span className="no-price" >$</span><span className="price-store" >{formatteOne} <span className="no-price" >COP</span>  </span>
                                           </li>
                                           
                                         </ul>  
@@ -960,12 +952,15 @@ const CheckoutOrganism =({DetailDashboard}) =>{
             <div className="container-checkout-border-one" >
             
             </div>
+            <div className="container-flex-buttton-checkout" >
             <div className="button-checkout-three" onClick={handOpenInvoince} >
                     <button>Imprimir POS persona natural</button>
                 </div>
                 <div className="button-checkout-two-finally" onClick={handUpdateStatus}  >
                     <button>Checkout</button>
-                </div>      
+                </div>  
+            </div>
+               
                 <input   
                             type="checkbox" 
                             className={`checkbox-round`}

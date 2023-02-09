@@ -129,6 +129,7 @@
     color: white;
     padding: 14px;
     margin-top: 12px;
+    width: 49%;
 }
 
 .button-checkout-three{
@@ -141,6 +142,7 @@
     color: white;
     padding: 14px;
     margin-top: 13px;
+    width: 49%;
 }
 
 .button-checkout-one{
@@ -155,7 +157,7 @@
     padding: 14px;
 }
 .button-checkout-two-finally{
-    background: #F94141;
+    background: black;
     display: flex;
     justify-content: center;
     /* height: 51px; */
@@ -164,6 +166,7 @@
     color: white;
     margin-top: 10px;
     padding: 14px;
+    width: 47%;
 }
 
 .dow{
@@ -293,11 +296,19 @@
 }
 
 .ri-one{
-    width: 920px;
+    width: 532px
 }
 
 .ri-two{
-    width: 860px;;
+    width: 532px;
+}
+
+.re-two{
+    width: 564px;
+}
+
+.be-two{
+    width: 563px;
 }
 
 .price-store{
@@ -310,7 +321,7 @@
 }
 
 .to-hospedaje{
-    margin-left: 265px  ;
+    margin-left: 183px  ;
 }
 
 .to-hospedaje-one{
@@ -320,4 +331,14 @@
 
 .negrita{
     font-weight: 400;
+}
+
+.let-persona{
+    margin-left: 30px;
+    width: auto;
+}
+
+.container-flex-buttton-checkout{
+    display: flex;
+    justify-content: space-between;
 }
