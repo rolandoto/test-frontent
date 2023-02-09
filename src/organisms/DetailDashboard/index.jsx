@@ -680,7 +680,7 @@ const toPriceNigth = UsePrice({number:resultDashboard.valor_dia_habitacion})
       <div className="container-flex-init-one-container-delete" >
       <textarea                                           rows="10" 
                                                         
-                                                        cols="210" 
+                                                        cols="217" 
                                                         placeholder="Observacion" 
                                                         name="observacion"
                                                         defaultValue={resultDashboard.Observacion}
