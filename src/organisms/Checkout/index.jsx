@@ -666,7 +666,7 @@ const CheckoutOrganism =({DetailDashboard}) =>{
                                                 <span  >Hospedaje hotel</span>
                                             </div>
                                           
-                                            <span className="price-store" >{formattedNum} <span className="no-price" > Pesos COP</span>  </span>
+                                            <span className="no-price" >$</span>        <span className="price-store" >{formattedNum} <span className="no-price" > Pesos COP</span>  </span>
 
                                             <div className="to-hospedaje-one" >
                                                 <span className="negrita"  >Sub total: </span> <span> {formattedNum}</span> 
@@ -723,7 +723,7 @@ const CheckoutOrganism =({DetailDashboard}) =>{
                                                 <span  >Tienda hotel</span>
                                             </div>
                                           
-                                            <span className="price-store" >${totalStore ?totalStore : 0 } <span className="no-price" > Pesos COP</span>  </span>
+                                            <span className="no-price" >$</span><span className="price-store" >{totalStore ?totalStore : 0 } <span className="no-price" > Pesos COP</span>  </span>
                                            
                                           </li>
                                           
@@ -747,19 +747,19 @@ const CheckoutOrganism =({DetailDashboard}) =>{
                         </div>
 
                         <div className="button-checkout-two-finally" onClick={handUpdateStatus}  >
-                            <button>checkout</button>
+                            <button>Check Out</button>
                         </div>
                     </div>
                 </div>
             
  
-                <div className="container-checkbox " >
+                <div className="container-button-cesde " >
                         <input   
                             type="checkbox" 
                             className={`checkbox-round`}
                         /> Incluir tienda
                         
-                        </div>
+                </div>
 
             
                                         
@@ -828,7 +828,7 @@ const CheckoutOrganism =({DetailDashboard}) =>{
                                                      
                                         </ul>                 
                                     </div>
-                                    <div className="ri-one" >
+                                    <div className="ve-one" >
                                         <ul>
                                                 <li className="totalPricecheckout-two" >{resultDashboard?.Nombre} {resultDashboard?.Apellido}</li>           
                                                 <li className="totalPricecheckout-two" >{resultDashboard?.Num_documento}</li>           
@@ -932,7 +932,7 @@ const CheckoutOrganism =({DetailDashboard}) =>{
                                                 <span  >Tienda hotel</span>
                                             </div>
                                           
-                                            <span className="no-price" >$</span><span className="price-store" >{formatteOne} <span className="no-price" >COP</span>  </span>
+                                            <span className="no-price" >$</span><span className="price-store" >{formatteOne =="NaN"?0:formatteOne} <span className="no-price" >COP</span>  </span>
                                           </li>
                                           
                                         </ul>  
@@ -957,14 +957,17 @@ const CheckoutOrganism =({DetailDashboard}) =>{
                     <button>Imprimir POS persona natural</button>
                 </div>
                 <div className="button-checkout-two-finally" onClick={handUpdateStatus}  >
-                    <button>Checkout</button>
+                    <button>Check Out</button>
                 </div>  
             </div>
                
-                <input   
+               <div className="container-button-cesde">
+               <input   
                             type="checkbox" 
-                            className={`checkbox-round`}
-                        /> Incluir tienda
+                            className={`checkbox-round-one`}
+                        /> Incluir venta tienda  
+               </div>
+               
                     
                 
 

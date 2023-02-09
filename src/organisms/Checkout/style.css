@@ -142,7 +142,7 @@
     color: white;
     padding: 14px;
     margin-top: 13px;
-    width: 49%;
+    width: 736px;
 }
 
 .button-checkout-one{
@@ -166,7 +166,7 @@
     color: white;
     margin-top: 10px;
     padding: 14px;
-    width: 47%;
+    width: 50%;
 }
 
 .dow{
@@ -296,7 +296,11 @@
 }
 
 .ri-one{
-    width: 532px
+    width: 540px;
+}
+
+.ve-one{
+    width: 596px;
 }
 
 .ri-two{
