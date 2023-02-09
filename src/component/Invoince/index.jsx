@@ -45,12 +45,12 @@ const Invoince =({carts=[], setInvoice,priceCart,client,identification,raiting,h
         fetch("http://localhost:4000/api/resecion/resolucion")
         .then(res => res.json())
         .then(data => setData(data?.query[0]))
-    },[])
+    },[setData])
 
     
 
     const count = data?.Resolucion+1
-   
+    const contador =  data?.Resolucion 
 
     const handSubmit =() =>{
         handlePrint()
@@ -96,7 +96,7 @@ const Invoince =({carts=[], setInvoice,priceCart,client,identification,raiting,h
                                     <span className="p title-invoince-cart  ">Fecha: 2023/01/31</span>
                                     <span className="p title-invoince-cart  ">Resolucion 1001 al 3000</span>
                                     <span className="p title-invoince-cart  ">FACTURA DE VENTA</span>
-                                    <span className="p title-invoince-cart  ">FP-{data?.Resolucion}</span>
+                                    <span className="p title-invoince-cart  ">FP-{contador}</span>
 
                                     <span className="atm title-invoince-cart" >Cajero: {jwt.result.name} </span>
                                     <span className="atm title-invoince-cart" >Fecha: {day}</span>
@@ -172,7 +172,7 @@ const Invoince =({carts=[], setInvoice,priceCart,client,identification,raiting,h
                                     <span className="p title-invoince-cart  ">Fecha: 2023/01/31</span>
                                     <span className="p title-invoince-cart  ">Resolucion 1001 al 3000</span>
                                     <span className="p title-invoince-cart  ">FACTURA DE VENTA</span>
-                                    <span className="p title-invoince-cart  ">FP-{data?.Resolucion}</span>
+                                    <span className="p title-invoince-cart  ">FP-{contador}</span>
 
                                     <span className="atm title-invoince-cart" >Cajero: {jwt.result.name} </span>
                                     <span className="atm title-invoince-cart" >Fecha: {day}</span>
