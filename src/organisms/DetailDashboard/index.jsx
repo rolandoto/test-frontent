@@ -626,7 +626,7 @@ const toPriceNigth = UsePrice({number:resultDashboard.valor_dia_habitacion})
         <div className="container-flex-init-one" >
               <div>
                   <button className={`${ findFirma ? "button-checking-detail-firma" : "button-checking-detail" } `} onClick={handChecking} >
-                      <span className="title-button"  >Realizar Check in</span>
+                      <span className="title-button"  >Check in</span>
                   </button>
               </div>
               <div>
