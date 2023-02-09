@@ -564,6 +564,10 @@ const CheckoutOrganism =({DetailDashboard}) =>{
              <LoadingDetail
                 loading={factura}
                 titleLoading={"Factura electronica enviada"}  />
+
+            <LoadingDetail
+                error={!factura}
+                title={"Error al enviar datos"}  />
                 <ul className="flex-bedrooms-checking-modal-checkout  ">      
                     <li  > 
                         <div className="contan-seacrh" >
