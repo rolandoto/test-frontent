@@ -531,13 +531,14 @@ const CheckoutOrganism =({DetailDashboard}) =>{
     const formatoIva = Iva.toLocaleString();
 
     var formatteOne = totalStore.toLocaleString();
-
+    const [factura,setFactura] = useState(false)
     const handServiFormularios =() =>{
         ServiceFormulariosCheckout({id:filterSearch.id,status:"2",fecha_ingreso:fechaInicio,fecha_salida:FechaFinal,valortotal:totalIva}).then(index =>{
-            alert("Factura enviada")
+            setFactura(true)
             handComprobante()
+            
         }).catch(e => {
-           alert("error al guardar")
+            setFactura(false)
         }) 
     }
 
@@ -560,7 +561,9 @@ const CheckoutOrganism =({DetailDashboard}) =>{
             <LoadingDetail
                 loading={true}
                 titleLoading={"Checkout Empresa"}  />
-
+             <LoadingDetail
+                loading={factura}
+                titleLoading={"Factura electronica enviada"}  />
                 <ul className="flex-bedrooms-checking-modal-checkout  ">      
                     <li  > 
                         <div className="contan-seacrh" >
