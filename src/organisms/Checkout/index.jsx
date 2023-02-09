@@ -13,7 +13,7 @@ import jsPDF from "jspdf";
 import UsePrice from "../../hooks/UsePrice"
 import { height, maxHeight } from "@mui/system"
 import ServiceStatus from "../../service/ServiceStatus"
-
+import { VscVerified,VscSymbolEvent ,VscSignOut,VscSearch,VscRecord} from "react-icons/vsc";
 const CheckoutOrganism =({DetailDashboard}) =>{
     const {id} = useParams()
     const {jwt} = useContext(AutoProvider)
@@ -399,12 +399,8 @@ const CheckoutOrganism =({DetailDashboard}) =>{
     }
 
     const handOpenInvoince =() =>{
-        if(cart.length ==0){
-            alert("no hay productos en la tienda")
-        }else{
-            setInvoice(true)
-        }
-       
+        
+           setInvoice(true)
     }
                 
     useEffect(() =>{
@@ -522,7 +518,7 @@ const CheckoutOrganism =({DetailDashboard}) =>{
         }
     }
 
-    console.log(resultFinish)
+   
     const toPriceNoche = UsePrice({number:resultDashboard.valor_dia_habitacion})
     const numOne = parseInt(resultDashboard?.valor_habitacion)
     var formattedNum =numOne.toLocaleString(); 
@@ -530,7 +526,6 @@ const CheckoutOrganism =({DetailDashboard}) =>{
     const Iva  = numOne*19/100
 
     const totalIva = numOne + Iva
-
 
     const valorTotalIva = totalIva.toLocaleString();
     const formatoIva = Iva.toLocaleString();
@@ -567,7 +562,10 @@ const CheckoutOrganism =({DetailDashboard}) =>{
                 titleLoading={"Checkout Empresa"}  />
 
                 <ul className="flex-bedrooms-checking-modal-checkout  ">      
-                    <li  >      
+                    <li  > 
+                        <div className="contan-seacrh" >
+                            <VscSearch color="greys" />  
+                        </div>
                         <input className="input-searching-input-checkout dow"  placeholder="Busquedad de Empresa" name="Buscar" type="text"  onChange={handChange} />
                     </li>
                 </ul>
@@ -666,7 +664,7 @@ const CheckoutOrganism =({DetailDashboard}) =>{
                                                 <span  >Hospedaje hotel</span>
                                             </div>
                                           
-                                            <span className="no-price" >$</span>        <span className="price-store" >{formattedNum} <span className="no-price" > Pesos COP</span>  </span>
+                                            <span className="no-price" >$</span>        <span className="price-store" >{formattedNum} <span className="no-price" > COP</span>  </span>
 
                                             <div className="to-hospedaje-one" >
                                                 <span className="negrita"  >Sub total: </span> <span> {formattedNum}</span> 
@@ -723,7 +721,7 @@ const CheckoutOrganism =({DetailDashboard}) =>{
                                                 <span  >Tienda hotel</span>
                                             </div>
                                           
-                                            <span className="no-price" >$</span><span className="price-store" >{totalStore ?totalStore : 0 } <span className="no-price" > Pesos COP</span>  </span>
+                                            <span className="no-price" >$</span><span className="price-store" >{totalStore ?totalStore : 0 } <span className="no-price" >COP</span>  </span>
                                            
                                           </li>
                                           
@@ -743,7 +741,7 @@ const CheckoutOrganism =({DetailDashboard}) =>{
                    
             <div className="container-flex-buttton-checkout" >    
                         <div className="button-checkout" onClick={handServiFormularios} >
-                            <button>Enviar electronica  e imprimir comprobante</button>
+                            <button>Enviar factura e imprimir comprobante</button>
                         </div>
 
                         <div className="button-checkout-two-finally" onClick={handUpdateStatus}  >
