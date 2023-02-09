@@ -37,6 +37,14 @@
     color: #000000;
 }
 
+.container-store-checkout-one-pdf{
+    display: flex;
+    background: #EFEFEF;
+    border-radius: 8px;
+    align-items: flex-end;
+    color: #000000;
+}
+
 .container-store-checkout-three{
     display: flex;
     background: #EFEFEF;

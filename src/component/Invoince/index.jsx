@@ -8,6 +8,7 @@ import { postProduct } from "../../store/slice";
 import { useEffect } from "react";
 import { useReactToPrint } from "react-to-print";
 import ServiceResolution from "../../service/serviceResolution";
+import UsePrice from "../../hooks/UsePrice";
 
 const Invoince =({carts=[], setInvoice,priceCart,client,identification,raiting,handLoading,loading,handLoadingOne}) =>{
         
@@ -21,7 +22,17 @@ const Invoince =({carts=[], setInvoice,priceCart,client,identification,raiting,h
     const {jwt} = UseUsers()
     let componentRef = useRef();
 
+  
+
+    const totalResultPrice = priceCart*19/100
+
     
+
+    const totalResultPriceTwo = priceCart+totalResultPrice
+
+    const totalPrice  = UsePrice({number:priceCart})
+    const toPriceIva = UsePrice({number:totalResultPrice})
+    const toPriceDefinitive = UsePrice({number:totalResultPriceTwo})
 
     const handClickProduct =() =>{
         dispatch(postProduct({product:carts}))
@@ -38,7 +49,7 @@ const Invoince =({carts=[], setInvoice,priceCart,client,identification,raiting,h
 
     
 
-    let count = data?.Resolucion+1
+    const count = data?.Resolucion+1
     console.log(count)
 
     const handSubmit =() =>{
@@ -100,21 +111,24 @@ const Invoince =({carts=[], setInvoice,priceCart,client,identification,raiting,h
                                     </div>
 
                                 {carts && <div className="container-invoince" >
-                                    {carts?.map(index =>(
+                                    {carts?.map(index =>{
+                                        const toPrice = UsePrice({number:index.price})
+                                        return (
                                         <div className="carts-invoince">
                                             <span className="title-invoince-cart">{index.name}</span>   
-                                            <span className="valo title-invoince-cart ">{index.price}</span> 
+                                            <span className="valo title-invoince-cart ">{toPrice.price}</span> 
                                             <span className="title-invoince-cart" >0</span>              
                                         </div>
-                                    ))}
+                                        )
+                                    })}
                                 </div>}
                                 <div className="sub-total title-invoince-cart sub-total-top ">
                                     <span>Sub Total</span>
-                                    <span> {priceCart} </span>
+                                    <span> {totalPrice.price} </span>
                                 </div>
                                 <div className="sub-total title-invoince-cart" >
                                     <span>IVA</span>
-                                    <span>0</span>
+                                    <span>{toPriceIva.price}</span>
                                 </div>
                                 <div className="sub-total title-invoince-cart">
                                     <span>Total</span>
@@ -173,25 +187,28 @@ const Invoince =({carts=[], setInvoice,priceCart,client,identification,raiting,h
                                     </div>
 
                                 {carts && <div className="container-invoince" >
-                                    {carts?.map(index =>(
+                                    {carts?.map(index =>{
+                                        const toPrice = UsePrice({number:index.price})
+                                        return (
                                         <div className="carts-invoince">
                                             <span className="title-invoince-cart">{index.name}</span>   
-                                            <span className="valo title-invoince-cart ">{index.price}</span> 
+                                            <span className="valo title-invoince-cart ">{toPrice.price}</span> 
                                             <span className="title-invoince-cart" >0</span>              
                                         </div>
-                                    ))}
+                                        )
+                                    })}
                                 </div>}
                                 <div className="sub-total title-invoince-cart sub-total-top ">
                                     <span>Sub Total</span>
-                                    <span> {priceCart} </span>
+                                    <span> {totalPrice.price} </span>
                                 </div>
                                 <div className="sub-total title-invoince-cart" >
                                     <span>IVA</span>
-                                    <span>0</span>
+                                    <span>{toPriceIva.price}</span>
                                 </div>
                                 <div className="sub-total title-invoince-cart">
                                     <span>Total</span>
-                                    <span>{priceCart}</span>
+                                    <span>{toPriceDefinitive.price}</span>
                                 </div>
                                 
                                 <div className="container-invoince line-invoince"></div>

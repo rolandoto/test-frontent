@@ -31,7 +31,6 @@ import ServePdf from "../../service/PdfServe";
 import { confirmAlert } from "react-confirm-alert"; // Import
 import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
 
-
 const DetailDasboard =(props) =>{
     const {id} = useParams()
     const [state,setState] =useState(true)
@@ -42,8 +41,6 @@ const DetailDasboard =(props) =>{
     const history = useHistory()
     const {iduser} = UseListMotels()
     const {jwt} = useContext(AutoProvider)
-
-
 
    const FindIdHotel=(hotel) =>{
      return hotel.id_hotel == jwt.result.id_hotel
@@ -409,7 +406,7 @@ const DetailDasboard =(props) =>{
   const Adultos  = product?.filter(index => index.ID_Categoria ==5)    
   const Lenceria  = product?.filter(index => index.ID_Categoria ==6)  
 
-  console.log(product)
+
 
     const totalBebidas = bebidas?.reduce((acum,current) => {
     return acum  + current.Cantidad

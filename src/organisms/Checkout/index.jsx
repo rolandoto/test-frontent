@@ -26,6 +26,8 @@ const CheckoutOrganism =({DetailDashboard}) =>{
     const [filterFinish,setFilterFinish] =useState()
     const [invoince,setInvoice] =useState(false)
     const [comprobante,setComprobante] =useState(false)
+    const [isChecked, setIsChecked] = useState();
+    const [isChecke, setIsChecke] = useState();
 
     const handComprobante =() =>{
         setComprobante(true)
@@ -382,7 +384,13 @@ const CheckoutOrganism =({DetailDashboard}) =>{
             name:data[i].Nombre_producto,
             price:data[i].Precio
         })
+        
     }   
+
+    cart.push({
+        name:`${resultDashboard.Noches} Noches `,
+        price:`${resultDashboard.valor_habitacion} `
+    })
 
     const [query,setQuery] = useState()
 
@@ -402,7 +410,9 @@ const CheckoutOrganism =({DetailDashboard}) =>{
         
            setInvoice(true)
     }
-                
+    
+    
+    
     useEffect(() =>{
         fetch("https://grupo-hoteles.com/api/formulariofacturacion")
         .then(resp => resp.json())
@@ -413,7 +423,7 @@ const CheckoutOrganism =({DetailDashboard}) =>{
 
 
     const totalPrice = cart?.reduce((acum,current) =>{
-        return      acum  + current.price
+        return      acum  + parseInt( current.price)
     },0)
 
     console.log(totalPrice)
@@ -468,7 +478,11 @@ const CheckoutOrganism =({DetailDashboard}) =>{
         filtrar(e.target.value)
     }
 
-    
+    const cartOne =[]
+
+    console.log(resultDashboard)
+
+
 
     /**
      * 
@@ -541,6 +555,8 @@ const CheckoutOrganism =({DetailDashboard}) =>{
             setFactura(false)
         }) 
     }
+
+    
 
     if(findEmpresa)
     return (
@@ -758,13 +774,7 @@ const CheckoutOrganism =({DetailDashboard}) =>{
                 </div>
             
  
-                <div className="container-button-cesde " >
-                        <input   
-                            type="checkbox" 
-                            className={`checkbox-round`}
-                        /> Incluir tienda
-                        
-                </div>
+               
 
             
                                         
@@ -966,17 +976,9 @@ const CheckoutOrganism =({DetailDashboard}) =>{
                 </div>  
             </div>
                
-               <div className="container-button-cesde">
-               <input   
-                            type="checkbox" 
-                            className={`checkbox-round-one`}
-                        /> Incluir venta tienda  
-               </div>
                
-                    
-                
-
-        {comprobante &&  <Factura Room={resultFinish}
+               
+        {!comprobante &&  <Factura Room={resultFinish}
                     Valor_dia_habitacion={resultDashboard}
                     resultFinish={resultFinish}
                     comprobante={comprobante}
@@ -1054,9 +1056,56 @@ const Factura  =({Room,Valor_dia_habitacion,resultFinish,comprobante,setComproba
 
             
             <div className="text-center" >
-                <h1>HOTEL FLORENCIA PLAZA</h1>
-                <h4>Crr 41 no 10-41</h4>
+                <span>HOTEL FLORENCIA PLAZA</span>
+               
             </div>
+
+            <div className="text-center" >
+                <span>NIT 900768737-3</span>
+            </div>
+
+            <div className="text-center" >
+                <span>CRR 41A No 10-41 Poblado medellin</span>
+            </div>
+
+            <div className="text-center" >
+                <span>3053638733</span>
+            </div>
+           
+            <div className="container-store-checkout-one-pdf" >
+                <div>
+                    <ul>
+                        <li>Empresa</li>
+                        <li>Nit</li>
+                        <li>Correo</li>
+                    </ul>
+                </div>
+                <div>
+                <ul>
+                        <li>Empresa</li>
+                        <li>Nit</li>
+                        <li>Correo</li>
+                    </ul>
+                </div>
+
+                <div>
+
+                    <ul>
+                        <li>Empresa</li>
+                        <li>Nit</li>
+                    </ul>
+                </div>
+                <div>
+
+                <ul>
+                    <li>Empresa</li>
+                    <li>Nit</li>
+                </ul>
+                </div>
+                
+               
+            </div>
+                
           <div>
 
           <table className="table-factura-one">
