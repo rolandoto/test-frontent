@@ -50,7 +50,7 @@ const Invoince =({carts=[], setInvoice,priceCart,client,identification,raiting,h
     
 
     const count = data?.Resolucion+1
-    console.log(count)
+   
 
     const handSubmit =() =>{
         handlePrint()

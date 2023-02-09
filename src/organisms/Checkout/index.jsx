@@ -1014,9 +1014,9 @@ const Factura  =({Room,Valor_dia_habitacion,resultFinish,comprobante,setComproba
             Price:valor_dia.price
             })
     }   
-    const fecha =  startDateOne.toISOString().split('T')[0]
-    const fechaOne = endDate.toISOString().split('T')[0]
-  
+const fecha =  startDateOne.toISOString().split('T')[0]
+const fechaOne = endDate.toISOString().split('T')[0]
+
   const printDocument = () => {
     const input = docToPrint.current;
     html2canvas(input).then((canvas) => {
