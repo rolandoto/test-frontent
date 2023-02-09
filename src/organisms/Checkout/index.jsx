@@ -868,9 +868,9 @@ const CheckoutOrganism =({DetailDashboard}) =>{
                                             <li className="totalPricecheckout-two-finish-one negrita" >Cantidad personas:</li>   
                                             <li className="totalPricecheckout-two-finish-one negrita" >Cantidad noches: </li>   
                                             <li className="totalPricecheckout-two-finish-one negrita" >Tipo habitacion:</li>   
-                                            <li className="totalPricecheckout-two-finish-one negrita" >Valor por noche</li>   
-                                            <li className="totalPricecheckout-two-finish-one negrita" >Persona Adicional</li> 
-                                            <li className="totalPricecheckout-two-finish-one negrita" >Hora Adicional</li> 
+                                            <li className="totalPricecheckout-two-finish-one negrita" >Valor por noche:</li>   
+                                            <li className="totalPricecheckout-two-finish-one negrita" >Persona Adicional:</li> 
+                                            <li className="totalPricecheckout-two-finish-one negrita" >Hora Adicional:</li> 
                                             <li className="totalPricecheckout-two-finish-one negrita" >Ealy check in:</li>  
                                         </ul>                 
                                     </div>
@@ -913,7 +913,7 @@ const CheckoutOrganism =({DetailDashboard}) =>{
                                     <div>
                                         <ul>
                                         {MenuItems.map(index => (
-                                            <li className="totalPricecheckout-two-finish negrita" >{index?.name}</li>
+                                            <li className="totalPricecheckout-two-finish negrita" >{index?.name}:</li>
                                         ))}              
                                         </ul>                 
                                     </div>
