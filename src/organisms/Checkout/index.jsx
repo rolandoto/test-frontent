@@ -153,6 +153,7 @@ const CheckoutOrganism =({DetailDashboard}) =>{
     const totalStore = priceLenceria+priceAdultos+priceDrogueria+priceSouvenir+priceSnacks+priceBebidas
 
 
+
     /**
      *  <div className="container-search-filter" >
                                 {[null]?.map((index,e) =>( 
@@ -383,6 +384,15 @@ const CheckoutOrganism =({DetailDashboard}) =>{
         })
     }   
 
+    const [query,setQuery] = useState()
+
+    useEffect(() =>{
+        fetch(`${config.serverRoute}/api/resecion/getdetailchecking/${id}`)
+        .then(resp => resp.json())
+        .then(data=> setQuery(data?.query))
+    },[])
+
+    console.log(query)
 
     const handCloseInvoince =() =>{
         setInvoice(false)
@@ -431,7 +441,7 @@ const CheckoutOrganism =({DetailDashboard}) =>{
     const findPersona =  resultDashboard.tipo_persona == "persona"
     const findEmpresa = resultDashboard.tipo_persona =="empresa"  
     
-    const totalPersona =  resultDashboard.tipo_persona =="persona"?"Natural":"Juridica"
+    const totalPersona =  resultDashboard?.tipo_persona =="persona"?"Natural":"Juridica"
 
     console.log(resultDashboard)
 
@@ -482,13 +492,7 @@ const CheckoutOrganism =({DetailDashboard}) =>{
     const FechaFinal = final.toISOString().split('T')[0]
 
 
-    const handServiFormularios =() =>{
-        ServiceFormulariosCheckout({id:filterSearch.id,status:"2",fecha_ingreso:fechaInicio,fecha_salida:FechaFinal,valortotal:total_Valor}).then(index =>{
-            alert("Factura enviada")
-        }).catch(e => {
-           alert("error al guardar")
-        }) 
-    }
+  
 
     const [loading,setLoading] =useState(false)
 
@@ -509,6 +513,39 @@ const CheckoutOrganism =({DetailDashboard}) =>{
     }
 
    
+    const totalHabitacion =UsePrice({number:resultDashboard.valor_habitacion})
+    
+    let count =0
+    for(let i =0;i<query?.length;i++){
+        if(query[i] >parseInt(resultFinish?.persona)){
+            count++
+        }
+    }
+
+    console.log(resultFinish)
+    const toPriceNoche = UsePrice({number:resultDashboard.valor_dia_habitacion})
+    const numOne = parseInt(resultDashboard?.valor_habitacion)
+    var formattedNum =numOne.toLocaleString(); 
+
+    const Iva  = numOne*19/100
+
+    const totalIva = numOne + Iva
+
+
+    const valorTotalIva = totalIva.toLocaleString();
+    const formatoIva = Iva.toLocaleString();
+
+    var formatteOne = totalStore.toLocaleString();
+
+    const handServiFormularios =() =>{
+        ServiceFormulariosCheckout({id:filterSearch.id,status:"2",fecha_ingreso:fechaInicio,fecha_salida:FechaFinal,valortotal:totalIva}).then(index =>{
+            alert("Factura enviada")
+            handComprobante()
+        }).catch(e => {
+           alert("error al guardar")
+        }) 
+    }
+
     if(findEmpresa)
     return (
         <>     
@@ -557,27 +594,114 @@ const CheckoutOrganism =({DetailDashboard}) =>{
                                 </div>
                             
 
+                                <div className="container-store-checkout" >
+                                 <div className="container-store-checkout" >
+                                <div>
+                                    <ul>
+                                        <li className="totalPricecheckout-two negrita" >Nombre empresa:</li>           
+                                        <li className="totalPricecheckout-two negrita" >Nit:</li>           
+                                        <li className="totalPricecheckout-two negrita" >Correo:</li>           
+                                                     
+                                    </ul>                 
+                                </div>
+                                <div className="ri-one" >
+                                    <ul>
+                                        <li className="totalPricecheckout-two" >{filterSearch?.name_people}</li>           
+                                        <li className="totalPricecheckout-two" >{filterSearch?.num_id}</li>           
+                                        <li className="totalPricecheckout-two" >{filterSearch?.email_people}</li>           
+                                      
+                                    </ul>  
+                                </div>
+                                <div>
+                                    <ul>
+                                                  
+                                        <li className="totalPricecheckout-two negrita " >Direccion:</li> 
+                                        <li className="totalPricecheckout-two negrita" >Telefono:</li>             
+                                    </ul>                 
+                                </div>
+                                <div>
+                                    <ul>
+                                        <li className="totalPricecheckout-two" >{filterSearch?.direccion_people}</li>   
+                                        <li className="totalPricecheckout-two" >{filterSearch?.number_people}</li>                      
+                                    </ul>                 
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div className="container-checkout-border" >
+                            <div className="container-store-checkout-three" >
+                                    <div>
+                                        <ul>
+                                            <li className="totalPricecheckout-two-finish-one negrita" >Cantidad personas:</li>   
+                                            <li className="totalPricecheckout-two-finish-one negrita" >Cantidad noches: </li>   
+                                            <li className="totalPricecheckout-two-finish-one negrita" >Tipo habitacion:</li>   
+                                            <li className="totalPricecheckout-two-finish-one negrita" >Valor por noche:</li>   
+                                            <li className="totalPricecheckout-two-finish-one negrita" >Persona adiciona:l</li> 
+                                            <li className="totalPricecheckout-two-finish-one  negrita" >Hora Adicional:</li> 
+                                            <li className="totalPricecheckout-two-finish-one negrita" >Ealy check in:</li>  
+                                        </ul>                 
+                                    </div>
+                                    <div className="ri-two">
+                                        <ul>
+                                            <li>{resultDashboard?.Adultos + resultDashboard?.Ninos }</li>           
+                                            <li className="totalPricecheckout-two" >{resultDashboard?.Noches } Noches</li>           
+                                            <li className="totalPricecheckout-two" >{resultFinish?.nombre}</li>           
+                                            <li className="totalPricecheckout-two" >{toPriceNoche?.price}</li>   
+                                            <li className="totalPricecheckout-two" >{count}</li>   
+                                            <li className="totalPricecheckout-two" >{totalLenceria ?totalLenceria :0}</li>     
+                                            <li className="totalPricecheckout-two" >{totalLenceria ?totalLenceria :0}</li>                
+                                        </ul>  
+                                    </div>
+
+                                    
+                                    
+                                    <div>
+                                        <ul>
+                                             <li>
+                                           
+                                          </li>
+                                            <li>
+                                            <div className="to-hospedaje" >
+                                                <span  >Hospedaje hotel</span>
+                                            </div>
+                                          
+                                            <span className="price-store" >{formattedNum} <span className="no-price" > Pesos COP</span>  </span>
+
+                                            <div className="to-hospedaje-one" >
+                                                <span className="negrita"  >Sub total: </span> <span> {formattedNum}</span> 
+                                            </div>
+                                          
+                                            <div className="to-hospedaje-one" >
+                                                <span className="negrita"  >Iva: </span><span>{formatoIva}</span>
+                                            </div>
+                                          
+                                            <div className="to-hospedaje-one" >
+                                                <span className="negrita"  >Valor total:</span> <span>{valorTotalIva} </span>
+                                            </div>
+                                          
+                                            
+                                          </li>
+                                          
+                                        </ul>  
+                                    </div>
+                            </div>
+
+
+                </div>
+
               <div className="container-checkout-border" >
                         <div className="container-store-checkout-three" >
                                 <div>
                                     <ul>
                                        {MenuItems.map(index => (
-                                         <li className="totalPricecheckout-two-finish" >{index?.name}</li>
+                                         <li className="totalPricecheckout-two-finish negrita" >{index?.name}:</li>
                                        ))}              
                                     </ul>                 
                                 </div>
-                                <div>
-                                    <ul>
-                                        <li className="totalPricecheckout-two" >{totalBebidas ?totalBebidas :0}</li>           
-                                        <li className="totalPricecheckout-two" >{totalSnacks ?totalSnacks:0}</li>           
-                                        <li className="totalPricecheckout-two" >{totalSouvenir ?totalSouvenir:0}</li>           
-                                        <li className="totalPricecheckout-two" >{totalDrogueria ?totalDrogueria:0}</li>   
-                                        <li className="totalPricecheckout-two" >{totalAdultos ?totalAdultos:0}</li>   
-                                        <li className="totalPricecheckout-two" >{totalLenceria ?totalLenceria :0}</li>                
-                                    </ul>  
-                                </div>
+                                
 
-                                <div>
+                                <div className="ri-two" >
                                     <ul>
                                         <li className="totalPricecheckout" >${priceBebidas ?priceBebidas : 0 }</li>           
                                         <li className="totalPricecheckout" >${priceSnacks ?priceSnacks :0}</li>           
@@ -588,115 +712,46 @@ const CheckoutOrganism =({DetailDashboard}) =>{
                                     </ul>  
                                 </div>
 
-                                
+                              
                                 <div>
-                                    <ul>
-                                    <li className="totalPricecheckout-one-three one-v-total     " >
-                                            <span>Valor consumo ${totalStore ?totalStore : 0 }</span>
-                                    </li>        
-                                       
-                                    </ul>  
-                                </div>
+                                        <ul>
+                                             <li>
+                                           
+                                          </li>
+                                            <li>
+                                            <div className="to-hospedaje" >
+                                                <span  >Tienda hotel</span>
+                                            </div>
+                                          
+                                            <span className="price-store" >${totalStore ?totalStore : 0 } <span className="no-price" > Pesos COP</span>  </span>
+                                           
+                                          </li>
+                                          
+                                        </ul>  
+                                    </div>
 
                         </div>
 
-                        <div className="container-store-checkout" >
-                                 <div className="container-store-checkout" >
-                                <div>
-                                    <ul>
-                                        <li className="totalPricecheckout-two" >Nombre empresa:</li>           
-                                        <li className="totalPricecheckout-two" >Nit:</li>           
-                                        <li className="totalPricecheckout-two" >Correo:</li>           
-                                        <li className="totalPricecheckout-two" >Direccion:</li> 
-                                        <li className="totalPricecheckout-two" >Telefono:</li>             
-                                    </ul>                 
-                                </div>
-                                <div>
-                                    <ul>
-                                        <li className="totalPricecheckout-two" >{filterSearch?.name_people}</li>           
-                                        <li className="totalPricecheckout-two" >{filterSearch?.num_id}</li>           
-                                        <li className="totalPricecheckout-two" >{filterSearch?.email_people}</li>           
-                                        <li className="totalPricecheckout-two" >{filterSearch?.direccion_people}</li>   
-                                        <li className="totalPricecheckout-two" >{filterSearch?.number_people}</li>              
-                                    </ul>  
-                                </div>
-                            </div>
-                        </div>
-
+                     
             </div>
             
 
 
             <div className="container-store-checkout-two" >
-                <div className="container-border-checkout" >
-                    <div>
-                        <ul>
-                            <li>{resultDashboard?.Adultos} Adultos,{resultDashboard?.Ninos} Niños,{resultDashboard?.Noches} Noches</li>           
-                            <li></li>                  
-                            <li> habitacion{resultFinish?.nombre}</li>   
-                            <li className="flex-checkout" ><span>Multas: </span>   
-                                    <select className='select-hotel-checkout' >
-                                        <option disabled >raiting tuype</option>
-                                        <option></option>
-                                    </select>
-                                            </li>   
-                                            <li className="flex-checkout" ><span>Lenceria: </span>   
-                                    <select className='select-hotel-checkout' >
-                                        <option disabled > Lenceria</option>
-                                        <option></option>
-                                    </select>
-                                            </li>   
-                                            <li className="flex-checkout" ><span>Tarjetas: </span>   
-                                    <select className='select-hotel-checkout' >
-                                        <option disabled >raiting tuype</option>
-                                        <option></option>
-                                    </select>
-                            </li>   
-                        </ul> 
-                        <div className="container-checkout-border-one" >
-           
-            </div>                
-                    </div>
-
-                    <div>
-                        <ul>
-                            <li className="totalPricecheckout-one-three-finish"><span>Sub total:{valor_habitacion_total}</span> 
-                            <span>Iva: {ivaTo} </span>
-                            <span>V Tota$: {totalAll}</span>
-                            </li>  
-                            <div className="container-store-checkout-one box" >
-
-                    <div className="container-checkbox " >
-                        <input   
-                            type="checkbox" 
-                            className={`checkbox-round`}
-                        /> Incluir tienda
-                        
-                        </div>
-
-                    </div>                               
-                        </ul>  
-                    </div>
+                             
                     
-                </div>
+                   
+                  
+                   
+                    
+                
 
 
-                    <div className="container-store-checkout-two" >
-                            <textarea id="w3review" placeholder="Observacion de la factura" className="text-tarea-one" name="w3review" rows="4" cols="50"></textarea>    
-                        </div>
-
+                   
                     <div>
-
-                        <div className="button-checkout-three" onClick={handOpenInvoince} >
-                            <button>Imprimir POS tienda</button>
-                        </div>
-                            
+    
                         <div className="button-checkout" onClick={handServiFormularios} >
-                            <button>Enviar factura electronica</button>
-                        </div>
-
-                        <div className="button-checkout-one" onClick={handComprobante}  >
-                            <button>Descargar comprobante</button>
+                            <button>Enviar electronica  e imprimir comprobante</button>
                         </div>
 
                         <div className="button-checkout-two-finally" onClick={handUpdateStatus}  >
@@ -705,6 +760,14 @@ const CheckoutOrganism =({DetailDashboard}) =>{
                     </div>
                 </div>
             
+ 
+                <div className="container-checkbox " >
+                        <input   
+                            type="checkbox" 
+                            className={`checkbox-round`}
+                        /> Incluir tienda
+                        
+                        </div>
 
             
                                         
@@ -762,31 +825,31 @@ const CheckoutOrganism =({DetailDashboard}) =>{
                                     </section>
                                 ))}
                                 </div>
-                                <div className="container-store-checkout" >
-                                    <div className="container-store-checkout" >
+                                <div className="container-store-checkout-one" >
+                                    <div className="container-store-checkout-one" >
                                     <div>
                                         <ul>
-                                            <li className="totalPricecheckout-two" >Nombre:</li>           
-                                            <li className="totalPricecheckout-two" >Documento:</li>           
-                                            <li className="totalPricecheckout-two" >Correo:</li>        
+                                            <li className="totalPricecheckout-two negrita" >Nombre:</li>           
+                                            <li className="totalPricecheckout-two negrita" >Documento:</li>           
+                                            <li className="totalPricecheckout-two negrita" >Correo:</li>        
                                            
                                                      
                                         </ul>                 
                                     </div>
-                                    <div>
+                                    <div className="ri-one" >
                                         <ul>
-                                                <li className="totalPricecheckout-two" >{resultDashboard.Nombre} {resultDashboard.Apellido}</li>           
-                                                <li className="totalPricecheckout-two" >{resultDashboard.Num_documento}</li>           
-                                                <li className="totalPricecheckout-two" >{resultDashboard.Correo}</li>   
+                                                <li className="totalPricecheckout-two" >{resultDashboard?.Nombre} {resultDashboard?.Apellido}</li>           
+                                                <li className="totalPricecheckout-two" >{resultDashboard?.Num_documento}</li>           
+                                                <li className="totalPricecheckout-two" >{resultDashboard?.Correo}</li>   
                                               
                                                                
                                         </ul>  
                                     </div>
 
                                     <div>
-                                            <li className="totalPricecheckout-two" >Telefono:</li>      
-                                            <li className="totalPricecheckout-two" >Nacionalidad:</li> 
-                                            <li className="totalPricecheckout-two" >Tipo persona:</li> 
+                                            <li className="totalPricecheckout-two negrita" >Telefono:</li>      
+                                            <li className="totalPricecheckout-two negrita" >Nacionalidad:</li> 
+                                            <li className="totalPricecheckout-two negrita" >Tipo persona:</li> 
                                     </div>
 
                                     <div>
@@ -802,38 +865,83 @@ const CheckoutOrganism =({DetailDashboard}) =>{
                             <div className="container-store-checkout-three" >
                                     <div>
                                         <ul>
-                                        {MenuItems.map(index => (
-                                            <li className="totalPricecheckout-two-finish" >{index?.name}</li>
-                                        ))}              
+                                            <li className="totalPricecheckout-two-finish-one negrita" >Cantidad personas:</li>   
+                                            <li className="totalPricecheckout-two-finish-one negrita" >Cantidad noches: </li>   
+                                            <li className="totalPricecheckout-two-finish-one negrita" >Tipo habitacion:</li>   
+                                            <li className="totalPricecheckout-two-finish-one negrita" >Valor por noche</li>   
+                                            <li className="totalPricecheckout-two-finish-one negrita" >Persona Adicional</li> 
+                                            <li className="totalPricecheckout-two-finish-one negrita" >Hora Adicional</li> 
+                                            <li className="totalPricecheckout-two-finish-one negrita" >Ealy check in:</li>  
                                         </ul>                 
                                     </div>
-                                    <div>
+                                    <div className="ri-two">
                                         <ul>
-                                            <li className="totalPricecheckout-two" >{totalBebidas ?totalBebidas :0}</li>           
-                                            <li className="totalPricecheckout-two" >{totalSnacks ?totalSnacks:0}</li>           
-                                            <li className="totalPricecheckout-two" >{totalSouvenir ?totalSouvenir:0}</li>           
-                                            <li className="totalPricecheckout-two" >{totalDrogueria ?totalDrogueria:0}</li>   
-                                            <li className="totalPricecheckout-two" >{totalAdultos ?totalAdultos:0}</li>   
+                                            <li>{resultDashboard?.Adultos + resultDashboard?.Ninos }</li>           
+                                            <li className="totalPricecheckout-two" >{resultDashboard?.Noches } Noches</li>           
+                                            <li className="totalPricecheckout-two" >{resultFinish?.nombre}</li>           
+                                            <li className="totalPricecheckout-two" >{toPriceNoche?.price}</li>   
+                                            <li className="totalPricecheckout-two" >{count}</li>   
+                                            <li className="totalPricecheckout-two" >{totalLenceria ?totalLenceria :0}</li>     
                                             <li className="totalPricecheckout-two" >{totalLenceria ?totalLenceria :0}</li>                
                                         </ul>  
                                     </div>
 
-                                    <div>
-                                        <ul>
-                                            <li className="totalPricecheckout" >${priceBebidas ?priceBebidas : 0 }</li>           
-                                            <li className="totalPricecheckout" >${priceSnacks ?priceSnacks :0}</li>           
-                                            <li className="totalPricecheckout" >${priceSouvenir ?priceSouvenir :0}</li>           
-                                            <li className="totalPricecheckout" >${priceDrogueria ?priceDrogueria:0}</li>   
-                                            <li className="totalPricecheckout" >${priceAdultos ?priceAdultos :0}</li>   
-                                            <li className="totalPricecheckout" >${priceLenceria ?priceLenceria :0}</li>                
-                                        </ul>  
-                                    </div>
+                                    
                                     
                                     <div>
                                         <ul>
-                                        <li className="totalPricecheckout-one-three  one-v-total    " >
-                                            <span>V Tota${totalStore ?totalStore : 0 }</span>
-                                            </li>  
+                                             <li>
+                                           
+                                          </li>
+                                            <li>
+                                            <div className="to-hospedaje" >
+                                                <span  >Hospedaje hotel</span>
+                                            </div>
+                                          
+                                            <span className="price-store" >{formattedNum} <span className="no-price" > Pesos COP</span>  </span>
+                                          </li>
+                                          
+                                        </ul>  
+                                    </div>
+                            </div>
+
+
+                </div>
+
+                <div className="container-checkout-border" >
+                            <div className="container-store-checkout-three" >
+                                    <div>
+                                        <ul>
+                                        {MenuItems.map(index => (
+                                            <li className="totalPricecheckout-two-finish negrita" >{index?.name}</li>
+                                        ))}              
+                                        </ul>                 
+                                    </div>
+                                    <div className="ri-two">
+                                        
+                                        <ul>
+                                        <li className="totalPricecheckout" >${priceBebidas ?priceBebidas : 0 }</li>           
+                                        <li className="totalPricecheckout" >${priceSnacks ?priceSnacks :0}</li>           
+                                        <li className="totalPricecheckout" >${priceSouvenir ?priceSouvenir :0}</li>           
+                                        <li className="totalPricecheckout" >${priceDrogueria ?priceDrogueria:0}</li>   
+                                        <li className="totalPricecheckout" >${priceAdultos ?priceAdultos :0}</li>   
+                                        <li className="totalPricecheckout" >${priceLenceria ?priceLenceria :0}</li>                
+                                    </ul>                 
+                                         
+                                    </div>
+
+                                    <div>
+                                        <ul>
+                                             <li>
+                                           
+                                          </li>
+                                            <li>
+                                            <div className="to-hospedaje" >
+                                                <span  >Tienda hotel</span>
+                                            </div>
+                                          
+                                            <span className="price-store" >{formatteOne} <span className="no-price" > Pesos COP</span>  </span>
+                                          </li>
                                           
                                         </ul>  
                                     </div>
@@ -842,86 +950,28 @@ const CheckoutOrganism =({DetailDashboard}) =>{
 
                 </div>
             
-
-
+               
             <div className="container-store-checkout-two" >
-                <div className="container-border-checkout" >
-                    <div>
-                        <ul>
-                            <li>{resultDashboard?.Adultos} Adultos,{resultDashboard?.Ninos} Niños,{resultDashboard?.Noches} Noches</li>           
-                            <li></li>                  
-                            <li> Habitacion: {resultFinish?.nombre}</li>   
-                            <li className="flex-checkout" ><span>Multas: </span>   
-                                    <select className='select-hotel-checkout' >
-                                        <option disabled >raiting tuype</option>
-                                        <option></option>
-                                    </select>
-                                            </li>   
-                                            <li className="flex-checkout" ><span>Lenceria: </span>   
-                                    <select className='select-hotel-checkout' >
-                                        <option disabled > Lenceria</option>
-                                        <option></option>
-                                    </select>
-                                            </li>   
-                                            <li className="flex-checkout" ><span>Tarjetas: </span>   
-                                    <select className='select-hotel-checkout' >
-                                        <option disabled >raiting tuype</option>
-                                        <option></option>
-                                    </select>
-                            </li>   
-                        </ul>                 
-                    </div>
-
-                    <div>
-                        <ul>
-                            <li className="totalPricecheckout-one-three" ><span>Sub total:</span> 
-                            <span>Iva: </span>
-                            <span>V Tota$: {totalAll}</span>
-                            </li>  
-                                        
-                                           
-                        </ul> 
-                        
-                        <div className="container-checkbox " >
-                        <input   
-                            type="checkbox" 
-                            className={`checkbox-round`}
-                        /> Incluir tienda
-                        
-                        </div>
-
-                        
-                    </div>
-                    
-                </div>
-
-
-                    <div className="container-store-checkout-two" >
-                         
-                                    <textarea id="w3review" placeholder="Observacion de la factura" className="text-tarea-one" name="w3review" rows="4" cols="50"></textarea>
-                                
-                        </div>
+        
 
                         <div>
-
-                <div className="button-checkout-three" onClick={handOpenInvoince} >
-                    <button>Imprimir POS tienda</button>
                 </div>
-                    
-                <div className="button-checkout-one" onClick={handComprobante}  >
-                    <button>Descargar comprobante</button>
-                </div>
-
-                <div className="button-checkout-two-finally" onClick={handUpdateStatus}  >
-                    <button>checkout</button>
-                </div>
-</div>
                 </div>
             <div className="container-checkout-border-one" >
             
             </div>
-
-           
+            <div className="button-checkout-three" onClick={handOpenInvoince} >
+                    <button>Imprimir POS persona natural</button>
+                </div>
+                <div className="button-checkout-two-finally" onClick={handUpdateStatus}  >
+                    <button>Checkout</button>
+                </div>      
+                <input   
+                            type="checkbox" 
+                            className={`checkbox-round`}
+                        /> Incluir tienda
+                    
+                
 
         {comprobante &&  <Factura Room={resultFinish}
                     Valor_dia_habitacion={resultDashboard}

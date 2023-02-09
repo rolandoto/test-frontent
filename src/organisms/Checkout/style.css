@@ -22,7 +22,15 @@
 .container-store-checkout{
     display: flex;
     background: #EFEFEF;
-    width: 735px;
+
+    border-radius: 8px;
+    align-items: center;
+    color: #000000;
+}
+
+.container-store-checkout-one{
+    display: flex;
+    background: #EFEFEF;
     border-radius: 8px;
     align-items: center;
     color: #000000;
@@ -31,14 +39,13 @@
 .container-store-checkout-three{
     display: flex;
     background: #EFEFEF;
-    width: 745px;
     border-radius: 8px;
-    align-items: end;
+    align-items: center;
     color: #000000;
 }
 
 .container-store-checkout-two{
-    display: flex;
+
     width: auto;
     border-radius: 8px;
     align-items: center;
@@ -48,8 +55,7 @@
 }
 
 .container-checkout-border{
-    display: flex;
-    justify-content: space-between;
+
     margin-top: 8px;
 }
 
@@ -109,7 +115,7 @@
 .text-tarea-one {
     border: solid 1px #EFEFEF;
     border-radius: 8px;
-    width: 505px;
+    width: 1485px;
     height: 266px;
     padding: 2px;
 }
@@ -179,6 +185,10 @@
 .totalPricecheckout-two-finish{
     width: 117px;
     border-radius: 8px;
+    padding: 2px;
+}
+
+.totalPricecheckout-two-finish-one{
     padding: 2px;
 }
 
@@ -280,4 +290,34 @@
     /* justify-content: space-between; */
     align-items: center;
     align-items: flex-start;
+}
+
+.ri-one{
+    width: 920px;
+}
+
+.ri-two{
+    width: 860px;;
+}
+
+.price-store{
+    font-size: 51px;
+    font-weight: 400;
+}
+.no-price{
+    font-size: 43px;
+    font-weight: 100;
+}
+
+.to-hospedaje{
+    margin-left: 265px  ;
+}
+
+.to-hospedaje-one{
+    margin-left: 10px  ;
+}
+
+
+.negrita{
+    font-weight: 400;
 }
