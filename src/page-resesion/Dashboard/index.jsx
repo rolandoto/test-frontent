@@ -584,22 +584,7 @@ const Dashboard = (props) => {
 				<TimelineMarkers>
           {/* <TodayMarker /> */}
           {/* <CustomMarker date={moment().valueOf()} /> */}
-          <CustomMarker date={moment().startOf("day").add(0, "day")}>
-            {({ styles, date }) => {
-              const customStyles = {
-                ...styles,
-                backgroundColor: "#5dc968d4",
-                width: "69px",
-				
-              };
-              return (
-                <div
-                  style={customStyles}
-                  onClick={(event) => console.log("done")}
-                />
-              );
-            }}
-          </CustomMarker>
+          
           <CursorMarker />
         </TimelineMarkers>
 		</Timeline>
