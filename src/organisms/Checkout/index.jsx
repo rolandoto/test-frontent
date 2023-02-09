@@ -978,7 +978,7 @@ const CheckoutOrganism =({DetailDashboard}) =>{
                
                
                
-        {!comprobante &&  <Factura Room={resultFinish}
+        {comprobante &&  <Factura Room={resultFinish}
                     Valor_dia_habitacion={resultDashboard}
                     resultFinish={resultFinish}
                     comprobante={comprobante}
