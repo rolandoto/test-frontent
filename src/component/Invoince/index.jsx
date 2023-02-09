@@ -17,7 +17,7 @@ const Invoince =({carts=[], setInvoice,priceCart,client,identification,raiting,h
     let today = new Date(t)
     const day = today.toISOString().split('T')[0]
     const [state,setate] =useState(false)
-    const [data,setData] =useState([])
+    const [data,setData] =useState()
 
     const {jwt} = UseUsers()
     let componentRef = useRef();
@@ -44,18 +44,18 @@ const Invoince =({carts=[], setInvoice,priceCart,client,identification,raiting,h
     useEffect(()  =>{
         fetch("http://localhost:4000/api/resecion/resolucion")
         .then(res => res.json())
-        .then(data => setData(data?.query[0]))
+        .then(data => setData(data?.query))
     },[setData])
 
-    
 
-    const count = data?.Resolucion+1
-    const contador =  data?.Resolucion 
+    const  dataCount = data?.find(index => index.ID === 1)
+
+    console.log()
 
     const handSubmit =() =>{
         handlePrint()
         handLoading()
-        ServiceResolution({Resolucion:count}).then(index=>{
+        ServiceResolution({Resolucion:dataCount.Resolucion+1}).then(index=>{
             console.log(index)
         }).catch(e =>{
             console.log(e)
@@ -96,7 +96,7 @@ const Invoince =({carts=[], setInvoice,priceCart,client,identification,raiting,h
                                     <span className="p title-invoince-cart  ">Fecha: 2023/01/31</span>
                                     <span className="p title-invoince-cart  ">Resolucion 1001 al 3000</span>
                                     <span className="p title-invoince-cart  ">FACTURA DE VENTA</span>
-                                    <span className="p title-invoince-cart  ">FP-{contador}</span>
+                                    <span className="p title-invoince-cart  ">FP-{dataCount?.Resolucion}</span>
 
                                     <span className="atm title-invoince-cart" >Cajero: {jwt.result.name} </span>
                                     <span className="atm title-invoince-cart" >Fecha: {day}</span>
@@ -172,7 +172,8 @@ const Invoince =({carts=[], setInvoice,priceCart,client,identification,raiting,h
                                     <span className="p title-invoince-cart  ">Fecha: 2023/01/31</span>
                                     <span className="p title-invoince-cart  ">Resolucion 1001 al 3000</span>
                                     <span className="p title-invoince-cart  ">FACTURA DE VENTA</span>
-                                    <span className="p title-invoince-cart  ">FP-{contador}</span>
+                                    <span className="p title-invoince-cart  ">FP-{dataCount?.Resolucion}</span>
+
 
                                     <span className="atm title-invoince-cart" >Cajero: {jwt.result.name} </span>
                                     <span className="atm title-invoince-cart" >Fecha: {day}</span>
@@ -183,7 +184,7 @@ const Invoince =({carts=[], setInvoice,priceCart,client,identification,raiting,h
                                     <div className="details-invoince atm" >
                                             <span className="title-invoince-cart" >Detalles </span>
                                             <span className="value title-invoince-cart" >Valor</span>
-                                            <span className="title-invoince-cart" >Iva</span>
+                                           
                                     </div>
 
                                 {carts && <div className="container-invoince" >

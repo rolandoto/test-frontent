@@ -33,6 +33,8 @@ const CheckoutOrganism =({DetailDashboard}) =>{
         setComprobante(true)
     }   
 
+    const [fp,setfP] =useState()
+
     const MenuItems = [
         {
           id: 1,
@@ -576,7 +578,7 @@ const CheckoutOrganism =({DetailDashboard}) =>{
         <div className="container-flex-init-global" >
             <LoadingDetail
                 loading={true}
-                titleLoading={"Checkout Empresa"}  />
+                titleLoading={"Check Out Empresa"}  />
              <LoadingDetail
                 loading={factura}
                 titleLoading={"Factura electronica enviada"}  />
@@ -811,7 +813,7 @@ const CheckoutOrganism =({DetailDashboard}) =>{
              <div className="container-flex-init-global" >
             <LoadingDetail
                 loading={true}
-                titleLoading={"Checkout persona natural"}  />
+                titleLoading={"Check Out persona natural"}  />
                 <div className="container-search-filter" >
                                 {preSearchFilter?.map((index,e) =>( 
                                     <section className='section-Search' key={`section-${e}`} onClick={() => handClickSearc(index.id)}  >
