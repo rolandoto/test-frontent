@@ -33,41 +33,8 @@ const InformeConsolidado = () => {
     const [snak,setSnak] =useState("")
     const [jacuzzi,setJacuzzi] =useState("")
     const [observation,setObservation] =useState("")
-
-
-    const data ={
-        id_user:1,
-        id_hotel:1,
-        date:"2021-05-05",
-        habitaciones_ocupadas:roomBusy,
-        habitaciones_sinVender:roomSell,
-        efectivo_total:efectivoTotal,
-        otrosMedios_total:otrosMedios,
-        dolares_total:dolarespesos,
-        gastos_NoCajaMenor:gastos,
-        t_debito:targetaDebito,
-        t_credito:targetaCredito,
-        transferencia:tranferencia,
-        pago_agil:pagoAgil,
-        bitcoin:bitcon,
-        payonner:payoner,
-        dolares:dolares,
-        euros:euros,
-        puntos_aeropuerto:aeropuerto,
-        lavanderia:lavenderia,
-        turismo:turismo,
-        seguro:seguro,
-        souvenir:souvenir,
-        bebidas:bebidas,
-        snak:snak,
-        jacuzzi:jacuzzi,
-        observaciones:observation,
-        img_rack:file
-    }
-
-    console.log(file)
     
-  
+
     const {jwt} =useContext(AutoProvider)
 
     const handleChangegastors = event => {
@@ -194,7 +161,6 @@ const InformeConsolidado = () => {
         setJacuzzi(newValue);
     };
 
-
     const handleChangeobservation= event => {
         let newValue = event.target.value;
         setObservation(newValue);
@@ -215,9 +181,8 @@ const InformeConsolidado = () => {
     const [loading,setLoading] =useState(false)
 
 
-    
-
     const handInformes=(e) =>{
+        e.preventDefault()
         ServiceInformesConsolidado({id_hotel,id_user,date:fecha,habitaciones_ocupadas:roomBusy,habitaciones_sinVender:roomSell,efectivo_total:efectivoTotal,otrosMedios_total:otrosMedios,dolares_total:dolarespesos,gastos_NoCajaMenor:gastos,t_debito:targetaDebito,t_credito:targetaCredito,transferencia:tranferencia,pago_agil:pagoAgil,bitcoin:bitcon,payonner:payoner,dolares:dolares,euros:euros,puntos_aeropuerto:aeropuerto,puntos_lavanderia:lavenderia,puntos_turismo:turismo,puntos_seguroHotelero:seguro,ventas_souvenirs:souvenir,ventas_bebidas:bebidas,ventas_snacks:snak,ventas_jacuzzi:jacuzzi,observaciones:observation,img_rack:file.name}).then(index =>{
             if(index.OK =="TRUE"){
                 ServiceDescargar({idUser:id_user}).then(e=>{
@@ -231,27 +196,28 @@ const InformeConsolidado = () => {
                 }).catch(e =>{
                     console.log(e)
                 })
-            }else{
-                setLoading(false)
+            }else  {
+                setLoading(true)
+                console.log("falso")
             }
         }).catch(e =>{
         console.log(e)
         })
-        e.preventDefault()
+       
     }
 
-    if(loading){
-           
-        
-    }
-
+  
     return (
         <ContainerGlobal>
              <LoadingDetail
                         loading={true}
                         titleLoading={"Informe consolidado"}  />
+             <LoadingDetail
+                      
+                        error={loading}
+                        title={"Error Completar todos los campos"}  />
             <div className="init " >
-        <form  className="container-flex-init" >
+        <form  className="container-flex-init" onSubmit={handInformes} >
         <div className="container-detail-dasboard-in" > 
 
         <span className="desde-detail-two-title" > Habitaciones ocupadas:</span>
@@ -265,6 +231,7 @@ const InformeConsolidado = () => {
                       placeholder="Habitaciones ocupadas" 
                       name="Adultos"
                       onChange={handleChangeroomBusy}
+                      required
                         />  
              
                 <input 
@@ -393,6 +360,7 @@ const InformeConsolidado = () => {
                       placeholder="Dolares"  
                       type="number" 
                       onChange={handleChangedolares}
+                      required
                 />
 
                     <input
@@ -516,10 +484,7 @@ const InformeConsolidado = () => {
         <div className="init " >
         <form  className="container-flex-init" >
             <div className="container-detail-dasboard-in" >
-            <div className="button-checkout-one" onClick={(e) =>{
-                e.preventDefault()
-                handInformes()
-            }} >
+            <div className="button-checkout-one"     >
                             <button>Guardar informe (Solo se puede guardar una vez)</button>
                         </div>
             </div>

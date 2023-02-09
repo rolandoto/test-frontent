@@ -29,6 +29,7 @@
     color: var(--color-black);
     padding-right: 2.6rem;
     text-transform: uppercase;
+    
   }
 
   .react-calendar-timeline .rct-dateHeader-primary > span {
@@ -355,4 +356,9 @@ hr.border {
 
 .flex-contan-one{
   margin-right: 4px;
+}
+
+
+.container-calender-header{
+  background: black;
 }

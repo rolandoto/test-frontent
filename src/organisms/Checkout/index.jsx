@@ -1006,7 +1006,7 @@ const Factura  =({Room,Valor_dia_habitacion,resultFinish,comprobante,setComproba
                 <th>{Valor_dia_habitacion?.Apellido} </th>
                 <th className="tarifa-val" >{Valor_dia_habitacion?.nacionalidad}</th>
                 <th className="fecha-entrada-val" >{Valor_dia_habitacion?.Celular}</th>
-                <th className="fecha-sal" >{Valor_dia_habitacion?.Celular}</th>
+                <th className="fecha-sal" >{Valor_dia_habitacion?.Num_documento}</th>
               </tr>
             </table>
             

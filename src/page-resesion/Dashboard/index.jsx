@@ -35,6 +35,7 @@ import Skeleton from "@mui/material/Skeleton";
 import Stack from "@mui/material/Stack";
 import { config } from "../../config";
 import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
+import { fontWeight } from "@mui/system";
 
 const useCountRoom =({id}) =>{
 	const [count,setCount] =useState()
@@ -313,22 +314,16 @@ const Dashboard = (props) => {
 			}`}
 			onClick={() => {
 				return false;
-			}}
-		>
+			}}>
 			<span
 			style={{
-				position: data.isMonth ? "sticky" : "static",
-				marginRight: data.isMonth ? "auto" : "inherit",
-				left: "5rem",
-				padding: "0 10rem",
-				fontWeight:
-				isWeekendDay(intervalContext, data) ||	
-				isCurrentDay(intervalContext, data)
-					? "100"
-					: "110",
-				color: isCurrentDay(intervalContext, data) ? "gray" : "gray",
-				width:"1%",
-
+				position:"absolute",
+				margin: "auto",
+				padding: "0 50rem",
+				textTransform: "capitalize",
+				color: "#b3aca7",
+    			left: "-48%;",
+				fontWeight:"initial"
 			}}
 			>
 			{intervalContext.intervalText}
@@ -559,7 +554,6 @@ const Dashboard = (props) => {
 				sidebarWidth={155}
 				itemRenderer={itemRenderer}
 				onItemDoubleClick={false}
-				
 				moveResizeValidator={(action, itemId, time, resizeEdge)  => handContext(action, itemId, time, resizeEdge)}
 				onItemClick={(itemId, e, time) => onItemClick(itemId, e, time)}
 				onCanvasContextMenu={(itemId, e, time) =>onItemDoubleclik()}>
@@ -569,18 +563,22 @@ const Dashboard = (props) => {
 						unit="MONTH"
 						labelFormat="MMMM"
 						headerData={{ isMonth: false}}
+						defaultTimeStart={moment().startOf("day").add(-8, "day")}
+						defaultTimeEnd={moment().startOf("day").add(10, "day")}
 						intervalRenderer={intervalRenderer}
 					/>
 					<DateHeader
 						unit="day"
 						labelFormat="D"
 						headerData={{ isMonth: false, currentDate, }}
+						intervalRenderer={intervalRenderer}
 					/>
 
 					<DateHeader
 						unit="day"
 						labelFormat="ddd"
 						headerData={{ isMonth: true, currentDate, }}
+						intervalRenderer={intervalRenderer}
 					/>
 				</TimelineHeaders>
 				<TimelineMarkers>
