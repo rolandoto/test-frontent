@@ -503,6 +503,21 @@
   cursor: pointer;
 }
 
+.button-checking-detail-finish-button {
+  border: none;
+  background: #00b712;
+  padding: 20px;
+  width: 160px;
+  border-radius: 8px;
+  color: white;
+  height: 48px;
+  align-items: center;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+}
+
 .button-checking-detail-firma-po-one {
   border: none;
   background: #f94141;
