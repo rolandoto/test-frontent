@@ -561,14 +561,13 @@ const CheckoutOrganism =({DetailDashboard}) =>{
     const [to,setTo] =useState()
 
     useEffect(()  =>{
-        fetch("http://localhost:4000/api/resecion/resolucion")
+        fetch(`${config.serverRoute}/api/resecion/resolucion`)
         .then(res => res.json())
         .then(data => setTo(data?.query))
     },[])
 
     const  dataCount = to?.find(index => index.ID === 1)
     
-    if(!dataCount) return null
     if(findEmpresa)
     return (
         <>     
