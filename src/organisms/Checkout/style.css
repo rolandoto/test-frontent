@@ -305,11 +305,11 @@
 }
 
 .ri-one{
-    width: 540px;
+    width: 530px;
 }
 
 .ve-one{
-    width: 596px;
+    width: 552px;
 }
 
 .ri-two{
@@ -317,11 +317,11 @@
 }
 
 .re-two{
-    width: 554px;
+    width: 529px;
 }
 
 .be-two{
-    width: 563px;
+    width: 527px;
 }
 
 .price-store{
@@ -361,4 +361,24 @@
     position: relative;
     top: 47px;
     left: 7px;
+}
+
+.op{
+    margin-right: -18px;
+}
+.up{
+    margin-right: 28px;
+}
+
+.image.png{
+    margin-right: -20px;
+}
+
+.rp{
+
+    margin-right: -14px;
+}
+
+.ub{
+    margin-right: -20px;
 }

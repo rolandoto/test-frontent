@@ -628,7 +628,7 @@ const CheckoutOrganism =({DetailDashboard}) =>{
 
                                 <div className="container-store-checkout" >
                                  <div className="container-store-checkout" >
-                                <div>
+                                <div className="rp">
                                     <ul>
                                         <li className="totalPricecheckout-two negrita let-persona" >Nombre empresa:</li>           
                                         <li className="totalPricecheckout-two negrita let-persona" >Nit:</li>           
@@ -663,7 +663,7 @@ const CheckoutOrganism =({DetailDashboard}) =>{
 
                         <div className="container-checkout-border" >
                             <div className="container-store-checkout-three" >
-                                    <div>
+                                    <div className="ub" >
                                         <ul>
                                             <li className="totalPricecheckout-two-finish-one negrita let-persona"  >Cantidad personas:</li>   
                                             <li className="totalPricecheckout-two-finish-one negrita let-persona" >Cantidad noches: </li>   
@@ -790,7 +790,7 @@ const CheckoutOrganism =({DetailDashboard}) =>{
             
                                         
           
-        {comprobante && <FacturaCompany Room={resultFinish}
+        {!comprobante && <FacturaCompany Room={resultFinish}
                     Valor_dia_habitacion={resultDashboard}
                     resultFinish={resultFinish}
                     filterSearch={filterSearch}
@@ -844,8 +844,8 @@ const CheckoutOrganism =({DetailDashboard}) =>{
                                 ))}
                                 </div>
                                 <div className="container-store-checkout-one" >
-                                    <div className="container-store-checkout-one" >
-                                    <div>
+                                    <div className="container-store-checkout-one " >
+                                    <div className="up" >
                                         <ul>
                                             <li className="totalPricecheckout-two negrita let-persona " >Nombre:</li>           
                                             <li className="totalPricecheckout-two negrita let-persona" >Documento:</li>           
@@ -881,7 +881,7 @@ const CheckoutOrganism =({DetailDashboard}) =>{
                           
                 <div className="container-checkout-border" >
                             <div className="container-store-checkout-three" >
-                                    <div>
+                                    <div className="op">
                                         <ul>
                                             <li className="totalPricecheckout-two-finish-one negrita let-persona" >Cantidad personas:</li>   
                                             <li className="totalPricecheckout-two-finish-one negrita  let-persona" >Cantidad noches: </li>   
