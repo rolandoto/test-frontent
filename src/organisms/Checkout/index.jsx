@@ -381,18 +381,20 @@ const CheckoutOrganism =({DetailDashboard}) =>{
                 
     const cart =[]
 
+    cart.push({
+        name:`${resultDashboard.Noches} Noches `,
+        price:`${resultDashboard.valor_habitacion} `
+    })
+
     for(let i =0;i<data?.length;i++){
         cart.push({
-            name:data[i].Nombre_producto,
+            name:`1 ${data[i].Nombre_producto}`,
             price:data[i].Precio
         })
         
     }   
 
-    cart.push({
-        name:`${resultDashboard.Noches} Noches `,
-        price:`${resultDashboard.valor_habitacion} `
-    })
+  
 
     const [query,setQuery] = useState()
 
@@ -922,8 +924,6 @@ const CheckoutOrganism =({DetailDashboard}) =>{
                                         </ul>  
                                     </div>
                             </div>
-
-
                 </div>
 
                 <div className="container-checkout-border" >
@@ -964,8 +964,6 @@ const CheckoutOrganism =({DetailDashboard}) =>{
                                         </ul>  
                                     </div>
                             </div>
-
-
                 </div>
             
                
@@ -980,14 +978,12 @@ const CheckoutOrganism =({DetailDashboard}) =>{
             </div>
             <div className="container-flex-buttton-checkout" >
             <div className="button-checkout-three" onClick={handOpenInvoince} >
-                    <button>Imprimir POS persona natural</button>
+                    <button>Imprimir factura POS</button>
                 </div>
                 <div className="button-checkout-two-finally" onClick={handUpdateStatus}  >
                     <button>Check Out</button>
                 </div>  
             </div>
-               
-               
                
         {comprobante &&  <Factura Room={resultFinish}
                     Valor_dia_habitacion={resultDashboard}
@@ -1241,75 +1237,45 @@ const FacturaCompany  =({Room,Valor_dia_habitacion,resultFinish,comprobante,setC
           borderRadius: "5px",
         }} >
 
-            <img width={200} src={url} alt="" />
+        <div className="container-flex-comorobante" >
             <div className="text-center" >
-                <h5>HOTEL FLORENCIA PLAZA</h5>
-                <h5>NIT:900768373-3</h5>
-                <h5>CR 41A #10-41</h5>
-                <h5>3053638733</h5>
+                    <h4>Precuenta</h4>
+                    <div className="top-flex-pdf" >
+                        <span>HOTEL FLORENCIA PLAZA</span>
+                    </div>
+                    <div className="top-flex-pdf" >
+                        <span>NIT 900768373-3</span>
+                    </div>
+                    
+                    <div className="top-flex-pdf" >
+                        <span>CRR 41A No 10-41 Poblado medellin</span>
+                    </div>
+                    <div className="top-flex-pdf" >
+                        <span>305 3638733</span>
+                    </div>
+                    <div className="top-flex-pdf" >
+                        <span>www.florenciaplaza.com</span>
+                    </div>  
+                </div>
+
+                <div>
+                    <img width={200} src={url} alt="" />
+                    <div>
+                        <span>Elaboro</span>
+                    </div>
+                        <div>
+                            <span>Nobre Recepcionista</span>
+                        </div>   
+                </div>
             </div>
+           
           <div>
 
-          <table className="table-factura-one">
-              <tr>
-                <th>Nombre empresa</th>
-                <th>Nit </th>
-                <th className="tarifa-val" >Correo </th>
-                <th className="fecha-entrada-val" >Direccion</th>
-                <th className="fecha-sal" >Telefono</th>
-              </tr>
-              <tr>
-                <th>{filterSearch?.name_people}</th>
-                <th>{filterSearch?.num_id} </th>
-                <th className="tarifa-val" >{filterSearch?.email_people}</th>
-                <th className="fecha-entrada-val" >{filterSearch?.direccion_people}</th>
-                <th className="fecha-sal" >{filterSearch?.number_people}</th>
-              </tr>
-            </table>
-            
-          <table className="table-factura">
-          <tr>
-                <th className="No-person" >No. PERSONAS</th>
-                <th className="Tarifa" >Tarifa</th>
-                <th className="fecha-entrada" >Fecha entrada</th>
-                <th className="fecha-salida" >Fecha salida</th>
-                <th>Habitacion</th>
-              </tr>
-            </table>
-            
-          <table className="table-factura-one">
-              <tr>
-                <th>Adultos: {Valor_dia_habitacion?.Adultos}</th>
-                <th>Menores: {Valor_dia_habitacion?.Ninos} </th>
-                <th className="tarifa-val" >0 </th>
-                <th className="fecha-entrada-val" >{fecha} </th>
-                <th className="fecha-sal" >{fechaOne}</th>
-                <th className="room-detail" >{resultFinish?.nombre} {Valor_dia_habitacion?.Numero}</th>
-              </tr>
-            </table>
-            <table className="table-factura-one">
-              <tr>
-                <th>FECHA</th>
-                <th>CONCEPTO</th>
-                <th>CARGO</th>
-                <th>SALDO</th>
-              </tr>
-           
-                {rayDate.map((item,index)=>(
-                    <tr>
-                        <td>{item.Fecha}</td>
-                        <td>{item.Room}</td>
-                        <td>{item.Price}</td>
-                        <td>{item.Price}</td>
-                  </tr>
-                ))}
-            
-            </table>
-            <table className="table-factura-one">
-              <tr>
-                <th>Valor total : {toPriceAll.price}</th>
-              </tr>
-            </table> 
+        <div className="to-resumen">
+
+            <span className="negrita-pdf" >Resumen factura enviada al correo electronico:</span> <span>Correo de la perosnoa</span>
+        </div>
+
           </div>
         </div>
       </div>)

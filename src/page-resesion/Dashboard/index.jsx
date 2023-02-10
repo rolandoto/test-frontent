@@ -305,6 +305,67 @@ const Dashboard = (props) => {
 		);
 	}
 
+
+	const intervalRendererdayNum= ({ intervalContext, getIntervalProps, data }) => {
+		return (
+		<div
+			{...getIntervalProps()}
+			className={`rct-dateHeader ${
+			data.isMonth ? "rct-dateHeader-primary" : ""
+			}`}
+			onClick={() => {
+				return false;
+			}}>
+			<span
+			style={{
+				position:"absolute",
+				margin: "auto",
+				padding: "0 50rem",
+				textTransform: "capitalize",
+				color: "#b3aca7",
+    			left: "48%;",
+				fontWeight:"100",
+				fontSize:"12px"
+			}}
+			>
+			{intervalContext.intervalText}
+			</span>
+		</div>
+		);
+	}
+
+
+	const intervalRendererday = ({ intervalContext, getIntervalProps, data }) => {
+		return (
+		<div
+			{...getIntervalProps()}
+			className={`rct-dateHeader ${
+			data.isMonth ? "rct-dateHeader-primary" : ""
+			}`}
+			onClick={() => {
+				return false;
+			}}>
+			<span
+			style={{
+				position:"relative",
+				margin: "auto",
+				padding: "0 50rem",
+				textTransform: "capitalize",
+				color: "#b3aca7",
+				fontWeight:"100",
+				fontSize:"13px",
+				textAlign:"center",
+				left:"20px",
+				top:"-9px"
+			
+			}}
+			>
+			{intervalContext.intervalText}
+			</span>
+		</div>
+		);
+	}
+
 	const intervalRenderer = ({ intervalContext, getIntervalProps, data }) => {
 		return (
 		<div
@@ -322,8 +383,8 @@ const Dashboard = (props) => {
 				padding: "0 50rem",
 				textTransform: "capitalize",
 				color: "#b3aca7",
-    			left: "-48%;",
-				fontWeight:"initial"
+    			left: "48%;",
+				fontWeight:"100"
 			}}
 			>
 			{intervalContext.intervalText}
@@ -571,14 +632,14 @@ const Dashboard = (props) => {
 						unit="day"
 						labelFormat="D"
 						headerData={{ isMonth: false, currentDate, }}
-						intervalRenderer={intervalRenderer}
+						intervalRenderer={ intervalRendererdayNum}
 					/>
 
 					<DateHeader
 						unit="day"
 						labelFormat="ddd"
 						headerData={{ isMonth: true, currentDate, }}
-						intervalRenderer={intervalRenderer}
+						intervalRenderer={intervalRendererday}
 					/>
 				</TimelineHeaders>
 				<TimelineMarkers>

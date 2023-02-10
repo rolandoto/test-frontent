@@ -455,7 +455,7 @@ const DetailChekingOrganism =({id}) =>{
                         const nacimiento = moment(index?.Fecha_nacimiento).utc().format('YYYY/MM/DD')
                         return (
                 
-                        <form className="container-flex-init init ono" >
+                        <form className="container-flex-init init-one-finish ono" >
                         <div className="container-detail-dasboard-in" > 
                             <span className="desde-detail-three-das" > Nombre</span>
                             <span className="desde-detail-three-das" >Apellido </span>
@@ -538,7 +538,7 @@ const DetailChekingOrganism =({id}) =>{
                     ) })}
                     
                     {stateButton && huespe?.map((item, index) =>(
-                        <form className="container-flex-init init ono" >
+                        <form className="container-flex-init init-one-finish ono" >
                         <div className="container-detail-dasboard-in" > 
                             <span className="desde-detail-three-das" > Nombre</span>
                             <span className="desde-detail-three-das" >Apellido </span>
@@ -685,7 +685,7 @@ const DetailChekingOrganism =({id}) =>{
                         </div> 
 
                         <div>
-                            <button className="button-checking-detail-one-das" > <span> 
+                            <button className="button-checking-detail-one-das-one-finish" > <span> 
                                 <select onChange={handleInputChange}  
                                             required
                                             name="ID_Tipo_Forma_pago"
@@ -726,7 +726,7 @@ const DetailChekingOrganism =({id}) =>{
                         name="observacion"
                         readOnly={state}
                         defaultValue={resulDetailDashboard?.Observacion}
-                        className="obs" ></textarea>  
+                        className="obs-checking" ></textarea>  
                 </div>
             </>
         )

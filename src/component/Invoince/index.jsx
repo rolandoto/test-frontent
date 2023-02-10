@@ -193,15 +193,15 @@ const Invoince =({carts=[],dataCount,setInvoice,priceCart,client,identification,
                                 </div>}
                                 <div className="sub-total title-invoince-cart sub-total-top ">
                                     <span>Sub Total</span>
-                                    <span> {totalPrice.price} </span>
+                                    <span className="valo" > {totalPrice.price} </span>
                                 </div>
                                 <div className="sub-total title-invoince-cart" >
                                     <span>IVA</span>
-                                    <span>{toPriceIva.price}</span>
+                                    <span className="valo" >{toPriceIva.price}</span>
                                 </div>
                                 <div className="sub-total title-invoince-cart">
                                     <span>Total</span>
-                                    <span>{toPriceDefinitive.price}</span>
+                                    <span className="valo" >{toPriceDefinitive.price}</span>
                                 </div>
                                 
                                 <div className="container-invoince line-invoince"></div>

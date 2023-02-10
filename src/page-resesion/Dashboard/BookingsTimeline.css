@@ -1,138 +1,132 @@
 .react-calendar-timeline .rct-header-root {
-    border-bottom: none;
-    position: relative;
-    z-index: 99;
-    background-color: #fffafc;
-    color: black !important;
-    font-weight: 700 !important;
-    box-shadow: var(--color-border-lightgray) 0 0 1rem;
-  }
-  
-  .react-calendar-timeline .rct-calendar-header {
-    border: none;
-  }
-  
-  .react-calendar-timeline .rct-dateHeader {
-    pointer-events: none;
-    border: none;
-    background: var(--color-white);
-    font-size: 1.2rem;
-    font-weight: 300;
-  }
+  border-bottom: none;
+  position: relative;
+  z-index: 99;
+  background-color: #fffafc;
+  color: black !important;
+  font-weight: 700 !important;
+  box-shadow: var(--color-border-lightgray) 0 0 1rem;
+}
 
-  .rct-dateHeader  > span {
-    color: black !important;
-    font-weight: 700;
-  }
-  
-  .react-calendar-timeline .rct-dateHeader-primary {
-    color: var(--color-black);
-    padding-right: 2.6rem;
-    text-transform: uppercase;
-    
-  }
+.react-calendar-timeline .rct-calendar-header {
+  border: none;
+}
 
-  .react-calendar-timeline .rct-dateHeader-primary > span {
-    
-    padding-right: 2.6rem;
-   
-  }
-  
-  .react-calendar-timeline .rct-vertical-lines .rct-vl:nth-child(odd) {
- 
-    width: 10px;
-  }
-  
+.react-calendar-timeline .rct-dateHeader {
+  pointer-events: none;
+  border: none;
+  background: var(--color-white);
+  font-size: 1.2rem;
+  font-weight: 300;
+}
 
-  .list-booking-sticky {
-    position: sticky !important;
-    top: 0;
-    z-index: 2000;
-  }
+.rct-dateHeader > span {
+  color: black !important;
+  font-weight: 700;
+}
+
+.react-calendar-timeline .rct-dateHeader-primary {
+  color: var(--color-black);
+  padding-right: 2.6rem;
+  text-transform: uppercase;
+}
+
+.react-calendar-timeline .rct-dateHeader-primary > span {
+  padding-right: 2.6rem;
+}
+
+.react-calendar-timeline .rct-vertical-lines .rct-vl:nth-child(odd) {
+  width: 10px;
+}
+
+.list-booking-sticky {
+  position: sticky !important;
+  top: 0;
+  z-index: 2000;
+}
 
 .modalNewBooking {
   z-index: 200 !important;
 }
 
-.button-dasboard{
+.button-dasboard {
   width: 799px;
   height: 55px;
   background: #070707;
   border-radius: 8px;
   color: white;
   cursor: pointer;
-  }
+}
 
-  .button-dasboard-one{
-    width: 1061px;
-    height: 49px;
-    background: #070707;
-    border-radius: 8px;
-    color: white;
-    cursor: pointer;
-    background: #898989;
-    border: none;
-    }
+.button-dasboard-one {
+  width: 1061px;
+  height: 49px;
+  background: #070707;
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+  background: #898989;
+  border: none;
+}
 
-    
-  .button-dasboard-one-one{
-    width: 1493px;
-    height: 49px;
-    background: #070707;
-    border-radius: 8px;
-    color: white;
-    cursor: pointer;
-    background: #13a722d4;
-    border: none;
-    margin-left: -4px;
-    }
+.button-dasboard-one-one {
+  width: 1493px;
+  height: 49px;
+  background: #070707;
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+  background: #13a722d4;
+  border: none;
+  margin-left: -4px;
+}
 
-  .container-button-dasboard{
-    display: flex;
-    /* justify-content: center; */
-    margin-top: -4px;
-    width: 760px;
-    /* margin: auto; */
-    margin-left: 9px;
-  }
+.container-button-dasboard {
+  display: flex;
+  /* justify-content: center; */
+  margin-top: -4px;
+  width: 760px;
+  /* margin: auto; */
+  margin-left: 9px;
+}
 
-  .container-button-dasboard-one{
-    display: flex;
-    justify-content: center;
-    margin-top: 38px;
-  }
-
-  .timeline-container {
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    margin: 40px 0;
+.container-button-dasboard-one {
+  display: flex;
+  justify-content: center;
+  margin-top: 38px;
 }
 
 .timeline-container {
-    background-color: #e17b77;
-    content: '';
-    position: absolute;
-    left: calc(50% - 2px);
-    width: 500px !important;
-    height: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  margin: 40px 0;
 }
 
-.react-calendar-timeline{
-  margin-top: 10px;
-} 
+.timeline-container {
+  background-color: #e17b77;
+  content: "";
+  position: absolute;
+  left: calc(50% - 2px);
+  width: 500px !important;
+  height: 100%;
+}
 
-.list-booking-sticky{
+.react-calendar-timeline {
+  margin-top: 10px;
+}
+
+.list-booking-sticky {
   width: 10%;
 }
 
-.container-calender{
+.container-calender {
   display: flex;
   justify-content: initial;
 }
 
-.select-hotel-type-rooms{
-  font-family: 'Lato', sans-serif;
+.select-hotel-type-rooms {
+  font-family: "Lato", sans-serif;
   font-size: 0.875em;
   padding: 0px 15px 0px 15px;
   outline: none;
@@ -144,27 +138,27 @@
   height: 40px;
   left: 300px;
   top: 338px;
-  background: #FFFFFF;
+  background: #ffffff;
   border: 1px solid #c5c5c5;
   border-radius: 8px;
   margin-top: 5px;
 }
 
-.input-selecto-dasboard-n1-name{
+.input-selecto-dasboard-n1-name {
   box-sizing: border-box;
-    width: 354px;
-    height: 40px;
-    left: 300px;
-    top: 338px;
-    background: #FFFFFF;
-    border: 1px solid #c5c5c5;
-    border-radius: 8px;
-    margin-top: 5px;
-    margin-left: 4px;
+  width: 354px;
+  height: 40px;
+  left: 300px;
+  top: 338px;
+  background: #ffffff;
+  border: 1px solid #c5c5c5;
+  border-radius: 8px;
+  margin-top: 5px;
+  margin-left: 4px;
 }
 
-.select-hotel-type-personality-identificacion{
-  font-family: 'Lato', sans-serif;
+.select-hotel-type-personality-identificacion {
+  font-family: "Lato", sans-serif;
   font-size: 0.875em;
   height: 40px;
   padding: 0px 15px 0px 15px;
@@ -182,58 +176,58 @@
   margin-top: 5px;
 }
 
-.select-hotel-type-personality-country{
-  font-family: 'Lato', sans-serif;
-    font-size: 0.875em;
-    height: 40px;
-    padding: 0px 15px 0px 15px;
-    background: white;
-    outline: none;
-    color: #726659;
-    border: solid 1px #c5c5c5;
-    transition: all 0.3s ease-in-out;
-    -webkit-transition: all 0.3s ease-in-out;
-    margin-top: 19px;
-    border-radius: 8px;
-    margin: auto;
-    width: 150px;
-    max-width: 531px;
-    margin-top: 5px;
+.select-hotel-type-personality-country {
+  font-family: "Lato", sans-serif;
+  font-size: 0.875em;
+  height: 40px;
+  padding: 0px 15px 0px 15px;
+  background: white;
+  outline: none;
+  color: #726659;
+  border: solid 1px #c5c5c5;
+  transition: all 0.3s ease-in-out;
+  -webkit-transition: all 0.3s ease-in-out;
+  margin-top: 19px;
+  border-radius: 8px;
+  margin: auto;
+  width: 150px;
+  max-width: 531px;
+  margin-top: 5px;
 }
 
-.input-selecto-dasboard-n1-one{
+.input-selecto-dasboard-n1-one {
   box-sizing: border-box;
   width: 210px;
   height: 60px;
   left: 300px;
   top: 338px;
-  border: 1px solid #858585
-  ;
+  border: 1px solid #858585;
   border-radius: 8px;
   margin-top: 5px;
   border: none;
   /* background: #EBEBEB; */
-  border: 0.5px solid #FFFFFF;
+  border: 0.5px solid #ffffff;
   /* border-radius: 8px; */
 }
 
-.react-calendar-timeline .rct-horizontal-lines .rct-hl-odd{
+.react-calendar-timeline .rct-horizontal-lines .rct-hl-odd {
   background: #fff;
 }
 
 .react-calendar-timeline .rct-sidebar .rct-sidebar-row.rct-sidebar-row-odd {
-  background:#f9f9f9
+  background: #f9f9f9;
 }
 
-.react-calendar-timeline .rct-horizontal-lines .rct-hl-even, .react-calendar-timeline .rct-horizontal-lines .rct-hl-odd{
+.react-calendar-timeline .rct-horizontal-lines .rct-hl-even,
+.react-calendar-timeline .rct-horizontal-lines .rct-hl-odd {
   border-bottom: 1px solid #e7e7e7;
 }
 
-.lineo{
-text-decoration-line: overline;
+.lineo {
+  text-decoration-line: overline;
 }
 
-.obs{
+.obs {
   font-family: inherit;
   font-size: inherit;
   line-height: inherit;
@@ -243,12 +237,13 @@ text-decoration-line: overline;
   border: solid 1px #c5c5c5;
   border-radius: 8px;
   height: 100px;
+  width: 100%;
 }
-.pr{
+.pr {
   margin-top: 10px;
 }
 
-.container-checkbox-one{
+.container-checkbox-one {
   display: flex;
   align-items: center;
   padding: 10px;
@@ -266,23 +261,22 @@ text-decoration-line: overline;
   margin: auto;
 }
 
-.image-pdf{
+.image-pdf {
   width: 106px;
 }
 
-.container-flex{
+.container-flex {
   display: flex;
-    justify-content: space-between;
-    margin: initial;
+  justify-content: space-between;
+  margin: initial;
 }
 
-.container-pdf-title{
+.container-pdf-title {
   font-size: 20px;
   font-weight: 500;
 }
 
-
-.span-realizar{
+.span-realizar {
   color: #898989;
 }
 
@@ -299,7 +293,6 @@ hr.border {
   color: #787878;
 }
 
-
 .container-flex-entrada {
   display: flex;
   justify-content: space-around;
@@ -308,7 +301,6 @@ hr.border {
 .one {
   margin-top: 20px;
 }
-
 
 .two {
   margin-top: 10px !important;
@@ -333,32 +325,34 @@ hr.border {
   color: #787878;
 }
 
-
-.flex-index-reservation{
+.flex-index-reservation {
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.flex-index-reservation-one{
+.flex-index-reservation-one {
   display: flex;
   align-items: center;
   justify-content: initial;
 }
 
-.flex-contant{
+.flex-contant {
   margin-right: 5px;
 }
 
-.flex-contan{
+.flex-contan {
   margin-right: 5px;
 }
 
-.flex-contan-one{
+.flex-contan-one {
   margin-right: 4px;
 }
 
-
-.container-calender-header{
+.container-calender-header {
   background: black;
+}
+
+.name-pinter {
+  cursor: pointer;
 }

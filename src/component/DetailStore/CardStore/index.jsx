@@ -8,80 +8,34 @@ const CardStore =({countRoom}) =>{
     return (
         <div>
             <ul  className="container-card" >
-                <li className="card-stores  card-One" >
+                <li className="card-stores  card-One card-stores-color" >
                     <CiDatabase color="white"  fontSize={50} className="content-icon-card" />
                     <div className="center-title"  >
-                        <h4 className="title-card-one" >$.324,100  </h4>
+                        <h4 className="title-card-one " >0</h4>
                         <span className="text-venta"  >Venta dia</span>
                     </div>
                 </li>
-                <li className="card-stores" >
-                    <div className="center-flex" >
-
-                            <div className="center-title two-title"  > 
-                                <span className="text-venta"  >Ocupacion:</span>
-                                <span className="text-venta  two-title-one"   > 0 Huespedes </span>
-                            </div>
-
-
-                            <div className="" >
-                                <div className="content-habitaciones-one">
-                                    <h4 className="title-card-one po ">0</h4>
-                                </div>
-
-                                <div className="center-title"> 
-                                    <span className="text-venta-two">Habitaciones ocupadas</span>
-                                </div>
-                            </div>
-
+                <li className="card-stores  card-One card-store-gris" >
+                    <CiDatabase color="white"  fontSize={50} className="content-icon-card" />
+                    <div className="center-title"  >
+                        <h4 className="title-card-one " >0</h4>
+                        <span className="text-venta"  >Hab ocupadas</span>
                     </div>
-                  
-                   
+                </li>
+                <li className="card-stores  card-One card-store-gris" >
+                    <CiDatabase color="white"  fontSize={50} className="content-icon-card" />
+                    <div className="center-title"  >
+                        <h4 className="title-card-one " >0</h4>
+                        <span className="text-venta"  >Total huespedes</span>
+                    </div>
                 </li>
 
-                <li className="card-stores" >
-                    <div className="center-flex" >
-
-                            <div className="center-title two-title"  > 
-                                <span className="text-venta"  >Ocupacion:</span>
-                                <span className="text-venta  two-title-one"> 0 Huespedes </span>
-                            </div>
-
-
-                            <div className="" >
-                                <div className="content-habitaciones-one">
-                                    <h4 className="title-card-one po ">0</h4>
-                                </div>
-
-                                <div className="center-title"> 
-                                    <span className="text-venta-two">Habitaciones Bloqueadas</span>
-                                </div>
-                            </div>
-
+                <li className="card-stores  card-One card-store-gris" >
+                    <CiDatabase color="white"  fontSize={50} className="content-icon-card" />
+                    <div className="center-title"  >
+                        <h4 className="title-card-one " >0</h4>
+                        <span className="text-venta"  >Reservadas</span>
                     </div>
-                  
-                   
-                </li>
-
-                <li className="card-stores" >
-                    <div className="center-flex" >
-
-                            <div className="center-title two-title"  > 
-                                <span className="text-venta"  >Ocupacion:</span>
-                                <span className="text-venta  two-title-one"   > 0 Huespedes </span>
-                            </div>
-
-
-                            <div className="" >
-                                <div className="content-habitaciones-one">
-                                    <h4 className="title-card-one po ">0</h4>
-                                </div>
-
-                                <div className="center-title"> 
-                                    <span className="text-venta-two">Habitaciones Asear</span>
-                                </div>
-                            </div>
-                    </div> 
                 </li>
             </ul>  
         </div>

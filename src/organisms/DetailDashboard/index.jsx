@@ -30,6 +30,9 @@ import ServiDelteReservation from "../../service/ServiDelecteReservation";
 import ServePdf from "../../service/PdfServe";
 import { confirmAlert } from "react-confirm-alert"; // Import
 import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
+import { RxCircleBackslash } from "react-icons/rx";
+import { BiMessageSquareEdit } from "react-icons/bi";
+import { SlBookOpen } from "react-icons/sl";
 
 const DetailDasboard =(props) =>{
     const {id} = useParams()
@@ -528,25 +531,33 @@ const toPriceNigth = UsePrice({number:resultDashboard.valor_dia_habitacion})
                       title="Completa todos los campos por favor" />
 
           <div className="container-detail-dasboard-in-one" >
-              <div className="border-detail" >
-                   <span>{day} noches</span>
-              </div>
-              <div className="border-detail" >
-                   <span>Total hab: {formattedNum}</span>
-              </div>
-              <div className="border-detail" >
-                   <span>Valor hospedaje {toPriceNigth.price}</span>
+              <div className="border-detail " >
+                   <span>Cantidad noches</span>
+                   <span className="negrita-detail-reserva" >{day} noches</span>
               </div>
 
               <div className="border-detail" >
-                   <span>{resultFinish?.nombre} {resultDashboard.Numero}</span>
+                   <span>Valor noche</span>
+                   <span className="negrita-detail-reserva"> {toPriceNigth.price}</span>
               </div>
 
               <div className="border-detail" >
-                   <span>{resultDashboard?.forma_pago}</span>
+                   <span>Total hospedaje</span>
+                   <span className="negrita-detail-reserva" >{formattedNum}</span>
+              </div>
+             
+              <div className="border-detail" >
+                  <span>Pago</span>
+                   <span className="negrita-detail-reserva"  >{resultFinish?.nombre} {resultDashboard.Numero}</span>
+              </div>
+
+              <div className="border-detail" >
+                    <span>Tipo de pago</span>
+                   <span className="negrita-detail-reserva" >{resultDashboard?.forma_pago}</span>
               </div>
               <div className="border-detail" >
-                   <span>Abono {valor_abono}</span>
+                  <span>Abono</span>
+                   <span className="negrita-detail-reserva" >{valor_abono}</span>
               </div>
              
           </div>
@@ -555,6 +566,7 @@ const toPriceNigth = UsePrice({number:resultDashboard.valor_dia_habitacion})
             <div className="container-detail-dasboard-in" >
               <input type="date" className="desde-detail" readOnly={true}  defaultValue={fecha.defaultValueone}     />
               <input type="date" className="desde-detail" onChange={(e) =>setspand(e.target.value)}  defaultValue={fechaOne.defaultValueone}   />
+
               <h2 className="cod-reserva" ><span className="title-code" >COD:</span> X14A-{resultDashboard?.Num_documento}</h2>
           </div>
            {resultFechaMayor && <button className="button-checking-detail-one-two" onClick={handClick} >Actualizar Fecha</button>}
@@ -620,7 +632,7 @@ const toPriceNigth = UsePrice({number:resultDashboard.valor_dia_habitacion})
               
         </form>
       </div>
-        <div className="container-flex-init-one" >
+        <div className="container-flex-init-one-center " >
               <div>
                   <button className={`${ findFirma ? "button-checking-detail-firma" : "button-checking-detail" } `} onClick={handChecking} >
                       <span className="title-button"  >Check in</span>
@@ -631,22 +643,30 @@ const toPriceNigth = UsePrice({number:resultDashboard.valor_dia_habitacion})
                       <span className="title-button"  >Checkout</span>
                   </button>
               </div>
-              <div>
-                  <button className="button-checking-detail-firma-po"  onClick={handleClickBasic} >
-                      <span className="title-button"  >Cancelar reserva</span>
-                  </button>
+              <div className="name-pinter"  onClick={handleClickBasic} >
+                  <div>
+                    <RxCircleBackslash fontSize={30} color="gray" />
+                  </div>
+
               </div>
 
-              <div>
-              <button className="button-checking-detail-edita-po" onClick={state ? handChangeEdit :handChangeSave}> <span>{item}</span></button>
-            </div>
-            <div>
-                  <button className="button-checking-detail-firma-po"  onClick={hancPdf} >
-                      <span className="title-button"  >Comprobante</span>
-                  </button>
+              <div className="name-pinter"  onClick={state ? handChangeEdit :handChangeSave}>
+                  <div>
+                     <BiMessageSquareEdit fontSize={30} color="gray"  />
+                  </div>
+
               </div>
 
-            
+              <div  className="name-pinter">
+                  <div onClick={hancPdf} >
+                     <SlBookOpen fontSize={28} color="gray"  />
+                  </div>
+
+              </div>
+
+          
+           
+
 
                 <div className="container-checkbox" >
                     <input   type="checkbox" 
@@ -688,11 +708,11 @@ const toPriceNigth = UsePrice({number:resultDashboard.valor_dia_habitacion})
 
 
       {!stateButton && 
-      <div className="init  top-detail " >
+      <div className="init-one-two  top-detail " >
       <form  className="container-flex-init" >
         <div className="container-detail-dasboard-in" > 
                 <ul className="flex-contain"  >
-                    <li className={`${huesped ? "desde-detail-three-estados-black" :"desde-detail-three-estados" } `} onClick={handHuesped} >Huespedes</li>
+                    <li className={`${huesped ? "desde-detail-three-estados-black-one-finish" :"desde-detail-three-estados" } `} onClick={handHuesped} >Huespedes</li>
                     <li className={`${consumo ? "desde-detail-three-estados-black" :"desde-detail-three-estados" } `} onClick={handConsumo} >Consumos</li>
                     <li className={`${pago ? "desde-detail-three-estados-black" :"desde-detail-three-estados" } `}  onClick={handPago} >Pagos</li>
                 </ul>

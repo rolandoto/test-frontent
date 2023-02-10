@@ -1,153 +1,157 @@
-.title-stores{
-    display: block;   
- }
- 
- .flex-stores{
-    display: flex;
-    margin-left: 16px;
-    align-items: center;
-    justify-content: center;
-    margin-top: 59px;
-    display: flex;
-    max-width: 1503px;
-    background: #fff;
-    overflow: hidden;
-    margin: auto;
-     
- }
- 
- .input-stores{
- box-sizing: border-box;
- width: 200px;
- height: 40px;
- left: 300px;
- top: 338px;
- background: #FFFFFF;
- border: 1px solid black;
- border-radius: 8px;
-margin-top: 5px;
- }
-
- 
- 
- .flex-stores li{
-     padding: 5px;
-     text-align: center;
- }
- 
- .button-stores-admin{
- width: 200px;
- height: 58px;
- background: #070707;
- border-radius: 8px;
- color: white;
- cursor: pointer;
- }
- 
-.flex-stores > li, button {
-    align-self: end;
-}
- 
- .table{
-   font-family: arial, sans-serif  !important;
-   border-collapse: collapse !important;
-   width: 49% !important;
-}
- 
- td, th {
-   border: 1px solid #dddddd !important;
-   text-align: left !important;
-   padding: 8px !important;
-   background: white;
-}
- 
-.container-table{
-    display: flex;
-    justify-content: center;
-}
- 
- .card-stores{
-    border-radius: 15px;
-    box-shadow: 0 0 20px rgb(0 0 0 / 15%);
-    padding: 7px 21px 32px;
-    cursor: pointer;
-    text-align: center;
-    color: white;
-    font-weight: lighter;
-    width: 24%;
-    background: #000;;
+.title-stores {
+  display: block;
 }
 
-.text-venta-two{
-    text-align: center;
+.flex-stores {
+  display: flex;
+  margin-left: 16px;
+  align-items: center;
+  justify-content: center;
+  margin-top: 59px;
+  display: flex;
+  max-width: 1503px;
+  background: #fff;
+  overflow: hidden;
+  margin: auto;
 }
 
-.two-title{
-    margin-left: 30px !important;
-    margin-bottom: -37px;
+.input-stores {
+  box-sizing: border-box;
+  width: 200px;
+  height: 40px;
+  left: 300px;
+  top: 338px;
+  background: #ffffff;
+  border: 1px solid black;
+  border-radius: 8px;
+  margin-top: 5px;
 }
 
-.two-title-one{
-    font-size: 20px !important;
+.flex-stores li {
+  padding: 5px;
+  text-align: center;
 }
 
-
-.center-flex{
-    
-    display: flex;
-    flex-direction: column;
-    margin-bottom: -51px;
-
+.button-stores-admin {
+  width: 200px;
+  height: 58px;
+  background: #070707;
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
 }
 
-.po{
-    font-size: 60px !important;
+.flex-stores > li,
+button {
+  align-self: end;
 }
 
-.content-habitaciones-one{
-    display: flex;
+.table {
+  font-family: arial, sans-serif !important;
+  border-collapse: collapse !important;
+  width: 49% !important;
 }
 
-.container-card{
-    display: flex;
-    justify-content: space-evenly;
-    margin: auto;
-    margin-top: 50px;
-}
- 
-.title-card{
-    font-size: 33px;
-    font-weight: 400;
+td,
+th {
+  border: 1px solid #dddddd !important;
+  text-align: left !important;
+  padding: 8px !important;
+  background: white;
 }
 
-.title-card-one{
-    font-size: 33px;
-    font-weight: 400;
-    height: 22px;
+.container-table {
+  display: flex;
+  justify-content: center;
 }
 
-
-.text-venta{
-    text-align: initial;
+.card-stores {
+  border-radius: 15px;
+  box-shadow: 0 0 20px rgb(0 0 0 / 15%);
+  padding: 7px 21px 32px;
+  cursor: pointer;
+  text-align: center;
+  color: white;
+  font-weight: lighter;
+  width: 24%;
+  background: #000;
 }
 
-
-.card-One{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 128px;
+.card-stores-color {
+  background: #f94141 !important;
 }
 
-.center-text{
-    text-align: initial;
-    margin-left: 1px;
+.card-store-gris {
+  background: #9f9f9f !important;
 }
 
-.title-venta{
-    height: -10px;
+.text-venta-two {
+  text-align: center;
 }
 
-.content-icon-card{
-    margin-right: 12px;
+.two-title {
+  margin-left: 30px !important;
+  margin-bottom: -37px;
+}
+
+.two-title-one {
+  font-size: 20px !important;
+}
+
+.center-flex {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: -51px;
+}
+
+.po {
+  font-size: 60px !important;
+}
+
+.content-habitaciones-one {
+  display: flex;
+}
+
+.container-card {
+  display: flex;
+  justify-content: space-evenly;
+  margin: auto;
+  margin-top: 50px;
+}
+
+.title-card {
+  font-size: 33px;
+  font-weight: 400;
+}
+
+.title-card-one {
+  font-size: 33px;
+  font-weight: 400;
+  height: 22px;
+}
+
+.text-venta {
+  text-align: initial;
+  margin-top: 5px;
+}
+
+.card-One {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 105;
+}
+
+.center-text {
+  text-align: initial;
+  margin-left: 1px;
+}
+
+.title-venta {
+  height: -10px;
+}
+
+.content-icon-card {
+  margin-right: 12px;
+  margin-top: 10px;
 }
