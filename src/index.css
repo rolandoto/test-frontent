@@ -985,24 +985,8 @@ tr {
 }
 
 .global-factura th,
-td {
-  border: 1px solid rgb(204, 203, 203) !important;
-  text-align: left;
-  border-radius: 0px !important;
-  font-weight: 600;
-}
 
-.global-factura td,
-tr {
-  border: solid 1px rgb(204, 203, 203) !important;
-}
 
-.global-factura {
-  padding: 15px;
-  width: 1000px;
-  border: solid 1px rgb(204, 203, 203) !important;
-  border-radius: 0px !important;
-}
 
 .table-factura-one > th,
 td {
@@ -1025,4 +1009,8 @@ td {
   border-radius: 10px;
   height: 244px !important;
   margin-top: 5px;
+}
+
+.top-button-invoince {
+  margin-top: -66px !important;
 }

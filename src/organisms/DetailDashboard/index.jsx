@@ -34,6 +34,8 @@ import { RxCircleBackslash } from "react-icons/rx";
 import { BiMessageSquareEdit } from "react-icons/bi";
 import { SlBookOpen } from "react-icons/sl";
 
+
+
 const DetailDasboard =(props) =>{
     const {id} = useParams()
     const [state,setState] =useState(true)

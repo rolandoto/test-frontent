@@ -11,7 +11,7 @@ import MenuItem from "../../component/MenuItems/MenuItems";
 import  AutoProvider  from "../../privateRoute/AutoProvider";
 import { ServiceReservas } from "../../page-resesion/Dashboard/dummy_data";
 import ServiceaInsertCart from "../../service/serviceaInsertCart";
-import { AiFillCaretRight } from "react-icons/ai";
+import { AiOutlineCaretLeft } from "react-icons/ai";
 const StoreTemplate =({Store}) =>{
 
     const MenuItems = [
@@ -947,7 +947,7 @@ const StoreTemplate =({Store}) =>{
                     }
                         </div>
                         <div className="rightMenu">
-                          <button className=" toggleMenu  ocultar" > <AiFillCaretRight fontSize={50} color="black" /></button>
+                          <button className=" toggleMenu  ocultar" > <AiOutlineCaretLeft fontSize={50} color="black" /></button>
                             <div className="debitCardContainer">
                                 <div className="debitCard">
                                     <DebitCard />

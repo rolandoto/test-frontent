@@ -10,7 +10,7 @@ import { useReactToPrint } from "react-to-print";
 import ServiceResolution from "../../service/serviceResolution";
 import UsePrice from "../../hooks/UsePrice";
 
-const Invoince =({carts=[],dataCount,setInvoice,priceCart,client,identification,raiting,handLoading,loading,handLoadingOne}) =>{
+const Invoince =({carts=[],dataCount,setInvoice,priceCart,client,identification,raiting,handLoading,loading,handLoadingOne,sinIvaCart}) =>{
         
     const dispatch  = useDispatch()
     const t= moment().format();   
@@ -24,15 +24,24 @@ const Invoince =({carts=[],dataCount,setInvoice,priceCart,client,identification,
 
   
 
-    const totalResultPrice = priceCart*19/100
+    const totalResultPrice = priceCart  *19/100
+
+    const resultSinIva = sinIvaCart  *19/100
 
     
 
-    const totalResultPriceTwo = priceCart+totalResultPrice
+    const totalResultPriceTwo = priceCart  +totalResultPrice  -resultSinIva
 
-    const totalPrice  = UsePrice({number:priceCart})
-    const toPriceIva = UsePrice({number:totalResultPrice})
+    
+
+    const totalPrice  = UsePrice({number:priceCart })
+    const toPriceIva = UsePrice({number:totalResultPrice -resultSinIva})
+
+    
+   
     const toPriceDefinitive = UsePrice({number:totalResultPriceTwo})
+
+
 
     const handClickProduct =() =>{
         dispatch(postProduct({product:carts}))
@@ -124,7 +133,7 @@ const Invoince =({carts=[],dataCount,setInvoice,priceCart,client,identification,
                                 </div>
                                 <div className="sub-total title-invoince-cart">
                                     <span>Total</span>
-                                    <span>{priceCart}</span>
+                                    <span>{toPriceDefinitive.price}</span>
                                 </div>
                                 
                                 <div className="container-invoince line-invoince"></div>
@@ -169,7 +178,7 @@ const Invoince =({carts=[],dataCount,setInvoice,priceCart,client,identification,
 
                                     <span className="atm title-invoince-cart" >Cajero: {jwt.result.name} </span>
                                     <span className="atm title-invoince-cart" >Fecha: {day}</span>
-                                    <span className="title-invoince-cart" >Pago: {raiting}</span>
+                                    <span className="title-invoince-cart" >Tipo pago: {raiting}</span>
                                     <span className="title-invoince-cart">Cliente: {client}</span>  
                                     <span className="title-invoince-cart">CC/NIT: {identification} </span> 
 
@@ -220,7 +229,7 @@ const Invoince =({carts=[],dataCount,setInvoice,priceCart,client,identification,
                              
                 </div>
 
-                <button id="demo" className= {` checkOut  sub-total-top`} onClick={handSubmit}>
+                <button id="demo" className= {` top-button-invoince checkOut  sub-total-top  `} onClick={handSubmit}>
                                                             <span className="itemName">Imprimir</span>
                                                     </button>
                

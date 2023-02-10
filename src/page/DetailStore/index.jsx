@@ -13,7 +13,7 @@ const DetailStore =() =>{
     const {getStoreById} = useStoreAction()
     const  {Store,loading,error
                         } =useSelector((state) => state.StoreAdmin)
-
+                        
     
     const fetchData = async() =>{
         await getStoreById({id})

@@ -53,6 +53,14 @@
   color: #000000;
 }
 
+.container-store-checkout-three-pdf {
+  display: flex;
+  background: #efefef;
+  border-radius: 8px;
+  align-items: initial;
+  color: #000000;
+}
+
 .container-store-checkout-two {
   width: auto;
   border-radius: 8px;
@@ -393,4 +401,42 @@
 
 .to-resumen {
   margin-top: 20px;
+}
+
+.wid-fecha {
+  width: 141px;
+}
+
+.relative-codigo {
+    position: relative;
+    top: 13px;
+    left: 84%;
+}
+
+.relative-codigo img {
+    height: 220px;
+    width: 224px;
+}
+
+.wid-border-pdf {
+  width: 83% !important;
+}
+
+.me {
+  width: 434px;
+}
+
+.relative-price{
+    position: relative;
+    top: -188px;
+    width: 295px;
+    right: -72%;
+}
+
+.margin-top-pdf-definish{
+    margin-top: -185px;
+}
+
+.container-pdf-flex{
+    margin: auto;
 }
