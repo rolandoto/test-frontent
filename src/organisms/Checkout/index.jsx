@@ -564,10 +564,11 @@ const CheckoutOrganism =({DetailDashboard}) =>{
         fetch("http://localhost:4000/api/resecion/resolucion")
         .then(res => res.json())
         .then(data => setTo(data?.query))
-    },[setTo])
+    },[])
 
     const  dataCount = to?.find(index => index.ID === 1)
-    console.log(dataCount)
+    
+    if(!dataCount) return null
     if(findEmpresa)
     return (
         <>     

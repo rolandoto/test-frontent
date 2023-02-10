@@ -846,6 +846,16 @@ const StoreTemplate =({Store}) =>{
         })
     }
 
+    const [to,setTo] =useState()
+
+    useEffect(()  =>{
+        fetch("http://localhost:4000/api/resecion/resolucion")
+        .then(res => res.json())
+        .then(data => setTo(data?.query))
+    },[])
+
+    const  dataCount = to?.find(index => index.ID === 1)
+
     useEffect(() => {
       const toggleIcon = document.querySelector(".toggleMenu");
       console.log(toggleIcon)
@@ -927,6 +937,7 @@ const StoreTemplate =({Store}) =>{
                     }
 
                     {invoice && <Invoince
+                                        dataCount={dataCount}
                                         setInvoice={setInvoice} 
                                         carts={currenCart}
                                         priceCart={priceCart}
