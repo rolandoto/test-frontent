@@ -10,14 +10,14 @@ import { useReactToPrint } from "react-to-print";
 import ServiceResolution from "../../service/serviceResolution";
 import UsePrice from "../../hooks/UsePrice";
 
-const Invoince =({carts=[], setInvoice,priceCart,client,identification,raiting,handLoading,loading,handLoadingOne}) =>{
+const Invoince =({carts=[],dataCount,setInvoice,priceCart,client,identification,raiting,handLoading,loading,handLoadingOne}) =>{
         
     const dispatch  = useDispatch()
     const t= moment().format();   
     let today = new Date(t)
     const day = today.toISOString().split('T')[0]
     const [state,setate] =useState(false)
-    const [data,setData] =useState()
+    
 
     const {jwt} = UseUsers()
     let componentRef = useRef();
@@ -41,16 +41,8 @@ const Invoince =({carts=[], setInvoice,priceCart,client,identification,raiting,h
         element.remove();
     }
 
-    useEffect(()  =>{
-        fetch("http://localhost:4000/api/resecion/resolucion")
-        .then(res => res.json())
-        .then(data => setData(data?.query))
-    },[setData])
-
-
-    const  dataCount = data?.find(index => index.ID === 1)
-
-    console.log()
+    
+    console.log({"aqui estas":dataCount})
 
     const handSubmit =() =>{
         handlePrint()
@@ -117,7 +109,7 @@ const Invoince =({carts=[], setInvoice,priceCart,client,identification,raiting,h
                                         <div className="carts-invoince">
                                             <span className="title-invoince-cart">{index.name}</span>   
                                             <span className="valo title-invoince-cart ">{toPrice.price}</span> 
-                                            <span className="title-invoince-cart" >0</span>              
+                                            <span className="title-invoince-cart" ></span>              
                                         </div>
                                         )
                                     })}
@@ -194,7 +186,7 @@ const Invoince =({carts=[], setInvoice,priceCart,client,identification,raiting,h
                                         <div className="carts-invoince">
                                             <span className="title-invoince-cart">{index.name}</span>   
                                             <span className="valo title-invoince-cart ">{toPrice.price}</span> 
-                                            <span className="title-invoince-cart" >0</span>              
+                                            <span className="title-invoince-cart" ></span>              
                                         </div>
                                         )
                                     })}

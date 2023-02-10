@@ -558,12 +558,21 @@ const CheckoutOrganism =({DetailDashboard}) =>{
         }) 
     }
 
-    
+    const [to,setTo] =useState()
 
+    useEffect(()  =>{
+        fetch("http://localhost:4000/api/resecion/resolucion")
+        .then(res => res.json())
+        .then(data => setTo(data?.query))
+    },[setTo])
+
+    const  dataCount = to?.find(index => index.ID === 1)
+    console.log(dataCount)
     if(findEmpresa)
     return (
         <>     
-            {invoince  && <Invoince
+            {invoince  && <Invoince             
+                                                dataCount={dataCount}
                                                 setInvoice={handCloseInvoince} 
                                                 carts={cart}
                                                 priceCart={totalPrice}
@@ -797,7 +806,7 @@ const CheckoutOrganism =({DetailDashboard}) =>{
     else{
         return (
             <>
-              {invoince  && <Invoince
+              {invoince  && <Invoince  dataCount={dataCount}
                                         setInvoice={handCloseInvoince} 
                                         carts={cart}
                                         priceCart={totalPrice}
