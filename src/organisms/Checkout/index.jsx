@@ -150,9 +150,10 @@ const CheckoutOrganism =({DetailDashboard}) =>{
     },0)
 
     const priceLenceria = Lenceria?.reduce((acum,current) => {
-        return acum  + current.Cantidad * current.Precio
+        return acum  + parseInt(current.Cantidad) * parseInt(current.Precio)
     },0)
 
+    console.log(priceLenceria)
 
     const totalStore = priceLenceria+priceAdultos+priceDrogueria+priceSouvenir+priceSnacks+priceBebidas
 
@@ -383,6 +384,12 @@ const CheckoutOrganism =({DetailDashboard}) =>{
 
     const sinIva =[]
 
+    cart.push({
+        name:`${resultDashboard.Noches} Noches `,
+        price:`${resultDashboard.valor_habitacion} `
+    })
+
+
     for(let i =0;i<data?.length;i++){
         cart.push({
             name:`1 ${data[i].Nombre_producto}`,
@@ -540,12 +547,16 @@ const CheckoutOrganism =({DetailDashboard}) =>{
 
     const Iva  = numOne*19/100
 
-    const totalIva = numOne + Iva +totalStore
+    const resultNum = totalStore  ? totalStore : 0 
+
+    const totalIva = numOne + Iva +resultNum
+
+    console.log(totalStore)
 
     const valorTotalIva = totalIva.toLocaleString();
     const formatoIva = Iva.toLocaleString();
 
-    console.log(valorTotalIva)
+    console.log(totalStore)
 
     var formatteOne = totalStore.toLocaleString();
 
