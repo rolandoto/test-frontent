@@ -565,18 +565,18 @@ const CheckoutOrganism =({DetailDashboard}) =>{
 
     const [factura,setFactura] = useState(false)
 
-    console.log(filterSearch)
-
     const handServiFormularios =() =>{
-        ServiceFormulariosCheckout({id:filterSearch.id,status:"2",fecha_ingreso:fechaInicio,fecha_salida:FechaFinal,valortotal:totalIva}).then(index =>{
+        ServiceFormulariosCheckout({id:1,status:"2",fecha_ingreso:fechaInicio,fecha_salida:FechaFinal,valortotal:totalIva}).then(index =>{
             setFactura(true)
-            console.log(index)
+            alert("guardado")
             setComprobante(true)
+            console.log(index)
         }).catch(e => {
             setFactura(false)
-            console.log(e)
+           alert("error")
         }) 
     }
+
 
     const [to,setTo] =useState()
 

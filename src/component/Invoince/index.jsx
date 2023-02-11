@@ -10,7 +10,7 @@ import { useReactToPrint } from "react-to-print";
 import ServiceResolution from "../../service/serviceResolution";
 import UsePrice from "../../hooks/UsePrice";
 
-const Invoince =({resultDashboard,carts=[],dataCount,setInvoice,priceCart,client,identification,raiting,handLoading,loading,handLoadingOne,sinIvaCart,tienda}) =>{
+const Invoince =({resultDashboard=[],carts=[],dataCount,setInvoice,priceCart,client,identification,raiting,handLoading,loading,handLoadingOne,sinIvaCart,tienda}) =>{
         
     const dispatch  = useDispatch()
     const t= moment().format();   
