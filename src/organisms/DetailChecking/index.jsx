@@ -39,7 +39,10 @@ const DetailChekingOrganism =({id}) =>{
 
     const [change,setChange] =useState({
         ID_Tipo_Forma_pago:null,
+        Iva:null
     })
+
+
 
     const  resulDetailDashboard = DetailDashboard[0]
     const findPersona =  resulDetailDashboard?.tipo_persona == "persona"
@@ -150,11 +153,14 @@ const DetailChekingOrganism =({id}) =>{
       const hanClickingn2 =() =>{
         if(change.ID_Tipo_Forma_pago== null){
             setLoadingUpdate(true)
+        }else if(change.Iva== null){
+            setLoadingUpdate(true)
         }else{
             history.push(`/checkingin2/${id}`)
             handUpdateConfirms()
             handPay()
             handSubmit()
+            handClick()
         }
        
       }
@@ -206,6 +212,17 @@ const DetailChekingOrganism =({id}) =>{
         },
         ]
 
+        const  tarifa =  [
+            {   
+                id:1,
+                name:"No exenta",
+            },
+            {
+                id:2,
+                name:"Exenta",
+            }
+            ]
+
         const handleInputChange =(event) =>{
             setChange({
                 ...change,
@@ -216,7 +233,6 @@ const DetailChekingOrganism =({id}) =>{
         ID_Tipo_Forma_pago:change.ID_Tipo_Forma_pago
     }
 
-   
     const handUpdateConfirms =() =>{
         ServiceUpdateReservationpay({id,dataOne}).then(index  =>{
             console.log(index)
@@ -320,6 +336,8 @@ const DetailChekingOrganism =({id}) =>{
         Valor:total
     }
 
+    console.log(change)
+
     const handClickReservation =() =>{
         ServiceAddHuespedes({id,huespe,data,dataPay}).then(index =>{
             window.location.href =`/detailchecking/${id}`
@@ -357,6 +375,21 @@ const DetailChekingOrganism =({id}) =>{
         })
                 
     }
+
+
+    let dataIva  ={
+        Iva:change.Iva 
+    }
+
+
+    const handClick =() =>{
+        ServiceUpdateReservation({id,data:dataIva}).then(index =>{
+            console.log(index)
+            }).catch(e =>{
+            console.log(e)
+        })
+}
+
   
     if(!resultFinish) return null
         return (
@@ -455,7 +488,7 @@ const DetailChekingOrganism =({id}) =>{
                         const nacimiento = moment(index?.Fecha_nacimiento).utc().format('YYYY/MM/DD')
                         return (
                 
-                        <form className="container-flex-init init-one-finish ono" >
+                        <form className="container-flex-init init-one-finish onoot" >
                         <div className="container-detail-dasboard-in" > 
                             <span className="desde-detail-three-das" > Nombre</span>
                             <span className="desde-detail-three-das" >Apellido </span>
@@ -538,7 +571,7 @@ const DetailChekingOrganism =({id}) =>{
                     ) })}
                     
                     {stateButton && huespe?.map((item, index) =>(
-                        <form className="container-flex-init init-one-finish ono" >
+                        <form className="container-flex-init init-one-finish onoot" >
                         <div className="container-detail-dasboard-in" > 
                             <span className="desde-detail-three-das" > Nombre</span>
                             <span className="desde-detail-three-das" >Apellido </span>
@@ -682,14 +715,33 @@ const DetailChekingOrganism =({id}) =>{
                                          className={`checkbox-round  ${isChecke && "checkbox-round-click"} `}
                                         onChange={handleOnChanger}
                                         checked={isChecked}/> Empresa
-                        </div> 
+                        </div>
+
+                        <div className="container-checkbox" >
+                        <select onChange={handleInputChange}  
+                                            required
+                                            name="Iva"
+                                            className='select-hotel-type-rooms-finis-dasboard-finish-one ote'>
+                                        <option>Tarifa iva</option>
+                                        {tarifa?.map(category =>(
+                                            <option 
+                                            value={category.id}   
+                                            key={category}
+                                        >
+                                            {category.name}
+                                        </option>
+                                        )
+                                        )}
+                                    </select>  
+                        </div>
+                         
 
                         <div>
-                            <button className="button-checking-detail-one-das-one-finish" > <span> 
+                           
                                 <select onChange={handleInputChange}  
                                             required
                                             name="ID_Tipo_Forma_pago"
-                                            className='select-hotel-type-rooms-finis-dasboard-finish-one'>
+                                            className='select-hotel-type-rooms-finis-dasboard-finish-one ote'>
                                         <option>Medio de pago</option>
                                         {typy_buy?.map(category =>(
                                             <option 
@@ -700,14 +752,15 @@ const DetailChekingOrganism =({id}) =>{
                                         </option>
                                         )
                                         )}
-                                    </select>   </span></button>
+                                    </select>   
                         </div>
-
+                        
+                        <div className="container-checkbox" >
                             <button className="button-dasboard-six-one-one-one"  onClick={handAdd}   >
                                 <CiCirclePlus fontSize={30}  /> <span>  Añadir personas  </span> 
                             </button>
                
-                        
+                            </div>
                         <div>
                             <button className="button-checking-detail-one-one" onClick={handState}  > <span>{item}</span></button>
                         </div> 

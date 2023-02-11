@@ -937,6 +937,7 @@ const StoreTemplate =({Store}) =>{
                     }
 
                     {invoice && <Invoince
+                                        tienda={true}
                                         dataCount={dataCount}
                                         setInvoice={setInvoice} 
                                         carts={currenCart}

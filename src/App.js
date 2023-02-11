@@ -39,6 +39,7 @@ import Checkout from './page-resesion/Checkout';
 import Comunicate from './page/Comunicate';
 import HeaderComunicate from './component/Header/HeaderComunicate';
 import InformeConsolidado from './page-resesion/InformeConsolidado';
+import UpdateRservation from './page-resesion/EditarPersonas/EditarUpdateReserva';
 
 function App() {
 
@@ -104,6 +105,7 @@ else if(val==7){
                                 <PrivateRoute exact path="/nochecking" component={Nochecking}  />
                                 <PrivateRoute exact path="/checkingediatar/:id" component={CheckingEditar}  />
                                 <PrivateRoute exact path="/editarpersonas/:id" component={EditarPersonas}  />
+                                <PrivateRoute exact path="/editarpersonasreservas/:id" component={UpdateRservation}  />
                                 <PrivateRoute exact path="/checkingin2/:id" component={Checkingn2}  />
                                 <PrivateRoute exact path="/contracto"  component={Contracto}  />
                                 <PrivateRoute exact path="/Checkout/:id"  component={Checkout}  />
@@ -143,6 +145,7 @@ else if(val==2){
                                 <PrivateRoute exact path="/nochecking" component={Nochecking}  />
                                 <PrivateRoute exact path="/checkingediatar/:id" component={CheckingEditar}  />
                                 <PrivateRoute exact path="/editarpersonas/:id" component={EditarPersonas}  />
+                                <PrivateRoute exact path="/editarpersonasreservas/:id" component={UpdateRservation}  />
                                 <PrivateRoute exact path="/checkingin2/:id" component={Checkingn2}  />
                                 <PrivateRoute exact path="/contracto"  component={Contracto}  />
                                 <PrivateRoute exact path="/Checkout/:id"  component={Checkout}  />

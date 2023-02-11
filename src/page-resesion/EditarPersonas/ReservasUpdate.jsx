@@ -1,3 +1,4 @@
+
 import React, { useContext, useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import Container from "../../Ui/Container";
@@ -7,9 +8,13 @@ import ServiceUpdatePersonas from "../../service/ServiceUpdatePersonas";
 import LoadingDetail from "../../Ui/LoadingDetail";
 import  AutoProvider  from "../../privateRoute/AutoProvider";
 import { config } from "../../config";
+import ServiceUpdateReservation from "../../service/ServiceUpdatereservation";
 
-const EditarPersonas =() =>{
+
+const ReservasUpdate =(props) =>{
+
     const history =useHistory()
+    const {DetailDashboard,fetchData} = props
     const {id} =useParams()
     const [state,setSatate] =useState()
     const [room,setRoom] =useState()
@@ -26,14 +31,11 @@ const EditarPersonas =() =>{
     const [country,setCountry] =useState()
     const {jwt} = useContext(AutoProvider)
 
-    console.log(nacionalidad)
+    const resultDasboard =  DetailDashboard[0]
 
-    const resulrEditar = state?.find(index => index.huespedes ==id)
 
-    console.log({"copy":resulrEditar})
-
-    const init  =   moment(resulrEditar?.Fecha_inicio).utc().format('MM/DD/YYYY')
-    const fin = moment(resulrEditar?.Fecha_final).utc().format('MM/DD/YYYY')
+    const init  =   moment(resultDasboard?.Fecha_inicio).utc().format('MM/DD/YYYY')
+    const fin = moment(resultDasboard?.Fecha_final).utc().format('MM/DD/YYYY')
 
     var fechaInicio =  new Date(init).getTime() 
     var fechaFin    = new Date(fin).getTime() 
@@ -42,25 +44,16 @@ const EditarPersonas =() =>{
     
     const day =diff/(1000*60*60*24)
 
-    const docu = tipoDocumento?.find(index =>  index?.ID == resulrEditar?.ID_Tipo_documento)
+    const docu = tipoDocumento?.find(index =>  index?.ID == resultDasboard?.ID_Tipo_documento)
 
     const resultFinish = room?.find(index=>index?.id_tipoHabitacion == state?.ID_Tipo_habitaciones)
 
-    const i = moment(resulrEditar?.Fecha_inicio).utc().format('YYYY/MM/DD')
-    const f = moment(resulrEditar?.Fecha_final).utc().format('YYYY/MM/DD')
-    const n = moment(resulrEditar?.Fecha_nacimiento).utc().format('YYYY/MM/DD')
+    const i = moment(resultDasboard?.Fecha_inicio).utc().format('YYYY/MM/DD')
+    const f = moment(resultDasboard?.Fecha_final).utc().format('YYYY/MM/DD')
+    const n = moment(resultDasboard?.Fecha_nacimiento).utc().format('YYYY/MM/DD')
     
-    useEffect(() =>{
-        fetch(`${config.serverRoute}/api/resecion/getdetailhuespedes/${id}`)    
-        .then(index => index.json())
-        .then(data  => setSatate(data.link))
-    },[])
-    
-    const fetchData =async() =>{
-        fetch("https://grupohoteles.co/api/getTipeDocument")
-        .then(index =>index.json())
-        .then(data => setTipoDocumento(data))
-    }
+  
+
     
     useEffect(() =>{
         ServicetypeRooms({id:jwt.result.id_hotel}).then(index =>{
@@ -85,17 +78,20 @@ const EditarPersonas =() =>{
         ID_Prefijo:nacionalidad
   }
 
+  
+ 
+
   const handClick =() =>{
-    ServiceUpdatePersonas({id,data}).then(index=> {
-        setLoading(true)
-    }).catch(e =>{
+    ServiceUpdateReservation({id,data}).then(index =>{
+        console.log(index)
+        window.location.reload()
+        }).catch(e =>{
         console.log(e)
     })
   }
 
-  const habitacion = room?.find(index=>index?.id_tipoHabitacion == resulrEditar?.ID_Tipo_habitaciones)
+  const habitacion = room?.find(index=>index?.id_tipoHabitacion == resultDasboard?.ID_Tipo_habitaciones)
 
-  if(!docu) return null
 
   
     return (
@@ -111,7 +107,7 @@ const EditarPersonas =() =>{
               </div>
 
               <div className="border-detail" >
-                   <span>{resulrEditar?.Valor_habitacion}</span>
+                   <span>{resultDasboard?.valor_dia_habitacion}</span>
               </div>
 
               <div className="border-detail" >
@@ -119,10 +115,10 @@ const EditarPersonas =() =>{
               </div>
 
               <div className="border-detail" >
-                   <span>{resulrEditar?.nombre_pago}</span>
+                   <span>{resultDasboard?.forma_pago}</span>
               </div>
               <div className="border-detail" >
-                   <span>Abono {resulrEditar?.Abono} </span>
+                   <span>Abono {resultDasboard?.valor_abono} </span>
               </div>
           </div>
 
@@ -148,7 +144,7 @@ const EditarPersonas =() =>{
                                     <input  type="text" 
                                             className="desde-detail-three"  
                                             placeholder="Nombre" 
-                                            defaultValue={resulrEditar?.Nombre}
+                                            defaultValue={resultDasboard?.Nombre}
                                             onChange={(e) => setNombre(e.target.value)}
                                             />
 
@@ -156,7 +152,7 @@ const EditarPersonas =() =>{
                                             className="desde-detail-three" 
                                             name="Apellido"  
                                             placeholder="Apellido" 
-                                            defaultValue={resulrEditar?.Apellido}
+                                            defaultValue={resultDasboard?.Apellido}
                                             onChange={(e) => setApellido(e.target.value)}
                                             />
 
@@ -174,7 +170,7 @@ const EditarPersonas =() =>{
                                             name="Fecha" 
                                             placeholder="No Documento"  
                                             onChange={(e) => setDocumento(e.target.value)}
-                                            defaultValue={resulrEditar?.Num_documento}
+                                            defaultValue={resultDasboard?.Num_documento}
                                             />
                                 </div>
                             </form>
@@ -200,9 +196,9 @@ const EditarPersonas =() =>{
               
                                                             <select required  onChange={(e) => setNacionalidad(e.target.value)} 
                                                                         name={"Nacionalidad"}
-                                                                        defaultValue={resulrEditar?.nacionalidad}
+                                                                        defaultValue={resultDasboard?.nacionalidad}
                                                                         className="desde-detail-three">
-                                                                    <option >{resulrEditar?.nombre}</option>
+                                                                    <option >{resultDasboard?.nacionalidad}</option>
                                                                     {country?.query?.map(category =>(
                                                                         <option 
                                                                         value={category.ID}   
@@ -219,7 +215,7 @@ const EditarPersonas =() =>{
                         className="desde-detail-two" 
                         name="Correo" 
                         placeholder="Correo  electronico"  
-                        defaultValue={resulrEditar?.Correo}
+                        defaultValue={resultDasboard?.Correo}
                         onChange={(e) => setCorreo(e.target.value)}
                         />
 
@@ -227,7 +223,7 @@ const EditarPersonas =() =>{
                         className="desde-detail-two" 
                         name="Celular"  
                         placeholder="Celular"  
-                        defaultValue={resulrEditar?.Celular}
+                        defaultValue={resultDasboard?.Celular}
                         onChange={(e) => setCelular(e.target.value)}
                         />
             </div>
@@ -249,4 +245,4 @@ const EditarPersonas =() =>{
 
 }
 
-export default EditarPersonas
+export default ReservasUpdate

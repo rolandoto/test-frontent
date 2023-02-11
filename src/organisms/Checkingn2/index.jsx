@@ -86,6 +86,8 @@ const Checkingn2Organism =({id}) =>{
         Abono:resulDetailDashboard?.valor_habitacion
       } 
 
+      console.log(resulDetailDashboard)
+    
     
     const handFirmar =() =>{
         ServiceUpdateReservation({id:resulDetailDashboard.id_persona,data}).then(index =>{
@@ -108,9 +110,14 @@ const Checkingn2Organism =({id}) =>{
         })
     }
 
+    const Iva= parseInt(resulDetailDashboard?.valor_habitacion) *19/100
+
     const totalPrice = UsePrice({number:resulDetailDashboard?.valor_habitacion -resulDetailDashboard?.valor_abono})
 
+    const totalPriceWithIva = UsePrice({number:resulDetailDashboard?.valor_habitacion -resulDetailDashboard?.valor_abono +Iva})
+    
 
+    const totalWithIva  = resulDetailDashboard?.Iva==1 ? totalPriceWithIva.price :totalPrice.price
 
     const toPriceAbono= UsePrice({number:resulDetailDashboard?.valor_abono})
 
@@ -118,53 +125,104 @@ const Checkingn2Organism =({id}) =>{
 
     if(!resultFinish) return null
 
-    return (
-        <>
-            <div className="container-flex-init-global" >
-            <LoadingDetail
-                            loading={true}
-                            titleLoading={"Checking"}  />
-
-            <div  className="container-flex-init-global init-checkingn2" >
-                <div className="container-detail-dasboard-in" >
-                    <input type="text" className="desde-detail" defaultValue={i}   />
-                    <input type="text" className="desde-detail" name="Fecha" defaultValue={f}   />
-                    <h2 className="cod-reserva" ><span className="title-code" >COD:</span> X14A-{resulDetailDashboard?.Num_documento}</h2>
-                </div>
-
-                </div>
-                
-                <h2 className="cod-reserva-one" ><span className="title-code" ></span> Debes cobrar a {resulDetailDashboard?.Nombre} {resulDetailDashboard?.Apellido} {totalPrice.price}</h2>
+    if(resulDetailDashboard.Iva==1){
+        return (
+            <>
+                <div className="container-flex-init-global" >
+                <LoadingDetail
+                                loading={true}
+                                titleLoading={"Checking"}  />
+    
+                <div  className="container-flex-init-global init-checkingn2" >
+                    <div className="container-detail-dasboard-in" >
+                        <input type="text" className="desde-detail" defaultValue={i}   />
+                        <input type="text" className="desde-detail" name="Fecha" defaultValue={f}   />
+                        <h2 className="cod-reserva" ><span className="title-code" >COD:</span> X14A-{resulDetailDashboard?.Num_documento}</h2>
+                    </div>
+    
+                    </div>
+                    
+                    <h2 className="cod-reserva-one" ><span className="title-code" ></span> Debes cobrar a {resulDetailDashboard?.Nombre} {resulDetailDashboard?.Apellido} {totalWithIva}</h2>
+               
+                        <div className="container-detail-dasboard-in-one-one" >
+                 
+                            <div className="border-detail" >
+                                <span> Noches {day}</span>
+                            </div>
+                            <div className="border-detail" >
+                                <span>{totalWithIva}</span>
+                            </div>
+    
+                            <div className="border-detail" >
+                            <   span>{resultFinish?.nombre}</span>
+                            </div>
+    
+                            <div className="border-detail" >
+                            <span>{resulDetailDashboard?.forma_pago}</span>
+                            </div>
+                            <div className="border-detail" >
+                                <span>Abono {toPriceAbono.price} </span>
+                            </div>
+                        </div>
+    
+                        <div className="checkin2"  onClick={hanClickinContracto}>
+                            <button>Continuar</button>
+                        </div>
+                    </div>
+    
            
-                    <div className="container-detail-dasboard-in-one-one" >
-             
-                        <div className="border-detail" >
-                            <span> Noches {day}</span>
+            </>
+        )
+    }else{
+        return (
+            <>
+                <div className="container-flex-init-global" >
+                <LoadingDetail
+                                loading={true}
+                                titleLoading={"Checking"}  />
+    
+                <div  className="container-flex-init-global init-checkingn2" >
+                    <div className="container-detail-dasboard-in" >
+                        <input type="text" className="desde-detail" defaultValue={i}   />
+                        <input type="text" className="desde-detail" name="Fecha" defaultValue={f}   />
+                        <h2 className="cod-reserva" ><span className="title-code" >COD:</span> X14A-{resulDetailDashboard?.Num_documento}</h2>
+                    </div>
+    
+                    </div>
+                    
+                    <h2 className="cod-reserva-one" ><span className="title-code" ></span> Debes cobrar a {resulDetailDashboard?.Nombre} {resulDetailDashboard?.Apellido} {totalPrice.price}</h2>
+               
+                        <div className="container-detail-dasboard-in-one-one" >
+                 
+                            <div className="border-detail" >
+                                <span> Noches {day}</span>
+                            </div>
+                            <div className="border-detail" >
+                                <span>{toPriceHabitacion.price}</span>
+                            </div>
+    
+                            <div className="border-detail" >
+                            <   span>{resultFinish?.nombre}</span>
+                            </div>
+    
+                            <div className="border-detail" >
+                            <span>{resulDetailDashboard?.forma_pago}</span>
+                            </div>
+                            <div className="border-detail" >
+                                <span>Abono {toPriceAbono.price} </span>
+                            </div>
                         </div>
-                        <div className="border-detail" >
-                            <span>{toPriceHabitacion.price}</span>
-                        </div>
-
-                        <div className="border-detail" >
-                        <   span>{resultFinish?.nombre}</span>
-                        </div>
-
-                        <div className="border-detail" >
-                        <span>{resulDetailDashboard?.forma_pago}</span>
-                        </div>
-                        <div className="border-detail" >
-                            <span>Abono {toPriceAbono.price} </span>
+    
+                        <div className="checkin2"  onClick={hanClickinContracto}>
+                            <button>Continuar</button>
                         </div>
                     </div>
-
-                    <div className="checkin2"  onClick={hanClickinContracto}>
-                        <button>Continuar</button>
-                    </div>
-                </div>
-
-       
-        </>
-    )
+    
+           
+            </>
+        )
+    }
+   
 
 }
 

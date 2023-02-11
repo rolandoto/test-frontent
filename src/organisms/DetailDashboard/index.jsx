@@ -55,11 +55,8 @@ const DetailDasboard =(props) =>{
 
    let countSeguro =0
    
-   
-  
     const {progress} =useProgress({id})
     const resultDashboard = DetailDashboard[0] 
-
 
 
     const findPersona =  resultDashboard.tipo_persona == "persona"
@@ -283,6 +280,10 @@ const DetailDasboard =(props) =>{
       history.push(`/editarpersonas/${e}`)
     }
 
+    const handEditarReservas=(e) =>{
+      history.push(`/editarpersonasreservas/${id}`)
+    }
+
     const [huespe,setHuespe] =useState({
           Tipo_documento:"",
           Num_documento:"",
@@ -350,18 +351,18 @@ const DetailDasboard =(props) =>{
     }else{
       count= count ? count : parseInt(resultDashboard?.valor_habitacion)
     }
-  let dataOne ={
-    Abono:Abono,
-    Valor:count,
-    Valor_habitacion:count
-  } 
+    let dataOne ={
+      Abono:Abono,
+      Valor:count,
+      Valor_habitacion:count
+    } 
 
-  let dataCountPeople ={
-    Adultos:adultos,
-    Ninos:ninos,
-    infantes:infantes,
-    Observacion:observacion
-  }
+    let dataCountPeople ={
+      Adultos:adultos,
+      Ninos:ninos,
+      infantes:infantes,
+      Observacion:observacion
+    }
 
   console.log(dataCountPeople)
 
@@ -719,9 +720,11 @@ const toPriceNigth = UsePrice({number:resultDashboard.valor_dia_habitacion})
                     <li className={`${pago ? "desde-detail-three-estados-black" :"desde-detail-three-estados" } `}  onClick={handPago} >Pagos</li>
                 </ul>
            { huesped && <Huesped  quyery={quyery}
+                                  DetailDashboard={DetailDashboard}
                                   handEditar={handEditar} 
                                   handChangeSubmit={handChangeSubmit} 
-                                  stateButton={stateButton} />} 
+                                  stateButton={stateButton} 
+                                  handEditarReservas={handEditarReservas}/>} 
           {consumo && <Consumo  day={day} 
                                 habitacion={resultFinish?.nombre}
                                 totalAlojamiento={totalAlojamiento}
@@ -903,7 +906,18 @@ const toPriceNigth = UsePrice({number:resultDashboard.valor_dia_habitacion})
 }
 export default DetailDasboard
 
-const Huesped =({quyery,handEditar,handChangeSubmit ,stateButton}) =>{
+const Huesped =({quyery,handEditar,handChangeSubmit ,stateButton,DetailDashboard,handEditarReservas}) =>{
+
+  const query =[]
+
+  for(let i =0;i<quyery.length;i++){
+    if(quyery[i+1]){
+      query.push(quyery[i])
+    }
+  }
+
+  console.log(DetailDashboard)
+
   return (
     
     <div >
@@ -927,7 +941,19 @@ const Huesped =({quyery,handEditar,handChangeSubmit ,stateButton}) =>{
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {quyery?.map((row,e) =>(
+                {DetailDashboard?.map((row,e) =>(
+                      <TableRow key={e} >
+                          <TableCell >
+                          {row.Nombre}
+                          </TableCell>
+                          <TableCell>{row.Apellido} </TableCell>
+                          <TableCell>{row.Num_documento} </TableCell>
+                          <TableCell>{row.nacionalidad} </TableCell>
+                          <TableCell>{row.Celular} </TableCell>
+                          <TableCell className="editar-checking" onClick={handEditarReservas} ><CiEdit fontSize={30} color="black" /></TableCell>
+                      </TableRow>
+                    ))}
+                    {query?.map((row,e) =>(
                       <TableRow key={e} >
                           <TableCell >
                           {row.Nombre}

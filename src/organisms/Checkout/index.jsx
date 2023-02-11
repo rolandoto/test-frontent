@@ -543,7 +543,10 @@ const CheckoutOrganism =({DetailDashboard}) =>{
    
     const toPriceNoche = UsePrice({number:resultDashboard.valor_dia_habitacion})
     const numOne = parseInt(resultDashboard?.valor_habitacion)
+
+
     var formattedNum =numOne.toLocaleString(); 
+
 
     const Iva  = numOne*19/100
 
@@ -590,7 +593,8 @@ const CheckoutOrganism =({DetailDashboard}) =>{
     if(findEmpresa)
     return (
         <>     
-            {invoince  && <Invoince             
+            {invoince  && <Invoince                 
+                                              
                                                 dataCount={dataCount}
                                                 setInvoice={handCloseInvoince} 
                                                 carts={cart}
@@ -822,7 +826,9 @@ const CheckoutOrganism =({DetailDashboard}) =>{
     else{
         return (
             <>
-              {invoince  && <Invoince   
+              {invoince  && <Invoince           
+                                        resultDashboard={resultDashboard}
+                                        tienda={false}
                                         sinIvaCart={sinIvaCart}
                                         dataCount={dataCount}
                                         setInvoice={handCloseInvoince} 
