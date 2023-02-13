@@ -984,9 +984,10 @@ tr {
   width: 239px;
 }
 
-.global-factura th,
-
-
+.global-factura {
+  max-width: 1318px;
+  margin: auto;
+}
 
 .table-factura-one > th,
 td {
@@ -1015,16 +1016,16 @@ td {
   margin-top: -66px !important;
 }
 
-.one-detail{
+.one-detail {
   height: 285px !important;
 }
 
-.ote{
-margin-top: 0px!important;
-height: 48px !important;
+.ote {
+  margin-top: 0px !important;
+  height: 48px !important;
 }
 
-.onoot{
-  margin-top: 10px!important;
+.onoot {
+  margin-top: 10px !important;
   height: 263px !important;
 }
