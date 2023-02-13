@@ -984,11 +984,6 @@ tr {
   width: 239px;
 }
 
-.global-factura {
-  max-width: 1318px;
-  margin: auto;
-}
-
 .table-factura-one > th,
 td {
   border: 1px solid rgb(204, 203, 203) !important;
@@ -1028,4 +1023,9 @@ td {
 .onoot {
   margin-top: 10px !important;
   height: 263px !important;
+}
+
+.global-factura {
+  max-width: 1318px !important;
+  margin: auto !important;
 }

@@ -12,6 +12,7 @@ import  AutoProvider  from "../../privateRoute/AutoProvider";
 import { ServiceReservas } from "../../page-resesion/Dashboard/dummy_data";
 import ServiceaInsertCart from "../../service/serviceaInsertCart";
 import { AiOutlineCaretLeft } from "react-icons/ai";
+import ServiceReservationCheckin from "../../service/ServiceReservasCheckin";
 
 const StoreTemplate =({Store}) =>{
 
@@ -818,10 +819,14 @@ const StoreTemplate =({Store}) =>{
 
 
     useEffect(() =>{
-      ServiceReservas({id:jwt.result.id_hotel}).then(index =>{
+      ServiceReservationCheckin({id:jwt.result.id_hotel}).then(index =>{
         setPeopleReservation(index)
+
       })
     },[setPeopleReservation])
+
+    console.log(peopleReservation)
+
 
     const data ={
       ID_Reserva:peopleId,
@@ -908,7 +913,7 @@ const StoreTemplate =({Store}) =>{
                                                         name="disponibilidad"
                                                         className='select-hotel-type-rooms'>
                                                     <option></option>
-                                                    {peopleReservation?.map(category =>(
+                                                    {peopleReservation?.query?.map(category =>(
                                                         <option 
                                                         value={category.id}   
                                                         key={category.id}>
