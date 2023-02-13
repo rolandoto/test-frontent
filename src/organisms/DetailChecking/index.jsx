@@ -215,11 +215,11 @@ const DetailChekingOrganism =({id}) =>{
         const  tarifa =  [
             {   
                 id:1,
-                name:"No exenta",
+                name:"Nacional",
             },
             {
                 id:2,
-                name:"Exenta",
+                name:"Extranjero",
             }
             ]
 
