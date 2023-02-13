@@ -12,6 +12,7 @@ import  AutoProvider  from "../../privateRoute/AutoProvider";
 import { ServiceReservas } from "../../page-resesion/Dashboard/dummy_data";
 import ServiceaInsertCart from "../../service/serviceaInsertCart";
 import { AiOutlineCaretLeft } from "react-icons/ai";
+
 const StoreTemplate =({Store}) =>{
 
     const MenuItems = [
@@ -910,8 +911,7 @@ const StoreTemplate =({Store}) =>{
                                                     {peopleReservation?.map(category =>(
                                                         <option 
                                                         value={category.id}   
-                                                        key={category.id}
-                                                    >
+                                                        key={category.id}>
                                                         {category.title}
                                                     </option>
                                                     )

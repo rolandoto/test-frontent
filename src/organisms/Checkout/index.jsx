@@ -568,7 +568,6 @@ const CheckoutOrganism =({DetailDashboard}) =>{
     const handServiFormularios =() =>{
         ServiceFormulariosCheckout({id:1,status:"2",fecha_ingreso:fechaInicio,fecha_salida:FechaFinal,valortotal:totalIva}).then(index =>{
             setFactura(true)
-            alert("guardado")
             setComprobante(true)
             console.log(index)
         }).catch(e => {
@@ -1230,11 +1229,11 @@ const FacturaCompany  =({jwt,totalStore,Room,Valor_dia_habitacion,resultFinish,c
 
     const printDocument = () => {
         const input = docToPrint.current;
-        html2canvas(input).then((canvas) => {
+        html2canvas(input,{scale:0.8}).then((canvas) => {
         const imgData = canvas.toDataURL("image/png");
         const pdf = new jsPDF({
             orientation: "landscape",
-        
+            
             format:  [500, 900 ]
         });
         pdf.addImage(imgData, "JPEG", 0, 0);
@@ -1267,8 +1266,6 @@ const FacturaCompany  =({jwt,totalStore,Room,Valor_dia_habitacion,resultFinish,c
 
   const Iva = valoTotal*19/100
   
-    
-
   const total = valoTotal+totalStore
 
   const toPriceIva = Iva
