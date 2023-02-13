@@ -572,7 +572,6 @@ const CheckoutOrganism =({DetailDashboard}) =>{
             console.log(index)
         }).catch(e => {
             setFactura(false)
-           alert("error")
         }) 
     }
 
