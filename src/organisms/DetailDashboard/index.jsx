@@ -494,12 +494,48 @@ const hancPdf =() =>{
 
 function handleClickBasic() {
   confirmAlert({
-    title: 'Eliminar Reserva',
-    message: 'Estas seguro de eliminar la reserva',
+    title: '',
+    message: 'Estas seguro de eliminar la reserva ?',
     buttons: [
       {
-        label: 'Yes',
+        label: 'Si',
         onClick: () => hanDelete()
+      },
+      {
+        label: 'No',
+        onClick: () => console.log("no")
+      }
+    ]
+  });
+}
+
+
+
+function hancliEtar() {
+  confirmAlert({
+    title: '',
+    message: 'Editar la informacion de la reserva?',
+    buttons: [
+      {
+        label: 'Si',
+        onClick: () =>state ? handChangeEdit :handChangeSave
+      },
+      {
+        label: 'No',
+        onClick: () => console.log("no")
+      }
+    ]
+  });
+}
+
+function handComprobante() {
+  confirmAlert({
+    title: '',
+    message: 'Descargar compranbante reserva',
+    buttons: [
+      {
+        label: 'Si',
+        onClick: () => hancPdf()
       },
       {
         label: 'No',
@@ -655,16 +691,14 @@ const [isHovered, setIsHovered] = useState(false);
                                             </div></span>
                   </button>
               </div>
-              <div className="name-pinter"  onClick={handleClickBasic}  onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)} >
+              <div className="name-pinter"  onClick={handleClickBasic} >
                   <div>
                   <span> {isHovered ? 'Cancelar reserva' : ''}</span>
                     <img width={45} src="https://medellin47.com/ico_pms/cancel.svg" alt="" />
                   
                   </div>
               </div>
-
-              <div className="name-pinter"  onClick={state ? handChangeEdit :handChangeSave}>
+              <div className="name-pinter"  onClick={ hancliEtar }>
                   <div>
                     <img width={45}  src="https://medellin47.com/ico_pms/edit.svg" alt="" />
                   </div>
@@ -672,7 +706,7 @@ const [isHovered, setIsHovered] = useState(false);
               </div>
 
               <div  className="name-pinter">
-                  <div onClick={hancPdf} >
+                  <div onClick={ handComprobante } >
                      <img width={45}  src="https://medellin47.com/ico_pms/doc.svg" alt="" />
                   </div>
 
