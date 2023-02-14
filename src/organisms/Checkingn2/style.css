@@ -1,13 +1,48 @@
-.checkin2{
-    display: flex;
-    justify-content: center;
-    background: #00B712;
-    color: white;
-    padding: 10px;
-    border-radius: 8px;
-    margin-top: 8px;
+.checkin2 {
+  display: flex;
+  justify-content: center;
+  background: #00b712;
+  color: white;
+  padding: 10px;
+  border-radius: 8px;
+  margin-top: 8px;
 }
 
-.init-checkingn2{
-    margin-top: 50px;
+.init-checkingn2 {
+  margin-top: 50px;
+}
+
+.to-checkin {
+  margin-top: 76px;
+}
+
+.close-negrita {
+  font-weight: 300;
+  font-size: 26px;
+}
+
+.posicion {
+  font-size: 15px;
+}
+
+.close-negritaOne {
+  font-weight: 300;
+  font-size: 14px;
+}
+
+.top-title-re {
+  margin-top: -29px;
+}
+
+.margin-top-cajita {
+  margin-top: 98px !important;
+}
+
+.one-button-checking {
+  margin: auto;
+  max-width: 1488px;
+}
+
+.container-detail-dasboard-in-one-two {
+  margin-top: 80px !important;
 }

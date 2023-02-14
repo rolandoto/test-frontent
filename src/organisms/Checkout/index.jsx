@@ -417,7 +417,7 @@ const CheckoutOrganism =({DetailDashboard}) =>{
     }
 
     const handOpenInvoince =() =>{
-        
+
            setInvoice(true)
     }
     
@@ -510,9 +510,6 @@ const CheckoutOrganism =({DetailDashboard}) =>{
     const final=  new Date(resultDashboard?.Fecha_final)   
     const FechaFinal = final.toISOString().split('T')[0]
 
-
-  
-
     const [loading,setLoading] =useState(false)
 
     const handLoading =() =>{
@@ -531,7 +528,6 @@ const CheckoutOrganism =({DetailDashboard}) =>{
         })
     }
 
-   
     const totalHabitacion =UsePrice({number:resultDashboard.valor_habitacion})
     
     let count =0
@@ -541,13 +537,12 @@ const CheckoutOrganism =({DetailDashboard}) =>{
         }
     }
 
-   
+    
+    
     const toPriceNoche = UsePrice({number:resultDashboard.valor_dia_habitacion})
     const numOne = parseInt(resultDashboard?.valor_habitacion)
 
-
     var formattedNum =numOne.toLocaleString(); 
-
 
     const Iva  = numOne*19/100
 
@@ -555,12 +550,8 @@ const CheckoutOrganism =({DetailDashboard}) =>{
 
     const totalIva = numOne + Iva +resultNum
 
-    console.log(totalStore)
-
     const valorTotalIva = totalIva.toLocaleString();
     const formatoIva = Iva.toLocaleString();
-
-    console.log(totalStore)
 
     var formatteOne = totalStore.toLocaleString();
 
@@ -575,7 +566,9 @@ const CheckoutOrganism =({DetailDashboard}) =>{
             setFactura(false)
         }) 
     }
+
     const [to,setTo] =useState()
+
 
     useEffect(()  =>{
         fetch(`${config.serverRoute}/api/resecion/resolucion`)
@@ -592,33 +585,33 @@ const CheckoutOrganism =({DetailDashboard}) =>{
         <>     
             {invoince  && <Invoince                 
                                               
-                                                dataCount={dataCount}
-                                                setInvoice={handCloseInvoince} 
-                                                carts={cart}
-                                                priceCart={totalPrice}
-                                                client={filterSearch?.name_people} 
-                                                identification={filterSearch?.num_id}
-                                                raiting={"dasd"} 
-                                                loading={loading}
-                                                handLoading={handLoading}
-                                                handLoadingOne={handLoadingOne}/>
-                                    }
+                        dataCount={dataCount}
+                        setInvoice={handCloseInvoince} 
+                        carts={cart}
+                        priceCart={totalPrice}
+                        client={filterSearch?.name_people} 
+                        identification={filterSearch?.num_id}
+                        raiting={"dasd"} 
+                        loading={loading}
+                        handLoading={handLoading}
+                        handLoadingOne={handLoadingOne}/>
+                }
         {loading ? null  :
         <div className="container-flex-init-global" >
             <LoadingDetail
                 loading={true}
                 titleLoading={"Check Out Empresa"}  />
-             <LoadingDetail
+            <LoadingDetail
                 loading={factura}
                 titleLoading={"Factura electronica enviada"}  />
-                <ul className="flex-bedrooms-checking-modal-checkout  ">      
-                    <li  > 
-                        <div className="contan-seacrh" >
-                            <VscSearch color="greys" />  
-                        </div>
-                        <input className="input-searching-input-checkout dow"  placeholder="Busquedad de Empresa" name="Buscar" type="text"  onChange={handChange} />
-                    </li>
-                </ul>
+            <ul className="flex-bedrooms-checking-modal-checkout  ">      
+                <li  > 
+                    <div className="contan-seacrh" >
+                        <VscSearch color="greys" />  
+                    </div>
+                    <input className="input-searching-input-checkout dow"  placeholder="Busquedad de Empresa" name="Buscar" type="text"  onChange={handChange} />
+                </li>
+            </ul>
 
                 <div className="container-search-filter" >
                                 {preSearchFilter?.map((index,e) =>( 
@@ -681,13 +674,16 @@ const CheckoutOrganism =({DetailDashboard}) =>{
                             <div className="container-store-checkout-three" >
                                     <div className="ub" >
                                         <ul>
-                                            <li className="totalPricecheckout-two-finish-one negrita let-persona"  >Cantidad personas:</li>   
+                                            <li className="totalPricecheckout-two-finish-one negrita let-persona" >Cantidad personas:</li>   
                                             <li className="totalPricecheckout-two-finish-one negrita let-persona" >Cantidad noches: </li>   
                                             <li className="totalPricecheckout-two-finish-one negrita let-persona" >Tipo habitacion:</li>   
                                             <li className="totalPricecheckout-two-finish-one negrita let-persona" >Valor por noche:</li>   
+                                            <li className="totalPricecheckout-two-finish-one negrita let-persona" >Descuento:</li> 
+                                            <li className="totalPricecheckout-two-finish-one negrita let-persona" >Abono:</li>   
                                             <li className="totalPricecheckout-two-finish-one negrita let-persona" >Persona adiciona:l</li> 
                                             <li className="totalPricecheckout-two-finish-one  negrita let-persona" >Hora Adicional:</li> 
                                             <li className="totalPricecheckout-two-finish-one negrita let-persona" >Ealy check in:</li>  
+                                            
                                         </ul>                 
                                     </div>
                                     <div className="ri-two">
@@ -697,12 +693,10 @@ const CheckoutOrganism =({DetailDashboard}) =>{
                                             <li className="totalPricecheckout-two" >{resultFinish?.nombre}</li>           
                                             <li className="totalPricecheckout-two" >{toPriceNoche?.price}</li>   
                                             <li className="totalPricecheckout-two" >{count}</li>   
-                                            <li className="totalPricecheckout-two" >{totalLenceria ?totalLenceria :0}</li>     
-                                            <li className="totalPricecheckout-two" >{totalLenceria ?totalLenceria :0}</li>                
+                                            <li className="totalPricecheckout-two" >{0}</li>     
+                                            <li className="totalPricecheckout-two" >{0}</li>                
                                         </ul>  
                                     </div>
-
-                                    
                                     
                                     <div>
                                         <ul>
@@ -739,7 +733,7 @@ const CheckoutOrganism =({DetailDashboard}) =>{
                 </div>
 
               <div className="container-checkout-border" >
-                        <div className="container-store-checkout-three" >
+                        <div className="container-store-checkout-three forme-treeh" >
                                 <div>
                                     <ul>
                                        {MenuItems.map(index => (
@@ -747,9 +741,7 @@ const CheckoutOrganism =({DetailDashboard}) =>{
                                        ))}              
                                     </ul>                 
                                 </div>
-                                
-
-                                <div className="be-two" >
+                                <div className="re-tow-definish" >
                                     <ul>
                                         <li className="totalPricecheckout" >${priceBebidas ?priceBebidas : 0 }</li>           
                                         <li className="totalPricecheckout" >${priceSnacks ?priceSnacks :0}</li>           
@@ -760,8 +752,19 @@ const CheckoutOrganism =({DetailDashboard}) =>{
                                     </ul>  
                                 </div>
 
-
-                                              
+                                <hr className="row-hr" />
+                                   <div className="re-two">
+                                        <ul>
+                                           {sinIva.map(index =>(
+                                               <div className="carts-invoince one-flex-one">
+                                                   <li className="totalPricecheckout" >{index.name}</li>        
+                                                   <li className="totalPricecheckout" >{index.price}</li>   
+                                               </div>       
+                                           ))}
+                                      </ul>     
+                                           
+                                   </div>
+       
                                 <div>
                                         <ul>
                                              <li>
@@ -778,45 +781,35 @@ const CheckoutOrganism =({DetailDashboard}) =>{
                                           
                                         </ul>  
                                     </div>
+                            </div>   
+                    </div>
+            <div className="container-store-checkout-two">
+                <div className="container-flex-buttton-checkout" >    
+                            <div className="button-checkout" onClick={handServiFormularios} >
+                                <button>Enviar factura electronica</button>
+                            </div>
 
-                        </div>
-
-                     
-            </div>
-            
-
-
-            <div className="container-store-checkout-two" >
-                             
-                
-                   
-            <div className="container-flex-buttton-checkout" >    
-                        <div className="button-checkout" onClick={handServiFormularios} >
-                            <button>Enviar factura electronica</button>
-                        </div>
-
-                        <div className="button-checkout-two-finally" onClick={handUpdateStatus}  >
-                            <button>Check Out</button>
+                            <div className="button-checkout-two-finally" onClick={handUpdateStatus}  >
+                                <button>Check Out</button>
+                            </div>
                         </div>
                     </div>
-                </div>
-            
-                {comprobante && <FacturaCompany Room={resultFinish}
-                    Valor_dia_habitacion={resultDashboard}
-                    resultFinish={resultFinish}
-                    filterSearch={filterSearch}
-                    resultDashboard={resultDashboard}
-                    comprobante={comprobante}
-                    setComprobante={setComprobante} 
-                    priceBebidas={priceBebidas}
-                    priceSnacks={priceSnacks}
-                    priceSouvenir={priceSouvenir}
-                    priceDrogueria={priceDrogueria}
-                    priceAdultos={priceAdultos}
-                    priceLenceria={priceLenceria}
-                    totalStore={totalStore}
-                    jwt={jwt}/>}
-        </div>
+                    {comprobante && <FacturaCompany Room={resultFinish}
+                        Valor_dia_habitacion={resultDashboard}
+                        resultFinish={resultFinish}
+                        filterSearch={filterSearch}
+                        resultDashboard={resultDashboard}
+                        comprobante={comprobante}
+                        setComprobante={setComprobante} 
+                        priceBebidas={priceBebidas}
+                        priceSnacks={priceSnacks}
+                        priceSouvenir={priceSouvenir}
+                        priceDrogueria={priceDrogueria}
+                        priceAdultos={priceAdultos}
+                        priceLenceria={priceLenceria}
+                        totalStore={totalStore}
+                        jwt={jwt}/>}
+            </div>
          }
         </>
     )
@@ -904,13 +897,12 @@ const CheckoutOrganism =({DetailDashboard}) =>{
                             <div className="container-store-checkout-three" >
                                     <div className="op">
                                         <ul>
-                                            <li className="totalPricecheckout-two-finish-one negrita let-persona" >Cantidad personas:</li>   
-                                            <li className="totalPricecheckout-two-finish-one negrita  let-persona" >Cantidad noches: </li>   
+                                        <li className="totalPricecheckout-two-finish-one negrita let-persona" >Cantidad personas:</li>   
+                                            <li className="totalPricecheckout-two-finish-one negrita let-persona" >Cantidad noches: </li>   
                                             <li className="totalPricecheckout-two-finish-one negrita let-persona" >Tipo habitacion:</li>   
                                             <li className="totalPricecheckout-two-finish-one negrita let-persona" >Valor por noche:</li>   
-                                            <li className="totalPricecheckout-two-finish-one negrita let-persona" >Persona Adicional:</li> 
-                                            <li className="totalPricecheckout-two-finish-one negrita let-persona" >Hora Adicional:</li> 
-                                            <li className="totalPricecheckout-two-finish-one negrita let-persona" >Ealy check in:</li>  
+                                            <li className="totalPricecheckout-two-finish-one negrita let-persona" >Descuento:</li> 
+                                            <li className="totalPricecheckout-two-finish-one negrita let-persona" >Abono reserva:</li>   
                                         </ul>                 
                                     </div>
                                     <div className="ri-two">
@@ -920,13 +912,10 @@ const CheckoutOrganism =({DetailDashboard}) =>{
                                             <li className="totalPricecheckout-two" >{resultFinish?.nombre}</li>           
                                             <li className="totalPricecheckout-two" >{toPriceNoche?.price}</li>   
                                             <li className="totalPricecheckout-two" >{count}</li>   
-                                            <li className="totalPricecheckout-two" >{totalLenceria ?totalLenceria :0}</li>     
-                                            <li className="totalPricecheckout-two" >{totalLenceria ?totalLenceria :0}</li>                
+                                            <li className="totalPricecheckout-two" >{0}</li>               
                                         </ul>  
                                     </div>
-
-                                    
-                                    
+                                  
                                     <div>
                                         <ul>
                                              <li>
@@ -946,7 +935,7 @@ const CheckoutOrganism =({DetailDashboard}) =>{
                 </div>
 
                 <div className="container-checkout-border" >
-                            <div className="container-store-checkout-three" >
+                            <div className="container-store-checkout-three forme-treeh " >
                                     <div>
                                         <ul>
                                         {MenuItems.map(index => (
@@ -954,18 +943,35 @@ const CheckoutOrganism =({DetailDashboard}) =>{
                                         ))}              
                                         </ul>                 
                                     </div>
-                                    <div className="re-two">
-                                        
+                                    <div className="re-tow-definish">
                                         <ul>
-                                        <li className="totalPricecheckout" >${priceBebidas ?priceBebidas : 0 }</li>           
-                                        <li className="totalPricecheckout" >${priceSnacks ?priceSnacks :0}</li>           
-                                        <li className="totalPricecheckout" >${priceSouvenir ?priceSouvenir :0}</li>           
-                                        <li className="totalPricecheckout" >${priceDrogueria ?priceDrogueria:0}</li>   
-                                        <li className="totalPricecheckout" >${priceAdultos ?priceAdultos :0}</li>   
-                                        <li className="totalPricecheckout" >${priceLenceria ?priceLenceria :0}</li>                
-                                    </ul>                 
+                                            <li className="totalPricecheckout" >${priceBebidas ?priceBebidas : 0 }</li>           
+                                            <li className="totalPricecheckout" >${priceSnacks ?priceSnacks :0}</li>           
+                                            <li className="totalPricecheckout" >${priceSouvenir ?priceSouvenir :0}</li>           
+                                            <li className="totalPricecheckout" >${priceDrogueria ?priceDrogueria:0}</li>   
+                                            <li className="totalPricecheckout" >${priceAdultos ?priceAdultos :0}</li>   
+                                            <li className="totalPricecheckout" >${priceLenceria ?priceLenceria :0}</li>                
+                                        </ul>                 
                                          
                                     </div>
+
+                               
+                                            <hr className="row-hr" />
+                                   
+                                     
+                                    <div className="re-two ">
+                                         <ul>
+                                            {sinIva.map(index =>(
+                                                <div className="carts-invoince one-flex-one">
+                                                    <li className="totalPricecheckout" >{index.name}</li>        
+                                                    <li className="totalPricecheckout" >{index.price}</li>   
+                                                </div>       
+                                            ))}
+                                       </ul>     
+                                            
+                                    </div>
+
+                                    
 
                                     <div>
                                         <ul>

@@ -317,7 +317,7 @@
 }
 
 .ri-two {
-  width: 526px;
+  width: 700px;
 }
 
 .re-two {
@@ -408,14 +408,14 @@
 }
 
 .relative-codigo {
-    position: relative;
-    top: 13px;
-    left: 84%;
+  position: relative;
+  top: 13px;
+  left: 84%;
 }
 
 .relative-codigo img {
-    height: 220px;
-    width: 224px;
+  height: 220px;
+  width: 224px;
 }
 
 .wid-border-pdf {
@@ -426,17 +426,66 @@
   width: 434px;
 }
 
-.relative-price{
+.relative-price {
+  position: relative;
+  top: -188px;
+  width: 295px;
+  right: -72%;
+}
+
+.margin-top-pdf-definish {
+  margin-top: -185px;
+}
+
+.container-pdf-flex {
+  margin: auto;
+}
+
+.one-flex-one {
+  justify-content: initial;
+}
+
+.re-two-one {
+  /*width: none !important;*/
+}
+
+.forme-treeh {
+  align-items: baseline;
+}
+
+.re-tow-definish {
+  margin-right: -151px;
+}
+
+.row-hr {
+  transform: rotate(90deg);
+  height: 2px;
+  width: 190px;
+  position: relative;
+  top: 96px;
+  right: -68px;
+  background: #c3c1c1;
+}
+
+.re-two {
+  width: 582px;
+}
+
+
+
+
+.content-Modal-store-one-two{
+  background-color: whitesmoke;
+    width: 300px;
+    padding: 10px 20px;
+    margin: 10vh auto;
     position: relative;
-    top: -188px;
-    width: 295px;
-    right: -72%;
-}
-
-.margin-top-pdf-definish{
-    margin-top: -185px;
-}
-
-.container-pdf-flex{
-    margin: auto;
+    border-radius: 6px;
+    animation: pulse 0.1s ease;
+    /* margin-top: 12%; */
+    /* min-height: 280px; */
+    /* max-height: 686px; */
+    margin-top: 10px;
+    overflow-x: hidden;
+    height: auto;
 }

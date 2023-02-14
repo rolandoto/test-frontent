@@ -13,6 +13,7 @@ import ServiceUpdateReservationpay from "../../service/ServiceUpdatereservationp
 import ServiceStatus from "../../service/ServiceStatus";
 
 const Checkingn2Organism =({id}) =>{
+    
     const history = useHistory()
     const [tipoDocumento,setTipoDocumento] =useState()
     const [room,setRoom] =useState()
@@ -27,6 +28,9 @@ const Checkingn2Organism =({id}) =>{
     useEffect(() =>{
         fetchData()
     },[id])
+
+
+    console.log(id)
 
     const  resulDetailDashboard = DetailDashboard[0]
 
@@ -103,12 +107,75 @@ const Checkingn2Organism =({id}) =>{
     }
 
     const handUpdateStatus =() =>{
-        ServiceStatus({id,ID_Tipo_Estados_Habitaciones:3}).then(index=>{
-            window.location.href =(`/contracto`)
-        }).catch(e =>{
-            console.log(e)
+        handUpdateConfirms()
+       
+    }
+
+
+    const handleInputChange =(event) =>{
+        setChange({
+            ...change,
+            [event.target.name]:event.target.value
         })
     }
+
+
+
+        const  typy_buy =  [
+            {   
+                id:1,
+                name:"Efectivo",
+            },
+            {
+                id:2,
+                name:"Consignaciones",
+            },
+            {   
+                id:4,
+                name:"Sitio Web",
+            },
+            {   
+                id:5,
+                name:"Payoneer",
+            },
+            {   
+                id:6,
+                name:"T.Debito",
+            },
+            {   
+                id:7,
+                name:"T.Credito",
+            },
+            {   
+                id:8,
+                name:"Hotel Beds",
+            },
+            {   
+                id:9,
+                name:"Despegar",
+            },
+            {   
+                id:10,
+                name:"Price Travel",
+            },
+            {   
+                id:11,
+                name:"Link de pago",
+            },
+            {   
+                id:12,
+                name:"Expedia",
+            },
+            {   
+                id:13,
+                name:"Mixto",
+            },
+            ]
+    const [change,setChange] =useState({
+        ID_Tipo_Forma_pago:null,
+        Iva:null
+    })
+
 
     const Iva= parseInt(resulDetailDashboard?.valor_habitacion) *19/100
 
@@ -122,6 +189,27 @@ const Checkingn2Organism =({id}) =>{
     const toPriceAbono= UsePrice({number:resulDetailDashboard?.valor_abono})
 
     const toPriceHabitacion = UsePrice({number:resulDetailDashboard?.valor_habitacion})
+
+    let dataTwo = {
+        ID_Tipo_Forma_pago:change.ID_Tipo_Forma_pago
+    }
+
+    const toPricediaHabitacion = UsePrice({number:resulDetailDashboard?.valor_dia_habitacion})
+
+    const handUpdateConfirms =() =>{
+        ServiceUpdateReservationpay({id,dataOne:dataTwo}).then(index  =>{
+            ServiceStatus({id,ID_Tipo_Estados_Habitaciones:3}).then(index=>{
+                window.location.href =(`/contracto`)
+            }).catch(e =>{
+                console.log(e)
+            })
+        }).catch(e =>{
+            console.log(e)
+        }) 
+    }
+
+
+    console.log(change)
 
     if(!resultFinish) return null
 
@@ -142,37 +230,68 @@ const Checkingn2Organism =({id}) =>{
     
                     </div>
                     
-                    <h2 className="cod-reserva-one" ><span className="title-code" ></span> Debes cobrar a {resulDetailDashboard?.Nombre} {resulDetailDashboard?.Apellido} {totalWithIva}</h2>
+                        <h2 className="cod-reserva-one to-checkin" >
+                                <span className="title-code" >
+                                </span> 
+                                <span className="close-negrita"  >  Debes cobrar a:</span>  {resulDetailDashboard?.Nombre} {resulDetailDashboard?.Apellido} <span className="close-negrita"  > un valor de:</span>  {totalWithIva} <span className="close-negrita"  > con el siguiente medio de pago:  <select onChange={handleInputChange}  
+                                            required
+                                            name="ID_Tipo_Forma_pago"
+                                            className='select-hotel-type-rooms-finis-dasboard-finish-one ote posicion'>
+                                        <option>Tipo pago</option>
+                                        {typy_buy?.map(category =>(
+                                            <option 
+                                            value={category.id}   
+                                            key={category}
+                                        >
+                                            {category.name}
+                                        </option>
+                                        )
+                                        )}
+                                    </select> </span>   
+                                 
+                         </h2>
+                       
+                         <div className="top-title-re" >
+                            <span className="close-negritaOne">Recuerda que la emesion de la factura es en el check out</span>
+                        </div>
                
-                        <div className="container-detail-dasboard-in-one-one" >
-                 
-                            <div className="border-detail" >
-                                <span> Noches {day}</span>
-                            </div>
-                            <div className="border-detail" >
-                                <span>{totalWithIva}</span>
-                            </div>
-    
-                            <div className="border-detail" >
-                            <   span>{resultFinish?.nombre}</span>
-                            </div>
-    
-                            <div className="border-detail" >
-                            <span>{resulDetailDashboard?.forma_pago}</span>
-                            </div>
-                            <div className="border-detail" >
-                                <span>Abono {toPriceAbono.price} </span>
-                            </div>
-                        </div>
-    
-                        <div className="checkin2"  onClick={hanClickinContracto}>
-                            <button>Continuar</button>
-                        </div>
+                       
                     </div>
-    
-           
+
+                    <div className="container-detail-dasboard-in-one container-detail-dasboard-in-one-two" >
+                    <div className="border-detail " >
+                        <span>Cantidad noches</span>
+                        <span className="negrita-detail-reserva" >{day} noches</span>
+                    </div>
+
+                    <div className="border-detail" >
+                        <span>Valor noche</span>
+                        <span className="negrita-detail-reserva">  {toPricediaHabitacion.price}</span>
+                    </div>
+
+                    <div className="border-detail" >
+                        <span>Total hospedaje</span>
+                        <span className="negrita-detail-reserva" > {totalWithIva}</span>
+                    </div>
+                    
+                    <div className="border-detail" >
+                        <span>Tipo pago </span>
+                        <span className="negrita-detail-reserva"  >{resulDetailDashboard?.forma_pago}</span>
+                    </div>
+
+                    <div className="border-detail" >
+                            <span>Abono</span>
+                        <span className="negrita-detail-reserva" >{toPriceAbono.price}</span>
+                    </div> 
+
+                  
+                </div>
+                        <div className="checkin2  one-button-checking"  onClick={handUpdateConfirms}>
+                            <button>Continuar</button>
+                </div> 
             </>
         )
+    
     }else{
         return (
             <>
@@ -190,30 +309,63 @@ const Checkingn2Organism =({id}) =>{
     
                     </div>
                     
-                    <h2 className="cod-reserva-one" ><span className="title-code" ></span> Debes cobrar a {resulDetailDashboard?.Nombre} {resulDetailDashboard?.Apellido} {totalPrice.price}</h2>
-               
-                        <div className="container-detail-dasboard-in-one-one" >
-                 
-                            <div className="border-detail" >
-                                <span> Noches {day}</span>
-                            </div>
-                            <div className="border-detail" >
-                                <span>{toPriceHabitacion.price}</span>
-                            </div>
-    
-                            <div className="border-detail" >
-                            <   span>{resultFinish?.nombre}</span>
-                            </div>
-    
-                            <div className="border-detail" >
-                            <span>{resulDetailDashboard?.forma_pago}</span>
-                            </div>
-                            <div className="border-detail" >
-                                <span>Abono {toPriceAbono.price} </span>
-                            </div>
+                    <div>
+                        <h2 className="cod-reserva-one to-checkin" >
+                                <span className="title-code" >
+                                </span> 
+                                <span className="close-negrita"  >  Debes cobrar a:</span>  {resulDetailDashboard?.Nombre} {resulDetailDashboard?.Apellido} <span className="close-negrita"  > un valor de:</span>  {totalPrice.price} <span className="close-negrita"  > con el siguiente medio de pago:     <select onChange={handleInputChange}  
+                                            required
+                                            name="ID_Tipo_Forma_pago"
+                                            className='select-hotel-type-rooms-finis-dasboard-finish-one ote posicion'>
+                                        <option>Tipo pago</option>
+                                        {typy_buy?.map(category =>(
+                                            <option 
+                                            value={category.id}   
+                                            key={category}
+                                        >
+                                            {category.name}
+                                        </option>
+                                        )
+                                        )}
+                                    </select>   </span>   
+                              
+                         </h2>
+
+                      
+                                    
+                    </div>
+                        <div className="top-title-re" >
+                            <span className="close-negritaOne">Recuerda que la emesion de la factura es en el check out</span>
                         </div>
-    
-                        <div className="checkin2"  onClick={hanClickinContracto}>
+                      
+                    <div className="container-detail-dasboard-in-one container-detail-dasboard-in-one-two" >
+                            <div className="border-detail " >
+                                <span>Cantidad noches</span>
+                                <span className="negrita-detail-reserva" >{day} noches</span>
+                            </div>
+
+                            <div className="border-detail" >
+                                <span>Valor noche</span>
+                                <span className="negrita-detail-reserva"> {toPricediaHabitacion.price}</span>
+                            </div>
+
+                            <div className="border-detail" >
+                                <span>Total hospedaje</span>
+                                <span className="negrita-detail-reserva" >{totalWithIva}</span>
+                            </div>
+                            
+                            <div className="border-detail" >
+                                <span>Tipo habitacion</span>
+                                <span className="negrita-detail-reserva"  >{resultFinish?.nombre}</span>
+                            </div>
+
+                            <div className="border-detail" >
+                                    <span>Abono</span>
+                                <span className="negrita-detail-reserva" >{toPriceAbono.price}</span>
+                            </div>         
+                </div>
+                           
+                <div className="checkin2"  onClick={handUpdateConfirms}>
                             <button>Continuar</button>
                         </div>
                     </div>

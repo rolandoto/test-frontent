@@ -20,6 +20,7 @@
   display: flex;
   align-items: center;
   margin-top: 5px;
+  justify-content: center;
 }
 
 .desde-detail {
@@ -117,6 +118,7 @@
 .cod-reserva {
   font-weight: 400;
   color: black;
+  margin-left: 31px;
 }
 
 .cod-reserva-one {
@@ -340,7 +342,7 @@
 .title-code {
   font-size: 17px;
   font-weight: 500;
-  margin-left: 20px;
+  /* margin-left: 20px; */
   margin-top: 8px !important;
 }
 
@@ -445,7 +447,7 @@
 }
 
 .checkbox-round-click {
-  background-color: rgb(1, 149, 255);
+  background-color: black;
 }
 
 .container-checkbox {
@@ -456,7 +458,7 @@
 
 .ono {
   margin-top: 10px;
-  height: 332px !important; 
+  height: 332px !important;
 }
 
 .button-checking-detail-checkout {

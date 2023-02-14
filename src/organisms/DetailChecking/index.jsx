@@ -151,13 +151,10 @@ const DetailChekingOrganism =({id}) =>{
     const item  = state ? <span>Editar Huespedes</span> : <span>guardar</span>
 
       const hanClickingn2 =() =>{
-        if(change.ID_Tipo_Forma_pago== null){
-            setLoadingUpdate(true)
-        }else if(change.Iva== null){
+         if(change.Iva== null){
             setLoadingUpdate(true)
         }else{
             history.push(`/checkingin2/${id}`)
-            handUpdateConfirms()
             handPay()
             handSubmit()
             handClick()
@@ -210,6 +207,10 @@ const DetailChekingOrganism =({id}) =>{
             id:12,
             name:"Expedia",
         },
+        {   
+            id:13,
+            name:"Mixto",
+        },
         ]
 
         const  tarifa =  [
@@ -229,24 +230,13 @@ const DetailChekingOrganism =({id}) =>{
                 [event.target.name]:event.target.value
             })
         }
-    let dataOne = {
-        ID_Tipo_Forma_pago:change.ID_Tipo_Forma_pago
-    }
-
-    const handUpdateConfirms =() =>{
-        ServiceUpdateReservationpay({id,dataOne}).then(index  =>{
-            console.log(index)
-        }).catch(e =>{
-            console.log(e)
-        }) 
-    }
-
+    
+   
     let data ={
         Adultos:adultos,
         Ninos:ninos,
         infantes:infantes
     }
-
 
     const [huespe,setHuespe] =useState(
         [{
@@ -381,7 +371,7 @@ const DetailChekingOrganism =({id}) =>{
         Iva:change.Iva 
     }
 
-
+    
     const handClick =() =>{
         ServiceUpdateReservation({id,data:dataIva}).then(index =>{
             console.log(index)
@@ -722,7 +712,7 @@ const DetailChekingOrganism =({id}) =>{
                                             required
                                             name="Iva"
                                             className='select-hotel-type-rooms-finis-dasboard-finish-one ote'>
-                                        <option>Tarifa iva</option>
+                                        <option>Tipo huesped</option>
                                         {tarifa?.map(category =>(
                                             <option 
                                             value={category.id}   
@@ -733,26 +723,6 @@ const DetailChekingOrganism =({id}) =>{
                                         )
                                         )}
                                     </select>  
-                        </div>
-                         
-
-                        <div>
-                           
-                                <select onChange={handleInputChange}  
-                                            required
-                                            name="ID_Tipo_Forma_pago"
-                                            className='select-hotel-type-rooms-finis-dasboard-finish-one ote'>
-                                        <option>Medio de pago</option>
-                                        {typy_buy?.map(category =>(
-                                            <option 
-                                            value={category.id}   
-                                            key={category}
-                                        >
-                                            {category.name}
-                                        </option>
-                                        )
-                                        )}
-                                    </select>   
                         </div>
                         
                         <div className="container-checkbox" >

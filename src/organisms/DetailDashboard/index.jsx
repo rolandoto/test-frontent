@@ -413,6 +413,8 @@ const DetailDasboard =(props) =>{
   const Lenceria  = product?.filter(index => index.ID_Categoria ==6)  
 
 
+  
+
 
     const totalBebidas = bebidas?.reduce((acum,current) => {
     return acum  + current.Cantidad
@@ -550,7 +552,7 @@ const toPriceNigth = UsePrice({number:resultDashboard.valor_dia_habitacion})
               </div>
              
               <div className="border-detail" >
-                  <span>Pago</span>
+                  <span>Tipo habitacion</span>
                    <span className="negrita-detail-reserva"  >{resultFinish?.nombre} {resultDashboard.Numero}</span>
               </div>
 
@@ -643,7 +645,7 @@ const toPriceNigth = UsePrice({number:resultDashboard.valor_dia_habitacion})
               </div>
               <div>
                   <button className="  button-checking-detail-checkout" onClick={hanClickDetailCheckout}  >
-                      <span className="title-button"  >Checkout</span>
+                      <span className="title-button"  >Check out</span>
                   </button>
               </div>
               <div className="name-pinter"  onClick={handleClickBasic} >

@@ -612,7 +612,7 @@ const Dashboard = (props) => {
 				rightSidebarWidth={100}
 				itemHeightRatio={0.9}                                                             
 				lineHeight={45}
-				sidebarWidth={155}
+				sidebarWidth={250}
 				itemRenderer={itemRenderer}
 				onItemDoubleClick={false}
 				moveResizeValidator={(action, itemId, time, resizeEdge)  => handContext(action, itemId, time, resizeEdge)}

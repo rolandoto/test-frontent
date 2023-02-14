@@ -728,11 +728,8 @@
   border-radius: 6px;
   animation: pulse 0.1s ease;
   /* margin-top: 12%; */
-  min-height: 280px;
-  max-height: 686px;
   /* margin-top: 10px; */
-  overflow-y: scroll;
-  overflow-x: hidden;
+
   height: auto;
 }
 
@@ -746,9 +743,9 @@
   animation: pulse 0.1s ease;
   /* margin-top: 12%; */
   min-height: 280px;
-  /* max-height: 686px; */
-  /* margin-top: 10px; */
-  /* overflow-x: hidden; */
+   max-height: 686px; 
+   margin-top: 10px; 
+   overflow-x: hidden; 
   height: auto;
 }
 
