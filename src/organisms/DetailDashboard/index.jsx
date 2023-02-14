@@ -63,7 +63,7 @@ const DetailDasboard =(props) =>{
     const findEmpresa = resultDashboard.tipo_persona =="empresa"
     const findFirma = resultDashboard.Firma =="1"
     
-    
+    console.log(resultDashboard)
 
     const formatter = new Intl.NumberFormat('en-US', {
       style: 'currency',  
@@ -489,7 +489,6 @@ const hancPdf =() =>{
   }).catch(e =>{
     console.log(e)
   })
-  
 } 
 
 
@@ -644,13 +643,13 @@ const toPriceNigth = UsePrice({number:resultDashboard.valor_dia_habitacion})
                   </button>
               </div>
               <div>
-                  <button className="  button-checking-detail-checkout" onClick={hanClickDetailCheckout}  >
+                  <button className={`${!findFirma ?   "button-checking-detail-firma": " button-checking-detail-checkout" }  `} onClick={hanClickDetailCheckout}  >
                       <span className="title-button"  >Check out</span>
                   </button>
               </div>
               <div className="name-pinter"  onClick={handleClickBasic} >
                   <div>
-                    <RxCircleBackslash fontSize={30} color="gray" />
+                    <img width={45} src="https://medellin47.com/ico_pms/cancel.svg" alt="" />
                   </div>
 
               </div>

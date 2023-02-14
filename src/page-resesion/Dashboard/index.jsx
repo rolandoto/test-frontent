@@ -566,6 +566,25 @@ const Dashboard = (props) => {
 					<button className='button-reservas-type-one-one'><div className="flex-index-reservation" ><VscSignOut className="flex-contan"  color="white" fontSize={18}  /><span>Checkout</span> </div> </button>
 					<button className='button-reservas-type' onClick={handClickState}>
 					<div className="flex-index-reservation" ><VscRecord className="flex-contan-one" color="white"  fontSize={18} /><span>Estados</span></div></button>
+					
+					<select onChange={handRaiting}  
+													value={raiting} 
+													className='button-reservas-type-one button-reservas-type-space ' >
+													<option >Ver informe</option>
+													<option >Todas las Habitaciones</option>
+													
+												{room?.map(category =>(
+													<option 
+													value={category.id_tipoHabitacion}   
+													key={category.ID}
+												>
+													{category.nombre}
+												</option>
+												)
+												)}
+												</select>
+					
+					
 					<select onChange={handRaiting}  
 													value={raiting} 
 													className='button-reservas-type-one button-reservas-type-space ' >
