@@ -546,10 +546,7 @@ function handComprobante() {
 
 const toPriceNigth = UsePrice({number:resultDashboard.valor_dia_habitacion})
 
-
 const [isHovered, setIsHovered] = useState(false);
-
-
 
   if(!docu) return null
   if(!resultFinish)  return null
