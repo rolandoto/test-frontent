@@ -169,6 +169,17 @@
   margin-top: 5px;
 }
 
+.init-one-three {
+  padding: 15px;
+  display: block;
+  max-width: 1481px;
+  margin: auto;
+  background: #ebebeb;
+  border-radius: 10px;
+  height: auto;
+  margin-top: 5px;
+}
+
 .desde-detail-three-estados-black {
   height: 50px;
   border: none;
@@ -601,7 +612,7 @@
   margin-left: -20px;
   color: white;
   justify-content: center;
-  margin-top: -87px;
+ 
 }
 
 .in-cehcki {
@@ -623,4 +634,8 @@
 
 .ro-img {
   margin-right: 4px !important;
+}
+
+.in-type-button {
+  align-items: initial !important;
 }

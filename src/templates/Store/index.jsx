@@ -13,6 +13,8 @@ import { ServiceReservas } from "../../page-resesion/Dashboard/dummy_data";
 import ServiceaInsertCart from "../../service/serviceaInsertCart";
 import { AiOutlineCaretLeft } from "react-icons/ai";
 import ServiceReservationCheckin from "../../service/ServiceReservasCheckin";
+import moment from "moment";
+import "moment/locale/es";
 
 const StoreTemplate =({Store}) =>{
 
@@ -827,11 +829,21 @@ const StoreTemplate =({Store}) =>{
 
     console.log(peopleReservation)
 
+    
+    var today = new Date();
+ 
+  // `getDate()` devuelve el día del mes (del 1 al 31)
+ 
+// obtener la fecha de hoy en formato `MM/DD/YYYY`
+  const  now = moment().format("YYYY/MM/DD");
 
+
+console.log(now)
     const data ={
       ID_Reserva:peopleId,
       Cart:carts.cart,
       ID_Hoteles:jwt.result.id_hotel,
+      Fecha_compra:now
     }
     
     const handSubmitInsertCart =() =>{

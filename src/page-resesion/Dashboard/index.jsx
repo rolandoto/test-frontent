@@ -252,13 +252,13 @@ const Dashboard = (props) => {
 		console.log(item)
 		let color 
 		if(item.state==0){
-			color = "#FFAD31"
+			color = "#FF9990"
 		}else if(item.state==1){
-			color ="#DD69D1"
+			color ="#E9C9FF"
 		}else if(item.state==2){
 			color ="#F94141"
 		}else if(item.state==3){
-			color ="#3C8AE7"
+			color ="#C2DEE5"
 		}else if(item.state==4){
 			color ="#0DC034"
 		}

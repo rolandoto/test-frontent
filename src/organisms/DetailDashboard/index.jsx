@@ -719,9 +719,9 @@ const toPriceNigth = UsePrice({number:resultDashboard.valor_dia_habitacion})
 
 
       {!stateButton && 
-      <div className="init-one-two  top-detail " >
+      <div className="init-one-three top-detail  " >
       <form  className="container-flex-init" >
-        <div className="container-detail-dasboard-in" > 
+        <div className="container-detail-dasboard-in in-type-button" > 
                 <ul className="flex-contain"  >
                     <li className={`${huesped ? "desde-detail-three-estados-black-one-finish" :"desde-detail-three-estados" } `} onClick={handHuesped} >Huespedes</li>
                     <li className={`${consumo ? "desde-detail-three-estados-black" :"desde-detail-three-estados" } `} onClick={handConsumo} >Consumos</li>
@@ -760,6 +760,7 @@ const toPriceNigth = UsePrice({number:resultDashboard.valor_dia_habitacion})
                                 totalLenceria={totalLenceria}
                                 priceLenceria={priceLenceria}
                                 Lenceria={Lenceria}
+                              
                                  />}
           {pago && <Pagos pagos={resultDashboard} />}
         </div>       
@@ -1011,16 +1012,25 @@ const Consumo =(props) =>{
           Adultos,
           totalLenceria,
           priceLenceria,
-          Lenceria} = props
+          Lenceria,
+          product} = props
 
-  const totalAlojaminetoPrice = UsePrice({number:totalAlojamiento})
-  const totalTopriceBebidas= UsePrice({number:priceBebidas})
-  const totalTopriceSnacks = UsePrice({number:priceSnacks})
-  const totalTopriceSouvenir = UsePrice({number:priceSouvenir})
-  const totalTopriceDrogueria = UsePrice({number:priceDrogueria})
-  const totalTopriceAdultos = UsePrice({number:priceAdultos})
-  const totalTopriceLenceria = UsePrice({number:priceLenceria})
-  console.log({"totalLenceria":totalLenceria})
+  
+  console.log(product)
+
+  const cart =[]
+
+  for(let i = 0;i<product?.length;i++){
+    cart.push({
+      Nombre_categoria:product[i].Nombre,
+      Nombre_Producto:product[i].Nombre_producto,
+      Price:product[i].Precio.toLocaleString(),
+      Fecha:moment(product[i].Fecha_compra).utc().format('YYYY/MM/DD'),
+      Cantidad:product[i].Cantidad
+    })
+  }
+
+
   if(!habitacion) return null
 
   return (
@@ -1034,63 +1044,26 @@ const Consumo =(props) =>{
                   <Table sx={{width:1300 ,marginTop:4}} size="small" aria-label="a dense table"> 
                   <TableHead>
                       <TableRow>
-                      <TableCell align="right">Cantidad</TableCell>
-                      <TableCell align="right">Nombre</TableCell>
+                      <TableCell align="right">Fecha</TableCell> 
+                      <TableCell align="right">Cantidad</TableCell>  
+                      <TableCell align="right">Cetegoria</TableCell>  
+                      <TableCell align="right">Detalle</TableCell>
                       <TableCell align="right">Valor</TableCell>
                       </TableRow>
                   </TableHead>
                   <TableBody>
-                        <TableRow>
-                            <TableCell>{day} </TableCell>
-                            <TableCell>Alojamiento {habitacion} </TableCell>
-                            <TableCell>{totalAlojaminetoPrice?.price} </TableCell>
-                        </TableRow>
-
-                        {totalTopriceBebidas.price !="COPNaN"  ?   <>
-                        {totalTopriceBebidas.price !="COP 0" ?
-                        <TableRow>
-                            <TableCell>{totalBebidas}</TableCell>
-                            <TableCell>Bebidas</TableCell>
-                            <TableCell>{totalTopriceBebidas.price} </TableCell>
-                        </TableRow>
-                        :null }
-                        {totalTopriceSnacks.price !="COP 0" ? 
-                        <TableRow>
-                            <TableCell>{totalSnacks}</TableCell>
-                            <TableCell>Snaks</TableCell>
-                            <TableCell>{totalTopriceSnacks.price} </TableCell>
-                        </TableRow>
-                        : null}
-                        {totalTopriceSouvenir.price !="COP 0" ?
-                          <TableRow>
-                              <TableCell>{totalSouvenir}</TableCell>
-                              <TableCell>Souvenir</TableCell>
-                              <TableCell>{totalTopriceSouvenir.price} </TableCell>
-                          </TableRow>
-                          : null }
-                        {totalTopriceDrogueria.price !="COP 0"  ? 
-                        <TableRow>
-                            <TableCell>{totalDrogueria}</TableCell>
-                            <TableCell>Drogueria</TableCell>
-                            <TableCell>{totalTopriceDrogueria.price} </TableCell>
-                        </TableRow>
-                         :null}
-                         {totalTopriceAdultos.price !="COP 0" ?
-                        <TableRow>
-                            <TableCell>{totalAdultos}</TableCell>
-                            <TableCell>Adultos</TableCell>
-                            <TableCell>{totalTopriceAdultos.price} </TableCell>
-                        </TableRow>
-                        : null}
-                          {totalTopriceLenceria.price !="COP 0" ? 
-                          <TableRow>
-                              <TableCell>{totalLenceria}</TableCell>
-                              <TableCell>Lenceria</TableCell>
-                              <TableCell>{totalTopriceLenceria.price} </TableCell>
-                          </TableRow>
-                        : null}
-                    </> : null }
-
+                        
+                        {  cart?.map((row,e) =>(
+                           <TableRow>
+                              <TableCell>{row.Fecha} </TableCell>
+                              <TableCell>{row.Cantidad} </TableCell>
+                              <TableCell>{row.Nombre_categoria} </TableCell>
+                              <TableCell>{row.Nombre_Producto} </TableCell>
+                              <TableCell>Cop {row.Price} </TableCell>
+                           </TableRow>
+   
+                        ))}
+            
                   </TableBody>
                   </Table>
             </TableContainer> 
