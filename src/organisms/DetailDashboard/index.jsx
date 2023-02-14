@@ -651,19 +651,18 @@ const toPriceNigth = UsePrice({number:resultDashboard.valor_dia_habitacion})
                   <div>
                     <img width={45} src="https://medellin47.com/ico_pms/cancel.svg" alt="" />
                   </div>
-
               </div>
 
               <div className="name-pinter"  onClick={state ? handChangeEdit :handChangeSave}>
                   <div>
-                     <BiMessageSquareEdit fontSize={30} color="gray"  />
+                    <img width={45}  src="https://medellin47.com/ico_pms/edit.svg" alt="" />
                   </div>
 
               </div>
 
               <div  className="name-pinter">
                   <div onClick={hancPdf} >
-                     <SlBookOpen fontSize={28} color="gray"  />
+                     <img width={45}  src="https://medellin47.com/ico_pms/doc.svg" alt="" />
                   </div>
 
               </div>
@@ -698,10 +697,17 @@ const toPriceNigth = UsePrice({number:resultDashboard.valor_dia_habitacion})
       
       </div>
 
+      <div className="in-cehcki" >
+          <img width={25}  src="https://medellin47.com/ico_pms/in.svg" alt="" />
+        </div>
+
+        <div className="in-cehcki-out" >
+          <img width={25}  src="https://medellin47.com/ico_pms/out.svg" alt="" />
+        </div>
       <div className="container-flex-init-one-container-delete" >
       <textarea                                           rows="10" 
                                                         
-                                                        cols="217" 
+                                                         cols="217" 
                                                         placeholder="Observacion" 
                                                         name="observacion"
                                                         defaultValue={resultDashboard.Observacion}

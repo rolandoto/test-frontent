@@ -603,3 +603,16 @@
   justify-content: center;
   margin-top: -87px;
 }
+
+
+.in-cehcki{
+  position: relative;
+  top: -42px;
+  left: 233px;
+}
+
+.in-cehcki-out {
+  position: relative;
+  top: -67px;
+  left: 399px;
+}
