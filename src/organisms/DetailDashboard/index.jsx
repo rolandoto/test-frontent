@@ -639,12 +639,15 @@ const toPriceNigth = UsePrice({number:resultDashboard.valor_dia_habitacion})
         <div className="container-flex-init-one-center " >
               <div>
                   <button className={`${ findFirma ? "button-checking-detail-firma" : "button-checking-detail-finish-button" } `} onClick={handChecking} >
-                      <span className="title-button"  >Check in</span>
+                      <span className="title-button"  > <div className="inke-in" >
+                      <img width={25} className="ro-img"  src="https://medellin47.com/ico_pms/in.svg" alt="" /> <span> Check in</span> 
+                                                          </div>   </span>
                   </button>
               </div>
               <div>
                   <button className={`${!findFirma ?   "button-checking-detail-firma": " button-checking-detail-checkout" }  `} onClick={hanClickDetailCheckout}  >
-                      <span className="title-button"  >Check out</span>
+                      <span className="title-button"  > <div className="inke-in" > <img width={25} className="ro-img"  src="https://medellin47.com/ico_pms/out.svg" alt="" /> <span> Check out </span> 
+                                            </div></span>
                   </button>
               </div>
               <div className="name-pinter"  onClick={handleClickBasic} >
@@ -697,12 +700,10 @@ const toPriceNigth = UsePrice({number:resultDashboard.valor_dia_habitacion})
       
       </div>
 
-      <div className="in-cehcki" >
-          <img width={25}  src="https://medellin47.com/ico_pms/in.svg" alt="" />
-        </div>
+    
 
         <div className="in-cehcki-out" >
-          <img width={25}  src="https://medellin47.com/ico_pms/out.svg" alt="" />
+        
         </div>
       <div className="container-flex-init-one-container-delete" >
       <textarea                                           rows="10" 

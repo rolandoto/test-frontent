@@ -604,8 +604,7 @@
   margin-top: -87px;
 }
 
-
-.in-cehcki{
+.in-cehcki {
   position: relative;
   top: -42px;
   left: 233px;
@@ -615,4 +614,13 @@
   position: relative;
   top: -67px;
   left: 399px;
+}
+
+.inke-in {
+  display: flex;
+  align-items: center;
+}
+
+.ro-img {
+  margin-right: 4px !important;
 }

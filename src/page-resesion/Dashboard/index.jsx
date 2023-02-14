@@ -570,7 +570,7 @@ const Dashboard = (props) => {
 					<select onChange={handRaiting}  
 													value={raiting} 
 													className='button-reservas-type-one button-reservas-type-space ' >
-													<option >Ver informe</option>
+													<option >Informe</option>
 													<option >Todas las Habitaciones</option>
 													
 												{room?.map(category =>(
@@ -583,8 +583,7 @@ const Dashboard = (props) => {
 												)
 												)}
 												</select>
-					
-					
+				
 					<select onChange={handRaiting}  
 													value={raiting} 
 													className='button-reservas-type-one button-reservas-type-space ' >
