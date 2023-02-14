@@ -1029,3 +1029,16 @@ td {
   max-width: 1318px !important;
   margin: auto !important;
 }
+
+
+
+.gif{
+  position: fixed;
+  margin-top: 49%;
+  left: 10px;
+
+}
+
+.to-giff{
+  width: 58%;
+}

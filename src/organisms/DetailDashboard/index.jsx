@@ -676,33 +676,33 @@ const [isHovered, setIsHovered] = useState(false);
               <div>
                   <button className={`${ findFirma ? "button-checking-detail-firma" : "button-checking-detail-finish-button" } `} onClick={handChecking} >
                       <span className="title-button"  > <div className="inke-in" >
-                      <img width={25} className="ro-img"  src="https://medellin47.com/ico_pms/in.svg" alt="" /> <span> Check in</span> 
+                      <img width={25} className="ro-img"  src="https://medellin47.com/ico_pms/qin.svg" alt="" /> <span> Check in</span> 
                                                           </div>   </span>
                   </button>
               </div>
               <div>
                   <button className={`${!findFirma ?   "button-checking-detail-firma": " button-checking-detail-checkout" }  `} onClick={hanClickDetailCheckout}  >
-                      <span className="title-button"  > <div className="inke-in" > <img width={25} className="ro-img"  src="https://medellin47.com/ico_pms/out.svg" alt="" /> <span> Check out </span> 
+                      <span className="title-button"  > <div className="inke-in" > <img width={25} className="ro-img"  src="https://medellin47.com/ico_pms/qout.svg" alt="" /> <span> Check out </span> 
                                             </div></span>
                   </button>
               </div>
               <div className="name-pinter"  onClick={handleClickBasic} >
                   <div>
                   <span> {isHovered ? 'Cancelar reserva' : ''}</span>
-                    <img width={45} src="https://medellin47.com/ico_pms/cancel.svg" alt="" />
+                    <img width={45} src="https://medellin47.com/ico_pms/qcancel.svg" alt="" />
                   
                   </div>
               </div>
               <div className="name-pinter"  onClick={ hancliEtar }>
                   <div>
-                    <img width={45}  src="https://medellin47.com/ico_pms/edit.svg" alt="" />
+                    <img width={45}  src="https://medellin47.com/ico_pms/qedit.svg" alt="" />
                   </div>
 
               </div>
 
               <div  className="name-pinter">
                   <div onClick={ handComprobante } >
-                     <img width={45}  src="https://medellin47.com/ico_pms/doc.svg" alt="" />
+                     <img width={45}  src="https://medellin47.com/ico_pms/qdoc.svg" alt="" />
                   </div>
 
               </div>
