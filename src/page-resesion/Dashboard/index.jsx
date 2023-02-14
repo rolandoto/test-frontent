@@ -272,6 +272,7 @@ const Dashboard = (props) => {
 					border: ``,
 					borderRadius: "8px",
 					padding:"8px",
+					color:"black"
 				}
 				})}
 
@@ -572,16 +573,16 @@ const Dashboard = (props) => {
 													className='button-reservas-type-one button-reservas-type-space ' >
 													<option >Informe</option>
 													<option >Todas las Habitaciones</option>
-													
-												{room?.map(category =>(
-													<option 
-													value={category.id_tipoHabitacion}   
-													key={category.ID}
-												>
-													{category.nombre}
-												</option>
-												)
-												)}
+													<option >Informe Camareria </option>
+													<option >Informe mantenimiento  </option>
+													<option >Informe tienda  </option>
+													<option >Informe gerencia </option>
+													<option >Informe auditoría  </option>
+													<option >Room to sell</option>
+													<option >Informe ventas</option>
+													<option >Informe facturación</option>
+													<option >Informe caja menor </option>
+													<option >Informe caja mantenimiento </option>
 												</select>
 				
 					<select onChange={handRaiting}  
@@ -610,7 +611,7 @@ const Dashboard = (props) => {
 					</button>	
 				</div>
 			</div>
-			
+				
 			<ModalSate 
 						modalState={modalState} 
 						handClickCloseState={handClickCloseState} 
@@ -622,7 +623,9 @@ const Dashboard = (props) => {
 			<Checking  
 						loading={checkingDasboardVisible}  
 						toggleCloseDashboardChecking={toggleCloseDashboardChecking}  />
+			
 			<Timeline
+
 				groups={search}
 				items={ pruebareservas}
 				defaultTimeStart={moment().startOf("day").add(-8, "day")}
@@ -668,6 +671,7 @@ const Dashboard = (props) => {
           <CursorMarker />
         </TimelineMarkers>
 		</Timeline>
+		
 		<CardStore  countRoom={count} />
 		</>
 	);

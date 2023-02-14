@@ -512,6 +512,11 @@ function handleClickBasic() {
 
 const toPriceNigth = UsePrice({number:resultDashboard.valor_dia_habitacion})
 
+
+const [isHovered, setIsHovered] = useState(false);
+
+
+
   if(!docu) return null
   if(!resultFinish)  return null
     
@@ -650,9 +655,12 @@ const toPriceNigth = UsePrice({number:resultDashboard.valor_dia_habitacion})
                                             </div></span>
                   </button>
               </div>
-              <div className="name-pinter"  onClick={handleClickBasic} >
+              <div className="name-pinter"  onClick={handleClickBasic}  onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)} >
                   <div>
+                  <span> {isHovered ? 'Cancelar reserva' : ''}</span>
                     <img width={45} src="https://medellin47.com/ico_pms/cancel.svg" alt="" />
+                  
                   </div>
               </div>
 
@@ -700,7 +708,9 @@ const toPriceNigth = UsePrice({number:resultDashboard.valor_dia_habitacion})
       
       </div>
 
-    
+      <div >
+     
+    </div>
 
         <div className="in-cehcki-out" >
         
