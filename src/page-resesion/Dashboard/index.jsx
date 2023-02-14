@@ -610,7 +610,7 @@ const Dashboard = (props) => {
 					</button>	
 				</div>
 			</div>
-			<lottie-player src="https://assets7.lottiefiles.com/packages/lf20_o9npfocs.json"  background="transparent"  speed="1"  style="width: 300px; height: 300px;"  loop controls autoplay></lottie-player>
+			
 			<ModalSate 
 						modalState={modalState} 
 						handClickCloseState={handClickCloseState} 
