@@ -609,10 +609,10 @@ const Dashboard = (props) => {
 				defaultTimeStart={moment().startOf("day").add(-8, "day")}
 				defaultTimeEnd={moment().startOf("day").add(10, "day")}
 				maxZoom={100}
-				rightSidebarWidth={100}
+				stackItems
 				itemHeightRatio={0.9}                                                             
 				lineHeight={45}
-				sidebarWidth={250}
+				sidebarWidth={300}
 				itemRenderer={itemRenderer}
 				onItemDoubleClick={false}
 				moveResizeValidator={(action, itemId, time, resizeEdge)  => handContext(action, itemId, time, resizeEdge)}

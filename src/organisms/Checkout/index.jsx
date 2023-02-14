@@ -770,7 +770,7 @@ const CheckoutOrganism =({DetailDashboard}) =>{
                                              <li>
                                            
                                           </li>
-                                            <li>
+                                            <li className="relative-total">
                                             <div className="to-hospedaje" >
                                                 <span  >Tienda hotel</span>
                                             </div>
@@ -977,8 +977,8 @@ const CheckoutOrganism =({DetailDashboard}) =>{
                                         <ul>
                                              <li>
                                            
-                                          </li>
-                                            <li>
+                                          </li >
+                                            <li className="relative-total ">
                                             <div className="to-hospedaje" >
                                                 <span  >Tienda hotel</span>
                                             </div>
