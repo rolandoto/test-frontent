@@ -509,8 +509,6 @@ function handleClickBasic() {
   });
 }
 
-
-
 function hancliEtar() {
   confirmAlert({
     title: '',
@@ -518,7 +516,7 @@ function hancliEtar() {
     buttons: [
       {
         label: 'Si',
-        onClick: () =>state ? handChangeEdit :handChangeSave
+        onClick: () =>state ?handChangeSave()  :handChangeEdit()
       },
       {
         label: 'No',
@@ -531,7 +529,7 @@ function hancliEtar() {
 function handComprobante() {
   confirmAlert({
     title: '',
-    message: 'Descargar compranbante reserva',
+    message: 'Descargar compranbante reserva?',
     buttons: [
       {
         label: 'Si',

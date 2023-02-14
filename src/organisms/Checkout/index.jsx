@@ -158,7 +158,7 @@ const CheckoutOrganism =({DetailDashboard}) =>{
 
     const totalStore = priceLenceria+priceAdultos+priceDrogueria+priceSouvenir+priceSnacks+priceBebidas
 
-
+    const totalObject = totalStore ? totalStore.toLocaleString() :0
 
     /**
      *  <div className="container-search-filter" >
@@ -683,7 +683,6 @@ const CheckoutOrganism =({DetailDashboard}) =>{
                                             <li className="totalPricecheckout-two-finish-one negrita let-persona" >Persona adiciona:l</li> 
                                             <li className="totalPricecheckout-two-finish-one  negrita let-persona" >Hora Adicional:</li> 
                                             <li className="totalPricecheckout-two-finish-one negrita let-persona" >Ealy check in:</li>  
-                                            
                                         </ul>                 
                                     </div>
                                     <div className="ri-two">
@@ -753,7 +752,7 @@ const CheckoutOrganism =({DetailDashboard}) =>{
                                 </div>
 
                                 <hr className="row-hr" />
-                                   <div className="re-two">
+                                   <div className={`${totalObject ? "re-two-one-two " : "re-two"}`}   >
                                         <ul>
                                            {sinIva.map(index =>(
                                                <div className="carts-invoince one-flex-one">
@@ -774,9 +773,7 @@ const CheckoutOrganism =({DetailDashboard}) =>{
                                             <div className="to-hospedaje" >
                                                 <span  >Tienda hotel</span>
                                             </div>
-                                          
-                                            <span className="no-price" >$</span><span className="price-store" >{totalStore ?totalStore : 0 } <span className="no-price" >COP</span>  </span>
-                                           
+                                                <span className="no-price" >$</span><span className="price-store" >{totalObject} <span className="no-price" >COP</span>  </span>
                                           </li>
                                           
                                         </ul>  
@@ -795,6 +792,9 @@ const CheckoutOrganism =({DetailDashboard}) =>{
                         </div>
                     </div>
                     {comprobante && <FacturaCompany Room={resultFinish}
+                        formattedNum={formattedNum}
+                        formatoIva={formatoIva}
+                        valorTotalIva={valorTotalIva}
                         Valor_dia_habitacion={resultDashboard}
                         resultFinish={resultFinish}
                         filterSearch={filterSearch}
@@ -959,7 +959,7 @@ const CheckoutOrganism =({DetailDashboard}) =>{
                                             <hr className="row-hr" />
                                    
                                      
-                                    <div className="re-two ">
+                                    <div className={`${totalObject ? "re-two-one-two " : "re-two"}`} >
                                          <ul>
                                             {sinIva.map(index =>(
                                                 <div className="carts-invoince one-flex-one">
@@ -1202,7 +1202,7 @@ const Factura  =({Room,Valor_dia_habitacion,resultFinish,comprobante,setComproba
       </div>)
 }
 
-const FacturaCompany  =({jwt,totalStore,Room,Valor_dia_habitacion,resultFinish,comprobante,setComprobante,filterSearch,priceBebidas,priceSnacks,priceSouvenir,priceDrogueria,priceAdultos,priceLenceria}) =>{
+const FacturaCompany  =({valorTotalIva,formatoIva,formattedNum,jwt,totalStore,Room,Valor_dia_habitacion,resultFinish,comprobante,setComprobante,filterSearch,priceBebidas,priceSnacks,priceSouvenir,priceDrogueria,priceAdultos,priceLenceria}) =>{
     let docToPrint = React.createRef();
     let startDate = new Date(Valor_dia_habitacion.Fecha_inicio);
     let startDateOne = new Date(Valor_dia_habitacion.Fecha_inicio);
@@ -1246,9 +1246,9 @@ const FacturaCompany  =({jwt,totalStore,Room,Valor_dia_habitacion,resultFinish,c
         });
     };
 
-    useEffect(() =>{
+    setTimeout(() =>{
         printDocument()
-    },[comprobante])
+    },1000  )
 
 
     setTimeout(() => {
@@ -1476,9 +1476,9 @@ const FacturaCompany  =({jwt,totalStore,Room,Valor_dia_habitacion,resultFinish,c
                         <div className="me">
                         <div className="op">
                             <ul>
-                                <li className="totalPricecheckout-two-finish-one " >Cop {Num3}</li>   
-                                <li className="totalPricecheckout-two-finish-one  " >Cop {Num2}</li>   
-                                <li className="totalPricecheckout-two-finish-one  " >Cop {Num1}</li>   
+                                <li className="totalPricecheckout-two-finish-one " >Cop {formattedNum}</li>   
+                                <li className="totalPricecheckout-two-finish-one  " >Cop {formatoIva}</li>   
+                                <li className="totalPricecheckout-two-finish-one  " >Cop {valorTotalIva}</li>   
                             </ul>                 
                         </div>
                     </div>
