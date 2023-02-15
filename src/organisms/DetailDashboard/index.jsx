@@ -62,6 +62,13 @@ const DetailDasboard =(props) =>{
     const {progress} =useProgress({id})
     const resultDashboard = DetailDashboard[0]
 
+    
+const fe= moment(resultDashboard?.Fecha_final).utc().format('DD/MM/YYYY/MM')
+
+console.log(fe)
+
+
+
  
 
 
@@ -549,10 +556,22 @@ function handComprobante() {
   });
 }
 
+
+
+var curr = new Date(resultDashboard?.Fecha_inicio);
+curr.setDate(curr.getDate());
+var fecha_inicio = curr.toISOString().substring(0,10);
+
+
+var currOne = new Date(resultDashboard?.Fecha_final);
+currOne.setDate(currOne.getDate());
+var fecha_final = currOne.toISOString().substring(0,10);
+
+
+  
 const toPriceNigth = UsePrice({number:resultDashboard?.valor_dia_habitacion})
 
   if(!docu) return null
-  if(!resultDashboard)  return null
     
     return (
       <>
@@ -607,8 +626,8 @@ const toPriceNigth = UsePrice({number:resultDashboard?.valor_dia_habitacion})
       </div>
         <div  className="container-flex-init-global" >
             <div className="container-detail-dasboard-in" >
-              <input type="date" className="desde-detail" readOnly={true}  defaultValue={resultDashboard.Fecha_final}    />
-              <input type="date" className="desde-detail"    onChange={(e) =>setspand(e.target.value)} defaultValue={resultDashboard.Fecha_final}   />
+              <input type="date" className="desde-detail" readOnly={true}   defaultValue={fecha_inicio}    />
+              <input type="date" className="desde-detail"    onChange={(e) =>setspand(e.target.value)}  defaultValue={fecha_final}  />
               
               <h2 className="cod-reserva" ><span className="title-code" >COD:</span> X14A-{resultDashboard?.Num_documento}</h2>
           </div>
@@ -680,7 +699,7 @@ const toPriceNigth = UsePrice({number:resultDashboard?.valor_dia_habitacion})
                   <button className={`${ findFirma ? "button-checking-detail-firma" : "button-checking-detail-finish-button" } `} onClick={handChecking} >
                       <span className="title-button"  > <div className="inke-in" >
                       <img width={25} className="ro-img"  src="https://medellin47.com/ico_pms/qin.svg" alt="" /> <span> Check in</span> 
-                                                          </div>   </span>
+                      </div>   </span>
                   </button>
               </div>
               <div>
