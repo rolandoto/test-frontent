@@ -559,7 +559,7 @@ function hancliEtar() {
 function handComprobante() {
   confirmAlert({
     title: '',
-    message: 'Descargar compranbante reserva?',
+    message: 'Descargar comprobante reserva?',
     buttons: [
       {
         label: 'Si',

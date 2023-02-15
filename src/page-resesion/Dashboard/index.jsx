@@ -36,6 +36,7 @@ import Stack from "@mui/material/Stack";
 import { config } from "../../config";
 import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
 import { fontWeight } from "@mui/system";
+import  {Link} from "react-router-dom"
 
 const useCountRoom =({id}) =>{
 	const [count,setCount] =useState()
@@ -491,6 +492,8 @@ const Dashboard = (props) => {
 		history.push("/search")
 	}
 
+	
+
 	const days = [
 		"Lunes",
 		"Martes",
@@ -514,6 +517,7 @@ const Dashboard = (props) => {
 		"Noviembre",
 		"Diciembre"
 	];
+
   
 	const locale = {
 		localize: {
@@ -533,20 +537,67 @@ const Dashboard = (props) => {
 	},500)
 
 	const handContext =(action, item, time, resizeEdge) =>{
-
 			if (time < new Date().getTime()) {
 			  var newTime = Math.ceil(new Date().getTime() / (15*60*1000)) * (15*60*1000);
 			  return newTime;
 			}
-		   
 			return time
+	}
+
+	const Informes = [
+		{
+		id: 1,
+		name:"Informe Camareria"
+		},
+		{
+		id: 2,
+		name:"Informe mantenimiento"
+		},
+		{
+		id: 3,
+		name:"Informe tienda "
+		},{
+		id: 4,
+		name:"Informe gerencia"
+		}
+		,{
+		id: 5,
+		name:"Informe auditoría"
+		},{
+		id: 6,
+		name:"Informe sell"
+		},{
+		id: 7,
+		name:"Informe ventas"
+		},{
+		id: 8,
+		name:"Informe facturación"
+		},{
+		id: 9,
+		name:"Informe Camareria"
+		},
+		{
+		id: 10,
+		name:"Informe  caja menor"
+		},
+		{
+		id: 11,
+		name:"Informe caja mantenimiento"
+		}
+	];
+
+	const [selected, setSelected] = useState(new Date());
+
+	const [stateInformes,setInformes] =useState()
+
+	
+	console.log(stateInformes)
+	const handClickInformAuditoria =(e) =>{
+		setInformes(e.target.value)
 		
 	}
 
-	
 
-	const [selected, setSelected] = useState(new Date());
-	
 
 	if(loadingSkeleto) return Skele()
 	if(!pruebareservas) return null
@@ -563,22 +614,18 @@ const Dashboard = (props) => {
 					<button className='button-reservas-type' onClick={handClickState}>
 					<div className="flex-index-reservation" ><VscRecord className="flex-contan-one" color="white"  fontSize={18} /><span>Estados</span></div></button>
 					
-					<select onChange={handRaiting}  
-													value={raiting} 
-													className='button-reservas-type-one button-reservas-type-space ' >
-													<option >Informe</option>
-													<option >Todas las Habitaciones</option>
-													<option >Informe Camareria </option>
-													<option >Informe mantenimiento  </option>
-													<option >Informe tienda  </option>
-													<option >Informe gerencia </option>
-													<option >Informe auditoría  </option>
-													<option >Room to sell</option>
-													<option >Informe ventas</option>
-													<option >Informe facturación</option>
-													<option >Informe caja menor </option>
-													<option >Informe caja mantenimiento </option>
-												</select>
+					<select 					
+							className='button-reservas-type-one button-reservas-type-space ' >
+							<option  onChange={handClickInformAuditoria} value={stateInformes} >Informe</option>
+							{Informes?.map(category =>(
+													<option 
+													value={category.name}   
+													key={category.name}
+												>
+													{category.name}
+												</option>
+							 										))}
+						</select>
 				
 					<select onChange={handRaiting}  
 													value={raiting} 

@@ -1040,9 +1040,9 @@ td {
   position: fixed;
   margin-top: 49%;
   left: 10px;
-
+  z-index: 9999999
 }
 
 .to-giff{
-  width: 58%;
+  width: 35%;
 }

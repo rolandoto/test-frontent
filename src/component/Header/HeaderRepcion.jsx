@@ -71,7 +71,7 @@ const HeaderRecepcion  =() =>{
                         <Link to={`/Home`} >
                             <li className="borde-icon">
                                 <RiHome2Line color="black" fontSize={25}/>
-                                <span className="title-icon" >Home</span>
+                                <span className="title-icon" >Inicio</span>
                             </li>
                         </Link>
                         <Link to="/Bictacoras" >
@@ -137,8 +137,11 @@ const HeaderRecepcion  =() =>{
                             <RiLogoutBoxLine fontSize={25} color="white"  />
                             </a>
                     </li>
-                    <div className="gif" >
-                            <iframe  className="to-giff" src="https://embed.lottiefiles.com/animation/74754"></iframe>
+                    <div className="gif"  >
+                        <a  href={`https://api.whatsapp.com/send/?phone=573202720874`} target="_blank" className="icon-taxi">
+                                <iframe  className="to-giff" src="https://embed.lottiefiles.com/animation/74754"></iframe>
+                            </a>
+                            
                     </div>
                   
                     </ul>

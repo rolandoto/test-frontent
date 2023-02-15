@@ -40,6 +40,7 @@ import Comunicate from './page/Comunicate';
 import HeaderComunicate from './component/Header/HeaderComunicate';
 import InformeConsolidado from './page-resesion/InformeConsolidado';
 import UpdateRservation from './page-resesion/EditarPersonas/EditarUpdateReserva';
+import InformeAuditoria from './page-resesion/Informes';
 
 function App() {
 
@@ -110,6 +111,7 @@ else if(val==7){
                                 <PrivateRoute exact path="/contracto"  component={Contracto}  />
                                 <PrivateRoute exact path="/Checkout/:id"  component={Checkout}  />
                                 <PrivateRoute exact path="/informeconsolidado"  component={InformeConsolidado}  />
+                                <PrivateRoute exact path="/informeauditoria"  component={InformeAuditoria}  />
                                 <Route component={NoFound} />
                             </Switch>   
                         </BrowserRouter>
@@ -150,6 +152,7 @@ else if(val==2){
                                 <PrivateRoute exact path="/contracto"  component={Contracto}  />
                                 <PrivateRoute exact path="/Checkout/:id"  component={Checkout}  />
                                 <PrivateRoute exact path="/informeconsolidado"  component={InformeConsolidado}  />
+                                <PrivateRoute exact path="/informeauditoria"  component={InformeAuditoria}  />
                                 <Route component={NoFound} />
                             </Switch>   
                     </BrowserRouter>
