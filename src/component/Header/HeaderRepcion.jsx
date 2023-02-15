@@ -137,11 +137,8 @@ const HeaderRecepcion  =() =>{
                             <RiLogoutBoxLine fontSize={25} color="white"  />
                             </a>
                     </li>
-                    <div className="gif"  >
-                        <a  href={`https://api.whatsapp.com/send/?phone=573202720874`} target="_blank" className="icon-taxi">
-                                <iframe  className="to-giff" src="https://embed.lottiefiles.com/animation/74754"></iframe>
-                            </a>
-                            
+                    <div className="gif" target="_blank"  >
+                            <iframe  className="to-giff" src="https://embed.lottiefiles.com/animation/74754"></iframe>
                     </div>
                   
                     </ul>
