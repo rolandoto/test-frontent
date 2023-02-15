@@ -20,7 +20,11 @@ const Checkingn2Organism =({id}) =>{
     const {getDetailReservationById} = useDetailDashboardAction()
     const {loading,error,DetailDashboard} = useSelector((state) => state.DetailDashboard)
     const {jwt} =useContext(AutoProvider)
-    
+    const [change,setChange] =useState({
+        ID_Tipo_Forma_pago:null,
+    })
+
+
     const fetchData =async() =>{
         await getDetailReservationById({id})
     }   
@@ -79,13 +83,7 @@ const Checkingn2Organism =({id}) =>{
           .then(data => setTipoDocumento(data))
       },[])
 
-      const hanClickinContracto =() =>{
-        handFirmar()
-        handUpdateStatus()
-        handUpdateConfirms()
-         
-      }
-
+    
       let dataOne ={
         Abono:resulDetailDashboard?.valor_habitacion
       } 
@@ -106,10 +104,35 @@ const Checkingn2Organism =({id}) =>{
         })
     }
 
-    const handUpdateStatus =() =>{
-        handUpdateConfirms()
-       
+    let dataTwo = {
+        ID_Tipo_Forma_pago:change.ID_Tipo_Forma_pago
     }
+
+    const handUpdateConfirms =() =>{
+        ServiceUpdateReservationpay({id,dataOne:dataTwo}).then(index  =>{
+            ServiceStatus({id,ID_Tipo_Estados_Habitaciones:3}).then(index=>{
+                window.location.href =(`/contracto`)
+            }).catch(e =>{
+                console.log(e)
+            })
+        }).catch(e =>{
+            console.log(e)
+        }) 
+    }
+
+   
+
+
+    const hanClickinContracto =() =>{
+        if(change.ID_Tipo_Forma_pago== null){
+
+        }else{
+            handUpdateConfirms()
+            handFirmar()
+        }
+      
+      }
+
 
 
     const handleInputChange =(event) =>{
@@ -171,18 +194,13 @@ const Checkingn2Organism =({id}) =>{
                 name:"Mixto",
             },
             ]
-    const [change,setChange] =useState({
-        ID_Tipo_Forma_pago:null,
-        Iva:null
-    })
-
-
+   
     const Iva= parseInt(resulDetailDashboard?.valor_habitacion) *19/100
 
     const totalPrice = UsePrice({number:resulDetailDashboard?.valor_habitacion -resulDetailDashboard?.valor_abono})
 
     const totalPriceWithIva = UsePrice({number:resulDetailDashboard?.valor_habitacion -resulDetailDashboard?.valor_abono +Iva})
-    
+
 
     const totalWithIva  = resulDetailDashboard?.Iva==1 ? totalPriceWithIva.price :totalPrice.price
 
@@ -190,23 +208,8 @@ const Checkingn2Organism =({id}) =>{
 
     const toPriceHabitacion = UsePrice({number:resulDetailDashboard?.valor_habitacion})
 
-    let dataTwo = {
-        ID_Tipo_Forma_pago:change.ID_Tipo_Forma_pago
-    }
-
+   
     const toPricediaHabitacion = UsePrice({number:resulDetailDashboard?.valor_dia_habitacion})
-
-    const handUpdateConfirms =() =>{
-        ServiceUpdateReservationpay({id,dataOne:dataTwo}).then(index  =>{
-            ServiceStatus({id,ID_Tipo_Estados_Habitaciones:3}).then(index=>{
-                window.location.href =(`/contracto`)
-            }).catch(e =>{
-                console.log(e)
-            })
-        }).catch(e =>{
-            console.log(e)
-        }) 
-    }
 
 
     console.log(change)
@@ -365,7 +368,7 @@ const Checkingn2Organism =({id}) =>{
                             </div>         
                 </div>
                            
-                <div className="checkin2"  onClick={handUpdateConfirms}>
+                <div className="checkin2"  onClick={hanClickinContracto}>
                             <button>Continuar</button>
                         </div>
                     </div>
