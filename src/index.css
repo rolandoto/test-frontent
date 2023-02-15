@@ -897,14 +897,20 @@ tr {
 
 .Container-Global-app {
   display: flex;
-  max-width: 970px;
-  max-height: 1100px;
-  flex-direction: column;
-  background: #fff;
-  height: 100vh;
-  width: 100vw;
-  overflow: auto;
-  margin: auto;
+    max-width: 1522px;
+    max-height: 1100px;
+    flex-direction: column;
+    background: #fff;
+    height: 100vh;
+    /* width: 100vw; */
+    overflow: auto;
+    margin: auto;
+    display: flex;
+    /* max-width: 500px; */
+    /* max-height: 1100px; */
+    /* flex-direction: column; */
+    background: #fff;
+    height: 100vh;
 }
 
 .cursor {

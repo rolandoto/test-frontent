@@ -59,7 +59,7 @@ const Checking =() =>{
     return  <>
 
     <Container>
-           <div className="container-checking-global">
+           <div className="">
                             <div>
                            
 

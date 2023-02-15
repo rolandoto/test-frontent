@@ -388,7 +388,7 @@ const DetailChekingOrganism =({id}) =>{
 
                             <LoadingDetail
                                         loading={true}
-                                        titleLoading={"Checking"}  />
+                                        titleLoading={"Check In"}  />
                               <LoadingDetail
                                         error={loadingUpdate}
                                         title={"Tienes que confirmar medio de pago"}  />
