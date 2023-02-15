@@ -82,7 +82,7 @@ const Checkingn2Organism =({id}) =>{
       const hanClickinContracto =() =>{
         handFirmar()
         handUpdateStatus()
-      
+        handUpdateConfirms()
          
       }
 
@@ -286,7 +286,7 @@ const Checkingn2Organism =({id}) =>{
 
                   
                 </div>
-                        <div className="checkin2  one-button-checking"  onClick={handUpdateConfirms}>
+                        <div className="checkin2  one-button-checking"  onClick={hanClickinContracto}>
                             <button>Continuar</button>
                 </div> 
             </>

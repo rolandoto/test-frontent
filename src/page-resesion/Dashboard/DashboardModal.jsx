@@ -795,7 +795,7 @@ const DashboardModal = (props) => {
 
     const handClickReservation =() =>{
         for (let i = 0; i < huespe?.length; i++) {
-            if (huespe[i]?.Tipo_documento =="" || huespe[i]?.Num_documento =="" || huespe[i]?.Nombre ==""|| huespe[i]?.Apellido ==""|| huespe[i]?.Celular ==""|| huespe[i]?.Correo =="" || huespe[i]?.Ciudad ==""|| huespe[i]?.Nacionalidad =="" ) {
+            if (huespe[i]?.Tipo_documento =="" || huespe[i]?.Num_documento =="" || huespe[i]?.Nombre ==""|| huespe[i]?.Apellido ==""|| huespe[i]?.Celular ==""|| huespe[i]?.Correo ==""|| huespe[i]?.Fecha_nacimiento =="" || huespe[i]?.Ciudad ==""|| huespe[i]?.Nacionalidad =="" ) {
                 setLoadingReservation({error:true})
                 setLoadingPersona({habitacion:false})
                 setLoadingPersona({error:false})

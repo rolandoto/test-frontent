@@ -34,6 +34,10 @@ import { RxCircleBackslash } from "react-icons/rx";
 import { BiMessageSquareEdit } from "react-icons/bi";
 import { SlBookOpen } from "react-icons/sl";
 
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+
+
 
 
 const DetailDasboard =(props) =>{
@@ -56,12 +60,14 @@ const DetailDasboard =(props) =>{
    let countSeguro =0
    
     const {progress} =useProgress({id})
-    const resultDashboard = DetailDashboard[0] 
+    const resultDashboard = DetailDashboard[0]
+
+ 
 
 
-    const findPersona =  resultDashboard.tipo_persona == "persona"
-    const findEmpresa = resultDashboard.tipo_persona =="empresa"
-    const findFirma = resultDashboard.Firma =="1"
+    const findPersona =  resultDashboard?.tipo_persona == "persona"
+    const findEmpresa = resultDashboard?.tipo_persona =="empresa"
+    const findFirma = resultDashboard?.Firma =="1"
     
     console.log(resultDashboard)
 
@@ -191,21 +197,21 @@ const DetailDasboard =(props) =>{
       handSubmit()
     }
 
-    const valor = resultDashboard.valor_abono 
-    const quitarr = valor.slice(4)
+    const valor = resultDashboard?.valor_abono 
+    const quitarr = valor?.slice(4)
     const numEntero = parseInt(quitarr)
     const add = "000"
     const num  = numEntero + add
     const convertirFinish = parseInt(num) + parseInt(Abono)
 
-    const valort = resultDashboard.valor_abono 
-    const quitart = valort.slice(4)
+    const valort = resultDashboard?.valor_abono 
+    const quitart = valort?.slice(4)
     const numEnterot = parseInt(quitart)
     const addt = "000"
     const numt  = numEnterot + addt
     const convertirFinisht = parseInt(numt)
    
-    const total = resultDashboard.valor_habitacion
+    const total = resultDashboard?.valor_habitacion
     const quitarone = total?.slice(4)
     const numEnteroOne = parseInt(quitarone)
     const addone = "000"
@@ -270,7 +276,7 @@ const DetailDasboard =(props) =>{
         })
     }
 
-    const docu = tipoDocumento?.find(index =>  index?.ID == resultDashboard.ID_Tipo_documento)
+    const docu = tipoDocumento?.find(index =>  index?.ID == resultDashboard?.ID_Tipo_documento)
 
     const resultFinish = room?.find(index=>index?.id_tipoHabitacion == resultDashboard?.ID_Tipo_habitaciones)
     console.log(resultFinish)
@@ -326,7 +332,7 @@ const DetailDasboard =(props) =>{
       .then(resp => resp.json())
       .then(data=> setQuery(data?.query))
    
-  },[setQuery]) 
+  },[]) 
 
   var numDefinish =  parseInt(resultDashboard?.valor_habitacion);
   var formattedNum = numDefinish.toLocaleString();  
@@ -543,13 +549,10 @@ function handComprobante() {
   });
 }
 
-
-const toPriceNigth = UsePrice({number:resultDashboard.valor_dia_habitacion})
-
-const [isHovered, setIsHovered] = useState(false);
+const toPriceNigth = UsePrice({number:resultDashboard?.valor_dia_habitacion})
 
   if(!docu) return null
-  if(!resultFinish)  return null
+  if(!resultDashboard)  return null
     
     return (
       <>
@@ -604,9 +607,9 @@ const [isHovered, setIsHovered] = useState(false);
       </div>
         <div  className="container-flex-init-global" >
             <div className="container-detail-dasboard-in" >
-              <input type="date" className="desde-detail" readOnly={true}  defaultValue={fecha.defaultValueone}     />
-              <input type="date" className="desde-detail" onChange={(e) =>setspand(e.target.value)}  defaultValue={fechaOne.defaultValueone}   />
-
+              <input type="date" className="desde-detail" readOnly={true}  defaultValue={resultDashboard.Fecha_final}    />
+              <input type="date" className="desde-detail"    onChange={(e) =>setspand(e.target.value)} defaultValue={resultDashboard.Fecha_final}   />
+              
               <h2 className="cod-reserva" ><span className="title-code" >COD:</span> X14A-{resultDashboard?.Num_documento}</h2>
           </div>
            {resultFechaMayor && <button className="button-checking-detail-one-two" onClick={handClick} >Actualizar Fecha</button>}
@@ -688,7 +691,7 @@ const [isHovered, setIsHovered] = useState(false);
               </div>
               <div className="name-pinter"  onClick={handleClickBasic} >
                   <div>
-                  <span> {isHovered ? 'Cancelar reserva' : ''}</span>
+               
                     <img width={45} src="https://medellin47.com/ico_pms/qcancel.svg" alt="" />
                   
                   </div>
