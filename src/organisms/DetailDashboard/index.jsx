@@ -33,7 +33,6 @@ import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
 import { RxCircleBackslash } from "react-icons/rx";
 import { BiMessageSquareEdit } from "react-icons/bi";
 import { SlBookOpen } from "react-icons/sl";
-
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 
@@ -193,6 +192,18 @@ console.log(fe)
     
     const day =diff/(1000*60*60*24)
 
+
+    const pruebaOne  =   moment(fecha.defaultValueone).utc().format('MM/DD/YYYY')
+    const pruebaTwo = moment(espan).utc().format('MM/DD/YYYY')
+
+    var fechaInicioOne =  new Date(pruebaOne).getTime() 
+    var fechaFinOne    = new Date(pruebaTwo).getTime() 
+
+    var diffOne = fechaFinOne - fechaInicioOne  
+    const dayOne =diffOne/(1000*60*60*24)
+
+   
+
     const handChangeEdit =() =>{
       setState(!state)
       setLoading({loading:false})      
@@ -241,7 +252,12 @@ console.log(fe)
     const dataAvaible ={
       hasta:`${espan} 13:00:00`,
       desde:`${fechaOne.defaultValueone} 15:00:00`,
+      desdeOne:`${fecha.defaultValueone} 15:00:00`,
   }   
+
+
+  console.log(dataAvaible)
+
 
     const date1 = new Date(fechaOne?.defaultValueone)
     const date2 = new  Date(espan)
@@ -276,12 +292,13 @@ console.log(fe)
     }
   
     const handClick =() =>{
-        Servicedetailespandir({desde:dataAvaible.desde,hasta:dataAvaible.hasta,habitaciones:resultDashboard.ID_Tipo_habitaciones,ID_Habitaciones:resultDashboard.ID_Habitaciones,id}).then(index =>{
+        Servicedetailespandir({desde:dataAvaible.desde,hasta:dataAvaible.hasta,desdeOne:dataAvaible.desdeOne,habitaciones:resultDashboard.ID_Tipo_habitaciones,ID_Habitaciones:resultDashboard.ID_Habitaciones,id,dayOne,valor_dia_habitacion:resultDashboard.valor_dia_habitacion}).then(index =>{
           setLoadingFecha({loading:true})
         }).catch(e =>{
           setLoadingFecha({error:true})
         })
     }
+    
 
     const docu = tipoDocumento?.find(index =>  index?.ID == resultDashboard?.ID_Tipo_documento)
 

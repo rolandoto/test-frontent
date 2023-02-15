@@ -249,8 +249,8 @@ const Dashboard = (props) => {
 	}
 
 	const itemRenderer = ({ item, itemContext, getItemProps }) => {
-		console.log(item)
-		let color 
+
+		let color
 		if(item.state==0){
 			color = "#FF9990"
 		}else if(item.state==1){
@@ -275,10 +275,6 @@ const Dashboard = (props) => {
 					color:"black"
 				}
 				})}
-
-				onDoubleClick={() =>{
-					console.log("solor")
-				}} 
 			>
       <div className="itemModal" style={{
         left: "left",
@@ -470,7 +466,6 @@ const Dashboard = (props) => {
 		})
 	},[room])
 
-	console.log(pruebareservas)
 
 	useEffect(() =>{
 		ServiceReservas({id:jwt.result.id_hotel}).then(index=> {
