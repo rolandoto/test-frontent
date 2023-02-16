@@ -385,6 +385,10 @@
   border: solid 1px #b3aca7;
 }
 
+.button-reservas-type-one-two-two {
+  text-align: initial !important;
+}
+
 .button-reservas-type-space {
   margin-right: -14px;
   margin-left: 30px;

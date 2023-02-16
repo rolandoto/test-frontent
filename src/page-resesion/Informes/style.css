@@ -1,0 +1,31 @@
+.button-informe-cosultar{
+    padding: 16px;
+    margin: auto;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    margin-top: 21px;
+    border-radius: 8px;
+    background: #13a722d4;
+    color: white;
+    cursor: pointer;
+    width: 24%;
+    height: auto;
+    margin-left: 11px;
+}
+
+.button-informe-descargar{
+    padding: 16px;
+    margin: auto;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    margin-top: 21px;
+    border-radius: 8px;
+    background: #eb6b7f;
+    color: white;
+    cursor: pointer;
+    width: 24%;
+    height: auto;
+    margin-left: 11px;
+}

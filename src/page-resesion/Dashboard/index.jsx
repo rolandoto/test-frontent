@@ -615,7 +615,7 @@ const Dashboard = (props) => {
 					<div className="flex-index-reservation" ><VscRecord className="flex-contan-one" color="white"  fontSize={18} /><span>Estados</span></div></button>
 					
 					<select 					
-							className='button-reservas-type-one button-reservas-type-space ' >
+							className='button-reservas-type-one button-reservas-type-space button-reservas-type-one-two-two ' >
 							<option  onChange={handClickInformAuditoria} value={stateInformes} >Informe</option>
 							{Informes?.map(category =>(
 													<option 
@@ -629,7 +629,7 @@ const Dashboard = (props) => {
 				
 					<select onChange={handRaiting}  
 													value={raiting} 
-													className='button-reservas-type-one button-reservas-type-space ' >
+													className='button-reservas-type-one button-reservas-type-space  button-reservas-type-one-two-two' >
 													<option >Ver habitaciones</option>
 													<option >Todas las Habitaciones</option>
 													

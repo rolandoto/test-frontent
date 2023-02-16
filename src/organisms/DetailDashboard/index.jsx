@@ -506,20 +506,6 @@ const priceLenceria = Lenceria?.reduce((acum,current) => {
 
 const [pdfOne,setPdfOne] =useState()
 
-const hancPdf =() =>{
-  ServePdf({codigoReserva:resultDashboard?.Num_documento,Nombre:resultDashboard?.Nombre,room:resultFinish?.nombre,adults:resultDashboard?.Adultos,children:resultDashboard?.Ninos,tituloReserva:resultDashboard?.Nombre,abono:resultDashboard?.valor_abono,formaPago:resultDashboard?.forma_pago,telefono:resultDashboard.Celular,identificacion:resultDashboard.Num_documento,correo:resultDashboard.Correo,urllogo:"https://github.com/rolandoto/image-pms/blob/main/WhatsApp%20Image%202023-02-06%20at%203.49.08%20PM.jpeg?raw=true",tarifa:resultDashboard.valor_habitacion}).then(index => {
-    const link = document.createElement('a')
-    link.href =index;
-    link.setAttribute('target', '_blank');
-    link.download = 'Documento.pdf';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link) 
-      setPdfOne(index)
-  }).catch(e =>{
-    console.log(e)
-  })
-} 
 
 
 function handleClickBasic() {
@@ -584,6 +570,21 @@ var currOne = new Date(resultDashboard?.Fecha_final);
 currOne.setDate(currOne.getDate());
 var fecha_final = currOne.toISOString().substring(0,10);
 
+
+const hancPdf =() =>{
+  ServePdf({codigoReserva:resultDashboard?.Num_documento,Nombre:resultDashboard?.Nombre,room:resultFinish?.nombre,adults:resultDashboard?.Adultos,children:resultDashboard?.Ninos,tituloReserva:resultDashboard?.Nombre,abono:resultDashboard?.valor_abono,formaPago:resultDashboard?.forma_pago,telefono:resultDashboard.Celular,identificacion:resultDashboard.Num_documento,correo:resultDashboard.Correo,urllogo:"https://github.com/rolandoto/image-pms/blob/main/WhatsApp%20Image%202023-02-06%20at%203.49.08%20PM.jpeg?raw=true",tarifa:resultDashboard.valor_habitacion,entrada:fecha_inicio,salida:fecha_final}).then(index => {
+    const link = document.createElement('a')
+    link.href =index;
+    link.setAttribute('target', '_blank');
+    link.download = 'Documento.pdf';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link) 
+      setPdfOne(index)
+  }).catch(e =>{
+    console.log(e)
+  })
+} 
 
   
 const toPriceNigth = UsePrice({number:resultDashboard?.valor_dia_habitacion})

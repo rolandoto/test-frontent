@@ -897,20 +897,20 @@ tr {
 
 .Container-Global-app {
   display: flex;
-    max-width: 1522px;
-    max-height: 1100px;
-    flex-direction: column;
-    background: #fff;
-    height: 100vh;
-    /* width: 100vw; */
-    overflow: auto;
-    margin: auto;
-    display: flex;
-    /* max-width: 500px; */
-    /* max-height: 1100px; */
-    /* flex-direction: column; */
-    background: #fff;
-    height: 100vh;
+  max-width: 1522px;
+  max-height: 1100px;
+  flex-direction: column;
+  background: #fff;
+  height: 100vh;
+  /* width: 100vw; */
+  overflow: auto;
+  margin: auto;
+  display: flex;
+  /* max-width: 500px; */
+  /* max-height: 1100px; */
+  /* flex-direction: column; */
+  background: #fff;
+  height: 100vh;
 }
 
 .cursor {
@@ -1036,13 +1036,17 @@ td {
   margin: auto !important;
 }
 
-.gif{
+.gif {
   position: fixed;
   margin-top: 49%;
   left: 10px;
-  z-index: 9999999
+  z-index: 9999999;
 }
 
-.to-giff{
+.to-giff {
   width: 35%;
+}
+
+.width-informe {
+  width: 5%;
 }
