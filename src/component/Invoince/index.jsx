@@ -70,11 +70,7 @@ const Invoince =({resultDashboard=[],carts=[],dataCount,setInvoice,priceCart,cli
         handLoading()
         setIvo(true)
        
-        ServiceResolution({Resolucion:dataCount.Resolucion+1}).then(index=>{
-            console.log(index)
-        }).catch(e =>{
-            console.log(e)
-        })
+       
 
         setTimeout(()  =>{
             handlePrint()

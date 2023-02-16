@@ -14,6 +14,7 @@ import UsePrice from "../../hooks/UsePrice"
 import { height, maxHeight } from "@mui/system"
 import ServiceStatus from "../../service/ServiceStatus"
 import { VscVerified,VscSymbolEvent ,VscSignOut,VscSearch,VscRecord} from "react-icons/vsc";
+import ServiceResolution from "../../service/serviceResolution"
 const CheckoutOrganism =({DetailDashboard}) =>{
     
     const {id} = useParams()
@@ -29,6 +30,8 @@ const CheckoutOrganism =({DetailDashboard}) =>{
     const [comprobante,setComprobante] =useState(false)
     const [isChecked, setIsChecked] = useState();
     const [isChecke, setIsChecke] = useState();
+    const [to,setTo] =useState()
+
 
     const handComprobante =() =>{
         setComprobante(true)
@@ -417,7 +420,6 @@ const CheckoutOrganism =({DetailDashboard}) =>{
     }
 
     const handOpenInvoince =() =>{
-
            setInvoice(true)
     }
     
@@ -520,9 +522,25 @@ const CheckoutOrganism =({DetailDashboard}) =>{
         setLoading(false)
     }
 
+
+    const  dataCount = to?.find(index => index.ID === 1)
+
+
+    useEffect(()  =>{
+        fetch(`${config.serverRoute}/api/resecion/resolucion`)
+        .then(res => res.json())
+        .then(data => setTo(data?.query))
+    },[])
+
+
     const handUpdateStatus =() =>{
         ServiceStatus({id,ID_Tipo_Estados_Habitaciones:1}).then(index=>{
-           window.location.href = "/home"
+            ServiceResolution({Resolucion:dataCount.Resolucion+1}).then(index=>{
+                window.location.href = "/home"
+            }).catch(e =>{
+                console.log(e)
+            })
+      
         }).catch(e =>{
             console.log(e)
         })
@@ -567,18 +585,12 @@ const CheckoutOrganism =({DetailDashboard}) =>{
         }) 
     }
 
-    const [to,setTo] =useState()
-
-
-    useEffect(()  =>{
-        fetch(`${config.serverRoute}/api/resecion/resolucion`)
-        .then(res => res.json())
-        .then(data => setTo(data?.query))
-    },[])
-
+    
+   
     const pagoInvoince =resultDashboard.forma_pago
 
-    const  dataCount = to?.find(index => index.ID === 1)
+   
+    console.log({"dataCount":dataCount})
     
     if(findEmpresa)
     return (

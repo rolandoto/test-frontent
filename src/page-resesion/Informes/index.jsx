@@ -50,18 +50,19 @@ const InformeAuditoria =() =>{
              <LoadingDetail  
                         loading={true}
                         titleLoading={"Informe  auditoria"}  />
-
             <div>
                 <input type="date" className="input-selecto-dasboard-n1-reservaction"  onChange={hadChangeFecha} value={LookinforFecha}   />
                 <button className="button-informe-cosultar" onClick={hanLookingFor}>Consultar</button>
                 {auditoria?.length>0 &&  <button className="button-informe-descargar" onClick={handClikcDescargar} >Descargar Informe</button>}
+                {auditoria?.length>0 &&<button className="button-informe-imprimir">Imprimir</button>}
             </div>
-           
+            {auditoria?.length>0 && 
             <table className="de" >
                 <tbody>
-                    <tr>
+                    <tr>    
+                        <th>Codigo reserva</th>
                         <th>Factura</th>
-                        <th>Cuenta</th>
+                        <th>Habitacion</th>
                         <th>Fecha</th>
                         <th>Pago</th>
                         <th>Identificacion</th>
@@ -75,6 +76,7 @@ const InformeAuditoria =() =>{
                             return (
                         <tr>
                             <td className="width-informe" >{index.Codigo}</td>
+                            <td className="width-informe" >0</td>
                             <td className="width-informe" >{index.Cuenta}</td>
                             <td className="width-informe" >{fecha}</td>
                             <td className="width-informe" >{index.Tipo_pago}</td>
@@ -88,15 +90,10 @@ const InformeAuditoria =() =>{
                         <div>
                             <th className="width-informe" >Total ${totalPriceInforme}</th>
                            
-                        </div>  
-                       
-                        
-                </tbody>
-
-                
+                        </div>       
+                </tbody>   
             </table>
-
-                        
+        }                
         {loadingInforme &&  <DescargarInforme auditoria={auditoria} setLoadingInforme={setLoadingInforme}  totalPriceInforme={totalPriceInforme} />   }
             
         </ContainerGlobal>

@@ -11,7 +11,7 @@
     cursor: pointer;
     width: 24%;
     height: auto;
-    margin-left: 11px;
+    margin-left: 18px;
 }
 
 .button-informe-descargar{
@@ -27,5 +27,40 @@
     cursor: pointer;
     width: 24%;
     height: auto;
-    margin-left: 11px;
+    margin-left: 18px;
+}
+
+
+.button-informe-imprimir{
+    padding: 16px;
+    margin: auto;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    margin-top: 21px;
+    border-radius: 8px;
+    background: black;
+    color: white !important;
+    cursor: pointer;
+    width: 24%;
+    height: auto;
+    margin-left: 18px;
+    text-decoration: none;
+}
+
+.button-informe-imprimir a{
+    padding: 16px;
+    margin: auto;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    margin-top: 21px;
+    border-radius: 8px;
+    background: black;
+    color: white !important;
+    cursor: pointer;
+    width: 24%;
+    height: auto;
+    margin-left: 18px;
+    text-decoration: none;
 }

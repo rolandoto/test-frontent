@@ -547,10 +547,7 @@ const Dashboard = (props) => {
 
 	/**
 	 * 
-	 * {
-		id: 1,
-		name:"Informe Camareria"
-		},
+	 * 
 		{
 		id: 2,
 		name:"Informe mantenimiento"
@@ -588,6 +585,10 @@ const Dashboard = (props) => {
 
 	const Informes = [
 		{
+		id: 1,
+		name:"Informe Camareria"
+		},
+		{
 		id: 5,
 		name:"Informe auditoría"
 		}
@@ -605,6 +606,9 @@ const Dashboard = (props) => {
 	useEffect(() =>{
 		if(stateInformes ==5){
 			return history.push("/informeauditoria")
+		}
+		if(stateInformes ==1){
+			return history.push("/informecamareria")
 		}
 	},[stateInformes,setInformes])
 
