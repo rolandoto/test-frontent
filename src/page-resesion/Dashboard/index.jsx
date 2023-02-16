@@ -544,8 +544,10 @@ const Dashboard = (props) => {
 			return time
 	}
 
-	const Informes = [
-		{
+
+	/**
+	 * 
+	 * {
 		id: 1,
 		name:"Informe Camareria"
 		},
@@ -559,11 +561,8 @@ const Dashboard = (props) => {
 		},{
 		id: 4,
 		name:"Informe gerencia"
-		}
+		},
 		,{
-		id: 5,
-		name:"Informe auditoría"
-		},{
 		id: 6,
 		name:"Informe sell"
 		},{
@@ -584,20 +583,32 @@ const Dashboard = (props) => {
 		id: 11,
 		name:"Informe caja mantenimiento"
 		}
+	 * 
+	 */
+
+	const Informes = [
+		{
+		id: 5,
+		name:"Informe auditoría"
+		}
 	];
 
 	const [selected, setSelected] = useState(new Date());
 
-	const [stateInformes,setInformes] =useState()
+	const [stateInformes,setInformes] =useState(0)
 
-	
-	console.log(stateInformes)
+
 	const handClickInformAuditoria =(e) =>{
-		setInformes(e.target.value)
-		
+		setInformes(e.target.value)	
 	}
 
+	useEffect(() =>{
+		if(stateInformes ==5){
+			return history.push("/informeauditoria")
+		}
+	},[stateInformes,setInformes])
 
+	console.log(stateInformes)
 
 	if(loadingSkeleto) return Skele()
 	if(!pruebareservas) return null
@@ -614,12 +625,12 @@ const Dashboard = (props) => {
 					<button className='button-reservas-type' onClick={handClickState}>
 					<div className="flex-index-reservation" ><VscRecord className="flex-contan-one" color="white"  fontSize={18} /><span>Estados</span></div></button>
 					
-					<select 					
+					<select  onChange={handClickInformAuditoria} value={stateInformes}					
 							className='button-reservas-type-one button-reservas-type-space button-reservas-type-one-two-two ' >
-							<option  onChange={handClickInformAuditoria} value={stateInformes} >Informe</option>
+							<option   >Informe</option>
 							{Informes?.map(category =>(
 													<option 
-													value={category.name}   
+													value={category.id	}   
 													key={category.name}
 												>
 													{category.name}

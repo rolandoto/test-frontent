@@ -8,12 +8,20 @@ import LoadingDetail from "../../Ui/LoadingDetail"
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import "./style.css"
+import { useContext } from "react"
+import AutoProvider  from "../../privateRoute/AutoProvider"
 
 const InformeAuditoria =() =>{
 
     const [auditoria,setAuditoria] =useState()
     const [LookinforFecha,setLokinforFecha] =useState()
     const [loading,setLoading] =useState({loading:false,error:false})
+    const [loadingInforme,setLoadingInforme] =useState(false)
+    const {jwt} = useContext(AutoProvider)
+
+    const handClikcDescargar =() =>{
+        setLoadingInforme(true)
+    }
 
     const hadChangeFecha =(e) =>{
         setLokinforFecha(e.target.value)
@@ -21,7 +29,7 @@ const InformeAuditoria =() =>{
 
     const hanLookingFor =() =>{
         setLoading({loading:true})
-        ServiceAuditoria({id:13,fecha:LookinforFecha}).then(index =>{
+        ServiceAuditoria({id:jwt.result.id_hotel,fecha:LookinforFecha}).then(index =>{
             setAuditoria(index.data)
             setLoading({loading:true})
         }).catch(e =>{
@@ -29,6 +37,13 @@ const InformeAuditoria =() =>{
             setAuditoria(null)
         })
     }
+
+
+    const priceInforme = auditoria?.reduce((acum,current) => {
+        return acum  +  parseInt(current.Exento)
+    },0)
+    
+   const totalPriceInforme = priceInforme?.toLocaleString()
 
     return (
         <ContainerGlobal>
@@ -39,7 +54,7 @@ const InformeAuditoria =() =>{
             <div>
                 <input type="date" className="input-selecto-dasboard-n1-reservaction"  onChange={hadChangeFecha} value={LookinforFecha}   />
                 <button className="button-informe-cosultar" onClick={hanLookingFor}>Consultar</button>
-                {loading.loading &&  <button className="button-informe-descargar" >Descargar Informe</button>}
+                {auditoria?.length>0 &&  <button className="button-informe-descargar" onClick={handClikcDescargar} >Descargar Informe</button>}
             </div>
            
             <table className="de" >
@@ -56,7 +71,7 @@ const InformeAuditoria =() =>{
                     </tr>
                         {auditoria?.map(index =>{
                             const fecha =  moment(index.Fecha).utc().format('YYYY/MM/DD')
-                            const valorHabitacon = index.Exento.toLocaleString()
+                            const valorHabitacon = parseInt(index.Exento.toLocaleString())
                             return (
                         <tr>
                             <td className="width-informe" >{index.Codigo}</td>
@@ -65,16 +80,24 @@ const InformeAuditoria =() =>{
                             <td className="width-informe" >{index.Tipo_pago}</td>
                             <td className="width-informe" >{index.Identificacion}</td>
                             <td className="width-informe" >{index.Cliente}</td>
-                            <td className="width-informe" >${index.Exento}</td>
+                            <td className="width-informe" >${valorHabitacon}</td>
                             <td className="width-informe" >${valorHabitacon}</td>
                         </tr>  
                        )
                         })}
+                        <div>
+                            <th className="width-informe" >Total ${totalPriceInforme}</th>
+                           
+                        </div>  
+                       
+                        
                 </tbody>
+
+                
             </table>
 
                         
-        <DescargarInforme auditoria={auditoria} />   
+        {loadingInforme &&  <DescargarInforme auditoria={auditoria} setLoadingInforme={setLoadingInforme}  totalPriceInforme={totalPriceInforme} />   }
             
         </ContainerGlobal>
     )
@@ -88,10 +111,10 @@ export default InformeAuditoria
 
 
 
-const DescargarInforme =({auditoria}) =>{
+const DescargarInforme =({auditoria,setLoadingInforme,totalPriceInforme}) =>{
     
     let docToPrint = React.createRef();
-    
+
     const printDocument = () => {
         const input = docToPrint.current;
         html2canvas(input,{scale:0.8}).then((canvas) => {
@@ -111,6 +134,10 @@ const DescargarInforme =({auditoria}) =>{
         printDocument()
     },[])
     
+    setTimeout(() =>{
+        setLoadingInforme(false)
+    },1000)
+
     return (
         <ContainerGlobal>
             <table ref={docToPrint}  >
@@ -141,7 +168,10 @@ const DescargarInforme =({auditoria}) =>{
                         </tr>  
                        )
                         })}
-              
+                <div>
+                            <th className="width-informe" >Total ${totalPriceInforme}</th>
+                           
+                        </div>  
             </table>
         </ContainerGlobal>
     )
