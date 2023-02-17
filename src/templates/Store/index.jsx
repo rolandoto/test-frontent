@@ -15,6 +15,7 @@ import { AiOutlineCaretLeft } from "react-icons/ai";
 import ServiceReservationCheckin from "../../service/ServiceReservasCheckin";
 import moment from "moment";
 import "moment/locale/es";
+import ServiceaInsertStore from "../../service/ServiceInsertCart";
 
 const StoreTemplate =({Store}) =>{
 
@@ -838,7 +839,6 @@ const StoreTemplate =({Store}) =>{
   const  now = moment().format("YYYY/MM/DD");
 
 
-console.log(now)
     const data ={
       ID_Reserva:peopleId,
       Cart:carts.cart,
@@ -853,6 +853,30 @@ console.log(now)
           console.log(e)
        })
     }
+
+    var n1 = 2000;
+    var n2 = 1000;
+    var numero = Math.floor(Math.random() * (n1 - (n2 - 1))) + n2;
+
+    const dataOne ={
+      ID_Reserva:numero,
+      Cart:carts.cart,
+      ID_hotel:jwt.result.id_hotel,
+      Fecha_compra:now,
+      Nombre_persona:client,
+      Forma_pago:raiting,
+      Num_documento:identification
+    }
+
+    const handSubmitInsertCartOne =() =>{
+      ServiceaInsertStore({data:dataOne}).then(index =>{
+         console.log("entro")
+      }).catch(e=> {
+         console.log(e)
+      })
+   }
+
+
 
     const {cart} = carts
     const currenCart =[]
@@ -954,6 +978,7 @@ console.log(now)
                     }
 
                     {invoice && <Invoince
+                                        handSubmitInsertCartOne={handSubmitInsertCartOne}
                                         tienda={true}
                                         dataCount={dataCount}
                                         setInvoice={setInvoice} 

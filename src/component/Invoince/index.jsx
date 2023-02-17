@@ -10,7 +10,7 @@ import { useReactToPrint } from "react-to-print";
 import ServiceResolution from "../../service/serviceResolution";
 import UsePrice from "../../hooks/UsePrice";
 
-const Invoince =({resultDashboard=[],carts=[],dataCount,setInvoice,priceCart,client,identification,raiting,handLoading,loading,handLoadingOne,sinIvaCart,tienda}) =>{
+const Invoince =({resultDashboard=[],carts=[],dataCount,setInvoice,priceCart,client,identification,raiting,handLoading,loading,handLoadingOne,sinIvaCart,tienda,handSubmitInsertCartOne}) =>{
         
     const dispatch  = useDispatch()
     const t= moment().format();   
@@ -52,16 +52,26 @@ const Invoince =({resultDashboard=[],carts=[],dataCount,setInvoice,priceCart,cli
     const handSubmit =() =>{
         handlePrint()
         handLoading()
-       
+      
     }
 
     const handlePrint = useReactToPrint({
         content: () => componentRef.current
     });
 
+    const hadAllInvoince =() =>{
+        handSubmitInsertCartOne()
+        handlePrint()
+    }
+
      const handStInvoince =() =>{
         setInvoice(false)
-        handLoadingOne()
+        handLoadingOne() 
+     }
+
+     const handClose =() =>{
+        window.location.reload()
+        setInvoice(false)
      }
 
      const [invo,setIvo] =useState(false)
@@ -162,7 +172,7 @@ const Invoince =({resultDashboard=[],carts=[],dataCount,setInvoice,priceCart,cli
                 <div className="border-ri">
                     <div>
                         <div className="content-Modal-store" ref={componentRef}   >
-                                    <div className="handclose" onClick={() => setInvoice(false)}>
+                                    <div className="handclose" onClick={handClose}>
                                         <IoMdCloseCircle   fontSize={30} color="black" />
                                     </div>
                                         <div  className="form-login container-invoince-to "> 
@@ -209,7 +219,7 @@ const Invoince =({resultDashboard=[],carts=[],dataCount,setInvoice,priceCart,cli
                                     </div>            
                             </div>     
                         </div>
-                        <button id="demo" className= {` top-button-invoince checkOut  sub-total-top`} onClick={handlePrint}>
+                        <button id="demo" className= {` top-button-invoince checkOut  sub-total-top`} onClick={hadAllInvoince}>
                             <span className="itemName">Imprimir</span>
                         </button>
                         </div>

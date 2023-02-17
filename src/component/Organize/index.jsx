@@ -4,8 +4,28 @@ import { IoMdCloseCircle } from "react-icons/io";
 
 
 const Organize =({setOrganize,handModalInvoice,handRaiting,raiting,setClient,client,setIndentification,identification}) =>{
+    
+    const iduser = [
+        {
+          id: 1,
+          name: "Efectivo",
+          imgSrc:
+          "https://github.com/rolandoto/image-pms/blob/main/1-02.png?raw=true",
+        },
+        {
+          id: 6,
+          name: "T.Debito",
+          imgSrc:
+             "https://github.com/rolandoto/image-pms/blob/main/1-03.png?raw=true",
+        } ,
+        {
+          id: 7,
+          name: "T.Debito",
+          imgSrc:
+            "https://github.com/rolandoto/image-pms/blob/main/1_Mesa-06.png?raw=true",
+        }
+      ];
 
-    const  iduser =["efectivo","debito","t.credito"]
 
     const [error,setError] =useState(false)
 
@@ -47,8 +67,15 @@ const Organize =({setOrganize,handModalInvoice,handRaiting,raiting,setClient,cli
                                                     value={raiting} 
                                                     className='select-hotel' >
                                                     <option disabled >raiting tuype</option>
-                                                    <option>selecione</option>
-                                                    {iduser.map(ratings => <option> {ratings} </option>)}
+                                                    <option  >Selecione</option>
+                                                    {iduser.map(category =>(
+                                                        <option 
+                                                        value={category.id}   
+                                                        key={category.id}>
+                                                        {category.name}
+                                                    </option>
+                                                    )
+                                                    )}
                                             </select>
                                             <button className='button-login'>
                                                     Facturar

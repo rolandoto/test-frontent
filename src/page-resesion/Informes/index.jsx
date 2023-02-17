@@ -14,6 +14,7 @@ import AutoProvider  from "../../privateRoute/AutoProvider"
 const InformeAuditoria =() =>{
 
     const [auditoria,setAuditoria] =useState()
+    const [store,setStore] =useState()
     const [LookinforFecha,setLokinforFecha] =useState()
     const [loading,setLoading] =useState({loading:false,error:false})
     const [loadingInforme,setLoadingInforme] =useState(false)
@@ -30,7 +31,8 @@ const InformeAuditoria =() =>{
     const hanLookingFor =() =>{
         setLoading({loading:true})
         ServiceAuditoria({id:jwt.result.id_hotel,fecha:LookinforFecha}).then(index =>{
-            setAuditoria(index.data)
+            setAuditoria(index.result)
+            setStore(index.queryTwo)
             setLoading({loading:true})
         }).catch(e =>{
             setLoading({loading:false})
@@ -38,12 +40,23 @@ const InformeAuditoria =() =>{
         })
     }
 
-
-    const priceInforme = auditoria?.reduce((acum,current) => {
-        return acum  +  parseInt(current.Exento)
+    const priceInformeStore = store?.reduce((acum,current) => {
+        return acum  +   parseInt(current.total) 
     },0)
-    
-   const totalPriceInforme = priceInforme?.toLocaleString()
+
+    let count =0
+    for(let i =0;i<auditoria?.length;i++){
+        if((auditoria[i].total)){
+            count += parseInt(auditoria[i].total)
+            count += parseInt(auditoria[i].Valor_habitacion)
+        }else{
+            count += parseInt(auditoria[i].Valor_habitacion)
+        }
+    }
+
+   const totalPriceInforme =count +priceInformeStore
+
+   const totalDefinisInforme = totalPriceInforme.toLocaleString();
 
     return (
         <ContainerGlobal>
@@ -70,25 +83,48 @@ const InformeAuditoria =() =>{
                         <th>Exento</th>
                         <th>Total</th>
                     </tr>
-                        {auditoria?.map(index =>{
-                            const fecha =  moment(index.Fecha).utc().format('YYYY/MM/DD')
-                            const valorHabitacon = parseInt(index.Exento.toLocaleString())
+                    {auditoria?.map(index =>{
+                          const fecha =  moment(index.Fecha_inicio).utc().format('YYYY/MM/DD')
+
+                            const PriceWithienda =  parseInt(index.total) + parseInt(index.Valor_habitacion)
+
+                            const totalWith = PriceWithienda.toLocaleString()
+
+                            const totalDefinit = totalWith  =="NaN" ?  parseInt(index.Valor_habitacion).toLocaleString()  : totalWith
+                            console.log(totalWith)
                             return (
                         <tr>
-                            <td className="width-informe" >{index.Codigo}</td>
+                            <td className="width-informe" >X14A-{index.Num_documento}{index.ID_reserva}</td>
                             <td className="width-informe" >0</td>
-                            <td className="width-informe" >{index.Cuenta}</td>
+                            <td className="width-informe" >{index.Numero}</td>
                             <td className="width-informe" >{fecha}</td>
                             <td className="width-informe" >{index.Tipo_pago}</td>
-                            <td className="width-informe" >{index.Identificacion}</td>
-                            <td className="width-informe" >{index.Cliente}</td>
-                            <td className="width-informe" >${valorHabitacon}</td>
-                            <td className="width-informe" >${valorHabitacon}</td>
+                            <td className="width-informe" >{index.Num_documento}</td>
+                            <td className="width-informe" >{index.Nombre_Person} {index.Apellido}</td>
+                            <td className="width-informe" >${totalDefinit}</td>
+                            <td className="width-informe" >${totalDefinit}</td>
                         </tr>  
-                       )
-                        })}
+                       )})}
+
+                        {store?.map(index =>{
+                             const fecha =  moment(index.Fecha_compra).utc().format('YYYY/MM/DD')
+                             const PriceWithienda =  parseInt(index.total)
+                             const totalWith = PriceWithienda.toLocaleString()
+                            return (
+                        <tr>
+                            <td className="width-informe" >X14A-{index.Num_documento}{index.ID_Reserva}</td>
+                            <td className="width-informe" >0</td>
+                            <td className="width-informe" >Tienda</td>
+                            <td className="width-informe" >{fecha}</td>
+                            <td className="width-informe" >{index.Tipo_pago}</td>
+                            <td className="width-informe" >{index.Num_documento}</td>
+                            <td className="width-informe" >{index.Nombre_persona}</td>
+                            <td className="width-informe" >${totalWith}</td>
+                            <td className="width-informe" >${totalWith}</td>
+                        </tr>  
+                       )})}
                         <div>
-                            <th className="width-informe" >Total ${totalPriceInforme}</th>
+                            <th className="width-informe" >Total ${totalDefinisInforme}</th>
                            
                         </div>       
                 </tbody>   

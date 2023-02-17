@@ -555,9 +555,8 @@ const CheckoutOrganism =({DetailDashboard}) =>{
         }
     }
 
-    
-    
     const toPriceNoche = UsePrice({number:resultDashboard.valor_dia_habitacion})
+
     const numOne = parseInt(resultDashboard?.valor_habitacion)
 
     var formattedNum =numOne.toLocaleString(); 
