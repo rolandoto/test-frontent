@@ -26,7 +26,7 @@ const InformeCamareria =() =>{
 
     const hanLookingFor =() =>{
         ServiceInformeCamareria({id:jwt.result.id_hotel,fecha:LookinforFecha}).then(index =>{
-            setCamareria(index.uniqueArray)
+            setCamareria(index.result)
         }).catch(e =>{
          
         })
@@ -39,8 +39,9 @@ const InformeCamareria =() =>{
         printWin.document.write(content);
         printWin.print();
       }
-    
 
+      
+      console.log(camareria)
     return (
         <ContainerGlobal>
                <LoadingDetail  
@@ -76,41 +77,61 @@ const InformeCamareria =() =>{
                           let mesOne = startDateOne.getDate()
                           let yearOne = startDateOne.getFullYear()
 
-                          if(index.Id_estado==1){
+                          if(index.ID_Tipo_Estados_Habitaciones==0){
                             return (
-                                <tr>
-                                    <td className="width-informe" >{index.Habitacion}</td  >
-                                    <td className="width-informe" >{index.Adultos}</td>
-                                    <td className="width-informe" >{index.Ninos}</td>
-                                    <td className="width-informe" >{index.Estado}</td>
-                                    <td className="width-informe" >{mesOne}-{monthOne}</td>
-                                    <td className="width-informe" >{index.Nombre}</td>
-                                    <td className="width-informe" >{index.Nombre}</td>
+                                
+                                <tr >
+                                    <td className="width-informe Reservada-camareria" >{index.Numero}</td  >
+                                    <td className="width-informe Reservada-camareria " >{index.Adultos}</td>
+                                    <td className="width-informe  Reservada-camareria" >{index.Ninos}</td>
+                                    <td className="width-informe  Reservada-camareria" >Reservada</td>
+                                    <td className="width-informe Reservada-camareria" >{mesOne}-{monthOne}</td>
+                                    <td className="width-informe Reservada-camareria" >{index.nombre} {index.Apellido}</td>
+                                    <td className="width-informe Reservada-camareria" ></td>
                                 </tr>  
                                )
-                            }
-                            if(index.Id_estado==2){
+                            } if(index.ID_Tipo_Estados_Habitaciones==3){
                                 return (
                                     <tr>
-                                        <td>{index.Habitacion}</td>
-                                        <td> </td>
-                                        <td></td>
-                                        <td>{index.Estado}</td>
-                                        <td></td>
+                                        <td className="width-informe Ocupada-camareria" >{index.Numero}</td  >
+                                        <td className="width-informe Ocupada-camareria" >{index.Adultos}</td>
+                                        <td className="width-informe Ocupada-camareria" >{index.Ninos}</td>
+                                        <td className="width-informe Ocupada-camareria" >Ocupada</td>
+                                        <td className="width-informe Ocupada-camareria" >{mesOne}-{monthOne}</td>
+                                        <td className="width-informe Ocupada-camareria" >{index.nombre} {index.Apellido}</td>
+                                        <td className="width-informe Ocupada-camareria" ></td>
+                                    </tr>  
+                                   )
+                                }
+
+                                if(index.ID_Tipo_Estados_Habitaciones==1){
+                                    return (
+                                        <tr>
+                                            <td className="width-informe Aseo-camareria " >{index.Numero}</td  >
+                                            <td className="width-informe Aseo-camareria  " >{index.Adultos}</td>
+                                            <td className="width-informe Aseo-camareria  " >{index.Ninos}</td>
+                                            <td className="width-informe Aseo-camareria  " >Aseo</td>
+                                            <td className="width-informe Aseo-camareria " >{mesOne}-{monthOne}</td>
+                                            <td className="width-informe Aseo-camareria " >{index.nombre} {index.Apellido}</td>
+                                            <td className="width-informe Aseo-camareria " > </td>
+                                        </tr>  
+                                       )
+                                    }
+                            else{
+                                return  (
+                                    <tr>
+                                        <td className="width-informe" >{index.Numero}</td  >
+                                        <td className="width-informe" >0</td>
+                                        <td className="width-informe" >0</td>
+                                        <td className="width-informe" >Disponible</td>
+                                        <td className="width-informe" > </td>
+                                        <td className="width-informe" ></td>
+                                        <td className="width-informe" ></td>
                                     </tr>  
                                    )
                             }
-                            if(index.Id_estado==3){
-                                return (
-                                    <tr>
-                                        <td>{index.Habitacion}</td>
-                                        <td> </td>
-                                        <td></td>
-                                        <td>{index.Estado}</td>
-                                        <td></td>
-                                    </tr>  
-                                   )
-                            }
+                          
+                           
                         })}
                      
                 </tbody>

@@ -64,3 +64,15 @@
     margin-left: 18px;
     text-decoration: none;
 }
+
+.Reservada-camareria{
+    background: #FF9990 !important;
+}
+
+.Ocupada-camareria{
+    background: #C2DEE5;
+}
+
+.Aseo-camareria{
+    background: #E9C9FF;
+}
