@@ -52,7 +52,6 @@ const Invoince =({resultDashboard=[],carts=[],dataCount,setInvoice,priceCart,cli
     const handSubmit =() =>{
         handlePrint()
         handLoading()
-      
     }
 
     const handlePrint = useReactToPrint({

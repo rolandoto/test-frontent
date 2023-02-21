@@ -953,8 +953,7 @@ const StoreTemplate =({Store}) =>{
                                                         <option 
                                                         value={category.id}   
                                                         key={category.id}>
-                                                           {category.Title}
-                                                        {category.Title}
+                                                         {category.Numero}  {category.title}  {category.Apellido}
                                                     </option>
                                                     )
                                                     )}

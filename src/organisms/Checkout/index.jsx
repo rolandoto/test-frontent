@@ -108,58 +108,45 @@ const CheckoutOrganism =({DetailDashboard}) =>{
     const Adultos  = data?.filter(index => index.ID_Categoria ==5)    
     const Lenceria  = data?.filter(index => index.ID_Categoria ==6)    
 
-    const totalBebidas = bebidas?.reduce((acum,current) => {
-        return acum  + current.Cantidad
-    },0)
+   
 
     const priceBebidas = bebidas?.reduce((acum,current) => {
-        return acum  + current.Cantidad * current.Precio
+        return acum  +  current.Precio
     },0)
 
-    const totalSnacks = Snacks?.reduce((acum,current) => {
-        return acum  + current.Cantidad
-    },0)
-
+   
     const priceSnacks = Snacks?.reduce((acum,current) => {
-        return acum  + current.Cantidad * current.Precio
+        return acum  +  current.Precio
     },0)
 
-    const totalSouvenir = Souvenir?.reduce((acum,current) => {
-        return acum  + current.Cantidad
-    },0)
+  
 
     const priceSouvenir = Souvenir?.reduce((acum,current) => {
-        return acum  + current.Cantidad * current.Precio
-    },0)
-
-    const totalDrogueria = Drogueria?.reduce((acum,current) => {
-        return acum  + current.Cantidad
+        return acum  + current.Precio
     },0)
 
     const priceDrogueria = Drogueria?.reduce((acum,current) => {
-        return acum  + current.Cantidad * current.Precio
+        return acum  + current.Precio
     },0)
 
-    const totalAdultos = Adultos?.reduce((acum,current) => {
-        return acum  + current.Cantidad
-    },0)
 
     const priceAdultos = Adultos?.reduce((acum,current) => {
-        return acum  + current.Cantidad * current.Precio
+        return acum  + current.Precio
     },0)
 
 
-    const totalLenceria = Lenceria?.reduce((acum,current) => {
-        return acum  + current.Cantidad
-    },0)
 
     const priceLenceria = Lenceria?.reduce((acum,current) => {
-        return acum  + parseInt(current.Cantidad) * parseInt(current.Precio)
+        return acum  + parseInt(current.Precio)
     },0)
 
-    console.log(priceLenceria)
+    
+    
+    console.log(priceBebidas)
 
     const totalStore = priceLenceria+priceAdultos+priceDrogueria+priceSouvenir+priceSnacks+priceBebidas
+
+ 
 
     const totalObject = totalStore ? totalStore.toLocaleString() :0
 
@@ -396,14 +383,15 @@ const CheckoutOrganism =({DetailDashboard}) =>{
 
     for(let i =0;i<data?.length;i++){
         cart.push({
-            name:`1 ${data[i].Nombre_producto}`,
+            name:` ${data[i].Cantidad} ${data[i].Nombre_producto}`,
             price:data[i].Precio
         })
         sinIva.push({
-            name:`1 ${data[i].Nombre_producto}`,
+            name:`${data[i].Cantidad} ${data[i].Nombre_producto}`,
             price:data[i].Precio
         })
     }
+    console.log(data)
     
     const [query,setQuery] = useState()
 
@@ -461,8 +449,6 @@ const CheckoutOrganism =({DetailDashboard}) =>{
     const findEmpresa = resultDashboard.tipo_persona =="empresa"  
     
     const totalPersona =  resultDashboard?.tipo_persona =="persona"?"Natural":"Juridica"
-
-    console.log(resultDashboard)
 
     const valor_habitacion =  resultDashboard.valor_habitacion
     const iva =  parseInt(valor_habitacion *19/100)
@@ -583,14 +569,13 @@ const CheckoutOrganism =({DetailDashboard}) =>{
             setFactura(false)
         }) 
     }
-
     
+   
+
    
     const pagoInvoince =resultDashboard.forma_pago
 
    
-    console.log({"dataCount":dataCount})
-    
     if(findEmpresa)
     return (
         <>     
@@ -934,11 +919,26 @@ const CheckoutOrganism =({DetailDashboard}) =>{
                                           </li>
                                             <li>
                                             <div className="to-hospedaje" >
-                                                <span  >Hospedaje hotel</span>
+                                                <span >Hospedaje hotel</span>
                                             </div>
                                           
                                             <span className="no-price" >$</span>  <span className="price-store" >{formattedNum} <span className="no-price" >COP</span>  </span>
                                           </li>
+
+                                        {resultDashboard.Iva ==1 && <div>                                          
+                                          <div className="to-hospedaje-one" >
+                                                <span className="negrita"  >Sub total: </span> <span> {formattedNum}</span> 
+                                            </div>
+                                          
+                                            <div className="to-hospedaje-one" >
+                                                <span className="negrita"  >Iva: </span><span>{formatoIva}</span>
+                                            </div>
+                                          
+                                            <div className="to-hospedaje-one" >
+                                                <span className="negrita"  >Valor total:</span> <span>{valorTotalIva} </span>
+                                            </div>
+                                        </div> }
+
                                           
                                         </ul>  
                                     </div>
