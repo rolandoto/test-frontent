@@ -55,8 +55,6 @@ const InformeCamareria =() =>{
                 {camareria?.length>0 &&<button className="button-informe-imprimir"  ><a href="#" onClick={printDoc}>
                     Imprimir
                 </a></button>}
-
-                
             </div>
            
             {camareria?.length>0 &&

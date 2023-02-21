@@ -559,10 +559,7 @@ const Dashboard = (props) => {
 		id: 4,
 		name:"Informe gerencia"
 		},
-		,{
-		id: 6,
-		name:"Informe sell"
-		},{
+		,,{
 		id: 7,
 		name:"Informe ventas"
 		},{
@@ -591,6 +588,10 @@ const Dashboard = (props) => {
 		{
 		id: 5,
 		name:"Informe auditoría"
+		},
+		{
+			id: 6,
+			name:"Informe sell"
 		}
 	];
 
@@ -609,6 +610,9 @@ const Dashboard = (props) => {
 		}
 		if(stateInformes ==1){
 			return history.push("/informecamareria")
+		}
+		if(stateInformes ==6){
+			return history.push("/informeroomtosell")
 		}
 	},[stateInformes,setInformes])
 

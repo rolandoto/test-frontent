@@ -44,6 +44,9 @@ const InformeAuditoria =() =>{
         return acum  +   parseInt(current.total) 
     },0)
 
+
+    console.log(store)
+
     let count =0
     for(let i =0;i<auditoria?.length;i++){
         if((auditoria[i].total)){
@@ -58,6 +61,9 @@ const InformeAuditoria =() =>{
 
    const totalDefinisInforme = totalPriceInforme.toLocaleString();
 
+
+   const totalLoading = auditoria ?auditoria  : store
+
     return (
         <ContainerGlobal>
              <LoadingDetail  
@@ -69,7 +75,68 @@ const InformeAuditoria =() =>{
                 {auditoria?.length>0 &&  <button className="button-informe-descargar" onClick={handClikcDescargar} >Descargar Informe</button>}
                 {auditoria?.length>0 &&<button className="button-informe-imprimir">Imprimir</button>}
             </div>
-            {auditoria?.length>0 && 
+            {auditoria?.length>0 &&
+            <table className="de" >
+                <tbody>
+                    <tr>    
+                        <th>Codigo reserva</th>
+                        <th>Factura</th>
+                        <th>Habitacion</th>
+                        <th>Fecha</th>
+                        <th>Pago</th>
+                        <th>Identificacion</th>
+                        <th>Cliente</th>
+                        <th>Exento</th>
+                        <th>Total</th>
+                    </tr>
+                    {auditoria?.map(index =>{
+                          const fecha =  moment(index.Fecha_inicio).utc().format('YYYY/MM/DD')
+
+                            const PriceWithienda =  parseInt(index.total) + parseInt(index.Valor_habitacion)
+
+                            const totalWith = PriceWithienda.toLocaleString()
+
+                            const totalDefinit = totalWith  =="NaN" ?  parseInt(index.Valor_habitacion).toLocaleString()  : totalWith
+                            console.log(totalWith)
+                            return (
+                        <tr>
+                            <td className="width-informe" >X14A-{index.Num_documento}{index.ID_reserva}</td>
+                            <td className="width-informe" >0</td>
+                            <td className="width-informe" >{index.Numero}</td>
+                            <td className="width-informe" >{fecha}</td>
+                            <td className="width-informe" >{index.Tipo_pago}</td>
+                            <td className="width-informe" >{index.Num_documento}</td>
+                            <td className="width-informe" >{index.Nombre_Person} {index.Apellido}</td>
+                            <td className="width-informe" >${totalDefinit}</td>
+                            <td className="width-informe" >${totalDefinit}</td>
+                        </tr>  
+                       )})}
+
+                        {store?.map(index =>{
+                             const fecha =  moment(index.Fecha_compra).utc().format('YYYY/MM/DD')
+                             const PriceWithienda =  parseInt(index.total)
+                             const totalWith = PriceWithienda.toLocaleString()
+                            return (
+                        <tr>
+                            <td className="width-informe" >X14A-{index.Num_documento}{index.ID_Reserva}</td>
+                            <td className="width-informe" >0</td>
+                            <td className="width-informe" >Tienda</td>
+                            <td className="width-informe" >{fecha}</td>
+                            <td className="width-informe" >{index.Tipo_pago}</td>
+                            <td className="width-informe" >{index.Num_documento}</td>
+                            <td className="width-informe" >{index.Nombre_persona}</td>
+                            <td className="width-informe" >${totalWith}</td>
+                            <td className="width-informe" >${totalWith}</td>
+                        </tr>  
+                       )})}
+                        <div>
+                            <th className="width-informe" >Total ${totalDefinisInforme}</th>
+                           
+                        </div>       
+                </tbody>   
+            </table>
+        }            
+         {store?.length>0 &&
             <table className="de" >
                 <tbody>
                     <tr>    

@@ -913,7 +913,7 @@ const StoreTemplate =({Store}) =>{
     }, []);
     
 
-    console.log(currenCart)
+    console.log(peopleReservation)
         return (    
             <div className="mainContainer">
                 <div className="rowContainer" >
@@ -953,7 +953,8 @@ const StoreTemplate =({Store}) =>{
                                                         <option 
                                                         value={category.id}   
                                                         key={category.id}>
-                                                        {category.title}
+                                                           {category.Title}
+                                                        {category.Title}
                                                     </option>
                                                     )
                                                     )}
