@@ -11,6 +11,7 @@ const InformeRoomToSell =() =>{
 
     const [roomtosell,setRoomTosell]=useState()
     const [LookinforFecha,setLokinforFecha] =useState()
+    const [LookinforFechaOne,setLokinforFechaOne] =useState()
     const [loadingInforme,setLoadingInforme] =useState(false)
     const [room,setRoom] =useState()
 
@@ -22,9 +23,12 @@ const InformeRoomToSell =() =>{
     const hadChangeFecha =(e) =>{
         setLokinforFecha(e.target.value)
     }
+    const hadChangeFechaOne =(e) =>{
+        setLokinforFechaOne(e.target.value)
+    }
 
     const hanLookingFor =() =>{
-        ServiceInfomeRoomtoSell({id:jwt.result.id_hotel,fecha:LookinforFecha}).then(index =>{
+        ServiceInfomeRoomtoSell({id:jwt.result.id_hotel,fechaInicio:LookinforFecha ,fechaFinal:LookinforFechaOne}).then(index =>{
             setRoomTosell(index.groupedDataWithoutDates)
         }).catch(e =>{
             console.log(e)
@@ -40,6 +44,7 @@ const InformeRoomToSell =() =>{
     },[setRoom])
 
     const flattened = roomtosell?.flatMap(num => num);
+    console.log(flattened)
 
     return (
             <ContainerGlobal>
@@ -49,6 +54,7 @@ const InformeRoomToSell =() =>{
 
             <div>
                 <input type="date" className="input-selecto-dasboard-n1-reservaction"  onChange={hadChangeFecha}    />
+                <input type="date" className="input-selecto-dasboard-n1-reservaction"  onChange={hadChangeFechaOne}    />
                 <button className="button-informe-cosultar" onClick={hanLookingFor} >Consultar</button>
                 {roomtosell?.length>0 && <button className="button-informe-descargar"  onClick={handClikcDescargar} >Descargar Informe</button>}
                 {roomtosell?.length>0 &&<button className="button-informe-imprimir"  ><a href="#" >
@@ -56,39 +62,20 @@ const InformeRoomToSell =() =>{
                 </a></button>}
 
             <table className="de" >   
-                <tbody>     
-                <tr >
-                <td>Fecha</td>
-                        {room?.map((row, i) => (
-                            <>
-                            
-                           <td>{row.nombre}</td>
-                           </>
-                        ))}    
-                         </tr>
+                <tbody>
 
-                         <tr>
-                            {flattened.map((index, i) => {
-                                // Compara la fecha actual con la fecha anterior
-                                const showBreak = i > 0 && index.fecha !== flattened[i-1].fecha;
-                                // Actualiza la fecha anterior con la fecha actual
-                                const prevDate = index.fecha;
-                                // Devuelve el <td> con la disponibilidad y el posible <br>
-                                return (
-                                <>
-                                    <td>{index.disponible}</td>
-                                    {showBreak && <hr/>}
-                                </>
-                                );
-                            })}
-                        </tr>
-                                                
-                                                       
+                 
+                {room?.map(index=> (
+                    
+                     <tr> 
+                            <td>{index.nombre}</td>  
+                          
+                    </tr>                                 
+                ))}             
+                
                     </tbody>
             </table>
-  
-            </div>
-
+        </div>
             </ContainerGlobal>
     )
 

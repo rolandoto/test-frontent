@@ -76,3 +76,36 @@
 .Aseo-camareria{
     background: #E9C9FF;
 }
+
+.container-title-camareras{
+    text-align: center;
+}
+
+.container-camareras-room{
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+}
+
+.box {
+    height: 40px;
+    width: 100px;
+  }
+  
+  .box:empty {
+    border: solid 1px ;
+  }
+
+  .container-global-camarera{
+    max-width: 1550px;
+    margin-top: 15;
+    display: flex;
+    margin: auto;
+    max-height: 709px;
+  }
+
+  .top-pdf{
+    max-width:  1550px;;
+  }
+
+    

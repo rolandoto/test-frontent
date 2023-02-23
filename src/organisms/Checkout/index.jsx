@@ -477,10 +477,6 @@ const CheckoutOrganism =({DetailDashboard}) =>{
 
     const cartOne =[]
 
-    console.log(resultDashboard)
-
-
-
     /**
      * 
      * <ul>
@@ -570,11 +566,7 @@ const CheckoutOrganism =({DetailDashboard}) =>{
         }) 
     }
     
-   
-
-   
     const pagoInvoince =resultDashboard.forma_pago
-
    
     if(findEmpresa)
     return (
@@ -1256,7 +1248,6 @@ const FacturaCompany  =({valorTotalIva,formatoIva,formattedNum,jwt,totalStore,Ro
         pdf.save("Up4-receipt.pdf");
         });
     };
-
     setTimeout(() =>{
         printDocument()
     },1000  )

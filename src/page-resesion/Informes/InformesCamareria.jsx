@@ -137,14 +137,14 @@ const InformeCamareria =() =>{
                 
             </table>
         }
-            {loadingInforme &&  <DescargarInforme  camareria={camareria} setLoadingInforme={setLoadingInforme} />}
+           <DescargarInforme  camareria={camareria} setLoadingInforme={setLoadingInforme}  jwt={jwt}/>
         </ContainerGlobal>
     )
 }
 
 export default InformeCamareria
 
-const DescargarInforme =({camareria,setLoadingInforme}) =>{
+const DescargarInforme =({camareria,setLoadingInforme,jwt}) =>{
     
     let docToPrint = React.createRef();
 
@@ -154,38 +154,67 @@ const DescargarInforme =({camareria,setLoadingInforme}) =>{
         const imgData = canvas.toDataURL("image/png");
         const pdf = new jsPDF({
             orientation: "landscape",
-            
-            format:  [800, 800 ]
+            format:  [900,800  ]
         });
         pdf.addImage(imgData, "JPEG", 0, 0);
         // pdf.output("dataurlnewwindow");
-        pdf.save("Up4-receipt.pdf");
+        pdf.save("ReporteCamarera.pdf");
         });
     };
+    
+    
+    const  now = moment().format("YYYY/MM/DD");
 
     useEffect(() =>{
         printDocument()
     },[])
-    
-    setTimeout(() =>{
-        setLoadingInforme(false)
-    },1000)
 
-    
+    const ra =  [
+        { Room: 'Doble Superior', disponible: 0 },
+        { Room: 'Familiar', disponible: 0 },
+        { Room: 'Twin Doble', disponible: 1 },
+        { Room: 'Triple', disponible: 1 },
+        { Room: 'Urban Doble', disponible: 2 },
+        { Room: 'Grupal', disponible: 1 }
+      ]
+  
 
     return (
-        <ContainerGlobal>
-            <table ref={docToPrint} className="de"  >
-              
-            <tbody >
-                    <tr>    
-                        <th>Habitacion</th>
-                        <th>Adultos</th>
-                        <th>Niños</th>
-                        <th>Estado</th>
-                        <th>Salida prevista</th>
-                        <th>Huesped</th> 
-                        <th>Observaciones</th>
+
+        <>
+        <div  className="container-pdf-flex top-pdf"  >    
+
+        <div   ref={docToPrint}>
+
+        <div className="container-title-camareras">
+            <h3>Reporte camareria</h3>
+            <h3>HOTEL FLORENCIA PLAZA</h3>
+        </div>
+        
+        <div>
+            <span>Fecha inpresion: <span className="negrita" >{now}</span> </span>
+        </div>
+        <div>
+            <span>Usuario:<span className="negrita" > {jwt.result.name}</span> </span>
+        </div>
+        
+
+        <div  >
+
+
+        <table className="border-flex"  >
+                <tbody className="border-flex" >
+                <tr  className="border-flex" >    
+                        <td>Habitacion</td>
+                        <td>Adultos</td>
+                        <td>Niños</td>
+                        <td>Estado</td>
+                        <td>Salida prevista</td>
+                        <td>Huesped</td> 
+                        <td>No. toallas</td>
+                        <td>No. Nombre camarera</td>
+                        <td>Retoque final</td>
+                        <td>Observaciones</td>
                     </tr>
                         {camareria?.map(index =>{
                           let startDateOne = new Date(index.Fecha_final);
@@ -193,58 +222,76 @@ const DescargarInforme =({camareria,setLoadingInforme}) =>{
                           let mesOne = startDateOne.getDate()
                           let yearOne = startDateOne.getFullYear()
 
-                          if(index.Id_estado==1){
+                          if(index.ID_Tipo_Estados_Habitaciones==0){
                             return (
-                                <tr>
-                                    <td className="width-informe" >{index.Habitacion}</td  >
-                                    <td className="width-informe" >{index.Adultos}</td>
-                                    <td className="width-informe" >{index.Ninos}</td>
-                                    <td className="width-informe" >{index.Estado}</td>
-                                    <td className="width-informe" >{mesOne}-{monthOne}</td>
-                                    <td className="width-informe" >{index.Nombre}</td>
-                                    <td className="width-informe" >{index.Nombre}</td>
+                                
+                                <tr >
+                                    <td className="width-informe " >{index.Numero}</td  >
+                                    <td className="width-informe  " >{index.Adultos}</td>
+                                    <td className="width-informe  " >{index.Ninos}</td>
+                                    <td className="width-informe  " >Reservada</td>
+                                    <td className="width-informe " >{mesOne}-{monthOne}</td>
+                                    <td className="width-informe " >{index.nombre} {index.Apellido}</td>
+                                    <td className="width-informe " ></td>
                                 </tr>  
                                )
-                            }
-                            if(index.Id_estado==2){
+                            } if(index.ID_Tipo_Estados_Habitaciones==3){
                                 return (
                                     <tr>
-                                        <td>{index.Habitacion}</td>
-                                        <td> </td>
-                                        <td></td>
-                                        <td>{index.Estado}</td>
-                                        <td></td>
+                                        <td className="width-informe " >{index.Numero}</td  >
+                                        <td className="width-informe " >{index.Adultos}</td>
+                                        <td className="width-informe " >{index.Ninos}</td>
+                                        <td className="width-informe " >Ocupada</td>
+                                        <td className="width-informe " >{mesOne}-{monthOne}</td>
+                                        <td className="width-informe " >{index.nombre} {index.Apellido}</td>
+                                        <td className="width-informe " > <div className="box" ></div> </td>
+                                        <td className="width-informe " > <div className="box" ></div> </td>
+                                        <td className="width-informe " > <div className="box" ></div> </td>
+                                    </tr>  
+                                   )
+                                }
+
+                                if(index.ID_Tipo_Estados_Habitaciones==1){
+                                    return (
+                                        <tr>
+                                            <td className="width-informe  " >{index.Numero}</td  >
+                                            <td className="width-informe   " >{index.Adultos}</td>
+                                            <td className="width-informe   " >{index.Ninos}</td>
+                                            <td className="width-informe   " >Aseo</td>
+                                            <td className="width-informe  " >{mesOne}-{monthOne}</td>
+                                            <td className="width-informe  " >{index.nombre} {index.Apellido}</td>
+                                            <td className="width-informe  " > </td>
+                                        </tr>  
+                                       )
+                                    }
+                            else{
+                                return  (
+                                    <tr>
+                                        <td className="width-informe" >{index.Numero}</td  >
+                                        <td className="width-informe" >0</td>
+                                        <td className="width-informe" >0</td>
+                                        <td className="width-informe" >Disponible</td>
+                                        <td className="width-informe" > </td>
+                                        <td className="width-informe" ></td>
+                                        <td className="width-informe" ></td>
                                     </tr>  
                                    )
                             }
-                            if(index.Id_estado==3){
-                                return (
-                                    <tr>
-                                        <td>{index.Habitacion}</td>
-                                        <td> </td>
-                                        <td></td>
-                                        <td>{index.Estado}</td>
-                                        <td></td>
-                                    </tr>  
-                                   )
-                            }
+                          
+                           
                         })}
-                </tbody> 
+                     
+                </tbody>
+
+                
             </table>
-        </ContainerGlobal>
+           
+       
+            </div>
+            </div>  
+        </div>
+        </>
     )
 }
 
 
-const Content = () => {
-    return (
-      <table border="1">
-        <tr>
-          <td style={{ padding: "5px" }}>ID</td>
-          <td>Name</td>
-          <td />
-        </tr>
-      </table>
-    );
-  };
-  

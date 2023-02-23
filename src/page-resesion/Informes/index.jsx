@@ -15,6 +15,7 @@ const InformeAuditoria =() =>{
 
     const [auditoria,setAuditoria] =useState()
     const [store,setStore] =useState()
+    const [storeOne,setStoreOne] =useState()
     const [LookinforFecha,setLokinforFecha] =useState()
     const [loading,setLoading] =useState({loading:false,error:false})
     const [loadingInforme,setLoadingInforme] =useState(false)
@@ -33,6 +34,7 @@ const InformeAuditoria =() =>{
         ServiceAuditoria({id:jwt.result.id_hotel,fecha:LookinforFecha}).then(index =>{
             setAuditoria(index.result)
             setStore(index.queryTwo)
+            setStoreOne(index.queryOne)
             setLoading({loading:true})
         }).catch(e =>{
             setLoading({loading:false})
@@ -45,17 +47,20 @@ const InformeAuditoria =() =>{
     },0)
 
 
-    console.log(store)
-
     let count =0
     for(let i =0;i<auditoria?.length;i++){
-        if((auditoria[i].total)){
-            count += parseInt(auditoria[i].total)
-            count += parseInt(auditoria[i].Valor_habitacion)
+        if((auditoria[i].Tipo_persona =="empresa")){
+            const totalwith = parseInt(auditoria[i].Valor_habitacion ) *19/100
+            const total = totalwith + parseInt(auditoria[i].Valor_habitacion )
+            count += total
         }else{
             count += parseInt(auditoria[i].Valor_habitacion)
         }
     }
+
+
+    console.log(storeOne)
+
 
    const totalPriceInforme =count +priceInformeStore
 
@@ -92,9 +97,19 @@ const InformeAuditoria =() =>{
                     {auditoria?.map(index =>{
                           const fecha =  moment(index.Fecha_inicio).utc().format('YYYY/MM/DD')
 
-                            const PriceWithienda =  parseInt(index.total) + parseInt(index.Valor_habitacion)
+                            const PriceWithienda =  parseInt(index.Valor_habitacion)
+ 
+                            const totalIva =  parseInt(index.Valor_habitacion) *19/100 
 
-                            const totalWith = PriceWithienda.toLocaleString()
+                            const total = totalIva+ PriceWithienda
+
+
+
+                            const totalDefinid = index.Iva ==1? total : parseInt(index.Valor_habitacion)
+
+                            const totalDefinttion = index.Tipo_persona =="empresa" ?total:totalDefinid
+
+                            const totalWith = totalDefinttion.toLocaleString()
 
                             const totalDefinit = totalWith  =="NaN" ?  parseInt(index.Valor_habitacion).toLocaleString()  : totalWith
                             console.log(totalWith)
@@ -121,7 +136,7 @@ const InformeAuditoria =() =>{
                             <td className="width-informe" >X14A-{index.Num_documento}{index.ID_Reserva}</td>
                             <td className="width-informe" >0</td>
                             <td className="width-informe" >Tienda</td>
-                            <td className="width-informe" >{fecha}</td>
+                            <td classNam    e="width-informe" >{fecha}</td>
                             <td className="width-informe" >{index.Tipo_pago}</td>
                             <td className="width-informe" >{index.Num_documento}</td>
                             <td className="width-informe" >{index.Nombre_persona}</td>
@@ -129,7 +144,26 @@ const InformeAuditoria =() =>{
                             <td className="width-informe" >${totalWith}</td>
                         </tr>  
                        )})}
-                        <div>
+
+                       
+                    {storeOne?.map(index =>{
+                             const fecha =  moment(index.Fecha_compra).utc().format('YYYY/MM/DD')
+                             const PriceWithienda =  parseInt(index.total)
+                             const totalWith = PriceWithienda.toLocaleString()
+                            return (
+                        <tr>
+                            <td className="width-informe" >X14A-{index.Num_documento}{index.ID_Reserva}</td>
+                            <td className="width-informe" >0</td>
+                            <td className="width-informe" >{index.Numero}</td>
+                            <td classNam    e="width-informe" >{fecha}</td>
+                            <td className="width-informe" >{index.Tipo_pago}</td>
+                            <td className="width-informe" >{index.Num_documento}</td>
+                            <td className="width-informe" >{index.Nombre_Person} {index.Apellido}</td>
+                            <td className="width-informe" >${totalWith}</td>
+                            <td className="width-informe" >${totalWith}</td>
+                        </tr>  
+                       )})}
+                        <div>   
                             <th className="width-informe" >Total ${totalDefinisInforme}</th>
                            
                         </div>       
