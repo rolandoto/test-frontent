@@ -639,3 +639,35 @@
 .in-type-button {
   align-items: initial !important;
 }
+
+
+.pay_deudado{
+  background: #eb6b7f;
+  color: white;
+  padding: 5px;
+}
+
+.pay_Pagado{
+  background: #13a722d4;
+  color: white;
+  padding: 8px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.pay_Pagado-deuda{
+  background: #13a722d4;
+  color: white;
+  padding: 8px;
+  cursor: pointer;
+}
+
+.desde-detail-two-pagos-store{
+  height: 40px;
+  border: none;
+  background: #ebebeb;
+  border-radius: 8px;
+  margin: 4px;
+  width: 98%;
+  padding: 10px;
+}

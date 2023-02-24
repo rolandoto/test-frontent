@@ -34,9 +34,6 @@ const InformeRoomToSell =() =>{
             console.log(e)
         })
     }
-
-
-
     useEffect(() =>{
         ServicetypeRooms({id:jwt.result.id_hotel}).then(index =>{
             setRoom(index)

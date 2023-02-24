@@ -43,6 +43,7 @@ import UpdateRservation from './page-resesion/EditarPersonas/EditarUpdateReserva
 import InformeAuditoria from './page-resesion/Informes';
 import InformeCamareria from './page-resesion/Informes/InformesCamareria';
 import InformeRoomToSell from './page-resesion/Informes/InformeRoomToSell';
+import ReporteCamarera from './page-resesion/Informes/ReporteCamareras';
 
 function App() {
 
@@ -159,6 +160,7 @@ else if(val==2){
                                 <PrivateRoute exact path="/informeauditoria"  component={InformeAuditoria}  />
                                 <PrivateRoute exact path="/informecamareria"  component={InformeCamareria}  />
                                 <PrivateRoute exact path="/informeroomtosell"  component={InformeRoomToSell}  />
+                                <PrivateRoute exact path="/reportecamarera"  component={ReporteCamarera}  />
                                 <Route component={NoFound} />
                             </Switch>   
                     </BrowserRouter>

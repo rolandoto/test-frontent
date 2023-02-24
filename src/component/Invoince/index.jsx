@@ -25,8 +25,6 @@ const Invoince =({resultDashboard=[],carts=[],dataCount,setInvoice,priceCart,cli
 
     const resultSinIva = sinIvaCart  *19/100
 
-    
-
     const totalResultPriceTwo = priceCart  +totalResultPrice  -resultSinIva
 
 

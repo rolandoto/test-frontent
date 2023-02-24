@@ -1,5 +1,5 @@
 import moment from "moment";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useContext } from "react";
 import  AutoProvider  from "../../privateRoute/AutoProvider";
 import ServiceInformeCamareria from "../../service/ServiceInformeCamereria";
@@ -8,16 +8,20 @@ import LoadingDetail from "../../Ui/LoadingDetail";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import ReactDOMServer from "react-dom/server";
+import { useReactToPrint } from "react-to-print";
+import { useHistory } from "react-router-dom";
+
 
 const InformeCamareria =() =>{
     const {jwt} =useContext(AutoProvider)
+    const history =useHistory()
 
     const [camareria,setCamareria]=useState()
     const [LookinforFecha,setLokinforFecha] =useState()
     const [loadingInforme,setLoadingInforme] =useState(false)
-
+    
     const handClikcDescargar =() =>{
-        setLoadingInforme(true)
+        history.push("/reportecamarera")
     }
 
     const hadChangeFecha =(e) =>{
@@ -32,12 +36,16 @@ const InformeCamareria =() =>{
         })
     }
 
-    function printDoc() {
-        const printWin = window.open("", "print", "height=400,width=600");
+    let componentRef = useRef();
+
+
+    const handlePrint = useReactToPrint({
+        content: () => componentRef.current
+    });
     
-        const content = ReactDOMServer.renderToStaticMarkup(<DescargarInforme />);
-        printWin.document.write(content);
-        printWin.print();
+
+    function printDoc() {
+        handlePrint()
       }
 
       
@@ -51,14 +59,13 @@ const InformeCamareria =() =>{
             <div>
                 <input type="date" className="input-selecto-dasboard-n1-reservaction"  onChange={hadChangeFecha}    />
                 <button className="button-informe-cosultar" onClick={hanLookingFor} >Consultar</button>
-                {camareria?.length>0 && <button className="button-informe-descargar"  onClick={handClikcDescargar} >Descargar Informe</button>}
+                {camareria?.length>0 && <button className="button-informe-descargar"  onClick={handClikcDescargar} >Reporte camareras</button>}
                 {camareria?.length>0 &&<button className="button-informe-imprimir"  ><a href="#" onClick={printDoc}>
                     Imprimir
                 </a></button>}
             </div>
-           
             {camareria?.length>0 &&
-            <table className="de" >
+            <table className="de"  ref={componentRef} >
                 <tbody>
                     <tr>    
                         <th>Habitacion</th>
@@ -137,7 +144,7 @@ const InformeCamareria =() =>{
                 
             </table>
         }
-           <DescargarInforme  camareria={camareria} setLoadingInforme={setLoadingInforme}  jwt={jwt}/>
+        
         </ContainerGlobal>
     )
 }

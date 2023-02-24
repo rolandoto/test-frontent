@@ -35,6 +35,7 @@ import { BiMessageSquareEdit } from "react-icons/bi";
 import { SlBookOpen } from "react-icons/sl";
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
+import ServicePayReservationSore from "../../service/ServicePayReservationSore";
 
 
 
@@ -127,6 +128,7 @@ console.log(fe)
       const [error,setError] =useState(false)
       const [product,setProduct] =useState()
       const [observacion,setObservacion] =useState()
+      const [loadinConsumo,setLoadingConsumo] =useState(false)
 
 
       const handChangeObservation =(e) =>{
@@ -356,7 +358,7 @@ console.log(fe)
       .then(resp => resp.json())
       .then(data=> setQuery(data?.query))
    
-  },[]) 
+  },[loadinConsumo]) 
 
   var numDefinish =  parseInt(resultDashboard?.valor_habitacion);
   var formattedNum = numDefinish.toLocaleString();  
@@ -813,13 +815,14 @@ const toPriceNigth = UsePrice({number:resultDashboard?.valor_dia_habitacion})
                                   stateButton={stateButton} 
                                   handEditarReservas={handEditarReservas}/>} 
           {consumo && <Consumo  day={day} 
+                                jwt={jwt}
                                 habitacion={resultFinish?.nombre}
                                 totalAlojamiento={totalAlojamiento}
                                 product={product}
                                 totalBebidas={totalBebidas}
                                 priceBebidas={priceBebidas}
                                 bebidas={bebidas}
-
+                                setLoadingConsumo={setLoadingConsumo}
                                 totalSnacks={totalSnacks}
                                 priceSnacks={priceSnacks}
                                 Snacks={Snacks}
@@ -1092,28 +1095,84 @@ const Consumo =(props) =>{
           totalLenceria,
           priceLenceria,
           Lenceria,
+          jwt,
+          setLoadingConsumo,
           product} = props
 
-  
-  console.log(product)
+
+
+
+          const  typy_buy =  [
+            {   
+                id:1,
+                name:"Efectivo",
+            },
+           
+            {   
+                id:6,
+                name:"T.Debito",
+            },
+            {   
+                id:7,
+                name:"T.Credito",
+            }
+          ]
 
   const cart =[]
 
+  const [state,setState] =useState({
+    forma_pago:null,
+})
+
+
+const handleState =(event, index) =>{
+  setState({
+    ...state,
+    [event.target.name] : event.target.value
+})
+}
+
   for(let i = 0;i<product?.length;i++){
+    console.log({"pago":product[i]})
     cart.push({
+      ID:product[i].ID,
       Nombre_categoria:product[i].Nombre,
       Nombre_Producto:product[i].Nombre_producto,
       Price:product[i].Precio.toLocaleString(),
       Fecha:moment(product[i].Fecha_compra).utc().format('YYYY/MM/DD'),
-      Cantidad:product[i].Cantidad
+      Cantidad:product[i].Cantidad,
+      Pago_deuda:product[i].pago_deuda,
+      Forma_pago:product[i].Forma_pago,
+      Tipo_pago:product[i].forma_pago,
     })
   }
 
+  
+  const  now = moment().format("YYYY/MM/DD");
+
+    let data ={
+      Forma_pago:state.forma_pago,
+      Fecha_compra:now,
+      pago_deuda:"1"
+    }
+
+  const handPayProduct =(id) =>{
+    if(state.forma_pago== null){
+
+    }else{
+      ServicePayReservationSore({id, data}).then(index=> {
+        setLoadingConsumo(true)
+      }).catch(e =>{
+        console.log(e)
+      })
+    }
+  }
 
   if(!habitacion) return null
 
   return (
        <div >  
+
             <TableContainer component={Paper}  onSubmit={(e) =>{
               e.preventDefault()
             }} >
@@ -1128,24 +1187,65 @@ const Consumo =(props) =>{
                       <TableCell align="right">Cetegoria</TableCell>  
                       <TableCell align="right">Detalle</TableCell>
                       <TableCell align="right">Valor</TableCell>
+                      <TableCell align="right">Estado pago</TableCell>
+                      <TableCell align="right">Registro pago</TableCell>
+                      <TableCell align="right">Registro pago</TableCell>
                       </TableRow>
                   </TableHead>
                   <TableBody>
                         
-                        {  cart?.map((row,e) =>(
+                        {  cart?.map((row,e) =>{
+
+                            console.log(row.ID)
+                          
+                          if(row.Pago_deuda ==0){
+                          return(
                            <TableRow>
                               <TableCell>{row.Fecha} </TableCell>
                               <TableCell>{row.Cantidad} </TableCell>
                               <TableCell>{row.Nombre_categoria} </TableCell>
                               <TableCell>{row.Nombre_Producto} </TableCell>
                               <TableCell>Cop {row.Price} </TableCell>
+                              <TableCell> <span className="pay_deudado" >Deudado </span> </TableCell>
+                             
+                              <TableCell>  <select  onChange={handleState}
+                                    name={"forma_pago"}
+                                    value={state.forma_pago}
+                                    required
+                                    className="desde-detail-two-pagos-store" >
+                                  <option >{null}</option>
+                                  {typy_buy?.map(category =>(
+                                      <option 
+                                      value={category.id}   
+                                      key={category.id}
+                                  >
+                                      {category.name}
+                                  </option>
+                                  )
+                                  )}
+                        </select>
+                </TableCell>
+                <TableCell> <span className="pay_Pagado" onClick={() => handPayProduct(row.ID)} >Pagar producto</span></TableCell>
                            </TableRow>
-   
-                        ))}
-            
+                       
+                          )
+                        } else if(row.Pago_deuda ==1){
+                          return (
+                          <TableRow>
+                              <TableCell>{row.Fecha} </TableCell>
+                              <TableCell>{row.Cantidad} </TableCell>
+                              <TableCell>{row.Nombre_categoria} </TableCell>
+                              <TableCell>{row.Nombre_Producto} </TableCell>
+                              <TableCell>Cop {row.Price} </TableCell>
+                              <TableCell><span className="pay_Pagado-deuda">Pagado</span></TableCell>
+                              <TableCell>{row.Tipo_pago}</TableCell>
+                           </TableRow>
+                        )}
+                        })}
                   </TableBody>
                   </Table>
             </TableContainer> 
+             
         </div>  
   )
 }

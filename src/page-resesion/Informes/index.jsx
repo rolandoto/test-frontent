@@ -1,5 +1,5 @@
 import moment from "moment"
-import React from "react"
+import React, { useRef } from "react"
 import { useState } from "react"
 import { useEffect } from "react"
 import ServiceAuditoria from "../../service/ServiceInformeAuditoria"
@@ -10,6 +10,7 @@ import jsPDF from "jspdf";
 import "./style.css"
 import { useContext } from "react"
 import AutoProvider  from "../../privateRoute/AutoProvider"
+import { useReactToPrint } from "react-to-print";
 
 const InformeAuditoria =() =>{
 
@@ -21,10 +22,7 @@ const InformeAuditoria =() =>{
     const [loadingInforme,setLoadingInforme] =useState(false)
     const {jwt} = useContext(AutoProvider)
 
-    const handClikcDescargar =() =>{
-        setLoadingInforme(true)
-    }
-
+  
     const hadChangeFecha =(e) =>{
         setLokinforFecha(e.target.value)
     }
@@ -47,6 +45,11 @@ const InformeAuditoria =() =>{
     },0)
 
 
+    const priceInformeStoreOne = storeOne?.reduce((acum,current) => {
+        return acum  +   parseInt(current.total) 
+    },0)
+
+
     let count =0
     for(let i =0;i<auditoria?.length;i++){
         if((auditoria[i].Tipo_persona =="empresa")){
@@ -58,16 +61,23 @@ const InformeAuditoria =() =>{
         }
     }
 
-
-    console.log(storeOne)
-
-
-   const totalPriceInforme =count +priceInformeStore
+   const totalPriceInforme =count +priceInformeStore+priceInformeStoreOne
 
    const totalDefinisInforme = totalPriceInforme.toLocaleString();
 
+   let componentRef = useRef();
 
-   const totalLoading = auditoria ?auditoria  : store
+
+   const handlePrint = useReactToPrint({
+    content: () => componentRef.current
+});
+
+
+const handClikcDescargar =() =>{
+    handlePrint()
+}
+
+const totalLoading = auditoria ?auditoria  : store
 
     return (
         <ContainerGlobal>
@@ -77,11 +87,11 @@ const InformeAuditoria =() =>{
             <div>
                 <input type="date" className="input-selecto-dasboard-n1-reservaction"  onChange={hadChangeFecha} value={LookinforFecha}   />
                 <button className="button-informe-cosultar" onClick={hanLookingFor}>Consultar</button>
-                <button className="button-informe-descargar" onClick={handClikcDescargar} >Descargar Informe</button>
-               <button className="button-informe-imprimir">Imprimir</button>
+                <button className="button-informe-descargar">Descargar Informe</button>
+               <button className="button-informe-imprimir" onClick={handClikcDescargar} >Imprimir</button>
             </div>
            
-            <table className="de" >
+            <table className="de"  ref={componentRef} >
                 <tbody>
                     <tr>    
                         <th>Codigo reserva</th>

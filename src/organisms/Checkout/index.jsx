@@ -567,7 +567,11 @@ const CheckoutOrganism =({DetailDashboard}) =>{
     }
     
     const pagoInvoince =resultDashboard.forma_pago
-   
+
+    const totalAbono =  parseInt(resultDashboard.valor_abono)
+
+    const totalAobonoDecimal =totalAbono.toLocaleString();
+    
     if(findEmpresa)
     return (
         <>     
@@ -900,7 +904,7 @@ const CheckoutOrganism =({DetailDashboard}) =>{
                                             <li className="totalPricecheckout-two" >{resultFinish?.nombre}</li>           
                                             <li className="totalPricecheckout-two" >{toPriceNoche?.price}</li>   
                                             <li className="totalPricecheckout-two" >{count}</li>   
-                                            <li className="totalPricecheckout-two" >{0}</li>               
+                                            <li className="totalPricecheckout-two" >COP {totalAobonoDecimal}</li>               
                                         </ul>  
                                     </div>
                                   
