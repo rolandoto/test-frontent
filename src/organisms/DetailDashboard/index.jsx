@@ -823,6 +823,7 @@ const toPriceNigth = UsePrice({number:resultDashboard?.valor_dia_habitacion})
                                 priceBebidas={priceBebidas}
                                 bebidas={bebidas}
                                 setLoadingConsumo={setLoadingConsumo}
+                                loadinConsumo={loadinConsumo}
                                 totalSnacks={totalSnacks}
                                 priceSnacks={priceSnacks}
                                 Snacks={Snacks}
@@ -1097,6 +1098,7 @@ const Consumo =(props) =>{
           Lenceria,
           jwt,
           setLoadingConsumo,
+          loadinConsumo,
           product} = props
 
 
@@ -1161,7 +1163,7 @@ const handleState =(event, index) =>{
 
     }else{
       ServicePayReservationSore({id, data}).then(index=> {
-        setLoadingConsumo(true)
+        setLoadingConsumo(!loadinConsumo)
       }).catch(e =>{
         console.log(e)
       })
