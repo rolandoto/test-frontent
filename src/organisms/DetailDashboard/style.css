@@ -643,8 +643,9 @@
 
 .pay_deudado{
   background: #eb6b7f;
-  color: white;
-  padding: 5px;
+  color: white !important;
+  width: 134px;
+  height: 16px;
 }
 
 .pay_Pagado{
@@ -657,17 +658,16 @@
 
 .pay_Pagado-deuda{
   background: #13a722d4;
-  color: white;
-  padding: 8px;
+  color: white !important;
+  width: 134px;
+  height: 16px;
   cursor: pointer;
 }
 
 .desde-detail-two-pagos-store{
-  height: 40px;
   border: none;
-  background: #ebebeb;
   border-radius: 8px;
   margin: 4px;
   width: 98%;
-  padding: 10px;
+
 }

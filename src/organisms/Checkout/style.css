@@ -496,3 +496,22 @@
   top: 0;
   left: 34px;
 }
+
+
+.pay-checkout-pago-deudado{
+  width: 100px;
+  background: #eb6b7f;
+  border-radius: 0;
+  display: flex;
+  justify-content: center;
+  color: white;
+}
+
+.pay-checkout-pago-pagado{
+  width: 100px;
+  background:  #13a722d4;
+  border-radius: 0;
+  display: flex;
+  justify-content: center;
+  color: white;
+}

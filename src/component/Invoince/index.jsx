@@ -155,7 +155,7 @@ const Invoince =({resultDashboard=[],carts=[],dataCount,setInvoice,priceCart,cli
                 </div>      
                 </div>
                     <button id="demo" className= {` top-button-invoince checkOut  sub-total-top`} onClick={handSubmit}>
-                        <span className="itemName">Imprimir</span>
+                        <span className="itemName">Guardar e imprimir</span>
                     </button>
         </div>
         )
@@ -217,7 +217,7 @@ const Invoince =({resultDashboard=[],carts=[],dataCount,setInvoice,priceCart,cli
                             </div>     
                         </div>
                         <button id="demo" className= {` top-button-invoince checkOut  sub-total-top`} onClick={hadAllInvoince}>
-                            <span className="itemName">Imprimir</span>
+                            <span className="itemName">Guardar e imprimir</span>
                         </button>
                         </div>
                 </>
@@ -293,7 +293,7 @@ const Invoince =({resultDashboard=[],carts=[],dataCount,setInvoice,priceCart,cli
                         </div>      
                         </div>
                             <button id="demo" className= {` top-button-invoince checkOut  sub-total-top`} onClick={handAll}>
-                                <span className="itemName">Imprimir</span>
+                                <span className="itemName">Guardar e imprimir</span>
                             </button>
                 </div>
          </>

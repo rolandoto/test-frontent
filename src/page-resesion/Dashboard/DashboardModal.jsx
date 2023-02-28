@@ -567,10 +567,11 @@ const DashboardModal = (props) => {
 
         const [loadinghabilitada,setLoadinghabilitada] =useState({loading:false,error:false})
 
+        console.log(dataAvaible)
+
         const handClick =() =>{
             setLoadinghabilitada({loading:false})
-            ServiceRoomsAviable({desde:dataAvaible.desde,hasta:dataAvaible.hasta,habitaciones:dataAvaible.habitaciones,ID_Habitaciones:asignar}).then(index =>{
-               
+            ServiceRoomsAviable({desde:dataAvaible.desde,hasta:dataAvaible.hasta,habitaciones:dataAvaible.habitaciones,ID_Habitaciones:dataAvaible.disponibilidad}).then(index =>{
                 setLoadinghabilitada({loading:true})
                 setTo(true)
             }).catch(e =>{

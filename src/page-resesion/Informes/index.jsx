@@ -49,6 +49,7 @@ const InformeAuditoria =() =>{
         return acum  +   parseInt(current.total) 
     },0)
 
+    console.log(auditoria)
 
     let count =0
     for(let i =0;i<auditoria?.length;i++){
@@ -56,7 +57,11 @@ const InformeAuditoria =() =>{
             const totalwith = parseInt(auditoria[i].Valor_habitacion ) *19/100
             const total = totalwith + parseInt(auditoria[i].Valor_habitacion )
             count += total
-        }else{
+        }else  if((auditoria[i].Iva ==1)){
+            const totalwith = parseInt(auditoria[i].Valor_habitacion ) *19/100
+            const total = totalwith + parseInt(auditoria[i].Valor_habitacion )
+            count += total
+        } else{
             count += parseInt(auditoria[i].Valor_habitacion)
         }
     }
@@ -97,6 +102,8 @@ const totalLoading = auditoria ?auditoria  : store
                         <th>Codigo reserva</th>
                         <th>Factura</th>
                         <th>Habitacion</th>
+                        <th>Concepto</th>
+                        <th>Descripción</th>
                         <th>Fecha</th>
                         <th>Pago</th>
                         <th>Identificacion</th>
@@ -113,8 +120,6 @@ const totalLoading = auditoria ?auditoria  : store
 
                             const total = totalIva+ PriceWithienda
 
-
-
                             const totalDefinid = index.Iva ==1? total : parseInt(index.Valor_habitacion)
 
                             const totalDefinttion = index.Tipo_persona =="empresa" ?total:totalDefinid
@@ -128,6 +133,8 @@ const totalLoading = auditoria ?auditoria  : store
                             <td className="width-informe" >X14A-{index.Num_documento}{index.ID_reserva}</td>
                             <td className="width-informe" >0</td>
                             <td className="width-informe" >{index.Numero}</td>
+                            <td className="width-informe" >Estadia</td>
+                            <td className="width-informe" >Pago estadia</td>
                             <td className="width-informe" >{fecha}</td>
                             <td className="width-informe" >{index.Tipo_pago}</td>
                             <td className="width-informe" >{index.Num_documento}</td>
@@ -141,12 +148,15 @@ const totalLoading = auditoria ?auditoria  : store
                              const fecha =  moment(index.Fecha_compra).utc().format('YYYY/MM/DD')
                              const PriceWithienda =  parseInt(index.total)
                              const totalWith = PriceWithienda.toLocaleString()
+                             console.log(index)
                             return (
                         <tr>
                             <td className="width-informe" >X14A-{index.Num_documento}{index.ID_Reserva}</td>
                             <td className="width-informe" >0</td>
                             <td className="width-informe" >Tienda</td>
-                            <td classNam    e="width-informe" >{fecha}</td>
+                            <td className="width-informe" >Tienda</td>
+                            <td className="width-informe" >{index.Cantidad}  {index.Nombre} </td>
+                            <td className="width-informe" >{fecha}</td>
                             <td className="width-informe" >{index.Tipo_pago}</td>
                             <td className="width-informe" >{index.Num_documento}</td>
                             <td className="width-informe" >{index.Nombre_persona}</td>
@@ -160,12 +170,15 @@ const totalLoading = auditoria ?auditoria  : store
                              const fecha =  moment(index.Fecha_compra).utc().format('YYYY/MM/DD')
                              const PriceWithienda =  parseInt(index.total)
                              const totalWith = PriceWithienda.toLocaleString()
+                            
                             return (
                         <tr>
                             <td className="width-informe" >X14A-{index.Num_documento}{index.ID_Reserva}</td>
                             <td className="width-informe" >0</td>
                             <td className="width-informe" >{index.Numero}</td>
-                            <td classNam    e="width-informe" >{fecha}</td>
+                            <td className="width-informe" >Minibar</td>
+                            <td className="width-informe" >{index.Cantidad}  {index.Nombre_producto} </td>
+                            <td className="width-informe" >{fecha}</td>
                             <td className="width-informe" >{index.Tipo_pago}</td>
                             <td className="width-informe" >{index.Num_documento}</td>
                             <td className="width-informe" >{index.Nombre_Person} {index.Apellido}</td>

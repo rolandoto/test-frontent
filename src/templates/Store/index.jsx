@@ -44,7 +44,7 @@ const StoreTemplate =({Store}) =>{
         {
           id: 4,
           itemId: "Drogueria",
-          name: "Drogueria",
+          name: "Aseo p.",
           imgSrc:
             "https://github.com/rolandoto/image-pms/blob/main/1-04-removebg-preview.png?raw=true",
         },
@@ -59,6 +59,13 @@ const StoreTemplate =({Store}) =>{
           id: 6,
           itemId: "Lenceria",
           name: "Lencería multas",
+          imgSrc:
+            "https://github.com/rolandoto/image-pms/blob/main/Captura_de_pantalla_2023-01-30_115354-removebg-preview.png?raw=true",
+        },
+        {
+          id: 7,
+          itemId: "Servicio",
+          name: "Servicio",
           imgSrc:
             "https://github.com/rolandoto/image-pms/blob/main/Captura_de_pantalla_2023-01-30_115354-removebg-preview.png?raw=true",
         } 
@@ -943,7 +950,7 @@ const StoreTemplate =({Store}) =>{
                                     </div>
                                 <div  className="form-login">
                                       <li>
-                                                <label className="title-stores" >Asignar Habitacion</label>
+                                                <label className="title-stores" >Asignar habitacion</label>
                                                 <select onChange={handChange}
                                                         value={peopleId}
                                                         name="disponibilidad"
@@ -959,7 +966,7 @@ const StoreTemplate =({Store}) =>{
                                                     )}
                                                 </select>
                                       </li>
-                                    <button className='button-login' onClick={handSubmitInsertCart} >asignar habitacion</button>
+                                    <button className='button-login' onClick={handSubmitInsertCart} >Asignar habitacion</button>
                                 </div> 
                             </div>
                     </div>

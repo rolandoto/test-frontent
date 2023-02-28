@@ -15,6 +15,8 @@ import { height, maxHeight } from "@mui/system"
 import ServiceStatus from "../../service/ServiceStatus"
 import { VscVerified,VscSymbolEvent ,VscSignOut,VscSearch,VscRecord} from "react-icons/vsc";
 import ServiceResolution from "../../service/serviceResolution"
+import { confirmAlert } from "react-confirm-alert"; // Import
+
 const CheckoutOrganism =({DetailDashboard}) =>{
     
     const {id} = useParams()
@@ -384,13 +386,16 @@ const CheckoutOrganism =({DetailDashboard}) =>{
     for(let i =0;i<data?.length;i++){
         cart.push({
             name:` ${data[i].Cantidad} ${data[i].Nombre_producto}`,
-            price:data[i].Precio
+            price:data[i].Precio,
+            pago_deuda:data[i].pago_deuda
         })
         sinIva.push({
             name:`${data[i].Cantidad} ${data[i].Nombre_producto}`,
-            price:data[i].Precio
+            price:data[i].Precio,
+            pago_deuda:data[i].pago_deuda
         })
     }
+    console.log(cart)
     console.log(data)
     
     const [query,setQuery] = useState()
@@ -571,6 +576,40 @@ const CheckoutOrganism =({DetailDashboard}) =>{
     const totalAbono =  parseInt(resultDashboard.valor_abono)
 
     const totalAobonoDecimal =totalAbono.toLocaleString();
+
+    function handClickCheckout() {
+        confirmAlert({
+          title: '',
+          message: 'Estas seguro de que desea hacer Check Out ?',
+          buttons: [
+            {
+              label: 'Si',
+              onClick: () => handUpdateStatus()
+            },
+            {
+              label: 'No',
+              onClick: () => console.log("no")
+            }
+          ]
+        });
+      }
+
+    const handSendFactura =() =>{
+        confirmAlert({
+            title: '',
+            message: 'Enviar factura electronica  ahora ?',
+            buttons: [
+              {
+                label: 'Si',
+                onClick: () => handServiFormularios()
+              },
+              {
+                label: 'No',
+                onClick: () => console.log("no")
+              }
+            ]
+          });
+    }
     
     if(findEmpresa)
     return (
@@ -750,6 +789,7 @@ const CheckoutOrganism =({DetailDashboard}) =>{
                                                <div className="carts-invoince one-flex-one">
                                                    <li className="totalPricecheckout" >{index.name}</li>        
                                                    <li className="totalPricecheckout" >{index.price}</li>   
+                                                   <li className={`totalPricecheckout ${index.pago_deuda ==0  ? "pay-checkout-pago-deudado" :"pay-checkout-pago-pagado" } `} >{index.pago_deuda ==0 ?<span>Adeudado</span>:<span >Pagado</span> }</li>   
                                                </div>       
                                            ))}
                                       </ul>     
@@ -765,6 +805,7 @@ const CheckoutOrganism =({DetailDashboard}) =>{
                                             <div className="to-hospedaje" >
                                                 <span  >Tienda hotel</span>
                                             </div>
+                                                
                                                 <span className="no-price" >$</span><span className="price-store" >{totalObject} <span className="no-price" >COP</span>  </span>
                                           </li>
                                           
@@ -774,12 +815,13 @@ const CheckoutOrganism =({DetailDashboard}) =>{
                     </div>
             <div className="container-store-checkout-two">
                 <div className="container-flex-buttton-checkout" >    
-                            <div className="button-checkout" onClick={handServiFormularios} >
+                            <div className="button-checkout" onClick={handSendFactura} >
                                 <button>Enviar factura electronica</button>
                             </div>
 
-                            <div className="button-checkout-two-finally" onClick={handUpdateStatus}  >
-                                <button>Check Out</button>
+                            <div className="button-checkout-two-finally" onClick={handClickCheckout}  >
+                                <button><span className="title-button"  > <div className="inke-in" > <img width={25} className="ro-img"  src="https://medellin47.com/ico_pms/qout.svg" alt="" /> <span> Check out </span> 
+                                            </div></span></button>
                             </div>
                         </div>
                     </div>
@@ -959,19 +1001,15 @@ const CheckoutOrganism =({DetailDashboard}) =>{
                                             <li className="totalPricecheckout" >${priceAdultos ?priceAdultos :0}</li>   
                                             <li className="totalPricecheckout" >${priceLenceria ?priceLenceria :0}</li>                
                                         </ul>                 
-                                         
                                     </div>
-
-                               
                                             <hr className="row-hr" />
-                                   
-                                     
                                     <div className={`${totalObject ? "re-two-one-two " : "re-two"}`} >
                                          <ul>
                                             {sinIva.map(index =>(
                                                 <div className="carts-invoince one-flex-one">
                                                     <li className="totalPricecheckout" >{index.name}</li>        
                                                     <li className="totalPricecheckout" >{index.price}</li>   
+                                                    <li className={`totalPricecheckout ${index.pago_deuda ==0  ? "pay-checkout-pago-deudado" :"pay-checkout-pago-pagado" } `} >{index.pago_deuda ==0 ?<span>Adeudado</span>:<span >Pagado</span> }</li>   
                                                 </div>       
                                             ))}
                                        </ul>     
@@ -1012,8 +1050,9 @@ const CheckoutOrganism =({DetailDashboard}) =>{
             <div className="button-checkout-three" onClick={handOpenInvoince} >
                     <button>Imprimir factura POS</button>
                 </div>
-                <div className="button-checkout-two-finally" onClick={handUpdateStatus}  >
-                    <button>Check Out</button>
+                <div className="button-checkout-two-finally" onClick={handClickCheckout}  >
+                <span className="title-button"  > <div className="inke-in" > <img width={25} className="ro-img"  src="https://medellin47.com/ico_pms/qout.svg" alt="" /> <span> Check out </span> 
+                                            </div></span>
                 </div>  
             </div>
                

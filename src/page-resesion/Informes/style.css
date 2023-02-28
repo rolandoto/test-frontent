@@ -108,4 +108,46 @@
     max-width:  1550px;;
   }
 
-    
+  .flex-container-room{
+    display: flex !important;
+  }
+
+  .flex-container-room-One{
+    display: flex !important;
+}
+
+.rota-room-to-sell{
+    transform: rotateZ(-90deg);
+}
+.rota-room-to-sellOne{
+    transform: rotateZ(90deg);
+}
+
+.flex-container-room  tr {
+    border: white;
+}
+
+tr:nth-child(even) {
+    background-color: white;
+}
+
+.to-tr{
+    display: grid;
+}
+
+.template-flex{
+    display: flex;
+}
+.flex-room-to-sell{
+    display: grid;
+}
+
+.top-pq{
+    width: 195px;
+}
+
+
+.top-room-to-sell-width{
+    width: 96px;
+    justify-content: center;
+}

@@ -8,13 +8,11 @@ import LoadingDetail from "../../Ui/LoadingDetail";
 
 const InformeRoomToSell =() =>{    
     const {jwt} =useContext(AutoProvider)
-
     const [roomtosell,setRoomTosell]=useState()
     const [LookinforFecha,setLokinforFecha] =useState()
     const [LookinforFechaOne,setLokinforFechaOne] =useState()
     const [loadingInforme,setLoadingInforme] =useState(false)
     const [room,setRoom] =useState()
-
 
     const handClikcDescargar =() =>{
         setLoadingInforme(true)
@@ -40,8 +38,25 @@ const InformeRoomToSell =() =>{
         })
     },[setRoom])
 
+
     const flattened = roomtosell?.flatMap(num => num);
-    console.log(flattened)
+
+    
+
+    var fechaInicio = new Date(LookinforFecha);
+    var fechaFin    = new Date(LookinforFechaOne);
+
+    const array =[]
+
+while(fechaFin.getTime() >= fechaInicio.getTime()){
+    fechaInicio.setDate(fechaInicio.getDate() + 1);
+
+    array.push({
+        day:fechaInicio.getFullYear() + '/' + (fechaInicio.getMonth() + 1) + '/' + fechaInicio.getDate()
+    }) 
+}
+   
+
 
     return (
             <ContainerGlobal>
@@ -58,20 +73,58 @@ const InformeRoomToSell =() =>{
                     Imprimir
                 </a></button>}
 
-            <table className="de" >   
-                <tbody>
-
-                 
-                {room?.map(index=> (
+            <table className="de  "  >   
+            
+            <tbody  >
                     
-                     <tr> 
-                            <td>{index.nombre}</td>  
-                          
-                    </tr>                                 
-                ))}             
-                
-                    </tbody>
+
+                <tr>
+                    <th  className="top-pq"  >Nombre</th>
+                    {array.map(index => (
+                        <th className=" top-room-to-sell-width" >{index.day}</th>
+                    ))}
+                    
+                </tr>
+
+                <div className="template-flex" >
+                <tr className="to-tr top-pq" >
+                   {room?.map(index  =>(
+                    <td>{index.nombre}</td>
+                   ))}
+                </tr> 
+                {roomtosell?.map((index)  => (
+                    <tr  className="flex-room-to-sell top-room-to-sell-width" > 
+                        {index?.map((row, i) => {
+                        const fechaActual = row.fecha;
+                        const fechaAnterior = i > 0 ? index[i - 1].fecha : null;
+                        if (fechaAnterior !== null && fechaActual !== fechaAnterior) {
+                            return (
+                            <>
+                                    <th  >{row.disponible} </th>  
+                                    
+                                </>
+                            );
+                        } else {
+                            return (
+                               
+                                <th  >{row.disponible}  </th>  
+                           
+                            );
+                        }
+                        })}
+                        
+                        
+                        </tr> 
+                     ))}
+                </div>
+
+              
+            </tbody>       
+              
+         
             </table>
+
+            
         </div>
             </ContainerGlobal>
     )

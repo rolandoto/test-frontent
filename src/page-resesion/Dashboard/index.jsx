@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useRef } from "react";
 import moment from "moment";
 import "moment/locale/es";
 import Timeline, {
@@ -37,6 +37,29 @@ import { config } from "../../config";
 import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
 import { fontWeight } from "@mui/system";
 import  {Link} from "react-router-dom"
+
+
+
+const Tooltip = ({ children, text, ...rest }) => {
+	const [show, setShow] = React.useState(false);
+  
+	return (
+	  <div>
+		<div className="tooltip" style={show ? { visibility: "visible" } : {}}>
+		  {text}
+		  <span className="tooltip-arrow" />
+		</div>
+		<div
+		  {...rest}
+		  onMouseEnter={() => setShow(true)}
+		  onMouseLeave={() => setShow(false)}
+		>
+		  {children}
+		</div>
+	  </div>
+	);
+  }
+  
 
 const useCountRoom =({id}) =>{
 	const [count,setCount] =useState()
@@ -249,59 +272,78 @@ const Dashboard = (props) => {
 		)
 	}
 
+
+	const [showInfo, setShowInfo] = useState(false);
+
+	console.log(showInfo)
+	
 	const itemRenderer = ({ item, itemContext, getItemProps }) => {
-
-		let color
-		if(item.state==0){
-			color = "#FF9990"
-		}else if(item.state==1){
-			color ="#E9C9FF"
-		}else if(item.state==2){
-			color ="#F94141"
-		}else if(item.state==3){
-			color ="#C2DEE5"
-		}else if(item.state==4){
-			color ="#0DC034"
+		
+		
+		const handleMouseEnter = () => {
+		  setShowInfo(true);
+		};
+	  
+		const handleMouseLeave = () => {
+		  setShowInfo(false);
+		};
+	  
+		let color;
+		if (item.state === 0) {
+		  color = '#FF9990';
+		} else if (item.state === 1) {
+		  color = '#E9C9FF';
+		} else if (item.state === 2) {
+		  color = '#F94141';
+		} else if (item.state === 3) {
+		  color = '#C2DEE5';
+		} else if (item.state === 4) {
+		  color = '#0DC034';
 		}
+	  
 		return (
+		  <div 
+		  onMouseEnter={handleMouseEnter}
+		  onMouseLeave={handleMouseLeave}
+		  
+			{...getItemProps({
+			  style: {
+				display: 'flex',
+				alignItems: 'center',
+				background: color,
+				border: '',
+				borderRadius: '8px',
+				padding: '8px',
+				color: 'black',
+				position:"relative"
+			  },
+			
+			})}
+		  >
 			<div
-				{...getItemProps({
-				style: {
-					display: "flex",
-					alignItems: "center",
-					background: color,
-					border: ``,
-					borderRadius: "8px",
-					padding:"8px",
-					color:"black"
-				}
-				})}
+			  className="itemModal"
+			  style={{
+				left: 'left',
+				right: 'right',
+			  }}
+			></div>
+	  
+			<div
+			  style={{
+				position: 'sticky',
+				left: '0',
+				display: 'inline-block',
+				overflow: 'hidden',
+				padding: '0 1rem',
+				textOverflow: 'ellipsis',
+				whiteSpace: 'nowrap',
+			  }}
 			>
-      <div className="itemModal" style={{
-        left: "left",
-        right: "right"
-      }}>
-
-      </div>
-     
-				<div
-				style={
-					{
-					position: "sticky",
-					left: "0",
-					display: "inline-block",
-					overflow: "hidden",
-					padding: "0 1rem",
-					textOverflow: "ellipsis",
-					whiteSpace: "nowrap"
-				}
-			}
-				>
-				{itemContext.title}
-				</div>
+			  {itemContext.title}
 			</div>
+		  </div>
 		);
-	}
+	  };
 
 
 	const intervalRendererdayNum= ({ intervalContext, getIntervalProps, data }) => {

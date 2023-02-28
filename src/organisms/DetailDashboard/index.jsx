@@ -1208,14 +1208,14 @@ const handleState =(event, index) =>{
                               <TableCell>{row.Nombre_categoria} </TableCell>
                               <TableCell>{row.Nombre_Producto} </TableCell>
                               <TableCell>Cop {row.Price} </TableCell>
-                              <TableCell> <span className="pay_deudado" >Deudado </span> </TableCell>
+                              <TableCell className="pay_deudado" ><span>Adeudado</span></TableCell>
                              
                               <TableCell>  <select  onChange={handleState}
                                     name={"forma_pago"}
                                     value={state.forma_pago}
                                     required
                                     className="desde-detail-two-pagos-store" >
-                                  <option >{null}</option>
+                                  <option >Selecionar tipo pago</option>
                                   {typy_buy?.map(category =>(
                                       <option 
                                       value={category.id}   
@@ -1239,7 +1239,8 @@ const handleState =(event, index) =>{
                               <TableCell>{row.Nombre_categoria} </TableCell>
                               <TableCell>{row.Nombre_Producto} </TableCell>
                               <TableCell>Cop {row.Price} </TableCell>
-                              <TableCell><span className="pay_Pagado-deuda">Pagado</span></TableCell>
+                              <TableCell className="pay_Pagado-deuda" ><span >Pagado</span></TableCell>
+                              <TableCell  ><span >Pagado</span></TableCell>
                               <TableCell>{row.Tipo_pago}</TableCell>
                            </TableRow>
                         )}
