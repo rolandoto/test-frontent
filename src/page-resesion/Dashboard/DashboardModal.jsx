@@ -851,7 +851,6 @@ const DashboardModal = (props) => {
         
         let totalMaximopersona = parseInt(findRoomOne?.max_persona)
         countMax=totalMaximopersona
-        
 
         const MAX_VAL = 6;
         

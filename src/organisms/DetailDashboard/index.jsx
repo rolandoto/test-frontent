@@ -36,15 +36,14 @@ import { SlBookOpen } from "react-icons/sl";
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import ServicePayReservationSore from "../../service/ServicePayReservationSore";
-
-
-
+import ServiceUpdateDetailTypeRoom from "../../service/ServiceUpdateDetailTypeRoom";
 
 const DetailDasboard =(props) =>{
     const {id} = useParams()
     const [state,setState] =useState(true)
     const [room,setRoom] =useState()
     const [tipoDocumento,setTipoDocumento] =useState()
+
     const {DetailDashboard,fetchData} = props
     const [loading,setLoading] =useState({loading:false,error:false})
     const history = useHistory()
@@ -61,16 +60,6 @@ const DetailDasboard =(props) =>{
    
     const {progress} =useProgress({id})
     const resultDashboard = DetailDashboard[0]
-
-    
-const fe= moment(resultDashboard?.Fecha_final).utc().format('DD/MM/YYYY/MM')
-
-console.log(fe)
-
-
-
- 
-
 
     const findPersona =  resultDashboard?.tipo_persona == "persona"
     const findEmpresa = resultDashboard?.tipo_persona =="empresa"
@@ -129,7 +118,20 @@ console.log(fe)
       const [product,setProduct] =useState()
       const [observacion,setObservacion] =useState()
       const [loadinConsumo,setLoadingConsumo] =useState(false)
+      const [idRoom,setIdRoom] =useState()
+      const [disponibilidad,setDisponibilidad] =useState()
+      const [asignar,setAsignar] =useState()
+      const [loadingTypeRoom,setLoadingTypeRoom] =useState({loading:false,error:false})
 
+      console.log(idRoom)
+
+      const handAsignar =(event)  =>{
+        setAsignar(event.target.value)
+      }
+
+      const handleChangeRoom =(event) => {
+        setIdRoom(event.target.value);
+      }
 
       const handChangeObservation =(e) =>{
         setObservacion(e.target.value)
@@ -304,6 +306,13 @@ console.log(fe)
 
     const docu = tipoDocumento?.find(index =>  index?.ID == resultDashboard?.ID_Tipo_documento)
 
+
+    const habi = room?.map(index => {
+      const ID = index.id_tipoHabitacion
+      const {nombre} = index
+      return {nombre,ID}
+    })
+
     const resultFinish = room?.find(index=>index?.id_tipoHabitacion == resultDashboard?.ID_Tipo_habitaciones)
     console.log(resultFinish)
     const item = state  ? <span>Editar</span> : <span>Guardar</span>
@@ -354,19 +363,24 @@ console.log(fe)
       fetch("https://grupohoteles.co/api/getTipeDocument")
       .then(index =>index.json())
       .then(data => setTipoDocumento(data))
+
       fetch(`${config.serverRoute}/api/resecion/getdetailchecking/${id}`)
       .then(resp => resp.json())
       .then(data=> setQuery(data?.query))
-   
-  },[loadinConsumo]) 
 
+      fetch(`${config.serverRoute}/api/resecion/getroomdetalle/${idRoom}`)
+            .then(index=> index.json())
+            .then(data =>setDisponibilidad(data))
+  },[loadinConsumo,idRoom])
+
+  
   var numDefinish =  parseInt(resultDashboard?.valor_habitacion);
   var formattedNum = numDefinish.toLocaleString();  
   const valor_habitacion = formatter.format(resultDashboard?.valor_habitacion)
   const valor_abono =  formatter.format(resultDashboard?.valor_abono)
   const total_Cobrar = resultDashboard?.valor_habitacion - resultDashboard?.valor_abono
   const cobrar = formatter.format(total_Cobrar)
-
+  
   let count
 
   if(quyery?.length>=resultFinish?.persona){
@@ -395,8 +409,6 @@ console.log(fe)
       infantes:infantes,
       Observacion:observacion
     }
-
-  console.log(dataCountPeople)
 
   const hanAdd=() =>{
     if (huespe.Tipo_documento =="" || huespe.Num_documento =="" || huespe.Nombre ==""|| huespe.Apellido ==""|| huespe.Celular ==""|| huespe.Correo ==""|| huespe.Fecha_nacimiento =="" || huespe.Ciudad ==""|| huespe.Nacionalidad =="" ){
@@ -508,8 +520,6 @@ const priceLenceria = Lenceria?.reduce((acum,current) => {
 
 const [pdfOne,setPdfOne] =useState()
 
-
-
 function handleClickBasic() {
   confirmAlert({
     title: '',
@@ -563,6 +573,7 @@ function handComprobante() {
 
 
 
+
 var curr = new Date(resultDashboard?.Fecha_inicio);
 curr.setDate(curr.getDate());
 var fecha_inicio = curr.toISOString().substring(0,10);
@@ -572,6 +583,36 @@ var currOne = new Date(resultDashboard?.Fecha_final);
 currOne.setDate(currOne.getDate());
 var fecha_final = currOne.toISOString().substring(0,10);
 
+const PriceRoomById= room?.find(index=>index?.id_tipoHabitacion == idRoom)
+
+console.log(PriceRoomById)
+
+const handServiceChangeTypeRoom =(e) =>{
+  e.preventDefault()
+  ServiceUpdateDetailTypeRoom({desde:dataAvaible.desdeOne,hasta:dataAvaible.desde,ID_Habitaciones:asignar,id,ID_Tipo_habitaciones:idRoom,RoomById:PriceRoomById}).then(index => {
+    setLoadingTypeRoom({loading:true})
+  }).catch(e =>{
+    setLoadingTypeRoom({error:true})
+  })
+}
+
+
+const handChangeTypeRoomOne =(e) =>{
+  confirmAlert({
+    title: '',
+    message: 'Confirmar cambio habitacion ?',
+    buttons: [
+      {
+        label: 'Si',
+        onClick: handServiceChangeTypeRoom()
+      },
+      {
+        label: 'No',
+        onClick: () => console.log("no")
+      }
+    ]
+  });
+}
 
 const hancPdf =() =>{
   ServePdf({codigoReserva:resultDashboard?.Num_documento,Nombre:resultDashboard?.Nombre,room:resultFinish?.nombre,adults:resultDashboard?.Adultos,children:resultDashboard?.Ninos,tituloReserva:resultDashboard?.Nombre,abono:resultDashboard?.valor_abono,formaPago:resultDashboard?.forma_pago,telefono:resultDashboard.Celular,identificacion:resultDashboard.Num_documento,correo:resultDashboard.Correo,urllogo:"https://github.com/rolandoto/image-pms/blob/main/WhatsApp%20Image%202023-02-06%20at%203.49.08%20PM.jpeg?raw=true",tarifa:resultDashboard.valor_habitacion,entrada:fecha_inicio,salida:fecha_final}).then(index => {
@@ -588,7 +629,6 @@ const hancPdf =() =>{
   })
 } 
 
-  
 const toPriceNigth = UsePrice({number:resultDashboard?.valor_dia_habitacion})
 
   if(!docu) return null
@@ -605,10 +645,17 @@ const toPriceNigth = UsePrice({number:resultDashboard?.valor_dia_habitacion})
                         titleLoading={"Detalle reserva"}  />
           <LoadingDetail  
                         error={loadingFecha.error}
-                        title={"no no puede reservar"}  />
+                        title={"NO se puede reservar"}  />
+          <LoadingDetail  
+                        error={loadingTypeRoom.error}
+                        title={"No se puede cambiar tipo de habitacion"}  />
            <LoadingDetail  
                         loading={loadingFecha.loading}
                         titleLoading={"Fecha Actualizada"}  />
+
+          <LoadingDetail  
+                        loading={loadingTypeRoom.loading}
+                        titleLoading={"Se cambio correctamente la habitacion"}  />
            <LoadingDetail      error={error}  
                       title="Completa todos los campos por favor" />
 
@@ -704,16 +751,56 @@ const toPriceNigth = UsePrice({number:resultDashboard?.valor_dia_habitacion})
                         onChange={handleChange("Fecha")}   />
             </div>
         </form>
+      </div>
 
-        <form className="container-flex-init" >
-          
-                
-            </form>
-        <form className="container-flex-init" >
+      <div className="init" >
+        <form  className="container-flex-init"  onSubmit={e =>{
+          e.preventDefault()
+        }} >
+        <div className="container-detail-dasboard-in" > 
 
-              
+        <span className="desde-detail-two-title" > Tipo habitacion </span>
+        <span className="desde-detail-two-title" >Asignar habitacion </span>
+
+            </div>
+              <div className="container-detail-dasboard-in" > 
+              <select   name="disponibilidad"
+                        onChange={handleChangeRoom}
+                        value={idRoom}
+                        className="desde-detail-two"    >
+                    <option></option>
+                    {habi?.map(category =>(
+                        <option 
+                        value={category.ID}   
+                        key={category.ID}>
+                        {category.nombre}
+                    </option>
+                    )
+                    )}
+                </select>
+
+                <select   name="disponibilidad"
+                          onChange={handAsignar}
+                          value={asignar}
+                        className="desde-detail-two"    >
+                    <option></option>
+                    {disponibilidad?.query?.map(category =>(
+                          <option 
+                          value={category.ID}   
+                          key={category.ID}>
+                          {category.Numero}
+                    </option>
+                    )
+                    )}
+                </select>
+                <div  onClick={handServiceChangeTypeRoom} >
+                      <button className="button-change-type-room" > <span>Cambiar habitacion</span></button>
+                </div>    
+            </div>
         </form>
       </div>
+
+
         <div className="container-flex-init-one-center " >
               <div>
                   <button className={`${ findFirma ? "button-checking-detail-firma" : "button-checking-detail-finish-button" } `} onClick={handChecking} >
@@ -746,13 +833,7 @@ const toPriceNigth = UsePrice({number:resultDashboard?.valor_dia_habitacion})
                   <div onClick={ handComprobante } >
                      <img width={45}  src="https://medellin47.com/ico_pms/qdoc.svg" alt="" />
                   </div>
-
               </div>
-
-          
-           
-
-
                 <div className="container-checkbox" >
                     <input   type="checkbox" 
                             className={`checkbox-round  ${isChecked && "checkbox-round-click"} `}
@@ -775,12 +856,8 @@ const toPriceNigth = UsePrice({number:resultDashboard?.valor_dia_habitacion})
             <div>
                 <button className="button-checking-detail-one-das" > <span> Total cobro {cobrar}  </span></button>
             </div>
-            
-      
       </div>
-
       <div >
-     
     </div>
 
         <div className="in-cehcki-out" >

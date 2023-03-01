@@ -60,14 +60,14 @@ const StoreTemplate =({Store}) =>{
           itemId: "Lenceria",
           name: "Lencería multas",
           imgSrc:
-            "https://github.com/rolandoto/image-pms/blob/main/Captura_de_pantalla_2023-01-30_115354-removebg-preview.png?raw=true",
+            "https://github.com/rolandoto/image-pms/blob/main/Lencenria.png?raw=true",
         },
         {
           id: 7,
           itemId: "Servicio",
           name: "Servicio",
           imgSrc:
-            "https://github.com/rolandoto/image-pms/blob/main/Captura_de_pantalla_2023-01-30_115354-removebg-preview.png?raw=true",
+            "https://github.com/rolandoto/image-pms/blob/main/servicio.png?raw=true",
         } 
       ];
 

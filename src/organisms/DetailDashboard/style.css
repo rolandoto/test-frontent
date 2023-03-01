@@ -671,3 +671,19 @@
   width: 98%;
 
 }
+
+.button-change-type-room{
+  border: none;
+    background: #b9b9b9;
+    padding: 0;
+    width: 609px;
+    border-radius: 8px;
+    color: white;
+    height: 53px;
+    align-items: center;
+    /* text-align: center; */
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+    margin-left: 11px;
+}
