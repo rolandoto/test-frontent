@@ -338,6 +338,22 @@ const Dashboard = (props) => {
 			  }}
 			>
 			 	{itemContext.title}
+				 <div  >
+					<ReactTooltip id={key} >
+						<div className="go"  >
+								<ul > 
+									<li className="color-white " >Numero Habitacion :{item.Num_Room}</li>
+									<li className="color-white " > Codigo reserva :{item.Codigo_Reserva}</li>
+									<li className="color-white " >Huesped: {item.full_name}</li> 
+									<li className="color-white " >Check in :{item.Fecha_inicio}</li>
+									<li className="color-white " >Checkout :{item.Fecha_final}</li>
+									<li className="color-white " >Noches :{item.Noches}</li> 
+									<li className="color-white " >Adultos :{item.Adultos}</li> 
+									<li className="color-white " >Niños :{item.Ninos}</li> 
+								</ul>
+							</div>
+					 </ReactTooltip>
+					 </div>
 				
 			</div>
 		</div>

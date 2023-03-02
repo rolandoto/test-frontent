@@ -259,14 +259,13 @@ const DetailDasboard =(props) =>{
       desdeOne:`${fecha.defaultValueone} 15:00:00`,
   }   
 
-
-  console.log(dataAvaible)
-
-
     const date1 = new Date(fechaOne?.defaultValueone)
     const date2 = new  Date(espan)
 
-    const resultFechaMayor = date2> date1 && true
+    const resultFechaMayor = date2> date1  && true
+    
+    
+    console.log(fechaOne.defaultValueone)
 
     const tipos_adicional = [
       {
