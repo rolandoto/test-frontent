@@ -1,10 +1,12 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import  AutoProvider  from "../../privateRoute/AutoProvider";
 import ServiceInfomeRoomtoSell from "../../service/ServiceInformeRoomTosell";
 import ServicetypeRooms from "../../service/ServicetypeRooms";
 import ContainerGlobal from "../../Ui/ContainerGlobal";
 import LoadingDetail from "../../Ui/LoadingDetail";
-
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
+import { useReactToPrint } from "react-to-print";
 
 const InformeRoomToSell =() =>{    
     const {jwt} =useContext(AutoProvider)
@@ -48,15 +50,22 @@ const InformeRoomToSell =() =>{
 
     const array =[]
 
-while(fechaFin.getTime() >= fechaInicio.getTime()){
-    fechaInicio.setDate(fechaInicio.getDate() + 1);
+    while(fechaFin.getTime() >= fechaInicio.getTime()){
+        fechaInicio.setDate(fechaInicio.getDate() + 1);
 
-    array.push({
-        day:fechaInicio.getFullYear() + '/' + (fechaInicio.getMonth() + 1) + '/' + fechaInicio.getDate()
-    }) 
-}
-   
+        array.push({
+            day:fechaInicio.getFullYear() + '/' + (fechaInicio.getMonth() + 1) + '/' + fechaInicio.getDate()
+        }) 
+    }
+    
 
+    let componentRef = useRef();
+
+
+    const handlePrint = useReactToPrint({
+        content: () => componentRef.current
+    });
+    
 
     return (
             <ContainerGlobal>
@@ -67,15 +76,15 @@ while(fechaFin.getTime() >= fechaInicio.getTime()){
             <div>
                 <input type="date" className="input-selecto-dasboard-n1-reservaction"  onChange={hadChangeFecha}    />
                 <input type="date" className="input-selecto-dasboard-n1-reservaction"  onChange={hadChangeFechaOne}    />
-                <button className="button-informe-cosultar" onClick={hanLookingFor} >Consultar</button>
-                {roomtosell?.length>0 && <button className="button-informe-descargar"  onClick={handClikcDescargar} >Descargar Informe</button>}
-                {roomtosell?.length>0 &&<button className="button-informe-imprimir"  ><a href="#" >
+                <button className="button-informe-cosultar  with-button-room-to-sell " onClick={hanLookingFor} >Consultar</button>
+                {roomtosell?.length>0 && <button className="button-informe-descargar  with-button-room-to-sell "  onClick={handClikcDescargar} >Descargar Informe</button>}
+                {roomtosell?.length>0 &&<button className="button-informe-imprimir with-button-room-to-sell-One"  onClick={handlePrint} ><a href="#" >
                     Imprimir
                 </a></button>}
 
             <table className="de  "  >   
             
-            <tbody  >
+            <tbody ref={componentRef}  >
                     
 
                 <tr>

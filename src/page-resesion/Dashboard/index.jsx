@@ -37,28 +37,22 @@ import { config } from "../../config";
 import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
 import { fontWeight } from "@mui/system";
 import  {Link} from "react-router-dom"
+import ReactTooltip from "react-tooltip";
+import styled from "styled-components";
 
 
 
-const Tooltip = ({ children, text, ...rest }) => {
-	const [show, setShow] = React.useState(false);
-  
-	return (
-	  <div>
-		<div className="tooltip" style={show ? { visibility: "visible" } : {}}>
-		  {text}
-		  <span className="tooltip-arrow" />
-		</div>
-		<div
-		  {...rest}
-		  onMouseEnter={() => setShow(true)}
-		  onMouseLeave={() => setShow(false)}
-		>
-		  {children}
-		</div>
-	  </div>
-	);
-  }
+
+const Info = styled(ReactTooltip)`
+  max-width: 278px;
+  padding-top: 9px;
+`;
+const InfoMessage = styled.p`
+  font: Roboto;
+  font-size: 13px;
+  line-height: 1.4;
+  text-align: left;
+`;
   
 
 const useCountRoom =({id}) =>{
@@ -275,10 +269,9 @@ const Dashboard = (props) => {
 
 	const [showInfo, setShowInfo] = useState(false);
 
-	console.log(showInfo)
 	
 	const itemRenderer = ({ item, itemContext, getItemProps }) => {
-		
+		console.log(item)
 		
 		const handleMouseEnter = () => {
 		  setShowInfo(true);
@@ -300,12 +293,14 @@ const Dashboard = (props) => {
 		} else if (item.state === 4) {
 		  color = '#0DC034';
 		}
-	  
+
+		const key = `${item.id}_${item.id}_schedule`;
+
 		return (
+			
 		  <div 
-		  onMouseEnter={handleMouseEnter}
-		  onMouseLeave={handleMouseLeave}
 		  
+		  data-for={key} data-tip
 			{...getItemProps({
 			  style: {
 				display: 'flex',
@@ -315,10 +310,12 @@ const Dashboard = (props) => {
 				borderRadius: '8px',
 				padding: '8px',
 				color: 'black',
-				position:"relative"
+				position:"relative",
+				
 			  },
 			
 			})}
+
 		  >
 			<div
 			  className="itemModal"
@@ -337,11 +334,13 @@ const Dashboard = (props) => {
 				padding: '0 1rem',
 				textOverflow: 'ellipsis',
 				whiteSpace: 'nowrap',
+				
 			  }}
 			>
-			  {itemContext.title}
+			 	{itemContext.title}
+				
 			</div>
-		  </div>
+		</div>
 		);
 	  };
 
@@ -365,7 +364,8 @@ const Dashboard = (props) => {
 				color: "#b3aca7",
     			left: "48%;",
 				fontWeight:"100",
-				fontSize:"12px"
+				fontSize:"12px",
+				zIndex:1
 			}}
 			>
 			{intervalContext.intervalText}
@@ -396,8 +396,8 @@ const Dashboard = (props) => {
 				fontSize:"13px",
 				textAlign:"center",
 				left:"20px",
-				top:"-9px"
-			
+				top:"-9px",
+				zIndex:1
 			}}
 			>
 			{intervalContext.intervalText}
@@ -424,7 +424,8 @@ const Dashboard = (props) => {
 				textTransform: "capitalize",
 				color: "#b3aca7",
     			left: "48%;",
-				fontWeight:"100"
+				fontWeight:"100",
+				zIndex:1
 			}}
 			>
 			{intervalContext.intervalText}
@@ -633,7 +634,7 @@ const Dashboard = (props) => {
 		},
 		{
 			id: 6,
-			name:"Informe sell"
+			name:"Informe room to sell"
 		}
 	];
 
@@ -714,7 +715,7 @@ const Dashboard = (props) => {
 					</button>	
 				</div>
 			</div>
-				
+			
 			<ModalSate 
 						modalState={modalState} 
 						handClickCloseState={handClickCloseState} 
@@ -738,7 +739,7 @@ const Dashboard = (props) => {
 				itemHeightRatio={0.9}                                                             
 				lineHeight={45}
 				sidebarWidth={180}
-				itemRenderer={itemRenderer}
+				itemRenderer={  itemRenderer}
 				onItemDoubleClick={false}
 				moveResizeValidator={(action, itemId, time, resizeEdge)  => handContext(action, itemId, time, resizeEdge)}
 				onItemClick={(itemId, e, time) => onItemClick(itemId, e, time)}
@@ -776,6 +777,7 @@ const Dashboard = (props) => {
 		</Timeline>
 		
 		<CardStore  countRoom={count} />
+	
 		</>
 	);
 

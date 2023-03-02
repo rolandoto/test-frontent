@@ -28,7 +28,18 @@ const fromRervas =(event)  =>{
 
       const code = index.Codigo_reserva
 
+      console.log({"index":index})
+
         return {
+          Num_Room:index.Num_Room,
+          Codigo_Reserva:index.Codigo_reservaOne,
+          full_name:`${index.Nombre} ${index.Last_name}`,
+          Observation:index.Observation,
+          Fecha_inicio: moment(index.Fecha_inicio).utc().format('YYYY/MM/DD'),
+          Fecha_final:moment(index.Fecha_final).utc().format('YYYY/MM/DD'),
+          Noches:index.Noches,
+          Adultos:index.Adultos,
+          Ninos:index.Ninos,
           end_time: daysend,
           group,  
           id,
