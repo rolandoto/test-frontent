@@ -37,6 +37,7 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import ServicePayReservationSore from "../../service/ServicePayReservationSore";
 import ServiceUpdateDetailTypeRoom from "../../service/ServiceUpdateDetailTypeRoom";
+import UseFechaFormateada from "../../hooks/UseFechaFormateado";
 
 const DetailDasboard =(props) =>{
     const {id} = useParams()
@@ -196,7 +197,6 @@ const DetailDasboard =(props) =>{
     
     const day =diff/(1000*60*60*24)
 
-
     const pruebaOne  =   moment(fecha.defaultValueone).utc().format('MM/DD/YYYY')
     const pruebaTwo = moment(espan).utc().format('MM/DD/YYYY')
 
@@ -205,8 +205,6 @@ const DetailDasboard =(props) =>{
 
     var diffOne = fechaFinOne - fechaInicioOne  
     const dayOne =diffOne/(1000*60*60*24)
-
-   
 
     const handChangeEdit =() =>{
       setState(!state)
@@ -262,11 +260,14 @@ const DetailDasboard =(props) =>{
     const date1 = new Date(fechaOne?.defaultValueone)
     const date2 = new  Date(espan)
 
-    const resultFechaMayor = date2> date1  && true
     
-    
-    console.log(fechaOne.defaultValueone)
+    const fechaFormateadaFechaInicio = UseFechaFormateada({fecha:fecha.defaultValueone})
+    const fechaFormateadaFechaFinal = UseFechaFormateada({fecha:fechaOne?.defaultValueone})
 
+    const fechaThree = fechaFormateadaFechaFinal.fechaFormateadaHasta
+
+    const resultFechaMayor = fechaFormateadaFechaInicio.fechaFormateadaHasta< espan ? true : false
+   
     const tipos_adicional = [
       {
         id: 1,

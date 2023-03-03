@@ -39,6 +39,7 @@ import { fontWeight } from "@mui/system";
 import  {Link} from "react-router-dom"
 import ReactTooltip from "react-tooltip";
 import styled from "styled-components";
+import ServiceAllTotalReservation from "../../service/ServiceAllTotalReservation";
 
 
 
@@ -99,7 +100,17 @@ const Dashboard = (props) => {
 	const {count} =useCountRoom({id:jwt.result.id_hotel})
 	const [loadingSkeleto,setLoadingSkeleto] =useState(true)
 
+	const  now = moment().format("YYYY-MM-DD");
+
+	const  [totalDay ,setTotalDay] =useState()
 	
+	useEffect(() =>{
+		ServiceAllTotalReservation({fecha:now,id:jwt.result.id_hotel}).then(index =>{
+			setTotalDay(index)
+		}).catch(e =>{
+			console.log(e)
+		})
+	},[])
 
 	const Skele =() =>{
 		return (
@@ -271,8 +282,7 @@ const Dashboard = (props) => {
 
 	
 	const itemRenderer = ({ item, itemContext, getItemProps }) => {
-		console.log(item)
-		
+	
 		const handleMouseEnter = () => {
 		  setShowInfo(true);
 		};
@@ -346,7 +356,7 @@ const Dashboard = (props) => {
 									<li className="color-white " > Codigo reserva :{item.Codigo_Reserva}</li>
 									<li className="color-white " >Huesped: {item.full_name}</li> 
 									<li className="color-white " >Check in :{item.Fecha_inicio}</li>
-									<li className="color-white " >Checkout :{item.Fecha_final}</li>
+									<li className="color-white " >Check out :{item.Fecha_final}</li>
 									<li className="color-white " >Noches :{item.Noches}</li> 
 									<li className="color-white " >Adultos :{item.Adultos}</li> 
 									<li className="color-white " >Niños :{item.Ninos}</li> 
@@ -461,7 +471,7 @@ const Dashboard = (props) => {
     },[setRoom])
 
 
-	console.log(state)
+
 	
 	const [search,setSearch] =useState([])
 
@@ -530,7 +540,7 @@ const Dashboard = (props) => {
 	useEffect(() =>{
 		ServiceReservas({id:jwt.result.id_hotel}).then(index=> {
 			setReservas(index)
-			console.log(index)
+			
 			setpruebareservas(index)
 		})
 	},[setSearch])
@@ -675,13 +685,14 @@ const Dashboard = (props) => {
 		}
 	},[stateInformes,setInformes])
 
-	console.log(stateInformes)
+
 
 	if(loadingSkeleto) return Skele()
 	if(!pruebareservas) return null
 	if(!search)  return null
 	if(!state)  return null
 	if(!reservation)return null
+	if(!totalDay) return null
 	return (
 		<>
 			<div className="container-calender">
@@ -792,7 +803,7 @@ const Dashboard = (props) => {
         </TimelineMarkers>
 		</Timeline>
 		
-		<CardStore  countRoom={count} />
+		<CardStore totalday={totalDay} />
 	
 		</>
 	);
