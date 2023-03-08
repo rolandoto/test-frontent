@@ -5,7 +5,7 @@ import ButtonState from "../../../atoms/ButtonState";
 import ButtonStateOne from "../../../atoms/ButtonStateOne";
 import "./style.css"
 
-const ModalSate  =({modalState,handClickCloseState,handClikCleanline}) =>{
+const ModalSate  =({handChangeTypeRoomOne,modalState,handClickCloseState,handClikCleanline,handBlock}) =>{
 
     
 
@@ -19,8 +19,7 @@ const ModalSate  =({modalState,handClickCloseState,handClikCleanline}) =>{
                                    <IoMdCloseCircle fontSize={30} color="black" onClick={handClickCloseState} />
                                 </div>
 
-                                <ButtonState handClikCleanline={handClikCleanline}  />
-                                <ButtonStateOne />
+                             
                         </div>
                     </div>
                 </div>

@@ -54,15 +54,15 @@ const InformeAuditoria =() =>{
     let count =0
     for(let i =0;i<auditoria?.length;i++){
         if((auditoria[i].Tipo_persona =="empresa")){
-            const totalwith = parseInt(auditoria[i].Valor_habitacion ) *19/100
-            const total = totalwith + parseInt(auditoria[i].Valor_habitacion )
+            const totalwith = parseInt(auditoria[i].abono ) *19/100
+            const total = totalwith + parseInt(auditoria[i].abono )
             count += total
         }else  if((auditoria[i].Iva ==1)){
-            const totalwith = parseInt(auditoria[i].Valor_habitacion ) *19/100
-            const total = totalwith + parseInt(auditoria[i].Valor_habitacion )
+            const totalwith = parseInt(auditoria[i].abono ) *19/100
+            const total = totalwith + parseInt(auditoria[i].abono )
             count += total
         } else{
-            count += parseInt(auditoria[i].Valor_habitacion)
+            count += parseInt(auditoria[i].abono)
         }
     }
 
@@ -120,13 +120,13 @@ const totalLoading = auditoria ?auditoria  : store
 
                             const total = totalIva+ PriceWithienda
 
-                            const totalDefinid = index.Iva ==1? total : parseInt(index.Valor_habitacion)
+                            const totalDefinid = index.Iva ==1? total : parseInt(index.abono)
 
                             const totalDefinttion = index.Tipo_persona =="empresa" ?total:totalDefinid
 
                             const totalWith = totalDefinttion.toLocaleString()
 
-                            const totalDefinit = totalWith  =="NaN" ?  parseInt(index.Valor_habitacion).toLocaleString()  : totalWith
+                            const totalDefinit = totalWith  =="NaN" ?  parseInt(index.abono).toLocaleString()  : totalWith
                             console.log(totalWith)
                             return (
                         <tr>

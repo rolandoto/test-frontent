@@ -40,9 +40,8 @@ import  {Link} from "react-router-dom"
 import ReactTooltip from "react-tooltip";
 import styled from "styled-components";
 import ServiceAllTotalReservation from "../../service/ServiceAllTotalReservation";
-
-
-
+import ModalBlock from "../../organisms/Modals/Block";
+import { confirmAlert } from "react-confirm-alert"; // Import
 
 const Info = styled(ReactTooltip)`
   max-width: 278px;
@@ -55,7 +54,6 @@ const InfoMessage = styled.p`
   text-align: left;
 `;
   
-
 const useCountRoom =({id}) =>{
 	const [count,setCount] =useState()
 
@@ -67,6 +65,8 @@ const useCountRoom =({id}) =>{
 
 	return {count}
 }
+
+
 
 const style = {
 	position: 'absolute',
@@ -80,9 +80,7 @@ const style = {
 	p: 4,
 }
 
-	
 const Dashboard = (props) => {
-
 
 	const {id} = useParams()
 	const [open, setOpen] = useState(true);
@@ -90,6 +88,7 @@ const Dashboard = (props) => {
 	const [state,setSate] =useState()
 	const [modalState,setModalState] =useState(false)
 	const [cleanline,setcleanline] =useState(false)
+	const [block,setBlock] =useState(false)
 	const [lookinfor,setLookingfor] =useState()
 	const {jwt} =useContext(AutoProvider)
 	const {toggleOpenDashBoard,toggleCloseDashboard} = useDashboardAction()
@@ -99,6 +98,8 @@ const Dashboard = (props) => {
 	const history = useHistory()
 	const {count} =useCountRoom({id:jwt.result.id_hotel})
 	const [loadingSkeleto,setLoadingSkeleto] =useState(true)
+	const [hoveredItemId, setHoveredItemId] = useState(null);
+
 
 	const  now = moment().format("YYYY-MM-DD");
 
@@ -241,8 +242,16 @@ const Dashboard = (props) => {
 		setModalState(false)
 	}
 
+	const handBlock =() =>{
+		setBlock(true)
+	}
+
 	const hanClickCloseCleanline =()=>{
 		setcleanline(false)
+	}
+
+	const handCloseBlock =() =>{
+		setBlock(false)
 	}
   
 	const { onCanvasClickParentUpdate } = props;
@@ -264,6 +273,7 @@ const Dashboard = (props) => {
 	}
 
 	const onItemClick = (itemId, e, time, onItemSelectParentUpdate) => {	
+		
 		history.push(`/DetailDashboard/${itemId}`)
 	}
 
@@ -277,11 +287,13 @@ const Dashboard = (props) => {
 		)
 	}
 
-
 	const [showInfo, setShowInfo] = useState(false);
 
-	
 	const itemRenderer = ({ item, itemContext, getItemProps }) => {
+
+		const onMouseEnter = () => setHoveredItemId(item.id);
+		const onMouseLeave = () => setHoveredItemId(null);
+	
 	
 		const handleMouseEnter = () => {
 		  setShowInfo(true);
@@ -290,6 +302,8 @@ const Dashboard = (props) => {
 		const handleMouseLeave = () => {
 		  setShowInfo(false);
 		};
+
+		let colorWords = item.state === 2 ? "white" : "black"
 	  
 		let color;
 		if (item.state === 0) {
@@ -297,7 +311,7 @@ const Dashboard = (props) => {
 		} else if (item.state === 1) {
 		  color = '#E9C9FF';
 		} else if (item.state === 2) {
-		  color = '#F94141';
+		  color = '#747171';
 		} else if (item.state === 3) {
 		  color = '#C2DEE5';
 		} else if (item.state === 4) {
@@ -312,6 +326,8 @@ const Dashboard = (props) => {
 		  
 		  data-for={key} data-tip
 			{...getItemProps({
+				onMouseEnter,
+				onMouseLeave,
 			  style: {
 				display: 'flex',
 				alignItems: 'center',
@@ -319,9 +335,8 @@ const Dashboard = (props) => {
 				border: '',
 				borderRadius: '8px',
 				padding: '8px',
-				color: 'black',
+				color: colorWords,
 				position:"relative",
-				
 			  },
 			
 			})}
@@ -400,7 +415,6 @@ const Dashboard = (props) => {
 		);
 	}
 
-
 	const intervalRendererday = ({ intervalContext, getIntervalProps, data }) => {
 		return (
 		<div
@@ -470,9 +484,6 @@ const Dashboard = (props) => {
         })
     },[setRoom])
 
-
-
-	
 	const [search,setSearch] =useState([])
 
 	const filtrar=(terminoBusqueda)=>{
@@ -536,7 +547,6 @@ const Dashboard = (props) => {
 		})
 	},[room])
 
-
 	useEffect(() =>{
 		ServiceReservas({id:jwt.result.id_hotel}).then(index=> {
 			setReservas(index)
@@ -549,10 +559,6 @@ const Dashboard = (props) => {
 		setSearch(state)
 	}
 
-	const handClickSearch=() =>{
-		history.push("/search")
-	}
-
 	const handClickReservaction =() =>{
 		history.push("/Createreservaction")
 	}
@@ -561,42 +567,6 @@ const Dashboard = (props) => {
 		history.push("/search")
 	}
 
-	
-
-	const days = [
-		"Lunes",
-		"Martes",
-		"Miercoles",
-		"Jueves",
-		"Viernes",
-		"Sabado",
-		"Domingo"
-	];
-	const months = [
-		"Enero",
-		"Febrero",
-		"Marzo",
-		"Abril",
-		"Mayo",
-		"Junio",
-		"Julio",
-		"Agosto",
-		"Septiembre",
-		"Octubre",
-		"Noviembre",
-		"Diciembre"
-	];
-
-  
-	const locale = {
-		localize: {
-		day: (n) => days[n],
-		month: (n) => months[n]
-		},
-		formatLong: {
-		date: () => "mm/dd/yyyy"
-		}
-	};
 	const handChecking =() =>{
 		history.push("/checking")
 	}	
@@ -664,15 +634,31 @@ const Dashboard = (props) => {
 		}
 	];
 
-	const [selected, setSelected] = useState(new Date());
-
 	const [stateInformes,setInformes] =useState(0)
-
 
 	const handClickInformAuditoria =(e) =>{
 		setInformes(e.target.value)	
 	}
 
+
+	const handChangeTypeRoomOne =(e) =>{
+		confirmAlert({
+		  title: '',
+		  message: 'Desea cambiar el estado de la habitacion a:',
+		  
+		  buttons: [
+			{
+			  label: 'Bloquear',
+			  onClick:() =>handBlock()
+			},
+			{
+			  label: 'Asear',
+			  onClick: () => handClikCleanline()
+			},
+		  ]
+		});
+	  }
+	  
 	useEffect(() =>{
 		if(stateInformes ==5){
 			return history.push("/informeauditoria")
@@ -684,8 +670,6 @@ const Dashboard = (props) => {
 			return history.push("/informeroomtosell")
 		}
 	},[stateInformes,setInformes])
-
-
 
 	if(loadingSkeleto) return Skele()
 	if(!pruebareservas) return null
@@ -700,7 +684,8 @@ const Dashboard = (props) => {
 					<button className='button-reservas' onClick={handClickReservaction} ><div className="flex-index-reservation" ><VscVerified fontSize={18} className="flex-contant" color="white"  /><span>Crear reserva</span></div></button>
 					<button className='button-reservas-type-one-two' onClick={handChecking} ><div className="flex-index-reservation"><VscSymbolEvent fontSize={18} className="flex-contan"  color="white" /><span> Check in</span> </div></button>
 					<button className='button-reservas-type-one-one'><div className="flex-index-reservation" ><VscSignOut className="flex-contan"  color="white" fontSize={18}  /><span>Checkout</span> </div> </button>
-					<button className='button-reservas-type' onClick={handClickState}>
+					
+					<button className='button-reservas-type' onClick={handChangeTypeRoomOne}>
 					<div className="flex-index-reservation" ><VscRecord className="flex-contan-one" color="white"  fontSize={18} /><span>Estados</span></div></button>
 					
 					<select  onChange={handClickInformAuditoria} value={stateInformes}					
@@ -743,14 +728,22 @@ const Dashboard = (props) => {
 				</div>
 			</div>
 			
-			<ModalSate 
+			<ModalSate 	
+						handChangeTypeRoomOne={handChangeTypeRoomOne}
 						modalState={modalState} 
 						handClickCloseState={handClickCloseState} 
-						handClikCleanline={handClikCleanline} />
+						handClikCleanline={handClikCleanline}
+						handBlock={handBlock} />
 
 			<ModalCleanLine 	
 							cleanline={cleanline} 
-							hanClickCloseCleanline={hanClickCloseCleanline}  />
+							hanClickCloseCleanline={hanClickCloseCleanline}  />		
+			
+			<ModalBlock    	block={block}  
+							handCloseBlock={handCloseBlock}   />
+
+
+			
 			<Checking  
 						loading={checkingDasboardVisible}  
 						toggleCloseDashboardChecking={toggleCloseDashboardChecking}  />

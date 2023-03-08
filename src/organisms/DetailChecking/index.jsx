@@ -57,6 +57,7 @@ const DetailChekingOrganism =({id}) =>{
     const [valid,setValid] =useState(true)
     
     
+    console.log(tipoPersonas)
     function handleOnChange(event) {
         setTipoPersona("persona")
         setIsChecked(!isChecked);
@@ -150,17 +151,7 @@ const DetailChekingOrganism =({id}) =>{
 
     const item  = state ? <span>Editar Huespedes</span> : <span>guardar</span>
 
-      const hanClickingn2 =() =>{
-         if(change.Iva== null){
-            setLoadingUpdate(true)
-        }else{
-            history.push(`/checkingin2/${id}`)
-            handPay()
-            handSubmit()
-            handClick()
-        }
-       
-      }
+     
 
       const  typy_buy =  [
         {   
@@ -354,7 +345,8 @@ const DetailChekingOrganism =({id}) =>{
     }
 
     let dataTwo ={
-        Tipo_persona:tipoPersonas
+        Tipo_persona:tipoPersonas,
+        Iva:change.Iva 
     } 
 
       const handSubmit =() =>{
@@ -362,23 +354,20 @@ const DetailChekingOrganism =({id}) =>{
             console.log(index)
         }).catch(e =>{
             console.log(e)
-        })
-                
+        })           
     }
 
 
-    let dataIva  ={
-        Iva:change.Iva 
+    const hanClickingn2 =() =>{
+        if(change.Iva== null){
+        setLoadingUpdate(true)
+    }else{
+        handPay()
+        handSubmit()
+        history.push(`/checkingin2/${id}`)
     }
-
     
-    const handClick =() =>{
-        ServiceUpdateReservation({id,data:dataIva}).then(index =>{
-            console.log(index)
-            }).catch(e =>{
-            console.log(e)
-        })
-}
+    }
 
   
     if(!resultFinish) return null

@@ -46,10 +46,10 @@ const readUrl = (url = '') =>
     }).then(isOk)
   }
 
-  const PostAdminStore =( {ID_Tipo_categoria, ID_Hoteles, Nombre, Cantidad, Precio}) =>{
+  const PostAdminStore =( {ID_Tipo_categoria, ID_Hoteles, Nombre, Cantidad, Precio,Fecha_registro}) =>{
     return fetch((`${config.serverRoute}/api/admin/insertintostoreadmin`),{
        method:"POST",
-       body:JSON.stringify({ID_Tipo_categoria, ID_Hoteles, Nombre, Cantidad, Precio}),
+       body:JSON.stringify({ID_Tipo_categoria, ID_Hoteles, Nombre, Cantidad, Precio,Fecha_registro}),
        headers:{
          Accept: 'application/json',
          'Content-Type': 'application/json',

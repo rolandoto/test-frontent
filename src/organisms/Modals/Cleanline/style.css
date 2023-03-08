@@ -1,7 +1,17 @@
 .button-CleanLine{
-    width: 1051px;
+    width: 1332px;
     height: 55px;
     background: #DD69D1;
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
+}
+
+
+.button-Block{
+    width: 1332px;
+    height: 55px;
+    background: #747171;
     border-radius: 8px;
     color: white;
     cursor: pointer;

@@ -397,11 +397,18 @@ const DetailDasboard =(props) =>{
     }else{
       count= count ? count : parseInt(resultDashboard?.valor_habitacion)
     }
+
+    const  now = moment().format("YYYY/MM/DD");
+
     let dataOne ={
-      Abono:Abono,
+      Abono: parseInt(Abono)+ parseInt(resultDashboard.valor_abono),
+      AbonoOne: parseInt(Abono),
       Valor:count,
-      Valor_habitacion:count
+      Valor_habitacion:count,
+      Fecha_pago:now
     } 
+
+    console.log(resultDashboard)
 
     let dataCountPeople ={
       Adultos:adultos,
@@ -1213,7 +1220,7 @@ const handleState =(event, index) =>{
 
   for(let i = 0;i<product?.length;i++){
     console.log({"pago":product[i]})
-    cart.push({
+    cart.push({ 
       ID:product[i].ID,
       Nombre_categoria:product[i].Nombre,
       Nombre_Producto:product[i].Nombre_producto,

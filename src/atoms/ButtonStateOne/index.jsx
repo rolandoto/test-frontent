@@ -1,13 +1,13 @@
 import React from "react"
 import "./style.css"
 
-const ButtonStateOne=() =>{
+const ButtonStateOne=({handBlock}) =>{
 
         return (
             <ul className="container-button-dasboard" >
                 <li>
-                    <button className="button-state-one" >
-                        Bloqueada
+                    <button className="button-state-one" onClick={handBlock} >
+                        Bloquear
                     </button>
                 </li> 
         </ul>  

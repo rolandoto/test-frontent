@@ -84,43 +84,7 @@ const Checkingn2Organism =({id}) =>{
       },[])
 
     
-      let dataOne ={
-        Abono:resulDetailDashboard?.valor_habitacion
-      } 
-
-      console.log(resulDetailDashboard)
-    
-    
-    const handFirmar =() =>{
-        ServiceUpdateReservation({id:resulDetailDashboard.id_persona,data}).then(index =>{
-            console.log(index)
-            }).catch(e =>{
-            console.log(e)
-        })
-        ServiceUpdateReservationpay({id,dataOne}).then(index =>{
-            console.log(index)
-        }).catch(e =>{
-          console.log(e)
-        })
-    }
-
-    let dataTwo = {
-        ID_Tipo_Forma_pago:change.ID_Tipo_Forma_pago
-    }
-
-    const handUpdateConfirms =() =>{
-        ServiceUpdateReservationpay({id,dataOne:dataTwo}).then(index  =>{
-            ServiceStatus({id,ID_Tipo_Estados_Habitaciones:3}).then(index=>{
-                window.location.href =(`/contracto`)
-            }).catch(e =>{
-                console.log(e)
-            })
-        }).catch(e =>{
-            console.log(e)
-        }) 
-    }
-
-   
+      
 
 
     const hanClickinContracto =() =>{
@@ -208,11 +172,46 @@ const Checkingn2Organism =({id}) =>{
 
     const toPriceHabitacion = UsePrice({number:resulDetailDashboard?.valor_habitacion})
 
-   
     const toPricediaHabitacion = UsePrice({number:resulDetailDashboard?.valor_dia_habitacion})
 
+    const  now = moment().format("YYYY/MM/DD");
+    let dataOne ={
+        Abono:resulDetailDashboard?.valor_habitacion,
+        AbonoOne:parseInt(resulDetailDashboard?.valor_habitacion) - parseInt( resulDetailDashboard?.valor_abono),
+        Fecha_pago:now,
+        Valor_habitacion:resulDetailDashboard?.valor_habitacion
+      } 
 
-    console.log(change)
+    const handFirmar =() =>{
+        ServiceUpdateReservation({id:resulDetailDashboard.id_persona,data}).then(index =>{
+            console.log(index)
+            }).catch(e =>{
+            console.log(e)
+        })
+        ServiceUpdateReservationpay({id,dataOne}).then(index =>{
+            console.log(index)
+        }).catch(e =>{
+          console.log(e)
+        })
+    }
+
+    let dataTwo = {
+        ID_Tipo_Forma_pago:change.ID_Tipo_Forma_pago
+    }
+
+    const handUpdateConfirms =() =>{
+        ServiceUpdateReservationpay({id,dataOne:dataTwo}).then(index  =>{
+            ServiceStatus({id,ID_Tipo_Estados_Habitaciones:3}).then(index=>{
+                window.location.href =(`/contracto`)
+            }).catch(e =>{
+                console.log(e)
+            })
+        }).catch(e =>{
+            console.log(e)
+        }) 
+    }
+
+   
 
     if(!resultFinish) return null
 

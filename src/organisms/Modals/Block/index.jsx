@@ -5,14 +5,14 @@ import ServiceRoomsAviable from "../../../service/ServiceRoomsAvaible";
 import ServicetypeRooms from "../../../service/ServicetypeRooms";
 import Input from "../../../Ui/Input";
 import Selected from "../../../Ui/Select";
-import "./style.css"
+import "../Cleanline/index"
 import { Loading ,Grid} from "@nextui-org/react";
 import ServiceAvaiblereservation from "../../../service/ServiceAviableReception";
 import LoadingDetail from "../../../Ui/LoadingDetail";
 import { config } from "../../../config";
 import ServiceBlockRoom from "../../../service/ServiceBlockByRoom";
 
-const ModalCleanLine =({cleanline,hanClickCloseCleanline}) =>{
+const ModalBlock =({block,handCloseBlock}) =>{
 
     const [avaible,setAvaible] =useState(null)
     const {jwt} =useContext(AutoProvider)
@@ -94,10 +94,11 @@ const ModalCleanLine =({cleanline,hanClickCloseCleanline}) =>{
 
     const [loadinghabilitada,setLoadinghabilitada] =useState({loading:false,error:false})
 
-    const Nombre = "Aseo"
+
+    const Nombre = "Bloqueada"
     
     const handClick =() =>{
-        ServiceBlockRoom({id:jwt.result.id_hotel,desde:dataAvaible.desde,hasta:dataAvaible.hasta,ID_Habitaciones:change.disponibilidad,ID_Tipo_Estados_Habitaciones:1,Nombre}).then(index => {
+        ServiceBlockRoom({id:jwt.result.id_hotel,desde:dataAvaible.desde,hasta:dataAvaible.hasta,ID_Habitaciones:change.disponibilidad,ID_Tipo_Estados_Habitaciones:2,Nombre}).then(index => {
            window.location.reload()
         }).catch(e => {
             setLoadinghabilitada({error:true})
@@ -118,12 +119,12 @@ const ModalCleanLine =({cleanline,hanClickCloseCleanline}) =>{
 
     return (
         <>
-        {cleanline &&
+        {block &&
             <div className="border-ri modalNewBooking">
                 <div className="content-Modal-dasboard">
                     <div className="contain" >
                             <div className="handclose">
-                            <IoMdCloseCircle fontSize={30} color="black"  onClick={hanClickCloseCleanline} />
+                            <IoMdCloseCircle fontSize={30} color="black"  onClick={handCloseBlock} />
                             </div>
 
                             <LoadingDetail     error={loadinghabilitada.error}  
@@ -173,7 +174,7 @@ const ModalCleanLine =({cleanline,hanClickCloseCleanline}) =>{
                         
                             <ul className="container-button-dasboard" >
                                 <li>
-                                    <button className="button-CleanLine"    onClick={handClick} >
+                                    <button className="button-Block"  onClick={handClick} >
                                        Bloquear Habitacion
                                     </button>
                                 </li> 
@@ -186,4 +187,4 @@ const ModalCleanLine =({cleanline,hanClickCloseCleanline}) =>{
     )
 
 }
-export default ModalCleanLine
+export default ModalBlock

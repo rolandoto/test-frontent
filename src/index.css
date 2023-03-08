@@ -513,7 +513,7 @@ tbody {
   display: block;
   margin-top: 18px;
   padding: 17px;
-  border-radius: 18px;
+  border-radius: 8px;
 }
 
 .de {
@@ -1049,4 +1049,13 @@ td {
 
 .width-informe {
   width: 5%;
+}
+
+.button-stores-admin-One{
+  width: 311px;
+  height: 58px;
+  background: #070707;
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
 }

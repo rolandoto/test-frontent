@@ -44,11 +44,14 @@ import InformeAuditoria from "./page-resesion/Informes";
 import InformeCamareria from "./page-resesion/Informes/InformesCamareria";
 import InformeRoomToSell from "./page-resesion/Informes/InformeRoomToSell";
 import ReporteCamarera from "./page-resesion/Informes/ReporteCamareras";
+import InformeStore from "./page/InformeStore";
 
 function App() {
   const { jwt } = useContext(AutoProvider);
 
   const val = jwt ? jwt.result.id_permissions : 2;
+
+
 
   if (val == 1) {
     return (
@@ -95,6 +98,11 @@ function App() {
                 exact
                 path="/DetailStore/:id"
                 component={DetailStore}
+              />
+              <PrivateRoute
+                exact
+                path="/informeStore/:id"
+                component={InformeStore}
               />
               <PrivateRoute exact path="/imbox" component={MinImbox} />
               <Route component={NoFound} />

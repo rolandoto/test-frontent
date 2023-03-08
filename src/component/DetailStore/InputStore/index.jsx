@@ -1,12 +1,15 @@
+import moment from "moment"
 import React, { useContext, useState, useEffect } from "react"
+import { useHistory } from "react-router-dom"
 import HttpClient from "../../../HttpClient"
 import ServiceInsertProductAdmin from "../../../service/ServiceInsertProductAdmin"
 import ServiceTypeCategorys from "../../../service/ServiceTypeCategorys"
 import Input from "../../../Ui/Input"
 import Selected from "../../../Ui/Select"
 
-
 const InputStore = ({id,fetchData}) => {
+
+    const history = useHistory()
 
     const [state,setState] = useState()
  
@@ -32,9 +35,11 @@ const InputStore = ({id,fetchData}) => {
         })
     }
     
+    const  now = moment().format("YYYY/MM/DD");
+
     const handSubmitProduct =async() =>{
         try {
-            const postStore=  await HttpClient.PostAdminStore({ID_Hoteles:change.id_hotel,ID_Tipo_categoria:change.category,Nombre:change.name,Cantidad:change.amount,Precio:change.price}).then(index =>{
+            const postStore=  await HttpClient.PostAdminStore({ID_Hoteles:change.id_hotel,ID_Tipo_categoria:change.category,Nombre:change.name,Cantidad:change.amount,Precio:change.price,Fecha_registro:now}).then(index =>{
                 console.log(index)
                 fetchData()
             }).catch(e =>{
@@ -45,19 +50,21 @@ const InputStore = ({id,fetchData}) => {
         }
     }   
 
-
+    const handNextHistory =() =>{
+        history.push(`/informeStore/${id}`)
+    }
+    
     return (
         <>
             <ul className="flex-stores" >
                 
-                <Selected   title="Tipos Categoria" 
+                <Selected   title="Categoria" 
                             change={handleInputChange}
                             state={state?.query}
                             name="category"
                              />
-
                 <Input  
-                    title="Nombre del producto" 
+                    title="Producto" 
                     name="name" 
                     type="text"
                     change={handleInputChange} />
@@ -77,6 +84,11 @@ const InputStore = ({id,fetchData}) => {
                 <li>
                     <button className="button-stores-admin" onClick={handSubmitProduct} >
                         Agregar
+                    </button>
+                </li>   
+                <li>
+                    <button className="button-stores-admin" onClick={handNextHistory} >
+                        Informe
                     </button>
                 </li>       
                 
