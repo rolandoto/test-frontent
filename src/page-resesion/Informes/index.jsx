@@ -112,7 +112,7 @@ const totalLoading = auditoria ?auditoria  : store
                         <th>Total</th>
                     </tr>
                     {auditoria?.map(index =>{
-                          const fecha =  moment(index.Fecha_inicio).utc().format('YYYY/MM/DD')
+                          const fecha =  moment(index.Fecha_pago).utc().format('YYYY/MM/DD')
 
                             const PriceWithienda =  parseInt(index.Valor_habitacion)
  
