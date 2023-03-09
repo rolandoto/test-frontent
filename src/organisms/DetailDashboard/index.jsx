@@ -375,12 +375,14 @@ const DetailDasboard =(props) =>{
 
   
   var numDefinish =  parseInt(resultDashboard?.valor_habitacion);
-  var formattedNum = numDefinish.toLocaleString();  
+  const formattedNum = numDefinish.toLocaleString();  
   const valor_habitacion = formatter.format(resultDashboard?.valor_habitacion)
   const valor_abono =  formatter.format(resultDashboard?.valor_abono)
   const total_Cobrar = resultDashboard?.valor_habitacion - resultDashboard?.valor_abono
   const cobrar = formatter.format(total_Cobrar)
   
+  console.log(formattedNum)
+
   let count
 
   if(quyery?.length>=resultFinish?.persona){
@@ -401,14 +403,12 @@ const DetailDasboard =(props) =>{
     const  now = moment().format("YYYY/MM/DD");
 
     let dataOne ={
-      Abono: parseInt(Abono)+ parseInt(resultDashboard.valor_abono),
+      Abono: parseInt(Abono) + parseInt(resultDashboard.valor_abono),
       AbonoOne: parseInt(Abono),
-      Valor:count,
-      Valor_habitacion:count,
+      Valor:count  == undefined ?resultDashboard?.valor_habitacion :count ,
+      Valor_habitacion:count  == undefined ?resultDashboard?.valor_habitacion :count ,
       Fecha_pago:now
     } 
-
-    console.log(resultDashboard)
 
     let dataCountPeople ={
       Adultos:adultos,
@@ -422,20 +422,22 @@ const DetailDasboard =(props) =>{
       setError(true)
     }else {
       ServiceAddHuespedes({id,huespe,data:dataCountPeople,dataPay:dataOne}).then(index =>{
-        console.log(index)
+        console.log({"se agrego":index})
         window.location.reload()
     }).catch(e =>{
-        console.log("error")
+        console.log("error al aregar uan")
     })
     }
   }
+
+
 
   const handSubmit =() =>{
         ServiceAddHuespedes({id,huespe,data:dataCountPeople,dataPay:dataOne}).then(index =>{
           console.log(index)
           window.location.reload()
       }).catch(e =>{
-          console.log("error")
+          console.log("error")  
       })
         ServiceUpdateReservation({id:resultDashboard.id_persona,data}).then(index =>{
           console.log(index)
@@ -679,7 +681,7 @@ const toPriceNigth = UsePrice({number:resultDashboard?.valor_dia_habitacion})
 
               <div className="border-detail" >
                    <span>Total hospedaje</span>
-                   <span className="negrita-detail-reserva" >{formattedNum}</span>
+                   <span className="negrita-detail-reserva" >{valor_habitacion}</span>
               </div>
              
               <div className="border-detail" >
@@ -1074,7 +1076,7 @@ const toPriceNigth = UsePrice({number:resultDashboard?.valor_dia_habitacion})
 
             {stateButton &&<div className="container-flex-init-one" >
                         <button className="button-dasboard-six-one-one-one" onClick={hanAdd}   >
-                            <span>Añadir Huesped </span> 
+                            <span>Añadir huesped </span> 
                         </button>
                     </div>}
       </>
@@ -1230,9 +1232,11 @@ const handleState =(event, index) =>{
       Pago_deuda:product[i].pago_deuda,
       Forma_pago:product[i].Forma_pago,
       Tipo_pago:product[i].forma_pago,
+      Nombre_Recepcion:product[i].Nombre_recepcion
     })
   }
 
+  console.log(cart)
   
   const  now = moment().format("YYYY/MM/DD");
 
@@ -1276,6 +1280,7 @@ const handleState =(event, index) =>{
                       <TableCell align="right">Estado pago</TableCell>
                       <TableCell align="right">Registro pago</TableCell>
                       <TableCell align="right">Registro pago</TableCell>
+                      <TableCell align="right">Recepcion</TableCell>
                       </TableRow>
                   </TableHead>
                   <TableBody>
@@ -1312,6 +1317,7 @@ const handleState =(event, index) =>{
                         </select>
                 </TableCell>
                 <TableCell> <span className="pay_Pagado" onClick={() => handPayProduct(row.ID)} >Pagar producto</span></TableCell>
+                <TableCell>{row.Nombre_Recepcion}</TableCell>
                            </TableRow>
                        
                           )
@@ -1326,6 +1332,7 @@ const handleState =(event, index) =>{
                               <TableCell className="pay_Pagado-deuda" ><span >Pagado</span></TableCell>
                               <TableCell  ><span >Pagado</span></TableCell>
                               <TableCell>{row.Tipo_pago}</TableCell>
+                              <TableCell>{row.Nombre_Recepcion}</TableCell>
                            </TableRow>
                         )}
                         })}

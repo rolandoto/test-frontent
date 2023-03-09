@@ -174,10 +174,12 @@ const Checkingn2Organism =({id}) =>{
 
     const toPricediaHabitacion = UsePrice({number:resulDetailDashboard?.valor_dia_habitacion})
 
+    const totalAbono =   (resulDetailDashboard?.valor_habitacion) 
+   
     const  now = moment().format("YYYY/MM/DD");
     let dataOne ={
         Abono:resulDetailDashboard?.valor_habitacion,
-        AbonoOne:parseInt(resulDetailDashboard?.valor_habitacion) - parseInt( resulDetailDashboard?.valor_abono),
+        AbonoOne:resulDetailDashboard?.valor_habitacion - resulDetailDashboard?.valor_abono ,
         Fecha_pago:now,
         Valor_habitacion:resulDetailDashboard?.valor_habitacion
       } 

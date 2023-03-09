@@ -26,7 +26,7 @@ const CheckoutOrganism =({DetailDashboard}) =>{
     const [data,setDate] =useState()
     const [search,setSearch] =useState()
     const [searchFilter,setSearchFilter] =useState()
-    const [preSearchFilter,setPreSearchFilter] =useState()
+    const [preSearchFilter,setPreSearchFilter] =useState(null)
     const [filterFinish,setFilterFinish] =useState()
     const [invoince,setInvoice] =useState(false)
     const [comprobante,setComprobante] =useState(false)
@@ -66,7 +66,7 @@ const CheckoutOrganism =({DetailDashboard}) =>{
         {
           id: 4,
           itemId: "Drogueria",
-          name: "Drogueria",
+          name: "Aseo p.",
           imgSrc:
             "https://github.com/rolandoto/image-pms/blob/main/1-04-removebg-preview.png?raw=true",
         },
@@ -83,7 +83,14 @@ const CheckoutOrganism =({DetailDashboard}) =>{
           name: "Lencería multas",
           imgSrc:
             "https://github.com/rolandoto/image-pms/blob/main/1-05-removebg-preview.png?raw=true",
-        } 
+        },
+        {
+            id: 7,
+            itemId: "Lenceria",
+            name: "Servicio",
+            imgSrc:
+              "https://github.com/rolandoto/image-pms/blob/main/1-05-removebg-preview.png?raw=true",
+          } 
       ];
 
     const init  =   moment(resultDashboard?.Fecha_inicio).utc().format('MM/DD/YYYY')
@@ -135,8 +142,6 @@ const CheckoutOrganism =({DetailDashboard}) =>{
     const priceAdultos = Adultos?.reduce((acum,current) => {
         return acum  + current.Precio
     },0)
-
-
 
     const priceLenceria = Lenceria?.reduce((acum,current) => {
         return acum  + parseInt(current.Precio)
@@ -395,8 +400,9 @@ const CheckoutOrganism =({DetailDashboard}) =>{
             pago_deuda:data[i].pago_deuda
         })
     }
-    console.log(cart)
-    console.log(data)
+    
+
+    console.log({"buscado":preSearchFilter})
     
     const [query,setQuery] = useState()
 
@@ -449,6 +455,8 @@ const CheckoutOrganism =({DetailDashboard}) =>{
     }
 
     const filterSearch = searchFilter?.find(index => index.id == filterFinish)
+
+    console.log(filterSearch)
     
     const findPersona =  resultDashboard.tipo_persona == "persona"
     const findEmpresa = resultDashboard.tipo_persona =="empresa"  
@@ -464,11 +472,6 @@ const CheckoutOrganism =({DetailDashboard}) =>{
         minimumFractionDigits: 0
     })
 
-    const valor_habitacion_total =formatter.format(valor_habitacion)
-    const ivaTo = formatter.format(iva)
-    const totalAll =formatter.format(parseInt( valor_habitacion))
-    const total_Valor = parseInt(valor_habitacion+ iva)
-
     const handClickSearc =(event) =>{
         setFilterFinish(event)
         setSearch(null)
@@ -481,18 +484,6 @@ const CheckoutOrganism =({DetailDashboard}) =>{
     }
 
     const cartOne =[]
-
-    /**
-     * 
-     * <ul>
-                                            <li className="totalPricecheckout-two" >{resultDashboard.Nombre} {resultDashboard.Apellido}</li>           
-                                            <li className="totalPricecheckout-two" >{resultDashboard.Num_documento}</li>           
-                                            <li className="totalPricecheckout-two" >{resultDashboard.Correo}</li>           
-                                            <li className="totalPricecheckout-two" >calle 9</li>  
-                                            <li className="totalPricecheckout-two" >{resultDashboard.Celular}</li>      
-                                            <li className="totalPricecheckout-two" >{resultDashboard.nacionalidad}</li>                
-                                    </ul> 
-     */
     let inicio = new Date(resultDashboard?.Fecha_inicio)
     const fechaInicio = inicio.toISOString().split('T')[0]
     
@@ -562,13 +553,15 @@ const CheckoutOrganism =({DetailDashboard}) =>{
     const [factura,setFactura] = useState(false)
 
     const handServiFormularios =() =>{
-        ServiceFormulariosCheckout({id:1,status:"2",fecha_ingreso:fechaInicio,fecha_salida:FechaFinal,valortotal:totalIva}).then(index =>{
-            setFactura(true)
-            setComprobante(true)
-            console.log(index)
-        }).catch(e => {
-            setFactura(false)
-        }) 
+        if(filterSearch) {
+            ServiceFormulariosCheckout({id:filterSearch.id,status:"2",fecha_ingreso:fechaInicio,fecha_salida:FechaFinal,valortotal:totalIva}).then(index =>{
+                setFactura(true)
+                setComprobante(true)
+                console.log(index)
+            }).catch(e => {
+                setFactura(false)
+            }) 
+        }
     }
     
     const pagoInvoince =resultDashboard.forma_pago
@@ -610,7 +603,7 @@ const CheckoutOrganism =({DetailDashboard}) =>{
             ]
           });
     }
-    
+
     if(findEmpresa)
     return (
         <>     
@@ -664,16 +657,13 @@ const CheckoutOrganism =({DetailDashboard}) =>{
                                     </section>
                                 ))}
                                 </div>
-                            
-
                                 <div className="container-store-checkout" >
                                  <div className="container-store-checkout" >
                                 <div className="rp">
                                     <ul>
                                         <li className="totalPricecheckout-two negrita let-persona" >Nombre empresa:</li>           
                                         <li className="totalPricecheckout-two negrita let-persona" >Nit:</li>           
-                                        <li className="totalPricecheckout-two negrita let-persona" >Correo:</li>           
-                                                     
+                                        <li className="totalPricecheckout-two negrita let-persona" >Correo:</li>                               
                                     </ul>                 
                                 </div>
                                 <div className="ri-one" >
@@ -681,7 +671,6 @@ const CheckoutOrganism =({DetailDashboard}) =>{
                                         <li className="totalPricecheckout-two" >{filterSearch?.name_people}</li>           
                                         <li className="totalPricecheckout-two" >{filterSearch?.num_id}</li>           
                                         <li className="totalPricecheckout-two" >{filterSearch?.email_people}</li>           
-                                      
                                     </ul>  
                                 </div>
                                 <div>
@@ -787,9 +776,10 @@ const CheckoutOrganism =({DetailDashboard}) =>{
                                         <ul>
                                            {sinIva.map(index =>(
                                                <div className="carts-invoince one-flex-one">
+                                                    <li className={`totalPricecheckout ${index.pago_deuda ==0  ? "pay-checkout-pago-deudado-One" :"pay-checkout-pago-pagado-One" } `} >{index.pago_deuda ==0 ?<span>Adeudado</span>:<span >Pagado</span> }</li>
                                                    <li className="totalPricecheckout" >{index.name}</li>        
                                                    <li className="totalPricecheckout" >{index.price}</li>   
-                                                   <li className={`totalPricecheckout ${index.pago_deuda ==0  ? "pay-checkout-pago-deudado" :"pay-checkout-pago-pagado" } `} >{index.pago_deuda ==0 ?<span>Adeudado</span>:<span >Pagado</span> }</li>   
+                                                     
                                                </div>       
                                            ))}
                                       </ul>     
@@ -1007,9 +997,10 @@ const CheckoutOrganism =({DetailDashboard}) =>{
                                          <ul>
                                             {sinIva.map(index =>(
                                                 <div className="carts-invoince one-flex-one">
+                                                     <li className={`totalPricecheckout ${index.pago_deuda ==0  ? "pay-checkout-pago-deudado-One" :"pay-checkout-pago-pagado-One" } `} >{index.pago_deuda ==0 ?<span>Adeudado</span>:<span >Pagado</span> }</li>   
                                                     <li className="totalPricecheckout" >{index.name}</li>        
                                                     <li className="totalPricecheckout" >{index.price}</li>   
-                                                    <li className={`totalPricecheckout ${index.pago_deuda ==0  ? "pay-checkout-pago-deudado" :"pay-checkout-pago-pagado" } `} >{index.pago_deuda ==0 ?<span>Adeudado</span>:<span >Pagado</span> }</li>   
+                                                   
                                                 </div>       
                                             ))}
                                        </ul>     
@@ -1461,6 +1452,7 @@ const FacturaCompany  =({valorTotalIva,formatoIva,formattedNum,jwt,totalStore,Ro
                                                 <li className="totalPricecheckout-two-finish-one negrita let-persona  wid-fecha " >Cantidad Personas:</li> 
                                                 <li className="totalPricecheckout-two-finish-one negrita let-persona  wid-fecha " >Cantidad noches:</li> 
                                                 <li className="totalPricecheckout-two-finish-one negrita let-persona  wid-fecha " >Tarifa por noche:</li> 
+                                                <li className="totalPricecheckout-two-finish-one negrita let-persona  wid-fecha " >Tipo pago:</li> 
                                                 <li className="totalPricecheckout-two-finish-one negrita let-persona  wid-fecha " >Tipo habitacion:</li> 
                                                 <li className="totalPricecheckout-two-finish-one negrita let-persona  wid-fecha " >P: adicionales</li> 
                                                 <li className="totalPricecheckout-two-finish-one negrita let-persona  wid-fecha " >Horas adicional:</li> 
@@ -1473,6 +1465,7 @@ const FacturaCompany  =({valorTotalIva,formatoIva,formattedNum,jwt,totalStore,Ro
                                                 <li className="totalPricecheckout-two-finish-one  let-persona" >{Valor_dia_habitacion?.Adultos + Valor_dia_habitacion?.Ninos}</li>   
                                                 <li className="totalPricecheckout-two-finish-one  let-persona" >{Valor_dia_habitacion?.Noches}</li>   
                                                 <li className="totalPricecheckout-two-finish-one  let-persona" >{Valor_dia_habitacion?.valor_dia_habitacion}</li>   
+                                                <li className="totalPricecheckout-two-finish-one  let-persona" >{Valor_dia_habitacion?.forma_pago}</li>   
                                                 <li className="totalPricecheckout-two-finish-one  let-persona" >{resultFinish?.nombre}</li>   
                                                 <li className="totalPricecheckout-two-finish-one  let-persona" >0</li>   
                                                 <li className="totalPricecheckout-two-finish-one  let-persona" >0</li>   

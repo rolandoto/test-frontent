@@ -820,8 +820,6 @@ const StoreTemplate =({Store}) =>{
       setPeopleId(e.target.value)
     }
 
-    console.log(peopleId)
-
     const handModalInvoice =() =>{
       setOrganize(false)
       setInvoice(true)
@@ -835,10 +833,6 @@ const StoreTemplate =({Store}) =>{
       })
     },[setPeopleReservation])
 
-    console.log(peopleReservation)
-
-    
-    var today = new Date();
  
   // `getDate()` devuelve el día del mes (del 1 al 31)
  
@@ -850,7 +844,8 @@ const StoreTemplate =({Store}) =>{
       ID_Reserva:peopleId,
       Cart:carts.cart,
       ID_Hoteles:jwt.result.id_hotel,
-      Fecha_compra:now
+      Fecha_compra:now,
+      Nombre_recepcion:jwt.result.name
     }
     
     const handSubmitInsertCart =() =>{
@@ -872,8 +867,10 @@ const StoreTemplate =({Store}) =>{
       Fecha_compra:now,
       Nombre_persona:client,
       Forma_pago:raiting,
-      Num_documento:identification
+      Num_documento:identification,
+      Nombre_recepcion:jwt.result.name
     }
+
 
     const handSubmitInsertCartOne =() =>{
       ServiceaInsertStore({data:dataOne}).then(index =>{

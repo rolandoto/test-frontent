@@ -515,3 +515,23 @@
   justify-content: center;
   color: white;
 }
+
+.pay-checkout-pago-deudado-One{
+  width: 100px;
+  background: #eb6b7f;
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  color: white;
+  margin-right: 5px;
+}
+
+.pay-checkout-pago-pagado-One{
+  width: 100px;
+  background:  #13a722d4;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  color: white;
+  margin-right: 5px;
+}

@@ -9,7 +9,6 @@ const DetailStoreTemplate =({id,fetchData,Store}) =>{
         <>
             <InputStore id={id}   fetchData={fetchData} />
             <TableStore  Store={Store} />
-            
         </>
     )
 
