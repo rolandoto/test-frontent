@@ -1059,3 +1059,8 @@ td {
   color: white;
   cursor: pointer;
 }
+
+.flex-check-box{
+  display: flex;
+  align-items: center;
+}

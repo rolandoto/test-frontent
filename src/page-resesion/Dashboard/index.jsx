@@ -42,6 +42,26 @@ import styled from "styled-components";
 import ServiceAllTotalReservation from "../../service/ServiceAllTotalReservation";
 import ModalBlock from "../../organisms/Modals/Block";
 import { confirmAlert } from "react-confirm-alert"; // Import
+import io from 'socket.io-client';
+
+const Notification = () => {
+  useEffect(() => {
+    // Conectar al servidor de socket.io
+    const socket = io('http://localhost:4000');
+
+    // Escuchar el evento de reserva
+    socket.on('mensaje', (reserva) => {
+      // Mostrar una notificación de la nueva reserva
+      alert(`Se ha creado una nueva reserva: ${reserva}`);
+    });
+
+    // Desconectar del servidor de socket.io cuando el componente se desmonta
+    return () => socket.disconnect();
+  }, []);
+
+  return null;
+};
+
 
 const Info = styled(ReactTooltip)`
   max-width: 278px;
@@ -99,9 +119,28 @@ const Dashboard = (props) => {
 	const {count} =useCountRoom({id:jwt.result.id_hotel})
 	const [loadingSkeleto,setLoadingSkeleto] =useState(true)
 	const [hoveredItemId, setHoveredItemId] = useState(null);
-
-
 	const  now = moment().format("YYYY-MM-DD");
+
+
+	const [mensajes, setMensajes] = useState([]);
+
+	useEffect(() => {
+	  const socket = io('http://localhost:3000');
+  
+	  socket.on('mensaje', (mensaje) => {
+		setMensajes([...mensajes, mensaje]);
+	  });
+  
+	  return () => {
+		socket.disconnect();
+	  };
+	}, [mensajes]);
+  
+	const enviarMensaje = (mensaje) => {
+	  const socket = io('http://localhost:3000');
+	  socket.emit('mensaje', mensaje);
+	};
+  
 
 	const  [totalDay ,setTotalDay] =useState()
 	

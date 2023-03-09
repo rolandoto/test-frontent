@@ -45,6 +45,7 @@ import InformeCamareria from "./page-resesion/Informes/InformesCamareria";
 import InformeRoomToSell from "./page-resesion/Informes/InformeRoomToSell";
 import ReporteCamarera from "./page-resesion/Informes/ReporteCamareras";
 import InformeStore from "./page/InformeStore";
+import Checkingn3 from "./page-resesion/checking3";
 
 function App() {
   const { jwt } = useContext(AutoProvider);
@@ -101,6 +102,12 @@ function App() {
                 exact
                 path="/informeStore/:id"
                 component={InformeStore}
+              />
+
+              <PrivateRoute
+                exact
+                path="/checkingin3/:id"
+                component={Checkingn3}
               />
               <PrivateRoute exact path="/imbox" component={MinImbox} />
               <Route component={NoFound} />
@@ -203,6 +210,11 @@ function App() {
                 exact
                 path="/informeroomtosell"
                 component={InformeRoomToSell}
+              />
+               <PrivateRoute
+                exact
+                path="/checkingin3/:id"
+                component={Checkingn3}
               />
               <Route component={NoFound} />
             </Switch>
@@ -309,6 +321,11 @@ function App() {
                 exact
                 path="/reportecamarera"
                 component={ReporteCamarera}
+              />
+               <PrivateRoute
+                exact
+                path="/checkingin3/:id"
+                component={Checkingn3}
               />
               <Route component={NoFound} />
             </Switch>

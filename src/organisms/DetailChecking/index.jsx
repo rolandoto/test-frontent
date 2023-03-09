@@ -149,7 +149,7 @@ const DetailChekingOrganism =({id}) =>{
         setStateButton(true)
     }
 
-    const item  = state ? <span>Editar Huespedes</span> : <span>guardar</span>
+    const item  = state ? <span>Editar huespedes</span> : <span>guardar</span>
 
      
 

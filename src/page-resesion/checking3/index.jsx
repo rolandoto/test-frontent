@@ -4,16 +4,20 @@ import { useSelector } from "react-redux";
 import useDetailDashboardAction from "../../action/useDetailDashboardAction";
 import moment from "moment/moment";
 import ServicetypeRooms from "../../service/ServicetypeRooms";
-import "./style.css"
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import  AutoProvider  from "../../privateRoute/AutoProvider";
 import ServiceUpdateReservation from "../../service/ServiceUpdatereservation";
 import UsePrice from "../../hooks/UsePrice";
 import ServiceUpdateReservationpay from "../../service/ServiceUpdatereservationpay";
 import ServiceStatus from "../../service/ServiceStatus";
+import "moment/locale/es";
 
-const Checkingn2Organism =({id}) =>{
-    
+const Checkingn3 =() =>{
+    moment.locale("en-in");  
+    const hour = moment().format('LTS');  // 3:14:32 PM
+    const fecha =  moment().format('L');   
+
+    const {id} = useParams()
     const history = useHistory()
     const [tipoDocumento,setTipoDocumento] =useState()
     const [room,setRoom] =useState()
@@ -23,7 +27,7 @@ const Checkingn2Organism =({id}) =>{
     const [change,setChange] =useState({
         ID_Tipo_Forma_pago:null,
     })
-
+    const [isChecked, setIsChecked] = useState(false);
 
     const fetchData =async() =>{
         await getDetailReservationById({id})
@@ -88,13 +92,8 @@ const Checkingn2Organism =({id}) =>{
 
 
     const hanClickinContracto =() =>{
-        if(change.ID_Tipo_Forma_pago== null){
-
-        }else{
             handUpdateConfirms()
-            handFirmar()
-        }
-      
+    
       }
 
 
@@ -202,19 +201,17 @@ const Checkingn2Organism =({id}) =>{
     }
 
     const handUpdateConfirms =() =>{
-        ServiceUpdateReservationpay({id,dataOne:dataTwo}).then(index  =>{
-            ServiceStatus({id,ID_Tipo_Estados_Habitaciones:3}).then(index=>{
-                window.location.href =(`/checkingin3/${id}`)
-            }).catch(e =>{
-                console.log(e)
-            })
-        }).catch(e =>{
-            console.log(e)
-        }) 
+       if(isChecked){
+        window.location.href =(`/contracto`)
+       }
+     
     }
 
-   
 
+    function handleOnChange(event) {
+        setIsChecked(!isChecked);
+      }  
+   
     if(!resultFinish) return null
 
     if(resulDetailDashboard.Iva==1){
@@ -223,7 +220,7 @@ const Checkingn2Organism =({id}) =>{
                 <div className="container-flex-init-global" >
                 <LoadingDetail
                                 loading={true}
-                                titleLoading={"Checking"}  />
+                                titleLoading={"Pagina 3"}  />
     
                 <div  className="container-flex-init-global init-checkingn2" >
                     <div className="container-detail-dasboard-in" >
@@ -236,36 +233,25 @@ const Checkingn2Organism =({id}) =>{
                     
                         <h2 className="cod-reserva-one to-checkin" >
                                 <span className="title-code" >
+                               
                                 </span> 
-                                <span className="close-negrita"  >  Debes cobrar a:</span>  {resulDetailDashboard?.Nombre} {resulDetailDashboard?.Apellido} <span className="close-negrita"  > un valor de:</span>  {totalWithIva} <span className="close-negrita"  > con el siguiente medio de pago:  <select onChange={handleInputChange}  
-                                            required
-                                            name="ID_Tipo_Forma_pago"
-                                            className='select-hotel-type-rooms-finis-dasboard-finish-one ote posicion'>
-                                        <option>Tipo pago</option>
-                                        {typy_buy?.map(category =>(
-                                            <option 
-                                            value={category.id}   
-                                            key={category}
-                                        >
-                                            {category.name}
-                                        </option>
-                                        )
-                                        )}
-                                    </select> </span>   
-                                 
+                                <p className="close-negrita flex-check-box"  >  <input   type="checkbox" 
+                                    className={`checkbox-round-three  ${isChecked && "checkbox-round-click"} `}
+                                    readOnly={true}
+                                    onChange={handleOnChange}
+                                    checked={isChecked}/>  Yo &nbsp; <span className="close-negrita" ></span> {jwt.result.name} He digitalizado, impreso y archivado el documento del titular y acompañante.</p>
+                                <p className="close-negrita flex-check-box" >&nbsp; &nbsp;  &nbsp; &nbsp; he verificado si hay menores de edad y que cumplan con los requisitos de ley, siendo {hour} {fecha} </p>
                          </h2>
                        
-                         <div className="top-title-re" >
-                            <span className="close-negritaOne">Recuerda que la emision de la factura electronica o pos es en el check out</span>
-                        </div>
-               
                        
                     </div>
+
+                 
 
                     <div className="container-detail-dasboard-in-one container-detail-dasboard-in-one-two" >
                     <div className="border-detail " >
                         <span>Cantidad noches</span>
-                        <span className="negrita-detail-reserva" >{day} noches</span>
+                        <span className="negrita-detail-reserva" >{day} noche</span>
                     </div>
 
                     <div className="border-detail" >
@@ -302,7 +288,7 @@ const Checkingn2Organism =({id}) =>{
                 <div className="container-flex-init-global" >
                 <LoadingDetail
                                 loading={true}
-                                titleLoading={"Checking"}  />
+                                titleLoading={"Pagina 3"}  />
     
                 <div  className="container-flex-init-global init-checkingn2" >
                     <div className="container-detail-dasboard-in" >
@@ -315,30 +301,17 @@ const Checkingn2Organism =({id}) =>{
                     
                     <div>
                         <h2 className="cod-reserva-one to-checkin" >
-                                <span className="title-code" >
-                                </span> 
-                                <span className="close-negrita"  >  Debes cobrar a:</span>  {resulDetailDashboard?.Nombre} {resulDetailDashboard?.Apellido} <span className="close-negrita"  > un valor de:</span>  {totalPrice.price} <span className="close-negrita"  > con el siguiente medio de pago:     <select onChange={handleInputChange}  
-                                            required
-                                            name="ID_Tipo_Forma_pago"
-                                            className='select-hotel-type-rooms-finis-dasboard-finish-one ote posicion'>
-                                        <option>Tipo pago</option>
-                                        {typy_buy?.map(category =>(
-                                            <option 
-                                            value={category.id}   
-                                            key={category}
-                                        >
-                                            {category.name}
-                                        </option>
-                                        )
-                                        )}
-                                    </select>   </span>   
-                              
-                         </h2>        
+                                    <span className="title-code" >
+                                    </span> 
+                                    <p className="close-negrita flex-check-box"  >  <input   type="checkbox" 
+                                        className={`checkbox-round-three  ${isChecked && "checkbox-round-click"} `}
+                                        readOnly={true}
+                                        onChange={handleOnChange}
+                                        checked={isChecked}/>  Yo &nbsp; <span className="close-negrita" ></span> {jwt.result.name} He digitalizado, impreso y archivado el documento del titular y acompañante.</p>
+                                    <p className="close-negrita flex-check-box" >&nbsp; &nbsp;  &nbsp; &nbsp; he verificado si hay menores de edad y que cumplan con los requisitos de ley, siendo {hour} {fecha} </p>
+                            </h2>      
                     </div>
-                        <div className="top-title-re" >
-                            <span className="close-negritaOne">Recuerda que la emision de la factura electronica o pos es en el check out</span>
-                        </div>
-                      
+                        
                     <div className="container-detail-dasboard-in-one container-detail-dasboard-in-one-two" >
                             <div className="border-detail " >
                                 <span>Cantidad noches</span>
@@ -379,4 +352,4 @@ const Checkingn2Organism =({id}) =>{
 
 }
 
-export default Checkingn2Organism
+export default Checkingn3
