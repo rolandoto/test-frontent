@@ -251,7 +251,7 @@ li {
 
 .container {
   display: flex;
-  max-width: 1364px;
+  max-width: 1524px;
   /* flex-direction: column; */
   justify-content: space-between;
   margin: auto;

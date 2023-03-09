@@ -103,7 +103,6 @@ function App() {
                 path="/informeStore/:id"
                 component={InformeStore}
               />
-
               <PrivateRoute
                 exact
                 path="/checkingin3/:id"
@@ -210,6 +209,12 @@ function App() {
                 exact
                 path="/informeroomtosell"
                 component={InformeRoomToSell}
+              />
+
+<PrivateRoute
+                exact
+                path="/informeStore/:id"
+                component={InformeStore}
               />
                <PrivateRoute
                 exact
@@ -321,6 +326,11 @@ function App() {
                 exact
                 path="/reportecamarera"
                 component={ReporteCamarera}
+              />
+              <PrivateRoute
+                exact
+                path="/informeStore/:id"
+                component={InformeStore}
               />
                <PrivateRoute
                 exact

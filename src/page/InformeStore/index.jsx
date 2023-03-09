@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react"
+import { useRef } from "react"
 import { useContext } from "react"
 import CardStore from "../../component/DetailStore/CardStore"
 import InputStore from "../../component/DetailStore/InputStore"
@@ -9,6 +10,7 @@ import ServiceInformeStore from "../../service/ServiceInformeStore"
 import ServiceTypeCategorys from "../../service/ServiceTypeCategorys"
 import Input from "../../Ui/Input"
 import Selected from "../../Ui/Select"
+import { useReactToPrint } from "react-to-print";
 
 const InformeStore =() =>{
 
@@ -43,6 +45,16 @@ const InformeStore =() =>{
        .then(data => setInformeSotore(data))
     }, [setState])
 
+
+    
+    let componentRef = useRef();
+
+
+    const handlePrint = useReactToPrint({
+        content: () => componentRef.current
+    });
+    
+
     return (
         <>            
             <ul className="flex-stores" >
@@ -57,13 +69,13 @@ const InformeStore =() =>{
                     </button>
                 </li>   
                 <li>
-                    <button className="button-stores-admin-One" >
+                    <button className="button-stores-admin-One" onClick={handlePrint} >
                         Imprimir
                     </button>
                 </li>       
             </ul> 
                 <div className="container-bicta">
-                        <tbody>
+                        <tbody  ref={componentRef} > 
                             <table className="de">
                                 <tr>
                                     <th>Poducto</th>

@@ -42,26 +42,6 @@ import styled from "styled-components";
 import ServiceAllTotalReservation from "../../service/ServiceAllTotalReservation";
 import ModalBlock from "../../organisms/Modals/Block";
 import { confirmAlert } from "react-confirm-alert"; // Import
-import io from 'socket.io-client';
-
-const Notification = () => {
-  useEffect(() => {
-    // Conectar al servidor de socket.io
-    const socket = io('http://localhost:4000');
-
-    // Escuchar el evento de reserva
-    socket.on('mensaje', (reserva) => {
-      // Mostrar una notificación de la nueva reserva
-      alert(`Se ha creado una nueva reserva: ${reserva}`);
-    });
-
-    // Desconectar del servidor de socket.io cuando el componente se desmonta
-    return () => socket.disconnect();
-  }, []);
-
-  return null;
-};
-
 
 const Info = styled(ReactTooltip)`
   max-width: 278px;
@@ -102,6 +82,8 @@ const style = {
 
 const Dashboard = (props) => {
 
+
+
 	const {id} = useParams()
 	const [open, setOpen] = useState(true);
 	const [reservation,setReservas] = useState()
@@ -121,26 +103,6 @@ const Dashboard = (props) => {
 	const [hoveredItemId, setHoveredItemId] = useState(null);
 	const  now = moment().format("YYYY-MM-DD");
 
-
-	const [mensajes, setMensajes] = useState([]);
-
-	useEffect(() => {
-	  const socket = io('http://localhost:3000');
-  
-	  socket.on('mensaje', (mensaje) => {
-		setMensajes([...mensajes, mensaje]);
-	  });
-  
-	  return () => {
-		socket.disconnect();
-	  };
-	}, [mensajes]);
-  
-	const enviarMensaje = (mensaje) => {
-	  const socket = io('http://localhost:3000');
-	  socket.emit('mensaje', mensaje);
-	};
-  
 
 	const  [totalDay ,setTotalDay] =useState()
 	
@@ -670,6 +632,10 @@ const Dashboard = (props) => {
 		{
 			id: 6,
 			name:"Informe room to sell"
+		},
+		{
+			id: 7,
+			name:"Informe tienda"
 		}
 	];
 
@@ -707,6 +673,9 @@ const Dashboard = (props) => {
 		}
 		if(stateInformes ==6){
 			return history.push("/informeroomtosell")
+		}
+		if(stateInformes ==7){
+			return history.push(`/informeStore/${jwt.result.id_hotel}`)
 		}
 	},[stateInformes,setInformes])
 
