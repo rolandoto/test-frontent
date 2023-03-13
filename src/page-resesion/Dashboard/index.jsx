@@ -41,7 +41,12 @@ import ReactTooltip from "react-tooltip";
 import styled from "styled-components";
 import ServiceAllTotalReservation from "../../service/ServiceAllTotalReservation";
 import ModalBlock from "../../organisms/Modals/Block";
-import { confirmAlert } from "react-confirm-alert"; // Import
+import { confirmAlert } from "react-confirm-alert";
+
+// Conectarse al servidor de Socket.io
+
+
+// Escuchar el evento de "nueva-reserva" y mostrar una notificación
 
 const Info = styled(ReactTooltip)`
   max-width: 278px;
@@ -82,7 +87,7 @@ const style = {
 
 const Dashboard = (props) => {
 
-
+	
 
 	const {id} = useParams()
 	const [open, setOpen] = useState(true);
@@ -113,6 +118,8 @@ const Dashboard = (props) => {
 			console.log(e)
 		})
 	},[])
+
+	
 
 	const Skele =() =>{
 		return (
@@ -274,7 +281,6 @@ const Dashboard = (props) => {
 	}
 
 	const onItemClick = (itemId, e, time, onItemSelectParentUpdate) => {	
-		
 		history.push(`/DetailDashboard/${itemId}`)
 	}
 

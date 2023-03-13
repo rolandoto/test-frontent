@@ -28,10 +28,9 @@
     import { Document, Page, Text,Svg } from '@react-pdf/renderer'
     import { PDFDownloadLink } from '@react-pdf/renderer';
     import ServePdf from "../../service/PdfServe";
-
+    
     const ref = React.createRef();
 
-   
     const   PdfComprobante =() =>{
       return (
           <div className="App-new" id="tab_customers" class="table table-striped" > 
@@ -314,10 +313,7 @@ const DashboardModal = (props) => {
             )
         }
         
-       
-
-    
-
+  
         const Print = () => {
         const string = renderToString();
         const pdf = new jsPDF("p", "mm", "a4");

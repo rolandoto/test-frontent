@@ -39,7 +39,7 @@
   background: white;
   border-radius: 8px;
   margin: 4px;
-  width: 28%;
+  width: 32%;
   padding: 10px;
 }
 
@@ -519,7 +519,7 @@
 
 .button-checking-detail-firma {
   border: none;
-  background: #a8bdaa;
+  background: #bfbfbf;
   padding: 20px;
   width: 160px;
   border-radius: 8px;
@@ -689,9 +689,9 @@
 
 .button-change-type-room{
   border: none;
-    background: #b9b9b9;
+  background: rgb(124 167 183);
     padding: 0;
-    width: 609px;
+    width: 513px;
     border-radius: 8px;
     color: white;
     height: 53px;

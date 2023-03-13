@@ -87,10 +87,12 @@ const InformeStore =() =>{
                                     <th>Precio compra</th>
                                     <th>Precio venta</th>
                                     <th>Total venta</th>
+                                    <th>Fecha venta</th>
                                 </tr>
                                 {informeStore?.query?.map(index =>{
-                                    const total  = index.Total.toLocaleString();
-                                    const precioVenta = index.Precio
+                                    const total  = index.ventas   *index.Precio 
+                                    const totalVenta = total.toLocaleString();
+                                    const precioVenta = index.Precio.toLocaleString()
                                     const precioCompra =  index.Precio_compra.toLocaleString();
                                     return (
                                         <tr>
@@ -102,7 +104,8 @@ const InformeStore =() =>{
                                             <td>{index.ventas}</td>
                                             <td>${precioCompra}</td>
                                             <td>${precioVenta}</td>
-                                            <td>${total}</td>
+                                            <td>${totalVenta}</td>
+                                            <td><li className="totalPricecheckout pay-checkout-pago-pagado-One ">Ver</li> </td>
                                         </tr>
                                         )
                                     })}

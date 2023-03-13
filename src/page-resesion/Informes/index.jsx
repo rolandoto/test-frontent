@@ -114,9 +114,9 @@ const totalLoading = auditoria ?auditoria  : store
                     {auditoria?.map(index =>{
                           const fecha =  moment(index.Fecha_pago).utc().format('YYYY/MM/DD')
 
-                            const PriceWithienda =  parseInt(index.Valor_habitacion)
+                            const PriceWithienda =  parseInt(index.abono)
  
-                            const totalIva =  parseInt(index.Valor_habitacion) *19/100 
+                            const totalIva =  parseInt(index.abono) *19/100 
 
                             const total = totalIva+ PriceWithienda
 

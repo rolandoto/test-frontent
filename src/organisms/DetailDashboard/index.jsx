@@ -38,6 +38,7 @@ import TextField from '@mui/material/TextField';
 import ServicePayReservationSore from "../../service/ServicePayReservationSore";
 import ServiceUpdateDetailTypeRoom from "../../service/ServiceUpdateDetailTypeRoom";
 import UseFechaFormateada from "../../hooks/UseFechaFormateado";
+import { VscVerified,VscSymbolEvent ,VscSignOut,VscSearch,VscRecord} from "react-icons/vsc";
 
 const DetailDasboard =(props) =>{
     const {id} = useParams()
@@ -814,13 +815,13 @@ const toPriceNigth = UsePrice({number:resultDashboard?.valor_dia_habitacion})
               <div>
                   <button className={`${ findFirma ? "button-checking-detail-firma" : "button-checking-detail-finish-button" } `} onClick={handChecking} >
                       <span className="title-button"  > <div className="inke-in" >
-                      <img width={25} className="ro-img"  src="https://medellin47.com/ico_pms/qin.svg" alt="" /> <span> Check in</span> 
+                      <VscSymbolEvent fontSize={18} className="flex-contan"  color="white" /> <span> Check in</span> 
                       </div>   </span>
                   </button>
               </div>
               <div>
                   <button className={`${!findFirma ?   "button-checking-detail-firma": " button-checking-detail-checkout" }  `} onClick={hanClickDetailCheckout}  >
-                      <span className="title-button"  > <div className="inke-in" > <img width={25} className="ro-img"  src="https://medellin47.com/ico_pms/qout.svg" alt="" /> <span> Check out </span> 
+                      <span className="title-button"  > <div className="inke-in" > <VscSignOut className="flex-contan"  color="white" fontSize={18}  /> <span> Check out </span> 
                                             </div></span>
                   </button>
               </div>

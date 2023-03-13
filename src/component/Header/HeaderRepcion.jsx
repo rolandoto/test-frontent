@@ -9,8 +9,10 @@ import { RiHome2Line } from "react-icons/ri";
 import { Avatar, Grid } from "@nextui-org/react";
 import  AutoProvider  from "../../privateRoute/AutoProvider";
 import { RiLogoutBoxLine } from "react-icons/ri";
+import io from 'socket.io-client';
 
 const HeaderRecepcion  =() =>{
+
     const {setJwt} = useContext(AutoProvider)
     const {jwt} = UseUsers()
 
@@ -71,7 +73,7 @@ const HeaderRecepcion  =() =>{
                         <Link to={`/Home`} >
                             <li className="borde-icon">
                                 <RiHome2Line color="black" fontSize={25}/>
-                                <span className="title-icon" >Inicio</span>
+                                <span className="title-icon" >Inicio  </span>
                             </li>
                         </Link>
                         <Link to="/Bictacoras" >
