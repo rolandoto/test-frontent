@@ -2,7 +2,7 @@
   border-bottom: none;
   position: relative;
   z-index: 99;
-  background-color: #fffafc;
+  background-color: #f8f8f8;
   color: black !important;
   font-weight: 700 !important;
   box-shadow: var(--color-border-lightgray) 0 0 1rem;
@@ -238,9 +238,15 @@
   border-radius: 8px;
   height: 100px;
   width: 100%;
+  padding: 11px;
 }
 .pr {
   margin-top: 10px;
+}
+
+
+.opo-room{
+  font-weight: 100;
 }
 
 .container-checkbox-one {

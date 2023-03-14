@@ -25,8 +25,11 @@ const InputStore = ({id,fetchData}) => {
         name:"",
         amount:"",
         price:"",
+        Precio_compra:""
 
     })   
+
+  
 
     const handleInputChange = (event) => {
         setChange({
@@ -39,7 +42,7 @@ const InputStore = ({id,fetchData}) => {
 
     const handSubmitProduct =async() =>{
         try {
-            const postStore=  await HttpClient.PostAdminStore({ID_Hoteles:change.id_hotel,ID_Tipo_categoria:change.category,Nombre:change.name,Cantidad:change.amount,Precio:change.price,Fecha_registro:now}).then(index =>{
+            const postStore=  await HttpClient.PostAdminStore({ID_Hoteles:change.id_hotel,ID_Tipo_categoria:change.category,Nombre:change.name,Cantidad:change.amount,Precio:change.price,Fecha_registro:now,Precio_compra:change.Precio_compra}).then(index =>{
                 console.log(index)
                 fetchData()
             }).catch(e =>{
@@ -78,6 +81,12 @@ const InputStore = ({id,fetchData}) => {
                 <Input  
                     title="Precio" 
                     name="price" 
+                    type="text"
+                    change={handleInputChange} />
+
+                    <Input  
+                    title="Precio compra" 
+                    name="Precio_compra" 
                     type="text"
                     change={handleInputChange} />
 

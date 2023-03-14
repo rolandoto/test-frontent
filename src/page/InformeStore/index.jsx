@@ -11,13 +11,15 @@ import ServiceTypeCategorys from "../../service/ServiceTypeCategorys"
 import Input from "../../Ui/Input"
 import Selected from "../../Ui/Select"
 import { useReactToPrint } from "react-to-print";
+import { useHistory } from "react-router-dom"
 
 const InformeStore =() =>{
-
+    const history = useHistory()
     const {jwt} =useContext(AutoProvider)
     const id = jwt.result.id_hotel
 
     const [informeStore,setInformeSotore] =useState()
+    const [informeStoreOne,setInformeStoreOne] =useState()
 
     const [change,setChange] =useState({
         id_hotel:id,
@@ -33,7 +35,7 @@ const InformeStore =() =>{
             [event.target.name] : event.target.value
         })
     }
-    
+
     const [state,setState] = useState()
  
     useEffect(() =>{
@@ -42,18 +44,39 @@ const InformeStore =() =>{
         })
        fetch(`${config.serverRoute}/api/resecion/handInformaSotreById/${id}`)
        .then(resp =>  resp.json())
-       .then(data => setInformeSotore(data))
+       .then(data => {
+            setInformeSotore(data.query)
+            setInformeStoreOne(data.query)
+       })
     }, [setState])
 
-
+    const filtrar=(terminoBusqueda)=>{
+        let resultadosBusqueda= informeStoreOne?.filter((elemento,index)=>{
+            if(elemento?.ID_Tipo_categoria?.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
+            ){
+            return elemento;
+            }
+        });
+        setInformeSotore(resultadosBusqueda);
+        }
     
-    let componentRef = useRef();
+    useEffect(() =>{
+        filtrar(change.category)
+    },[setChange,change])
 
+    let componentRef = useRef();
 
     const handlePrint = useReactToPrint({
         content: () => componentRef.current
     });
+
+    const handNextDetailStore =(ByIdproduct) =>{
+        history.push(`/Detailinforme/${ByIdproduct}`)
+    }
     
+    const totalPrice = informeStore?.reduce((acum,current) => {
+        return acum  +  current.ventas   *current.Precio 
+    },0)
 
     return (
         <>            
@@ -89,13 +112,13 @@ const InformeStore =() =>{
                                     <th>Total venta</th>
                                     <th>Fecha venta</th>
                                 </tr>
-                                {informeStore?.query?.map(index =>{
+                                {informeStore?.map(index =>{
                                     const total  = index.ventas   *index.Precio 
                                     const totalVenta = total.toLocaleString();
                                     const precioVenta = index.Precio.toLocaleString()
                                     const precioCompra =  index.Precio_compra.toLocaleString();
                                     return (
-                                        <tr>
+                                        <tr key={index.ID} >
                                             <td>{index.Nombre}</td>
                                             <td>{index.Cantidad_inicial}</td>
                                             <td>{index.Cantidad}</td>
@@ -105,10 +128,13 @@ const InformeStore =() =>{
                                             <td>${precioCompra}</td>
                                             <td>${precioVenta}</td>
                                             <td>${totalVenta}</td>
-                                            <td><li className="totalPricecheckout pay-checkout-pago-pagado-One ">Ver</li> </td>
+                                            <td><li className="totalPricecheckout pay-checkout-pago-pagado-One pointer-one" onClick={(e) => handNextDetailStore(index.ID)} >Ver</li> </td>
                                         </tr>
                                         )
                                     })}
+                                     <tr>
+                                        <th>Total  ${totalPrice?.toLocaleString()}</th>
+                                    </tr>
                             </table>
                     </tbody>
                 </div>

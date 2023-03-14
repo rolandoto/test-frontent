@@ -871,6 +871,7 @@ const StoreTemplate =({Store}) =>{
       Nombre_recepcion:jwt.result.name
     }
 
+    console.log(dataOne)
 
     const handSubmitInsertCartOne =() =>{
       ServiceaInsertStore({data:dataOne}).then(index =>{
@@ -879,8 +880,6 @@ const StoreTemplate =({Store}) =>{
          console.log(e)
       })
    }
-
-
 
     const {cart} = carts
     const currenCart =[]
@@ -917,7 +916,7 @@ const StoreTemplate =({Store}) =>{
     }, []);
     
 
-    console.log(peopleReservation)
+    console.log(dataOne)
         return (    
             <div className="mainContainer">
                 <div className="rowContainer" >

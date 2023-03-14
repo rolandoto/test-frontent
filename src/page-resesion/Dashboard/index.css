@@ -267,7 +267,7 @@
 
 .input-selecto-dasboard-n1 {
   box-sizing: border-box;
-  width: 215px;
+  width: 176px;
   height: 60px;
   left: 300px;
   top: 338px;
@@ -392,7 +392,6 @@
   background: white;
   color: #808080;
   cursor: pointer;
-  font-weight: 400;
   width: 13%;
   margin-right: 1px;
   height: 45px;
@@ -411,7 +410,6 @@
 
 .button-reservas-type-one span {
   color: grey;
-  font-weight: 400;
 }
 
 .input-stores-personality-thre {

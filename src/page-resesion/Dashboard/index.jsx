@@ -697,16 +697,17 @@ const Dashboard = (props) => {
 				<div className="container-button" >
 					<button className='button-reservas' onClick={handClickReservaction} ><div className="flex-index-reservation" ><VscVerified fontSize={18} className="flex-contant" color="white"  /><span>Crear reserva</span></div></button>
 					<button className='button-reservas-type-one-two' onClick={handChecking} ><div className="flex-index-reservation"><VscSymbolEvent fontSize={18} className="flex-contan"  color="white" /><span> Check in</span> </div></button>
-					<button className='button-reservas-type-one-one'><div className="flex-index-reservation" ><VscSignOut className="flex-contan"  color="white" fontSize={18}  /><span>Checkout</span> </div> </button>
+					<button className='button-reservas-type-one-one'><div className="flex-index-reservation" ><VscSignOut className="flex-contan"  color="white" fontSize={18}  /><span>Check out </span> </div> </button>
 					
 					<button className='button-reservas-type' onClick={handChangeTypeRoomOne}>
 					<div className="flex-index-reservation" ><VscRecord className="flex-contan-one" color="white"  fontSize={18} /><span>Estados</span></div></button>
 					
 					<select  onChange={handClickInformAuditoria} value={stateInformes}					
 							className='button-reservas-type-one button-reservas-type-space button-reservas-type-one-two-two ' >
-							<option   >Informe</option>
+							<option   className="opo-room"  >Informe</option>
 							{Informes?.map(category =>(
 													<option 
+													className="opo-room"
 													value={category.id	}   
 													key={category.name}
 												>
@@ -718,11 +719,12 @@ const Dashboard = (props) => {
 					<select onChange={handRaiting}  
 													value={raiting} 
 													className='button-reservas-type-one button-reservas-type-space  button-reservas-type-one-two-two' >
-													<option >Ver habitaciones</option>
-													<option >Todas las Habitaciones</option>
+													<option  className="opo-room" >Ver habitaciones</option>
+													<option  className="opo-room" >Todas las Habitaciones</option>
 													
 												{room?.map(category =>(
 													<option 
+													 className="opo-room"
 													value={category.id_tipoHabitacion}   
 													key={category.ID}
 												>
