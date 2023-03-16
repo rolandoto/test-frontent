@@ -123,7 +123,7 @@
 
 .contain {
   margin: auto;
-  margin-top: 60px;
+  margin-top: -12px;
 }
 
 .title-stores {
@@ -156,7 +156,6 @@
   left: 300px;
   top: 338px;
   background: #ffffff;
-  border: 1px solid #c5c5c5;
   border-radius: 8px;
   margin-top: 5px;
   margin-left: 3px;
@@ -206,36 +205,33 @@
 
 .input-stores-personality-one--fininsh-prefijo {
   box-sizing: border-box;
-  width: 336px;
+  width: 291px;
   height: 40px;
   left: 300px;
   top: 338px;
   background: #ffffff;
-  border: 1px solid #c5c5c5;
   border-radius: 8px;
   margin-top: 5px;
 }
 
 .input-stores-personality-finish {
   box-sizing: border-box;
-  width: 381px;
+  width: 385px;
   height: 40px;
   left: 300px;
   top: 338px;
   background: #ffffff;
-  border: 1px solid #c5c5c5;
   border-radius: 8px;
   margin-top: 5px;
 }
 
 .select-hotel-type-personality-unica {
   box-sizing: border-box;
-  width: 301px;
+  width: 277px;
   height: 40px;
   left: 300px;
   top: 338px;
   background: #ffffff;
-  border: 1px solid #c5c5c5;
   border-radius: 8px;
   margin-top: 5px;
 }
@@ -261,9 +257,7 @@
 }
 
 .contain-board-one {
-  padding: 14px;
-  margin-top: -56px;
-}
+  padding: 14px;}
 
 .input-selecto-dasboard-n1 {
   box-sizing: border-box;
@@ -414,24 +408,22 @@
 
 .input-stores-personality-thre {
   box-sizing: border-box;
-  width: 356px;
+  width: 352px;
   height: 40px;
   left: 300px;
   top: 338px;
   background: #ffffff;
-  border: 1px solid #c5c5c5;
   border-radius: 8px;
   margin-top: 5px;
 }
 
 .input-stores-personality-four {
   box-sizing: border-box;
-  width: 321px;
+  width: 348px;
   height: 40px;
   left: 300px;
   top: 338px;
   background: #ffffff;
-  border: 1px solid #c5c5c5;
   border-radius: 8px;
   margin-top: 5px;
 }
@@ -455,7 +447,6 @@
   left: 300px;
   top: 338px;
   background: #ffffff;
-  border: 1px solid #c5c5c5;
   border-radius: 8px;
   margin-top: 5px;
 }
@@ -466,7 +457,6 @@
   border-radius: 8px;
   color: white;
   cursor: pointer;
-  border: 1px solid #c5c5c5;
   color: black;
   font-weight: 600;
   width: 223px;
@@ -759,7 +749,6 @@ hr {
   left: 300px;
   top: 338px;
   background: #ffffff;
-  border: 1px solid #c5c5c5;
   border-radius: 8px;
   margin-top: 5px;
 }
@@ -794,7 +783,7 @@ hr {
   cursor: pointer;
   border: 1px solid #c5c5c5;
   color: white;
-  width: 208px;
+  width: 200px;
 }
 
 .input-stores-personality-one-finish-dasboard {
@@ -804,7 +793,6 @@ hr {
   left: 300px;
   top: 338px;
   background: #ffffff;
-  border: 1px solid #c5c5c5;
   border-radius: 8px;
   margin-top: 5px;
 }
@@ -944,4 +932,42 @@ hr {
 
 .go{
   z-index: 10;
+}
+
+.container-border-gray{
+  background: #ebebeb;
+  height: 116px;
+  border-radius: 10px;
+  margin-top: -12px !important;
+
+} 
+
+.one-contain-gray{
+  background: #ebebeb !important;
+    border-radius: 10px !important;
+    max-width: 1501px !important;
+    margin: auto !important;
+}
+
+.one-contain-gray-One{
+  background: #ebebeb !important;
+  border-radius: 10px !important;
+  max-width: 1626px !important;
+  /* margin: auto; */
+  margin-top: 31px;
+  margin: -8px;
+  margin-top: 30px;
+}
+
+.one-contain-gray-Two{
+  border-radius: 10px !important;
+  max-width: 1626px !important;
+  /* margin: auto; */
+  margin-top: 31px;
+  margin: -8px;
+  margin-top: 15px;
+}
+
+.paddint-let-terifa-day{
+  padding: 13px;
 }

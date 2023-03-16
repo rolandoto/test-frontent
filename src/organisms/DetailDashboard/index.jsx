@@ -671,34 +671,33 @@ const toPriceNigth = UsePrice({number:resultDashboard?.valor_dia_habitacion})
 
           <div className="container-detail-dasboard-in-one" >
               <div className="border-detail " >
-                   <span>Cantidad noches</span>
+                   <span>Cantidad noches:</span>
                    <span className="negrita-detail-reserva" >{day} noches</span>
               </div>
 
               <div className="border-detail" >
-                   <span>Valor noche</span>
+                   <span>Valor noche:</span>
                    <span className="negrita-detail-reserva"> {toPriceNigth.price}</span>
               </div>
 
               <div className="border-detail" >
-                   <span>Total hospedaje</span>
+                   <span>Total hospedaje:</span>
                    <span className="negrita-detail-reserva" >{valor_habitacion}</span>
               </div>
              
               <div className="border-detail" >
-                  <span>Tipo habitacion</span>
+                  <span>Tipo habitacion:</span>
                    <span className="negrita-detail-reserva"  >{resultFinish?.nombre} {resultDashboard.Numero}</span>
               </div>
 
               <div className="border-detail" >
-                    <span>Tipo de pago</span>
+                    <span>Tipo de pago:</span>
                    <span className="negrita-detail-reserva" >{resultDashboard?.forma_pago}</span>
               </div>
               <div className="border-detail" >
-                  <span>Abono</span>
+                  <span>Abono:</span>
                    <span className="negrita-detail-reserva" >{valor_abono}</span>
               </div>
-             
           </div>
       </div>
         <div  className="container-flex-init-global" >
@@ -714,11 +713,11 @@ const toPriceNigth = UsePrice({number:resultDashboard?.valor_dia_habitacion})
         <form  className="container-flex-init" >
         <div className="container-detail-dasboard-in" > 
 
-        <span className="desde-detail-two-title" > Adultos </span>
-        <span className="desde-detail-two-title" >Niños </span>
-        <span className="desde-detail-three-title-das" >Infantes</span>    
-        <span  className="desde-detail-three-title-das">Mascotas</span>
-        <span className="desde-detail-two-title" > Ciudad</span>
+        <span className="desde-detail-two-title" > Adultos:</span>
+        <span className="desde-detail-two-title" >Niños:</span>
+        <span className="desde-detail-three-title-das" >Infantes:</span>    
+        <span  className="desde-detail-three-title-das">Mascotas:</span>
+        <span className="desde-detail-two-title" > Ciudad:</span>
 
             </div>
               <div className="container-detail-dasboard-in" > 
@@ -763,14 +762,14 @@ const toPriceNigth = UsePrice({number:resultDashboard?.valor_dia_habitacion})
         </form>
       </div>
 
-      <div className="init" >
+      <div className="init top-one-detail-room" >
         <form  className="container-flex-init"  onSubmit={e =>{
           e.preventDefault()
         }} >
         <div className="container-detail-dasboard-in" > 
 
-        <span className="desde-detail-two-title" > Tipo habitacion </span>
-        <span className="desde-detail-two-title" >Asignar habitacion </span>
+        <span className="desde-detail-two-title" > Tipo habitacion:</span>
+        <span className="desde-detail-two-title" >Asignar habitacion:</span>
 
             </div>
               <div className="container-detail-dasboard-in" > 
@@ -891,9 +890,9 @@ const toPriceNigth = UsePrice({number:resultDashboard?.valor_dia_habitacion})
       <form  className="container-flex-init" >
         <div className="container-detail-dasboard-in in-type-button" > 
                 <ul className="flex-contain"  >
-                    <li className={`${huesped ? "desde-detail-three-estados-black-one-finish" :"desde-detail-three-estados" } `} onClick={handHuesped} >Huespedes</li>
-                    <li className={`${consumo ? "desde-detail-three-estados-black" :"desde-detail-three-estados" } `} onClick={handConsumo} >Consumos</li>
-                    <li className={`${pago ? "desde-detail-three-estados-black" :"desde-detail-three-estados" } `}  onClick={handPago} >Pagos</li>
+                    <li className={`${huesped ? "desde-detail-three-estados-black-one-finish" :"desde-detail-three-estados" } `} onClick={handHuesped} >Huespedes:</li>
+                    <li className={`${consumo ? "desde-detail-three-estados-black" :"desde-detail-three-estados" } `} onClick={handConsumo} >Consumos:</li>
+                    <li className={`${pago ? "desde-detail-three-estados-black" :"desde-detail-three-estados" } `}  onClick={handPago} >Pagos:</li>
                 </ul>
            { huesped && <Huesped  quyery={quyery}
                                   DetailDashboard={DetailDashboard}
@@ -1101,7 +1100,7 @@ const Huesped =({quyery,handEditar,handChangeSubmit ,stateButton,DetailDashboard
     
     <div >
             
-            <TableContainer component={Paper}  onSubmit={(e) =>{
+            <TableContainer component={Paper}  className="top-table-One" onSubmit={(e) =>{
               e.preventDefault()
             }} >
             <LoadingDetail  
@@ -1213,7 +1212,6 @@ const Consumo =(props) =>{
     forma_pago:null,
 })
 
-
 const handleState =(event, index) =>{
   setState({
     ...state,
@@ -1264,7 +1262,7 @@ const handleState =(event, index) =>{
   return (
        <div >  
 
-            <TableContainer component={Paper}  onSubmit={(e) =>{
+            <TableContainer component={Paper} className="top-table-One"  onSubmit={(e) =>{
               e.preventDefault()
             }} >
               <LoadingDetail  
@@ -1355,7 +1353,7 @@ const Pagos =(props) =>{
 
   return (
     <div >  
-         <TableContainer component={Paper}  onSubmit={(e) =>{
+         <TableContainer component={Paper}  className="top-table-One" onSubmit={(e) =>{
            e.preventDefault()
          }} >
            <LoadingDetail  

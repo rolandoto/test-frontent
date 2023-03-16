@@ -927,7 +927,7 @@ const DashboardModal = (props) => {
                                     <div className="handclose" onClick={handAll}>
                                     </div>
                                             <div>
-                                                <div className="contain-board" >
+                                                <div className="contain-board " >
                                                 <div className="contain-board-one" >
                                                 <div className="title-modal-dashboard" >
 
@@ -977,9 +977,9 @@ const DashboardModal = (props) => {
                                                     </li> 
                                                 </ul> 
                                                     
-                                        <div>
+                                        <div  className="container-border-gray "  >
                                                 
-                                            <ul className="flex-bedrooms">
+                                            <ul className="flex-bedrooms paddint-let-terifa-day">
                                                    
 
                                             {to ? 
@@ -1072,7 +1072,7 @@ const DashboardModal = (props) => {
                                     {to ? <div>
                                     {huespe?.map((item, index) => (
                                             <div className="contain-board" >
-                                                <div className="contain-board-one" >
+                                                <div className="contain-board-one one-contain-gray" >
                                                 <ul className="flex-bedrooms-finis-one" >
                                                             <li  >
                                                                
@@ -1174,22 +1174,18 @@ const DashboardModal = (props) => {
                                                         <label className="title-stores">Celular</label>
                                                         <input className="input-stores-personality-one--fininsh-prefijo " required  name="Celular"     type="number"  value={item.Celular}  onChange={(event) =>  handleInpuHuespe(event, index)} />
                                                     </li>   
-
                                                 </ul>
-                                                <ul className="flex-bedrooms" >
-                                                    <hr width="50%" height="50%"  />  
-                                                </ul>
-                                        </div>
-                                      
-                                    </div> 
-                                   
+                                                
+                                           </div>
+                                         
+                                      </div> 
                                     ))}
 
                                 </div>: null }
 
-                                {to ?
-                                    
-                                        <ul className="flex-bedrooms">
+                                {to ? 
+                                <div className="contain-board  one-contain-gray-One">
+                                        <ul className="flex-bedrooms paddint-let-terifa-day">
                                                 <li>
                                                     <label className="title-stores">Tafira por dia</label>
                                                         <input className="button-dasboard-thre " defaultValue={default_Value}  onChange={handChangeValueEditar}   />
@@ -1245,9 +1241,11 @@ const DashboardModal = (props) => {
                                                 </li>
                                                 
                                             </ul>
+                                            </div>
                                     : null}
 
                                     {to ?  
+                                    <div className="contain-board  one-contain-gray-Two">
                                             <ul className="flex-bedrooms">
                                                             <li>
                                             <textarea    rows="10" 
@@ -1260,10 +1258,10 @@ const DashboardModal = (props) => {
                                                             className="obs" ></textarea>                
                                         </li>
                                         </ul>
+                                        </div>
                                      :null}
 
                                      {to ? 
-
                                         <ul className="flex-bedrooms">
 
                                             

@@ -358,6 +358,14 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  width: 205%;
+}
+
+.container-flex-buttton-checkout-One{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
 }
 
 .contan-seacrh {

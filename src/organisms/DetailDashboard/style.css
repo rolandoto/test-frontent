@@ -75,7 +75,7 @@
   cursor: pointer;
   width: 148px;
   margin-left: -20px;
-  justify-content: center;
+  justify-content: initial;
 }
 
 .desde-detail-three-estados-black {
@@ -90,7 +90,7 @@
   width: 148px;
   margin-left: -20px;
   color: white;
-  justify-content: center;
+  justify-content: initial;
 }
 
 .desde-detail-three-one {
@@ -192,7 +192,7 @@
   width: 148px;
   margin-left: -20px;
   color: white;
-  justify-content: center;
+  justify-content: initial;
 }
 
 .container-flex-init-one {
@@ -271,7 +271,7 @@
   border: none;
   border-radius: 8px;
   margin: 4px;
-  width: 28%;
+  width: 31%;
   padding: 10px;
 }
 
@@ -580,9 +580,9 @@
 .container-flex-init-one-container-delete {
   display: block;
   justify-content: space-between;
-  max-width: 1490px;
+  max-width: 1480px;
   margin: auto;
-  margin-top: 25px;
+  margin-top: 11px;
 }
 
 .top-detail {
@@ -626,7 +626,7 @@
   width: 148px;
   margin-left: -20px;
   color: white;
-  justify-content: center;
+
  
 }
 
@@ -702,3 +702,12 @@
     cursor: pointer;
     margin-left: 11px;
 }
+
+
+.top-table-One{
+  margin-top: 13px;
+}
+
+ .top-one-detail-room{
+  margin-top: 12px;
+ }

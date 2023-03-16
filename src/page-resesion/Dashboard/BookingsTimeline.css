@@ -146,12 +146,11 @@
 
 .input-selecto-dasboard-n1-name {
   box-sizing: border-box;
-  width: 354px;
+  width: 346px;
   height: 40px;
   left: 300px;
   top: 338px;
   background: #ffffff;
-  border: 1px solid #c5c5c5;
   border-radius: 8px;
   margin-top: 5px;
   margin-left: 4px;
@@ -165,7 +164,7 @@
   background: white;
   outline: none;
   color: #726659;
-  border: solid 1px #c5c5c5;
+ 
   transition: all 0.3s ease-in-out;
   -webkit-transition: all 0.3s ease-in-out;
   margin-top: 19px;
@@ -184,13 +183,13 @@
   background: white;
   outline: none;
   color: #726659;
-  border: solid 1px #c5c5c5;
+  
   transition: all 0.3s ease-in-out;
   -webkit-transition: all 0.3s ease-in-out;
   margin-top: 19px;
   border-radius: 8px;
   margin: auto;
-  width: 150px;
+  width: 137px;
   max-width: 531px;
   margin-top: 5px;
 }

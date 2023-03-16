@@ -870,7 +870,6 @@ tr {
   background: white;
   outline: none;
   color: #726659;
-  border: solid 1px #c5c5c5;
   transition: all 0.3s ease-in-out;
   -webkit-transition: all 0.3s ease-in-out;
   margin-top: 19px;

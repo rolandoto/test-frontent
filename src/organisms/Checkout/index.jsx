@@ -16,8 +16,11 @@ import ServiceStatus from "../../service/ServiceStatus"
 import { VscVerified,VscSymbolEvent ,VscSignOut,VscSearch,VscRecord} from "react-icons/vsc";
 import ServiceResolution from "../../service/serviceResolution"
 import { confirmAlert } from "react-confirm-alert"; // Import
+import Swal from 'sweetalert2'
 
 const CheckoutOrganism =({DetailDashboard}) =>{
+
+   
     
     const {id} = useParams()
     const {jwt} = useContext(AutoProvider)
@@ -551,16 +554,50 @@ const CheckoutOrganism =({DetailDashboard}) =>{
     var formatteOne = totalStore.toLocaleString();
 
     const [factura,setFactura] = useState(false)
-
+    let timerInterval
     const handServiFormularios =() =>{
         if(filterSearch) {
             ServiceFormulariosCheckout({id:filterSearch.id,status:"2",fecha_ingreso:fechaInicio,fecha_salida:FechaFinal,valortotal:totalIva}).then(index =>{
                 setFactura(true)
                 setComprobante(true)
+               setTimeout(() =>{
+                Swal.fire({
+                    title: 'Se hara Check out',
+                    html: 'Cargando Check out',
+                    timer: 3000,
+                    timerProgressBar: true,
+                    didOpen: () => {
+                      Swal.showLoading()
+                      const b = Swal.getHtmlContainer().querySelector('b')
+                      timerInterval = setInterval(() => {
+                        b.textContent = Swal.getTimerLeft()
+                      }, 100)
+                    },
+                    willClose: () => {
+                      clearInterval(timerInterval)
+                    }
+                  }).then((result) => {
+                    /* Read more about handling dismissals below */
+                    if (result.dismiss === Swal.DismissReason.timer) {
+                      console.log('I was closed by the timer')
+                      handUpdateStatus()
+                    }
+                  })
+               
+               },2000)
                 console.log(index)
             }).catch(e => {
                 setFactura(false)
+              
             }) 
+        }else{
+            Swal.fire({
+                position: 'center',
+                icon: 'error',
+                title: 'Selecione empresa para continuar',
+                showConfirmButton: false,
+                timer: 2000
+              })
         }
     }
     
@@ -590,7 +627,7 @@ const CheckoutOrganism =({DetailDashboard}) =>{
     const handSendFactura =() =>{
         confirmAlert({
             title: '',
-            message: 'Enviar factura electronica  ahora ?',
+            message: 'Enviar factura electronica llega al correo electronico 3  dias',
             buttons: [
               {
                 label: 'Si',
@@ -806,12 +843,7 @@ const CheckoutOrganism =({DetailDashboard}) =>{
             <div className="container-store-checkout-two">
                 <div className="container-flex-buttton-checkout" >    
                             <div className="button-checkout" onClick={handSendFactura} >
-                                <button>Enviar factura electronica</button>
-                            </div>
-
-                            <div className="button-checkout-two-finally" onClick={handClickCheckout}  >
-                                <button><span className="title-button"  > <div className="inke-in" > <img width={25} className="ro-img"  src="https://medellin47.com/ico_pms/qout.svg" alt="" /> <span> Check out </span> 
-                                            </div></span></button>
+                                <button>Check out y enviar factura electronica</button>
                             </div>
                         </div>
                     </div>
@@ -1037,7 +1069,7 @@ const CheckoutOrganism =({DetailDashboard}) =>{
             <div className="container-checkout-border-one" >
             
             </div>
-            <div className="container-flex-buttton-checkout" >
+            <div className="container-flex-buttton-checkout-One" >
             <div className="button-checkout-three" onClick={handOpenInvoince} >
                     <button>Imprimir factura POS</button>
                 </div>

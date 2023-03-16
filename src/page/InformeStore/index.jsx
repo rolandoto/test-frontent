@@ -49,7 +49,7 @@ const InformeStore =() =>{
             setInformeStoreOne(data.query)
        })
     }, [setState])
-
+    
     const filtrar=(terminoBusqueda)=>{
         let resultadosBusqueda= informeStoreOne?.filter((elemento,index)=>{
             if(elemento?.ID_Tipo_categoria?.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
