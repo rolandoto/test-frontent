@@ -79,7 +79,6 @@ const ReservasUpdate =(props) =>{
   }
 
   
- 
 
   const handClick =() =>{
     ServiceUpdateReservation({id,data}).then(index =>{

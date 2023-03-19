@@ -132,6 +132,22 @@ const getForget =(url="") =>{
   }).then(isOk)
 }
 
+
+
+const insertPayABono = ({data}) =>{
+  return fetch((`${config.serverRoute}/api/resecion/insertPayAbono`),{
+    method:"POST",
+      body:JSON.stringify({data}),
+      headers:{
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      }
+      }).then(resp =>{
+      if(!resp.ok) throw new Error('Response is not ok')
+      return resp.json()
+  })
+}
+
   export default {
     get,
     post,
@@ -142,6 +158,7 @@ const getForget =(url="") =>{
     GetBictacoras,
     GetFormats,
     GetContact,
-    getForget
+    getForget,
+    insertPayABono
   }
   

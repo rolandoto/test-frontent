@@ -39,6 +39,8 @@ import ServicePayReservationSore from "../../service/ServicePayReservationSore";
 import ServiceUpdateDetailTypeRoom from "../../service/ServiceUpdateDetailTypeRoom";
 import UseFechaFormateada from "../../hooks/UseFechaFormateado";
 import { VscVerified,VscSymbolEvent ,VscSignOut,VscSearch,VscRecord} from "react-icons/vsc";
+import HttpClient from "../../HttpClient"
+import Swal from 'sweetalert2'
 
 const DetailDasboard =(props) =>{
     const {id} = useParams()
@@ -124,8 +126,7 @@ const DetailDasboard =(props) =>{
       const [disponibilidad,setDisponibilidad] =useState()
       const [asignar,setAsignar] =useState()
       const [loadingTypeRoom,setLoadingTypeRoom] =useState({loading:false,error:false})
-
-      console.log(idRoom)
+      const  now = moment().format("YYYY/MM/DD");
 
       const handAsignar =(event)  =>{
         setAsignar(event.target.value)
@@ -261,7 +262,6 @@ const DetailDasboard =(props) =>{
     const date1 = new Date(fechaOne?.defaultValueone)
     const date2 = new  Date(espan)
 
-    
     const fechaFormateadaFechaInicio = UseFechaFormateada({fecha:fecha.defaultValueone})
     const fechaFormateadaFechaFinal = UseFechaFormateada({fecha:fechaOne?.defaultValueone})
 
@@ -303,8 +303,7 @@ const DetailDasboard =(props) =>{
           setLoadingFecha({error:true})
         })
     }
-    
-
+  
     const docu = tipoDocumento?.find(index =>  index?.ID == resultDashboard?.ID_Tipo_documento)
 
 
@@ -338,11 +337,50 @@ const DetailDasboard =(props) =>{
           Nacionalidad:""
     })
 
-      const handleInpuHuespe =(event, index) =>{
+    const handleInpuHuespe =(event, index) =>{
         setHuespe({
           ...huespe,
           [event.target.name] : event.target.value
       })
+    }
+
+    const [inputPayValue, setInputPayValue] = useState({
+      ID_Reserva: id,
+      PayAbono: null,
+      Fecha_pago: now,
+      Tipo_forma_pago: null,
+      Nombre_recepcion:jwt.result.name
+    });
+
+    const handleInputPay = (event) => {
+      const value = parseInt(event.target.value);
+        setInputPayValue({
+          ...inputPayValue,
+          [event.target.name]: value
+        });
+    }
+
+    const handClickInsertAbono =()  => {
+        HttpClient.insertPayABono({data:inputPayValue}).then(index=> {
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Abono exitoso',
+            showConfirmButton: false,
+            timer: 2000
+          })
+          setTimeout(() =>{
+            window.location.reload()
+          },2000)
+        }).catch(e =>{
+          Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: 'Error',
+            showConfirmButton: false,
+            timer: 2000
+          })
+        })
     }
 
     useEffect(() =>{
@@ -400,8 +438,6 @@ const DetailDasboard =(props) =>{
     }else{
       count= count ? count : parseInt(resultDashboard?.valor_habitacion)
     }
-
-    const  now = moment().format("YYYY/MM/DD");
 
     let dataOne ={
       Abono: parseInt(Abono) + parseInt(resultDashboard.valor_abono),
@@ -528,6 +564,57 @@ const priceLenceria = Lenceria?.reduce((acum,current) => {
   })
 } 
 
+const  typy_buy =  [
+  {   
+      id:1,
+      name:"Efectivo",
+  },
+  {
+      id:2,
+      name:"Consignaciones",
+  },
+  {   
+      id:3,
+      name:"Destino",
+  },
+  {   
+      id:4,
+      name:"Sitio Web",
+  },
+  {   
+      id:5,
+      name:"Payoneer",
+  },
+  {   
+      id:6,
+      name:"T.Debito",
+  },
+  {   
+      id:7,
+      name:"T.Credito",
+  },
+  {   
+      id:8,
+      name:"Hotel Beds",
+  },
+  {   
+      id:9,
+      name:"Despegar",
+  },
+  {   
+      id:10,
+      name:"Price Travel",
+  },
+  {   
+      id:11,
+      name:"Link de pago",
+  },
+  {   
+      id:12,
+      name:"Expedia",
+  },
+]
+
 const [pdfOne,setPdfOne] =useState()
 
 function handleClickBasic() {
@@ -582,8 +669,6 @@ function handComprobante() {
 }
 
 
-
-
 var curr = new Date(resultDashboard?.Fecha_inicio);
 curr.setDate(curr.getDate());
 var fecha_inicio = curr.toISOString().substring(0,10);
@@ -605,7 +690,6 @@ const handServiceChangeTypeRoom =(e) =>{
     setLoadingTypeRoom({error:true})
   })
 }
-
 
 const handChangeTypeRoomOne =(e) =>{
   confirmAlert({
@@ -726,13 +810,11 @@ const toPriceNigth = UsePrice({number:resultDashboard?.valor_dia_habitacion})
                       placeholder="Adultos" 
                       name="Adultos"
                       defaultValue={resultDashboard.Adultos}  
-                      onChange={(e) =>setAdultos(e.target.value)}  />  
-             
+                      onChange={(e) =>setAdultos(e.target.value)}  />
                 <input type="text" 
                       className="desde-detail-two" 
                       name="Fecha" 
-                      placeholder="Niños"  
-                      
+                   placeholder="Niños"  
                       defaultValue={resultDashboard.Ninos}  
                       onChange={(e) =>setNinos(e.target.value)}   />
 
@@ -803,12 +885,46 @@ const toPriceNigth = UsePrice({number:resultDashboard?.valor_dia_habitacion})
                     )}
                 </select>
                 <div  onClick={handServiceChangeTypeRoom} >
-                      <button className="button-change-type-room" > <span>Cambiar habitacion</span></button>
+                      <button className="button-change-type-room"  > <span>Cambiar habitacion</span></button>
                 </div>    
             </div>
         </form>
       </div>
+      <div className="init top-one-detail-room" >
+            <form  className="container-flex-init"  onSubmit={e =>{
+              e.preventDefault()
+            }} >
+        <div className="container-detail-dasboard-in" > 
+        <span className="desde-detail-two-title" >Forma pago:</span>
+        <span className="desde-detail-two-title" >Abono:</span>
+            </div>
+              <div className="container-detail-dasboard-in" > 
+              <select   name="Tipo_forma_pago"
+                        value={inputPayValue.Tipo_forma_pago}
+                        onChange={handleInputPay}
+                        className="desde-detail-two"    >
+                    <option></option>
+                    {typy_buy?.map(category =>(
+                        <option 
+                        value={category.id}   
+                        key={category.id}>
+                        {category.name}
+                    </option>
+                    )
+                    )}
+                </select>
 
+                <input   name="PayAbono"
+                          onChange={handleInputPay}
+                          type="number"
+                          defaultValue={0}
+                        className="desde-detail-two"  />
+                <div>
+                      <button className="button-change-type-room" onClick={handClickInsertAbono}  > <span>Agreagar pago</span></button>
+                </div>    
+            </div>
+        </form>
+      </div>
 
         <div className="container-flex-init-one-center " >
               <div>
@@ -931,7 +1047,7 @@ const toPriceNigth = UsePrice({number:resultDashboard?.valor_dia_habitacion})
                                 Lenceria={Lenceria}
                               
                                  />}
-          {pago && <Pagos pagos={resultDashboard} />}
+          {pago && <Pagos pagos={resultDashboard}  idReserva={id} />}
         </div>       
       </form>
       </div>
@@ -1347,9 +1463,23 @@ const handleState =(event, index) =>{
 
 const Pagos =(props) =>{
 
-  const  {pagos} = props
+  const  {pagos,idReserva} = props
 
-  const abono = UsePrice({number:pagos?.valor_abono})
+  const [payState,setPatSate]=useState()
+
+  useEffect(() =>{
+    fetch(`${config.serverRoute}/api/resecion/getPayabono/${idReserva}`)
+    .then(resp => resp.json())
+    .then(data=> setPatSate(data.query))
+  },[idReserva])
+
+
+  const priceTotal = payState?.reduce((acum,current) => {
+    return acum  +  current.Abono
+},0)
+
+
+const total = priceTotal?.toLocaleString()
 
   return (
     <div >  
@@ -1362,18 +1492,34 @@ const Pagos =(props) =>{
                <Table sx={{width:1300 ,marginTop:4}} size="small" aria-label="a dense table"> 
                <TableHead>
                    <TableRow>
-                   <TableCell align="right">Valor</TableCell>
-                   <TableCell align="right">Tipo de pago</TableCell>
-                   <TableCell align="right">Concepto</TableCell>
+                   <TableCell align="right">Fecha</TableCell>
+                   <TableCell align="right">Tipo pago</TableCell>
+                   <TableCell align="right">Abono</TableCell>
+                   <TableCell align="right">Recepcion</TableCell>
                    </TableRow>
                </TableHead>
                <TableBody>
-                     <TableRow>
-                         <TableCell>{abono?.price}</TableCell>
-                         <TableCell>{pagos?.forma_pago}</TableCell>
-                         <TableCell>Anticipo alojamiento</TableCell>
-                     </TableRow>
+                     {payState?.map(index =>{
+                      const fecha =moment(index.Fecha_pago).utc().format('YYYY/MM/DD')
+                      const abono = index.Abono.toLocaleString()
+
+                  
+
+                      return (
+                          <TableRow>
+                            <TableCell align="right">{fecha}</TableCell>
+                            <TableCell align="right">{index.Nombre}</TableCell>
+                            <TableCell align="right">${abono}</TableCell>
+                            <TableCell align="right">{index.Nombre_recepcion}</TableCell>
+                          </TableRow>
+                      )
+                     })}
                </TableBody>
+               <TableHead>
+                   <TableRow>
+                    <TableCell align="right">Total     ${total}</TableCell>
+                   </TableRow>
+               </TableHead>
                </Table>
          </TableContainer> 
      </div>  
