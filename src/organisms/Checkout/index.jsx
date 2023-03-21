@@ -594,7 +594,7 @@ const CheckoutOrganism =({DetailDashboard}) =>{
             Swal.fire({
                 position: 'center',
                 icon: 'error',
-                title: 'Selecione empresa para continuar',
+                title: '<p>Selecione empresa para continuar</p>',
                 showConfirmButton: false,
                 timer: 2000
               })

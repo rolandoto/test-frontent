@@ -12,9 +12,6 @@ const Accordion =({title,active,setActive,acordionOne,accordionTwo,accordionThre
     const taSevent = accordionSevent && true
     const taNine = accordionNone && true
    
-
-   
-
     const event  = title ? title :null
 
     const open =() =>{
@@ -37,7 +34,6 @@ const Accordion =({title,active,setActive,acordionOne,accordionTwo,accordionThre
                             <span className="icon-accordion" onClick={(active ==title ? closed :open )} >{icon}</span>
                     </div>
                 </div>
-
                 <div className={(active==title ?"show":"")+ " accordionContent"}  >
                     <div className="containero">
                     <table className="tab">

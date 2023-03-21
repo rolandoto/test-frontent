@@ -365,7 +365,7 @@ const DetailDasboard =(props) =>{
           Swal.fire({
             position: 'center',
             icon: 'success',
-            title: 'Abono exitoso',
+            title: '<p>Abono exitoso</p>',
             showConfirmButton: false,
             timer: 2000
           })
@@ -376,7 +376,7 @@ const DetailDasboard =(props) =>{
           Swal.fire({
             position: 'center',
             icon: 'error',
-            title: 'Error',
+            title: '<p>Error</p>',
             showConfirmButton: false,
             timer: 2000
           })

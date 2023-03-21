@@ -49,7 +49,7 @@ const InformeAuditoria =() =>{
         return acum  +   parseInt(current.total) 
     },0)
 
-    console.log(auditoria)
+
 
     let count =0
     for(let i =0;i<auditoria?.length;i++){
@@ -65,6 +65,8 @@ const InformeAuditoria =() =>{
             count += parseInt(auditoria[i].abono)
         }
     }
+
+    console.log(auditoria)
 
    const totalPriceInforme =count +priceInformeStore+priceInformeStoreOne
 
@@ -136,7 +138,7 @@ const totalLoading = auditoria ?auditoria  : store
                             <td className="width-informe" >Estadia</td>
                             <td className="width-informe" >Pago estadia</td>
                             <td className="width-informe" >{fecha}</td>
-                            <td className="width-informe" >{index.Tipo_pago}</td>
+                            <td className="width-informe" >{index.Nombre}</td>
                             <td className="width-informe" >{index.Num_documento}</td>
                             <td className="width-informe" >{index.Nombre_Person} {index.Apellido}</td>
                             <td className="width-informe" >${totalDefinit}</td>

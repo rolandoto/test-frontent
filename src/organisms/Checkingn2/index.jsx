@@ -11,6 +11,7 @@ import ServiceUpdateReservation from "../../service/ServiceUpdatereservation";
 import UsePrice from "../../hooks/UsePrice";
 import ServiceUpdateReservationpay from "../../service/ServiceUpdatereservationpay";
 import ServiceStatus from "../../service/ServiceStatus";
+import HttpClient from "../../HttpClient";
 
 const Checkingn2Organism =({id}) =>{
     
@@ -83,10 +84,6 @@ const Checkingn2Organism =({id}) =>{
           .then(data => setTipoDocumento(data))
       },[])
 
-    
-      
-
-
     const hanClickinContracto =() =>{
         if(change.ID_Tipo_Forma_pago== null){
 
@@ -97,16 +94,12 @@ const Checkingn2Organism =({id}) =>{
       
       }
 
-
-
     const handleInputChange =(event) =>{
         setChange({
             ...change,
             [event.target.name]:event.target.value
         })
     }
-
-
 
         const  typy_buy =  [
             {   
@@ -165,7 +158,6 @@ const Checkingn2Organism =({id}) =>{
 
     const totalPriceWithIva = UsePrice({number:resulDetailDashboard?.valor_habitacion -resulDetailDashboard?.valor_abono +Iva})
 
-
     const totalWithIva  = resulDetailDashboard?.Iva==1 ? totalPriceWithIva.price :totalPrice.price
 
     const toPriceAbono= UsePrice({number:resulDetailDashboard?.valor_abono})
@@ -177,29 +169,41 @@ const Checkingn2Organism =({id}) =>{
     const totalAbono =   (resulDetailDashboard?.valor_habitacion) 
    
     const  now = moment().format("YYYY/MM/DD");
+
     let dataOne ={
         Abono:resulDetailDashboard?.valor_habitacion,
         AbonoOne:resulDetailDashboard?.valor_habitacion - resulDetailDashboard?.valor_abono ,
         Fecha_pago:now,
         Valor_habitacion:resulDetailDashboard?.valor_habitacion
-      } 
+    }
+    
+
+    const inputPayValue ={
+        ID_Reserva: id,
+        PayAbono: parseInt(resulDetailDashboard?.valor_habitacion)  - parseInt(resulDetailDashboard?.valor_abono) ,
+        Fecha_pago: now,
+        Tipo_forma_pago: change.ID_Tipo_Forma_pago,
+        Nombre_recepcion:jwt.result.name
+    }
+
+
 
     const handFirmar =() =>{
         ServiceUpdateReservation({id:resulDetailDashboard.id_persona,data}).then(index =>{
+            HttpClient.insertPayABono({data:inputPayValue}).then(index =>{
+                console.log(index)
+            })
             console.log(index)
             }).catch(e =>{
             console.log(e)
-        })
-        ServiceUpdateReservationpay({id,dataOne}).then(index =>{
-            console.log(index)
-        }).catch(e =>{
-          console.log(e)
         })
     }
 
     let dataTwo = {
         ID_Tipo_Forma_pago:change.ID_Tipo_Forma_pago
     }
+
+    
 
     const handUpdateConfirms =() =>{
         ServiceUpdateReservationpay({id,dataOne:dataTwo}).then(index  =>{
