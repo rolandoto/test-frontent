@@ -106,6 +106,7 @@ const DetailDasboard =(props) =>{
       const [isChecked, setIsChecked] = useState(findPersona);
       const [isChecke, setIsChecke] = useState(findEmpresa);
       const [espan,setspand] =useState()
+      const [espanOne,setspandOne] =useState()
       const [loadingFecha,setLoadingFecha] =useState({loading:false,error:false})
       const [huesped,setHuesped] =useState(false)
       const [consumo,setConsumo] =useState(false)
@@ -126,7 +127,8 @@ const DetailDasboard =(props) =>{
       const [disponibilidad,setDisponibilidad] =useState()
       const [asignar,setAsignar] =useState()
       const [loadingTypeRoom,setLoadingTypeRoom] =useState({loading:false,error:false})
-      const  now = moment().format("YYYY/MM/DD");
+ 
+      const now = moment().format("YYYY/MM/DD HH:mm:ss")
 
       const handAsignar =(event)  =>{
         setAsignar(event.target.value)
@@ -257,7 +259,11 @@ const DetailDasboard =(props) =>{
       hasta:`${espan} 13:00:00`,
       desde:`${fechaOne.defaultValueone} 15:00:00`,
       desdeOne:`${fecha.defaultValueone} 15:00:00`,
+      hastaOne:`${espanOne} 15:00:00`,
+      
   }   
+
+  console.log(dataAvaible)
 
     const date1 = new Date(fechaOne?.defaultValueone)
     const date2 = new  Date(espan)
@@ -267,7 +273,7 @@ const DetailDasboard =(props) =>{
 
     const fechaThree = fechaFormateadaFechaFinal.fechaFormateadaHasta
 
-    const resultFechaMayor = fechaFormateadaFechaInicio.fechaFormateadaHasta< espan ? true : false
+    const resultFechaMayor = fechaFormateadaFechaInicio.fechaFormateadaHasta< espan ? true : true
    
     const tipos_adicional = [
       {
@@ -295,7 +301,9 @@ const DetailDasboard =(props) =>{
         history.push(`/detailchecking/${id}`)
       }
     }
-  
+    
+   
+
     const handClick =() =>{
         Servicedetailespandir({desde:dataAvaible.desde,hasta:dataAvaible.hasta,desdeOne:dataAvaible.desdeOne,habitaciones:resultDashboard.ID_Tipo_habitaciones,ID_Habitaciones:resultDashboard.ID_Habitaciones,id,dayOne,valor_dia_habitacion:resultDashboard.valor_dia_habitacion}).then(index =>{
           setLoadingFecha({loading:true})
@@ -685,9 +693,24 @@ console.log(PriceRoomById)
 const handServiceChangeTypeRoom =(e) =>{
   e.preventDefault()
   ServiceUpdateDetailTypeRoom({desde:dataAvaible.desdeOne,hasta:dataAvaible.desde,ID_Habitaciones:asignar,id,ID_Tipo_habitaciones:idRoom,RoomById:PriceRoomById}).then(index => {
-    setLoadingTypeRoom({loading:true})
+    Swal.fire({
+      position: 'center',
+      icon: 'success',
+      title: '<p>Cambio de habitacion exitoso</p>',
+      showConfirmButton: false,
+      timer: 2000
+    })
+    setTimeout(() =>{
+      window.location.reload()
+    },2000)
   }).catch(e =>{
-    setLoadingTypeRoom({error:true})
+    Swal.fire({
+      position: 'center',
+      icon: 'error',
+      title: '<p>Error al cambiar habitacion</p>',
+      showConfirmButton: false,
+      timer: 2000
+    })
   })
 }
 
@@ -786,8 +809,8 @@ const toPriceNigth = UsePrice({number:resultDashboard?.valor_dia_habitacion})
       </div>
         <div  className="container-flex-init-global" >
             <div className="container-detail-dasboard-in" >
-              <input type="date" className="desde-detail" readOnly={true}   defaultValue={fecha_inicio}    />
-              <input type="date" className="desde-detail"    onChange={(e) =>setspand(e.target.value)}  defaultValue={fecha_final}  />
+              <input type="date" className="desde-detail"   onChange={(e) => setspandOne(e.target.value)}  defaultValue={fecha_inicio}    />
+              <input type="date" className="desde-detail"   onChange={(e) =>setspand(e.target.value)}  defaultValue={fecha_final}  />
               
               <h2 className="cod-reserva" ><span className="title-code" >COD:</span> X14A-{resultDashboard?.Num_documento}</h2>
           </div>

@@ -168,7 +168,7 @@ const Checkingn2Organism =({id}) =>{
 
     const totalAbono =   (resulDetailDashboard?.valor_habitacion) 
    
-    const  now = moment().format("YYYY/MM/DD");
+    const now = moment().format("YYYY/MM/DD HH:mm:ss")
 
     let dataOne ={
         Abono:resulDetailDashboard?.valor_habitacion,
@@ -177,7 +177,6 @@ const Checkingn2Organism =({id}) =>{
         Valor_habitacion:resulDetailDashboard?.valor_habitacion
     }
     
-
     const inputPayValue ={
         ID_Reserva: id,
         PayAbono: parseInt(resulDetailDashboard?.valor_habitacion)  - parseInt(resulDetailDashboard?.valor_abono) ,
