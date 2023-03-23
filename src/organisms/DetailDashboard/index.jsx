@@ -262,7 +262,6 @@ const DetailDasboard =(props) =>{
       hastaOne:`${espanOne} 15:00:00`,
   }   
 
-    console.log(dataAvaible)
 
     const date1 = new Date(fechaOne?.defaultValueone)
     const date2 = new  Date(espan)
