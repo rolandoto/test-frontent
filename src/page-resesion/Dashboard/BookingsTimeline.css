@@ -395,5 +395,6 @@ hr.border {
   top: 87px;
   /* left: 966px; */
   padding: 3px;
-  right: 61.2%;
+  /* right: 1060px; */
+  margin-right: -167px;
 }
