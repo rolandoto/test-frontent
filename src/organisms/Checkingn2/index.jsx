@@ -168,7 +168,7 @@ const Checkingn2Organism =({id}) =>{
 
     const totalAbono =   (resulDetailDashboard?.valor_habitacion) 
    
-    const now = moment().format("YYYY/MM/DD HH:mm:ss")
+    const now = moment().format("YYYY/MM/DD")
 
     let dataOne ={
         Abono:resulDetailDashboard?.valor_habitacion,

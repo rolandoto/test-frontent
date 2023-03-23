@@ -69,16 +69,13 @@ const Checking =() =>{
                             />
                     <ul className="flex-bedrooms-search">   
                             <li>
-                                <label className="title-stores">Busquedas de Reservas:</label>
-
+                                <label className="title-stores">Busquedad de reservas:</label>
                                      <input className="input-stores-personality-nine-search"  placeholder="Buscar Reservas" name="Buscar" type="text" onChange={handChangeSearch} />
                             </li>   
                             <li>
                                 <button className="button-dasboard-thre-search-finish" onClick={handClickNextWolking} ><HiOutlinePlusCircle fontSize={30} color="white"  /> <span>Wolking</span>  </button>
                             </li>
                     </ul>
-
-                    
                 </div>
 
                                 <div className="container-search-filter" >

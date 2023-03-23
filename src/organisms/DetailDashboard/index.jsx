@@ -128,7 +128,7 @@ const DetailDasboard =(props) =>{
       const [asignar,setAsignar] =useState()
       const [loadingTypeRoom,setLoadingTypeRoom] =useState({loading:false,error:false})
  
-      const now = moment().format("YYYY/MM/DD HH:mm:ss")
+      const now = moment().format("YYYY/MM/DD")
 
       const handAsignar =(event)  =>{
         setAsignar(event.target.value)
@@ -260,10 +260,9 @@ const DetailDasboard =(props) =>{
       desde:`${fechaOne.defaultValueone} 15:00:00`,
       desdeOne:`${fecha.defaultValueone} 15:00:00`,
       hastaOne:`${espanOne} 15:00:00`,
-      
   }   
 
-  console.log(dataAvaible)
+    console.log(dataAvaible)
 
     const date1 = new Date(fechaOne?.defaultValueone)
     const date2 = new  Date(espan)
@@ -302,8 +301,6 @@ const DetailDasboard =(props) =>{
       }
     }
     
-   
-
     const handClick =() =>{
         Servicedetailespandir({desde:dataAvaible.desde,hasta:dataAvaible.hasta,desdeOne:dataAvaible.desdeOne,habitaciones:resultDashboard.ID_Tipo_habitaciones,ID_Habitaciones:resultDashboard.ID_Habitaciones,id,dayOne,valor_dia_habitacion:resultDashboard.valor_dia_habitacion}).then(index =>{
           setLoadingFecha({loading:true})
@@ -313,7 +310,6 @@ const DetailDasboard =(props) =>{
     }
   
     const docu = tipoDocumento?.find(index =>  index?.ID == resultDashboard?.ID_Tipo_documento)
-
 
     const habi = room?.map(index => {
       const ID = index.id_tipoHabitacion
@@ -676,7 +672,6 @@ function handComprobante() {
   });
 }
 
-
 var curr = new Date(resultDashboard?.Fecha_inicio);
 curr.setDate(curr.getDate());
 var fecha_inicio = curr.toISOString().substring(0,10);
@@ -687,8 +682,6 @@ currOne.setDate(currOne.getDate());
 var fecha_final = currOne.toISOString().substring(0,10);
 
 const PriceRoomById= room?.find(index=>index?.id_tipoHabitacion == idRoom)
-
-console.log(PriceRoomById)
 
 const handServiceChangeTypeRoom =(e) =>{
   e.preventDefault()

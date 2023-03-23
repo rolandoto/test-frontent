@@ -381,3 +381,18 @@ hr.border {
   border-color: rgba(0, 0, 0, 0.7) transparent transparent;
   z-index: 5;
 }
+
+.pay-checkout-pago-pagado-One-two{
+    width: 49px;
+    background: #f27474;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    color: white;
+    font-size: 12px;
+    margin-left: 7px;
+    position: absolute;
+    top: 87px;
+    left: 966px;
+    padding: 3px;
+}

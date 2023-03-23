@@ -37,7 +37,6 @@ const CheckoutOrganism =({DetailDashboard}) =>{
     const [isChecke, setIsChecke] = useState();
     const [to,setTo] =useState()
 
-
     const handComprobante =() =>{
         setComprobante(true)
     }   
@@ -126,12 +125,9 @@ const CheckoutOrganism =({DetailDashboard}) =>{
         return acum  +  current.Precio
     },0)
 
-   
     const priceSnacks = Snacks?.reduce((acum,current) => {
         return acum  +  current.Precio
     },0)
-
-  
 
     const priceSouvenir = Souvenir?.reduce((acum,current) => {
         return acum  + current.Precio
@@ -140,7 +136,6 @@ const CheckoutOrganism =({DetailDashboard}) =>{
     const priceDrogueria = Drogueria?.reduce((acum,current) => {
         return acum  + current.Precio
     },0)
-
 
     const priceAdultos = Adultos?.reduce((acum,current) => {
         return acum  + current.Precio

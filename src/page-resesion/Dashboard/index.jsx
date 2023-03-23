@@ -696,7 +696,7 @@ const Dashboard = (props) => {
 			<div className="container-calender">
 				<div className="container-button" >
 					<button className='button-reservas' onClick={handClickReservaction} ><div className="flex-index-reservation" ><VscVerified fontSize={18} className="flex-contant" color="white"  /><span>Crear reserva</span></div></button>
-					<button className='button-reservas-type-one-two' onClick={handChecking} ><div className="flex-index-reservation"><VscSymbolEvent fontSize={18} className="flex-contan"  color="white" /><span> Check in</span> </div></button>
+					<button className='button-reservas-type-one-two' onClick={handChecking} ><div className="flex-index-reservation"><VscSymbolEvent fontSize={18} className="flex-contan"  color="white" /><span>Wolking   </span> <span className="pay-checkout-pago-pagado-One-two">Nuevo</span> </div></button>
 					<button className='button-reservas-type-one-one'><div className="flex-index-reservation" ><VscSignOut className="flex-contan"  color="white" fontSize={18}  /><span>Check out </span> </div> </button>
 					
 					<button className='button-reservas-type' onClick={handChangeTypeRoomOne}>
@@ -709,8 +709,7 @@ const Dashboard = (props) => {
 													<option 
 													className="opo-room"
 													value={category.id	}   
-													key={category.name}
-												>
+													key={category.name}>
 													{category.name}
 												</option>
 							 										))}
