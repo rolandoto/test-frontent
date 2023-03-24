@@ -542,6 +542,9 @@ const CheckoutOrganism =({DetailDashboard}) =>{
     const resultNum = totalStore  ? totalStore : 0 
 
     const totalIva = numOne + Iva +resultNum
+    
+    const validFilterSearch =  filterSearch?.id ==5 ? numOne  +resultNum : totalIva
+
 
     const valorTotalIva = totalIva.toLocaleString();
     const formatoIva = Iva.toLocaleString();
@@ -635,6 +638,9 @@ const CheckoutOrganism =({DetailDashboard}) =>{
             ]
           });
     }
+
+
+    console.log(preSearchFilter)
 
     if(findEmpresa)
     return (
@@ -751,7 +757,7 @@ const CheckoutOrganism =({DetailDashboard}) =>{
                                     
                                     <div>
                                         <ul>
-                                             <li>
+                                            <li>
                                            
                                           </li>
                                             <li>
@@ -759,20 +765,27 @@ const CheckoutOrganism =({DetailDashboard}) =>{
                                                 <span  >Hospedaje hotel</span>
                                             </div>
                                           
-                                            <span className="no-price" >$</span>        <span className="price-store" >{formattedNum} <span className="no-price" > COP</span>  </span>
+                                            <span className="no-price" >$</span>        <span className="price-store" >{formattedNum} <span className="no-price" > COP</span>  </span> 
 
+
+                                            {filterSearch?.id !=5  ? 
                                             <div className="to-hospedaje-one" >
                                                 <span className="negrita"  >Sub total: </span> <span> {formattedNum}</span> 
                                             </div>
-                                          
+                                           : null}
+
+                                           
+                                            {filterSearch?.id !=5  ? 
                                             <div className="to-hospedaje-one" >
                                                 <span className="negrita"  >Iva: </span><span>{formatoIva}</span>
                                             </div>
-                                          
+                                            : null}
+
+                                                {filterSearch?.id !=5  ? 
                                             <div className="to-hospedaje-one" >
                                                 <span className="negrita"  >Valor total:</span> <span>{valorTotalIva} </span>
                                             </div>
-                                          
+                                              : null}
                                             
                                           </li>
                                           
@@ -843,6 +856,7 @@ const CheckoutOrganism =({DetailDashboard}) =>{
                         </div>
                     </div>
                     {comprobante && <FacturaCompany Room={resultFinish}
+                        validFilterSearch={validFilterSearch}
                         formattedNum={formattedNum}
                         formatoIva={formatoIva}
                         valorTotalIva={valorTotalIva}
@@ -1266,7 +1280,7 @@ const Factura  =({Room,Valor_dia_habitacion,resultFinish,comprobante,setComproba
       </div>)
 }
 
-const FacturaCompany  =({valorTotalIva,formatoIva,formattedNum,jwt,totalStore,Room,Valor_dia_habitacion,resultFinish,comprobante,setComprobante,filterSearch,priceBebidas,priceSnacks,priceSouvenir,priceDrogueria,priceAdultos,priceLenceria}) =>{
+const FacturaCompany  =({validFilterSearch,valorTotalIva,formatoIva,formattedNum,jwt,totalStore,Room,Valor_dia_habitacion,resultFinish,comprobante,setComprobante,filterSearch,priceBebidas,priceSnacks,priceSouvenir,priceDrogueria,priceAdultos,priceLenceria}) =>{
     let docToPrint = React.createRef();
     let startDate = new Date(Valor_dia_habitacion.Fecha_inicio);
     let startDateOne = new Date(Valor_dia_habitacion.Fecha_inicio);
@@ -1340,6 +1354,8 @@ const FacturaCompany  =({valorTotalIva,formatoIva,formattedNum,jwt,totalStore,Ro
   let Num1 = totalConIVA.toLocaleString();
   let Num2 = toPriceIva.toLocaleString();
   let Num3 = total.toLocaleString();
+
+  const valorNetuno = validFilterSearch.toLocaleString();
 
   console.log(totalConIVA)
 
@@ -1532,20 +1548,31 @@ const FacturaCompany  =({valorTotalIva,formatoIva,formattedNum,jwt,totalStore,Ro
             <div className="container-checkout-border" >
                 <div className="container-store-checkout-three-pdf  relative-price " >
                         <div className="op">
+                        {filterSearch?.id !=5  ? 
                             <ul>
                                 <li className="totalPricecheckout-two-finish-one negrita let-persona  wid-fecha " >Sub total::</li> 
                                 <li className="totalPricecheckout-two-finish-one negrita let-persona  wid-fecha " >Iva:</li> 
                                 <li className="totalPricecheckout-two-finish-one negrita let-persona  wid-fecha " >Valor total:</li>   
-                            </ul>                 
+                            </ul>   
+                            :
+                            <ul>
+                                <li className="totalPricecheckout-two-finish-one negrita let-persona  wid-fecha " >Valor total:</li>   
+                            </ul>   
+                        }              
                         </div>
                         <div className="me">
                         <div className="op">
+                        {filterSearch?.id !=5  ? 
                             <ul>
                                 <li className="totalPricecheckout-two-finish-one " >Cop {formattedNum}</li>   
                                 <li className="totalPricecheckout-two-finish-one  " >Cop {formatoIva}</li>   
                                 <li className="totalPricecheckout-two-finish-one  " >Cop {valorTotalIva}</li>   
-                            </ul>                 
+                            </ul>   
+                        : <ul>
+                                <li className="totalPricecheckout-two-finish-one " >Cop {valorNetuno}</li>    
+                        </ul>  }              
                         </div>
+                     
                     </div>
                 </div> 
             </div>

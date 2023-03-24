@@ -1,7 +1,7 @@
 import React, { Component, useRef } from "react";
 import moment from "moment";
 import "moment/locale/es";
-import Timeline, {
+import Timeline,{
   TimelineHeaders,
   SidebarHeader,
   DateHeader,
@@ -717,6 +717,18 @@ const Dashboard = (props) => {
 		setHoveredItem(itemId);
 		console.log('Item hovered:', itemId);
 	  };
+
+  // definir estado para almacenar la fecha actual
+  const [currentDat, setCurrentDate] = useState(new Date());
+
+	  const handleTimeChange = (visibleTimeStart, visibleTimeEnd, updateScrollCanvas) => {
+		const newDate = new Date(visibleTimeStart);
+		if (newDate.getMonth() !== currentDat.getMonth()) {
+		  updateScrollCanvas(currentDat, currentDat);
+		} else {
+		  setCurrentDate(newDate);
+		}
+	  };
 	
 
 	if(loadingSkeleto) return Skele()
@@ -798,7 +810,6 @@ const Dashboard = (props) => {
 						toggleCloseDashboardChecking={toggleCloseDashboardChecking}  />
 			
 			<Timeline
-
 				groups={search}
 				items={ pruebareservas}
 				onItemSelect={(e) =>console.log("select")}
@@ -811,18 +822,9 @@ const Dashboard = (props) => {
 				sidebarWidth={180}
 				itemRenderer={  itemRenderer}
 				onItemClick={(itemId, e, time) => onItemClick(itemId, e, time)}
+				canMove={true}
 				>
-					 {pruebareservas.map((item) => (
-						<div
-						key={item.id}
-						style={{
-							backgroundColor: item.id === hoveredItem ? 'blue' : 'white',
-							// Add any other styles you want to apply to the item
-						}}
-						>
-						{/* Render the item contents */}
-						</div>
-					))}
+					 
 				<TimelineHeaders className="list-booking-sticky"  >
 					<SidebarHeader />
 					<DateHeader
@@ -839,7 +841,6 @@ const Dashboard = (props) => {
 						headerData={{ isMonth: false, currentDate, }}
 						intervalRenderer={ intervalRendererdayNum}
 					/>
-
 					<DateHeader
 						unit="day"
 						labelFormat="ddd"
