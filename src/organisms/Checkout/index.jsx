@@ -555,7 +555,7 @@ const CheckoutOrganism =({DetailDashboard}) =>{
     let timerInterval
     const handServiFormularios =() =>{
         if(filterSearch) {
-            ServiceFormulariosCheckout({id:filterSearch.id,status:"2",fecha_ingreso:fechaInicio,fecha_salida:FechaFinal,valortotal:totalIva}).then(index =>{
+            ServiceFormulariosCheckout({id:filterSearch.id,status:"2",fecha_ingreso:fechaInicio,fecha_salida:FechaFinal,valortotal:validFilterSearch}).then(index =>{
                 setFactura(true)
                 setComprobante(true)
                setTimeout(() =>{
