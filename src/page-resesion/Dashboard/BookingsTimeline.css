@@ -1,7 +1,6 @@
 .react-calendar-timeline .rct-header-root {
   border-bottom: none;
   position: relative;
-  z-index: 99;
   background-color: #f8f8f8;
   color: black !important;
   font-weight: 700 !important;
@@ -118,6 +117,7 @@
 
 .list-booking-sticky {
   width: 10%;
+  z-index: 1;
 }
 
 .container-calender {
@@ -362,25 +362,6 @@ hr.border {
   cursor: pointer;
 }
 
-
-
-.tooltip {
-  position: relative;
-  background: rgba(0, 0, 0, 0.7);
-  color: white;
-  visibility: hidden;
-  padding: 5px;
-  border-radius: 5px;
-}
-.tooltip-arrow {
-  position: absolute !important;
-  top: 100%;
-  left: 50%;
-  border-width: 5px;
-  border-style: solid;
-  border-color: rgba(0, 0, 0, 0.7) transparent transparent;
-  z-index: 5;
-}
 
 .pay-checkout-pago-pagado-One-two{
   width: 49px;

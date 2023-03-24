@@ -42,6 +42,7 @@ import styled from "styled-components";
 import ServiceAllTotalReservation from "../../service/ServiceAllTotalReservation";
 import ModalBlock from "../../organisms/Modals/Block";
 import { confirmAlert } from "react-confirm-alert";
+import { Button, Modal } from 'react-bootstrap';
 
 // Conectarse al servidor de Socket.io
 
@@ -49,14 +50,16 @@ import { confirmAlert } from "react-confirm-alert";
 // Escuchar el evento de "nueva-reserva" y mostrar una notificación
 
 const Info = styled(ReactTooltip)`
-  max-width: 278px;
+  max-width: 500px;
   padding-top: 9px;
+  z-index: 9999;
 `;
 const InfoMessage = styled.p`
   font: Roboto;
   font-size: 13px;
   line-height: 1.4;
   text-align: left;
+  z-index: 9999;
 `;
   
 const useCountRoom =({id}) =>{
@@ -108,7 +111,7 @@ const Dashboard = (props) => {
 	const [hoveredItemId, setHoveredItemId] = useState(null);
 	const  now = moment().format("YYYY-MM-DD");
 
-
+	const timelineRef = useRef(null);
 	const  [totalDay ,setTotalDay] =useState()
 	
 	useEffect(() =>{
@@ -294,14 +297,11 @@ const Dashboard = (props) => {
 		)
 	}
 
+	
 	const [showInfo, setShowInfo] = useState(false);
 
 	const itemRenderer = ({ item, itemContext, getItemProps }) => {
 
-		const onMouseEnter = () => setHoveredItemId(item.id);
-		const onMouseLeave = () => setHoveredItemId(null);
-	
-	
 		const handleMouseEnter = () => {
 		  setShowInfo(true);
 		};
@@ -309,9 +309,10 @@ const Dashboard = (props) => {
 		const handleMouseLeave = () => {
 		  setShowInfo(false);
 		};
-
 		let colorWords = item.state === 2 ? "white" : "black"
-	  
+
+		let valo =false
+
 		let color;
 		if (item.state === 0) {
 		  color = '#FF9990';
@@ -327,14 +328,18 @@ const Dashboard = (props) => {
 
 		const key = `${item.id}_${item.id}_schedule`;
 
+		const hanEnter =() => {
+			valo= true	
+
+		
+		}
+
 		return (
 			
 		  <div 
 		  
 		  data-for={key} data-tip
 			{...getItemProps({
-				onMouseEnter,
-				onMouseLeave,
 			  style: {
 				display: 'flex',
 				alignItems: 'center',
@@ -344,9 +349,11 @@ const Dashboard = (props) => {
 				padding: '8px',
 				color: colorWords,
 				position:"relative",
+				
 			  },
-			
 			})}
+			
+			onMouseEnter={hanEnter}
 
 		  >
 			<div
@@ -366,27 +373,31 @@ const Dashboard = (props) => {
 				padding: '0 1rem',
 				textOverflow: 'ellipsis',
 				whiteSpace: 'nowrap',
-				
 			  }}
 			>
 			 	{itemContext.title}
-				 <div  >
-					<ReactTooltip id={key} >
-						<div className="go"  >
-								<ul > 
-									<li className="color-white " >Numero Habitacion :{item.Num_Room}</li>
-									<li className="color-white " > Codigo reserva :{item.Codigo_Reserva}</li>
-									<li className="color-white " >Huesped: {item.full_name}</li> 
-									<li className="color-white " >Check in :{item.Fecha_inicio}</li>
-									<li className="color-white " >Check out :{item.Fecha_final}</li>
-									<li className="color-white " >Noches :{item.Noches}</li> 
-									<li className="color-white " >Adultos :{item.Adultos}</li> 
-									<li className="color-white " >Niños :{item.Ninos}</li> 
-								</ul>
-							</div>
-					 </ReactTooltip>
-					 </div>
-				
+				<div>
+			
+						<Info 
+								place="top"
+								variant="info" id={key}  >
+					<InfoMessage>
+						<div className="go" >
+							<ul >
+							<li className="color-white " >Numero Habitacion :{item.Num_Room}</li>
+							<li className="color-white " >Codigo reserva :{item.Codigo_Reserva}</li>
+							<li className="color-white " >Huesped: {item.full_name}</li>
+							<li className="color-white " >Check in :{item.Fecha_inicio}</li>
+							<li className="color-white " >Check out :{item.Fecha_final}</li>
+							<li className="color-white " >Noches :{item.Noches}</li>
+							<li className="color-white " >Adultos :{item.Adultos}</li>
+							<li className="color-white " >Niños :{item.Ninos}</li>
+							</ul>
+						</div>
+						</InfoMessage>
+						</Info>
+					
+				</div>
 			</div>
 		</div>
 		);
@@ -522,6 +533,21 @@ const Dashboard = (props) => {
 		setLookingfor(e.target.value)
 		filtrarprueba(e.target.value)
 	}
+
+
+	const [showModal, setShowModal] = useState(false);
+  const [contextItem, setContextItem] = useState(null);
+
+  const handleCanvasContextMenu = (groupId, time, e) => {
+    e.preventDefault();
+    const item = pruebareservas.find((item) => item.id === contextItem);
+    setContextItem(item);
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
 
 	useEffect(() =>{
 		fetch(`${config.serverRoute}/api/resecion/getroomsresecion/${jwt.result.id_hotel}`)
@@ -685,6 +711,14 @@ const Dashboard = (props) => {
 		}
 	},[stateInformes,setInformes])
 
+	const [hoveredItem, setHoveredItem] = useState(null);
+
+	const handleItemHover = (itemId, time, e) => {
+		setHoveredItem(itemId);
+		console.log('Item hovered:', itemId);
+	  };
+	
+
 	if(loadingSkeleto) return Skele()
 	if(!pruebareservas) return null
 	if(!search)  return null
@@ -767,6 +801,7 @@ const Dashboard = (props) => {
 
 				groups={search}
 				items={ pruebareservas}
+				onItemSelect={(e) =>console.log("select")}
 				defaultTimeStart={moment().startOf("day").add(-8, "day")}
 				defaultTimeEnd={moment().startOf("day").add(10, "day")}
 				maxZoom={100}
@@ -775,11 +810,20 @@ const Dashboard = (props) => {
 				lineHeight={45}
 				sidebarWidth={180}
 				itemRenderer={  itemRenderer}
-				onItemDoubleClick={false}
-				moveResizeValidator={(action, itemId, time, resizeEdge)  => handContext(action, itemId, time, resizeEdge)}
 				onItemClick={(itemId, e, time) => onItemClick(itemId, e, time)}
-				onCanvasContextMenu={(itemId, e, time) =>onItemDoubleclik()}>
-				<TimelineHeaders className="list-booking-sticky">
+				>
+					 {pruebareservas.map((item) => (
+						<div
+						key={item.id}
+						style={{
+							backgroundColor: item.id === hoveredItem ? 'blue' : 'white',
+							// Add any other styles you want to apply to the item
+						}}
+						>
+						{/* Render the item contents */}
+						</div>
+					))}
+				<TimelineHeaders className="list-booking-sticky"  >
 					<SidebarHeader />
 					<DateHeader
 						unit="MONTH"
@@ -804,8 +848,6 @@ const Dashboard = (props) => {
 					/>
 				</TimelineHeaders>
 				<TimelineMarkers>
-          {/* <TodayMarker /> */}
-          {/* <CustomMarker date={moment().valueOf()} /> */}
           
           <CursorMarker />
         </TimelineMarkers>

@@ -931,7 +931,7 @@ hr {
 }
 
 .go{
-  z-index: 10;
+  z-index: 9999;
 }
 
 .container-border-gray{
