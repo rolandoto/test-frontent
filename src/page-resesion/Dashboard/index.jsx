@@ -44,22 +44,19 @@ import ModalBlock from "../../organisms/Modals/Block";
 import { confirmAlert } from "react-confirm-alert";
 import { Button, Modal } from 'react-bootstrap';
 
-// Conectarse al servidor de Socket.io
-
-
-// Escuchar el evento de "nueva-reserva" y mostrar una notificación
-
 const Info = styled(ReactTooltip)`
-  max-width: 500px;
-  padding-top: 9px;
-  z-index: 9999;
+  max-width: 500px  !important;
+  padding-top: 9px  !important;
+  z-index: 0 !important;
+  background: gray;
 `;
-const InfoMessage = styled.p`
-  font: Roboto;
-  font-size: 13px;
-  line-height: 1.4;
-  text-align: left;
-  z-index: 9999;
+
+const InfoMessage = styled.div`
+  font: Roboto  !important;
+  font-size: 13px  !important ;
+  line-height: 1.4  !important;
+  text-align: left  !important;
+  z-index: 0 !important;
 `;
   
 const useCountRoom =({id}) =>{
@@ -73,8 +70,6 @@ const useCountRoom =({id}) =>{
 
 	return {count}
 }
-
-
 
 const style = {
 	position: 'absolute',
@@ -121,8 +116,6 @@ const Dashboard = (props) => {
 			console.log(e)
 		})
 	},[])
-
-	
 
 	const Skele =() =>{
 		return (
@@ -730,7 +723,6 @@ const Dashboard = (props) => {
 		}
 	  };
 	
-
 	if(loadingSkeleto) return Skele()
 	if(!pruebareservas) return null
 	if(!search)  return null

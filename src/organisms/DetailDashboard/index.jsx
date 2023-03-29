@@ -47,20 +47,19 @@ const DetailDasboard =(props) =>{
     const [state,setState] =useState(true)
     const [room,setRoom] =useState()
     const [tipoDocumento,setTipoDocumento] =useState()
-
     const {DetailDashboard,fetchData} = props
     const [loading,setLoading] =useState({loading:false,error:false})
     const history = useHistory()
     const {iduser} = UseListMotels()
     const {jwt} = useContext(AutoProvider)
 
-   const FindIdHotel=(hotel) =>{
+    const FindIdHotel=(hotel) =>{
      return hotel.id_hotel == jwt.result.id_hotel
-   }
+    }
 
-   const hotel = iduser.find(FindIdHotel)
+    const hotel = iduser.find(FindIdHotel)
 
-   let countSeguro =0
+    let countSeguro =0
    
     const {progress} =useProgress({id})
     const resultDashboard = DetailDashboard[0]
@@ -68,8 +67,6 @@ const DetailDasboard =(props) =>{
     const findPersona =  resultDashboard?.tipo_persona == "persona"
     const findEmpresa = resultDashboard?.tipo_persona =="empresa"
     const findFirma = resultDashboard?.Firma =="1"
-    
-    console.log(resultDashboard)
 
     const formatter = new Intl.NumberFormat('en-US', {
       style: 'currency',  
@@ -469,8 +466,6 @@ const DetailDasboard =(props) =>{
     })
     }
   }
-
-
 
   const handSubmit =() =>{
         ServiceAddHuespedes({id,huespe,data:dataCountPeople,dataPay:dataOne}).then(index =>{
@@ -1474,8 +1469,6 @@ const handleState =(event, index) =>{
   )
 }
 
-
-
 const Pagos =(props) =>{
 
   const  {pagos,idReserva} = props
@@ -1488,13 +1481,28 @@ const Pagos =(props) =>{
     .then(data=> setPatSate(data.query))
   },[idReserva])
 
+  console.log(payState)
 
-  const priceTotal = payState?.reduce((acum,current) => {
-    return acum  +  current.Abono
+let count =0
+for(let i =0;i<payState?.length;i++){
+    if((payState[i].Tipo_persona =="empresa")){
+        const totalwith = parseInt(payState[i].Abono ) *19/100
+        const total = totalwith + parseInt(payState[i].Abono )
+        count += total
+    }else  if((payState[i].Iva ==1)){
+        const totalwith = parseInt(payState[i].Abono ) *19/100
+        const total = totalwith + parseInt(payState[i].Abono )
+        count += total
+    } else{
+        count += parseInt(payState[i].Abono)
+    }
+}
+
+const priceTotal = payState?.reduce((acum,current) => {
+  return acum  +  current.Abono
 },0)
 
-
-const total = priceTotal?.toLocaleString()
+const total = count?.toLocaleString()
 
   return (
     <div >  
@@ -1516,19 +1524,26 @@ const total = priceTotal?.toLocaleString()
                <TableBody>
                      {payState?.map(index =>{
                       const fecha =moment(index.Fecha_pago).utc().format('YYYY/MM/DD')
-                      const abono = index.Abono.toLocaleString()
+                      const abonoWithIva  = index.Abono * 19/100 
+                      const totalIva  = index.Abono + abonoWithIva
+                      const abono = index.Abono
 
-                  
+                      const totalDefinid = index.Iva ==1? totalIva : parseInt(index.Abono)
+
+                      const totalDefinttion = index.Tipo_persona =="empresa" ?totalIva:totalDefinid
+                      const total = totalDefinttion.toLocaleString()
+
+                      console.log(index)
 
                       return (
                           <TableRow>
                             <TableCell align="right">{fecha}</TableCell>
                             <TableCell align="right">{index.Nombre}</TableCell>
-                            <TableCell align="right">${abono}</TableCell>
+                            <TableCell align="right">${total}</TableCell>
                             <TableCell align="right">{index.Nombre_recepcion}</TableCell>
                           </TableRow>
-                      )
-                     })}
+                        )
+                       })}
                </TableBody>
                <TableHead>
                    <TableRow>

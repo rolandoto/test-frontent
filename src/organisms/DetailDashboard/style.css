@@ -158,6 +158,18 @@
   margin-top: 5px;
 }
 
+
+.init-informe{
+  padding: 15px;
+  display: block;
+  max-width: 1481px;
+  margin: auto;
+  background: #ebebeb;
+  border-radius: 10px;
+  height: 221px;
+  margin-top: 5px;
+}
+
 .init-one-two {
   padding: 15px;
   display: block;
