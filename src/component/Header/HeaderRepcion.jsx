@@ -39,14 +39,15 @@ const HeaderRecepcion  =() =>{
                                     x
                                 </div>
                                     <div className="title-user">
-                                        <h1>Solicitar Prestamo</h1>
-                                        <h1>Certificado laboral </h1>
-                                        <h1>Solicitar Vacaciones</h1>
-                                        <h1>Horarios</h1>
-                                        <h1>Comunicado Internos</h1>
-                                        <h1>Realizar Revervas</h1>
-                                        <h1>Mis Funciones</h1>
-                                        <h1>Mis Calificacion </h1>
+                                        <span className="title-icon" >Bictacoras</span>
+                                        <span className="title-icon" >Solicitar Prestamo</span>
+                                        <span className="title-icon">Certificado laboral </span>
+                                        <span className="title-icon">Solicitar Vacaciones</span>
+                                        <span className="title-icon">Horarios</span>
+                                        <span className="title-icon">Comunicado Internos</span>
+                                        <span className="title-icon">Realizar Revervas</span>
+                                        <span className="title-icon">Mis Funciones</span>
+                                        <span className="title-icon">Mis Calificacion </span>
                                     </div>
                                 </div>
                             </div>}
@@ -65,7 +66,15 @@ const HeaderRecepcion  =() =>{
                                     />
                                 </Grid>
                                 </Grid.Container></li>
-                                    <li><h3>Hola,{jwt.result.name}</h3    ></li>
+                                    <li>
+                                        <div>
+                                        <h3 className="nombre-recepcion" >  Hola,{jwt.result.name} 
+                                          <h5 className="name-hotel" > {jwt.result.hotel}</h5>
+                                        </h3>
+                                      
+                                        </div>
+                                      
+                                        </li>
                                 </ul>
                             </div>
                     <div>

@@ -51,7 +51,7 @@ import DetailnformeStore from "./page/InformeStore/DetailnformeStore";
 function App() {
   const { jwt } = useContext(AutoProvider);
 
-  const val = jwt ? jwt.result.id_permissions : 2;
+  const val = jwt ? jwt.result.id_permissions : 1;
 
   if (val == 1) {
     return (

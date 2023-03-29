@@ -985,6 +985,7 @@ tr {
 .fecha-entrada-val {
   width: 210px;
 }
+
 .fecha-sal {
   width: 239px;
 }
@@ -1067,3 +1068,15 @@ td {
 .pointer-one{
   cursor: pointer;
 }
+
+.name-hotel{
+  position: relative;
+  top: -10px;
+  color: #444;
+  font-weight: 100;
+}
+
+ .nombre-recepcion{
+  height: 48px;
+  
+ }

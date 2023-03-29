@@ -290,7 +290,6 @@ const Dashboard = (props) => {
 		)
 	}
 
-	
 	const [showInfo, setShowInfo] = useState(false);
 
 	const itemRenderer = ({ item, itemContext, getItemProps }) => {
@@ -323,8 +322,6 @@ const Dashboard = (props) => {
 
 		const hanEnter =() => {
 			valo= true	
-
-		
 		}
 
 		return (
@@ -342,12 +339,9 @@ const Dashboard = (props) => {
 				padding: '8px',
 				color: colorWords,
 				position:"relative",
-				
 			  },
 			})}
-			
 			onMouseEnter={hanEnter}
-
 		  >
 			<div
 			  className="itemModal"
@@ -527,16 +521,15 @@ const Dashboard = (props) => {
 		filtrarprueba(e.target.value)
 	}
 
-
 	const [showModal, setShowModal] = useState(false);
-  const [contextItem, setContextItem] = useState(null);
+  	const [contextItem, setContextItem] = useState(null);
 
-  const handleCanvasContextMenu = (groupId, time, e) => {
-    e.preventDefault();
-    const item = pruebareservas.find((item) => item.id === contextItem);
-    setContextItem(item);
-    setShowModal(true);
-  };
+	const handleCanvasContextMenu = (groupId, time, e) => {
+		e.preventDefault();
+		const item = pruebareservas.find((item) => item.id === contextItem);
+		setContextItem(item);
+		setShowModal(true);
+	};
 
   const handleCloseModal = () => {
     setShowModal(false);
@@ -608,7 +601,6 @@ const Dashboard = (props) => {
 			}
 			return time
 	}
-
 
 	/**
 	 * 
@@ -775,8 +767,7 @@ const Dashboard = (props) => {
 					<button className='button-reservas-type-one '   onClick={hanclickReservation} >
 							<div className="flex-index-reservation-one">
 									<VscSearch className="flex-contan-one"  color="grey" fontSize={18} /> <span >Buscar reservas</span>
-							</div>
-							 
+							</div> 
 					</button>	
 				</div>
 			</div>
@@ -814,9 +805,7 @@ const Dashboard = (props) => {
 				sidebarWidth={180}
 				itemRenderer={  itemRenderer}
 				onItemClick={(itemId, e, time) => onItemClick(itemId, e, time)}
-				canMove={true}
-				>
-					 
+				canMove={true}>
 				<TimelineHeaders className="list-booking-sticky"  >
 					<SidebarHeader />
 					<DateHeader
