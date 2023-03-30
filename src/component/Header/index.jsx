@@ -64,7 +64,15 @@ const Header  =() =>{
                                     />
                             </Grid>
                             </Grid.Container></li>
-                                <li><h3>Hola,{jwt.result.name}</h3    ></li>
+                            <li>
+                                        <div>
+                                        <h3 className="nombre-recepcion" >  Hola,{jwt.result.name} 
+                                          <h5 className="name-hotel" > {jwt.result.hotel}</h5>
+                                        </h3>
+                                      
+                                        </div>
+                                      
+                                        </li>
                             </ul>
                         </div>
                 <div>

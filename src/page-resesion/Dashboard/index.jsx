@@ -662,7 +662,6 @@ const Dashboard = (props) => {
 		setInformes(e.target.value)	
 	}
 
-
 	const handChangeTypeRoomOne =(e) =>{
 		confirmAlert({
 		  title: '',
