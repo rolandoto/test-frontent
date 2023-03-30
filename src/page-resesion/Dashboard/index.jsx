@@ -713,6 +713,8 @@ const Dashboard = (props) => {
 		  setCurrentDate(newDate);
 		}
 	  };
+
+	  
 	
 	if(loadingSkeleto) return Skele()
 	if(!pruebareservas) return null

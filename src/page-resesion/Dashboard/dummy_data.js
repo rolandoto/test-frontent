@@ -13,8 +13,8 @@ const fromRervas =(event)  =>{
       const end_time = daysend.toISOString().split('T')[0]
 
       const group = index.ID_Habitaciones
-      
-      const title = `<h1>${index.Title}</h1>`
+
+      const title = `${index.Title}`
 
       const id  = index.ID
 
