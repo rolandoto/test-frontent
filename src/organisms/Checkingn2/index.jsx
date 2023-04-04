@@ -189,9 +189,14 @@ const Checkingn2Organism =({id}) =>{
 
     const handFirmar =() =>{
         ServiceUpdateReservation({id:resulDetailDashboard.id_persona,data}).then(index =>{
-            HttpClient.insertPayABono({data:inputPayValue}).then(index =>{
-                console.log(index)
-            })
+            if(inputPayValue.PayAbono ==0){
+
+            }else {
+                HttpClient.insertPayABono({data:inputPayValue}).then(index =>{
+                    console.log(index)
+                })
+            }
+         
             console.log(index)
             }).catch(e =>{
             console.log(e)
@@ -216,7 +221,8 @@ const Checkingn2Organism =({id}) =>{
         }) 
     }
 
-   
+    
+    console.log(inputPayValue)
 
     if(!resultFinish) return null
 

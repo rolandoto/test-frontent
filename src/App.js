@@ -213,7 +213,7 @@ function App() {
                 component={InformeRoomToSell}
               />
 
-<PrivateRoute
+              <PrivateRoute
                 exact
                 path="/informeStore/:id"
                 component={InformeStore}

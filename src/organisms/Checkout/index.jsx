@@ -639,9 +639,6 @@ const CheckoutOrganism =({DetailDashboard}) =>{
           });
     }
 
-
-    console.log(preSearchFilter)
-
     if(findEmpresa)
     return (
         <>     

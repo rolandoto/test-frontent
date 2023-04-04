@@ -364,26 +364,24 @@ const Dashboard = (props) => {
 			>
 			 	{itemContext.title}
 				<div>
-			
-						<Info 
-								place="top"
-								variant="info" id={key}  >
-					<InfoMessage>
-						<div className="go" >
-							<ul >
-							<li className="color-white " >Numero Habitacion :{item.Num_Room}</li>
-							<li className="color-white " >Codigo reserva :{item.Codigo_Reserva}</li>
-							<li className="color-white " >Huesped: {item.full_name}</li>
-							<li className="color-white " >Check in :{item.Fecha_inicio}</li>
-							<li className="color-white " >Check out :{item.Fecha_final}</li>
-							<li className="color-white " >Noches :{item.Noches}</li>
-							<li className="color-white " >Adultos :{item.Adultos}</li>
-							<li className="color-white " >Niños :{item.Ninos}</li>
-							</ul>
-						</div>
-						</InfoMessage>
+						<Info  	place="top" 
+								variant="info" 
+								id={key}  >
+							<InfoMessage>
+								<div className="go" >
+									<ul >
+									<li className="color-white " >Numero Habitacion :{item.Num_Room}</li>
+									<li className="color-white " >Codigo reserva :{item.Codigo_Reserva}</li>
+									<li className="color-white " >Huesped: {item.full_name}</li>
+									<li className="color-white " >Check in :{item.Fecha_inicio}</li>
+									<li className="color-white " >Check out :{item.Fecha_final}</li>
+									<li className="color-white " >Noches :{item.Noches}</li>
+									<li className="color-white " >Adultos :{item.Adultos}</li>
+									<li className="color-white " >Niños :{item.Ninos}</li>
+									</ul>
+								</div>
+							</InfoMessage>
 						</Info>
-					
 				</div>
 			</div>
 		</div>
@@ -703,7 +701,7 @@ const Dashboard = (props) => {
 	  };
 
   // definir estado para almacenar la fecha actual
-  const [currentDat, setCurrentDate] = useState(new Date());
+  	const [currentDat, setCurrentDate] = useState(new Date());
 
 	  const handleTimeChange = (visibleTimeStart, visibleTimeEnd, updateScrollCanvas) => {
 		const newDate = new Date(visibleTimeStart);
@@ -714,8 +712,6 @@ const Dashboard = (props) => {
 		}
 	  };
 
-	  
-	
 	if(loadingSkeleto) return Skele()
 	if(!pruebareservas) return null
 	if(!search)  return null
