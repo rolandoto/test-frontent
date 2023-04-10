@@ -9,6 +9,7 @@ import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import moment from "moment";
 import ServicetypeRooms from "../../service/ServicetypeRooms";
+import UseListMotels from "../../hooks/UseListMotels";
 
 const InformeConsolidado = () => {
 
@@ -29,9 +30,13 @@ const InformeConsolidado = () => {
     const [payoner,setPayoner] =useState(0)
     const [dolares,setDolares]=useState(0)
     const [euros,setEuros]=useState(0)
+
     const [aeropuerto,setAeropuerto]=useState(0)
     const [lavenderia,setLavenderia]=useState(0)
     const [turismo,setTurismo]=useState(0)
+    
+ 
+
     const [seguro,setGuro]=useState(0)
     const [souvenir,setSouvenir] =useState(0)
     const [bebidas,setBebidas] =useState(0)
@@ -217,164 +222,7 @@ const InformeConsolidado = () => {
                       
                         error={loading}
                         title={"Error Completar todos los campos"}  />
-            <div className="init " >
-                <form  className="container-flex-init" onSubmit={handInformes} >
-                <div className="container-detail-dasboard-in" > 
-
-                <span className="desde-detail-two-title" > Habitaciones ocupadas:</span>
-                <span className="desde-detail-two-title" >Habitaciones sin vender:</span>
-                <span className="desde-detail-three-title-das" >Subir pantallazo del rack soho:</span>    
-
-            </div>
-              <div className="container-detail-dasboard-in" > 
-                <input type="number"
-                      className="desde-detail-two"  
-                      placeholder="Habitaciones ocupadas" 
-                      name="Adultos"
-                      onChange={handleChangeroomBusy}
-                      required
-                        />  
-             
-                <input 
-                      className="desde-detail-two" 
-                      name="Fecha" 
-                      placeholder="Habitaciones sin vender"  
-                      type="number" 
-                      onChange={handleChangeroomSell}
-                />
-                <input
-                      className="desde-detail-two" 
-                      name="Fecha" 
-                      placeholder="Subir pantallazo del rack soho"  
-                      type="file" 
-                      onChange={(e) => setFile(e.target.files[0])}
-                />
-            </div>
-        </form>     
-
-      </div>
-
-      <div className="init-informe top-one " >
-        <form  className="container-flex-init" >
-        <div className="container-detail-dasboard-in" > 
-
-        <span className="desde-detail-two-title-informe" > Efectivo total:</span>
-        <span className="desde-detail-two-title-informe-one" >Otros medios: </span>
-        <span className="desde-detail-three-title-das-informe" >Dolares/Euros en pesos:</span>    
-        <span className="desde-detail-three-title-das" >Gastos (NO CAJA MENOR):</span>    
-
-            </div>
-              <div className="container-detail-dasboard-in" > 
-                <input type="number" 
-                      className="desde-detail-two"  
-                      placeholder="Efectivo total" 
-                      name="Adultos"
-                      onChange={handleChangeefectivoTotal}
-                        />  
-                <input 
-                      className="desde-detail-two" 
-                      name="Fecha" 
-                      placeholder="Otros medios"  
-                      type="number" 
-                      onChange={handleChangesetOtrosMedios}
-                />
-                <input
-                      className="desde-detail-two" 
-                      name="Fecha" 
-                      placeholder="Dolares/Euros en pesos"  
-                      type="number" 
-                      onChange={handleChangedolarespesos}
-                />
-                <input
-                      className="desde-detail-two" 
-                      name="Fecha" 
-                      placeholder="Gastos (NO CAJA MENOR)"  
-                      type="number" 
-                      onChange={handleChangegastors}
-                />
-            </div>
-        </form>  
-
-         <form  className="container-flex-init" >
-        <div className="container-detail-dasboard-in" > 
-
-        <span className="desde-detail-two-title-informe-all" > T. Debito </span>
-        <span className="desde-detail-two-title-informe-all" >T. Credito </span>
-        <span className="desde-detail-three-title-das" > Transferencia</span>    
-        <span className="desde-detail-three-title-das" >Pago agil</span>    
-        <span className="desde-detail-three-title-das" >Bitcoin</span>    
-        <span className="desde-detail-three-title-das" >Payonner</span>    
-        <span className="desde-detail-three-title-das" >Dolares</span>    
-        <span className="desde-detail-three-title-das" >Euros</span>    
-
-            </div>
-              <div className="container-detail-dasboard-in" > 
-                <input type="number" 
-                      className="desde-detail-two"  
-                      placeholder="T. Debito" 
-                      name="Adultos"
-                      onChange={handleChangetargetaDebito}
-                        />  
-             
-                <input 
-                      className="desde-detail-two" 
-                      name="Fecha" 
-                      placeholder="T. Credito "  
-                      type="number" 
-                      onChange={handleChangetargetaCredito}
-                />
-                <input
-                      className="desde-detail-two" 
-                      name="Fecha" 
-                      placeholder="Transferencia"  
-                      type="number" 
-                      onChange={handleChangetranferencia}
-                />
-                <input
-                      className="desde-detail-two" 
-                      name="Fecha" 
-                      placeholder="Pago agil"  
-                      type="number" 
-                      onChange={handleChangepagoAgil}
-                />
-
-                <input
-                      className="desde-detail-two" 
-                      name="Fecha" 
-                      placeholder="Bitcoin"  
-                      type="number" 
-                      onChange={handleChangebitcon}
-                />
-
-                <input
-                      className="desde-detail-two" 
-                      name="Fecha" 
-                      placeholder="Payonner"  
-                      type="number" 
-                      onChange={handleChangepayoner}
-                />
-
-                <input
-                      className="desde-detail-two" 
-                      name="Fecha" 
-                      placeholder="Dolares"  
-                      type="number" 
-                      onChange={handleChangedolares}
-                      required
-                />
-
-                    <input
-                      className="desde-detail-two" 
-                      name="Fecha" 
-                      placeholder="Euros"  
-                      type="number" 
-                      onChange={handleChangeeuros}
-                />
-            </div>
-        </form>      
-      </div>
-
-
+          
       <div className="init-informe  top-one" >
         <form  className="container-flex-init" >
         <div className="container-detail-dasboard-in" > 
@@ -419,48 +267,7 @@ const InformeConsolidado = () => {
             
         </form>     
 
-        <form  className="container-flex-init" >
-        <div className="container-detail-dasboard-in" > 
-
-        <span className="desde-detail-two-title-informe" > Souvenirs </span>
-        <span className="desde-detail-two-title-informe" >Bedidas: </span>
-        <span className="desde-detail-three-title-das-informe" >Snacks:</span>    
-        <span className="desde-detail-three-title-das" >Espuma de jacuzzi:</span>    
-
-            </div>
-              <div className="container-detail-dasboard-in" > 
-                <input type="number" 
-                      className="desde-detail-two"  
-                      placeholder="Souvenirs" 
-                      name="Adultos"
-                      onChange={handleChangesouvenir}
-                        />  
-             
-                <input 
-                      className="desde-detail-two" 
-                      name="Fecha" 
-                      placeholder="Bedidas"  
-                      type="number" 
-                      onChange={handleChangebebidas}
-                />
-                <input
-                      className="desde-detail-two" 
-                      name="Fecha" 
-                      placeholder="Snacks"  
-                      type="number" 
-                      onChange={handleChangesnak}
-                />
-
-                <input
-                      className="desde-detail-two" 
-                      name="Fecha" 
-                      placeholder="Espuma de jacuzzi"  
-                      type="number"
-                      onChange={handleChangejacuzzi} 
-                />
-            </div>
-        </form>     
-
+       
       </div>
 
 
@@ -504,6 +311,9 @@ const InformeConsolidado = () => {
                         payoner={payoner}
                         dolares={dolares}
                         euros={euros}
+                        aeropuerto={aeropuerto}
+                        lavenderia={lavenderia}
+                        turismo={turismo}
                         />
         </ContainerGlobal>
     )
@@ -513,12 +323,30 @@ export default InformeConsolidado
 
 
 const FacturaCompany  =({jwt,roomBusy,roomSell,efectivoTotal,otrosMedios,dolarespesos, 
-    targetaDebito,targetaCredito,tranferencia,pagoAgil,bitcon,payoner,dolares,euros}) =>{
+    targetaDebito,targetaCredito,tranferencia,pagoAgil,bitcon,payoner,dolares,euros,aeropuerto,lavenderia,turismo}) =>{
 
     let docToPrint = React.createRef();
 
     const [avaible,setAvaible] =useState()
     const [room,setRoom] =useState()
+
+    const {iduser} = UseListMotels()
+
+    const FindIdHotel=(hotel) =>{
+        return hotel.id_hotel == jwt.result.id_hotel
+      }
+
+    const hotel = iduser.find(FindIdHotel)
+
+    let countSeguro =0
+       
+       if(hotel?.segurohotelero ==0){
+            countSeguro=0
+       }else{
+            countSeguro = parseInt(hotel?.valorseguro)
+       }
+
+       console.log(countSeguro)
 
     useEffect(() =>{
         ServicetypeRooms({id:jwt.result.id_hotel}).then(index =>{
@@ -526,17 +354,14 @@ const FacturaCompany  =({jwt,roomBusy,roomSell,efectivoTotal,otrosMedios,dolares
         })
     },[setRoom])
 
-
     useEffect(() =>{
-        fetch("http://localhost:4000/api/resecion/informeConsolidadoByHotel/13")
+        fetch(`http://localhost:4000/api/resecion/informeConsolidadoByHotel/${jwt.result.id_hotel}`)
         .then(resp => resp.json())
         .then(data  => setAvaible(data))   
     },[])
 
     const  now = moment().format("YYYY-MM-DD");
 
-    console.log(avaible)
-    
     const printDocument = () => {
         const input = docToPrint.current;
         html2canvas(input,{scale:0.8}).then((canvas) => {
@@ -554,8 +379,18 @@ const FacturaCompany  =({jwt,roomBusy,roomSell,efectivoTotal,otrosMedios,dolares
         printDocument()
     },1000  )
 
-    const RoomAvaible = avaible?.RoomAvaible[0].Num_Disponibles
-    const RoomBusy = avaible?.RoomBusyById[0].Num_Reservas
+    const RoomAvaible = avaible?.RoomAvaible[0]?.Num_Disponibles
+    const RoomBusy = avaible?.RoomBusyById[0]?.Num_Reservas
+    const totalEfectivo = avaible?.totalEfectivo[0]?.Total_Abono
+    const totalOtherMedios = avaible?.totalOtherMedios[0]?.Total_Abono
+    const debito =  avaible?.tarjetadebito[0]?.Total_Abono
+    const credito =  avaible?.tarjetaCredito[0]?.Total_Abono
+
+    const valEfectivo  = totalEfectivo ? totalEfectivo : 0
+
+    const valOtherMedios  = totalOtherMedios ? totalOtherMedios : 0
+
+    const totaRoom = valEfectivo+ valOtherMedios
 
     const habitacionesOcupadas = parseInt(RoomBusy);
     const totalHabitaciones = parseInt(RoomAvaible);
@@ -565,12 +400,26 @@ const FacturaCompany  =({jwt,roomBusy,roomSell,efectivoTotal,otrosMedios,dolares
 
     const totalVentas = parseInt(efectivoTotal ) +parseInt(otrosMedios) + parseInt(dolarespesos)    
 
-    console.log(room)
+    let count =0
+    for(let i =0;i<avaible?.roomByIdIDtypeRoom?.length;i++){
+        if((avaible?.roomByIdIDtypeRoom[i]?.tipo_persona =="empresa")){
+            const totalwith = parseInt(avaible?.roomByIdIDtypeRoom[i]?.abono ) *19/100
+            const total = totalwith + parseInt(avaible?.roomByIdIDtypeRoom[i]?.abono )
+            count += total
+        }else  if((avaible?.roomByIdIDtypeRoom[i]?.Iva ==1)){
+            const totalwith = parseInt(avaible?.roomByIdIDtypeRoom[i]?.abono ) *19/100
+            const total = totalwith + parseInt(avaible?.roomByIdIDtypeRoom[i]?.abono )
+            count += total
+        } else{
+            count += parseInt(avaible?.roomByIdIDtypeRoom[i]?.abono)
+        }
+    }
 
+    const totalIngresosPuntos  = parseInt( aeropuerto ) + parseInt( lavenderia) +   parseInt (turismo) + parseInt( countSeguro)
 
     return (
      <>
-      <div className="container-pdf-flex" >
+      <div className="container-pdf-flex"  >
             <div  className="global-factura" style={{
             borderRadius: "5px",
             }} >
@@ -609,36 +458,27 @@ const FacturaCompany  =({jwt,roomBusy,roomSell,efectivoTotal,otrosMedios,dolares
 
                     <table className="table-factura-One" >
                         <tr>
-                            <th> <div className="container-block-informe-conslidado"> <span className="text-font-wei-one-informe" > HABITACIONES OCUPADAS: </span> <span className="text-font-wei-one-informe-One" >{habitacionesOcupadas}</span></div> </th>
-                            <th> <div className="container-block-informe-conslidado"> <span className="text-font-wei-one-informe" > HABITACIONES SIN VENDER:</span> <span className="text-font-wei-one-informe-One" >{totalHabitaciones}</span> </div> </th>
-                            <th > <div className="container-block-informe-conslidado"> <span className="text-font-wei-one-informe" > PORCENTAJE OCUPACIÓN:</span> <span className="text-font-wei-one-informe-One"
-                             >{totalPorcentaje}%</span> </div> </th>
+                            <th> <div className="container-block-informe-conslidado"> <span  className="text-font-wei-one-informe" > Efectivo total: : </span> <span  className="text-font-wei-one-informe" >${valEfectivo.toLocaleString()}</span></div> </th>
+                            <th> <div className="container-block-informe-conslidado"> <span  className="text-font-wei-one-informe" > Otros medios::</span> <span  className="text-font-wei-one-informe" >$ {valOtherMedios.toLocaleString()}</span> </div> </th>
+                            <th > <div className="container-block-informe-conslidado"> <span  className="text-font-wei-one-informe" > Dolares/Euros en pesos:</span  > <span  className="text-font-wei-one-informe" >{dolarespesos.toLocaleString()}</span> </div> </th>
+                            <th > <div className="container-block-informe-conslidado"> <span className="text-font-wei-one-informe"  > Ingreso Total:    :</span> <span  className="text-font-wei-one-informe" >${totaRoom.toLocaleString()}</span> </div> </th>
                         </tr>
                     </table>
 
                     <table className="table-factura-One" >
                         <tr>
-                            <th> <div className="container-block-informe-conslidado"> <span> Efectivo total: : </span> <span>{efectivoTotal.toLocaleString()}</span></div> </th>
-                            <th> <div className="container-block-informe-conslidado"> <span> Otros medios::</span> <span>{otrosMedios.toLocaleString()}</span> </div> </th>
-                            <th > <div className="container-block-informe-conslidado"> <span> Dolares/Euros en pesos:</span> <span>{dolarespesos.toLocaleString()}</span> </div> </th>
-                            <th > <div className="container-block-informe-conslidado"> <span> Ingreso Total:    :</span> <span>{totalVentas.toLocaleString()}</span> </div> </th>
-                        </tr>
-                    </table>
-
-                    <table className="table-factura-One" >
-                        <tr>
-                            <th>T. Debito</th>
-                            <th>T. Credito</th>
-                            <th>Transferencia</th>
-                            <th>Pago agil</th>
-                            <th>Bitcoin</th>
-                            <th>Payonner</th>
-                            <th>Dolares</th>
-                            <th>Euros</th>
+                            <th className="text-font-wei-one-informe" >T. Debito</th>
+                            <th className="text-font-wei-one-informe" >T. Credito</th>
+                            <th className="text-font-wei-one-informe" >Transferencia</th>
+                            <th className="text-font-wei-one-informe" >Pago agil</th>
+                            <th className="text-font-wei-one-informe" >Bitcoin</th>
+                            <th className="text-font-wei-one-informe" >Payonner</th>
+                            <th className="text-font-wei-one-informe" >Dolares</th>
+                            <th className="text-font-wei-one-informe" >Euros</th>
                         </tr>
                         <tr>
-                            <td>{targetaDebito}</td>
-                            <td>{targetaCredito}</td>
+                            <td>${debito?.toLocaleString()}</td>
+                            <td>${credito?.toLocaleString()}</td>
                             <td>{tranferencia}</td>
                             <td>{pagoAgil}</td>
                             <td>{bitcon}</td>
@@ -649,13 +489,20 @@ const FacturaCompany  =({jwt,roomBusy,roomSell,efectivoTotal,otrosMedios,dolares
                         
                     </table>
 
-                    
+                    <table className="table-factura-One" >
+                        <tr>
+                            <th> <div className="container-block-informe-conslidado"> <span className="text-font-wei-one-informe" > HABITACIONES OCUPADAS: </span> <span className="text-font-wei-one-informe-One" >{habitacionesOcupadas}</span></div> </th>
+                            <th> <div className="container-block-informe-conslidado"> <span className="text-font-wei-one-informe" > HABITACIONES SIN VENDER:</span> <span className="text-font-wei-one-informe-One" >{totalHabitaciones}</span> </div> </th>
+                            <th > <div className="container-block-informe-conslidado"> <span className="text-font-wei-one-informe" > PORCENTAJE OCUPACIÓN:</span> <span className="text-font-wei-one-informe-One"
+                             >{totalPorcentaje}%</span> </div> </th>
+                        </tr>
+                    </table>
             <div className="table-pdf-room" >
                     <table className="table-factura-One" >
                                 <tr>
-                                    <th>Habitación</th>
-                                    <th>Cantidad</th>
-                                    <th>Ventas</th>
+                                    <th  className="text-font-wei-one-informe"  >Habitación</th>
+                                    <th  className="text-font-wei-one-informe" >Cantidad</th>
+                                    <th  className="text-font-wei-one-informe" >Ventas</th>
                                 </tr>
                                 
 
@@ -666,13 +513,17 @@ const FacturaCompany  =({jwt,roomBusy,roomSell,efectivoTotal,otrosMedios,dolares
                                             <td>0</td>
                                         </tr>
                                     ))}
+
+                                <tr>
+                                    <th className="text-font-wei-one-informe" >Total Day Use</th>
+                                </tr>
                     </table>
 
                     <table className="table-factura-One" >
                                 <tr>
-                                    <th>Habitación</th>
-                                    <th>Cantidad</th>
-                                    <th>Ventas</th>
+                                    <th  className="text-font-wei-one-informe"  >Habitación</th>
+                                    <th className="text-font-wei-one-informe"  >Cantidad</th>
+                                    <th  className="text-font-wei-one-informe"  >Ventas</th>
                                 </tr>
                                 
 
@@ -683,31 +534,68 @@ const FacturaCompany  =({jwt,roomBusy,roomSell,efectivoTotal,otrosMedios,dolares
                                             <td>0</td>
                                         </tr>
                                     ))}
+                                <tr>
+                                    <th className="text-font-wei-one-informe" >Total Amanecida</th>
+                                </tr>
                     </table>
 
 
                     <table className="table-factura-One" >
                                 <tr>
-                                    <th>Habitación</th>
-                                    <th>Cantidad</th>
-                                    <th>Ventas</th>
-                                </tr>
-                                
+                                    <th className="text-font-wei-one-informe"  >Habitación</th>
+                                    <th className="text-font-wei-one-informe"  >Cantidad</th>
+                                    <th  className="text-font-wei-one-informe"  >Ventas</th>
+                                </tr>   
+                                    {avaible?.roomByIdIDtypeRoom?.map(index  => {
 
-                                    {avaible?.roomByIdIDtypeRoom?.map(index  => (
-                                        <tr>
+                                    const totalIva= parseInt(index.abono * 19 / 100)
+
+                                    const totalWith = parseInt(index.abono) + totalIva
+
+                                    const totalDefinid = index.Iva ==1 ?totalWith : parseInt(index.abono)
+
+                                    const totalDefiniType = index.tipo_persona  =="empresa"  ?totalWith  :totalDefinid
+                                    
+                                        return (
+                                            <tr>
                                             <td>{index.room}</td>
                                             <td>{index.cantidad}</td>
-                                            <td>{index.abono}</td>
+                                            <td>${totalDefiniType.toLocaleString()}</td>
                                         </tr>
-                                    ))}
+                                        )}
+                                     )}
+                                     <tr>
+                                    <th className="text-font-wei-one-informe" >Total Hospedaje </th>
+                                    <th className="text-font-wei-one-informe" >${count.toLocaleString()}</th>
+                                </tr>
                     </table>
-
-            </div>
-            </div>
-
-
+                </div>
             
+                <table className="table-factura-One" >
+                        <tr>
+                            <th> <div className="container-block-informe-conslidado"> <span className="text-font-wei-one-informe" >AEROPUERTO: </span> <span className="text-font-wei-one-informe-One" >{aeropuerto}</span></div> </th>
+                            <th> <div className="container-block-informe-conslidado"> <span className="text-font-wei-one-informe" > LAVANDERIA:</span> <span className="text-font-wei-one-informe-One" >{lavenderia}</span> </div> </th>
+                            <th> <div className="container-block-informe-conslidado"> <span className="text-font-wei-one-informe" > TURISMO:</span> <span className="text-font-wei-one-informe-One" >{turismo}</span> </div> </th>
+                            <th> <div className="container-block-informe-conslidado"> <span className="text-font-wei-one-informe" > SEGURO HOTELERO:</span> <span className="text-font-wei-one-informe-One" >${countSeguro.toLocaleString()}</span> </div> </th>
+                            <th > <div className="container-block-informe-conslidado"> <span className="text-font-wei-one-informe" >TOTAL:</span> <span className="text-font-wei-one-informe-One"
+                             >${totalIngresosPuntos.toLocaleString()}</span> </div> </th>
+                        </tr>
+                </table>
+
+                <table className="table-factura-One" >
+                        <tr>
+                            <th> <div className="container-block-informe-conslidado"> <span className="text-font-wei-one-informe" >BEBIDAS: </span> <span className="text-font-wei-one-informe-One" >{aeropuerto}</span></div> </th>
+                            <th> <div className="container-block-informe-conslidado"> <span className="text-font-wei-one-informe" > SNAKS:</span> <span className="text-font-wei-one-informe-One" >{lavenderia}</span> </div> </th>
+                            <th> <div className="container-block-informe-conslidado"> <span className="text-font-wei-one-informe" > SOUVENIR:</span> <span className="text-font-wei-one-informe-One" >{turismo}</span> </div> </th>
+                            <th> <div className="container-block-informe-conslidado"> <span className="text-font-wei-one-informe" >ASEO P.:</span> <span className="text-font-wei-one-informe-One" >${countSeguro.toLocaleString()}</span> </div> </th>
+                            <th> <div className="container-block-informe-conslidado"> <span className="text-font-wei-one-informe" >ADULTOS.:</span> <span className="text-font-wei-one-informe-One" >${countSeguro.toLocaleString()}</span> </div> </th>
+                            <th> <div className="container-block-informe-conslidado"> <span className="text-font-wei-one-informe" >LENCERIA MULTAS:</span> <span className="text-font-wei-one-informe-One" >${countSeguro.toLocaleString()}</span> </div> </th>
+                            <th> <div className="container-block-informe-conslidado"> <span className="text-font-wei-one-informe" >SERVICIO:</span> <span className="text-font-wei-one-informe-One" >${countSeguro.toLocaleString()}</span> </div> </th>
+                            <th > <div className="container-block-informe-conslidado"> <span className="text-font-wei-one-informe" >TOTAL:</span> <span className="text-font-wei-one-informe-One"
+                             >${totalIngresosPuntos.toLocaleString()}</span> </div> </th>
+                        </tr>
+                </table>
+            </div>
         </div>
       </>)
 }

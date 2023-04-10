@@ -14,11 +14,11 @@ const ItemCard =({index,handCart}) =>{
     return ( 
         <> 
             <div className="itemCard" key={index.ID} ref={element} >
-                {index. Cantidad !=0 ? (
+                
                         <div className="item-content" >
                                     <div className="add-cart" >
                                         <div className="rest-to-cart" >
-                                            {index.stock !=0 ? <IoIosAddCircle  fontSize={35} onClick={() =>handCart(index)}   /> : null}
+                                            {index.Cantidad !== 0 ? <IoIosAddCircle  fontSize={35} onClick={() =>handCart(index)}   /> : null}
                                         </div>
                                     </div>
                             <div className="icon-whatsapp" >
@@ -26,20 +26,21 @@ const ItemCard =({index,handCart}) =>{
                             </div>
 
                             <div className="icon-cantidad" >
-                                    <h4 class="price">{index.Cantidad}</h4>
+                                    <h4 class="price One-Tienda-Recepcion">{index.Cantidad}</h4>
+                            </div>
+                            <div>
+                                        <h3 class="price"><span>$ </span>{index.Precio}</h3>
                             </div>
 
-                            {index.stock !=0   ? <span>disponible</span> : <span>no esta disponible</span>}
-                                <div className="botton" >
+                            {index.Cantidad !=0   ? <span>Disponible</span> : <span>No disponible</span>}
+                                <div className="icon-cantidadOne" >
                                     <div>
-                                        <h3 class="price"><span>$ </span>{index.Precio}</h3>
+                                        <h6 class="itemName-One">Cantidad</h6>
                                     </div>
                                 </div>
                                 
                         </div>
-                        )
-                    :
-                    null}
+                       
             </div>
     </>
     )

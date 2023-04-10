@@ -25,7 +25,7 @@ const Cart =({handModal,priceCart,carts,handTotal,Items}) =>{
                 </p>
             </div>
             <button className="checkOut" onClick={handModal} >
-                    <span className="itemName">Pagar</span>
+                    <span className="itemNameonE">Pagar</span>
             </button>
         </div>
     )

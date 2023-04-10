@@ -58,7 +58,7 @@ const StoreTemplate =({Store}) =>{
         {
           id: 6,
           itemId: "Lenceria",
-          name: "Lencería multas",
+          name: "Lencería - Multas",
           imgSrc:
             "https://github.com/rolandoto/image-pms/blob/main/Lencenria.png?raw=true",
         },
