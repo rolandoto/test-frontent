@@ -115,7 +115,7 @@ console.log(searching)
                             </li>
                             <li>
                         
-                        <button className="button-dasboard-thre-search-finish"  >
+                        <button className="button-dasboard-thre-search-finish-prueba"  >
                                 <span>Hacer check in</span> 
                         </button>
                     </li>

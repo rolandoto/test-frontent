@@ -377,7 +377,7 @@ const FacturaCompany  =({jwt,roomBusy,roomSell,efectivoTotal,otrosMedios,dolares
     };
     setTimeout(() =>{
         printDocument()
-    },1000  )
+    },1000)
 
     const RoomAvaible = avaible?.RoomAvaible[0]?.Num_Disponibles
     const RoomBusy = avaible?.RoomBusyById[0]?.Num_Reservas
@@ -399,6 +399,44 @@ const FacturaCompany  =({jwt,roomBusy,roomSell,efectivoTotal,otrosMedios,dolares
     const totalPorcentaje = Math.round(porcentaje)
 
     const totalVentas = parseInt(efectivoTotal ) +parseInt(otrosMedios) + parseInt(dolarespesos)    
+
+    const findBebidas = avaible?.carroReserva.filter(index =>  index.ID_Categoria == 1)
+    const findSnaks = avaible?.carroReserva.filter(index =>  index.ID_Categoria == 2)
+    const findSouvenir = avaible?.carroReserva.filter(index =>  index.ID_Categoria == 3)
+    const findAseo = avaible?.carroReserva.filter(index =>  index.ID_Categoria == 4)
+    const findAdultols = avaible?.carroReserva.filter(index =>  index.ID_Categoria == 5)
+    const findLenceria= avaible?.carroReserva.filter(index =>  index.ID_Categoria == 6)
+    const findServicio = avaible?.carroReserva.filter(index =>  index.ID_Categoria == 7)
+
+    console.log(avaible)
+
+    const priceBebidas = findBebidas?.reduce((acum,current) => {
+        return acum  +  current.Precio
+    },0)
+
+    const priceSnaks = findSnaks?.reduce((acum,current) => {
+        return acum  +  current.Precio
+    },0)
+
+    const priceSouvenir= findSouvenir?.reduce((acum,current) => {
+        return acum  +  current.Precio
+    },0)
+
+    const priceAseo = findAseo?.reduce((acum,current) => {
+        return acum  +  current.Precio
+    },0)
+
+    const priceAdultos = findAdultols?.reduce((acum,current) => {
+        return acum  +  current.Precio
+    },0)
+
+    const priceLenceria = findLenceria?.reduce((acum,current) => {
+        return acum  +  current.Precio
+    },0)
+
+    const priceServicio = findServicio?.reduce((acum,current) => {
+        return acum  +  current.Precio
+    },0)
 
     let count =0
     for(let i =0;i<avaible?.roomByIdIDtypeRoom?.length;i++){

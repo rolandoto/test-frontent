@@ -760,10 +760,9 @@ const Dashboard = (props) => {
 												)}
 												</select>
 					
-					
 					<button className='button-reservas-type-one '   onClick={hanclickReservation} >
 							<div className="flex-index-reservation-one">
-									<VscSearch className="flex-contan-one"  color="grey" fontSize={18} /> <span >Buscar reservas</span>
+									<VscSearch className="flex-contan-one"  color="grey" fontSize={18} /> <span >Reservas</span>
 							</div> 
 					</button>	
 				</div>
@@ -831,9 +830,7 @@ const Dashboard = (props) => {
           <CursorMarker />
         </TimelineMarkers>
 		</Timeline>
-		
 		<CardStore totalday={totalDay} />
-	
 		</>
 	);
 

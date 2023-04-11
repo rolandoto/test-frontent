@@ -71,6 +71,20 @@
     align-items: center;
 }
 
+.button-dasboard-thre-search-finish-prueba{
+    width: 502px;
+    height: 55px;
+    background: #13a722d4;
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
+    margin: 0;
+    margin-top: 28px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .button-dasboard-thre-search-finish-finish-one{
     width: 511px;
     height: 55px;

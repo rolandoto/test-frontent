@@ -9,12 +9,11 @@ const ItemCard =({index,handCart}) =>{
 
     const [show,element] = UsenearScrean()
 
-    console.log(index)
+    
     
     return ( 
         <> 
             <div className="itemCard" key={index.ID} ref={element} >
-                
                         <div className="item-content" >
                                     <div className="add-cart" >
                                         <div className="rest-to-cart" >
@@ -37,10 +36,8 @@ const ItemCard =({index,handCart}) =>{
                                     <div>
                                         <h6 class="itemName-One">Cantidad</h6>
                                     </div>
-                                </div>
-                                
-                        </div>
-                       
+                                </div>  
+                    </div>
             </div>
     </>
     )
