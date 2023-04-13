@@ -10,6 +10,9 @@ import jsPDF from "jspdf";
 import moment from "moment";
 import ServicetypeRooms from "../../service/ServicetypeRooms";
 import UseListMotels from "../../hooks/UseListMotels";
+import { useReactToPrint } from "react-to-print";
+import { useRef } from "react";
+import ServiceInformeGeneral from "../../service/ServiceInformeGeneral";
 
 const InformeConsolidado = () => {
 
@@ -213,6 +216,14 @@ const InformeConsolidado = () => {
         })       
     }
 
+
+    let componentRef = useRef();
+
+    const handlePrint = useReactToPrint({
+        content: () => componentRef.current
+    });
+    
+
     return (
         <ContainerGlobal>
              <LoadingDetail
@@ -290,7 +301,7 @@ const InformeConsolidado = () => {
         <div className="init " >
         <form  className="container-flex-init"  onClick={handInformes}>
             <div className="container-detail-dasboard-in" >
-                <div className="button-checkout-one"     >
+                <div className="button-checkout-one"   onClick={handlePrint}   >
                     <button>Guardar informe (Solo se puede guardar una vez)</button>
                 </div>
             </div>
@@ -314,6 +325,7 @@ const InformeConsolidado = () => {
                         aeropuerto={aeropuerto}
                         lavenderia={lavenderia}
                         turismo={turismo}
+                        componentRef={componentRef}
                         />
         </ContainerGlobal>
     )
@@ -323,7 +335,7 @@ export default InformeConsolidado
 
 
 const FacturaCompany  =({jwt,roomBusy,roomSell,efectivoTotal,otrosMedios,dolarespesos, 
-    targetaDebito,targetaCredito,tranferencia,pagoAgil,bitcon,payoner,dolares,euros,aeropuerto,lavenderia,turismo}) =>{
+    targetaDebito,targetaCredito,tranferencia,pagoAgil,bitcon,payoner,dolares,euros,aeropuerto,lavenderia,turismo,componentRef}) =>{
 
     let docToPrint = React.createRef();
 
@@ -354,13 +366,18 @@ const FacturaCompany  =({jwt,roomBusy,roomSell,efectivoTotal,otrosMedios,dolares
         })
     },[setRoom])
 
+    const  now = moment().format("YYYY-MM-DD");
+
     useEffect(() =>{
-        fetch(`http://localhost:4000/api/resecion/informeConsolidadoByHotel/${jwt.result.id_hotel}`)
-        .then(resp => resp.json())
-        .then(data  => setAvaible(data))   
+        ServiceInformeGeneral({fecha:now,id:jwt.result.id_hotel}).then(index => {
+            setAvaible(index)
+            console.log(index)
+        }).catch(e => {
+            console.log(e)
+        })
     },[])
 
-    const  now = moment().format("YYYY-MM-DD");
+    
 
     const printDocument = () => {
         const input = docToPrint.current;
@@ -515,10 +532,9 @@ const FacturaCompany  =({jwt,roomBusy,roomSell,efectivoTotal,otrosMedios,dolares
 
     const totalCount = count +  totalTienda
 
-
     return (
      <>
-      <div className="container-pdf-flex"  >
+      <div className="container-pdf-flex"  ref={docToPrint} >
             <div  className="global-factura" style={{
             borderRadius: "5px",
             }} >

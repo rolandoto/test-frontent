@@ -185,24 +185,20 @@ const Checkingn2Organism =({id}) =>{
         Nombre_recepcion:jwt.result.name
     }
 
-
-
     const handFirmar =() =>{
         ServiceUpdateReservation({id:resulDetailDashboard.id_persona,data}).then(index =>{
-            if(inputPayValue.PayAbono ==0){
-
+            if(inputPayValue.PayAbono <=0){
             }else {
                 HttpClient.insertPayABono({data:inputPayValue}).then(index =>{
                     console.log(index)
                 })
             }
-         
             console.log(index)
             }).catch(e =>{
             console.log(e)
         })
     }
-
+    
     let dataTwo = {
         ID_Tipo_Forma_pago:change.ID_Tipo_Forma_pago
     }
