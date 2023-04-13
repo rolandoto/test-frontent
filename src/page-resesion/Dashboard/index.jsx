@@ -651,6 +651,10 @@ const Dashboard = (props) => {
 		{
 			id: 7,
 			name:"Informe tienda"
+		},
+		{
+			id: 8,
+			name:"Informe cuenta pendientes"
 		}
 	];
 
@@ -691,6 +695,9 @@ const Dashboard = (props) => {
 		if(stateInformes ==7){
 			return history.push(`/informeStore/${jwt.result.id_hotel}`)
 		}
+		if(stateInformes ==8){
+			return history.push(`/informeAccount`)
+		}
 	},[stateInformes,setInformes])
 
 	const [hoveredItem, setHoveredItem] = useState(null);
@@ -730,7 +737,7 @@ const Dashboard = (props) => {
 					<div className="flex-index-reservation" ><VscRecord className="flex-contan-one" color="white"  fontSize={18} /><span>Estados</span></div></button>
 					
 					<select  onChange={handClickInformAuditoria} value={stateInformes}					
-							className='button-reservas-type-one button-reservas-type-space button-reservas-type-one-two-two ' >
+							className='button-reservas-type-one button-reservas-type-space button-reservas-type-one-two-two    '  >
 							<option   className="opo-room"  >Informe</option>
 							{Informes?.map(category =>(
 													<option 
@@ -744,7 +751,7 @@ const Dashboard = (props) => {
 				
 					<select onChange={handRaiting}  
 													value={raiting} 
-													className='button-reservas-type-one button-reservas-type-space  button-reservas-type-one-two-two' >
+													className='button-reservas-type-one button-reservas-type-space  button-reservas-type-one-two-two button-reservas-type-space-One-One' >
 													<option  className="opo-room" >Ver habitaciones</option>
 													<option  className="opo-room" >Todas las Habitaciones</option>
 													
@@ -780,10 +787,7 @@ const Dashboard = (props) => {
 							hanClickCloseCleanline={hanClickCloseCleanline}  />		
 			
 			<ModalBlock    	block={block}  
-							handCloseBlock={handCloseBlock}   />
-
-
-			
+							handCloseBlock={handCloseBlock}   />			
 			<Checking  
 						loading={checkingDasboardVisible}  
 						toggleCloseDashboardChecking={toggleCloseDashboardChecking}  />

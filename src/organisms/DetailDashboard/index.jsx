@@ -1360,8 +1360,6 @@ const handleState =(event, index) =>{
       Nombre_Recepcion:product[i].Nombre_recepcion
     })
   }
-
-  console.log(cart)
   
   const  now = moment().format("YYYY/MM/DD");
 
@@ -1411,7 +1409,6 @@ const handleState =(event, index) =>{
                   <TableBody>
                         
                         {  cart?.map((row,e) =>{
-
                             console.log(row.ID)
                           
                           if(row.Pago_deuda ==0){
@@ -1444,7 +1441,6 @@ const handleState =(event, index) =>{
                 <TableCell> <span className="pay_Pagado" onClick={() => handPayProduct(row.ID)} >Pagar producto</span></TableCell>
                 <TableCell>{row.Nombre_Recepcion}</TableCell>
                            </TableRow>
-                       
                           )
                         } else if(row.Pago_deuda ==1){
                           return (

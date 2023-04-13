@@ -58,9 +58,7 @@ const InformeRoomToSell =() =>{
         }) 
     }
     
-
     let componentRef = useRef();
-
 
     const handlePrint = useReactToPrint({
         content: () => componentRef.current
@@ -73,20 +71,19 @@ const InformeRoomToSell =() =>{
                         loading={true}
                         titleLoading={"Informe  Room to sell"}  />
 
-            <div>
-                <input type="date" className="input-selecto-dasboard-n1-reservaction"  onChange={hadChangeFecha}    />
-                <input type="date" className="input-selecto-dasboard-n1-reservaction"  onChange={hadChangeFechaOne}    />
-                <button className="button-informe-cosultar  with-button-room-to-sell " onClick={hanLookingFor} >Consultar</button>
-                {roomtosell?.length>0 && <button className="button-informe-descargar  with-button-room-to-sell "  onClick={handClikcDescargar} >Descargar Informe</button>}
-                {roomtosell?.length>0 &&<button className="button-informe-imprimir with-button-room-to-sell-One"  onClick={handlePrint} ><a href="#" >
-                    Imprimir
-                </a></button>}
+                <div>
+                    <input type="date" className="input-selecto-dasboard-n1-reservaction"  onChange={hadChangeFecha}    />
+                    <input type="date" className="input-selecto-dasboard-n1-reservaction"  onChange={hadChangeFechaOne}    />
+                    <button className="button-informe-cosultar  with-button-room-to-sell " onClick={hanLookingFor} >Consultar</button>
+                    {roomtosell?.length>0 && <button className="button-informe-descargar  with-button-room-to-sell "  onClick={handClikcDescargar} >Descargar Informe</button>}
+                    {roomtosell?.length>0 &&<button className="button-informe-imprimir with-button-room-to-sell-One"  onClick={handlePrint} ><a href="#" >
+                        Imprimir
+                    </a></button>}
 
             <table className="de  "  >   
             
             <tbody ref={componentRef}  >
-                    
-
+    
                 <tr>
                     <th  className="top-pq"  >Nombre</th>
                     {array.map(index => (

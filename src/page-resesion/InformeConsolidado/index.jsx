@@ -390,7 +390,7 @@ const FacturaCompany  =({jwt,roomBusy,roomSell,efectivoTotal,otrosMedios,dolares
 
     const valOtherMedios  = totalOtherMedios ? totalOtherMedios : 0
 
-    const totaRoom = valEfectivo+ valOtherMedios
+   
 
     const habitacionesOcupadas = parseInt(RoomBusy);
     const totalHabitaciones = parseInt(RoomAvaible);
@@ -408,7 +408,16 @@ const FacturaCompany  =({jwt,roomBusy,roomSell,efectivoTotal,otrosMedios,dolares
     const findLenceria= avaible?.carroReserva.filter(index =>  index.ID_Categoria == 6)
     const findServicio = avaible?.carroReserva.filter(index =>  index.ID_Categoria == 7)
 
-    console.log(avaible)
+
+    const findBebidasOne = avaible?.carrtoTenda.filter(index =>  index.ID_Categoria == 1)
+    const findSnaksOne = avaible?.carrtoTenda.filter(index =>  index.ID_Categoria == 2)
+    const findSouvenirOne = avaible?.carrtoTenda.filter(index =>  index.ID_Categoria == 3)
+    const findAseoOne = avaible?.carrtoTenda.filter(index =>  index.ID_Categoria == 4)
+    const findAdultolsOne = avaible?.carrtoTenda.filter(index =>  index.ID_Categoria == 5)
+    const findLenceriaOne= avaible?.carrtoTenda.filter(index =>  index.ID_Categoria == 6)
+    const findServicioOne = avaible?.carrtoTenda.filter(index =>  index.ID_Categoria == 7)
+
+
 
     const priceBebidas = findBebidas?.reduce((acum,current) => {
         return acum  +  current.Precio
@@ -438,7 +447,56 @@ const FacturaCompany  =({jwt,roomBusy,roomSell,efectivoTotal,otrosMedios,dolares
         return acum  +  current.Precio
     },0)
 
+
+
+    const priceBebidasOne = findBebidasOne?.reduce((acum,current) => {
+        return acum  +  current.Precio
+    },0)
+
+    const priceSnaksOne = findSnaksOne?.reduce((acum,current) => {
+        return acum  +  current.Precio
+    },0)
+
+    const priceSouvenirOne= findSouvenirOne?.reduce((acum,current) => {
+        return acum  +  current.Precio
+    },0)
+
+    const priceAseoOne= findAseoOne?.reduce((acum,current) => {
+        return acum  +  current.Precio
+    },0)
+
+    const priceAdultosOne = findAdultolsOne?.reduce((acum,current) => {
+        return acum  +  current.Precio
+    },0)
+
+    const priceLenceriaOne = findLenceriaOne?.reduce((acum,current) => {
+        return acum  +  current.Precio
+    },0)
+
+    const priceServicioOne= findServicioOne?.reduce((acum,current) => {
+        return acum  +  current.Precio
+    },0)
+
+    const totalBebidas =  priceBebidas + priceBebidasOne 
+
+    const totalSnaks = priceSnaks + priceSnaksOne
+
+    const totalSouvenir = priceSouvenir  +priceSouvenirOne
+
+    const totalAseo  = priceAseo +priceAseoOne
+
+    const totalAdults = priceAdultos + priceAdultosOne
+
+    const totalLenceria =  priceLenceriaOne +  priceLenceria
+
+    const totalServicios =  priceServicio + priceServicioOne
+
+    const totalTienda =  totalBebidas + totalSnaks +totalSouvenir +totalAseo +totalAdults +totalLenceria +totalServicios
+
+    const totaRoom = valEfectivo+ valOtherMedios 
+
     let count =0
+
     for(let i =0;i<avaible?.roomByIdIDtypeRoom?.length;i++){
         if((avaible?.roomByIdIDtypeRoom[i]?.tipo_persona =="empresa")){
             const totalwith = parseInt(avaible?.roomByIdIDtypeRoom[i]?.abono ) *19/100
@@ -453,7 +511,10 @@ const FacturaCompany  =({jwt,roomBusy,roomSell,efectivoTotal,otrosMedios,dolares
         }
     }
 
-    const totalIngresosPuntos  = parseInt( aeropuerto ) + parseInt( lavenderia) +   parseInt (turismo) + parseInt( countSeguro)
+    const totalIngresosPuntos  = parseInt( aeropuerto ) + parseInt( lavenderia) +   parseInt (turismo) + parseInt( countSeguro) 
+
+    const totalCount = count +  totalTienda
+
 
     return (
      <>
@@ -499,7 +560,7 @@ const FacturaCompany  =({jwt,roomBusy,roomSell,efectivoTotal,otrosMedios,dolares
                             <th> <div className="container-block-informe-conslidado"> <span  className="text-font-wei-one-informe" > Efectivo total: : </span> <span  className="text-font-wei-one-informe" >${valEfectivo.toLocaleString()}</span></div> </th>
                             <th> <div className="container-block-informe-conslidado"> <span  className="text-font-wei-one-informe" > Otros medios::</span> <span  className="text-font-wei-one-informe" >$ {valOtherMedios.toLocaleString()}</span> </div> </th>
                             <th > <div className="container-block-informe-conslidado"> <span  className="text-font-wei-one-informe" > Dolares/Euros en pesos:</span  > <span  className="text-font-wei-one-informe" >{dolarespesos.toLocaleString()}</span> </div> </th>
-                            <th > <div className="container-block-informe-conslidado"> <span className="text-font-wei-one-informe"  > Ingreso Total:    :</span> <span  className="text-font-wei-one-informe" >${totaRoom.toLocaleString()}</span> </div> </th>
+                            <th > <div className="container-block-informe-conslidado"> <span className="text-font-wei-one-informe"  > Ingreso Total:    :</span> <span  className="text-font-wei-one-informe" >${totalCount.toLocaleString()}</span> </div> </th>
                         </tr>
                     </table>
 
@@ -622,15 +683,15 @@ const FacturaCompany  =({jwt,roomBusy,roomSell,efectivoTotal,otrosMedios,dolares
 
                 <table className="table-factura-One" >
                         <tr>
-                            <th> <div className="container-block-informe-conslidado"> <span className="text-font-wei-one-informe" >BEBIDAS: </span> <span className="text-font-wei-one-informe-One" >{aeropuerto}</span></div> </th>
-                            <th> <div className="container-block-informe-conslidado"> <span className="text-font-wei-one-informe" > SNAKS:</span> <span className="text-font-wei-one-informe-One" >{lavenderia}</span> </div> </th>
-                            <th> <div className="container-block-informe-conslidado"> <span className="text-font-wei-one-informe" > SOUVENIR:</span> <span className="text-font-wei-one-informe-One" >{turismo}</span> </div> </th>
-                            <th> <div className="container-block-informe-conslidado"> <span className="text-font-wei-one-informe" >ASEO P.:</span> <span className="text-font-wei-one-informe-One" >${countSeguro.toLocaleString()}</span> </div> </th>
-                            <th> <div className="container-block-informe-conslidado"> <span className="text-font-wei-one-informe" >ADULTOS.:</span> <span className="text-font-wei-one-informe-One" >${countSeguro.toLocaleString()}</span> </div> </th>
-                            <th> <div className="container-block-informe-conslidado"> <span className="text-font-wei-one-informe" >LENCERIA MULTAS:</span> <span className="text-font-wei-one-informe-One" >${countSeguro.toLocaleString()}</span> </div> </th>
-                            <th> <div className="container-block-informe-conslidado"> <span className="text-font-wei-one-informe" >SERVICIO:</span> <span className="text-font-wei-one-informe-One" >${countSeguro.toLocaleString()}</span> </div> </th>
+                            <th> <div className="container-block-informe-conslidado"> <span className="text-font-wei-one-informe" >BEBIDAS: </span> <span className="text-font-wei-one-informe-One" >${totalBebidas?.toLocaleString()}</span></div> </th>
+                            <th> <div className="container-block-informe-conslidado"> <span className="text-font-wei-one-informe" > SNAKS:</span> <span className="text-font-wei-one-informe-One" >${totalSnaks?.toLocaleString()}</span> </div> </th>
+                            <th> <div className="container-block-informe-conslidado"> <span className="text-font-wei-one-informe" > SOUVENIR:</span> <span className="text-font-wei-one-informe-One" >${totalSouvenir?.toLocaleString()}</span> </div> </th>
+                            <th> <div className="container-block-informe-conslidado"> <span className="text-font-wei-one-informe" >ASEO P.:</span> <span className="text-font-wei-one-informe-One" >${totalAseo?.toLocaleString()}</span> </div> </th>
+                            <th> <div className="container-block-informe-conslidado"> <span className="text-font-wei-one-informe" >ADULTOS.:</span> <span className="text-font-wei-one-informe-One" >${totalAdults?.toLocaleString()}</span> </div> </th>
+                            <th> <div className="container-block-informe-conslidado"> <span className="text-font-wei-one-informe" >LENCERIA MULTAS:</span> <span className="text-font-wei-one-informe-One" >${totalLenceria?.toLocaleString()}</span> </div> </th>
+                            <th> <div className="container-block-informe-conslidado"> <span className="text-font-wei-one-informe" >SERVICIO:</span> <span className="text-font-wei-one-informe-One" >${totalServicios?.toLocaleString()}</span> </div> </th>
                             <th > <div className="container-block-informe-conslidado"> <span className="text-font-wei-one-informe" >TOTAL:</span> <span className="text-font-wei-one-informe-One"
-                             >${totalIngresosPuntos.toLocaleString()}</span> </div> </th>
+                             >${totalTienda.toLocaleString()}</span> </div> </th>
                         </tr>
                 </table>
             </div>

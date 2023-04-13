@@ -402,6 +402,11 @@
   margin-left: 30px;
 }
 
+.button-reservas-type-space-One-One{
+  margin-right: -14px;
+  margin-left: 25px;
+}
+
 .button-reservas-type-one span {
   color: grey;
 }

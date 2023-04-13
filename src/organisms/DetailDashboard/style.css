@@ -674,6 +674,19 @@
   height: 16px;
 }
 
+.pay_deudado-One-One{
+  background: #eb6b7f;
+  color: white !important;
+  height: 16px;
+}
+
+
+.pay_deudado-One-two{
+  background: black;
+  color: white !important;
+  height: 16px;
+}
+
 .pay_Pagado{
   background: #13a722d4;
   color: white;
