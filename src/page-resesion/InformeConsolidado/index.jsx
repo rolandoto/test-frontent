@@ -534,7 +534,7 @@ const FacturaCompany  =({jwt,roomBusy,roomSell,efectivoTotal,otrosMedios,dolares
 
     return (
      <>
-      <div className="container-pdf-flex"  ref={docToPrint} >
+      <div className="container-pdf-flex"  ref={componentRef} >
             <div  className="global-factura" style={{
             borderRadius: "5px",
             }} >

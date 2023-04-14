@@ -654,7 +654,7 @@ const Dashboard = (props) => {
 		},
 		{
 			id: 8,
-			name:"Informe cuenta pendientes"
+			name:"Informe cuentas pendientes"
 		}
 	];
 
