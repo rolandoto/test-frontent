@@ -28,7 +28,7 @@ const UseUsers =() =>{
     const login = useCallback(({username,password,hotel}) =>{
         setState({loading:true,error:false})
         LoginService({username,password,hotel}).then(index =>{
-            sessionStorage.setItem('jwt',JSON.stringify(index))
+            localStorage.setItem('jwt',JSON.stringify(index))
             createCookie("user", index);
             setJwt(index)
             dispatch(setLogin(index.result.id_user))

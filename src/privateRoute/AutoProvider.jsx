@@ -4,11 +4,11 @@ const Autoconext = React.createContext({})
 export const AutoProvider =({children}) =>{
 
     const [name,setName] = useState(
-        () => window.sessionStorage.getItem('name')
+        () => window.localStorage.getItem('name')
     )
     
     const [jwt,setJwt] =useState( 
-            () =>  JSON.parse(sessionStorage.getItem('jwt')) 
+            () =>  JSON.parse(localStorage.getItem('jwt')) 
     )
 
     const [show,setShow]= useState(false)
