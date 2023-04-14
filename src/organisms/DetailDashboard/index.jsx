@@ -41,6 +41,8 @@ import UseFechaFormateada from "../../hooks/UseFechaFormateado";
 import { VscVerified,VscSymbolEvent ,VscSignOut,VscSearch,VscRecord} from "react-icons/vsc";
 import HttpClient from "../../HttpClient"
 import Swal from 'sweetalert2'
+import ReactTooltip from "react-tooltip";
+import styled from "styled-components";
 
 const DetailDasboard =(props) =>{
     const {id} = useParams()
@@ -60,6 +62,15 @@ const DetailDasboard =(props) =>{
     const hotel = iduser.find(FindIdHotel)
 
     let countSeguro =0
+
+    const Info = styled(ReactTooltip)`
+  max-width: 500px  !important;
+  padding-top: 9px  !important;
+  z-index: 0 !important;
+  background: gray;
+`;
+
+
    
     const {progress} =useProgress({id})
     const resultDashboard = DetailDashboard[0]
@@ -950,21 +961,37 @@ const toPriceNigth = UsePrice({number:resultDashboard?.valor_dia_habitacion})
                                             </div></span>
                   </button>
               </div>
-              <div className="name-pinter"  onClick={handleClickBasic} >
+              <ReactTooltip id="registerTip" place="top" effect="solid">
+                    Eliminar reserva
+              </ReactTooltip>
+
+              
+
+             
+           
+              <div className="name-pinter"  onClick={handleClickBasic} data-tip data-for="registerTip" >
+            
                   <div>
-               
+                
                     <img width={45} src="https://medellin47.com/ico_pms/qcancel.svg" alt="" />
-                  
+                   
                   </div>
+                 
               </div>
-              <div className="name-pinter"  onClick={ hancliEtar }>
+              <ReactTooltip id="registerTip-1" place="top" effect="solid">
+                    Actualizar reserva
+              </ReactTooltip>
+              <div className="name-pinter"  onClick={ hancliEtar }   data-tip data-for="registerTip-1">
                   <div>
                     <img width={45}  src="https://medellin47.com/ico_pms/qedit.svg" alt="" />
                   </div>
 
               </div>
 
-              <div  className="name-pinter">
+              <ReactTooltip id="registerTip-2" place="top" effect="solid">
+                    Descargar comprobante
+              </ReactTooltip>
+              <div  className="name-pinter"  data-tip data-for="registerTip-2" >
                   <div onClick={ handComprobante } >
                      <img width={45}  src="https://medellin47.com/ico_pms/qdoc.svg" alt="" />
                   </div>

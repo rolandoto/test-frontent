@@ -148,10 +148,6 @@ const HeaderRecepcion  =() =>{
                             <RiLogoutBoxLine fontSize={25} color="white"  />
                             </a>
                     </li>
-                    <div className="gif" target="_blank"  >
-                            <iframe  className="to-giff" src="https://embed.lottiefiles.com/animation/74754"></iframe>
-                    </div>
-                  
                     </ul>
                 </div>
             </div>
