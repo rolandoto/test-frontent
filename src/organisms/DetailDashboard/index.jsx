@@ -973,7 +973,7 @@ const toPriceNigth = UsePrice({number:resultDashboard?.valor_dia_habitacion})
             
                   <div>
                 
-                    <img width={45} src="https://medellin47.com/ico_pms/qcancel.svg" alt="" />
+                    <img width={33} src="https://medellin47.com/ico_pms/qcancel.svg" alt="" />
                    
                   </div>
                  
@@ -983,7 +983,7 @@ const toPriceNigth = UsePrice({number:resultDashboard?.valor_dia_habitacion})
               </ReactTooltip>
               <div className="name-pinter"  onClick={ hancliEtar }   data-tip data-for="registerTip-1">
                   <div>
-                    <img width={45}  src="https://medellin47.com/ico_pms/qedit.svg" alt="" />
+                    <img width={33}  src="https://medellin47.com/ico_pms/qedit.svg" alt="" />
                   </div>
 
               </div>
@@ -993,7 +993,7 @@ const toPriceNigth = UsePrice({number:resultDashboard?.valor_dia_habitacion})
               </ReactTooltip>
               <div  className="name-pinter"  data-tip data-for="registerTip-2" >
                   <div onClick={ handComprobante } >
-                     <img width={45}  src="https://medellin47.com/ico_pms/qdoc.svg" alt="" />
+                     <img width={33}  src="https://medellin47.com/ico_pms/qdoc.svg" alt="" />
                   </div>
               </div>
                 <div className="container-checkbox" >
@@ -1504,17 +1504,17 @@ const Pagos =(props) =>{
     .then(data=> setPatSate(data.query))
   },[idReserva])
 
-  console.log(payState)
+ 
 
 let count =0
 for(let i =0;i<payState?.length;i++){
     if((payState[i].Tipo_persona =="empresa")){
-        const totalwith = parseInt(payState[i].Abono ) 
-        const total = totalwith + parseInt(payState[i].Abono )
+        const totalwith = parseInt(payState[i].Abono  * 19 / 100) 
+        const total = totalwith + parseInt(payState[i].Abono)
         count += total
     }else  if((payState[i].Iva ==1)){
-        const totalwith = parseInt(payState[i].Abono ) 
-        const total = totalwith + parseInt(payState[i].Abono )
+        const totalwith = parseInt(payState[i].Abono  * 19 / 100) 
+        const total = totalwith + parseInt(payState[i].Abono)
         count += total
     } else{
         count += parseInt(payState[i].Abono)
@@ -1525,7 +1525,10 @@ const priceTotal = payState?.reduce((acum,current) => {
   return acum  +  current.Abono
 },0)
 
+
 const total = count?.toLocaleString()
+console.log({"aqui estoy yo:":payState})
+
 
   return (
     <div >  

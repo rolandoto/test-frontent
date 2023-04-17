@@ -402,12 +402,23 @@ const FacturaCompany  =({jwt,roomBusy,roomSell,efectivoTotal,otrosMedios,dolares
     const totalOtherMedios = avaible?.totalOtherMedios[0]?.Total_Abono
     const debito =  avaible?.tarjetadebito[0]?.Total_Abono
     const credito =  avaible?.tarjetaCredito[0]?.Total_Abono
+    const efectviotienda =  avaible?.carrtoTendaEfectivo[0]?.Total_Abono
+    const efectviotiendaONe =  avaible?.carrtoTendaEfectivoOne[0]?.Total_Abono
+    const debeitocarritoONe =  avaible?.carrtoTendaEfectivoTwo[0]?.Total_Abono
+    const debeitocarritoThre =  avaible?.carrtoTendaEfectivoThree[0]?.Total_Abono
 
-    const valEfectivo  = totalEfectivo ? totalEfectivo : 0
+    const efectviocarrito =  avaible?.carroReservaEfectivo[0]?.Total_Abono
+    const efectviocarritoONe =  avaible?.carroReservaEfectivoOne[0]?.Total_Abono
+    const debitopocarritoTwo =  avaible?.carroReservaEfectivoTwo[0]?.Total_Abono
+    const debitopocarritoThree =  avaible?.carroReservaEfectivoThree[0]?.Total_Abono
 
-    const valOtherMedios  = totalOtherMedios ? totalOtherMedios : 0
+    const valEfectivo  = totalEfectivo ? totalEfectivo + efectviotienda  +efectviocarrito: 0
 
-   
+    const valOtherMedios  = totalOtherMedios ? totalOtherMedios +efectviotiendaONe  +efectviocarritoONe: 0
+
+    const tarjetaBeditos =  debito +  debeitocarritoONe +debitopocarritoTwo 
+
+    const Credito = credito +debeitocarritoThre +debitopocarritoThree 
 
     const habitacionesOcupadas = parseInt(RoomBusy);
     const totalHabitaciones = parseInt(RoomAvaible);
@@ -425,7 +436,6 @@ const FacturaCompany  =({jwt,roomBusy,roomSell,efectivoTotal,otrosMedios,dolares
     const findLenceria= avaible?.carroReserva.filter(index =>  index.ID_Categoria == 6)
     const findServicio = avaible?.carroReserva.filter(index =>  index.ID_Categoria == 7)
 
-
     const findBebidasOne = avaible?.carrtoTenda.filter(index =>  index.ID_Categoria == 1)
     const findSnaksOne = avaible?.carrtoTenda.filter(index =>  index.ID_Categoria == 2)
     const findSouvenirOne = avaible?.carrtoTenda.filter(index =>  index.ID_Categoria == 3)
@@ -433,8 +443,6 @@ const FacturaCompany  =({jwt,roomBusy,roomSell,efectivoTotal,otrosMedios,dolares
     const findAdultolsOne = avaible?.carrtoTenda.filter(index =>  index.ID_Categoria == 5)
     const findLenceriaOne= avaible?.carrtoTenda.filter(index =>  index.ID_Categoria == 6)
     const findServicioOne = avaible?.carrtoTenda.filter(index =>  index.ID_Categoria == 7)
-
-
 
     const priceBebidas = findBebidas?.reduce((acum,current) => {
         return acum  +  current.Precio
@@ -592,8 +600,8 @@ const FacturaCompany  =({jwt,roomBusy,roomSell,efectivoTotal,otrosMedios,dolares
                             <th className="text-font-wei-one-informe" >Euros</th>
                         </tr>
                         <tr>
-                            <td>${debito?.toLocaleString()}</td>
-                            <td>${credito?.toLocaleString()}</td>
+                            <td>${tarjetaBeditos?.toLocaleString()}</td>
+                            <td>${Credito?.toLocaleString()}</td>
                             <td>{tranferencia}</td>
                             <td>{pagoAgil}</td>
                             <td>{bitcon}</td>
