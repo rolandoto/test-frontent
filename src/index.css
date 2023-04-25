@@ -820,6 +820,26 @@ tr {
   border-radius: 8px;
 }
 
+.select-hotel-type-three-three {
+  font-family: "Lato", sans-serif;
+  font-size: 0.875em;
+  height: 61px;
+  padding: 0px 15px 0px 15px;
+  background: white;
+  outline: none;
+  color: #726659;
+  border: solid 1px black;
+  transition: all 0.3s ease-in-out;
+  -webkit-transition: all 0.3s ease-in-out;
+  margin: auto;
+  width: 280px;
+  max-width: 531px;
+  margin-top: 5px;
+  background: #ebebeb;
+  border: 0.5px solid #ffffff;
+  border-radius: 8px;
+}
+
 .select-hotel-type-one {
   font-family: "Lato", sans-serif;
   font-size: 0.875em;
@@ -1154,4 +1174,15 @@ td {
 .text-font-wei-one-informe-One{
   font-weight: 100;
   font-size: 40px;
+}
+
+
+.button-Border-Id{
+  padding: 8px;
+  color: black;
+  border-radius: 4px;
+}
+
+.table-color-color{
+  width: 11px !important;
 }

@@ -7,7 +7,7 @@ const DetailStoreTemplate =({id,fetchData,Store}) =>{
     
     return (
         <>
-            <InputStore id={id}   fetchData={fetchData} />
+            <InputStore id={id} fetchData={fetchData} />
             <TableStore  Store={Store} />
         </>
     )

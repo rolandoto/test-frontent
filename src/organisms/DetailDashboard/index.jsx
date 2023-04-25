@@ -1504,8 +1504,6 @@ const Pagos =(props) =>{
     .then(data=> setPatSate(data.query))
   },[idReserva])
 
- 
-
 let count =0
 for(let i =0;i<payState?.length;i++){
     if((payState[i].Tipo_persona =="empresa")){

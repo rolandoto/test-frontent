@@ -49,12 +49,14 @@ import Checkingn3 from "./page-resesion/checking3";
 import DetailnformeStore from "./page/InformeStore/DetailnformeStore";
 import InformeAccountEarrings from "./page-resesion/Informes/InformeAccount";
 import InformeAccount from "./page-resesion/Informes/InformeAccount";
+import TableStore from "./component/DetailStore/TableStore";
+import DetailStoreById from "./component/DetailStore/DetailStoreById";
 
 function App() {
   const { jwt } = useContext(AutoProvider);
 
-  const val = jwt ? jwt.result.id_permissions : 1;
-
+  const val = 1
+    
   if (val == 1) {
     return (
       <div>
@@ -110,6 +112,12 @@ function App() {
                 exact
                 path="/checkingin3/:id"
                 component={Checkingn3}
+              />
+
+              <PrivateRoute
+                exact
+                path="/detailById/:id"
+                component={DetailStoreById}
               />
               <PrivateRoute exact path="/imbox" component={MinImbox} />
               <PrivateRoute exact path="/Detailinforme/:id" component={DetailnformeStore} />
@@ -227,7 +235,7 @@ function App() {
               />
 
 
-<PrivateRoute
+                <PrivateRoute
                 exact
                 path="/informeAccount"
                 component={InformeAccount}

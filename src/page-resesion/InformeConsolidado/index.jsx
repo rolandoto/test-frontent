@@ -540,6 +540,8 @@ const FacturaCompany  =({jwt,roomBusy,roomSell,efectivoTotal,otrosMedios,dolares
 
     const totalCount = count +  totalTienda
 
+    const totalDefinido =valEfectivo + valOtherMedios
+
     return (
      <>
       <div className="container-pdf-flex"  ref={componentRef} >
@@ -584,7 +586,7 @@ const FacturaCompany  =({jwt,roomBusy,roomSell,efectivoTotal,otrosMedios,dolares
                             <th> <div className="container-block-informe-conslidado"> <span  className="text-font-wei-one-informe" > Efectivo total: : </span> <span  className="text-font-wei-one-informe" >${valEfectivo.toLocaleString()}</span></div> </th>
                             <th> <div className="container-block-informe-conslidado"> <span  className="text-font-wei-one-informe" > Otros medios::</span> <span  className="text-font-wei-one-informe" >$ {valOtherMedios.toLocaleString()}</span> </div> </th>
                             <th > <div className="container-block-informe-conslidado"> <span  className="text-font-wei-one-informe" > Dolares/Euros en pesos:</span  > <span  className="text-font-wei-one-informe" >{dolarespesos.toLocaleString()}</span> </div> </th>
-                            <th > <div className="container-block-informe-conslidado"> <span className="text-font-wei-one-informe"  > Ingreso Total:    :</span> <span  className="text-font-wei-one-informe" >${totalCount.toLocaleString()}</span> </div> </th>
+                            <th > <div className="container-block-informe-conslidado"> <span className="text-font-wei-one-informe"  > Ingreso Total:    :</span> <span  className="text-font-wei-one-informe" >${totalDefinido.toLocaleString()}</span> </div> </th>
                         </tr>
                     </table>
 

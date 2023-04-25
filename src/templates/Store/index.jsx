@@ -42,8 +42,8 @@ const StoreTemplate =({Store}) =>{
             "https://github.com/rolandoto/image-pms/blob/main/1_Mesa-06.png?raw=true",
         } ,
         {
-          id: 4,
-          itemId: "Drogueria",
+          id:4,
+          itemId: "Aseo p.",
           name: "Aseo p.",
           imgSrc:
             "https://github.com/rolandoto/image-pms/blob/main/1-04-removebg-preview.png?raw=true",
