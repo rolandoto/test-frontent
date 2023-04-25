@@ -55,7 +55,7 @@ import DetailStoreById from "./component/DetailStore/DetailStoreById";
 function App() {
   const { jwt } = useContext(AutoProvider);
 
-  const val = jwt ?jwt.result.id_departamento : 1
+  const val = jwt ?jwt.result.id_permissions : 1
     
   if (val == 1) {
     return (
