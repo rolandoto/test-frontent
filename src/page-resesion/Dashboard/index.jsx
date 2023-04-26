@@ -301,21 +301,27 @@ const Dashboard = (props) => {
 		const handleMouseLeave = () => {
 		  setShowInfo(false);
 		};
-		let colorWords = item.state === 2 ? "white" : "black"
+
+		let colorWords 
 
 		let valo =false
 
 		let color;
 		if (item.state === 0) {
 		  color = '#FF9990';
+		  colorWords="black"
 		} else if (item.state === 1) {
 		  color = '#E9C9FF';
+		  colorWords="black"
 		} else if (item.state === 2) {
 		  color = '#747171';
+		  colorWords="white"
 		} else if (item.state === 3) {
-		  color = '#C2DEE5';
+		  color = 'rgb(103 183 90)';
+		  colorWords="white"
 		} else if (item.state === 4) {
 		  color = '#0DC034';
+		  colorWords="black"
 		}
 
 		const key = `${item.id}_${item.id}_schedule`;
@@ -726,9 +732,41 @@ const Dashboard = (props) => {
 	if(!reservation)return null
 	if(!totalDay) return null
 	return (
-		<>
+		<> 
+		  <ul className="border-icon"  >
+					<div className="state-type" >
+						<li  className="imbox-color"> </li>
+						<span className="margin-let-rig"  >Check out</span>
+					</div>
+					
+					<div className="state-type" >
+						<li  className="imbox-color-one"> </li>
+						<span className="margin-let-rig" >Reserva</span>
+					</div>
+
+					<div className="state-type" >
+						<li  className="imbox-color-three"> </li>
+						<span className="margin-let-rig" >Check in</span>
+					</div>
+
+					<div className="state-type" >
+						<li  className="imbox-color-four	"> </li>
+						<span className="margin-let-rig" >Asear</span>
+					</div>
+
+					<div className="state-type" >
+						<li  className="imbox-color-five"> </li>
+						<span className="margin-let-rig" >Bloqueada</span>
+					</div>
+
+				</ul>
 			<div className="container-calender">
+			
 				<div className="container-button" >
+
+				<div>
+				
+			</div>
 					<button className='button-reservas' onClick={handClickReservaction} ><div className="flex-index-reservation" ><VscVerified fontSize={18} className="flex-contant" color="white"  /><span>Crear reserva</span></div></button>
 					<button className='button-reservas-type-one-two' onClick={handChecking} ><div className="flex-index-reservation"><VscSymbolEvent fontSize={18} className="flex-contan"  color="white" /><span>Wolking   </span> <span className="pay-checkout-pago-pagado-One-two">Nuevo</span> </div></button>
 					<button className='button-reservas-type-one-one'><div className="flex-index-reservation" ><VscSignOut className="flex-contan"  color="white" fontSize={18}  /><span>Check out </span> </div> </button>
@@ -774,6 +812,9 @@ const Dashboard = (props) => {
 					</button>	
 				</div>
 			</div>
+
+
+		
 			
 			<ModalSate 	
 						handChangeTypeRoomOne={handChangeTypeRoomOne}

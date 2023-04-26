@@ -10,7 +10,7 @@ import { useReactToPrint } from "react-to-print";
 import ServiceResolution from "../../service/serviceResolution";
 import UsePrice from "../../hooks/UsePrice";
 
-const Invoince =({resultDashboard=[],carts=[],dataCount,setInvoice,priceCart,client,identification,raiting,handLoading,loading,handLoadingOne,sinIvaCart,tienda,handSubmitInsertCartOne}) =>{
+const Invoince =({resultDashboard=[],carts=[],dataCount,setInvoice,priceCart,client,identification,raiting,handLoading,loading,handLoadingOne,sinIvaCart,tienda,handSubmitInsertCartOne,hancCheckout}) =>{
         
     const dispatch  = useDispatch()
     const t= moment().format();   
@@ -76,7 +76,7 @@ const Invoince =({resultDashboard=[],carts=[],dataCount,setInvoice,priceCart,cli
      const handAll =() =>{
         handLoading()
         setIvo(true)
-       
+        hancCheckout()
        
 
         setTimeout(()  =>{

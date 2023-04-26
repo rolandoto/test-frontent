@@ -373,9 +373,67 @@ hr.border {
   font-size: 12px;
   margin-left: 7px;
   position: absolute;
-  top: 87px;
+  top: 123px;
   /* left: 966px; */
   padding: 3px;
   /* right: 1060px; */
   margin-right: -167px;
+}
+
+.imbox-color{
+  width: 29px;
+  height: 29px;
+  background-color: #e9cfff;
+  border-radius: 8px;
+}
+
+.imbox-color-one{
+  width: 29px;
+  height: 29px;
+  background-color: #f19e94;
+  border-radius: 8px;
+}
+
+.imbox-color-three{
+  width: 29px;
+  height: 29px;
+  background-color: #49be36;
+  border-radius: 8px;
+}
+
+.imbox-color-four{
+  width: 29px;
+  height: 29px;
+  background-color: #d7265b;
+  border-radius: 8px;
+}
+
+.imbox-color-five{
+  width: 29px;
+  height: 29px;
+  background-color: #727171;
+  border-radius: 8px;
+}
+
+.border-icon{
+  display: flex;
+    justify-content: space-around;
+    width: 504px;
+    margin: auto;
+    position: relative;
+    left: -495px;
+}
+
+.state-type{
+  display: flex;
+  align-items: initial;
+}
+
+.margin-let-rig{
+  margin-left: 5px;
+  font-size: 12px;
+  display: flex;
+  align-items: baseline;
+  padding-top: 4px;
+
 }

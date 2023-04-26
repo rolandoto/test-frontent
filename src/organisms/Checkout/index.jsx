@@ -17,6 +17,8 @@ import { VscVerified,VscSymbolEvent ,VscSignOut,VscSearch,VscRecord} from "react
 import ServiceResolution from "../../service/serviceResolution"
 import { confirmAlert } from "react-confirm-alert"; // Import
 import Swal from 'sweetalert2'
+import { CiUser ,CiShop,CiBank } from "react-icons/ci";
+
 
 const CheckoutOrganism =({DetailDashboard}) =>{
 
@@ -118,8 +120,8 @@ const CheckoutOrganism =({DetailDashboard}) =>{
     const Drogueria  = data?.filter(index => index.ID_Categoria ==4)    
     const Adultos  = data?.filter(index => index.ID_Categoria ==5)    
     const Lenceria  = data?.filter(index => index.ID_Categoria ==6)    
+    const Servicio  = data?.filter(index => index.ID_Categoria ==7)    
 
-   
 
     const priceBebidas = bebidas?.reduce((acum,current) => {
         return acum  +  current.Precio
@@ -145,14 +147,14 @@ const CheckoutOrganism =({DetailDashboard}) =>{
         return acum  + parseInt(current.Precio)
     },0)
 
-    
-    
-    console.log(priceBebidas)
+    const priceServicio = Servicio?.reduce((acum,current) => {
+        return acum  + parseInt(current.Precio)
+    },0)
 
-    const totalStore = priceLenceria+priceAdultos+priceDrogueria+priceSouvenir+priceSnacks+priceBebidas
+    
+    const totalStore = priceLenceria+priceAdultos+priceDrogueria+priceSouvenir+priceSnacks+priceBebidas+ priceServicio
 
  
-
     const totalObject = totalStore ? totalStore.toLocaleString() :0
 
     /**
@@ -399,9 +401,6 @@ const CheckoutOrganism =({DetailDashboard}) =>{
         })
     }
     
-
-    console.log({"buscado":preSearchFilter})
-    
     const [query,setQuery] = useState()
 
     useEffect(() =>{
@@ -410,7 +409,7 @@ const CheckoutOrganism =({DetailDashboard}) =>{
         .then(data=> setQuery(data?.query))
     },[])
 
-    console.log(query)
+    
 
     const handCloseInvoince =() =>{
         setInvoice(false)
@@ -453,8 +452,6 @@ const CheckoutOrganism =({DetailDashboard}) =>{
     }
 
     const filterSearch = searchFilter?.find(index => index.id == filterFinish)
-
-    console.log(filterSearch)
     
     const findPersona =  resultDashboard.tipo_persona == "persona"
     const findEmpresa = resultDashboard.tipo_persona =="empresa"  
@@ -498,9 +495,7 @@ const CheckoutOrganism =({DetailDashboard}) =>{
         setLoading(false)
     }
 
-
     const  dataCount = to?.find(index => index.ID === 1)
-
 
     useEffect(()  =>{
         fetch(`${config.serverRoute}/api/resecion/resolucion`)
@@ -508,11 +503,30 @@ const CheckoutOrganism =({DetailDashboard}) =>{
         .then(data => setTo(data?.query))
     },[])
 
-
     const handUpdateStatus =() =>{
+      const  adeudado =  parseInt(resultDashboard.valor_abono)
+      const pago = parseInt(resultDashboard.valor_pago)
+
+      if(adeudado >= pago){
+        handOpenInvoince()
+       
+      }else{
+        Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: '<p>Habitacion adeudada</p>',
+            showConfirmButton: false,
+            timer: 2000
+          })
+          
+      }
+       
+    }
+
+    const hancCheckout =() => {
         ServiceStatus({id,ID_Tipo_Estados_Habitaciones:1}).then(index=>{
             ServiceResolution({Resolucion:dataCount.Resolucion+1}).then(index=>{
-                window.location.href = "/home"
+                
             }).catch(e =>{
                 console.log(e)
             })
@@ -544,7 +558,6 @@ const CheckoutOrganism =({DetailDashboard}) =>{
     const totalIva = numOne + Iva +resultNum
     
     const validFilterSearch =  filterSearch?.id ==5 ? numOne  +resultNum : totalIva
-
 
     const valorTotalIva = totalIva.toLocaleString();
     const formatoIva = Iva.toLocaleString();
@@ -639,6 +652,8 @@ const CheckoutOrganism =({DetailDashboard}) =>{
           });
     }
 
+    console.log(resultDashboard)
+
     if(findEmpresa)
     return (
         <>     
@@ -691,6 +706,7 @@ const CheckoutOrganism =({DetailDashboard}) =>{
                                             </ul>
                                     </section>
                                 ))}
+                                
                                 </div>
                                 <div className="container-store-checkout" >
                                  <div className="container-store-checkout" >
@@ -715,16 +731,20 @@ const CheckoutOrganism =({DetailDashboard}) =>{
                                         <li className="totalPricecheckout-two negrita" >Telefono:</li>             
                                     </ul>                 
                                 </div>
+                                <CiUser  className="ri-icon-user-One-two-two "  fontSize={70}   color="black"  />    
                                 <div>
                                     <ul>
                                         <li className="totalPricecheckout-two" >{filterSearch?.direccion_people}</li>   
                                         <li className="totalPricecheckout-two" >{filterSearch?.number_people}</li>                      
-                                    </ul>                 
+                                    </ul>  
+                                                
                                 </div>
+                             
                             </div>
+                           
                         </div>
 
-
+                      
                         <div className="container-checkout-border" >
                             <div className="container-store-checkout-three" >
                                     <div className="ub" >
@@ -753,18 +773,21 @@ const CheckoutOrganism =({DetailDashboard}) =>{
                                     </div>
                                     
                                     <div>
+                                        
                                         <ul>
                                             <li>
                                            
                                           </li>
+                                          
                                             <li>
+
                                             <div className="to-hospedaje" >
                                                 <span  >Hospedaje hotel</span>
                                             </div>
                                           
                                             <span className="no-price" >$</span>        <span className="price-store" >{formattedNum} <span className="no-price" > COP</span>  </span> 
 
-
+                                            <CiBank className="ri-icon-user-One"  fontSize={70}   color="black"  />   
                                             {filterSearch?.id !=5  ? 
                                             <div className="to-hospedaje-one" >
                                                 <span className="negrita"  >Sub total: </span> <span> {formattedNum}</span> 
@@ -789,8 +812,6 @@ const CheckoutOrganism =({DetailDashboard}) =>{
                                         </ul>  
                                     </div>
                             </div>
-
-
                 </div>
 
               <div className="container-checkout-border" >
@@ -809,7 +830,8 @@ const CheckoutOrganism =({DetailDashboard}) =>{
                                         <li className="totalPricecheckout" >${priceSouvenir ?priceSouvenir :0}</li>           
                                         <li className="totalPricecheckout" >${priceDrogueria ?priceDrogueria:0}</li>   
                                         <li className="totalPricecheckout" >${priceAdultos ?priceAdultos :0}</li>   
-                                        <li className="totalPricecheckout" >${priceLenceria ?priceLenceria :0}</li>                
+                                        <li className="totalPricecheckout" >${priceLenceria ?priceLenceria :0}</li>       
+                                        <li className="totalPricecheckout" >${priceServicio ?priceServicio :0}</li>                
                                     </ul>  
                                 </div>
 
@@ -840,13 +862,13 @@ const CheckoutOrganism =({DetailDashboard}) =>{
                                                 
                                                 <span className="no-price" >$</span><span className="price-store" >{totalObject} <span className="no-price" >COP</span>  </span>
                                           </li>
-                                          
+                                          <CiShop  className="ri-icon-user-Two"  fontSize={70}   color="black"   />   
                                         </ul>  
                                     </div>
                             </div>   
                     </div>
             <div className="container-store-checkout-two">
-                <div className="container-flex-buttton-checkout" >    
+                    <div className="container-flex-buttton-checkout" >    
                             <div className="button-checkout" onClick={handSendFactura} >
                                 <button>Check out y enviar factura electronica</button>
                             </div>
@@ -891,8 +913,8 @@ const CheckoutOrganism =({DetailDashboard}) =>{
                                         raiting={pagoInvoince}
                                         loading={loading}
                                         handLoading={handLoading}
-                                        handLoadingOne={handLoadingOne} />
-                            }
+                                        handLoadingOne={handLoadingOne}
+                                        hancCheckout={hancCheckout} />}
 
         {loading ? null  :            
              <div className="container-flex-init-global" >
@@ -953,8 +975,9 @@ const CheckoutOrganism =({DetailDashboard}) =>{
                                     </div>
                                     
                                 </div>
+                                <CiUser  className="ri-icon-user"  fontSize={70}   color="black"  /> 
                             </div>
-                          
+
                 <div className="container-checkout-border" >
                             <div className="container-store-checkout-three" >
                                     <div className="op">
@@ -991,6 +1014,8 @@ const CheckoutOrganism =({DetailDashboard}) =>{
                                             <span className="no-price" >$</span>  <span className="price-store" >{formattedNum} <span className="no-price" >COP</span>  </span>
                                           </li>
 
+                                         
+                                          <CiBank className="ri-icon-user-One"  fontSize={70}   color="black"  />    
                                         {resultDashboard.Iva ==1 && <div>                                          
                                           <div className="to-hospedaje-one" >
                                                 <span className="negrita"  >Sub total: </span> <span> {formattedNum}</span> 
@@ -1007,8 +1032,10 @@ const CheckoutOrganism =({DetailDashboard}) =>{
 
                                           
                                         </ul>  
-                                    </div>
-                            </div>
+                                        
+                                    </div>  
+                        </div>
+                       
                 </div>
 
                 <div className="container-checkout-border" >
@@ -1027,7 +1054,8 @@ const CheckoutOrganism =({DetailDashboard}) =>{
                                             <li className="totalPricecheckout" >${priceSouvenir ?priceSouvenir :0}</li>           
                                             <li className="totalPricecheckout" >${priceDrogueria ?priceDrogueria:0}</li>   
                                             <li className="totalPricecheckout" >${priceAdultos ?priceAdultos :0}</li>   
-                                            <li className="totalPricecheckout" >${priceLenceria ?priceLenceria :0}</li>                
+                                            <li className="totalPricecheckout" >${priceLenceria ?priceLenceria :0}</li>    
+                                            <li className="totalPricecheckout" >${priceServicio ?priceServicio :0}</li>                
                                         </ul>                 
                                     </div>
                                             <hr className="row-hr" />
@@ -1048,6 +1076,7 @@ const CheckoutOrganism =({DetailDashboard}) =>{
                                     
 
                                     <div>
+                                  
                                         <ul>
                                              <li>
                                            
@@ -1059,13 +1088,15 @@ const CheckoutOrganism =({DetailDashboard}) =>{
                                           
                                             <span className="no-price" >$</span><span className="price-store" >{formatteOne =="NaN"?0:formatteOne} <span className="no-price" >COP</span>  </span>
                                           </li>
-                                          
+                                          <CiShop  className="ri-icon-user-Two"  fontSize={70}   color="black"   />   
                                         </ul>  
                                     </div>
+                                    
                             </div>
+                           
                 </div>
             
-               
+            
             <div className="container-store-checkout-two" >
         
 
@@ -1075,16 +1106,18 @@ const CheckoutOrganism =({DetailDashboard}) =>{
             <div className="container-checkout-border-one" >
             
             </div>
-            <div className="container-flex-buttton-checkout-One" >
-            <div className="button-checkout-three" onClick={handOpenInvoince} >
-                    <button>Imprimir factura POS</button>
+           
+
+            <div className="container-store-checkout-two" onClick={handClickCheckout} >
+                <div className="container-flex-buttton-checkout" >    
+                        <div className="button-checkout-one-one"  >
+                            <div className="inke-in" > 
+                                <img width={20} className="ro-img"  src="https://medellin47.com/ico_pms/qout.svg" alt="" /> <span> Check out </span> 
+                            </div>
+                        </div>
                 </div>
-                <div className="button-checkout-two-finally" onClick={handClickCheckout}  >
-                <span className="title-button"  > <div className="inke-in" > <img width={25} className="ro-img"  src="https://medellin47.com/ico_pms/qout.svg" alt="" /> <span> Check out </span> 
-                                            </div></span>
-                </div>  
             </div>
-               
+
         {comprobante &&  <Factura Room={resultFinish}
                     Valor_dia_habitacion={resultDashboard}
                     resultFinish={resultFinish}

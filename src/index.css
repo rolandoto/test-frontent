@@ -1186,3 +1186,24 @@ td {
 .table-color-color{
   width: 11px !important;
 }
+
+
+.ri-icon-user{
+    color: gray;
+    position: relative;
+    left: 450px;
+}
+
+
+.ri-icon-user-One{
+  position: relative;
+    left: 639px;
+    top: -69px;
+}
+
+.ri-icon-user-Two{
+  color: gray;
+  position: relative;
+  left: 670px;
+}
+
