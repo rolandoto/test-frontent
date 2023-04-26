@@ -517,10 +517,8 @@ const CheckoutOrganism =({DetailDashboard}) =>{
             title: '<p>Habitacion adeudada</p>',
             showConfirmButton: false,
             timer: 2000
-          })
-          
+          })   
       }
-       
     }
 
     const hancCheckout =() => {
@@ -591,7 +589,7 @@ const CheckoutOrganism =({DetailDashboard}) =>{
                     /* Read more about handling dismissals below */
                     if (result.dismiss === Swal.DismissReason.timer) {
                       console.log('I was closed by the timer')
-                      handUpdateStatus()
+                      hancCheckout()
                     }
                   })
                
@@ -599,7 +597,7 @@ const CheckoutOrganism =({DetailDashboard}) =>{
                 console.log(index)
             }).catch(e => {
                 setFactura(false)
-              
+                console.log(e)
             }) 
         }else{
             Swal.fire({
