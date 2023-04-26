@@ -437,3 +437,17 @@ hr.border {
   padding-top: 4px;
 
 }
+
+.icon-state-reservation{
+  display: flex;
+    align-items: center;
+}
+
+.wi-img-icon{
+  width: 20px;
+  height: 10px;
+} 
+
+.margin-icon-state{
+  margin-right: 3px;
+}

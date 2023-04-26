@@ -43,6 +43,7 @@ import ServiceAllTotalReservation from "../../service/ServiceAllTotalReservation
 import ModalBlock from "../../organisms/Modals/Block";
 import { confirmAlert } from "react-confirm-alert";
 import { Button, Modal } from 'react-bootstrap';
+import { GiBroom } from "react-icons/gi";
 
 const Info = styled(ReactTooltip)`
   max-width: 500px  !important;
@@ -259,7 +260,8 @@ const Dashboard = (props) => {
 	}
   
 	const { onCanvasClickParentUpdate } = props;
-    const currentDate = moment().locale("es")
+
+	const currentDate = new moment();
 
 	const isWeekendDay = (intervalContext, data) => {
 		if (data.isMonth) {
@@ -303,6 +305,7 @@ const Dashboard = (props) => {
 		};
 
 		let colorWords 
+		let iconState
 
 		let valo =false
 
@@ -313,6 +316,7 @@ const Dashboard = (props) => {
 		} else if (item.state === 1) {
 		  color = '#E9C9FF';
 		  colorWords="black"
+		  iconState= <GiBroom fontSize={13} color="black"  /> 
 		} else if (item.state === 2) {
 		  color = '#747171';
 		  colorWords="white"
@@ -351,10 +355,7 @@ const Dashboard = (props) => {
 		  >
 			<div
 			  className="itemModal"
-			  style={{
-				left: 'left',
-				right: 'right',
-			  }}
+			  
 			></div>
 	  
 			<div
@@ -363,12 +364,16 @@ const Dashboard = (props) => {
 				left: '0',
 				display: 'inline-block',
 				overflow: 'hidden',
-				padding: '0 1rem',
+				padding: '0 1x',
 				textOverflow: 'ellipsis',
 				whiteSpace: 'nowrap',
 			  }}
 			>
-			 	{itemContext.title}
+			   <div className="icon-state-reservation" >
+			   		<span className="margin-icon-state" >{iconState}</span>
+			  		<span>{itemContext.title}</span>
+			   </div>
+
 				<div>
 						<Info  	place="top" 
 								variant="info" 
@@ -812,9 +817,6 @@ const Dashboard = (props) => {
 					</button>	
 				</div>
 			</div>
-
-
-		
 			
 			<ModalSate 	
 						handChangeTypeRoomOne={handChangeTypeRoomOne}
@@ -837,8 +839,8 @@ const Dashboard = (props) => {
 				groups={search}
 				items={ pruebareservas}
 				onItemSelect={(e) =>console.log("select")}
-				defaultTimeStart={moment().startOf("day").add(-8, "day")}
-				defaultTimeEnd={moment().startOf("day").add(10, "day")}
+				defaultTimeStart={moment().startOf("day").add(-2, "day")}
+				defaultTimeEnd={moment().startOf("day").add(13, "day")}
 				maxZoom={100}
 				stackItems
 				itemHeightRatio={0.9}                                                             
@@ -849,20 +851,26 @@ const Dashboard = (props) => {
 				canMove={true}>
 				<TimelineHeaders className="list-booking-sticky"  >
 					<SidebarHeader />
+
+					<TimelineMarkers>
+					<TodayMarker interval={1000 * 60 * 60 * 24} />
+					<CursorMarker />
+					</TimelineMarkers>
 					<DateHeader
 						unit="MONTH"
 						labelFormat="MMMM"
 						headerData={{ isMonth: false}}
-						defaultTimeStart={moment().startOf("day").add(-8, "day")}
-						defaultTimeEnd={moment().startOf("day").add(10, "day")}
+						defaultTimeStart={moment().startOf("day")}
+						defaultTimeEnd={moment().startOf("day")}
 						intervalRenderer={intervalRenderer}
 					/>
 					<DateHeader
 						unit="day"
 						labelFormat="D"
-						headerData={{ isMonth: false, currentDate, }}
-						intervalRenderer={ intervalRendererdayNum}
-					/>
+						headerData={{ isMonth: false }}
+						intervalRenderer={intervalRendererdayNum}
+						className={moment().isSame(currentDate, 'day') ? 'today' : ''}
+						/>
 					<DateHeader
 						unit="day"
 						labelFormat="ddd"
