@@ -417,11 +417,11 @@ hr.border {
 
 .border-icon{
   display: flex;
-    justify-content: space-around;
-    width: 504px;
-    margin: auto;
-    position: relative;
-    left: -495px;
+  justify-content: space-around;
+  width: 504px;
+  margin: auto;
+  position: relative;
+  left: -495px;
 }
 
 .state-type{
@@ -435,7 +435,6 @@ hr.border {
   display: flex;
   align-items: baseline;
   padding-top: 4px;
-
 }
 
 .icon-state-reservation{
@@ -450,4 +449,35 @@ hr.border {
 
 .margin-icon-state{
   margin-right: 3px;
+}
+
+.today {
+  margin: -10px 0 0 0;
+  background-color:#eb6b7f!important;
+  border-radius:  8px 8px 0 0  ;
+}
+
+.todayOne {
+  background-color: #eb6b7f !important ;
+  margin: -10px 0 0 0;
+  z-index: 1000 !important;
+}
+
+.todayOne {
+  position: relative;
+  padding: 10px;
+  background-color: #f0f0f0;
+  z-index: 1000 !important;
+}
+
+.todayOne::before {
+  content: "";
+  position: absolute;
+  bottom: -16px; /* Coloca el triángulo debajo de la caja */
+  left: 50%; /* Centra el triángulo horizontalmente */
+  transform: translateX(-50%); /* Ajusta la posición del triángulo */
+  border-width: 10px;
+  border-style: solid;
+  border-color: #eb6b7f transparent transparent transparent; /* Establece el color del triángulo y hace transparente los demás bordes */
+  z-index: 1000 !important;
 }

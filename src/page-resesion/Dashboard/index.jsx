@@ -400,13 +400,20 @@ const Dashboard = (props) => {
 	  };
 
 
-	const intervalRendererdayNum= ({ intervalContext, getIntervalProps, data }) => {
+	const intervalRendererdayNum= ({ getIntervalProps, intervalContext ,data }) => {
+
+
+		const label = intervalContext.intervalText;
+		const currentDate = moment().startOf("day");
+		const isToday = moment(label, "D").isSame(currentDate, "day");
+
 		return (
-		<div
+			<div
 			{...getIntervalProps()}
-			className={`rct-dateHeader ${
+			className={`day-num ${isToday ? "today" : ""}   rct-dateHeader ${
 			data.isMonth ? "rct-dateHeader-primary" : ""
 			}`}
+
 			onClick={() => {
 				return false;
 			}}>
@@ -423,42 +430,47 @@ const Dashboard = (props) => {
 				zIndex:1
 			}}
 			>
-			{intervalContext.intervalText}
+			{label}
 			</span>
 		</div>
 		);
-	}
+			}
 
-	const intervalRendererday = ({ intervalContext, getIntervalProps, data }) => {
-		return (
-		<div
-			{...getIntervalProps()}
-			className={`rct-dateHeader ${
-			data.isMonth ? "rct-dateHeader-primary" : ""
-			}`}
-			onClick={() => {
-				return false;
-			}}>
-			<span
-			style={{
-				position:"relative",
-				margin: "auto",
-				padding: "0 50rem",
-				textTransform: "capitalize",
-				color: "#b3aca7",
-				fontWeight:"100",
-				fontSize:"13px",
-				textAlign:"center",
-				left:"20px",
-				top:"-9px",
-				zIndex:1
-			}}
-			>
-			{intervalContext.intervalText}
-			</span>
-		</div>
-		);
-	}
+	
+			const intervalRendererday = ({ getIntervalProps, intervalContext, data }) => {
+				const label = intervalContext.intervalText;
+				const currentDate = moment().startOf("day");
+				const isToday = moment(label, "dddd D").isSame(currentDate, "day");
+				const isWeekend = moment(label, "dddd D").isoWeekday() >= 6; // 6 = sábado, 7 = domingo
+				return (
+				  <div
+					{...getIntervalProps()}
+					className={`day-num ${isToday ? "todayOne" : ""} ${
+					  isWeekend ? "weekend" : ""
+					} rct-dateHeader ${data.isMonth ? "rct-dateHeader-primary" : ""}`}
+				  >
+					<span
+					  style={{
+						position: "relative",
+						margin: "auto",
+						padding: "0 50rem",
+						textTransform: "capitalize",
+						color: "#b3aca7",
+						fontWeight: "100",
+						fontSize: "13px",
+						textAlign: "center",
+						left: "4px",
+						top: "-9px",
+						zIndex: 1,
+					  }}
+					>
+					  {intervalContext.intervalText}
+					</span>
+				  </div>
+				);
+			  };
+			  
+
 
 	const intervalRenderer = ({ intervalContext, getIntervalProps, data }) => {
 		return (
@@ -730,6 +742,11 @@ const Dashboard = (props) => {
 		}
 	  };
 
+
+	  const nowOne = new Date(2023, 4, 1, 3, 10);
+
+	console.log({"fecha de hoy":currentDate})
+
 	if(loadingSkeleto) return Skele()
 	if(!pruebareservas) return null
 	if(!search)  return null
@@ -839,8 +856,8 @@ const Dashboard = (props) => {
 				groups={search}
 				items={ pruebareservas}
 				onItemSelect={(e) =>console.log("select")}
-				defaultTimeStart={moment().startOf("day").add(-2, "day")}
-				defaultTimeEnd={moment().startOf("day").add(13, "day")}
+				defaultTimeStart={moment().startOf("day").add(-3, "day")}
+				defaultTimeEnd={moment().startOf("day").add(14, "day")}
 				maxZoom={100}
 				stackItems
 				itemHeightRatio={0.9}                                                             
@@ -848,14 +865,10 @@ const Dashboard = (props) => {
 				sidebarWidth={180}
 				itemRenderer={  itemRenderer}
 				onItemClick={(itemId, e, time) => onItemClick(itemId, e, time)}
+				now={nowOne}
 				canMove={true}>
 				<TimelineHeaders className="list-booking-sticky"  >
 					<SidebarHeader />
-
-					<TimelineMarkers>
-					<TodayMarker interval={1000 * 60 * 60 * 24} />
-					<CursorMarker />
-					</TimelineMarkers>
 					<DateHeader
 						unit="MONTH"
 						labelFormat="MMMM"
@@ -867,14 +880,13 @@ const Dashboard = (props) => {
 					<DateHeader
 						unit="day"
 						labelFormat="D"
-						headerData={{ isMonth: false }}
+						headerData={{ isMonth: false, currentDate }}
 						intervalRenderer={intervalRendererdayNum}
-						className={moment().isSame(currentDate, 'day') ? 'today' : ''}
 						/>
 					<DateHeader
 						unit="day"
-						labelFormat="ddd"
-						headerData={{ isMonth: true, currentDate, }}
+						labelFormat="dddd"
+						headerData={{ isMonth: false, currentDate, }}
 						intervalRenderer={intervalRendererday}
 					/>
 				</TimelineHeaders>
