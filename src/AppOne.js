@@ -1,6 +1,6 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-
+import { VscVerified,VscSymbolEvent ,VscSignOut,VscSearch,VscRecord} from "react-icons/vsc";
 
 const btnStyle = {
 	height: "15mm",
@@ -263,8 +263,9 @@ class AppONe extends React.Component {
                 <div>
                     
 						<div>
-								<div className="checkin2"  >
-                                    <button  onClick={() => window.location.href="/home"}  >Finalizar Check in</button>
+								<div className="checkin2  "  >
+                                    <button  onClick={() => window.location.href="/home"}  >  <div className='row-checking-contracto' > <VscSymbolEvent fontSize={18} className="flex-contan"  color="white" />   <span>Finalizar Check in</span> 
+																							</div> </button>
                                 </div>
 							<div style={textStyle}>
 								<ChkBoxDisplayWizard ref={ChkBoxDisplayWizard => { window.ChkBoxDisplayWizard = ChkBoxDisplayWizard }}/>

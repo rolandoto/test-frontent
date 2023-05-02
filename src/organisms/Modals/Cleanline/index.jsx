@@ -12,6 +12,7 @@ import LoadingDetail from "../../../Ui/LoadingDetail";
 import { config } from "../../../config";
 import ServiceBlockRoom from "../../../service/ServiceBlockByRoom";
 
+
 const ModalCleanLine =({cleanline,hanClickCloseCleanline}) =>{
 
     const [avaible,setAvaible] =useState(null)
@@ -173,7 +174,7 @@ const ModalCleanLine =({cleanline,hanClickCloseCleanline}) =>{
                         
                             <ul className="container-button-dasboard" >
                                 <li>
-                                    <button className="button-CleanLine"    onClick={handClick} >
+                                    <button className="button-CleanLine-One"    onClick={handClick} >
                                        Bloquear Habitacion
                                     </button>
                                 </li> 

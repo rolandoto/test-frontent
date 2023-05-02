@@ -1207,3 +1207,7 @@ td {
   left: 670px;
 }
 
+.row-checking-contracto{
+  display: flex;
+  align-items: center;
+}

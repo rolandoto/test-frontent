@@ -174,7 +174,7 @@ const ModalBlock =({block,handCloseBlock}) =>{
                         
                             <ul className="container-button-dasboard" >
                                 <li>
-                                    <button className="button-Block"  onClick={handClick} >
+                                    <button className="button-Block-One"  onClick={handClick} >
                                        Bloquear Habitacion
                                     </button>
                                 </li> 

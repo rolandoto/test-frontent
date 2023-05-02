@@ -76,6 +76,26 @@ input{
     justify-content: center;
     cursor: pointer;
 }
+
+
+.button-checking-detail-finisOne-finish{
+  border: none;
+  background: #00B712;
+  padding: 20px;
+  width: 530px;
+  border-radius: 8px;
+  color: white !important;
+  height: 48px;
+  align-items: center;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+  position: relative;
+  top: 343px;
+  left: 5px;
+}
+
 .button-checking-detail-finis >a{
   text-decoration: none;
 }
@@ -107,4 +127,14 @@ input{
 
 .pointer{
   cursor: pointer;
+}
+
+
+.contracto-parrafo{
+  width: 54%;
+  font-size: 8.5px;
+  position: relative;
+  top: -1048px;
+  left: 695px;
+  text-align: justify;
 }

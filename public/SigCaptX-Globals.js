@@ -55,7 +55,7 @@ var padType =
 
 var buttonFunction =
 {
-  PREVIOUS: "PREVIOUS",
+  PREVIOUS: "ATRAS",
   CANCEL:   "CANCEL"
 };
 
@@ -79,11 +79,11 @@ var checkSize =
 
 var padColors =
 {
-   BLUE: "0R 0G 0.8B",
+   BLUE: "0R 0G 0B",
    GREEN: "0R 0.8G 0B",
    BLACK: "0R 0G 0B",
    WHITE: "1R 1G 1B",
-   PURPLE: "0.7R 0.3G 1B",
+   PURPLE: "0R 0G 0B",
    RED: "0.6R 0G 0.2B"
 };
 
@@ -96,10 +96,10 @@ var textSource = {
 
 var buttonEvent =
 {
-  NEXT: "Next",
+  NEXT: "Proximo",
   CHECK: "Check",
-  CANCEL: "Cancel",
-  CLEAR:  "Clear",
+  CANCEL: "Cancelar",
+  CLEAR:  "Limpiar",
   OK:     "OK"
 };
 
