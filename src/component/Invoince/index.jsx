@@ -17,6 +17,7 @@ const Invoince =({resultDashboard=[],carts=[],dataCount,setInvoice,priceCart,cli
     let today = new Date(t)
     const day = today.toISOString().split('T')[0]
     const [state,setate] =useState(false)
+    const [information,setInformacion] =useState()
     
     const {jwt} = UseUsers()
     let componentRef = useRef();
@@ -84,7 +85,20 @@ const Invoince =({resultDashboard=[],carts=[],dataCount,setInvoice,priceCart,cli
         },600)
      }
 
-    
+
+
+     useEffect(()  =>{
+        fetch(`http://localhost:4000/api/resecion/informationByIdHotel/${jwt.result.hotel}`)
+        .then(resp => resp.json())
+        .then(data =>setInformacion(data))
+        .catch(e  => {
+            console.log(e)
+        }) 
+     },[])
+
+    const searchingHotel =  information?.query?.find(index =>index.id_hotel   == jwt.result.id_hotel )
+
+    console.log(searchingHotel)
    
     if(invo){
         return (
@@ -96,14 +110,14 @@ const Invoince =({resultDashboard=[],carts=[],dataCount,setInvoice,priceCart,cli
                         </div>
                             <div  className="form-login container-invoince-to "> 
                                 <span className="invoince title-invoince-cart" >{jwt.result.hotel}</span>
-                                <span className="invoince title-invoince-cart" >Nit: 900768373-3</span>
-                                <span className="invoince title-invoince-cart" >CR 41A #10-41</span>
-                                <span className="invoince title-invoince-cart" >3053638733</span>
+                                <span className="invoince title-invoince-cart" >Nit: {searchingHotel?.Nit}</span>
+                                <span className="invoince title-invoince-cart" >{searchingHotel?.Direcion}</span>
+                                <span className="invoince title-invoince-cart" >{searchingHotel?.Telefono}</span>
                             
                                 <h6 className="p title-invoince " >GRACIAS POR SU VISITA</h6>
-                                <span className="p title-invoince-cart" >RES DIAN 18764043666304</span>
-                                <span className="p title-invoince-cart  ">Fecha: 2023/01/31</span>
-                                <span className="p title-invoince-cart  ">Resolucion 1001 al 3000</span>
+                                <span className="p title-invoince-cart" >RES DIAN {searchingHotel?.Res_dian}</span>
+                                <span className="p title-invoince-cart  ">Fecha: {moment(searchingHotel?.fecha).utc().format('YYYY/MM/DD')}</span>
+                                <span className="p title-invoince-cart  ">Resolucion {searchingHotel?.Resolucion_initial} al {searchingHotel?.Resolucion_final}</span>
                                 <span className="p title-invoince-cart  ">FACTURA DE VENTA</span>
                                 <span className="p title-invoince-cart  ">FP-{dataCount?.Resolucion}</span>
 

@@ -1013,7 +1013,7 @@ const toPriceNigth = UsePrice({number:resultDashboard?.valor_dia_habitacion})
               </div> 
 
             <div>
-                <input className="button-checking-detail-one-dash" type={"number"}  disabled={findFirma}  placeholder="Abono" onChange={(e) =>setAbono(e.target.value)} />
+                <input className="button-checking-detail-one-dash" type={"number"}  disabled={true}  placeholder="Abono" onChange={(e) =>setAbono(e.target.value)} />
             </div> 
             <div>
                 <button className="button-checking-detail-one-das" > <span> Total cobro {cobrar}  </span></button>

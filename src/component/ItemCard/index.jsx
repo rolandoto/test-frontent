@@ -24,11 +24,14 @@ const ItemCard =({index,handCart}) =>{
                                     <h3 class="itemName">{index.Nombre}</h3>
                             </div>
 
+                          
                             <div className="icon-cantidad" >
-                                    <h4 class="price One-Tienda-Recepcion">{index.Cantidad}</h4>
-                            </div>
+                            {index.Cantidad >=9 ?  <h4 class="price One-Tienda-Recepcion">{index.Cantidad}</h4> :<h4 class="One-Tienda-Recepcion-Two">{index.Cantidad}</h4> }
+                                    
+                            </div>    
+                          
                             <div>
-                                        <h3 class="price"><span>$ </span>{index.Precio}</h3>
+                                        <h3 class="price"><span>$ </span>{index.Precio.toLocaleString()}</h3>
                             </div>
 
                             {index.Cantidad !=0   ? <span>Disponible</span> : <span>No disponible</span>}

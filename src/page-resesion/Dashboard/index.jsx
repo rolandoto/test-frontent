@@ -429,25 +429,43 @@ const Dashboard = (props) => {
 				fontSize:"12px",
 				zIndex:1
 			}}
+			
 			>
 			{label}
 			</span>
 		</div>
 		);
 			}
-
-	
 			const intervalRendererday = ({ getIntervalProps, intervalContext, data }) => {
 				const label = intervalContext.intervalText;
 				const currentDate = moment().startOf("day");
 				const isToday = moment(label, "dddd D").isSame(currentDate, "day");
-				const isWeekend = moment(label, "dddd D").isoWeekday() >= 6; // 6 = sábado, 7 = domingo
+				const isThursday = moment(label, "dddd D").isoWeekday()  // 4 es el código ISO para el jueves
+				const isFirstThursdayOfMonth = moment(label, "dddd D").date()  && isThursday; // Solo renderizar el primer jueves del mes
+
+				const currentDay = moment().format('dddd');
+
+
+				const acum = []
+
+				if(isToday ==true){
+					acum.push(0)
+				}
+
+				let acumlitor = 0
+
+				if(acum.length ==1){
+					acumlitor++;
+				}
+
+				console.log({"acumlitor":intervalContext})
+				
 				return (
 				  <div
 					{...getIntervalProps()}
-					className={`day-num ${isToday ? "todayOne" : ""} ${
-					  isWeekend ? "weekend" : ""
-					} rct-dateHeader ${data.isMonth ? "rct-dateHeader-primary" : ""}`}
+					className={`day-num ${acum.length ==1 ? "todayOne" : ""} rct-dateHeader ${
+					  data.isMonth ? "rct-dateHeader-primary" : ""
+					}`}
 				  >
 					<span
 					  style={{
@@ -464,14 +482,12 @@ const Dashboard = (props) => {
 						zIndex: 1,
 					  }}
 					>
-					  {intervalContext.intervalText}
+					  {label}
 					</span>
 				  </div>
 				);
 			  };
 			  
-
-
 	const intervalRenderer = ({ intervalContext, getIntervalProps, data }) => {
 		return (
 		<div
@@ -886,6 +902,8 @@ const Dashboard = (props) => {
 					<DateHeader
 						unit="day"
 						labelFormat="dddd"
+						defaultTimeStart={moment().startOf("day")}
+						defaultTimeEnd={moment().startOf("day")}
 						headerData={{ isMonth: false, currentDate, }}
 						intervalRenderer={intervalRendererday}
 					/>
