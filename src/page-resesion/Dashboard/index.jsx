@@ -875,7 +875,6 @@ const Dashboard = (props) => {
 				onItemSelect={(e) =>console.log("select")}
 				defaultTimeStart={moment().startOf("day").add(-3, "day")}
 				defaultTimeEnd={moment().startOf("day").add(14, "day")}
-				maxZoom={100}
 				stackItems
 				itemHeightRatio={0.9}                                                             
 				lineHeight={45}
