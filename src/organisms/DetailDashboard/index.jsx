@@ -59,6 +59,9 @@ const DetailDasboard =(props) =>{
      return hotel.id_hotel == jwt.result.id_hotel
     }
 
+    const totalId = jwt.result.id_hotel == 7 ? true : false
+	
+
     const hotel = iduser.find(FindIdHotel)
 
     let countSeguro =0
@@ -1004,6 +1007,9 @@ const toPriceNigth = UsePrice({number:resultDashboard?.valor_dia_habitacion})
                             checked={isChecked} /> Persona
                     
                 </div> 
+
+
+                { totalId  ? null :
               <div className="container-checkbox" >
                       <input   type="checkbox" 
                               className={`checkbox-round  ${isChecke && "checkbox-round-click"} `}
@@ -1011,7 +1017,7 @@ const toPriceNigth = UsePrice({number:resultDashboard?.valor_dia_habitacion})
                               readOnly={true}
                               checked={isChecked}/> Empresa
               </div> 
-
+            }
             <div>
                 <input className="button-checking-detail-one-dash" type={"number"}  disabled={true}  placeholder="Abono" onChange={(e) =>setAbono(e.target.value)} />
             </div> 

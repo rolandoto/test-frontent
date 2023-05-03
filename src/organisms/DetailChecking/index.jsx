@@ -30,6 +30,9 @@ const DetailChekingOrganism =({id}) =>{
     const [stateButton,setStateButton] =useState(false)
     const [documnet,setDocument] = useState()
     const [country,setCountry] =useState()
+
+    const totalId   = jwt.result.id_hotel == 7 ? true : false
+	
     
     useEffect(() =>{
         fetch(`${config.serverRoute}/api/resecion/getdetailchecking/${id}`)
@@ -344,10 +347,16 @@ const DetailChekingOrganism =({id}) =>{
         })
     }
 
+    
+
     let dataTwo ={
         Tipo_persona:tipoPersonas,
-        Iva:change.Iva 
+        Iva:totalId ? 2:change.Iva
     } 
+
+    
+
+    console.log(dataTwo)
 
       const handSubmit =() =>{
             ServiceUpdateReservation({id:resulDetailDashboard.id_persona,data:dataTwo}).then(index =>{
@@ -689,12 +698,14 @@ const DetailChekingOrganism =({id}) =>{
                                 
                             </div> 
 
+                            { totalId  ? null :
                         <div className="container-checkbox" >
                         <input   type="checkbox" 
                                          className={`checkbox-round  ${isChecke && "checkbox-round-click"} `}
                                         onChange={handleOnChanger}
                                         checked={isChecked}/> Empresa
                         </div>
+                        }
 
                         <div className="container-checkbox" >
                         <select onChange={handleInputChange}  

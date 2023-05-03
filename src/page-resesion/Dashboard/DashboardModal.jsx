@@ -397,6 +397,10 @@ const DashboardModal = (props) => {
 
 
 
+        const totalId = jwt.result.id_hotel == 7 ? true : false
+	
+
+
         const [change,setChange] =useState({
             desde:fechaOne,
             hasta:fechaTwo,
@@ -1274,13 +1278,18 @@ const DashboardModal = (props) => {
                                             
                                         </div> 
 
+
+                                        { totalId  ? null :
+                                        
                                         <div className="container-checkbox" >
-                                                <input   type="checkbox" 
-                                                    className={`checkbox-round  ${isChecke && "checkbox-round-click"} `}
-                                                    onChange={handleOnChanger}
-                                                    readOnly={true}
-                                                    checked={isChecked}/> Empresa
-                                        </div> 
+                                        
+                                        <input   type="checkbox" 
+                                            className={`checkbox-round  ${isChecke && "checkbox-round-click"} `}
+                                            onChange={handleOnChanger}
+                                            readOnly={true}
+                                            checked={isChecked}/> Empresa
+                                      </div> }
+                                       
 
 
                                                             <li>

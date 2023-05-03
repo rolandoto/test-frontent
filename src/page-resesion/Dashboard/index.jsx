@@ -109,6 +109,7 @@ const Dashboard = (props) => {
 
 	const timelineRef = useRef(null);
 	const  [totalDay ,setTotalDay] =useState()
+
 	
 	useEffect(() =>{
 		ServiceAllTotalReservation({fecha:now,id:jwt.result.id_hotel}).then(index =>{
