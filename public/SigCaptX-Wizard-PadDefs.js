@@ -135,7 +135,7 @@ function screen_Display1(pad, buttonTextSource)
   this.stepMsg1 = new textObject();
   this.stepMsg1.xPos = "right";
   this.stepMsg1.yPos = 2;
-  this.stepMsg1.textString = "CONTRACTO HOSPEDAJE";
+  this.stepMsg1.textString = "CONTRATO HOSPEDAJE";
   this.stepMsg1.fontName = pad.Font;
 
   this.stepMsg1.fontSize = pad.TextSize;
@@ -255,7 +255,7 @@ function screen_Display2(pad, buttonTextSource)
   this.stepMsg2 = new textObject();
   this.stepMsg2.xPos = "right";
   this.stepMsg2.yPos = 2;
-  this.stepMsg2.textString = "ACEPTACION DE CONTRACTO";
+  this.stepMsg2.textString = "ACEPTACION DE CONTRATO";
   this.stepMsg2.fontName = pad.Font;
   this.stepMsg2.fontSize = pad.TextSize;
   this.stepMsg2.fontForeColor = "";
@@ -527,7 +527,7 @@ function screen_Display3(pad, buttonTextSource)
   this.stepMsg3 = new textObject();
   this.stepMsg3.xPos = "right";
   this.stepMsg3.yPos = 2;
-  this.stepMsg3.textString = "FIRMA CONTRACTO";
+  this.stepMsg3.textString = "FIRMA CONTRATO";
   this.stepMsg3.fontName = pad.Font;
   this.stepMsg3.fontBold = true;
   this.stepMsg3.fontSize = pad.TextSize;
