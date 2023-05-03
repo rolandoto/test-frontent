@@ -4,7 +4,7 @@ import { AiOutlineSafetyCertificate ,AiOutlineShoppingCart} from "react-icons/ai
 import { VscSymbolProperty } from "react-icons/vsc";
 import { BsFileEarmarkCheck,BsHandbag,BsPerson,BsBell,BsPersonCircle } from "react-icons/bs";
 import { BiTaxi } from "react-icons/bi";
-import {Link} from "react-router-dom"
+import {Link, useHistory} from "react-router-dom"
 import { RiHome2Line } from "react-icons/ri";
 import { Avatar, Grid } from "@nextui-org/react";
 import  AutoProvider  from "../../privateRoute/AutoProvider";
@@ -15,6 +15,7 @@ const HeaderRecepcion  =() =>{
 
     const {setJwt} = useContext(AutoProvider)
     const {jwt} = UseUsers()
+    const history = useHistory()
 
     const [user,setUser] = useState(false)
 
@@ -25,8 +26,9 @@ const HeaderRecepcion  =() =>{
     const val = jwt ?jwt.result.id_departamento : 2
 
     const handClose =() =>{
-        sessionStorage.removeItem('jwt')
+        localStorage.removeItem('jwt')
         setJwt(null)
+        history.push("/")
     }
 
     if(!jwt) return null

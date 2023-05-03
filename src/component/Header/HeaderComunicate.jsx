@@ -21,7 +21,7 @@ const HeaderComunicate =() =>{
     }
 
     const handClose =() =>{
-        sessionStorage.removeItem('jwt')
+        localStorage.removeItem('jwt')
         setJwt(null)
     }
 
