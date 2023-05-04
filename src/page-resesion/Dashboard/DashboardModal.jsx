@@ -794,28 +794,28 @@ const DashboardModal = (props) => {
 
         */
 
-    const handClickReservation =() =>{
-        for (let i = 0; i < huespe?.length; i++) {
+
+        useEffect(() =>{
+          for (let i = 0; i < huespe?.length; i++) {
             if (huespe[i]?.Tipo_documento =="" || huespe[i]?.Num_documento =="" || huespe[i]?.Nombre ==""|| huespe[i]?.Apellido ==""|| huespe[i]?.Celular ==""|| huespe[i]?.Correo ==""|| huespe[i]?.Fecha_nacimiento =="" || huespe[i]?.Ciudad ==""|| huespe[i]?.Nacionalidad =="" ) {
                 setLoadingReservation({error:true})
                 setLoadingPersona({habitacion:false})
                 setLoadingPersona({error:false})
-              
             }else{
                 setValid(true)
             }
         }
 
+        },[setHuespe,huespe])
+
+    const handClickReservation =() =>{
         if(valid){
             setLoadingReservation({loading:true})
             ServiceAvaiblereservation({desde:dataAvaible.desde,hasta:dataAvaible.hasta,habitaciones:dataAvaible.habitaciones,disponibilidad:dataAvaible.disponibilidad,id_estados_habitaciones:0,ID_Canal:change.canal_reserva,Adultos:change.adultos,Ninos:change.niños,ID_Talla_mascota:change.talla_perro,Infantes:change.infantes,Noches:ResultDay,huespe,Observacion:change.observacion,valor:totalResultglobal,ID_Tipo_Forma_pago:change.ID_Tipo_Forma_pago,abono:change.abono,valor_habitacion:valor_habiatcion,Tipo_persona:tipoPersonas,valor_dia_habitacion:default_Value}).then(index =>{
-                setTimeout(() => {
                     setLoadingReservation({loading:false}) 
-                }, 5000);
                 window.location.href="/Home"
             }).catch(e =>{
                 setLoadingReservation({error:true})
-               
             })
         }
     }
