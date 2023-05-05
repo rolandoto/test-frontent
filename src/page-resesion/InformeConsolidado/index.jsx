@@ -13,6 +13,7 @@ import UseListMotels from "../../hooks/UseListMotels";
 import { useReactToPrint } from "react-to-print";
 import { useRef } from "react";
 import ServiceInformeGeneral from "../../service/ServiceInformeGeneral";
+import ServiceAuditoria from "../../service/ServiceInformeAuditoria";
 
 const InformeConsolidado = () => {
 
@@ -222,17 +223,175 @@ const InformeConsolidado = () => {
     const handlePrint = useReactToPrint({
         content: () => componentRef.current
     });
+
+
     
+    const [auditoria,setAuditoria] =useState()
+    const [store,setStore] =useState()
+    const [storeOne,setStoreOne] =useState()
+    const [LookinforFecha,setLokinforFecha] =useState()
+    const [loadingOne,setLoadingOne] =useState({loading:false,error:false})
+
+
+    const hadChangeFecha =(e) =>{
+        setLokinforFecha(e.target.value)
+    }
+
+
+    const hanLookingFor =() =>{
+        setLoadingOne({loading:true})
+        ServiceAuditoria({id:jwt.result.id_hotel,fecha:LookinforFecha}).then(index =>{
+            console.log(index)
+            setAuditoria(index.result)
+            setStore(index.queryTwo)
+            setStoreOne(index.queryOne)
+            setLoadingOne({loading:true})
+        }).catch(e =>{
+            setLoadingOne({loading:false})
+            setAuditoria(null)
+        })
+    }
+
+
+    const totalFilterForma = auditoria?.filter(index => index.Tipo_forma_pago ==1)
+
+    const totalFilterFormaStore = store?.filter(index => index.Forma_pago ==1)
+
+    const carritoReserva = storeOne?.filter(index => index.Forma_pago ==1)
+
+
+    const totalFilterFormaDebito = auditoria?.filter(index => index.Tipo_forma_pago ==6)
+
+    const totalFilterFormaStoreDebito= store?.filter(index => index.Forma_pago ==6)
+
+    const carritoReservaDebito = storeOne?.filter(index => index.Forma_pago ==6)
+
+    let countSix =0
+    for(let i =0;i<totalFilterFormaDebito?.length;i++){
+        if((totalFilterFormaDebito[i].Tipo_persona =="empresa")){
+            const totalwith = parseInt(totalFilterFormaDebito[i].abono ) *19/100
+            const total = totalwith + parseInt(totalFilterFormaDebito[i].abono )
+            countSix += total
+        }else  if((totalFilterFormaDebito[i].Iva ==1)){
+            const totalwith = parseInt(totalFilterFormaDebito[i].abono ) *19/100
+            const total = totalwith + parseInt(totalFilterFormaDebito[i].abono )
+            countSix += total
+        } else{
+            countSix += parseInt(totalFilterFormaDebito[i].abono)
+        }
+    }
+
+
+    let countOneSix =0
+    for(let i =0;i<totalFilterFormaStoreDebito?.length;i++){
+        const totalwith = parseInt(totalFilterFormaStoreDebito[i].total ) 
+        countOneSix += totalwith
+    }
+
+    let countTwoSix =0
+    for(let i =0;i<carritoReservaDebito?.length;i++){
+        const totalwith = parseInt(carritoReservaDebito[i].total ) 
+        countTwoSix += totalwith
+    }
+
+
+    console.log(countSix+countOneSix+countTwoSix    )
+
+
+    const totalFilterFormaOne = auditoria?.filter(index => index.Tipo_forma_pago !=1)
+
+    const totalFilterFormaStoreOne = store?.filter(index => index.Forma_pago !=1)
+
+    const carritoReservaONe = storeOne?.filter(index => index.Forma_pago !=1)
+
+
+    let countThree =0
+    for(let i =0;i<totalFilterFormaOne?.length;i++){
+        if((totalFilterFormaOne[i].Tipo_persona =="empresa")){
+            const totalwith = parseInt(totalFilterFormaOne[i].abono ) *19/100
+            const total = totalwith + parseInt(totalFilterFormaOne[i].abono )
+            countThree += total
+        }else  if((totalFilterFormaOne[i].Iva ==1)){
+            const totalwith = parseInt(totalFilterFormaOne[i].abono ) *19/100
+            const total = totalwith + parseInt(totalFilterFormaOne[i].abono )
+            countThree += total
+        } else{
+            countThree += parseInt(totalFilterFormaOne[i].abono)
+        }
+    }
+
+    
+
+
+    console.log(countThree)
+    
+    
+    let count =0
+    for(let i =0;i<totalFilterForma?.length;i++){
+        if((totalFilterForma[i].Tipo_persona =="empresa")){
+            const totalwith = parseInt(totalFilterForma[i].abono ) *19/100
+            const total = totalwith + parseInt(totalFilterForma[i].abono )
+            count += total
+        }else  if((totalFilterForma[i].Iva ==1)){
+            const totalwith = parseInt(totalFilterForma[i].abono ) *19/100
+            const total = totalwith + parseInt(totalFilterForma[i].abono )
+            count += total
+        } else{
+            count += parseInt(totalFilterForma[i].abono)
+        }
+    }
+
+
+    let countOne =0
+    for(let i =0;i<totalFilterFormaStore?.length;i++){
+        const totalwith = parseInt(totalFilterFormaStore[i].total ) 
+        countOne += totalwith
+    }
+
+    let countTwo =0
+    for(let i =0;i<carritoReserva?.length;i++){
+        const totalwith = parseInt(carritoReserva[i].total ) 
+        countOne += totalwith
+    }
+
+
+
+
+    let countFour =0
+    for(let i =0;i<totalFilterFormaStoreOne?.length;i++){
+        const totalwith = parseInt(totalFilterFormaStoreOne[i].total ) 
+        countOne += totalwith
+    }
+
+    let countFive =0
+    for(let i =0;i<carritoReservaONe?.length;i++){
+        const totalwith = parseInt(carritoReservaONe[i].total ) 
+        countOne += totalwith
+    }
+
+
+
+
+
+    const totalEfectivo = countOne +count +countTwo
+
+    const OtrosMedios  = countThree +countFour +countFive
+
 
     return (
         <ContainerGlobal>
              <LoadingDetail
                         loading={true}
                         titleLoading={"Informe consolidado"}  />
-             <LoadingDetail
-                      
-                        error={loading}
-                        title={"Error Completar todos los campos"}  />
+       
+
+
+<div>
+                <input type="date" className="input-selecto-dasboard-n1-reservaction"  onChange={hadChangeFecha} value={LookinforFecha}   />
+                <button className="button-informe-cosultar" onClick={hanLookingFor}>Consultar</button>
+                <button className="button-informe-descargar">Descargar Informe</button>
+               <button className="button-informe-imprimir"  >Imprimir</button>
+            </div>
           
       <div className="init-informe  top-one" >
         <form  className="container-flex-init" >
@@ -309,8 +468,10 @@ const InformeConsolidado = () => {
 
       </div>
       <FacturaCompany   jwt={jwt}  
+      totalEfectivooNE={totalEfectivo}
                         efectivoTotal={efectivoTotal} 
                         otrosMedios={otrosMedios} 
+                        OtrosMedios={OtrosMedios}
                         dolarespesos={dolarespesos}
                         roomBusy={roomBusy} 
                         roomSell={roomSell} 
@@ -326,6 +487,10 @@ const InformeConsolidado = () => {
                         lavenderia={lavenderia}
                         turismo={turismo}
                         componentRef={componentRef}
+                        store={store}
+                        storeOne={storeOne}
+                        LookinforFecha={LookinforFecha}
+                        hanLookingFor={hanLookingFor}
                         />
         </ContainerGlobal>
     )
@@ -335,7 +500,7 @@ export default InformeConsolidado
 
 
 const FacturaCompany  =({jwt,roomBusy,roomSell,efectivoTotal,otrosMedios,dolarespesos, 
-    targetaDebito,targetaCredito,tranferencia,pagoAgil,bitcon,payoner,dolares,euros,aeropuerto,lavenderia,turismo,componentRef}) =>{
+    targetaDebito,targetaCredito,tranferencia,pagoAgil,bitcon,payoner,dolares,euros,aeropuerto,lavenderia,turismo,componentRef,totalEfectivooNE,OtrosMedios,store,storeOne,LookinforFecha,hanLookingFor}) =>{
 
     let docToPrint = React.createRef();
 
@@ -369,13 +534,13 @@ const FacturaCompany  =({jwt,roomBusy,roomSell,efectivoTotal,otrosMedios,dolares
     const  now = moment().format("YYYY-MM-DD");
 
     useEffect(() =>{
-        ServiceInformeGeneral({fecha:now,id:jwt.result.id_hotel}).then(index => {
+        ServiceInformeGeneral({fecha:LookinforFecha,id:jwt.result.id_hotel}).then(index => {
             setAvaible(index)
             console.log(index)
         }).catch(e => {
             console.log(e)
         })
-    },[])
+    },[hanLookingFor])
 
     
 
@@ -428,78 +593,97 @@ const FacturaCompany  =({jwt,roomBusy,roomSell,efectivoTotal,otrosMedios,dolares
 
     const totalVentas = parseInt(efectivoTotal ) +parseInt(otrosMedios) + parseInt(dolarespesos)    
 
-    const findBebidas = avaible?.carroReserva.filter(index =>  index.ID_Categoria == 1)
-    const findSnaks = avaible?.carroReserva.filter(index =>  index.ID_Categoria == 2)
-    const findSouvenir = avaible?.carroReserva.filter(index =>  index.ID_Categoria == 3)
-    const findAseo = avaible?.carroReserva.filter(index =>  index.ID_Categoria == 4)
-    const findAdultols = avaible?.carroReserva.filter(index =>  index.ID_Categoria == 5)
-    const findLenceria= avaible?.carroReserva.filter(index =>  index.ID_Categoria == 6)
-    const findServicio = avaible?.carroReserva.filter(index =>  index.ID_Categoria == 7)
+    
 
-    const findBebidasOne = avaible?.carrtoTenda.filter(index =>  index.ID_Categoria == 1)
-    const findSnaksOne = avaible?.carrtoTenda.filter(index =>  index.ID_Categoria == 2)
-    const findSouvenirOne = avaible?.carrtoTenda.filter(index =>  index.ID_Categoria == 3)
-    const findAseoOne = avaible?.carrtoTenda.filter(index =>  index.ID_Categoria == 4)
-    const findAdultolsOne = avaible?.carrtoTenda.filter(index =>  index.ID_Categoria == 5)
-    const findLenceriaOne= avaible?.carrtoTenda.filter(index =>  index.ID_Categoria == 6)
-    const findServicioOne = avaible?.carrtoTenda.filter(index =>  index.ID_Categoria == 7)
+    const totaRoom = valEfectivo+ valOtherMedios 
+
+    let count =0
+
+    for(let i =0;i<avaible?.roomByIdIDtypeRoom?.length;i++){
+        const totalwith = parseInt(avaible?.roomByIdIDtypeRoom[i]?.abono )
+        count  += totalwith
+    }
+
+    
+
+    const totalIngresosPuntos  = parseInt( aeropuerto ) + parseInt( lavenderia) +   parseInt (turismo) + parseInt( countSeguro) 
+
+  
+
+
+    
+    const findBebidas = store?.filter(index =>  index.categoria == 1)
+    const findSnaks = store?.filter(index =>  index.categoria == 2)
+    const findSouvenir = store?.filter(index =>  index.categoria == 3)
+    const findAseo = store?.filter(index =>  index.categoria == 4)
+    const findAdultols = store?.filter(index =>  index.categoria == 5)
+    const findLenceria= store?.filter(index =>  index.categoria == 6)
+    const findServicio = store?.filter(index =>  index.categoria == 7)
+
+    const findBebidasOne = storeOne?.filter(index =>  index.categoria == 1)
+    const findSnaksOne = storeOne?.filter(index =>  index.categoria == 2)
+    const findSouvenirOne = storeOne?.filter(index =>  index.categoria == 3)
+    const findAseoOne = storeOne?.filter(index =>  index.categoria == 4)
+    const findAdultolsOne = storeOne?.filter(index =>  index.categoria == 5)
+    const findLenceriaOne= storeOne?.filter(index =>  index.categoria == 6)
+    const findServicioOne = storeOne?.filter(index =>  index.categoria == 7)
 
     const priceBebidas = findBebidas?.reduce((acum,current) => {
-        return acum  +  current.Precio
+        return acum  +  current.total
     },0)
 
     const priceSnaks = findSnaks?.reduce((acum,current) => {
-        return acum  +  current.Precio
+        return acum  +  current.total
     },0)
 
     const priceSouvenir= findSouvenir?.reduce((acum,current) => {
-        return acum  +  current.Precio
+        return acum  +  current.total
     },0)
 
     const priceAseo = findAseo?.reduce((acum,current) => {
-        return acum  +  current.Precio
+        return acum  +  current.total
     },0)
 
     const priceAdultos = findAdultols?.reduce((acum,current) => {
-        return acum  +  current.Precio
+        return acum  +  current.total
     },0)
 
     const priceLenceria = findLenceria?.reduce((acum,current) => {
-        return acum  +  current.Precio
+        return acum  +  current.total
     },0)
 
     const priceServicio = findServicio?.reduce((acum,current) => {
-        return acum  +  current.Precio
+        return acum  +  current.total
     },0)
 
 
 
     const priceBebidasOne = findBebidasOne?.reduce((acum,current) => {
-        return acum  +  current.Precio
+        return acum  +  current.total
     },0)
 
     const priceSnaksOne = findSnaksOne?.reduce((acum,current) => {
-        return acum  +  current.Precio
+        return acum  +  current.total
     },0)
 
     const priceSouvenirOne= findSouvenirOne?.reduce((acum,current) => {
-        return acum  +  current.Precio
+        return acum  +  current.total
     },0)
 
     const priceAseoOne= findAseoOne?.reduce((acum,current) => {
-        return acum  +  current.Precio
+        return acum  +  current.total
     },0)
 
     const priceAdultosOne = findAdultolsOne?.reduce((acum,current) => {
-        return acum  +  current.Precio
+        return acum  +  current.total
     },0)
 
     const priceLenceriaOne = findLenceriaOne?.reduce((acum,current) => {
-        return acum  +  current.Precio
+        return acum  +  current.total
     },0)
 
     const priceServicioOne= findServicioOne?.reduce((acum,current) => {
-        return acum  +  current.Precio
+        return acum  +  current.total
     },0)
 
     const totalBebidas =  priceBebidas + priceBebidasOne 
@@ -518,29 +702,10 @@ const FacturaCompany  =({jwt,roomBusy,roomSell,efectivoTotal,otrosMedios,dolares
 
     const totalTienda =  totalBebidas + totalSnaks +totalSouvenir +totalAseo +totalAdults +totalLenceria +totalServicios
 
-    const totaRoom = valEfectivo+ valOtherMedios 
-
-    let count =0
-
-    for(let i =0;i<avaible?.roomByIdIDtypeRoom?.length;i++){
-        if((avaible?.roomByIdIDtypeRoom[i]?.tipo_persona =="empresa")){
-            const totalwith = parseInt(avaible?.roomByIdIDtypeRoom[i]?.abono ) *19/100
-            const total = totalwith + parseInt(avaible?.roomByIdIDtypeRoom[i]?.abono )
-            count += total
-        }else  if((avaible?.roomByIdIDtypeRoom[i]?.Iva ==1)){
-            const totalwith = parseInt(avaible?.roomByIdIDtypeRoom[i]?.abono ) *19/100
-            const total = totalwith + parseInt(avaible?.roomByIdIDtypeRoom[i]?.abono )
-            count += total
-        } else{
-            count += parseInt(avaible?.roomByIdIDtypeRoom[i]?.abono)
-        }
-    }
-
-    const totalIngresosPuntos  = parseInt( aeropuerto ) + parseInt( lavenderia) +   parseInt (turismo) + parseInt( countSeguro) 
-
     const totalCount = count +  totalTienda
 
-    const totalDefinido =valEfectivo + valOtherMedios
+    const totalDefinido =OtrosMedios + totalEfectivooNE
+
 
     return (
      <>
@@ -548,6 +713,9 @@ const FacturaCompany  =({jwt,roomBusy,roomSell,efectivoTotal,otrosMedios,dolares
             <div  className="global-factura" style={{
             borderRadius: "5px",
             }} >
+
+               
+           
             <div className="container-flex-comorobante" >
                 <div className="text-center top-factura-company " >
                         <div className="top-flex-pdf negrita" >
@@ -583,8 +751,8 @@ const FacturaCompany  =({jwt,roomBusy,roomSell,efectivoTotal,otrosMedios,dolares
 
                     <table className="table-factura-One" >
                         <tr>
-                            <th> <div className="container-block-informe-conslidado"> <span  className="text-font-wei-one-informe" > Efectivo total: : </span> <span  className="text-font-wei-one-informe" >${valEfectivo.toLocaleString()}</span></div> </th>
-                            <th> <div className="container-block-informe-conslidado"> <span  className="text-font-wei-one-informe" > Otros medios::</span> <span  className="text-font-wei-one-informe" >$ {valOtherMedios.toLocaleString()}</span> </div> </th>
+                            <th> <div className="container-block-informe-conslidado"> <span  className="text-font-wei-one-informe" > Efectivo total: : </span> <span  className="text-font-wei-one-informe" >${totalEfectivooNE.toLocaleString()}</span></div> </th>
+                            <th> <div className="container-block-informe-conslidado"> <span  className="text-font-wei-one-informe" > Otros medios::</span> <span  className="text-font-wei-one-informe" >$ {OtrosMedios.toLocaleString()}</span> </div> </th>
                             <th > <div className="container-block-informe-conslidado"> <span  className="text-font-wei-one-informe" > Dolares/Euros en pesos:</span  > <span  className="text-font-wei-one-informe" >{dolarespesos.toLocaleString()}</span> </div> </th>
                             <th > <div className="container-block-informe-conslidado"> <span className="text-font-wei-one-informe"  > Ingreso Total:    :</span> <span  className="text-font-wei-one-informe" >${totalDefinido.toLocaleString()}</span> </div> </th>
                         </tr>
@@ -685,7 +853,7 @@ const FacturaCompany  =({jwt,roomBusy,roomSell,efectivoTotal,otrosMedios,dolares
                                             <tr>
                                             <td>{index.room}</td>
                                             <td>{index.cantidad}</td>
-                                            <td>${totalDefiniType.toLocaleString()}</td>
+                                            <td>${index.abono.toLocaleString()}</td>
                                         </tr>
                                         )}
                                      )}

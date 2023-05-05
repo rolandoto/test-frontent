@@ -95,7 +95,7 @@ const CheckoutOrganism =({DetailDashboard}) =>{
             imgSrc:
               "https://github.com/rolandoto/image-pms/blob/main/1-05-removebg-preview.png?raw=true",
           } 
-      ];
+    ];
 
     const init  =   moment(resultDashboard?.Fecha_inicio).utc().format('MM/DD/YYYY')
     const fin = moment(resultDashboard?.Fecha_final).utc().format('MM/DD/YYYY')
@@ -495,7 +495,9 @@ const CheckoutOrganism =({DetailDashboard}) =>{
         setLoading(false)
     }
 
-    const  dataCount = to?.find(index => index.ID === 1)
+    const  dataCount = to?.find(index => index.ID_hotel == jwt.result.id_hotel)
+
+    console.log(dataCount)
 
     useEffect(()  =>{
         fetch(`${config.serverRoute}/api/resecion/resolucion`)
@@ -523,7 +525,7 @@ const CheckoutOrganism =({DetailDashboard}) =>{
 
     const hancCheckout =() => {
         ServiceStatus({id,ID_Tipo_Estados_Habitaciones:1}).then(index=>{
-            ServiceResolution({Resolucion:dataCount.Resolucion+1}).then(index=>{
+            ServiceResolution({Resolucion:dataCount.Resolucion+1,ID:dataCount.ID}).then(index=>{
                 
             }).catch(e =>{
                 console.log(e)

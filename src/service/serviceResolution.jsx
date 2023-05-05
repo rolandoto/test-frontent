@@ -1,10 +1,10 @@
 import { config } from "../config"
 
-const ENDPOINT =`${config.serverRoute}/api/resecion/updateresolution/1`
+const ENDPOINT =`${config.serverRoute}/api/resecion/updateresolution/`
 
 
-const ServiceResolution =({Resolucion})=>{
-    return fetch(`${ENDPOINT}`,{
+const ServiceResolution =({Resolucion,ID})=>{
+    return fetch(`${ENDPOINT}${ID}}`,{
         method:'POST',
         headers:{
             'Content-type':'application/json'

@@ -9,6 +9,8 @@ import { useEffect } from "react";
 import { useReactToPrint } from "react-to-print";
 import ServiceResolution from "../../service/serviceResolution";
 import UsePrice from "../../hooks/UsePrice";
+import   AutoProvider  from "../../privateRoute/AutoProvider";
+import { useContext } from "react";
 
 const Invoince =({resultDashboard=[],carts=[],dataCount,setInvoice,priceCart,client,identification,raiting,handLoading,loading,handLoadingOne,sinIvaCart,tienda,handSubmitInsertCartOne,hancCheckout}) =>{
         
@@ -19,7 +21,7 @@ const Invoince =({resultDashboard=[],carts=[],dataCount,setInvoice,priceCart,cli
     const [state,setate] =useState(false)
     const [information,setInformacion] =useState()
     
-    const {jwt} = UseUsers()
+    const {jwt} = useContext(AutoProvider)
     let componentRef = useRef();
 
     const totalResultPrice = priceCart  *19/100
@@ -88,18 +90,17 @@ const Invoince =({resultDashboard=[],carts=[],dataCount,setInvoice,priceCart,cli
 
 
      useEffect(()  =>{
-        fetch(`http://localhost:4000/api/resecion/informationByIdHotel/${jwt.result.hotel}`)
+        fetch(`http://localhost:4000/api/resecion/informationByIdHotel/${jwt.result.id_hotel}`)
         .then(resp => resp.json())
         .then(data =>setInformacion(data))
         .catch(e  => {
             console.log(e)
         }) 
-     },[])
+     },[setInformacion])
 
-    const searchingHotel =  information?.query?.find(index =>index.id_hotel   == jwt.result.id_hotel )
+    const searchingHotel =  information?.query?.find(index =>index.id_hotel  == jwt.result.id_hotel )
 
-    console.log(searchingHotel)
-   
+   console.log(searchingHotel)
     if(invo){
         return (
             <div   >
@@ -246,25 +247,30 @@ const Invoince =({resultDashboard=[],carts=[],dataCount,setInvoice,priceCart,cli
                                 <div className="handclose" onClick={() => setInvoice(false)}>
                                     <IoMdCloseCircle   fontSize={30} color="black" />
                                 </div>
-                                    <div  className="form-login container-invoince-to "> 
+                                        <div  className="form-login container-invoince-to "> 
                                         <span className="invoince title-invoince-cart" >{jwt.result.hotel}</span>
-                                        <span className="invoince title-invoince-cart" >Nit: 900768373-3</span>
-                                        <span className="invoince title-invoince-cart" >CR 41A #10-41</span>
-                                        <span className="invoince title-invoince-cart" >3053638733</span>
-                                    
-                                        <h6 className="p title-invoince " >GRACIAS POR SU VISITA</h6>
-                                        <span className="p title-invoince-cart" >RES DIAN 18764043666304</span>
-                                        <span className="p title-invoince-cart  ">Fecha: 2023/01/31</span>
-                                        <span className="p title-invoince-cart  ">Resolucion 1001 al 3000</span>
-                                        <span className="p title-invoince-cart  ">FACTURA DE VENTA</span>
-                                        <span className="p title-invoince-cart  ">FP-{dataCount?.Resolucion}</span>
+                                        {jwt.result.id_hotel  == 7 && <span className="invoince title-invoince-cart" >Rolando Guerrero</span>}  
+                                <span className="invoince title-invoince-cart" >Nit: {searchingHotel?.Nit}</span>
+                                <span className="invoince title-invoince-cart" >{searchingHotel?.Direcion}</span>
+                                <span className="invoince title-invoince-cart" >{searchingHotel?.Telefono}</span>
+                                { jwt.result.id_hotel  == 7 && <span className="invoince title-invoince-cart" >No responsable</span>}
+
+                            
+                                <h6 className="p title-invoince " >GRACIAS POR SU VISITA</h6>
+                                {jwt.result.id_hotel  == 7 ? <span></span> :<span className="p title-invoince-cart" >RES DIAN {searchingHotel?.Res_dian}</span> }  
+                                <span className="p title-invoince-cart  ">Fecha: {moment(searchingHotel?.fecha).utc().format('YYYY/MM/DD')}</span>
+                                <span className="p title-invoince-cart  ">{jwt.result.id_hotel  == 7 ? "Numeracion" : "Resolucion"} {searchingHotel?.Resolucion_initial} al {searchingHotel?.Resolucion_final}</span>
+                                <span className="p title-invoince-cart  ">FACTURA DE VENTA</span>
+                                <span className="p title-invoince-cart  ">FP-{dataCount?.Resolucion}</span>
+                                
 
 
-                                        <span className="atm title-invoince-cart" >Recepcionista: {jwt.result.name} </span>
-                                        <span className="atm title-invoince-cart" >Fecha: {day}</span>
-                                        <span className="title-invoince-cart" >Tipo pago: {raiting}</span>
-                                        <span className="title-invoince-cart">Cliente: {client}</span>  
-                                        <span className="title-invoince-cart">CC/NIT: {identification} </span> 
+                                <span className="atm title-invoince-cart" >Recepcionista: {jwt.result.name} </span>
+                                <span className="atm title-invoince-cart" >Fecha: {day}</span>
+                                <span className="title-invoince-cart" >Tipo pago: {raiting}</span>
+                                <span className="title-invoince-cart">Cliente: {client}</span>  
+                                <span className="title-invoince-cart">CC/NIT: {identification} </span> 
+
 
                                         <div className="details-invoince atm" >
                                                 <span className="title-invoince-cart" >Detalles </span>
