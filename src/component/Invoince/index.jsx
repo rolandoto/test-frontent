@@ -261,7 +261,7 @@ const Invoince =({resultDashboard=[],carts=[],dataCount,setInvoice,priceCart,cli
                                 <span className="p title-invoince-cart  ">Fecha: {moment(searchingHotel?.fecha).utc().format('YYYY/MM/DD')}</span>
                                 <span className="p title-invoince-cart  ">{jwt.result.id_hotel  == 7 ? "Numeracion" : "Resolucion"} {searchingHotel?.Resolucion_initial} al {searchingHotel?.Resolucion_final}</span>
                                 <span className="p title-invoince-cart  ">FACTURA DE VENTA</span>
-                                <span className="p title-invoince-cart  ">FP-{dataCount?.Resolucion}</span>
+                                <span className="p title-invoince-cart  ">{jwt.result.id_hotel  == 7 ? "FUB":"FP"}-{dataCount?.Resolucion}</span>
                                 
 
 
