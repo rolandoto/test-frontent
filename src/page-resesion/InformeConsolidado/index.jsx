@@ -295,7 +295,125 @@ const InformeConsolidado = () => {
     }
 
 
-    console.log(countSix+countOneSix+countTwoSix    )
+    const tarjetaDebeito = countSix+countOneSix+countTwoSix 
+
+
+
+    const totalFilterFormaDebitoTwo = auditoria?.filter(index => index.Tipo_forma_pago ==7)
+
+    const totalFilterFormaStoreDebitoTwo= store?.filter(index => index.Forma_pago ==7)
+
+    const carritoReservaDebitoTwo = storeOne?.filter(index => index.Forma_pago ==7)
+
+
+
+    let countSixTwo =0
+    for(let i =0;i<totalFilterFormaDebitoTwo?.length;i++){
+        if((totalFilterFormaDebitoTwo[i].Tipo_persona =="empresa")){
+            const totalwith = parseInt(totalFilterFormaDebitoTwo[i].abono ) *19/100
+            const total = totalwith + parseInt(totalFilterFormaDebitoTwo[i].abono )
+            countSixTwo += total
+        }else  if((totalFilterFormaDebitoTwo[i].Iva ==1)){
+            const totalwith = parseInt(totalFilterFormaDebitoTwo[i].abono ) *19/100
+            const total = totalwith + parseInt(totalFilterFormaDebitoTwo[i].abono )
+            countSixTwo += total
+        } else{
+            countSixTwo += parseInt(totalFilterFormaDebitoTwo[i].abono)
+        }
+    }
+
+
+    let countOneSixTwo =0
+    for(let i =0;i<totalFilterFormaStoreDebitoTwo?.length;i++){
+        const totalwith = parseInt(totalFilterFormaStoreDebito[i].total ) 
+        countOneSixTwo += totalwith
+    }
+
+    let countTwoSixTwo =0
+    for(let i =0;i<carritoReservaDebitoTwo?.length;i++){
+        const totalwith = parseInt(carritoReservaDebitoTwo[i].total ) 
+        countTwoSixTwo += totalwith
+    }
+
+
+    const totalCredito = countSixTwo +  countOneSixTwo +countTwoSixTwo
+
+
+    
+    const totalFilterFormaDebitoThree = auditoria?.filter(index => index.Tipo_forma_pago ==5)
+
+    const totalFilterFormaStoreDebitoThree= store?.filter(index => index.Forma_pago ==5)
+
+    const carritoReservaDebitoThree = storeOne?.filter(index => index.Forma_pago ==5)
+
+    let countSixThree =0
+    for(let i =0;i<totalFilterFormaDebitoThree?.length;i++){
+        if((totalFilterFormaDebitoThree[i].Tipo_persona =="empresa")){
+            const totalwith = parseInt(totalFilterFormaDebitoThree[i].abono ) *19/100
+            const total = totalwith + parseInt(totalFilterFormaDebitoThree[i].abono )
+            countSixThree += total
+        }else  if((totalFilterFormaDebitoThree[i].Iva ==1)){
+            const totalwith = parseInt(totalFilterFormaDebitoThree[i].abono ) *19/100
+            const total = totalwith + parseInt(totalFilterFormaDebitoThree[i].abono )
+            countSixThree += total
+        } else{
+            countSixThree += parseInt(totalFilterFormaDebitoThree[i].abono)
+        }
+    }
+
+
+    let countOneSixThree =0
+    for(let i =0;i<totalFilterFormaStoreDebitoThree?.length;i++){
+        const totalwith = parseInt(totalFilterFormaStoreDebitoThree[i].total ) 
+        countOneSixThree += totalwith
+    }
+
+    let countTwoSixthree =0
+    for(let i =0;i<carritoReservaDebitoThree?.length;i++){
+        const totalwith = parseInt(carritoReservaDebitoThree[i].total ) 
+        countTwoSixthree += totalwith
+    }
+
+    const totalPayoner = countSixThree  +countOneSixThree + countTwoSixthree
+
+
+
+    const totalFilterFormaDebitoThreeFour = auditoria?.filter(index => index.Tipo_forma_pago ==11)
+
+    const totalFilterFormaStoreDebitoThreeFour= store?.filter(index => index.Forma_pago ==11)
+
+    const carritoReservaDebitoThreeFour = storeOne?.filter(index => index.Forma_pago ==11)
+
+    let countSixFour =0
+    for(let i =0;i<totalFilterFormaDebitoThreeFour?.length;i++){
+        if((totalFilterFormaDebitoThreeFour[i].Tipo_persona =="empresa")){
+            const totalwith = parseInt(totalFilterFormaDebitoThreeFour[i].abono ) *19/100
+            const total = totalwith + parseInt(totalFilterFormaDebitoThreeFour[i].abono )
+            countSixFour += total
+        }else  if((totalFilterFormaDebitoThreeFour[i].Iva ==1)){
+            const totalwith = parseInt(totalFilterFormaDebitoThreeFour[i].abono ) *19/100
+            const total = totalwith + parseInt(totalFilterFormaDebitoThreeFour[i].abono )
+            countSixFour += total
+        } else{
+            countSixFour += parseInt(totalFilterFormaDebitoThreeFour[i].abono)
+        }
+    }
+
+
+    let countOneSixFour =0
+    for(let i =0;i<totalFilterFormaStoreDebitoThree?.length;i++){
+        const totalwith = parseInt(totalFilterFormaStoreDebitoThree[i].total ) 
+        countOneSixFour += totalwith
+    }
+
+    let countTwoSixFour =0
+    for(let i =0;i<carritoReservaDebitoThree?.length;i++){
+        const totalwith = parseInt(carritoReservaDebitoThree[i].total ) 
+        countTwoSixFour += totalwith
+    }
+
+    const totalLinkPago = countSixFour  +countOneSixFour + countTwoSixFour
+
 
 
     const totalFilterFormaOne = auditoria?.filter(index => index.Tipo_forma_pago !=1)
@@ -491,6 +609,10 @@ const InformeConsolidado = () => {
                         storeOne={storeOne}
                         LookinforFecha={LookinforFecha}
                         hanLookingFor={hanLookingFor}
+                        tarjetaDebeito={tarjetaDebeito}
+                        totalCredito={totalCredito}
+                        totalPayoner={totalPayoner}
+                        totalLinkPago={totalLinkPago}
                         />
         </ContainerGlobal>
     )
@@ -500,7 +622,7 @@ export default InformeConsolidado
 
 
 const FacturaCompany  =({jwt,roomBusy,roomSell,efectivoTotal,otrosMedios,dolarespesos, 
-    targetaDebito,targetaCredito,tranferencia,pagoAgil,bitcon,payoner,dolares,euros,aeropuerto,lavenderia,turismo,componentRef,totalEfectivooNE,OtrosMedios,store,storeOne,LookinforFecha,hanLookingFor}) =>{
+    targetaDebito,targetaCredito,tranferencia,pagoAgil,bitcon,payoner,dolares,euros,aeropuerto,lavenderia,turismo,componentRef,totalEfectivooNE,OtrosMedios,store,storeOne,LookinforFecha,hanLookingFor,tarjetaDebeito,totalCredito,totalPayoner,totalLinkPago}) =>{
 
     let docToPrint = React.createRef();
 
@@ -770,12 +892,12 @@ const FacturaCompany  =({jwt,roomBusy,roomSell,efectivoTotal,otrosMedios,dolares
                             <th className="text-font-wei-one-informe" >Euros</th>
                         </tr>
                         <tr>
-                            <td>${tarjetaBeditos?.toLocaleString()}</td>
-                            <td>${Credito?.toLocaleString()}</td>
-                            <td>{tranferencia}</td>
-                            <td>{pagoAgil}</td>
+                            <td>${tarjetaDebeito?.toLocaleString()}</td>
+                            <td>${totalCredito?.toLocaleString()}</td>
+                            <td>$</td>
+                            <td>{totalLinkPago.toLocaleString()}</td>
                             <td>{bitcon}</td>
-                            <td>{payoner}</td>
+                            <td>${totalPayoner.toLocaleString()}</td>
                             <td>{dolares}</td>
                             <td>{euros}</td>
                         </tr>

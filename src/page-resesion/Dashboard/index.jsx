@@ -695,6 +695,10 @@ const Dashboard = (props) => {
 		{
 			id: 8,
 			name:"Informe cuentas pendientes"
+		},
+		{
+			id: 9,
+			name:"Informe consolidado"
 		}
 	];
 
@@ -737,6 +741,9 @@ const Dashboard = (props) => {
 		}
 		if(stateInformes ==8){
 			return history.push(`/informeAccount`)
+		}
+		if(stateInformes ==9){
+			return history.push(`/informeconsolidado`)
 		}
 	},[stateInformes,setInformes])
 

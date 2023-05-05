@@ -26,7 +26,7 @@ const ItemCard =({index,handCart}) =>{
 
                           
                             <div className="icon-cantidad" >
-                            {index.Cantidad >=9 ?  <h4 class="price One-Tienda-Recepcion">{index.Cantidad}</h4> :<h4 class="One-Tienda-Recepcion-Two">{index.Cantidad}</h4> }
+                            {index.Cantidad >9 ?  <h4 class="price One-Tienda-Recepcion">{index.Cantidad}</h4> :<h4 class="One-Tienda-Recepcion-Two">{index.Cantidad}</h4> }
                                     
                             </div>    
                           
