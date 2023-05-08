@@ -346,7 +346,7 @@ const Dashboard = (props) => {
 				alignItems: 'center',
 				background: color,
 				border: '',
-				borderRadius: '8px',
+				borderRadius: '4px',
 				padding: '8px',
 				color: colorWords,
 				position:"relative",
@@ -699,6 +699,10 @@ const Dashboard = (props) => {
 		{
 			id: 9,
 			name:"Informe consolidado"
+		},
+		{
+			id: 10,
+			name:"Informe movimiento"
 		}
 	];
 
@@ -744,6 +748,9 @@ const Dashboard = (props) => {
 		}
 		if(stateInformes ==9){
 			return history.push(`/informeconsolidado`)
+		}
+		if(stateInformes ==10){
+			return history.push(`/informeMovimiento`)
 		}
 	},[stateInformes,setInformes])
 
@@ -884,8 +891,8 @@ const Dashboard = (props) => {
 				defaultTimeEnd={moment().startOf("day").add(14, "day")}
 				stackItems
 				itemHeightRatio={0.9}                                                             
-				lineHeight={45}
-				sidebarWidth={180}
+				lineHeight={30}
+				sidebarWidth={200}
 				itemRenderer={  itemRenderer}
 				onItemClick={(itemId, e, time) => onItemClick(itemId, e, time)}
 				now={nowOne}

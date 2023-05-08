@@ -28,7 +28,9 @@
     import { Document, Page, Text,Svg } from '@react-pdf/renderer'
     import { PDFDownloadLink } from '@react-pdf/renderer';
     import ServePdf from "../../service/PdfServe";
-    
+    import moment from "moment";
+    import ServiceInfomeMovimiento from "../../service/ServiceInformeMovimiento";
+        
     const ref = React.createRef();
 
     const   PdfComprobante =() =>{
@@ -370,6 +372,10 @@ const DashboardModal = (props) => {
         const [decuento,setDescuento] =useState(0)
         const [observacion,setObservacion] =useState()
 
+        const now = moment().format("YYYY/MM/DD h:mm:ss")
+
+        console.log(now)
+
         const handAsignar =(event)  =>{
             setTo(false)
             setAsignar(event.target.value)
@@ -399,8 +405,6 @@ const DashboardModal = (props) => {
 
         const totalId = jwt.result.id_hotel == 7 ? true : false
 	
-
-
         const [change,setChange] =useState({
             desde:fechaOne,
             hasta:fechaTwo,
@@ -426,9 +430,6 @@ const DashboardModal = (props) => {
             descuento:null,
             valor:null,
         })
-
-
-        console.log(change)
 
         const fechaInicio = new  Date(fechaOne).getTime()
 
@@ -631,6 +632,8 @@ const DashboardModal = (props) => {
     let persona =0
     let aditional =0
 
+    console.log(findRoom?.nombre?.nombre)
+
     for(let i  =0;i<arr?.length;i++){
         r.push(i)
     } 
@@ -787,14 +790,6 @@ const DashboardModal = (props) => {
 
         const ray = [1,2,4]
 
-        /* <li>
-                                                    <label className="title-stores">Abono reserva</label>
-                                                    <input className="input-stores-personality-one-finish" name="abono" type="number" onChange={handleInputChange} />
-                                                </li> 
-
-        */
-
-
         useEffect(() =>{
           for (let i = 0; i < huespe?.length; i++) {
             if (huespe[i]?.Tipo_documento =="" || huespe[i]?.Num_documento =="" || huespe[i]?.Nombre ==""|| huespe[i]?.Apellido ==""|| huespe[i]?.Celular ==""|| huespe[i]?.Correo ==""|| huespe[i]?.Fecha_nacimiento =="" || huespe[i]?.Ciudad ==""|| huespe[i]?.Nacionalidad =="" ) {
@@ -808,12 +803,25 @@ const DashboardModal = (props) => {
 
         },[setHuespe,huespe])
 
+
+
+        const totalFindRoom =  disponibilidad?.query?.find(index => index.ID ==  asignar)
+
+        
+      
+        const findRoomOne =  room?.find(index => index?.id_tipoHabitacion == fecha)
+
     const handClickReservation =() =>{
         if(valid){
             setLoadingReservation({loading:true})
             ServiceAvaiblereservation({desde:dataAvaible.desde,hasta:dataAvaible.hasta,habitaciones:dataAvaible.habitaciones,disponibilidad:dataAvaible.disponibilidad,id_estados_habitaciones:0,ID_Canal:change.canal_reserva,Adultos:change.adultos,Ninos:change.niños,ID_Talla_mascota:change.talla_perro,Infantes:change.infantes,Noches:ResultDay,huespe,Observacion:change.observacion,valor:totalResultglobal,ID_Tipo_Forma_pago:change.ID_Tipo_Forma_pago,abono:change.abono,valor_habitacion:valor_habiatcion,Tipo_persona:tipoPersonas,valor_dia_habitacion:default_Value}).then(index =>{
                     setLoadingReservation({loading:false}) 
-                window.location.href="/Home"
+                  ServiceInfomeMovimiento({Nombre_recepcion:jwt.result.name,Fecha:now,Movimiento:`Creación reserva tipo habiatcion   ${findRoomOne.nombre}  ${totalFindRoom.Numero}`,id:jwt.result.id_hotel}).then(index =>{
+                        window.location.href="/Home"
+                  }).catch(e =>{
+                      console.log(e)
+                  })
+              
             }).catch(e =>{
                 setLoadingReservation({error:true})
             })
@@ -843,8 +851,7 @@ const DashboardModal = (props) => {
 
         const resultHuespe= huespe[0]
 
-        const findRoomOne =  room?.find(index => index?.id_tipoHabitacion == fecha)
-
+     
         const totalPersonas= parseInt( change?.adultos) + parseInt( change.niños)
 
         let countMax=0
@@ -887,7 +894,7 @@ const DashboardModal = (props) => {
         } 
          
         
-      console.log(findRoomOne)
+      console.log(asignar)
       
       /**const link = document.createElement('a');
         link.href =PdfGenerate;
@@ -900,8 +907,8 @@ const DashboardModal = (props) => {
       
          
 
-      
-          
+    
+     
 
         if(!room)  return null
 

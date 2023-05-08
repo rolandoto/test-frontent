@@ -65,14 +65,14 @@
 }
 
 .react-calendar-timeline {
-  width: 124% !important;
-  margin: auto;
+  width: 98.9% !important;
   overflow: scroll;
   height: 68vh;
   overflow-x: hidden;
   margin-top: 9px;
   display: flex;
-  max-width: 1480px;
+  max-width: 94% 0% 0% 0%;
+  padding: 0% 0% 0% 2.9%;
   max-height: 1100px;
   flex-direction: column;
   /* background: #fff; */

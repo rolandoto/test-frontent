@@ -51,6 +51,7 @@ import InformeAccountEarrings from "./page-resesion/Informes/InformeAccount";
 import InformeAccount from "./page-resesion/Informes/InformeAccount";
 import TableStore from "./component/DetailStore/TableStore";
 import DetailStoreById from "./component/DetailStore/DetailStoreById";
+import InformeMovimiento from "./page-resesion/Informes/InformeMovimiento";
 
 function App() {
   const { jwt } = useContext(AutoProvider);
@@ -362,6 +363,11 @@ function App() {
                 exact
                 path="/informeAccount"
                 component={InformeAccount}
+              />
+              <PrivateRoute
+                exact
+                path="/informeMovimiento"
+                component={InformeMovimiento}
               />
                  <PrivateRoute exact path="/Detailinforme/:id" component={DetailnformeStore} />
               <Route component={NoFound} />

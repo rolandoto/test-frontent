@@ -18,6 +18,7 @@ import ServiceResolution from "../../service/serviceResolution"
 import { confirmAlert } from "react-confirm-alert"; // Import
 import Swal from 'sweetalert2'
 import { CiUser ,CiShop,CiBank } from "react-icons/ci";
+import ServiceInfomeMovimiento from "../../service/ServiceInformeMovimiento"
 
 
 const CheckoutOrganism =({DetailDashboard}) =>{
@@ -108,6 +109,8 @@ const CheckoutOrganism =({DetailDashboard}) =>{
     console.log(resultDashboard)
     const resultFinish = room?.find(index=>index?.id_tipoHabitacion == resultDashboard?.ID_Tipo_habitaciones)
 
+    console.log(resultFinish)
+
     useEffect(() =>{
         fetch(`${config.serverRoute}/api/resecion/getcartreservaction/${id}`)
         .then(resp => resp.json())
@@ -156,6 +159,8 @@ const CheckoutOrganism =({DetailDashboard}) =>{
 
  
     const totalObject = totalStore ? totalStore.toLocaleString() :0
+
+    const now = moment().format("YYYY/MM/DD")
 
     /**
      *  <div className="container-search-filter" >
@@ -526,7 +531,11 @@ const CheckoutOrganism =({DetailDashboard}) =>{
     const hancCheckout =() => {
         ServiceStatus({id,ID_Tipo_Estados_Habitaciones:1}).then(index=>{
             ServiceResolution({Resolucion:dataCount.Resolucion+1,ID:dataCount.ID}).then(index=>{
-                
+                ServiceInfomeMovimiento({Nombre_recepcion:jwt.result.name,Fecha:now,Movimiento:`Check out realizado tipo habitacion ${resultFinish?.nombre} ${resultDashboard.Numero}`,id:jwt.result.id_hotel}).then(index =>{
+          
+                }).catch(e =>{
+                    console.log(e)
+                })
             }).catch(e =>{
                 console.log(e)
             })
@@ -592,6 +601,7 @@ const CheckoutOrganism =({DetailDashboard}) =>{
                     if (result.dismiss === Swal.DismissReason.timer) {
                       console.log('I was closed by the timer')
                       hancCheckout()
+                    
                     }
                   })
                

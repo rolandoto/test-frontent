@@ -12,6 +12,7 @@ import UsePrice from "../../hooks/UsePrice";
 import ServiceUpdateReservationpay from "../../service/ServiceUpdatereservationpay";
 import ServiceStatus from "../../service/ServiceStatus";
 import HttpClient from "../../HttpClient";
+import ServiceInfomeMovimiento from "../../service/ServiceInformeMovimiento";
 
 const Checkingn2Organism =({id}) =>{
     
@@ -75,6 +76,8 @@ const Checkingn2Organism =({id}) =>{
         Firma:"1"
       } 
 
+    
+
         useEffect(() =>{
             ServicetypeRooms({id:jwt.result.id_hotel}).then(index =>{
                 setRoom(index)
@@ -90,6 +93,7 @@ const Checkingn2Organism =({id}) =>{
         }else{
             handUpdateConfirms()
             handFirmar()
+
         }
       
       }
@@ -203,12 +207,17 @@ const Checkingn2Organism =({id}) =>{
         ID_Tipo_Forma_pago:change.ID_Tipo_Forma_pago
     }
 
-    
+    console.log(resulDetailDashboard)
 
     const handUpdateConfirms =() =>{
         ServiceUpdateReservationpay({id,dataOne:dataTwo}).then(index  =>{
             ServiceStatus({id,ID_Tipo_Estados_Habitaciones:3}).then(index=>{
-                window.location.href =(`/checkingin3/${id}`)
+                ServiceInfomeMovimiento({Nombre_recepcion:jwt.result.name,Fecha:now,Movimiento:`Check in realizado tipo habitacion ${resultFinish?.nombre}  ${resulDetailDashboard.Numero}  `,id:jwt.result.id_hotel}).then(index =>{
+                    window.location.href =(`/checkingin3/${id}`)
+                }).catch(e =>{
+                    console.log(e)
+                })
+                
             }).catch(e =>{
                 console.log(e)
             })
