@@ -8,15 +8,10 @@ import { CiFileOn } from "react-icons/ci";
 const ContractoOrganism =() =>{
     const history = useHistory()
     const {id} =useParams()
-    
-   
-    
+        
     if(id){
        return  null
     }
-
-    
-
 
     return (
             <>

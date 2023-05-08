@@ -317,8 +317,6 @@ const InformeConsolidado = () => {
         }
     }
 
-    
-
     let countOneSixTwo =0
     for(let i =0;i<totalFilterFormaStoreDebitoTwo?.length;i++){
         const totalwith = parseInt(totalFilterFormaStoreDebito[i]?.total ) 
@@ -331,11 +329,8 @@ const InformeConsolidado = () => {
         countTwoSixTwo += totalwith
     }
 
-
     const totalCredito = countSixTwo +  countOneSixTwo +countTwoSixTwo
 
-
-    
     const totalFilterFormaDebitoThree = auditoria?.filter(index => index.Tipo_forma_pago ==5)
 
     const totalFilterFormaStoreDebitoThree= store?.filter(index => index.Forma_pago ==5)
@@ -371,8 +366,6 @@ const InformeConsolidado = () => {
     }
 
     const totalPayoner = countSixThree  +countOneSixThree + countTwoSixthree
-
-
 
     const totalFilterFormaDebitoThreeFour = auditoria?.filter(index => index.Tipo_forma_pago ==11)
 
@@ -498,7 +491,6 @@ const InformeConsolidado = () => {
                         loading={true}
                         titleLoading={"Informe consolidado"}  />
        
-
 
 <div>
                 <input type="date" className="input-selecto-dasboard-n1-reservaction"  onChange={hadChangeFecha} value={LookinforFecha}   />

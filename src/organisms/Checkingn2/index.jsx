@@ -295,7 +295,7 @@ const Checkingn2Organism =({id}) =>{
 
                   
                 </div>
-                        <div className="checkin2  one-button-checking"  onClick={hanClickinContracto}>
+                        <div className="checkin2  one-button-checking"  onClick={hanClickinContracto} >
                             <button>Continuar</button>
                 </div> 
             </>

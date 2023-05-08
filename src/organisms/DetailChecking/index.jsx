@@ -725,17 +725,17 @@ const DetailChekingOrganism =({id}) =>{
                                     </select>  
                         </div>
                         
-                        <div className="container-checkbox" >
-                            <button className="button-dasboard-six-one-one-one"  onClick={handAdd}   >
+                        <div className="container-checkbox"  onClick={handAdd}   >
+                            <button className="button-dasboard-six-one-one-one"  >
                                 <CiCirclePlus fontSize={30}  /> <span>  Añadir personas  </span> 
                             </button>
                
                             </div>
-                        <div>
-                            <button className="button-checking-detail-one-one" onClick={handState}  > <span>{item}</span></button>
+                        <div onClick={handState} >
+                            <button className="button-checking-detail-one-one"   > <span>{item}</span></button>
                         </div> 
-                        <div>
-                            <button className="button-checking-detail"   onClick={hanClickingn2} >
+                        <div onClick={hanClickingn2} >
+                            <button className="button-checking-detail"    >
                                 <span className="title-button"   >Continuar</span>
                             </button>
                         </div> 
