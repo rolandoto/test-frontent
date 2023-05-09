@@ -228,9 +228,8 @@ const DetailDasboard =(props) =>{
     }
 
     const handChangeSave =() =>{
-      
-      ServiceInfomeMovimiento({Nombre_recepcion:jwt.result.name,Fecha:now,Movimiento:`Se actaliza datos personales tipo habitacion ${resultFinish?.nombre} ${resultDashboard.Numero}`,id:jwt.result.id_hotel}).then(index =>{
-          
+
+      ServiceInfomeMovimiento({Nombre_recepcion:jwt.result.name,Fecha:now,Movimiento:`Se actualizo datos personales tipo habitacion ${resultFinish?.nombre} ${resultDashboard.Numero}`,id:jwt.result.id_hotel}).then(index =>{
       }).catch(e =>{
           console.log(e)
       })
