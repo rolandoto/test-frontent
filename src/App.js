@@ -135,7 +135,7 @@ function App() {
         
         <Provider store={store}>
           <BrowserRouter>
-            <Header />
+           
             <CustomNav />
             <Switch>
               <Route exact path="/" component={Login} />
