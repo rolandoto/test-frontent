@@ -96,14 +96,14 @@ const HeaderRecepcion  =() =>{
 
                         <Link to={`/DetailStorerecepcion/${jwt.result.id_hotel}`}  >
                             <li className="borde-icon">
-                                <AiOutlineShoppingCart fontSize= {25}  /> 
+                                <AiOutlineShoppingCart color="black"  fontSize= {25}  /> 
                                 <span className="title-icon" >Tienda</span>
                             </li>
                         </Link>
 
                         <Link to="/search">
                             <li className="borde-icon">
-                                <BsBell fontSize={25}  />
+                                <BsBell fontSize={25}  color="black" />
                                 <span className="title-icon" >Reservas</span>
                             </li>
                         </Link>
@@ -122,7 +122,7 @@ const HeaderRecepcion  =() =>{
 
                         <Link to="/Forgetfulnes">
                         <li className="borde-icon">
-                            <BsHandbag fontSize={25}  />
+                            <BsHandbag  color="black" fontSize={25}  />
                             <span className="title-icon" >Olvidos</span> 
                         </li>
                         </Link>

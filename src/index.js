@@ -4,14 +4,12 @@ import './index.css';
 import App from './App';
 import { NextUIProvider } from '@nextui-org/react';
 import { AutoProvider } from './privateRoute/AutoProvider';
-
+import CustomNav from './Ui/CustomNav';
 ReactDOM.render(
   <React.StrictMode>
     <NextUIProvider>  
       <AutoProvider >
-    
       <App />
-   
       </AutoProvider>
       </NextUIProvider>
   </React.StrictMode>,

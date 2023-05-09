@@ -52,6 +52,7 @@ import InformeAccount from "./page-resesion/Informes/InformeAccount";
 import TableStore from "./component/DetailStore/TableStore";
 import DetailStoreById from "./component/DetailStore/DetailStoreById";
 import InformeMovimiento from "./page-resesion/Informes/InformeMovimiento";
+import CustomNav from "./Ui/CustomNav";
 
 function App() {
   const { jwt } = useContext(AutoProvider);
@@ -131,9 +132,11 @@ function App() {
   } else if (val == 7) {
     return (
       <div>
+        
         <Provider store={store}>
           <BrowserRouter>
             <Header />
+            <CustomNav />
             <Switch>
               <Route exact path="/" component={Login} />
               <PrivateRoute exact path="/Home" component={Dashboard} />
@@ -256,9 +259,10 @@ function App() {
   } else if (val == 2) {
     return (
       <div>
+            
         <Provider store={store}>
           <BrowserRouter>
-            <HeaderRecepcion />
+          <CustomNav />
             <Switch>
               <Route exact path="/" component={Login} />
               <PrivateRoute exact path="/Home" component={Dashboard} />

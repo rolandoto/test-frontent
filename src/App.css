@@ -174,3 +174,21 @@ input{
  .let-letra-movimiento{
   margin-left: 4px;
  }
+
+ 
+  .container-buuton-reservas-definis-one {
+    display: flex;
+    max-width: 1616ppx;
+    /* max-height: 1100px; */
+    /* flex-direction: column; */
+    background: #fff;
+    /* height: 100vh; */
+    /* width: 100vw; */
+    box-shadow: 0 0 50px rgba(0,0,0,.4);
+    /* overflow: auto; */
+    margin: auto;
+    /* max-width: 1631px; */
+    /* justify-content: revert; */
+    justify-content: space-between;
+}
+ 

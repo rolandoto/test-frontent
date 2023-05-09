@@ -44,6 +44,7 @@ import ModalBlock from "../../organisms/Modals/Block";
 import { confirmAlert } from "react-confirm-alert";
 import { Button, Modal } from 'react-bootstrap';
 import { GiBroom } from "react-icons/gi";
+import CustomNav from "../../Ui/CustomNav";
 
 const Info = styled(ReactTooltip)`
   max-width: 500px  !important;
@@ -503,7 +504,7 @@ const Dashboard = (props) => {
 			style={{
 				position:"absolute",
 				margin: "auto",
-				padding: "0 50rem",
+				padding: "0 60rem",
 				textTransform: "capitalize",
 				color: "#b3aca7",
     			left: "48%;",
@@ -778,15 +779,8 @@ const Dashboard = (props) => {
 
 	console.log({"fecha de hoy":currentDate})
 
-	if(loadingSkeleto) return Skele()
-	if(!pruebareservas) return null
-	if(!search)  return null
-	if(!state)  return null
-	if(!reservation)return null
-	if(!totalDay) return null
-	return (
-		<> 
-		  <ul className="border-icon"  >
+	/**
+	 *  <ul className="border-icon"  >
 					<div className="state-type" >
 						<li  className="imbox-color"> </li>
 						<span className="margin-let-rig"  >Check out</span>
@@ -813,6 +807,20 @@ const Dashboard = (props) => {
 					</div>
 
 				</ul>
+	 * 
+	 */
+
+	if(loadingSkeleto) return Skele()
+	if(!pruebareservas) return null
+	if(!search)  return null
+	if(!state)  return null
+	if(!reservation)return null
+	if(!totalDay) return null
+	return (
+		<> 
+
+			<div className="top-index-home"></div>
+		 
 			<div className="container-calender">
 			
 				<div className="container-button" >
@@ -927,7 +935,7 @@ const Dashboard = (props) => {
           <CursorMarker />
         </TimelineMarkers>
 		</Timeline>
-		<CardStore totalday={totalDay} />
+	
 		</>
 	);
 
