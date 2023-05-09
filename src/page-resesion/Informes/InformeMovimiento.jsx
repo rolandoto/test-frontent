@@ -51,9 +51,8 @@ const InformeMovimiento =() =>{
         
             {state?.map(index => {
 
-                console.log(index)
-
-                const fecha =  moment(index.fecha).utc().format('YYYY/MM/DD HH:mm')
+            
+                const fecha =  moment(index.Fecha).utc().format('YYYY/MM/DD HH:mm:ss ')
                 
                 return (
                     <div className="card-one" > 

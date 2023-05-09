@@ -241,6 +241,11 @@ function App() {
                 path="/informeAccount"
                 component={InformeAccount}
               />
+               <PrivateRoute
+                exact
+                path="/informeMovimiento"
+                component={InformeMovimiento}
+              />
                <PrivateRoute exact path="/Detailinforme/:id" component={DetailnformeStore} />
               <Route component={NoFound} />
             </Switch>
