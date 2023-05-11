@@ -22,6 +22,7 @@
 }
 .side-nav-container-NX {
 	width: 2.9%;
+	padding-top: 0px !important;
 }
 
 .nav-upper,
@@ -37,7 +38,7 @@
 .nav-heading {
 	grid-template-columns: 2fr 1fr;
 	grid-template-rows: 1fr;
-	height: 75px;
+	height: 13px;
 }
 
 .nav-brand {
@@ -103,7 +104,7 @@
 
 .nav-menu {
 	grid-template-rows: repeat(7, 1fr);
-	margin-top: 50px;
+	
 }
 
 .menu-item {
@@ -201,4 +202,9 @@ display: flex;
 	align-items: center;	
 	margin-left: 10px;
 	font-size: 15px;
+}
+
+
+.top-row-nav{
+	margin-top: 20px;
 }

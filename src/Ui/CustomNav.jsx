@@ -66,7 +66,7 @@ const SideNavBar = () => {
                     </div>
               </ReactTooltip>
 
-                <li className={isExpanded ? "menu-item" : "menu-item-NX Hover-icon "}  data-tip data-for="IconTip"   >
+                <li className={isExpanded ? "menu-item" : "menu-item-NX Hover-icon   "}  data-tip data-for="IconTip"   >
                         <Grid.Container>
                             <Grid >
                             <Avatar
@@ -80,11 +80,15 @@ const SideNavBar = () => {
                         </Grid.Container>
                 </li>
 
+            <div>
+                
+            </div>
+
                 <ReactTooltip id="inicioTip" place="right" effect="solid">
                     Inicio
               </ReactTooltip>
            
-                <Link to={`/Home`} 	className={isExpanded ? "menu-item" : "menu-item menu-item-NX"}   data-tip data-for="inicioTip" >					
+                <Link to={`/Home`} 	className={isExpanded ? "menu-item" : "  menu-item menu-item-NX  "}   data-tip data-for="inicioTip" >					
                     
 							 <RiHome2Line color="black" fontSize={18}/>
 							{isExpanded && <p>{null}</p>}
@@ -95,7 +99,7 @@ const SideNavBar = () => {
                 Bictacoras
               </ReactTooltip>
                 
-                <Link to={`/Bictacoras`} 	className={isExpanded ? "menu-item" : "menu-item menu-item-NX"} data-tip data-for="BictacorasTip"  >
+                <Link to={`/Bictacoras`} 	className={isExpanded ? "menu-item" : "  menu-item menu-item-NX"} data-tip data-for="BictacorasTip"  >
                         
 							   <AiOutlineSafetyCertificate color="black"  fontSize={18}  />
 							{isExpanded && <p>{null}</p>}
