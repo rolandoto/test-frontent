@@ -504,7 +504,7 @@ const Dashboard = (props) => {
 			style={{
 				position:"absolute",
 				margin: "auto",
-				padding: "0 60rem",
+				padding: "0 10rem",
 				textTransform: "capitalize",
 				color: "#b3aca7",
     			left: "48%;",

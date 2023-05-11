@@ -13,6 +13,7 @@ import { CiCirclePlus,CiCircleRemove } from "react-icons/ci";
 import ServiceAddHuespedes from "../../service/ServiceAddHuespedes";
 import { config } from "../../config";
 import ServiceUpdateReservation from "../../service/ServiceUpdatereservation";
+import Swal from 'sweetalert2'
 
 const DetailChekingOrganism =({id}) =>{
     const history = useHistory()
@@ -320,7 +321,7 @@ const DetailChekingOrganism =({id}) =>{
         Valor:total
     }
 
-    console.log(change)
+
 
     const handClickReservation =() =>{
         ServiceAddHuespedes({id,huespe,data,dataPay}).then(index =>{
@@ -369,12 +370,27 @@ const DetailChekingOrganism =({id}) =>{
 
     const hanClickingn2 =() =>{
         if(change.Iva== null){
-        setLoadingUpdate(true)
-    }else{
-        handPay()
-        handSubmit()
-        history.push(`/checkingin2/${id}`)
-    }
+            Swal.fire({
+                position: 'center',
+                icon: 'error',
+                title: '<p>Elije si es extranjero o nacional</p>',
+                showConfirmButton: false,
+                timer: 2000
+        })
+            
+        }else if(dataTwo.Tipo_persona==null){
+            Swal.fire({
+                position: 'center',
+                icon: 'error',
+                title: '<p>Elije si es persona o empresa</p>',
+                showConfirmButton: false,
+                timer: 2000
+            })
+        } else{
+            handPay()
+            handSubmit()
+            history.push(`/checkingin2/${id}`)
+        }
     
     }
 
@@ -389,7 +405,7 @@ const DetailChekingOrganism =({id}) =>{
                                         titleLoading={"Check In"}  />
                               <LoadingDetail
                                         error={loadingUpdate}
-                                        title={"Tienes que confirmar medio de pago"}  />
+                                        title={"Tienes que "}  />
 
                     <div className="container-detail-dasboard-in-one" >
                         <div className="border-detail" >

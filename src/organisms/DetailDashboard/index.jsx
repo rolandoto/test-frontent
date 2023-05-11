@@ -81,13 +81,15 @@ const DetailDasboard =(props) =>{
 
     const findPersona =  resultDashboard?.tipo_persona == "persona"
     const findEmpresa = resultDashboard?.tipo_persona =="empresa"
-    const findFirma = resultDashboard?.Firma =="1"
+    const findFirma = resultDashboard?.Estado =="3"
 
     const formatter = new Intl.NumberFormat('en-US', {
       style: 'currency',  
       currency: 'COP',
       minimumFractionDigits: 0
     })
+
+    console.log(resultDashboard)
 
     const [values, setValues] = React.useState({
         Nombre: null,
@@ -851,10 +853,10 @@ const toPriceNigth = UsePrice({number:resultDashboard?.valor_dia_habitacion})
             <div className="container-detail-dasboard-in" >
               <input type="date" className="desde-detail"   onChange={(e) => setspandOne(e.target.value)}  defaultValue={fecha_inicio}    />
               <input type="date" className="desde-detail"   onChange={(e) =>setspand(e.target.value)}  defaultValue={fecha_final}  />
-              
+              <button className="button-checking-detail-one-two" onClick={handClick} >Actualizar Fecha</button>
               <h2 className="cod-reserva" ><span className="title-code" >COD:</span> X14A-{resultDashboard?.Num_documento}</h2>
           </div>
-           {resultFechaMayor && <button className="button-checking-detail-one-two" onClick={handClick} >Actualizar Fecha</button>}
+         
       </div>
       <div className="init" >
         <form  className="container-flex-init" >

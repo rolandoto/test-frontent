@@ -11,7 +11,7 @@
  background-color: var(--dark); 
     width: 300px;
     height: 120%;
-    position: absolute;
+    position: fixed;
     color: var(--light);
     transition: 0.4s;
     z-index: 1011;

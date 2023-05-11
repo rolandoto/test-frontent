@@ -491,7 +491,7 @@
 }
 
 .button-dasboard-six-one-one-one {
-  width: 200px;
+  width: 290px;
   height: 48px;
   background: #070707;
   border-radius: 8px;
@@ -500,6 +500,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-right: -11px;
 }
 
 .button-dasboard-sevent {
@@ -769,7 +770,7 @@ hr {
   margin: auto;
   max-width: 531px;
   box-sizing: border-box;
-  width: 150px;
+  width: 220px;
   height: 55px;
   left: 300px;
   top: 338px;
@@ -780,6 +781,7 @@ hr {
   background: black;
   border: none;
   color: white;
+  margin-right: -22px;
 }
 
 .button-dasboard-thre-dasboard {

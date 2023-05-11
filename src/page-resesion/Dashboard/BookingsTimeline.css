@@ -254,7 +254,7 @@
 .container-checkbox-one {
   display: flex;
   align-items: center;
-  padding: 10px;
+  padding: -1px;
 }
 
 .App-new {
