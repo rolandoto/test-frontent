@@ -19,10 +19,9 @@
     border-right: 1px solid rgba(0,0,0,.125);
     transition: width 0.05s;
     background-color: #fff;
-   
 }
 .side-nav-container-NX {
-	width: 2.5%;
+	width: 2.9%;
 }
 
 .nav-upper,
@@ -32,6 +31,7 @@
 .nav-footer {
 	/* border: 2px solid white; */
 	display: grid;
+
 }
 
 .nav-heading {
@@ -118,6 +118,8 @@
 
 .menu-item-NX {
 	margin: auto;
+	cursor: pointer;
+
 }
 .menu-item:hover {
 	background-color: var(--primary);
@@ -162,4 +164,41 @@
 }
 .logout-icon:hover {
 	background-color: var(--primary);
+}
+
+
+.Hover-icon,img {
+	cursor: pointer !important ;
+}
+
+.row-to{
+	margin: auto;
+	border-radius: 15px;
+
+	align-items: center;
+	display: flex;
+	
+}
+
+.row-card{
+background-color: white;
+height: 60px;
+width: 60px;
+border-radius: 50px;
+align-items: center;
+display: flex;
+}
+
+
+.row-flex{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.row-block{
+	display: block;
+	align-items: center;	
+	margin-left: 10px;
+	font-size: 15px;
 }

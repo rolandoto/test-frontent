@@ -10,6 +10,7 @@ import { RiLogoutBoxLine } from "react-icons/ri";
 import  AutoProvider  from "../privateRoute/AutoProvider";
 import { CiStopSign1 } from "react-icons/ci";
 import ReactTooltip from "react-tooltip";
+import { Avatar, Grid } from "@nextui-org/react";
 
 const SideNavBar = () => {
 
@@ -51,6 +52,33 @@ const SideNavBar = () => {
 					</button>
 				</div>
 				<div className="nav-menu">
+
+                <ReactTooltip id="IconTip" place="right" effect="solid">
+                    <div className="row-flex" >
+                        <div>
+                            <li> <div className="row-card" >  <img className="row-to"  width={40} src={jwt.result.logo} alt="" /></div>  </li>
+                        </div>
+                        
+                        <div>
+                            <span className="row-block" >{jwt.result.name}</span>
+                            <span className="row-block" >{jwt.result.hotel}</span>
+                        </div>
+                    </div>
+              </ReactTooltip>
+
+                <li className={isExpanded ? "menu-item" : "menu-item-NX Hover-icon "}  data-tip data-for="IconTip"   >
+                        <Grid.Container>
+                            <Grid >
+                            <Avatar
+                                    size="lg"
+                                    src={jwt.result.photo}
+                                    color="success"
+                                    bordered
+                                    width={8}
+                                    />
+                        </Grid>
+                        </Grid.Container>
+                </li>
 
                 <ReactTooltip id="inicioTip" place="right" effect="solid">
                     Inicio

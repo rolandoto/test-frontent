@@ -49,7 +49,7 @@ const HeaderComunicate =() =>{
                         <ul className="user-icon-header" >
                             <li>
                         <Grid.Container>
-                            <Grid onClick={handOpenModal} >
+                            <Grid >
                             <Avatar
                                     size="lg"
                                     src={jwt.result.photo}
