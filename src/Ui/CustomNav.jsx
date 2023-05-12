@@ -64,9 +64,10 @@ const SideNavBar = () => {
                             <span className="row-block" >{jwt.result.hotel}</span>
                         </div>
                     </div>
-              </ReactTooltip>
+                </ReactTooltip>
 
-                <li className={isExpanded ? "menu-item" : "menu-item-NX Hover-icon   "}  data-tip data-for="IconTip"   >
+                <Link to={`/Home`} className={isExpanded ? "menu-item" : "menu-item-NX Hover-icon   "}  data-tip data-for="IconTip"    >
+             
                         <Grid.Container>
                             <Grid >
                             <Avatar
@@ -78,7 +79,8 @@ const SideNavBar = () => {
                                     />
                         </Grid>
                         </Grid.Container>
-                </li>
+               
+                </Link>
 
             <div>
                 

@@ -64,7 +64,7 @@ function App() {
       <div>
         <Provider store={store}>
           <BrowserRouter>
-            
+          <CustomNav />
             <Switch>
               <Route exact path="/" component={Login} />
               <PrivateRoute exact path="/Home" component={Home} />

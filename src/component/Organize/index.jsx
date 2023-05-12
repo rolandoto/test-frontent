@@ -20,7 +20,7 @@ const Organize =({setOrganize,handModalInvoice,handRaiting,raiting,setClient,cli
         } ,
         {
           id: 7,
-          name: "T.Debito",
+          name: "T.Credito",
           imgSrc:
             "https://github.com/rolandoto/image-pms/blob/main/1_Mesa-06.png?raw=true",
         }
