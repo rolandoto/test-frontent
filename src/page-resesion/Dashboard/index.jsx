@@ -45,6 +45,7 @@ import { confirmAlert } from "react-confirm-alert";
 import { Button, Modal } from 'react-bootstrap';
 import { GiBroom } from "react-icons/gi";
 import CustomNav from "../../Ui/CustomNav";
+import ContainerGlobal from "../../Ui/ContainerGlobal";
 
 const Info = styled(ReactTooltip)`
   max-width: 500px  !important;
@@ -935,7 +936,8 @@ const Dashboard = (props) => {
           <CursorMarker />
         </TimelineMarkers>
 		</Timeline>
-	
+
+		
 		</>
 	);
 

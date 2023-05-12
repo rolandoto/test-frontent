@@ -224,24 +224,20 @@ const InformeConsolidado = () => {
         content: () => componentRef.current
     });
 
-
-    
     const [auditoria,setAuditoria] =useState()
     const [store,setStore] =useState()
     const [storeOne,setStoreOne] =useState()
     const [LookinforFecha,setLokinforFecha] =useState()
     const [loadingOne,setLoadingOne] =useState({loading:false,error:false})
 
-
     const hadChangeFecha =(e) =>{
         setLokinforFecha(e.target.value)
     }
 
-
     const hanLookingFor =() =>{
         setLoadingOne({loading:true})
         ServiceAuditoria({id:jwt.result.id_hotel,fecha:LookinforFecha}).then(index =>{
-            console.log(index)
+            console.log(index.queryTwo)
             setAuditoria(index.result)
             setStore(index.queryTwo)
             setStoreOne(index.queryOne)
@@ -252,12 +248,15 @@ const InformeConsolidado = () => {
         })
     }
 
+    console.log({"pruebas": storeOne })
+
 
     const totalFilterForma = auditoria?.filter(index => index.Tipo_forma_pago ==1)
 
     const totalFilterFormaStore = store?.filter(index => index.Forma_pago ==1)
 
     const carritoReserva = storeOne?.filter(index => index.Forma_pago ==1)
+
 
 
     const totalFilterFormaDebito = auditoria?.filter(index => index.Tipo_forma_pago ==6)
@@ -280,6 +279,7 @@ const InformeConsolidado = () => {
             countSix += parseInt(totalFilterFormaDebito[i].abono)
         }
     }
+
 
 
     let countOneSix =0
@@ -429,8 +429,6 @@ const InformeConsolidado = () => {
 
     
 
-
-    console.log(countThree)
     
     
     let count =0
@@ -458,29 +456,25 @@ const InformeConsolidado = () => {
     let countTwo =0
     for(let i =0;i<carritoReserva?.length;i++){
         const totalwith = parseInt(carritoReserva[i]?.total ) 
-        countOne += totalwith
+        countTwo += totalwith
     }
-
-
-
 
     let countFour =0
     for(let i =0;i<totalFilterFormaStoreOne?.length;i++){
         const totalwith = parseInt(totalFilterFormaStoreOne[i]?.total ) 
-        countOne += totalwith
+        countFour += totalwith
     }
 
     let countFive =0
     for(let i =0;i<carritoReservaONe?.length;i++){
         const totalwith = parseInt(carritoReservaONe[i]?.total ) 
-        countOne += totalwith
+        countFive += totalwith
     }
 
-
-
-
-
     const totalEfectivo = countOne +count +countTwo
+
+    console.log({"total efectivo": totalEfectivo})
+
 
     const OtrosMedios  = countThree +countFour +countFive
 
@@ -574,7 +568,7 @@ const InformeConsolidado = () => {
 
       </div>
       <FacturaCompany   jwt={jwt}  
-      totalEfectivooNE={totalEfectivo}
+                        totalEfectivooNE={totalEfectivo}
                         efectivoTotal={efectivoTotal} 
                         otrosMedios={otrosMedios} 
                         OtrosMedios={OtrosMedios}
@@ -714,13 +708,8 @@ const FacturaCompany  =({jwt,roomBusy,roomSell,efectivoTotal,otrosMedios,dolares
         count  += totalwith
     }
 
-    
 
     const totalIngresosPuntos  = parseInt( aeropuerto ) + parseInt( lavenderia) +   parseInt (turismo) + parseInt( countSeguro) 
-
-  
-
-
     
     const findBebidas = store?.filter(index =>  index.categoria == 1)
     const findSnaks = store?.filter(index =>  index.categoria == 2)
@@ -730,6 +719,8 @@ const FacturaCompany  =({jwt,roomBusy,roomSell,efectivoTotal,otrosMedios,dolares
     const findLenceria= store?.filter(index =>  index.categoria == 6)
     const findServicio = store?.filter(index =>  index.categoria == 7)
 
+   
+
     const findBebidasOne = storeOne?.filter(index =>  index.categoria == 1)
     const findSnaksOne = storeOne?.filter(index =>  index.categoria == 2)
     const findSouvenirOne = storeOne?.filter(index =>  index.categoria == 3)
@@ -737,6 +728,8 @@ const FacturaCompany  =({jwt,roomBusy,roomSell,efectivoTotal,otrosMedios,dolares
     const findAdultolsOne = storeOne?.filter(index =>  index.categoria == 5)
     const findLenceriaOne= storeOne?.filter(index =>  index.categoria == 6)
     const findServicioOne = storeOne?.filter(index =>  index.categoria == 7)
+
+    console.log({"categorias":findBebidas})
 
     const priceBebidas = findBebidas?.reduce((acum,current) => {
         return acum  +  current.total
@@ -824,8 +817,6 @@ const FacturaCompany  =({jwt,roomBusy,roomSell,efectivoTotal,otrosMedios,dolares
             borderRadius: "5px",
             }} >
 
-               
-           
             <div className="container-flex-comorobante" >
                 <div className="text-center top-factura-company " >
                         <div className="top-flex-pdf negrita" >
@@ -907,8 +898,6 @@ const FacturaCompany  =({jwt,roomBusy,roomSell,efectivoTotal,otrosMedios,dolares
                                     <th  className="text-font-wei-one-informe" >Cantidad</th>
                                     <th  className="text-font-wei-one-informe" >Ventas</th>
                                 </tr>
-                                
-
                                     {room?.map(index  => (
                                         <tr>
                                             <td>{index.nombre}</td>

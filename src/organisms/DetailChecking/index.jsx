@@ -741,7 +741,7 @@ const DetailChekingOrganism =({id}) =>{
                                     </select>  
                         </div>
                         
-                        <div className="container-checkbox"  onClick={handAdd}   >
+                        <div className="container-checkbox"    >
                             <button className="button-dasboard-six-one-one-one"  >
                                 <CiCirclePlus fontSize={30}  /> <span>  Añadir personas  </span> 
                             </button>
