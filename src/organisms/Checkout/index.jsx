@@ -514,6 +514,9 @@ const CheckoutOrganism =({DetailDashboard}) =>{
       const  adeudado =  parseInt(resultDashboard.valor_abono)
       const pago = parseInt(resultDashboard.valor_pago)
 
+      console.log(pago)
+      console.log(adeudado)
+
       if(adeudado >= pago){
         handOpenInvoince()
        

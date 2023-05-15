@@ -380,10 +380,11 @@ const DashboardModal = (props) => {
         }
 
         const resultValuePersona = findRoom?.precio_persona * aditional *  ResultDay
-       
-        const totalResultglobal =  PriceDay *countSeguro + count - change.abono + resultValuePersona -decuento
 
-        const valor_habiatcion =  PriceDay *countSeguro + count  + resultValuePersona -decuento
+        console.log(resultValuePersona)
+       
+        const totalResultglobal =  PriceDay *countSeguro + count - change.abono -decuento
+        const valor_habiatcion =  PriceDay *countSeguro + count   -decuento
 
         const global  = formatter.format(totalResultglobal)
 
@@ -530,12 +531,8 @@ const DashboardModal = (props) => {
 
         },[setHuespe,huespe])
 
-
-
         const totalFindRoom =  disponibilidad?.query?.find(index => index.ID ==  asignar)
 
-        
-      
         const findRoomOne =  room?.find(index => index?.id_tipoHabitacion == fecha)
 
     const handClickReservation =() =>{
@@ -552,7 +549,6 @@ const DashboardModal = (props) => {
                         timer: 500
                       })
                   ServiceInfomeMovimiento({Nombre_recepcion:jwt.result.name,Fecha:now,Movimiento:`Creación reserva tipo habiatcion ${findRoomOne.nombre} ${totalFindRoom.Numero}`,id:jwt.result.id_hotel}).then(index =>{
-                   
                     setTimeout(() =>{
                         window.location.href="/Home"
                     },1000)
@@ -574,8 +570,6 @@ const DashboardModal = (props) => {
               })
         }
     }
-
-    
 
         function handleOnChange(event) {
             setTipoPersona("persona")
@@ -640,12 +634,7 @@ const DashboardModal = (props) => {
             }).catch(e =>{
               console.log(e)
             })
-            
-        } 
-         
-        
-      console.log(asignar)
-      
+        }
       /**const link = document.createElement('a');
         link.href =PdfGenerate;
         link.setAttribute('target', '_blank');
