@@ -41,6 +41,9 @@ const Bictacoras  =() =>{
     fetchData()
   },[])
 
+
+  console.log(id)
+
   const handSubmitBictacoras =(e) =>{
     e.preventDefault()
     ServiceBictacoras({id,id_user,date:day_now,time:quitar,lugar:ubicacione,description:descriptione}).then(index=>{

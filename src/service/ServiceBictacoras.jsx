@@ -1,9 +1,9 @@
 
 
-const ENDPOINT =`https://grupo-hoteles.com/api/postBitacoraByIDHotel?id_hotel=13`
+const ENDPOINT =`https://grupo-hoteles.com/api/postBitacoraByIDHotel?id_hotel=`
 
 const ServiceBictacoras =({id,id_user,date,time,lugar,description})=>{
-    return fetch(`${ENDPOINT}`,{
+    return fetch(`${ENDPOINT}${id}`,{
         method:'POST',
         headers:{
             'Content-type':'application/json'
