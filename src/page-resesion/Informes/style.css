@@ -78,11 +78,20 @@
 }
 
 .Ocupada-camareria{
-    background: #C2DEE5;
+    background: rgb(103 183 90);
+    color: white;
 }
 
 .Aseo-camareria{
     background: #E9C9FF;
+}
+
+.Aseo-camareriaONe{
+    background: #e27382;
+}
+
+.limpia-camarerar{
+    background: #82d8cd;
 }
 
 .container-title-camareras{

@@ -95,13 +95,13 @@ td, th {
     margin: auto;
     margin-top: 50px;
     /* display: flex; */
-    max-width: 1535px;
+    max-width: 1763px;
     max-height: 1100px;
     /* flex-direction: column; */
     background: #fff;
     /* height: 100vh; */
     width: 100vw;
-    /* box-shadow: 0 0 50px rgb(0 0 0 / 40%); */
+    /* box-shadow: 0 0 50px rgb(0 0 0 / 40%);
   
 }
 
@@ -116,7 +116,7 @@ td, th {
      justify-content:space-between;
     margin: 0;
     display: flex;
-    max-width: 1258px;
+    max-width: 1712px;
     max-height: 1100px;
     /* flex-direction: column; */
     /* background: #fff; */

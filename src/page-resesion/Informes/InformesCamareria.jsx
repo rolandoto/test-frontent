@@ -95,7 +95,19 @@ const InformeCamareria =() =>{
                                     <td className="width-informe Reservada-camareria" ></td>
                                 </tr>  
                                )
-                            } if(index.ID_Tipo_Estados_Habitaciones==3){
+                            } if(index.ID_Tipo_Estados_Habitaciones==2){
+                                return (
+                                    <tr>
+                                        <td className="width-informe bloqueada-camarera" >{index.Numero}</td  >
+                                        <td className="width-informe bloqueada-camarera" >{index.Adultos}</td>
+                                        <td className="width-informe bloqueada-camarera" >{index.Ninos}</td>
+                                        <td className="width-informe bloqueada-camarera" >Bloqueada</td>
+                                        <td className="width-informe bloqueada-camarera" >{mesOne}-{monthOne}</td>
+                                        <td className="width-informe bloqueada-camarera" >{index.nombre} {index.Apellido}</td>
+                                        <td className="width-informe bloqueada-camarera" ></td>
+                                    </tr>  
+                                   )
+                                }if(index.ID_Tipo_Estados_Habitaciones==3){
                                 return (
                                     <tr>
                                         <td className="width-informe Ocupada-camareria" >{index.Numero}</td  >
@@ -115,13 +127,39 @@ const InformeCamareria =() =>{
                                             <td className="width-informe Aseo-camareria " >{index.Numero}</td  >
                                             <td className="width-informe Aseo-camareria  " >{index.Adultos}</td>
                                             <td className="width-informe Aseo-camareria  " >{index.Ninos}</td>
-                                            <td className="width-informe Aseo-camareria  " >Aseo</td>
+                                            <td className="width-informe Aseo-camareria  " >Check out</td>
                                             <td className="width-informe Aseo-camareria " >{mesOne}-{monthOne}</td>
                                             <td className="width-informe Aseo-camareria " >{index.nombre} {index.Apellido}</td>
                                             <td className="width-informe Aseo-camareria " > </td>
                                         </tr>  
                                        )
-                                    }
+                                }
+                                if(index.ID_Tipo_Estados_Habitaciones==5){
+                                    return (
+                                        <tr>
+                                            <td className="width-informe Aseo-camareriaONe " >{index.Numero}</td  >
+                                            <td className="width-informe Aseo-camareriaONe  " >{index.Adultos}</td>
+                                            <td className="width-informe Aseo-camareriaONe  " >{index.Ninos}</td>
+                                            <td className="width-informe Aseo-camareriaONe  " >Aseo</td>
+                                            <td className="width-informe Aseo-camareriaONe " >{mesOne}-{monthOne}</td>
+                                            <td className="width-informe Aseo-camareriaONe " >{index.nombre} {index.Apellido}</td>
+                                            <td className="width-informe Aseo-camareriaONe " > </td>
+                                        </tr>  
+                                       )
+                                }
+                                if(index.ID_Tipo_Estados_Habitaciones==6){
+                                    return (
+                                        <tr>
+                                            <td className="width-informe limpia-camarerar " >{index.Numero}</td  >
+                                            <td className="width-informe limpia-camarerar  " >{index.Adultos}</td>
+                                            <td className="width-informe limpia-camarerar  " >{index.Ninos}</td>
+                                            <td className="width-informe limpia-camarerar  " >Limpia</td>
+                                            <td className="width-informe limpia-camarerar " >{mesOne}-{monthOne}</td>
+                                            <td className="width-informe limpia-camarerar " >{index.nombre} {index.Apellido}</td>
+                                            <td className="width-informe limpia-camarerar " > </td>
+                                        </tr>  
+                                       )
+                                }
                             else{
                                 return  (
                                     <tr>

@@ -67,22 +67,20 @@ th {
 
 .card-stores {
   border-radius: 8px;
-  box-shadow: 0 0 20px rgb(0 0 0 / 15%);
   padding: 7px 21px 32px;
   cursor: pointer;
   text-align: center;
-  color: white;
+  color: gray;
   font-weight: lighter;
   width: 24%;
-  background: #000;
 }
 
 .card-stores-color {
-  background: #000000 !important;
+  background: 0!important;
 }
 
 .card-store-gris {
-  background: #9f9f9f !important;
+  background: 0 !important;
 }
 
 .text-venta-two {
@@ -117,6 +115,7 @@ th {
   justify-content: space-evenly;
   margin: auto;
   margin-top: 50px;
+  margin-right: -2%;
 }
 
 .title-card {
@@ -133,6 +132,10 @@ th {
 .text-venta {
   text-align: initial;
   margin-top: 5px;
+}
+
+.black-title-card{
+  color: #070707;
 }
 
 .card-One {

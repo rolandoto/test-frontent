@@ -46,6 +46,10 @@ import { Button, Modal } from 'react-bootstrap';
 import { GiBroom } from "react-icons/gi";
 import CustomNav from "../../Ui/CustomNav";
 import ContainerGlobal from "../../Ui/ContainerGlobal";
+import Box from '@mui/material/Box';
+import Popper from '@mui/material/Popper';
+import { CiCircleCheck } from "react-icons/ci";
+import { BsBucket ,BsCalendarCheck,BsCheckCircle,BsBell} from "react-icons/bs";
 
 const Info = styled(ReactTooltip)`
   max-width: 500px  !important;
@@ -111,6 +115,39 @@ const Dashboard = (props) => {
 
 	const timelineRef = useRef(null);
 	const  [totalDay ,setTotalDay] =useState()
+
+	const [selectedItem, setSelectedItem] = useState(null);
+	const [isPopperOpen, setIsPopperOpen] = useState(false);
+	const [isModalOpen, setIsModalOpen] = useState(false);
+
+	
+	const handleItemSelect = (itemId, e, time) => {
+		setSelectedItem(itemId);
+		setIsPopperOpen(true);
+	  };
+	
+	  const handleContextMenu = (e, timelineProps) => {
+		e.preventDefault();
+		const { itemId } = timelineProps;
+	
+		setSelectedItem(itemId);
+		setIsPopperOpen(true);
+	  };
+	
+	  const handlePopperClose = () => {
+		setSelectedItem(null);
+		setIsPopperOpen(false);
+	  };
+	
+	  const handleModalClose = () => {
+		setIsModalOpen(false);
+	  };
+	
+	  const handleModalOpen = () => {
+		setIsModalOpen(true);
+		setIsPopperOpen(false);
+	  };
+
 
 	
 	useEffect(() =>{
@@ -311,25 +348,42 @@ const Dashboard = (props) => {
 		let iconState
 
 		let valo =false
+		let title 
 
 		let color;
 		if (item.state === 0) {
 		  color = '#FF9990';
 		  colorWords="black"
+		  iconState = <BsBell  fontSize={15} />
+		  title=itemContext.title
 		} else if (item.state === 1) {
 		  color = '#E9C9FF';
 		  colorWords="black"
-		  iconState= <GiBroom fontSize={13} color="black"  /> 
+		  iconState= <BsBucket  fontSize={15}	  /> 
+		  title=itemContext.title
 		} else if (item.state === 2) {
 		  color = '#747171';
 		  colorWords="white"
+		  title=itemContext.title
 		} else if (item.state === 3) {
 		  color = 'rgb(103 183 90)';
 		  colorWords="white"
+		  title=itemContext.title
 		} else if (item.state === 4) {
 		  color = '#0DC034';
 		  colorWords="black"
-		}
+		  title=itemContext.title
+		}else if (item.state === 5) {
+			color = '#e27382';
+			colorWords="black"
+			title="Aseo"
+		  }
+		  else if (item.state === 6) {
+			color = '#82d8cd';
+			colorWords="black"
+			title=itemContext.title
+			iconState=<BsCheckCircle  fontSize={15} />
+		  }
 
 		const key = `${item.id}_${item.id}_schedule`;
 
@@ -374,8 +428,10 @@ const Dashboard = (props) => {
 			>
 			   <div className="icon-state-reservation" >
 			   		<span className="margin-icon-state" >{iconState}</span>
-			  		<span>{itemContext.title}</span>
+			  		<span>{title}</span>
 			   </div>
+
+			 
 
 				<div>
 						<Info  	place="top" 
@@ -811,6 +867,9 @@ const Dashboard = (props) => {
 	 * 
 	 */
 
+
+
+
 	if(loadingSkeleto) return Skele()
 	if(!pruebareservas) return null
 	if(!search)  return null
@@ -818,7 +877,7 @@ const Dashboard = (props) => {
 	if(!reservation)return null
 	if(!totalDay) return null
 	return (
-		<> 
+		<div ref={timelineRef} > 
 
 			<div className="top-index-home"></div>
 		 
@@ -837,8 +896,9 @@ const Dashboard = (props) => {
 					<div className="flex-index-reservation" ><VscRecord className="flex-contan-one" color="white"  fontSize={18} /><span>Estados</span></div></button>
 					
 					<select  onChange={handClickInformAuditoria} value={stateInformes}					
-							className='button-reservas-type-one button-reservas-type-space button-reservas-type-one-two-two    '  >
-							<option   className="opo-room"  >Informe</option>
+							className='button-reservas-type-one button-reservas-type-space button-reservas-type-one-two-two'>
+								
+							<option   className="opo-room"  > Informe</option>
 							{Informes?.map(category =>(
 													<option 
 													className="opo-room"
@@ -852,7 +912,7 @@ const Dashboard = (props) => {
 					<select onChange={handRaiting}  
 													value={raiting} 
 													className='button-reservas-type-one button-reservas-type-space  button-reservas-type-one-two-two button-reservas-type-space-One-One' >
-													<option  className="opo-room" >Ver habitaciones</option>
+													<option  className="opo-room" >  Ver habitaciones</option>
 													<option  className="opo-room" >Todas las Habitaciones</option>
 													
 												{room?.map(category =>(
@@ -869,7 +929,7 @@ const Dashboard = (props) => {
 					
 					<button className='button-reservas-type-one '   onClick={hanclickReservation} >
 							<div className="flex-index-reservation-one">
-									<VscSearch className="flex-contan-one"  color="grey" fontSize={18} /> <span >Reservas</span>
+									<BsCalendarCheck className="flex-contan-one"  color="grey" fontSize={18} /> <span >Reservas</span>
 							</div> 
 					</button>	
 				</div>
@@ -893,9 +953,11 @@ const Dashboard = (props) => {
 						toggleCloseDashboardChecking={toggleCloseDashboardChecking}  />
 			
 			<Timeline
+				
 				groups={search}
 				items={ pruebareservas}
-				onItemSelect={(e) =>console.log("select")}
+				onItemSelect={handleItemSelect}
+				onContextMenu={handleContextMenu}
 				defaultTimeStart={moment().startOf("day").add(-3, "day")}
 				defaultTimeEnd={moment().startOf("day").add(14, "day")}
 				stackItems
@@ -906,6 +968,8 @@ const Dashboard = (props) => {
 				onItemClick={(itemId, e, time) => onItemClick(itemId, e, time)}
 				now={nowOne}
 				canMove={true}>
+
+					
 				<TimelineHeaders className="list-booking-sticky"  >
 					<SidebarHeader />
 					<DateHeader
@@ -937,8 +1001,8 @@ const Dashboard = (props) => {
         </TimelineMarkers>
 		</Timeline>
 
-		
-		</>
+		<CardStore totalday={totalDay} />
+		</div>
 	);
 
 }

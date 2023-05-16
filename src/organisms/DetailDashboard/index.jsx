@@ -44,6 +44,9 @@ import Swal from 'sweetalert2'
 import ReactTooltip from "react-tooltip";
 import styled from "styled-components";
 import ServiceInfomeMovimiento from "../../service/ServiceInformeMovimiento";
+import { GiBroom } from "react-icons/gi";
+import { RiHotelBedLine } from "react-icons/ri";
+import ServiceStatus from "../../service/ServiceStatus";
 
 const DetailDasboard =(props) =>{
     const {id} = useParams()
@@ -788,7 +791,47 @@ const hancPdf =() =>{
   })
 } 
 
-const toPriceNigth = UsePrice({number:resultDashboard?.valor_dia_habitacion})
+const hanClickAsear =() => {
+  ServiceStatus({id,ID_Tipo_Estados_Habitaciones:5}).then(index => {
+    Swal.fire({
+      position: 'center',
+      icon: 'success',
+      title: '<p>Exitoso</p>',
+      showConfirmButton: false,
+      timer: 2000
+    })
+  }).catch(e =>{
+    Swal.fire({
+      position: 'center',
+      icon: 'error',
+      title: '<p>Error al cambiar habitacion</p>',
+      showConfirmButton: false,
+      timer: 2000
+    })
+  })
+}
+
+const hanClickLimpia =() => {
+  ServiceStatus({id,ID_Tipo_Estados_Habitaciones:6}).then(index => {
+    Swal.fire({
+      position: 'center',
+      icon: 'success',
+      title: '<p>Exitoso</p>',
+      showConfirmButton: false,
+      timer: 2000
+    })
+  }).catch(e =>{
+    Swal.fire({
+      position: 'center',
+      icon: 'error',
+      title: '<p>Error al cambiar habitacion</p>',
+      showConfirmButton: false,
+      timer: 2000
+    })
+  })
+}
+
+ const toPriceNigth = UsePrice({number:resultDashboard?.valor_dia_habitacion})
 
   if(!docu) return null
     
@@ -1078,6 +1121,25 @@ const toPriceNigth = UsePrice({number:resultDashboard?.valor_dia_habitacion})
                                                         onChange={handChangeObservation}
                                                         className="obs" ></textarea>  
       
+      </div>
+
+      <div className="init" >
+        <form  className="container-flex-init" >
+        <div className="container-detail-dasboard-in" > 
+            </div>
+              <div className=" row-card-One-finish" > 
+                <div className="imbox-asear-one" onClick={hanClickAsear}  >
+                <GiBroom  fontSize={25} color="black"  /> 
+                  <span> Asear</span>
+                </div>
+            
+                <div className="imbox-asear-Limpiar"  onClick={hanClickLimpia}  >
+                <RiHotelBedLine  fontSize={25} color="black"  /> 
+                  <span> Limpia</span>
+                </div>
+            </div>
+           
+        </form>
       </div>
 
 

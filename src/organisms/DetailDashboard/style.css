@@ -735,3 +735,44 @@
  .top-one-detail-room{
   margin-top: 12px;
  }
+
+ .row-card-One-finish{
+  display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+ 
+
+.imbox-asear-one{
+  background: #e27382;
+  padding: 37px;
+  border-radius: 8px;
+  color: black;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.imbox-asear-Limpiar{
+  background: #82d8cd;
+  padding: 37px;
+  border-radius: 8px;
+  color: black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+}
+
+.bloqueada-camarera{
+  background: #747171;
+  color: white;
+}
+
+.imbox-asear-Block{
+  background: #E9C9FF;
+  padding: 37px;
+  border-radius: 8px;
+  color: black;
+}
