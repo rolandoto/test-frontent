@@ -754,6 +754,19 @@
   align-items: center;
 }
 
+
+.border-detail-one{
+  background: #e7909c !important;
+  cursor: pointer;
+ 
+}
+
+
+.border-detail-two{
+  background: #97e0d7 !important;
+  cursor: pointer;
+}
+
 .imbox-asear-Limpiar{
   background: #82d8cd;
   padding: 37px;
@@ -775,4 +788,8 @@
   padding: 37px;
   border-radius: 8px;
   color: black;
+}
+
+.text-center-icon{
+  margin: auto;
 }

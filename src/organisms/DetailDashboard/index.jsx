@@ -47,6 +47,7 @@ import ServiceInfomeMovimiento from "../../service/ServiceInformeMovimiento";
 import { GiBroom } from "react-icons/gi";
 import { RiHotelBedLine } from "react-icons/ri";
 import ServiceStatus from "../../service/ServiceStatus";
+import { BsBucket ,BsCalendarCheck,BsCheckCircle,BsBell} from "react-icons/bs";
 
 const DetailDasboard =(props) =>{
     const {id} = useParams()
@@ -890,6 +891,18 @@ const hanClickLimpia =() => {
                   <span>Abono:</span>
                    <span className="negrita-detail-reserva" >{valor_abono}</span>
               </div>
+              <div className="border-detail border-detail-one " >
+                  <div  onClick={hanClickAsear}  >
+                    <GiBroom className="text-center-icon"  fontSize={25} color="black"  /> 
+                      <span>Asear habitacion</span>
+                    </div>
+              </div>
+               <div className="border-detail border-detail-two  " >
+               <div  onClick={hanClickLimpia}  >
+                  <BsCheckCircle  className="text-center-icon"   fontSize={25} color="black"  /> 
+                  <span> Habitacion limpia</span>
+                </div>
+              </div>
           </div>
       </div>
         <div  className="container-flex-init-global" >
@@ -1121,25 +1134,6 @@ const hanClickLimpia =() => {
                                                         onChange={handChangeObservation}
                                                         className="obs" ></textarea>  
       
-      </div>
-
-      <div className="init" >
-        <form  className="container-flex-init" >
-        <div className="container-detail-dasboard-in" > 
-            </div>
-              <div className=" row-card-One-finish" > 
-                <div className="imbox-asear-one" onClick={hanClickAsear}  >
-                <GiBroom  fontSize={25} color="black"  /> 
-                  <span> Asear</span>
-                </div>
-            
-                <div className="imbox-asear-Limpiar"  onClick={hanClickLimpia}  >
-                <RiHotelBedLine  fontSize={25} color="black"  /> 
-                  <span> Limpia</span>
-                </div>
-            </div>
-           
-        </form>
       </div>
 
 
