@@ -84,7 +84,7 @@ const DetailDasboard =(props) =>{
 
     const findPersona =  resultDashboard?.tipo_persona == "persona"
     const findEmpresa = resultDashboard?.tipo_persona =="empresa"
-    const findFirma = resultDashboard?.Estado =="3" ||  resultDashboard?.Estado =="1"
+    const findFirma = resultDashboard?.Estado =="3" ||  resultDashboard?.Estado =="1"||resultDashboard?.Estado =="5" || resultDashboard?.Estado =="6"
 
     const formatter = new Intl.NumberFormat('en-US', {
       style: 'currency',  

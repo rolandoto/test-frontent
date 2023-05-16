@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import "./SideNavBar.css";
 import { AiOutlineSafetyCertificate ,AiOutlineShoppingCart} from "react-icons/ai";
 import { VscSymbolProperty } from "react-icons/vsc";
-import { BsFileEarmarkCheck,BsHandbag,BsPerson,BsBell,BsPersonCircle } from "react-icons/bs";
+import { BsFileEarmarkCheck,BsHandbag,BsPerson,BsBell,BsPersonCircle ,BsChatDots} from "react-icons/bs";
 import { BiTaxi } from "react-icons/bi";
 import {Link, useHistory} from "react-router-dom"
 import { RiHome2Line } from "react-icons/ri";
@@ -11,6 +11,7 @@ import  AutoProvider  from "../privateRoute/AutoProvider";
 import { CiStopSign1 } from "react-icons/ci";
 import ReactTooltip from "react-tooltip";
 import { Avatar, Grid } from "@nextui-org/react";
+import { CiBellOn } from "react-icons/ci";
 
 const SideNavBar = () => {
 
@@ -183,6 +184,17 @@ const SideNavBar = () => {
                     {isExpanded && <p>{null}</p>} 
         </Link>
 
+        <ReactTooltip id="informacionTip" place="right" effect="solid">
+                Informacion
+        </ReactTooltip>
+
+
+        <a  className={isExpanded ? "menu-item" : "menu-item menu-item-NX"}   data-tip data-for="informacionTip" >
+                        
+                        <BsChatDots fontSize={18} color="black"  onClick={handClose}   />
+                                    {isExpanded && <p>{null}</p>}
+                                
+        </a>
         <ReactTooltip id="TaxiTip" place="right" effect="solid">
                 Taxi
         </ReactTooltip>
@@ -207,21 +219,7 @@ const SideNavBar = () => {
 				</div>
 			</div>
 			<div className="nav-footer">
-				{isExpanded && (
-					<div className="nav-details">
-						<img
-							className="nav-footer-avatar"
-							src="icons/admin-avatar.svg"
-							alt=""
-							srcset=""
-						/>
-						<div className="nav-footer-info">
-							<p className="nav-footer-user-name">M Showkat</p>
-							<p className="nav-footer-user-position">store admin</p>
-						</div>
-					</div>
-				)}
-				<img className="logout-icon" src="icons/logout.svg" alt="" srcset="" />
+				
 			</div>
 		</div>
 	);
