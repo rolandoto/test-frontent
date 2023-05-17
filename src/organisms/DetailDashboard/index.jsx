@@ -1041,7 +1041,7 @@ const hanClickLimpia =() => {
                           defaultValue={0}
                         className="desde-detail-two"  />
                 <div>
-                      <button className="button-change-type-room" onClick={handClickInsertAbono}  > <span>Agreagar pago</span></button>
+                      <button className="button-change-type-room" onClick={handClickInsertAbono}  > <span>Agregar pago</span></button>
                 </div>    
             </div>
         </form>

@@ -148,13 +148,13 @@
 }
 
 .init {
-  padding: 15px;
+  padding: 2px 5px 0px 5px;
   display: block;
   max-width: 1481px;
   margin: auto;
   background: #ebebeb;
   border-radius: 10px;
-  height: 158px;
+  height: 122px;
   margin-top: 5px;
 }
 

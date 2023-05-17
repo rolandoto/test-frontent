@@ -33,9 +33,7 @@ const UseUsers =() =>{
             setJwt(index)
             dispatch(setLogin(index.result.id_user))
             setState({loading:true,error:false})
-            setTimeout(() =>{
-               
-            },3000)
+           
         }).catch((e) =>{
             console.log('no entro')
             console.error(e)

@@ -51,7 +51,6 @@ const InformeMovimiento =() =>{
         
             {state?.map(index => {
 
-            
                 const fecha =  moment(index.Fecha).utc().format('YYYY-MM-DD HH:mm:ss ')
                 
                 return (
@@ -60,7 +59,7 @@ const InformeMovimiento =() =>{
                         <div>   
                                 <div className="flex-card-One" >
                                     <span><CiUser fontSize={30} color="black" /></span>
-                                    <span>{index.Nombre_recepcion}</span>
+                                    <span  >{index.Nombre_recepcion}</span>
                                 </div>
                                 <h4 className="let-letra-movimiento" >{index.Movimiento}</h4>
                             </div>

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./SideNavBar.css";
 import { AiOutlineSafetyCertificate ,AiOutlineShoppingCart} from "react-icons/ai";
 import { VscSymbolProperty } from "react-icons/vsc";
@@ -12,6 +12,11 @@ import { CiStopSign1 } from "react-icons/ci";
 import ReactTooltip from "react-tooltip";
 import { Avatar, Grid } from "@nextui-org/react";
 import { CiBellOn } from "react-icons/ci";
+import ServiceInfomeMovimientoPost from "../service/ServiceInformeMovimientoPost";
+import moment from "moment";
+import { CiUser } from "react-icons/ci";
+
+
 
 const SideNavBar = () => {
 
@@ -20,6 +25,8 @@ const SideNavBar = () => {
     const {setJwt} = useContext(AutoProvider)
     const history = useHistory()
     const [user,setUser] = useState(false)
+    const [state,setState] =useState()
+    const  now = moment().format("YYYY-MM-DD");
 
     const handOpenModal =() =>{
         setUser(true)
@@ -32,6 +39,19 @@ const SideNavBar = () => {
         setJwt(null)
         history.push("/")
     }
+
+    useEffect(() =>{
+        ServiceInfomeMovimientoPost({id:jwt?.result?.id_hotel,fecha:now}).then(index => {
+            setState(index.query)
+        }).catch(e =>{
+           console.log(e)
+        })
+    },[jwt])
+
+    const primerosNumeros = state?.slice(0, 3);
+
+    console.log(primerosNumeros)
+ 
 
     if(!jwt) return null
 
@@ -185,7 +205,34 @@ const SideNavBar = () => {
         </Link>
 
         <ReactTooltip id="informacionTip" place="right" effect="solid">
-                Informacion
+                {primerosNumeros?.map(index => {
+
+                const fecha =  moment(index.Fecha).utc().format('YYYY-MM-DD HH:mm:ss ')
+
+                return (
+
+            
+                
+                    <div className="card-two" > 
+                    <div className="display-flex-card" >
+                    <div>   
+                            <div className="flex-card-One" >
+                                <span><CiUser fontSize={30} color="white" /></span>
+                                <span className="color-globito" >{index.Nombre_recepcion}</span>
+                            </div>
+                            <h4 className="color-globito  let-letra-movimiento" >{index.Movimiento}</h4>
+                        </div>
+                            
+                        <div>
+                            <span className="color-globito" >{fecha}</span>
+                        </div>
+                        
+                    </div>
+            
+                </div>
+                 )
+                
+            })}
         </ReactTooltip>
 
 
