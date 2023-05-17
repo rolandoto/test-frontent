@@ -92,7 +92,6 @@ const style = {
 
 const Dashboard = (props) => {
 
-	
 
 	const {id} = useParams()
 	const [open, setOpen] = useState(true);
@@ -102,7 +101,7 @@ const Dashboard = (props) => {
 	const [cleanline,setcleanline] =useState(false)
 	const [block,setBlock] =useState(false)
 	const [lookinfor,setLookingfor] =useState()
-	const {jwt} =useContext(AutoProvider)
+	const {jwt,update} =useContext(AutoProvider)
 	const {toggleOpenDashBoard,toggleCloseDashboard} = useDashboardAction()
 	const {toggleOpenDashboardChecking,toggleCloseDashboardChecking}  = useDashboardCheckingAction()
 	const {dashboardVisible} = useSelector(selectDashboard)
@@ -517,7 +516,6 @@ const Dashboard = (props) => {
 					acumlitor++;
 				}
 
-				console.log({"acumlitor":intervalContext})
 				
 				return (
 				  <div
@@ -660,7 +658,7 @@ const Dashboard = (props) => {
 				setSearch(roomDefinid)
 			}
 		})
-	},[room])
+	},[room,update])
 
 	useEffect(() =>{
 		ServiceReservas({id:jwt.result.id_hotel}).then(index=> {
@@ -668,7 +666,7 @@ const Dashboard = (props) => {
 			
 			setpruebareservas(index)
 		})
-	},[setSearch])
+	},[setSearch,update])
 	
 	if(search?.length ==0) {
 		setSearch(state)
@@ -816,7 +814,7 @@ const Dashboard = (props) => {
 
 	const handleItemHover = (itemId, time, e) => {
 		setHoveredItem(itemId);
-		console.log('Item hovered:', itemId);
+		
 	  };
 
   // definir estado para almacenar la fecha actual
@@ -834,7 +832,6 @@ const Dashboard = (props) => {
 
 	  const nowOne = new Date(2023, 4, 1, 3, 10);
 
-	console.log({"fecha de hoy":currentDate})
 
 	/**
 	 *  <ul className="border-icon"  >

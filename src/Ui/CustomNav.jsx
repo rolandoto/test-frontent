@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import "./SideNavBar.css";
 import { AiOutlineSafetyCertificate ,AiOutlineShoppingCart} from "react-icons/ai";
 import { VscSymbolProperty } from "react-icons/vsc";
-import { BsFileEarmarkCheck,BsHandbag,BsPerson,BsBell,BsPersonCircle ,BsChatDots} from "react-icons/bs";
+import { BsFileEarmarkCheck,BsHandbag,BsPerson,BsBell,BsPersonCircle ,BsChatDots,BsArrowRepeat} from "react-icons/bs";
 import { BiTaxi } from "react-icons/bi";
 import {Link, useHistory} from "react-router-dom"
 import { RiHome2Line } from "react-icons/ri";
@@ -20,7 +20,7 @@ import { CiUser } from "react-icons/ci";
 
 const SideNavBar = () => {
 
-    const {jwt} =useContext(AutoProvider)
+    const {jwt,update,setUpadte} =useContext(AutoProvider)
 	const [isExpanded, setExpendState] = useState(false);
     const {setJwt} = useContext(AutoProvider)
     const history = useHistory()
@@ -50,8 +50,12 @@ const SideNavBar = () => {
 
     const primerosNumeros = state?.slice(0, 3);
 
-    console.log(primerosNumeros)
- 
+    console.log(update)
+
+    const hanChange =() =>{
+        setUpadte(!update)
+    }
+
 
     if(!jwt) return null
 
@@ -77,10 +81,11 @@ const SideNavBar = () => {
                 <ReactTooltip id="IconTip" place="right" effect="solid">
                     <div className="row-flex" >
                         <div>
-                            <li> <div className="row-card" >  <img className="row-to"  width={40} src={jwt.result.logo} alt="" /></div>  </li>
+                            <li> <div className="row-card" >  <img  className="row-to"  width={40} src={jwt.result.logo} alt="" /></div>  </li>
                         </div>
                         
                         <div>
+                            
                             <span className="row-block" >{jwt.result.name}</span>
                             <span className="row-block" >{jwt.result.hotel}</span>
                         </div>
@@ -238,10 +243,26 @@ const SideNavBar = () => {
 
         <a  className={isExpanded ? "menu-item" : "menu-item menu-item-NX"}   data-tip data-for="informacionTip" >
                         
-                        <BsChatDots fontSize={18} color="black"  onClick={handClose}   />
+                        <BsChatDots fontSize={18} color="black"   />
                                     {isExpanded && <p>{null}</p>}
                                 
         </a>
+
+
+        <ReactTooltip id="updateTip" place="right" effect="solid">
+                Actualizar
+        </ReactTooltip>
+
+        <a  className={isExpanded ? "menu-item" : "menu-item menu-item-NX"}   data-tip data-for="updateTip" onClick={hanChange}   >
+                        
+                        <BsArrowRepeat fontSize={18} color="black"   />
+                                    {isExpanded && <p>{null}</p>}
+                                
+        </a>
+
+
+
+
         <ReactTooltip id="TaxiTip" place="right" effect="solid">
                 Taxi
         </ReactTooltip>
