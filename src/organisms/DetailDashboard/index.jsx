@@ -235,7 +235,17 @@ const DetailDasboard =(props) =>{
 
     const handChangeSave =() =>{
 
-      ServiceInfomeMovimiento({Nombre_recepcion:jwt.result.name,Fecha:now,Movimiento:`Se actualizo datos personales tipo habitacion ${resultFinish?.nombre} ${resultDashboard.Numero} ${resultDashboard.Nombre}  codigo reserva ${resultDashboard.id_persona}`,id:jwt.result.id_hotel}).then(index =>{
+      ServiceInfomeMovimiento({Nombre_recepcion:jwt.result.name,Fecha:now,Movimiento:`Se actualizo datos personales tipo habitacion ${resultFinish?.nombre} ${resultDashboard.Numero} nombre ${resultDashboard.Nombre} codigo reserva ${resultDashboard.id_persona}`,id:jwt.result.id_hotel}).then(index =>{
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: '<p>Se actualizo los datos</p>',
+          showConfirmButton: false,
+          timer: 2000
+        })
+        setTimeout(() =>{
+          window.location.reload()
+        },2000)
       }).catch(e =>{
           console.log(e)
       })
@@ -327,8 +337,17 @@ const DetailDasboard =(props) =>{
     const handClick =() =>{
         Servicedetailespandir({desde:dataAvaible.desde,hasta:dataAvaible.hasta,desdeOne:dataAvaible.desdeOne,habitaciones:resultDashboard.ID_Tipo_habitaciones,ID_Habitaciones:resultDashboard.ID_Habitaciones,id,dayOne,valor_dia_habitacion:resultDashboard.valor_dia_habitacion}).then(index =>{
           setLoadingFecha({loading:true})
-          ServiceInfomeMovimiento({Nombre_recepcion:jwt.result.name,Fecha:now,Movimiento:`Actualizar fecha tipo habitacion ${resultFinish?.nombre} ${resultDashboard.Numero} ${resultDashboard.Nombre}  codigo reserva ${resultDashboard.id_persona}`,id:jwt.result.id_hotel}).then(index =>{
-          
+          ServiceInfomeMovimiento({Nombre_recepcion:jwt.result.name,Fecha:now,Movimiento:`Actualizar fecha tipo habitacion ${resultFinish?.nombre} ${resultDashboard.Numero} nombre ${resultDashboard.Nombre}  codigo reserva ${resultDashboard.id_persona}`,id:jwt.result.id_hotel}).then(index =>{
+            Swal.fire({
+              position: 'center',
+              icon: 'success',
+              title: '<p>Fecha actulizado</p>',
+              showConfirmButton: false,
+              timer: 2000
+            })
+            setTimeout(() =>{
+              window.location.reload()
+            },2000)
           }).catch(e =>{
               console.log(e)
           })
@@ -394,23 +413,21 @@ const DetailDasboard =(props) =>{
 
     const handClickInsertAbono =()  => {
         HttpClient.insertPayABono({data:inputPayValue}).then(index=> {
-          ServiceInfomeMovimiento({Nombre_recepcion:jwt.result.name,Fecha:now,Movimiento:`Abono agregado tipo habitacion ${resultFinish?.nombre} ${resultDashboard.Numero} ${resultDashboard.Nombre}  codigo reserva ${resultDashboard.id_persona}`,id:jwt.result.id_hotel}).then(index =>{
-          
+          ServiceInfomeMovimiento({Nombre_recepcion:jwt.result.name,Fecha:now,Movimiento:`Abono agregado tipo habitacion ${resultFinish?.nombre} ${resultDashboard.Numero} nombre ${resultDashboard.Nombre} codigo reserva ${resultDashboard.id_persona}`,id:jwt.result.id_hotel}).then(index =>{
+            Swal.fire({
+              position: 'center',
+              icon: 'success',
+              title: '<p>Abono exitoso</p>',
+              showConfirmButton: false,
+              timer: 2000
+            })
+            setTimeout(() =>{
+              window.location.reload()
+            },2000)
           }).catch(e =>{
               console.log(e)
           })
-          Swal.fire({
-            position: 'center',
-            icon: 'success',
-            title: '<p>Abono exitoso</p>',
-            showConfirmButton: false,
-            timer: 2000
-          })
-
-          
-          setTimeout(() =>{
-            window.location.reload()
-          },2000)
+       
         }).catch(e =>{
           Swal.fire({
             position: 'center',
@@ -499,12 +516,12 @@ const DetailDasboard =(props) =>{
     }else {
       ServiceAddHuespedes({id,huespe,data:dataCountPeople,dataPay:dataOne}).then(index =>{
         console.log({"se agrego":index})
-        ServiceInfomeMovimiento({Nombre_recepcion:jwt.result.name,Fecha:now,Movimiento:`Se añadio huesped tipo habitacion ${resultFinish?.nombre} ${resultDashboard.Numero} ${resultDashboard.Nombre}  codigo reserva ${resultDashboard.id_persona}`,id:jwt.result.id_hotel}).then(index =>{
-          
+        ServiceInfomeMovimiento({Nombre_recepcion:jwt.result.name,Fecha:now,Movimiento:`Se añadio huesped tipo habitacion ${resultFinish?.nombre} ${resultDashboard.Numero} nombre ${resultDashboard.Nombre} codigo reserva ${resultDashboard.id_persona}`,id:jwt.result.id_hotel}).then(index =>{
+          window.location.reload()
         }).catch(e =>{
             console.log(e)
         })
-        window.location.reload()
+     
     }).catch(e =>{
         console.log("error al aregar uan")
     })
@@ -600,7 +617,7 @@ const priceLenceria = Lenceria?.reduce((acum,current) => {
   const hanDelete =() =>{
     ServiDelteReservation({id}).then(index =>{
       console.log(index)
-      ServiceInfomeMovimiento({Nombre_recepcion:jwt.result.name,Fecha:now,Movimiento:`Reserva eliminada tipo habitacion ${resultFinish?.nombre} ${resultDashboard.Numero} ${resultDashboard.Nombre}  codigo reserva ${resultDashboard.id_persona} `,id:jwt.result.id_hotel}).then(index =>{
+      ServiceInfomeMovimiento({Nombre_recepcion:jwt.result.name,Fecha:now,Movimiento:`Reserva eliminada tipo habitacion ${resultFinish?.nombre} ${resultDashboard.Numero} nombre ${resultDashboard.Nombre} codigo reserva ${resultDashboard.id_persona} `,id:jwt.result.id_hotel}).then(index =>{
         window.location.href="/Home"
       }).catch(e =>{
           console.log(e)
@@ -729,21 +746,21 @@ const PriceRoomById= room?.find(index=>index?.id_tipoHabitacion == idRoom)
 const handServiceChangeTypeRoom =(e) =>{
   e.preventDefault()
   ServiceUpdateDetailTypeRoom({desde:dataAvaible.desdeOne,hasta:dataAvaible.desde,ID_Habitaciones:asignar,id,ID_Tipo_habitaciones:idRoom,RoomById:PriceRoomById}).then(index => {
-    ServiceInfomeMovimiento({Nombre_recepcion:jwt.result.name,Fecha:now,Movimiento:`Reserva cambio tipo habitacion ${resultFinish?.nombre} ${resultDashboard.Numero}  ${resultDashboard.Nombre}  codigo reserva ${resultDashboard.id_persona}`,id:jwt.result.id_hotel}).then(index =>{
-          
+    ServiceInfomeMovimiento({Nombre_recepcion:jwt.result.name,Fecha:now,Movimiento:`Reserva cambio tipo habitacion ${resultFinish?.nombre} ${resultDashboard.Numero} nombre ${resultDashboard.Nombre} codigo reserva ${resultDashboard.id_persona}`,id:jwt.result.id_hotel}).then(index =>{
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: '<p>Cambio de habitacion exitoso</p>',
+        showConfirmButton: false,
+        timer: 2000
+      })
+      setTimeout(() =>{
+        window.location.reload()
+      },2000)
     }).catch(e =>{
         console.log(e)
     })
-    Swal.fire({
-      position: 'center',
-      icon: 'success',
-      title: '<p>Cambio de habitacion exitoso</p>',
-      showConfirmButton: false,
-      timer: 2000
-    })
-    setTimeout(() =>{
-      window.location.reload()
-    },2000)
+   
   }).catch(e =>{
     Swal.fire({
       position: 'center',
@@ -782,7 +799,7 @@ const hancPdf =() =>{
     link.click();
     document.body.removeChild(link) 
       setPdfOne(index)
-      ServiceInfomeMovimiento({Nombre_recepcion:jwt.result.name,Fecha:now,Movimiento:`Descargar comprobante tipo habitacion ${resultFinish?.nombre} ${resultDashboard.Numero} ${resultDashboard.Nombre}  codigo reserva ${resultDashboard.id_persona}` ,id:jwt.result.id_hotel}).then(index =>{
+      ServiceInfomeMovimiento({Nombre_recepcion:jwt.result.name,Fecha:now,Movimiento:`Descargar comprobante tipo habitacion ${resultFinish?.nombre} ${resultDashboard.Numero} nombre ${resultDashboard.Nombre},  codigo reserva ${resultDashboard.id_persona}` ,id:jwt.result.id_hotel}).then(index =>{
                             
       }).catch(e =>{
           console.log(e)

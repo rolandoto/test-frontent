@@ -132,11 +132,29 @@ input{
 
 .contracto-parrafo{
   width: 54%;
-  font-size: 8.5px;
+    font-size: 8.5px;
+    position: relative;
+    top: -924px;
+    left: 695px;
+    text-align: justify;
+}
+
+.button-checking-detail-finisOne-finish-one-one{
+  border: none;
+  background: #00B712;
+  padding: 20px;
+  width: 530px;
+  border-radius: 8px;
+  color: white !important;
+  height: 41px;
+  align-items: center;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
   position: relative;
-  top: -1048px;
-  left: 695px;
-  text-align: justify;
+  top: 343px;
+  left: 5px;
 }
 
 

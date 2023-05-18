@@ -212,7 +212,7 @@ const Checkingn2Organism =({id}) =>{
     const handUpdateConfirms =() =>{
         ServiceUpdateReservationpay({id,dataOne:dataTwo}).then(index  =>{
             ServiceStatus({id,ID_Tipo_Estados_Habitaciones:3}).then(index=>{
-                ServiceInfomeMovimiento({Nombre_recepcion:jwt.result.name,Fecha:now,Movimiento:`Check in realizado tipo habitacion ${resultFinish?.nombre}  ${resulDetailDashboard.Numero}  `,id:jwt.result.id_hotel}).then(index =>{
+                ServiceInfomeMovimiento({Nombre_recepcion:jwt.result.name,Fecha:now,Movimiento:`Check in realizado tipo habitacion ${resultFinish?.nombre}  ${resulDetailDashboard.Numero}  nombre ${resulDetailDashboard.Nombre} codigo reserva ${resulDetailDashboard.id_persona}  `,id:jwt.result.id_hotel}).then(index =>{
                     window.location.href =(`/checkingin3/${id}`)
                 }).catch(e =>{
                     console.log(e)

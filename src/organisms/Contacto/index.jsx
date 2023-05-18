@@ -28,7 +28,7 @@ const ContractoOrganism =() =>{
                                     
                                     <li>
                                         <div className="Button-Contrato" >
-                                            <button className="button-checking-detail-finisOne-finish text-contracto"  >
+                                            <button className="button-checking-detail-finisOne-finish-one-one text-contracto"  >
                                                 <span className="title-button"   ><a href="https://47medellinstreethotel.com/contratodehospedaje.pdf"  target="_blank"  className="icon-taxi">  <CiFileOn fontSize={25}  color="white" />  Formato contrato </a></span>
                                             </button>
                                         </div>
