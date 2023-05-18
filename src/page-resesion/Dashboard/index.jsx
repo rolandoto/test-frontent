@@ -51,6 +51,7 @@ import Popper from '@mui/material/Popper';
 import { CiCircleCheck } from "react-icons/ci";
 import { BsBucket ,BsCalendarCheck,BsCheckCircle,BsBell} from "react-icons/bs";
 
+
 const Info = styled(ReactTooltip)`
   max-width: 500px  !important;
   padding-top: 9px  !important;
@@ -367,6 +368,7 @@ const Dashboard = (props) => {
 		} else if (item.state === 3) {
 		  color = 'rgb(103 183 90)';
 		  colorWords="white"
+		  iconState= <VscSymbolEvent  fontSize={15}	  /> 
 		  title=itemContext.title
 		} else if (item.state === 4) {
 		  color = '#0DC034';
@@ -863,9 +865,6 @@ const Dashboard = (props) => {
 				</ul>
 	 * 
 	 */
-
-
-
 
 	if(loadingSkeleto) return Skele()
 	if(!pruebareservas) return null

@@ -7,15 +7,56 @@
 	--light: #ffffff;
 }
 
+/* Estilos para WebKit (Chrome, Safari) */
+::-webkit-scrollbar {
+	width: 8px; /* Ancho del scrollbar */
+  }
+  
+  ::-webkit-scrollbar-track {
+	background: transparent; /* Color de fondo del track */
+  }
+  
+  ::-webkit-scrollbar-thumb {
+	background: transparent; /* Color del pulgar */
+  }
+  
+  /* Estilos para Firefox */
+  html {
+	scrollbar-width: thin; /* Ancho del scrollbar */
+	scrollbar-color: transparent transparent; /* Color del pulgar y del track */
+  }
+  
+  /* Estilos para Microsoft Edge e Internet Explorer */
+  body {
+	-ms-overflow-style: none; /* Oculta el scrollbar en Edge e IE */
+  }
+  
+  body::-webkit-scrollbar {
+	width: 8px; /* Ancho del scrollbar */
+  }
+  
+  body::-webkit-scrollbar-track {
+	background: transparent; /* Color de fondo del track */
+  }
+  
+  body::-webkit-scrollbar-thumb {
+	background: transparent; /* Color del pulgar */
+  }
+
+
+
 .side-nav-container {
  background-color: var(--dark); 
     width: 300px;
-    height: 120%;
+    height: 100% !important;
     position: fixed;
     color: var(--light);
     transition: 0.4s;
     z-index: 1011;
     padding: 0;
+	overflow: auto;
+	scrollbar-width: none; 
+	-ms-overflow-style: none;
     border-right: 1px solid rgba(0,0,0,.125);
     transition: width 0.05s;
     background-color: #fff;
