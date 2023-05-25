@@ -20,11 +20,9 @@ import Swal from 'sweetalert2'
 import { CiUser ,CiShop,CiBank } from "react-icons/ci";
 import ServiceInfomeMovimiento from "../../service/ServiceInformeMovimiento"
 
+const CheckoutOrganism =({DetailDashboard,postDetailRoom}) =>{
 
-const CheckoutOrganism =({DetailDashboard}) =>{
 
-   
-    
     const {id} = useParams()
     const {jwt} = useContext(AutoProvider)
     const [room,setRoom] =useState()
@@ -531,11 +529,13 @@ const CheckoutOrganism =({DetailDashboard}) =>{
       }
     }
 
+
     const hancCheckout =() => {
         ServiceStatus({id,ID_Tipo_Estados_Habitaciones:1}).then(index=>{
+            postDetailRoom({id:resultDashboard.ID_Habitaciones,ID_estado_habitacion:5})
             ServiceResolution({Resolucion:dataCount.Resolucion+1,ID:dataCount.ID}).then(index=>{
                 ServiceInfomeMovimiento({Nombre_recepcion:jwt.result.name,Fecha:now,Movimiento:`Check out realizado tipo habitacion ${resultFinish?.nombre} ${resultDashboard.Numero}`,id:jwt.result.id_hotel}).then(index =>{
-          
+                    
                 }).catch(e =>{
                     console.log(e)
                 })

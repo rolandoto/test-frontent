@@ -54,7 +54,7 @@ const DetailDasboard =(props) =>{
     const [state,setState] =useState(true)
     const [room,setRoom] =useState()
     const [tipoDocumento,setTipoDocumento] =useState()
-    const {DetailDashboard,fetchData} = props
+    const {DetailDashboard,fetchData,postDetailRoom} = props
     const [loading,setLoading] =useState({loading:false,error:false})
     const history = useHistory()
     const {iduser} = UseListMotels()
@@ -617,6 +617,7 @@ const priceLenceria = Lenceria?.reduce((acum,current) => {
   const hanDelete =() =>{
     ServiDelteReservation({id}).then(index =>{
       console.log(index)
+      postDetailRoom({id:resultDashboard?.ID_Habitaciones,ID_estado_habitacion:0})
       ServiceInfomeMovimiento({Nombre_recepcion:jwt.result.name,Fecha:now,Movimiento:`Reserva eliminada tipo habitacion ${resultFinish?.nombre} ${resultDashboard.Numero} nombre ${resultDashboard.Nombre} codigo reserva ${resultDashboard.id_persona} `,id:jwt.result.id_hotel}).then(index =>{
         window.location.href="/Home"
       }).catch(e =>{

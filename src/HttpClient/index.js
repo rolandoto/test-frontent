@@ -133,11 +133,24 @@ const getForget =(url="") =>{
 }
 
 
-
 const insertPayABono = ({data}) =>{
   return fetch((`${config.serverRoute}/api/resecion/insertPayAbono`),{
     method:"POST",
       body:JSON.stringify({data}),
+      headers:{
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      }
+      }).then(resp =>{
+      if(!resp.ok) throw new Error('Response is not ok')
+      return resp.json()
+  })
+}
+
+const postUpdateRoomDetail = ({ID_estado_habitacion,id}) =>{
+  return fetch((`${config.serverRoute}/api/resecion/RoomDetail`),{
+    method:"POST",
+      body:JSON.stringify({ID_estado_habitacion,id}),
       headers:{
         Accept: 'application/json',
         'Content-Type': 'application/json',
@@ -159,6 +172,7 @@ const insertPayABono = ({data}) =>{
     GetFormats,
     GetContact,
     getForget,
-    insertPayABono
+    insertPayABono,
+    postUpdateRoomDetail
   }
   

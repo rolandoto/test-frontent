@@ -7,11 +7,13 @@ import useProgress from "../../hooks/useProgress";
 import DetailDasboard from "../../organisms/DetailDashboard";
 import LineProgress from "../../Ui/LineProgress";
 import moment from "moment/moment";
+import useDetailRoomAction from "../../action/useDetailRoomAction";
 
 const DetailDashboard =() =>{
     const {id} = useParams()    
     const {progress} = useProgress({id})
     const {getDetailReservationById} = useDetailDashboardAction()
+    const  {postDetailRoom} =  useDetailRoomAction()
     const {loading,error,DetailDashboard
                 } = useSelector((state) => state.DetailDashboard)
 
@@ -34,7 +36,10 @@ const DetailDashboard =() =>{
             return <p>...{error}</p>
         }
  
-    return    <DetailDasboard  DetailDashboard={DetailDashboard} fetchData={fetchData} />}
+    return    <DetailDasboard  
+                    postDetailRoom={postDetailRoom}                
+                    DetailDashboard={DetailDashboard} 
+                    fetchData={fetchData} />}
 
     return (
         <>

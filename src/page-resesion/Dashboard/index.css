@@ -980,3 +980,9 @@ hr {
 .paddint-let-terifa-day{
   padding: 13px;
 }
+
+.flex-romm-grup{
+  display: flex;
+  align-items: center;
+  justify-content: initial;
+}

@@ -1,0 +1,49 @@
+.caja-room-detail {
+    width:  110%;
+    height: 111px;
+    background: #e7909c!important;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    cursor: pointer;
+    margin: 2px;
+}
+
+.caja-room-detail-asear{
+    width:  110%;
+    height: 111px;
+    background: #747171!important;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
+    margin: 2px;
+}
+
+.caja-room-detail-disponible{
+    width:  110%;
+    height: 111px;
+    background: #d6dad9!important;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    cursor: pointer;
+    margin: 2px;
+}
+
+.container-card-room-detail{
+    width: 1465px;
+    margin: auto;
+    padding: 1px;
+}
+
+.flex-container-imbox{
+    display: flex;
+}

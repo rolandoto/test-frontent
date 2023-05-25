@@ -12,6 +12,7 @@ import { ContactSlice } from '../reducers/contactReducers'
 
 import RoomsModalCheckingSlice from '../reducers/dashboardCheckingReducer'
 import { ForgetSlice } from '../reducers/forgetReducer'
+import { RoomDetail } from '../reducers/RoomDetailReducer'
 
 
 const store = configureStore ({
@@ -28,7 +29,8 @@ const store = configureStore ({
         Bictacoras:BitacorasSlice.reducer,
         Formats:FormatsSlice.reducer,
         Contact:ContactSlice.reducer,
-        Forget:ForgetSlice.reducer
+        Forget:ForgetSlice.reducer,
+        RoomDetail:RoomDetail.reducer
     },
     devTools:true,
 })

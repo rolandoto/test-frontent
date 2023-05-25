@@ -10,6 +10,7 @@ import Swal from 'sweetalert2'
 import moment from "moment"
 import "moment/locale/es";
 
+
 const InformeMovimiento =() =>{
 
     const [LookinforFecha,setLokinforFecha] =useState()

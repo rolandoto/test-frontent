@@ -6,11 +6,13 @@ import useDetailDashboardAction from "../../action/useDetailDashboardAction";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import CheckoutOrganism from "../../organisms/Checkout";
+import useDetailRoomAction from "../../action/useDetailRoomAction";
 
 const Checkout =() =>{
     const {id} = useParams()   
     const {progress} = useProgress({id})
     const {getDetailReservationById} = useDetailDashboardAction()
+    const  {postDetailRoom} =  useDetailRoomAction()
     const {loading,error,DetailDashboard
     } = useSelector((state) => state.DetailDashboard)
 
@@ -32,7 +34,9 @@ const Checkout =() =>{
             return <p>...{error}</p>
         }
 
-        return  <CheckoutOrganism DetailDashboard={DetailDashboard}  />
+        return  <CheckoutOrganism 
+            DetailDashboard={DetailDashboard}
+            postDetailRoom={postDetailRoom}  />
     }
 
     return (

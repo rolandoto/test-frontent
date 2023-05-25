@@ -50,6 +50,21 @@ import Box from '@mui/material/Box';
 import Popper from '@mui/material/Popper';
 import { CiCircleCheck } from "react-icons/ci";
 import { BsBucket ,BsCalendarCheck,BsCheckCircle,BsBell} from "react-icons/bs";
+import { IoBedOutline ,IoBanOutline} from "react-icons/io5";
+
+const GroupRows =({group,color,estado,iconState,letra}) =>{
+
+	return (
+		<div   style={{ backgroundColor: color, color:letra }} className="flex-romm-grup" >
+			<div>
+				{iconState}
+			</div>
+			<div>
+				<span> {group} {estado} </span>
+			</div>
+		</div>
+	)
+}
 
 
 const Info = styled(ReactTooltip)`
@@ -585,6 +600,8 @@ const Dashboard = (props) => {
         })
     },[setRoom])
 
+	console.log({"room":room})
+
 	const [search,setSearch] =useState([])
 
 	const filtrar=(terminoBusqueda)=>{
@@ -646,10 +663,11 @@ const Dashboard = (props) => {
 						const lo =(room[e]?.id_tipoHabitacion) 
 						if(to ==lo ){
 							roomDefinid.push({
-								title:`${data?.query[i]?.title} ${room[e]?.nombre} `,
+								title:`${data?.query[i]?.title} ${room[e]?.nombre}   `,
 								id:data?.query[i]?.id,
 								ID_Tipo_estados:data?.query[i]?.ID_Tipo_estados,
-								ID_Tipo_habitaciones:data?.query[i]?.ID_Tipo_habitaciones
+								ID_Tipo_habitaciones:data?.query[i]?.ID_Tipo_habitaciones,
+								ID_estado_habiatcion:data?.query[i].ID_estado_habitacion
 							})
 						}else{
 							console.log("error")
@@ -685,6 +703,10 @@ const Dashboard = (props) => {
 	const handChecking =() =>{
 		history.push("/checking")
 	}	
+
+	const handRoomDetail =() =>{
+		history.push("/RoomDetail")
+	}
 
 	setTimeout(() =>{
 		setLoadingSkeleto(false)
@@ -865,6 +887,73 @@ const Dashboard = (props) => {
 				</ul>
 	 * 
 	 */
+	const renderGroup = ({ group }) => {
+
+		const rows= []
+
+
+
+		if(group.ID_estado_habiatcion == 6){
+			rows.push(
+				<GroupRows 	
+					color="#82d8cd"
+					group={group.title} 
+					key={group.id}
+					estado={"Limpia"} 
+					letra="black"
+					iconState={<BsCheckCircle  fontSize={15} />}/>
+			)
+		}if(group.ID_estado_habiatcion == 5){
+			rows.push(
+				<GroupRows 	
+					color="#e27382"
+					group={"Aseo"} 
+					key={group.id} 
+					letra="white" 
+					iconState={< GiBroom fontSize={15}  />}
+					/>
+			)
+		}
+		if(group.ID_estado_habiatcion == 2){
+			rows.push(
+				<GroupRows 	
+					color="#747171"
+					group={"Bloqueada"}
+					letra="white" 
+					key={group.id} 
+
+					iconState={<IoBanOutline  color="white"  fontSize={15}/>}
+					/>
+			)
+		}if(group.ID_estado_habiatcion == 3){
+			rows.push(
+				<GroupRows 	
+					color="rgb(103 183 90)"
+					group={"Ocupada"}
+					letra="white" 
+					key={group.id} 
+
+					iconState={<VscSymbolEvent  fontSize={15}/> }
+					/>
+			)
+		}
+
+			rows.push(
+				<GroupRows 	
+					color="white"
+					iconState={<IoBedOutline fontSize={15}  />}
+					group={group.title} 
+					key={group.id} />
+			)
+
+		return (
+			<>
+				{rows}
+			</>
+	);
+	
+};
+				
 
 	if(loadingSkeleto) return Skele()
 	if(!pruebareservas) return null
@@ -886,7 +975,7 @@ const Dashboard = (props) => {
 			</div>
 					<button className='button-reservas' onClick={handClickReservaction} ><div className="flex-index-reservation" ><VscVerified fontSize={18} className="flex-contant" color="white"  /><span>Crear reserva</span></div></button>
 					<button className='button-reservas-type-one-two' onClick={handChecking} ><div className="flex-index-reservation"><VscSymbolEvent fontSize={18} className="flex-contan"  color="white" /><span>Wolking   </span> <span className="pay-checkout-pago-pagado-One-two">Nuevo</span> </div></button>
-					<button className='button-reservas-type-one-one'><div className="flex-index-reservation" ><VscSignOut className="flex-contan"  color="white" fontSize={18}  /><span>Check out </span> </div> </button>
+					<button className='button-reservas-type-one-one' onClick={handRoomDetail} ><div className="flex-index-reservation" ><VscSignOut className="flex-contan"  color="white" fontSize={18}     /><span>Ver habitaciones </span> </div> </button>
 					
 					<button className='button-reservas-type' onClick={handChangeTypeRoomOne}>
 					<div className="flex-index-reservation" ><VscRecord className="flex-contan-one" color="white"  fontSize={18} /><span>Estados</span></div></button>
@@ -949,7 +1038,7 @@ const Dashboard = (props) => {
 						toggleCloseDashboardChecking={toggleCloseDashboardChecking}  />
 			
 			<Timeline
-				
+				 groupRenderer={renderGroup}
 				groups={search}
 				items={ pruebareservas}
 				onItemSelect={handleItemSelect}

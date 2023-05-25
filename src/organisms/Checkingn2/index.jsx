@@ -14,7 +14,7 @@ import ServiceStatus from "../../service/ServiceStatus";
 import HttpClient from "../../HttpClient";
 import ServiceInfomeMovimiento from "../../service/ServiceInformeMovimiento";
 
-const Checkingn2Organism =({id}) =>{
+const Checkingn2Organism =({id,postDetailRoom}) =>{
     
     const history = useHistory()
     const [tipoDocumento,setTipoDocumento] =useState()
@@ -36,11 +36,8 @@ const Checkingn2Organism =({id}) =>{
     },[id])
 
 
-    console.log(id)
-
     const  resulDetailDashboard = DetailDashboard[0]
 
-    console.log(resulDetailDashboard)
     
     const init  =   moment(resulDetailDashboard?.Fecha_inicio).utc().format('MM/DD/YYYY')
     const fin = moment(resulDetailDashboard?.Fecha_final).utc().format('MM/DD/YYYY')
@@ -211,8 +208,10 @@ const Checkingn2Organism =({id}) =>{
 
     const handUpdateConfirms =() =>{
         ServiceUpdateReservationpay({id,dataOne:dataTwo}).then(index  =>{
+            postDetailRoom({id:resulDetailDashboard?.ID_Habitaciones,ID_estado_habitacion:3})
             ServiceStatus({id,ID_Tipo_Estados_Habitaciones:3}).then(index=>{
                 ServiceInfomeMovimiento({Nombre_recepcion:jwt.result.name,Fecha:now,Movimiento:`Check in realizado tipo habitacion ${resultFinish?.nombre}  ${resulDetailDashboard.Numero}  nombre ${resulDetailDashboard.Nombre} codigo reserva ${resulDetailDashboard.id_persona}  `,id:jwt.result.id_hotel}).then(index =>{
+                   
                     window.location.href =(`/checkingin3/${id}`)
                 }).catch(e =>{
                     console.log(e)

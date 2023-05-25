@@ -53,6 +53,7 @@ import TableStore from "./component/DetailStore/TableStore";
 import DetailStoreById from "./component/DetailStore/DetailStoreById";
 import InformeMovimiento from "./page-resesion/Informes/InformeMovimiento";
 import CustomNav from "./Ui/CustomNav";
+import RoomDetail from "./page-resesion/RoomDetail";
 
 function App() {
   const { jwt } = useContext(AutoProvider);
@@ -238,7 +239,6 @@ function App() {
                 component={Checkingn3}
               />
 
-
                 <PrivateRoute
                 exact
                 path="/informeAccount"
@@ -248,6 +248,12 @@ function App() {
                 exact
                 path="/informeMovimiento"
                 component={InformeMovimiento}
+              />
+
+              <PrivateRoute
+                exact
+                path="/RoomDetail"
+                component={RoomDetail}
               />
                <PrivateRoute exact path="/Detailinforme/:id" component={DetailnformeStore} />
               <Route component={NoFound} />
@@ -378,6 +384,13 @@ function App() {
                 path="/informeMovimiento"
                 component={InformeMovimiento}
               />
+
+            <PrivateRoute
+                exact
+                path="/RoomDetail"
+                component={RoomDetail}
+              />
+
                  <PrivateRoute exact path="/Detailinforme/:id" component={DetailnformeStore} />
               <Route component={NoFound} />
             </Switch>
