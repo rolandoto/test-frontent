@@ -907,7 +907,7 @@ const Dashboard = (props) => {
 			rows.push(
 				<GroupRows 	
 					color="#e27382"
-					group={"Aseo"} 
+					group={`${group.title}`} 
 					key={group.id} 
 					letra="white" 
 					iconState={< GiBroom fontSize={15}  />}
@@ -918,7 +918,7 @@ const Dashboard = (props) => {
 			rows.push(
 				<GroupRows 	
 					color="#747171"
-					group={"Bloqueada"}
+					group={`${group.title}`}
 					letra="white" 
 					key={group.id} 
 
@@ -929,7 +929,7 @@ const Dashboard = (props) => {
 			rows.push(
 				<GroupRows 	
 					color="rgb(103 183 90)"
-					group={"Ocupada"}
+					group={` ${group.title}`}
 					letra="white" 
 					key={group.id} 
 
