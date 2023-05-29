@@ -985,4 +985,5 @@ hr {
   display: flex;
   align-items: center;
   justify-content: initial;
+  transition: background-color 0.5s ease !important;
 }

@@ -16,8 +16,6 @@ import ServiceInfomeMovimientoPost from "../service/ServiceInformeMovimientoPost
 import moment from "moment";
 import { CiUser } from "react-icons/ci";
 
-
-
 const SideNavBar = () => {
 
     const {jwt,update,setUpadte} =useContext(AutoProvider)
@@ -61,9 +59,7 @@ const SideNavBar = () => {
 
 	return (
 		<div
-			className={"side-nav-container side-nav-container-NX"
-			}
-		>
+			className={"side-nav-container side-nav-container-NX"}>
 			<div className="nav-upper">
 				<div className="nav-heading">
 					
@@ -218,7 +214,7 @@ const SideNavBar = () => {
 
             
                 
-                    <div className="card-two" > 
+                    <div className="" > 
                     <div className="display-flex-card" >
                     <div>   
                             <div className="flex-card-One" >

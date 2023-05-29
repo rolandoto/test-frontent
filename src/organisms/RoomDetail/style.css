@@ -1,49 +1,85 @@
-.caja-room-detail {
-    width:  110%;
-    height: 111px;
-    background: #e7909c!important;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 8px;
-    cursor: pointer;
-    margin: 2px;
-}
 
-.caja-room-detail-asear{
-    width:  110%;
-    height: 111px;
-    background: #747171!important;
-    text-align: center;
+
+.flex-container {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    border: 1px solid silver;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 8px;
+    margin-top: 78px;
+  }
+
+  .nowrap {
+    flex-wrap: nowrap;
+  }
+
+  .wrap {
+    flex-wrap: wrap;
+  }
+  .wrap li {
+    background: gold;
+  }
+
+  .wrap-reverse {
+    flex-wrap: wrap;
+  }
+  .wrap-reverse li {
+    border-radius: 0.25rem;
+  }
+
+  .flex-item {
+    background: tomato;
+    box-shadow: 3px 3px 3px 3px #E3E3E3;
+    transition: background-color 0.5s ease;
+    padding: 5px;
+    width: 8.5%;
+    height: 100px;
+    margin: 10px;
+    line-height: 100px;
     color: white;
-    cursor: pointer;
-    margin: 2px;
-}
-
-.caja-room-detail-disponible{
-    width:  110%;
-    height: 111px;
-    background: #d6dad9!important;
+    font-weight: bold;
+    font-size: 2em;
     text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 8px;
     cursor: pointer;
-    margin: 2px;
-}
+  }
 
-.container-card-room-detail{
-    width: 1465px;
-    margin: auto;
-    padding: 1px;
-}
+  .let-letra{
+    font-size: 14px;
+    text-align: center;
+    width: auto;
+    color: black;
+  }
 
-.flex-container-imbox{
+  .card-two{
+    position: relative;
     display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    /* border: 1px solid rgba(0,0,0,.125); */
+    border-radius: 0.25rem;
+    /* box-shadow: 3px 5px 5px 0px #E3E3E3; */
+    margin-top: 10px;
+  }
+
+  .popup-overlay{
+    background: white;
+    padding: 20px;
+    box-shadow: 5px 5px 5px 5px #b3b2b2;
+    border-radius: 4px;
+  }
+
+  .react-confirm-alert-button-group {
+    outline: none;
+    background: #333;
+    border: none;
+    display: inline-block;
+    padding: 6px 18px;
+    color: #eee;
+    margin-right: 10px;
+    border-radius: 5px;
+    font-size: 12px;
+    cursor: pointer;
 }

@@ -55,7 +55,7 @@ import { IoBedOutline ,IoBanOutline} from "react-icons/io5";
 const GroupRows =({group,color,estado,iconState,letra}) =>{
 
 	return (
-		<div   style={{ backgroundColor: color, color:letra }} className="flex-romm-grup" >
+		<div   style={{ backgroundColor: color, color:letra}} className="flex-romm-grup" >
 			<div>
 				{iconState}
 			</div>
@@ -906,11 +906,11 @@ const Dashboard = (props) => {
 		}if(group.ID_estado_habiatcion == 5){
 			rows.push(
 				<GroupRows 	
-					color="#e27382"
+					color="#f3d924cc"
 					group={`${group.title}`} 
 					key={group.id} 
-					letra="white" 
-					iconState={< GiBroom fontSize={15}  />}
+					letra="black" 
+					iconState={< GiBroom fontSize={15} color="black"  />}
 					/>
 			)
 		}
@@ -937,7 +937,6 @@ const Dashboard = (props) => {
 					/>
 			)
 		}
-
 			rows.push(
 				<GroupRows 	
 					color="white"
@@ -1053,8 +1052,6 @@ const Dashboard = (props) => {
 				onItemClick={(itemId, e, time) => onItemClick(itemId, e, time)}
 				now={nowOne}
 				canMove={true}>
-
-					
 				<TimelineHeaders className="list-booking-sticky"  >
 					<SidebarHeader />
 					<DateHeader

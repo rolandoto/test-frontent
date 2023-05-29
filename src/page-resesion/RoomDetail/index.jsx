@@ -20,15 +20,17 @@ const RoomDetail =() =>{
 	const {loading,error,DetailDashboard
 							} = useSelector((state) => state.RoomDetail)
 	const  {postDetailRoom} =  useDetailRoomAction()
-	
+	const [estado, setEstado] = useState(false);
 
-
+	const hanchangeEstado =() =>{
+		setEstado(!estado)
+	}
 
     useEffect(() =>{
         ServicetypeRooms({id:jwt.result.id_hotel}).then(index =>{
             setRoom(index)
         })
-    },[setRoom])
+    },[setState,loading])
 
     useEffect(() =>{
 		fetch(`${config.serverRoute}/api/resecion/getroomsresecion/${jwt.result.id_hotel}`)
@@ -59,7 +61,7 @@ const RoomDetail =() =>{
 				setState(roomDefinid)
 			}
 		})
-	},[room])
+	},[room,loading])
 
     const fillContent =() =>{
         if(progress <100){
@@ -71,7 +73,10 @@ const RoomDetail =() =>{
             return <p>...{error}</p>
         }
 
-        return   <RoomDetailOrganism  room={state}  postDetailRoom={postDetailRoom}  />
+        return   <RoomDetailOrganism  
+					room={state}  
+					postDetailRoom={postDetailRoom}
+					hanchangeEstado={hanchangeEstado}  />
 
     }
 
