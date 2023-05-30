@@ -108,7 +108,6 @@ const style = {
 
 const Dashboard = (props) => {
 
-
 	const {id} = useParams()
 	const [open, setOpen] = useState(true);
 	const [reservation,setReservas] = useState()
@@ -390,7 +389,7 @@ const Dashboard = (props) => {
 		  colorWords="black"
 		  title=itemContext.title
 		}else if (item.state === 5) {
-			color = '#e27382';
+			color = 'rgba(243, 217, 36, 0.8)';
 			colorWords="black"
 			title="Aseo"
 		  }
@@ -973,12 +972,10 @@ const Dashboard = (props) => {
 				
 			</div>
 					<button className='button-reservas' onClick={handClickReservaction} ><div className="flex-index-reservation" ><VscVerified fontSize={18} className="flex-contant" color="white"  /><span>Crear reserva</span></div></button>
-					<button className='button-reservas-type-one-two' onClick={handChecking} ><div className="flex-index-reservation"><VscSymbolEvent fontSize={18} className="flex-contan"  color="white" /><span>Wolking   </span> <span className="pay-checkout-pago-pagado-One-two">Nuevo</span> </div></button>
-					<button className='button-reservas-type-one-one' onClick={handRoomDetail} ><div className="flex-index-reservation" ><VscSignOut className="flex-contan"  color="white" fontSize={18}     /><span>Ver habitaciones </span> </div> </button>
+					<button className='button-reservas-type-one-one' onClick={handRoomDetail} ><div className="flex-index-reservation" ><VscSignOut className="flex-contan"  color="white" fontSize={18}/><span>Ver habitaciones </span> </div> </button>
 					
-					<button className='button-reservas-type' onClick={handChangeTypeRoomOne}>
-					<div className="flex-index-reservation" ><VscRecord className="flex-contan-one" color="white"  fontSize={18} /><span>Estados</span></div></button>
-					
+			
+				
 					<select  onChange={handClickInformAuditoria} value={stateInformes}					
 							className='button-reservas-type-one button-reservas-type-space button-reservas-type-one-two-two'>
 								

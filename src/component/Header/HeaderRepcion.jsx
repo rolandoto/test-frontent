@@ -153,7 +153,6 @@ const HeaderRecepcion  =() =>{
                     </ul>
                     
                 </div>
-              
             </div>
     )
 }
