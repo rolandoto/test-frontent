@@ -538,7 +538,8 @@ const DashboardModal = (props) => {
     const handClickReservation =() =>{
         if(valid){
             setLoadingReservation({loading:true})
-            ServiceAvaiblereservation({desde:dataAvaible.desde,hasta:dataAvaible.hasta,habitaciones:dataAvaible.habitaciones,disponibilidad:dataAvaible.disponibilidad,id_estados_habitaciones:0,ID_Canal:change.canal_reserva,Adultos:change.adultos,Ninos:change.niños,ID_Talla_mascota:change.talla_perro,Infantes:change.infantes,Noches:ResultDay,huespe,Observacion:change.observacion,valor:totalResultglobal,ID_Tipo_Forma_pago:change.ID_Tipo_Forma_pago,abono:change.abono,valor_habitacion:valor_habiatcion,Tipo_persona:"sdasdsa",valor_dia_habitacion:default_Value}).then(index =>{
+            ServePdf({codigoReserva:resultHuespe?.Num_documento,Nombre:resultHuespe?.Nombre,room:habitacion_asignar?.Numero,adults:change?.adultos,children:change?.niños,tituloReserva:findRoomOne?.nombre,abono:change?.abono,formaPago:tipo_forma_pago?.name,telefono:resultHuespe.Celular,identificacion:resultHuespe.Num_documento,correo:resultHuespe.Correo,urllogo:"https://github.com/rolandoto/image-pms/blob/main/WhatsApp%20Image%202023-02-06%20at%203.49.08%20PM.jpeg?raw=true"}).then(e => {
+                ServiceAvaiblereservation({desde:dataAvaible.desde,hasta:dataAvaible.hasta,habitaciones:dataAvaible.habitaciones,disponibilidad:dataAvaible.disponibilidad,id_estados_habitaciones:0,ID_Canal:change.canal_reserva,Adultos:change.adultos,Ninos:change.niños,ID_Talla_mascota:change.talla_perro,Infantes:change.infantes,Noches:ResultDay,huespe,Observacion:change.observacion,valor:totalResultglobal,ID_Tipo_Forma_pago:change.ID_Tipo_Forma_pago,abono:change.abono,valor_habitacion:valor_habiatcion,Tipo_persona:"sdasdsa",valor_dia_habitacion:default_Value,resepcion:jwt.result.name,link:e,id_hotel:jwt.result.id_hotel}).then(index =>{
                     setLoadingReservation({loading:false}) 
                     setCreateReservation(true)
                     Swal.fire({
@@ -560,6 +561,12 @@ const DashboardModal = (props) => {
                 setLoadingReservation({error:true})
                 
             })
+
+              }).catch(e =>{
+                console.log(e)
+              })
+            
+           
         }else{
             Swal.fire({
                 position: 'center',
@@ -1020,12 +1027,13 @@ const DashboardModal = (props) => {
                                         
                                        
 
-
+                                        {loadingReservation.loading ? <Loading type="spinner" size="lg" />:
                                                             <li>
                                                                 <button className="button-dasboard-sevent-one"  onClick={handClickReservation} >
-                                                                {loadingReservation.loading ? <Loading type="spinner" size="lg" />:<span>Crear Reserva</span>} 
+                                                               <span>Crear Reserva</span>
                                                                 </button>
-                                                            </li> 
+                                                            </li>
+                                        } 
                                                             <li>
                                                                 <button className="button-dasboard-six-one"  onClick={handAdd}   >
                                                                 <CiCirclePlus fontSize={30} /> <span>  Añadir personas  </span> 

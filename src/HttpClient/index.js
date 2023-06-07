@@ -161,6 +161,34 @@ const postUpdateRoomDetail = ({ID_estado_habitacion,id}) =>{
   })
 }
 
+
+const postApiWhasatapp = ({ to, plantilla,languaje }) => {
+  const formData = new FormData();
+  formData.append('body', plantilla);
+  formData.append('token', '1c38cf1f1b92656924501747a458e4a6b5ac30306d29ed668f9bd8f99f2832fc6ee451');
+  formData.append('instance', '268');
+  formData.append('to', to);
+  formData.append('language', "es");
+  formData.append('type', 'text');
+  const parametros = [
+    { type: 'text', text: 'Paola' },
+    { type: 'text', text: 'Paola' },
+    { type: 'text', text: 'Paola' },
+    { type: 'text', text: 'https://grupo-hoteles.com/public/Documentos/X14A1.pdf' }
+  ];
+  formData.append('parameters', JSON.stringify(parametros));
+  return fetch('https://whatslight.com/manager/ajax/chat_api.ajax.php', {
+    method: 'POST',
+    body: formData,
+  })
+    .then(resp => {
+      if (resp.status === 'error') throw new Error('Response is not ok');
+      return resp.json();
+    }).catch(e =>{
+      console.log(e)
+    })
+};
+
   export default {
     get,
     post,
@@ -173,6 +201,7 @@ const postUpdateRoomDetail = ({ID_estado_habitacion,id}) =>{
     GetContact,
     getForget,
     insertPayABono,
-    postUpdateRoomDetail
+    postUpdateRoomDetail,
+    postApiWhasatapp
   }
   

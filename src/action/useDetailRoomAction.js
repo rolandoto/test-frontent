@@ -25,7 +25,6 @@ const useDetailRoomAction =() =>{
     return {
         postDetailRoom
     }
-
 }
 
 

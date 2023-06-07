@@ -337,7 +337,7 @@ const DetailDasboard =(props) =>{
     const handClick =() =>{
         Servicedetailespandir({desde:dataAvaible.desde,hasta:dataAvaible.hasta,desdeOne:dataAvaible.desdeOne,habitaciones:resultDashboard.ID_Tipo_habitaciones,ID_Habitaciones:resultDashboard.ID_Habitaciones,id,dayOne,valor_dia_habitacion:resultDashboard.valor_dia_habitacion}).then(index =>{
           setLoadingFecha({loading:true})
-          ServiceInfomeMovimiento({Nombre_recepcion:jwt.result.name,Fecha:now,Movimiento:`Actualizar fecha tipo habitacion ${resultFinish?.nombre} ${resultDashboard.Numero} nombre ${resultDashboard.Nombre}  codigo reserva ${resultDashboard.id_persona}`,id:jwt.result.id_hotel}).then(index =>{
+          ServiceInfomeMovimiento({ Nombre_recepcion:jwt.result.name,Fecha:now,Movimiento:`Actualizar fecha tipo habitacion ${resultFinish?.nombre} ${resultDashboard.Numero} nombre ${resultDashboard.Nombre}  codigo reserva ${resultDashboard.id_persona}`,id:jwt.result.id_hotel}).then(index =>{
             Swal.fire({
               position: 'center',
               icon: 'success',
@@ -791,7 +791,7 @@ const handChangeTypeRoomOne =(e) =>{
 }
 
 const hancPdf =() =>{
-  ServePdf({codigoReserva:resultDashboard?.Num_documento,Nombre:resultDashboard?.Nombre,room:resultFinish?.nombre,adults:resultDashboard?.Adultos,children:resultDashboard?.Ninos,tituloReserva:resultDashboard?.Nombre,abono:resultDashboard?.valor_abono,formaPago:resultDashboard?.forma_pago,telefono:resultDashboard.Celular,identificacion:resultDashboard.Num_documento,correo:resultDashboard.Correo,urllogo:jwt?.result?.logo,tarifa:resultDashboard.valor_habitacion,entrada:fecha_inicio,salida:fecha_final}).then(index => {
+  ServePdf({  codigoReserva:resultDashboard?.Num_documento,Nombre:resultDashboard?.Nombre,room:resultFinish?.nombre,adults:resultDashboard?.Adultos,children:resultDashboard?.Ninos,tituloReserva:resultDashboard?.Nombre,abono:resultDashboard?.valor_abono,formaPago:resultDashboard?.forma_pago,telefono:resultDashboard.Celular,identificacion:resultDashboard.Num_documento,correo:resultDashboard.Correo,urllogo:jwt?.result?.logo,tarifa:resultDashboard.valor_habitacion,entrada:fecha_inicio,salida:fecha_final}).then(index => {
     const link = document.createElement('a')
     link.href =index;
     link.setAttribute('target', '_blank');
@@ -928,7 +928,7 @@ const hanClickLimpia =() => {
               <input type="date" className="desde-detail"   onChange={(e) => setspandOne(e.target.value)}  defaultValue={fecha_inicio}    />
               <input type="date" className="desde-detail"   onChange={(e) =>setspand(e.target.value)}  defaultValue={fecha_final}  />
               <button className="button-checking-detail-one-two" onClick={handClick} >Actualizar Fecha</button>
-              <h2 className="cod-reserva" ><span className="title-code" >COD:</span> X14A-{resultDashboard?.Num_documento}</h2>
+              <h2 className="cod-reserva" ><span className="title-code" >COD:</span> X14A-{resultDashboard?.Num_documento}{id}</h2>
           </div>
          
       </div>

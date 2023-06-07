@@ -733,8 +733,11 @@ const StoreTemplate =({Store}) =>{
 
     const [isMainData, setMainData] = useState(
       Store?.query?.filter((element) => element.Nombre_categoria == "Snacks"));    
-      
+
     
+      
+    console.log(isMainData)
+      
     const [num,setNum] =useState()
     
     const handModal =() =>{
@@ -838,8 +841,7 @@ const StoreTemplate =({Store}) =>{
  
 // obtener la fecha de hoy en formato `MM/DD/YYYY`
   const  now = moment().format("YYYY/MM/DD");
-
-
+  
     const data ={
       ID_Reserva:peopleId,
       Cart:carts.cart,

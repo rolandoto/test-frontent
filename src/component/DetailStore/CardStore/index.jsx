@@ -1,16 +1,24 @@
 import React from "react";
-import { CiDatabase ,CiFaceSmile,CiBellOn,CiHome,CiDollar} from "react-icons/ci";
+import { CiDatabase ,CiFaceSmile,CiBellOn,CiHome,CiDollar,CiShop} from "react-icons/ci";
 import { BsCurrencyDollar } from "react-icons/bs";
+import { RiStore2Line } from "react-icons/ri";
 
 const CardStore =({totalday}) =>{
 
     const payDay = totalday?.totalDay?.totalDay.toLocaleString();
 
-    console.log(totalday)
+    const tienda = (totalday?.totalDay?.totalDay.toLocaleString())
 
     return (
         <div>
             <ul  className="container-card" >
+            <li className="card-stores  card-One card-stores-color" >
+                    <CiShop fontWeight={100} color="gray"  fontSize={50} className="content-icon-card" />
+                    <div className="center-title"  >
+                        <h4 className="title-card-one " >Cop {tienda}</h4>
+                        <span className="text-venta black-title-card  "  >Venta tienda</span>
+                    </div>
+                </li>       
                 <li className="card-stores  card-One card-stores-color" >
                     <CiDollar color="gray"  fontSize={50} className="content-icon-card" />
                     <div className="center-title"  >

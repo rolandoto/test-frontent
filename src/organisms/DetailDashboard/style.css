@@ -118,7 +118,8 @@
 .cod-reserva {
   font-weight: 400;
   color: black;
-  margin-left: 31px;
+  font-size: 30px;
+  width: auto;
 }
 
 .cod-reserva-one {

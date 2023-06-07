@@ -9,11 +9,10 @@ import { StoreSlice } from '../reducers/storeReducers'
 import { DetailDasboardSlice } from '../reducers/detailDashboardReducer'
 import { BitacorasSlice } from '../reducers/bictacorasReducers'
 import { ContactSlice } from '../reducers/contactReducers'
-
 import RoomsModalCheckingSlice from '../reducers/dashboardCheckingReducer'
 import { ForgetSlice } from '../reducers/forgetReducer'
 import { RoomDetail } from '../reducers/RoomDetailReducer'
-
+import { apiWhataapSlice } from '../reducers/apiWhatsaapReduccers'
 
 const store = configureStore ({
     reducer:{
@@ -30,7 +29,8 @@ const store = configureStore ({
         Formats:FormatsSlice.reducer,
         Contact:ContactSlice.reducer,
         Forget:ForgetSlice.reducer,
-        RoomDetail:RoomDetail.reducer
+        RoomDetail:RoomDetail.reducer,
+        apiWhataap:apiWhataapSlice.reducer
     },
     devTools:true,
 })

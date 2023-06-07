@@ -95,7 +95,7 @@ td, th {
     margin: auto;
     margin-top: 50px;
     /* display: flex; */
-    max-width: 1763px;
+    max-width: 1943px !important;
     max-height: 1100px;
     /* flex-direction: column; */
     background: #fff;
