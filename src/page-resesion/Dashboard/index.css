@@ -9,12 +9,13 @@
   margin-top: 21px;
   border-radius: 11px;
   border: none;
-  background: #eb6b7f;
+  background: rgb(243, 18, 96);
   color: white;
   cursor: pointer;
   width: 30%;
   margin-right: -14px;
   margin-left: 42px;
+  
 }
 
 .content-Modal-dasboard {
