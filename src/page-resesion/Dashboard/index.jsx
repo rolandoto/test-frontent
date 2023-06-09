@@ -446,7 +446,7 @@ const Dashboard = (props) => {
 			  }}
 			>
 			   <div className="icon-state-reservation" >
-			   		
+			   		<span className="margin-icon-state" >{iconState}</span>
 			  		<span className="text-words" >{title}</span>
 			   </div>
 
