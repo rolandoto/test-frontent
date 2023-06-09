@@ -915,8 +915,9 @@ hr {
 }
 
 .color-white{
-  color: white !important;
+  color: black !important;
   margin-top: -15px;
+  font-weight: 400;
 }
 
 

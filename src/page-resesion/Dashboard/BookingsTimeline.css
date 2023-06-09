@@ -457,6 +457,7 @@ hr.border {
 .icon-state-reservation{
   display: flex;
     align-items: center;
+    overflow: hidden;
 }
 
 .wi-img-icon{
@@ -465,7 +466,7 @@ hr.border {
 } 
 
 .margin-icon-state{
-  margin-right: 3px;
+  margin-right: 10px;
 }
 
 .today {
@@ -563,4 +564,9 @@ hr.border {
 
 .text-words{
   font-size: 13px;
+  font-weight: 400;
+}
+
+.day-num{
+  font-weight: 500;
 }

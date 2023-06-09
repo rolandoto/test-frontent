@@ -69,20 +69,22 @@ const GroupRows =({group,color,estado,iconState,letra}) =>{
 
 
 const Info = styled(ReactTooltip)`
-  max-width: 500px  !important;
-  padding-top: 9px  !important;
-  z-index: 0 !important;
-  background: gray;
+  max-width: 500px;
+  padding-top: 9px;
+  z-index: 1000 !important;
+  background-color: white !important;
+  border-radius: 12px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+
 `;
 
 const InfoMessage = styled.div`
-  font: Roboto  !important;
-  font-size: 13px  !important ;
-  line-height: 1.4  !important;
-  text-align: left  !important;
+  font: Roboto;
+  font-size: 13px;
+  line-height: 1.4;
+  text-align: left;
   z-index: 0 !important;
 `;
-  
 const useCountRoom =({id}) =>{
 	const [count,setCount] =useState()
 
@@ -420,6 +422,9 @@ const Dashboard = (props) => {
 				padding: '8px',
 				color: colorWords,
 				position:"relative",
+				visibility:"visibility",
+				opacity:"1",
+				boxShadow:"0 2px 4px rgba(0, 0, 0, 0.4)"
 			  },
 			})}
 			onMouseEnter={hanEnter}
@@ -441,7 +446,7 @@ const Dashboard = (props) => {
 			  }}
 			>
 			   <div className="icon-state-reservation" >
-			   		<span className="margin-icon-state" >{iconState}</span>
+			   		
 			  		<span className="text-words" >{title}</span>
 			   </div>
 
@@ -504,7 +509,7 @@ const Dashboard = (props) => {
 			}}
 			
 			>
-			 <span className={`${isToday && "color-day"}`} > {label}</span>
+			 <span className={` day-num ${isToday && "color-day"}`} > {label}</span>
 			</span>
 		</div>
 		);
@@ -1084,7 +1089,7 @@ useEffect(() => {
 				defaultTimeEnd={moment().startOf("day").add(30, "day")}
 				stackItems
 				itemHeightRatio={0.9}                                                             
-				lineHeight={33}
+				lineHeight={34}
 				sidebarWidth={200}
 				itemRenderer={  itemRenderer}
 				onItemClick={(itemId, e, time) => onItemClick(itemId, e, time)}
