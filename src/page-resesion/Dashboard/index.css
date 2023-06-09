@@ -74,7 +74,6 @@
   display: flex;
   max-width: 94% 0% 0% 0%;
   padding: 0% 0% 0% 2.9%;
-  max-height: 1100px;
   flex-direction: column;
   /* background: #fff; */
   height: auto;
@@ -256,6 +255,12 @@
   /* margin-top: 18px; */
   margin-top: 15px;
   border-radius: 8px;
+}
+
+
+.color-day{
+  color: #00b712;
+  font-weight: 600;
 }
 
 .contain-board-one {
@@ -984,6 +989,10 @@ hr {
 .flex-romm-grup{
   display: flex;
   align-items: center;
-  justify-content: initial;
+  justify-content: space-between;
   transition: background-color 0.5s ease !important;
+}
+
+.flex-romm-grup , span {
+  font-size: 13px;
 }

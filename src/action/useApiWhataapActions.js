@@ -6,11 +6,11 @@ const useApiWhataapActions =() =>{
 
     const dispatch = useAppDispatch()
 
-    const postWhataapById =async({plantilla,to,languaje}) =>{
+    const postWhataapById =async({plantilla,to,languaje,name}) =>{
         dispatch(loading())
         try {
 
-            const postResponse =  await HttpClient.postApiWhasatapp({plantilla,to,languaje})
+            const postResponse =  await HttpClient.postApiWhasatapp({plantilla,to,languaje,name})
 
             if(postResponse){
                 dispatch(setWhatsapp(postResponse))

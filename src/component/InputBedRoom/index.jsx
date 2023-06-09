@@ -31,20 +31,19 @@ const InputBedRoom =({id,fetchData}) =>{
         })
     }
 
-    const handSubmitRooms= async() =>{
-        
-       try {
-            const to = await HttpClient.post(change).then(index =>{
-                console.log(index)
-                fetchData()
-            }).catch(e => {
-                console.log("error")
-            })
-            console.log(to)
-       }catch (error) {
-            console.log(error)    
+        const handSubmitRooms= async() =>{
+            try {
+                    const to = await HttpClient.post(change).then(index =>{
+                        console.log(index)
+                        fetchData()
+                    }).catch(e => {
+                        console.log("error")
+                    })
+                    console.log(to)
+            }catch (error) {
+                    console.log(error)    
+                }
         }
-    }
 
     console.log(change)
 
@@ -56,14 +55,13 @@ const InputBedRoom =({id,fetchData}) =>{
 
     return (
         <>
-            <ul className="select-hotel-type-admin" >
+            <ul className="flex-stores" >
                
-
-                <li>
+                        <li>
                             <label className="title-stores" >Tipos de Habitacion</label>
-                            <select onChange={handleInputChange}  
+                            <select onChange={handleInputChange}   
                                     name="id_habitaciones"
-                                    className='select-hotel-type-admin-hotels'
+                                    className="select-hotel-type-three-three"
                             >
                                 <option >Seleccionar Tipos de habitaciones</option>
                                 {mapresult?.map(category =>(
@@ -77,21 +75,23 @@ const InputBedRoom =({id,fetchData}) =>{
                                 )}
                             </select>
                         </li>
+                               
                                     
                         <li>
                                 <label className="title-stores">Numero o Nombre</label>
-                                <input className="input-selecto-dasboard-n1-admin-hotels"  
+                                <input className="select-hotel-type-three-three"  
                                         name={"name_num"} 
                                         type="text" 
                                         onChange={handleInputChange}
                                         placeholder="Numero o Nombre" />
                             </li>
 
+                
                 <li>
-                    <button className="button-bedroom" onClick={handSubmitRooms} >
-                       Agregar
+                    <button className="button-stores-admin"  onClick={handSubmitRooms}  >
+                        Agregar
                     </button>
-                </li>       
+                </li> 
             </ul> 
         </>
     )

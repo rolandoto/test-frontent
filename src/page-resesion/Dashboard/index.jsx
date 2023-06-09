@@ -42,7 +42,6 @@ import styled from "styled-components";
 import ServiceAllTotalReservation from "../../service/ServiceAllTotalReservation";
 import ModalBlock from "../../organisms/Modals/Block";
 import { confirmAlert } from "react-confirm-alert";
-import { Button, Modal } from 'react-bootstrap';
 import { GiBroom } from "react-icons/gi";
 import CustomNav from "../../Ui/CustomNav";
 import ContainerGlobal from "../../Ui/ContainerGlobal";
@@ -51,16 +50,18 @@ import Popper from '@mui/material/Popper';
 import { CiCircleCheck } from "react-icons/ci";
 import { BsBucket ,BsCalendarCheck,BsCheckCircle,BsBell} from "react-icons/bs";
 import { IoBedOutline ,IoBanOutline} from "react-icons/io5";
+import { Tooltip, Button, Grid } from "@nextui-org/react";
 
 const GroupRows =({group,color,estado,iconState,letra}) =>{
 
 	return (
-		<div   style={{ backgroundColor: color, color:letra}} className="flex-romm-grup" >
+		<div    style={{ backgroundColor: color, color:letra}} className="flex-romm-grup" >
 			<div>
-				{iconState}
+			<span className="font-room" >  {group} {estado}  </span> 
 			</div>
+
 			<div>
-				<span> {group} {estado} </span>
+			{iconState} 
 			</div>
 		</div>
 	)
@@ -162,8 +163,6 @@ const Dashboard = (props) => {
 		setIsPopperOpen(false);
 	  };
 
-
-	
 	useEffect(() =>{
 		ServiceAllTotalReservation({fecha:now,id:jwt.result.id_hotel}).then(index =>{
 			setTotalDay(index)
@@ -366,13 +365,13 @@ const Dashboard = (props) => {
 
 		let color;
 		if (item.state === 0) {
-		  color = '#FF9990';
-		  colorWords="black"
+		  color = '#f31260';
+		  colorWords="white"
 		  iconState = <BsBell  fontSize={15} />
 		  title=itemContext.title
 		} else if (item.state === 1) {
-		  color = '#E9C9FF';
-		  colorWords="black"
+		  color = '#7828c8';
+		  colorWords="white"
 		  iconState= <BsBucket  fontSize={15}	  /> 
 		  title=itemContext.title
 		} else if (item.state === 2) {
@@ -380,7 +379,7 @@ const Dashboard = (props) => {
 		  colorWords="white"
 		  title=itemContext.title
 		} else if (item.state === 3) {
-		  color = 'rgb(103 183 90)';
+		  color = '#17c964';
 		  colorWords="white"
 		  iconState= <VscSymbolEvent  fontSize={15}	  /> 
 		  title=itemContext.title
@@ -394,8 +393,8 @@ const Dashboard = (props) => {
 			title="Aseo"
 		  }
 		  else if (item.state === 6) {
-			color = '#82d8cd';
-			colorWords="black"
+			color = '#0072f5';
+			colorWords="white"
 			title=itemContext.title
 			iconState=<BsCheckCircle  fontSize={15} />
 		  }
@@ -417,7 +416,7 @@ const Dashboard = (props) => {
 				alignItems: 'center',
 				background: color,
 				border: '',
-				borderRadius: '4px',
+				borderRadius: '12px',
 				padding: '8px',
 				color: colorWords,
 				position:"relative",
@@ -443,11 +442,10 @@ const Dashboard = (props) => {
 			>
 			   <div className="icon-state-reservation" >
 			   		<span className="margin-icon-state" >{iconState}</span>
-			  		<span>{title}</span>
+			  		<span className="text-words" >{title}</span>
 			   </div>
 
-			 
-
+			   
 				<div>
 						<Info  	place="top" 
 								variant="info" 
@@ -484,7 +482,7 @@ const Dashboard = (props) => {
 		return (
 			<div
 			{...getIntervalProps()}
-			className={`day-num ${isToday ? "today" : ""}   rct-dateHeader ${
+			className={`day-num ${isToday ? "todayOne-end-one" : "todayOne"}   rct-dateHeader ${
 			data.isMonth ? "rct-dateHeader-primary" : ""
 			}`}
 
@@ -501,66 +499,69 @@ const Dashboard = (props) => {
     			left: "48%;",
 				fontWeight:"100",
 				fontSize:"12px",
-				zIndex:1
+				zIndex:1,
+				marginLeft:"-13px"
 			}}
 			
 			>
-			{label}
+			 <span className={`${isToday && "color-day"}`} > {label}</span>
 			</span>
 		</div>
 		);
 			}
 			const intervalRendererday = ({ getIntervalProps, intervalContext, data }) => {
 				const label = intervalContext.intervalText;
-				const currentDate = moment().startOf("day");
-				const isToday = moment(label, "dddd D").isSame(currentDate, "day");
-				const isThursday = moment(label, "dddd D").isoWeekday()  // 4 es el código ISO para el jueves
-				const isFirstThursdayOfMonth = moment(label, "dddd D").date()  && isThursday; // Solo renderizar el primer jueves del mes
-
-				const currentDay = moment().format('dddd');
-
-
-				const acum = []
-
-				if(isToday ==true){
-					acum.push(0)
+				const currentDate = moment().startOf('day');
+				const isToday = moment(label, 'dd D').isSame(currentDate, 'day');
+				const isThursday = moment(label, 'dd D').isoWeekday() === 4; // 4 es el código ISO para el jueves
+				const isFirstThursdayOfMonth = moment(label, 'dd D').date() && isThursday;
+			  
+				const acum = [];
+			  
+				console.log(intervalContext);
+			  
+				if (isToday) {
+				  acum.push(0);
 				}
-
-				let acumlitor = 0
-
-				if(acum.length ==1){
-					acumlitor++;
+			  
+				let acumlitor = 0;
+			  
+				if (acum.length === 1) {
+				  acumlitor++;
 				}
-
-				
+			  
+				const dayOfWeek = moment(label, 'dd D').locale('es').format('ddd');
+				console.log(label);
+			  
 				return (
 				  <div
 					{...getIntervalProps()}
-					className={`day-num ${acum.length ==1 ? "todayOne" : ""} rct-dateHeader ${
-					  data.isMonth ? "rct-dateHeader-primary" : ""
+					className={`day-num ${acum.length === 1 ? 'todayOne-end' : 'todayOne-Finsihs'} rct-dateHeader ${
+					  data.isMonth ? 'rct-dateHeader-primary' : ''
 					}`}
 				  >
 					<span
 					  style={{
-						position: "relative",
-						margin: "auto",
-						padding: "0 50rem",
-						textTransform: "capitalize",
-						color: "#b3aca7",
-						fontWeight: "100",
-						fontSize: "13px",
-						textAlign: "center",
-						left: "4px",
-						top: "-9px",
+						position: 'relative',
+						margin: 'auto',
+						padding: '0 50rem',
+						textTransform: 'uppercase',
+						color: '#b3aca7',
+						fontWeight: '100',
+						fontSize: '13px',
+						textAlign: 'center', // Ajusta el texto al centro
+						display:"grid",
+						justifyContent:"center",
+						left:"13px",
+						top: '10px',
 						zIndex: 1,
 					  }}
 					>
-					  {label}
+					 <span  className={` day-num ${acum.length === 1  ? "color-day " : ""} `}   > { dayOfWeek}</span>   
 					</span>
 				  </div>
 				);
 			  };
-			  
 	const intervalRenderer = ({ intervalContext, getIntervalProps, data }) => {
 		return (
 		<div
@@ -647,37 +648,77 @@ const Dashboard = (props) => {
     setShowModal(false);
   };
 
-	useEffect(() =>{
-		fetch(`${config.serverRoute}/api/resecion/getroomsresecion/${jwt.result.id_hotel}`)
-		.then(resp => resp.json())
-		.then(data => {
-			if(!data.ok){
-				console.log("true")
-			}else{
-				console.log(data)
-				const roomDefinid=[]
-				for(let i =0;i<data?.query?.length;i++){	
-					for(let e =0;e<data?.query?.length;e++){
-						const to= parseInt(data?.query[i]?.ID_Tipo_habitaciones)
-						const lo =(room[e]?.id_tipoHabitacion) 
-						if(to ==lo ){
-							roomDefinid.push({
-								title:`${data?.query[i]?.title} ${room[e]?.nombre}   `,
-								id:data?.query[i]?.id,
-								ID_Tipo_estados:data?.query[i]?.ID_Tipo_estados,
-								ID_Tipo_habitaciones:data?.query[i]?.ID_Tipo_habitaciones,
-								ID_estado_habiatcion:data?.query[i].ID_estado_habitacion
-							})
-						}else{
-							console.log("error")
-						}
+
+  /*useEffect(() =>{
+	fetch(`${config.serverRoute}/api/resecion/getroomsresecion/${jwt.result.id_hotel}`)
+	.then(resp => resp.json())
+	.then(data => {
+		if(!data.ok){
+			console.log("true")
+		}else{
+			console.log(data)
+			const roomDefinid=[]
+			for(let i =0;i<data?.query?.length;i++){	
+				for(let e =0;e<data?.query?.length;e++){
+					const to= parseInt(data?.query[i]?.ID_Tipo_habitaciones)
+					const lo =(room[e]?.id_tipoHabitacion) 
+					if(to ==lo ){
+						roomDefinid.push({
+							title:`${data?.query[i]?.title} ${room[e]?.nombre}   `,
+							id:data?.query[i]?.id,
+							ID_Tipo_estados:data?.query[i]?.ID_Tipo_estados,
+							ID_Tipo_habitaciones:data?.query[i]?.ID_Tipo_habitaciones,
+							ID_estado_habiatcion:data?.query[i].ID_estado_habitacion
+						})
+					}else{
+						console.log("error")
 					}
 				}
-				setSate(roomDefinid)
-				setSearch(roomDefinid)
 			}
-		})
-	},[room,update])
+			setSate(roomDefinid)
+			setSearch(roomDefinid)
+		}
+	})
+},[room,update])
+*/
+
+useEffect(() => {
+	fetch(`${config.serverRoute}/api/resecion/getroomsresecion/${jwt.result.id_hotel}`)
+	  .then(resp => resp.json())
+	  .then(data => {
+		if (!data.ok) {
+		  console.log("true");
+		} else {
+		  console.log(data);
+  
+		  const roomMap = room.reduce((map, r) => {
+			map[r.id_tipoHabitacion] = r;
+			return map;
+		  }, {});
+  
+		  const roomDefinid = data.query.reduce((result, query) => {
+			const tipoHabitacion = query.ID_Tipo_habitaciones;
+			const room = roomMap[tipoHabitacion];
+			if (room) {
+			  result.push({
+				title: `${query.title} ${room.nombre}`,
+				id: query.id,
+				ID_Tipo_estados: query.ID_Tipo_estados,
+				ID_Tipo_habitaciones: query.ID_Tipo_habitaciones,
+				ID_estado_habiatcion: query.ID_estado_habitacion
+			  });
+			} else {
+			  console.log("error");
+			}
+			return result;
+		  }, []);
+  
+		  setSate(roomDefinid);
+		  setSearch(roomDefinid);
+		}
+	  });
+  }, [room, update]);
+  
 
 	useEffect(() =>{
 		ServiceReservas({id:jwt.result.id_hotel}).then(index=> {
@@ -895,17 +936,17 @@ const Dashboard = (props) => {
 		if(group.ID_estado_habiatcion == 6){
 			rows.push(
 				<GroupRows 	
-					color="#82d8cd"
+					color="white"
 					group={group.title} 
 					key={group.id}
 					estado={"Limpia"} 
 					letra="black"
-					iconState={<BsCheckCircle  fontSize={15} />}/>
+					iconState={<BsCheckCircle color="black"  fontSize={15} />}/>
 			)
 		}if(group.ID_estado_habiatcion == 5){
 			rows.push(
 				<GroupRows 	
-					color="#f3d924cc"
+					color="white"
 					group={`${group.title}`} 
 					key={group.id} 
 					letra="black" 
@@ -916,20 +957,20 @@ const Dashboard = (props) => {
 		if(group.ID_estado_habiatcion == 2){
 			rows.push(
 				<GroupRows 	
-					color="#747171"
+					color="white"
 					group={`${group.title}`}
-					letra="white" 
+					letra="black" 
 					key={group.id} 
 
-					iconState={<IoBanOutline  color="white"  fontSize={15}/>}
+					iconState={<IoBanOutline  color="black"  fontSize={15}/>}
 					/>
 			)
 		}if(group.ID_estado_habiatcion == 3){
 			rows.push(
 				<GroupRows 	
-					color="rgb(103 183 90)"
+					color="white"
 					group={` ${group.title}`}
-					letra="white" 
+					letra="black" 
 					key={group.id} 
 
 					iconState={<VscSymbolEvent  fontSize={15}/> }
@@ -939,7 +980,7 @@ const Dashboard = (props) => {
 			rows.push(
 				<GroupRows 	
 					color="white"
-					iconState={<IoBedOutline fontSize={15}  />}
+					iconState={<IoBedOutline fontSize={15}  color="black" />}
 					group={group.title} 
 					key={group.id} />
 			)
@@ -1040,10 +1081,10 @@ const Dashboard = (props) => {
 				onItemSelect={handleItemSelect}
 				onContextMenu={handleContextMenu}
 				defaultTimeStart={moment().startOf("day").add(-3, "day")}
-				defaultTimeEnd={moment().startOf("day").add(14, "day")}
+				defaultTimeEnd={moment().startOf("day").add(30, "day")}
 				stackItems
 				itemHeightRatio={0.9}                                                             
-				lineHeight={30}
+				lineHeight={33}
 				sidebarWidth={200}
 				itemRenderer={  itemRenderer}
 				onItemClick={(itemId, e, time) => onItemClick(itemId, e, time)}
@@ -1052,6 +1093,7 @@ const Dashboard = (props) => {
 				<TimelineHeaders className="list-booking-sticky"  >
 					<SidebarHeader />
 					<DateHeader
+					
 						unit="MONTH"
 						labelFormat="MMMM"
 						headerData={{ isMonth: false}}
@@ -1061,18 +1103,19 @@ const Dashboard = (props) => {
 					/>
 					<DateHeader
 						unit="day"
+						labelFormat="dddd"
+						defaultTimeStart={moment().startOf("day")}
+						defaultTimeEnd={moment().startOf("day")}
+						headerData={{ isMonth: true, currentDate, }}
+						intervalRenderer={intervalRendererday}
+					/>
+					<DateHeader
+						unit="day"
 						labelFormat="D"
 						headerData={{ isMonth: false, currentDate }}
 						intervalRenderer={intervalRendererdayNum}
 						/>
-					<DateHeader
-						unit="day"
-						labelFormat="dddd"
-						defaultTimeStart={moment().startOf("day")}
-						defaultTimeEnd={moment().startOf("day")}
-						headerData={{ isMonth: false, currentDate, }}
-						intervalRenderer={intervalRendererday}
-					/>
+					
 				</TimelineHeaders>
 				<TimelineMarkers>
           

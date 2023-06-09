@@ -1,7 +1,7 @@
 .react-calendar-timeline .rct-header-root {
   border-bottom: none;
   position: relative;
-  background-color: #f8f8f8;
+  background-color: white;
   color: black !important;
   font-weight: 700 !important;
   box-shadow: var(--color-border-lightgray) 0 0 1rem;
@@ -9,6 +9,10 @@
 
 .react-calendar-timeline .rct-calendar-header {
   border: none;
+}
+
+.rct-header-root > div{
+ margin-left: 10px;
 }
 
 .react-calendar-timeline .rct-dateHeader {
@@ -113,7 +117,7 @@
 }
 
 .react-calendar-timeline {
-  margin-top: 10px;
+  margin-top: 50px;
   margin-left: 8px;
 }
 
@@ -466,34 +470,56 @@ hr.border {
 
 .today {
   margin: -10px 0 0 0;
-  background-color:#dbdbdb!important;
+  background-color:#bbbbbb!important;
   border-radius:  8px 8px 0 0  ;
 }
 
 .todayOne {
-  background-color: #999999 !important ;
-  margin: -10px 0 0 0;
+  margin: 0 0 0 0;
+  right: 20px;
+  box-shadow: 0px 0px  0px 0px #000000;
   z-index: 1000 !important;
+}
+
+
+
+.todayOne-Finsihs{
+  border-top: 0.1px solid #aaaaaa!important;
+  border-left: 0.1px solid #aaaaaa!important;
+}
+
+.todayOne-end{
+  border-top: 0.1px solid #aaaaaa!important;
+  border-left: 4px solid  rgb(0 165 65)!important;
+
+  
+}
+
+.todayOne-end-one{
+  border-left: 4px solid  rgb(0 165 65)!important;
+  border-bottom: 0.1px solid #aaaaaa!important;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 10px 10px 0px !important ;
+  box-shadow: 0px 0px  0px 0px  rgba(0, 0, 0, 0.25);
+  z-index: 1000;
+  background: #49be36;
 }
 
 .todayOne {
   position: relative;
-  padding: 10px;
   background-color: #f0f0f0;
+  z-index: 1000 !important;
+  border-left: 0.1px solid  #aaaaaa!important;
+  border-bottom: 0.1px solid  #aaaaaa!important;
+  
+}
+
+.todayOne-two{
+  position: relative;
+  padding: 10px;
+  border: solid;
   z-index: 1000 !important;
 }
 
-.todayOne::before {
-  content: "";
-  position: absolute;
-  bottom: -16px; /* Coloca el triángulo debajo de la caja */
-  left: 50%; /* Centra el triángulo horizontalmente */
-  transform: translateX(-50%); /* Ajusta la posición del triángulo */
-  border-width: 10px;
-  border-style: solid;
-  border-color: #999999 transparent transparent transparent; /* Establece el color del triángulo y hace transparente los demás bordes */
-  z-index: 1000 !important;
-}
 
 .top-index-home{
   margin-top: 20px;
@@ -527,7 +553,14 @@ hr.border {
   margin-top: 10px;
   width: 432px;
 }
+.color-detail-room{ 
+}
+.font-room{
+  font-size: 12px;
+  font-weight: 400;
+  width: 10px;
+}
 
-.color-detail-room{
-  
+.text-words{
+  font-size: 13px;
 }

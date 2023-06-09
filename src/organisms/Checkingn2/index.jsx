@@ -205,10 +205,11 @@ const Checkingn2Organism =({id,postDetailRoom,fetchDataApiWhatsapp}) =>{
 
     const totalNumberPhone = numberPhone.replace("+","")
 
-    console.log(resulDetailDashboard?.codigo)
+    const fullName =   resulDetailDashboard.Nombre +" "+ resulDetailDashboard.Apellido
 
     const handUpdateConfirms =() =>{
         ServiceUpdateReservationpay({id,dataOne:dataTwo}).then(index  =>{
+            fetchDataApiWhatsapp({phone:totalNumberPhone,name:fullName})
             postDetailRoom({id:resulDetailDashboard?.ID_Habitaciones,ID_estado_habitacion:3})
             ServiceStatus({id,ID_Tipo_Estados_Habitaciones:3}).then(index=>{
                 ServiceInfomeMovimiento({Nombre_recepcion:jwt.result.name,Fecha:now,Movimiento:`Check in realizado tipo habitacion ${resultFinish?.nombre}  ${resulDetailDashboard.Numero}  nombre ${resulDetailDashboard.Nombre} codigo reserva ${resulDetailDashboard.id_persona}  `,id:jwt.result.id_hotel}).then(index =>{

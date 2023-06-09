@@ -2,6 +2,7 @@ import React from "react";
 import CardBedRoom from "../../component/CardBedroom";
 import InputBedRoom from "../../component/InputBedRoom";
 import TableBedRoom from "../../component/TableBedroom";
+import Container from "../../Ui/Container";
 
 
 const DetailBedRoomTemplate =({id,fetchData,Room}) =>{
@@ -10,7 +11,7 @@ const DetailBedRoomTemplate =({id,fetchData,Room}) =>{
         <>
             <InputBedRoom id={id} fetchData={fetchData} />
             <TableBedRoom Room={Room} />
-            <CardBedRoom/> 
+       
         </>
     )
 

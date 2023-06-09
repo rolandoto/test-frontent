@@ -7,6 +7,7 @@ import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import CheckoutOrganism from "../../organisms/Checkout";
 import useDetailRoomAction from "../../action/useDetailRoomAction";
+import useApiWhataapActions from "../../action/useApiWhataapActions";
 
 const Checkout =() =>{
     const {id} = useParams()   
@@ -15,6 +16,12 @@ const Checkout =() =>{
     const  {postDetailRoom} =  useDetailRoomAction()
     const {loading,error,DetailDashboard
     } = useSelector((state) => state.DetailDashboard)
+
+    const {postWhataapById} = useApiWhataapActions()
+
+    const fetchDataApiWhatsapp =async({phone,languaje,name}) =>{
+        await postWhataapById({plantilla:"check_in",to:phone,languaje,name})
+    }
 
     const fetchData =async() =>{
         await getDetailReservationById({id})
@@ -36,7 +43,8 @@ const Checkout =() =>{
 
         return  <CheckoutOrganism 
             DetailDashboard={DetailDashboard}
-            postDetailRoom={postDetailRoom}  />
+            postDetailRoom={postDetailRoom} 
+            fetchDataApiWhatsapp={fetchDataApiWhatsapp} />
     }
 
     return (

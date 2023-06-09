@@ -13,8 +13,8 @@ const Checkingn2 =() =>{
     const  {postDetailRoom} =  useDetailRoomAction()
     const {postWhataapById} = useApiWhataapActions()
 
-    const fetchDataApiWhatsapp =async({phone,languaje}) =>{
-        await postWhataapById({plantilla:"creacion_reserva",to:phone,languaje})
+    const fetchDataApiWhatsapp =async({phone,languaje,name}) =>{
+        await postWhataapById({plantilla:"check_in",to:phone,languaje,name})
     }
 
     const fillContent =() =>{

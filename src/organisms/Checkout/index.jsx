@@ -20,7 +20,7 @@ import Swal from 'sweetalert2'
 import { CiUser ,CiShop,CiBank } from "react-icons/ci";
 import ServiceInfomeMovimiento from "../../service/ServiceInformeMovimiento"
 
-const CheckoutOrganism =({DetailDashboard,postDetailRoom}) =>{
+const CheckoutOrganism =({DetailDashboard,postDetailRoom,fetchDataApiWhatsapp}) =>{
 
 
     const {id} = useParams()
@@ -152,234 +152,13 @@ const CheckoutOrganism =({DetailDashboard,postDetailRoom}) =>{
         return acum  + parseInt(current.Precio)
     },0)
 
-    
     const totalStore = priceLenceria+priceAdultos+priceDrogueria+priceSouvenir+priceSnacks+priceBebidas+ priceServicio
-
  
     const totalObject = totalStore ? totalStore.toLocaleString() :0
 
     const now = moment().format("YYYY/MM/DD")
 
-    /**
-     *  <div className="container-search-filter" >
-                                {[null]?.map((index,e) =>( 
-                                    <section className='section-Search' key={`section-${e}`} >
-                                            <ul className='border-search'  >
-                                                    <li>
-                                                        <div >
-                                                            <div className='flex-Autocomplete'>
-                                                                    <a className='hover:bg-blue-300 flex gap-4 p-4'>
-                                            
-                                                                    <div className='flex-'>
-                                                                        <h3 className='text-sm font-semibold'>Nombre de la empresa: Cocacola</h3>
-                                                                    </div>
-                                                                </a>
-                                                            </div>   
-                                                        </div>
-                                                    </li>
-
-                                                   
-                                            </ul>
-                                  
-                                    </section>
-                                ))}
-                    </div>
-     * 
-     */
-
-
-    /**
-     * 
-     * <div className="container-flex-init-global" >
-            <LoadingDetail
-                loading={true}
-                titleLoading={"Bienvenido Checkout"}  />
-
-                <ul className="flex-bedrooms-checking-modal-checkout  ">      
-                    <li  >      
-                        <input className="input-searching-input-checkout dow"  placeholder="Busquedad de Empresa" name="Buscar" type="text"  />
-                    </li>
-                </ul>
-
-            <div className="container-checkout-border" >
-                        <div className="container-store-checkout" >
-                                <div>
-                                    <ul>
-                                       {MenuItems.map(index => (
-                                         <li className="totalPricecheckout-two" >{index?.name}</li>
-                                       ))}              
-                                    </ul>                 
-                                </div>
-                                <div>
-                                    <ul>
-                                        <li className="totalPricecheckout-two" >{totalBebidas ?totalBebidas :0}</li>           
-                                        <li className="totalPricecheckout-two" >{totalSnacks ?totalSnacks:0}</li>           
-                                        <li className="totalPricecheckout-two" >{totalSouvenir ?totalSouvenir:0}</li>           
-                                        <li className="totalPricecheckout-two" >{totalDrogueria ?totalDrogueria:0}</li>   
-                                        <li className="totalPricecheckout-two" >{totalAdultos ?totalAdultos:0}</li>   
-                                        <li className="totalPricecheckout-two" >{totalLenceria ?totalLenceria :0}</li>                
-                                    </ul>  
-                                </div>
-
-                                <div>
-                                    <ul>
-                                        <li className="totalPricecheckout" >${priceBebidas ?priceBebidas : 0 }</li>           
-                                        <li className="totalPricecheckout" >${priceSnacks ?priceSnacks :0}</li>           
-                                        <li className="totalPricecheckout" >${priceSouvenir ?priceSouvenir :0}</li>           
-                                        <li className="totalPricecheckout" >${priceDrogueria ?priceDrogueria:0}</li>   
-                                        <li className="totalPricecheckout" >${priceAdultos ?priceAdultos :0}</li>   
-                                        <li className="totalPricecheckout" >${priceLenceria ?priceLenceria :0}</li>                
-                                    </ul>  
-                                </div>
-
-                        </div>
-
-                        <div className="container-store-checkout" >
-                                <div>
-                                    <ul>
-                                        <li>Nombre empresa:</li>           
-                                        <li>Nit:</li>           
-                                        <li>Correo:</li>           
-                                        <li>Direccion:</li> 
-                                        <li>Telefono:</li>                
-                                    </ul>                 
-                                </div>
-                                <div>
-                                    <ul>
-                                        <li>Bancolombia </li>           
-                                        <li>21212132123</li>           
-                                        <li>bancolombia@dasdsadasdasdasd.com</li>           
-                                        <li>calle 9</li>  
-                                        <li>3202720874</li>                
-                                    </ul>  
-                                </div>
-                        </div>
-
-            </div>
-
-            <div className="resume-title-valor" >
-                <span className="title-resumen" >{resultDashboard?.Adultos} Adultos-{resultDashboard?.Ninos} Niños -{resultDashboard?.Noches} Noches- habitacion {resultFinish?.nombre}  total tienda</span> <span className="total-store-checkout" > ${totalStore}</span>
-            </div>
-
-
-
-
-            <div className="container-checkout-border" >
-                        <div className="container-checkbox" >
-                                    <input   
-                                        type="checkbox" 
-                                        className={`checkbox-round`}
-                                    /> Incluir tiendas
-                        </div>
-
-                        <div className="container-store-checkout-one" >
-                                            <div>
-                                                <ul>
-                                                    <li className="border-checkout" >0 dias</li>           
-                                                    <li className="border-checkout" >Tohalla</li>           
-                                                    <li className="border-checkout" >2</li>                        
-                                                </ul>                 
-                                            </div>
-                                            <div>
-                                                <ul>
-                                                    <li className="border-checkout-one" >fumar</li>           
-                                                    <li className="border-checkout-one" >lenceria:</li>           
-                                                    <li className="border-checkout-one" >tarjetas</li>                        
-                                                </ul>   
-                                            </div>
-                        </div> 
-                        <div className="container-checkbox" >
-                        <input   
-                            type="checkbox" 
-                            className={`checkbox-round`}
-                        /> Desocupar habitacion
-                    </div>
-            </div>
-
-
-
-            <div className="container-checkout-border" >
-            <div className="container-store-checkout-one" >
-                <div>
-                    <ul>
-                        <li>Sub total:</li>           
-                        <li>Iva:</li>           
-                        <li>Total:</li>                 
-                    </ul>                 
-                </div>
-                <div>
-                    <ul>
-                        <li>8000</li>           
-                        <li>9000</li>           
-                        <li className="total-checkout" >17000</li>           
-                    </ul>  
-                </div>
-            </div>
-
-
-
-        
-            <div className="container-store-checkout-one box" >
-                    <div className="container-checkbox " >
-                        <input   
-                            type="checkbox" 
-                            className={`checkbox-round`}
-                        /> Retencion
-                        
-                    </div>
-                    <div className="container-checkbox " >
-                        <input   
-                            type="checkbox" 
-                            className={`checkbox-round`}
-                        /> Desocupar la habitacion
-                        
-                    </div>
-
-                    <div className="container-checkbox " >
-                        <input   
-                            type="checkbox" 
-                            className={`checkbox-round`}
-                        /> Retencion de iva
-                        
-                    </div>
-            </div>
-            
-
-                <div>
-                <p><label for="w3review">Observacion de la factura</label></p>
-                    <textarea id="w3review" className="text-tarea" name="w3review" rows="4" cols="50"></textarea> 
-                </div>  
-            </div>
-
-            <div className="button-checkout" >
-                <button>imprimir factura</button>
-            </div>
-
-        </div>
-
-        <ul>
-                                        <li>{resultDashboard.Nombre} {resultDashboard.Apellido}</li>           
-                                        <li>{resultDashboard.Num_documento}</li>           
-                                        <li>{resultDashboard.Correo}</li>           
-                                        <li>calle 9</li>  
-                                        <li>{resultDashboard.Celular}</li>                
-        </ul>  
-     * 
-     */
-    
-
-        /**
-         * 
-         *   {state && <Invoince
-                                        setInvoice={setInvoice} 
-                                        carts={carts}
-                                        priceCart={priceCart}
-                                        client={resultDashboard.Nombre} 
-                                        identification={resultDashboard.Num_documento}
-                                        raiting={raiting} />
-                }
-         * 
-         */
+   
                 
     const cart =[]
 
@@ -528,10 +307,15 @@ const CheckoutOrganism =({DetailDashboard,postDetailRoom}) =>{
           })   
       }
     }
+    const numberPhone = resultDashboard?.codigo +""+ resultDashboard?.Celular
 
+    const totalNumberPhone = numberPhone.replace("+","")
+
+    const fullName =   resultDashboard.Nombre +" "+ resultDashboard.Apellido
 
     const hancCheckout =() => {
         ServiceStatus({id,ID_Tipo_Estados_Habitaciones:1}).then(index=>{
+            fetchDataApiWhatsapp({phone:totalNumberPhone,name:fullName})
             postDetailRoom({id:resultDashboard.ID_Habitaciones,ID_estado_habitacion:5})
             ServiceResolution({Resolucion:dataCount.Resolucion+1,ID:dataCount.ID}).then(index=>{
                 ServiceInfomeMovimiento({Nombre_recepcion:jwt.result.name,Fecha:now,Movimiento:`Check out realizado tipo habitacion ${resultFinish?.nombre} ${resultDashboard.Numero}`,id:jwt.result.id_hotel}).then(index =>{

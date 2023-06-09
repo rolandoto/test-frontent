@@ -27,6 +27,7 @@
     "formik": "^2.2.9",
     "fs": "^0.0.1-security",
     "html2canvas": "^1.4.1",
+    "html2pdf.js": "^0.10.1",
     "install": "^0.13.0",
     "interactjs": "^1.10.17",
     "intersection-observer": "^0.12.0",

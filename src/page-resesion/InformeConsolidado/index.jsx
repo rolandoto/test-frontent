@@ -14,6 +14,19 @@ import { useReactToPrint } from "react-to-print";
 import { useRef } from "react";
 import ServiceInformeGeneral from "../../service/ServiceInformeGeneral";
 import ServiceAuditoria from "../../service/ServiceInformeAuditoria";
+import html2pdf from 'html2pdf.js';
+import { PDFDownloadLink, Document, Page, Text, View, StyleSheet } from '@react-pdf/renderer';
+
+const styles = StyleSheet.create({
+  container: {
+    padding: '20px',
+  },
+  globalFactura: {
+    borderRadius: '5px',
+  },
+  // Agrega aquí los estilos adicionales necesarios para tu HTML
+});
+
 
 const InformeConsolidado = () => {
 
@@ -54,6 +67,22 @@ const InformeConsolidado = () => {
             setRoom(index)
         })
     },[setRoom])
+
+
+    const componentRef = useRef(null);
+
+  const generatePDF = () => {
+    const options = {
+      filename: 'example.pdf',
+      margin: [20, 20, 20, 20], // Márgenes [izquierdo, superior, derecho, inferior]
+      jsPDF: { format: 'a4', orientation: 'portrait' }, // Opciones de jsPDF
+    };
+
+    html2pdf()
+      .set(options)
+      .from(componentRef.current)
+      .save();
+  };
 
     
     const {jwt} =useContext(AutoProvider)
@@ -218,11 +247,6 @@ const InformeConsolidado = () => {
     }
 
 
-    let componentRef = useRef();
-
-    const handlePrint = useReactToPrint({
-        content: () => componentRef.current
-    });
 
     const [auditoria,setAuditoria] =useState()
     const [store,setStore] =useState()
@@ -479,6 +503,10 @@ const InformeConsolidado = () => {
     const OtrosMedios  = countThree +countFour +countFive
 
 
+
+
+
+
     return (
         <ContainerGlobal>
              <LoadingDetail
@@ -558,9 +586,9 @@ const InformeConsolidado = () => {
         </div>
 
         <div className="init " >
-        <form  className="container-flex-init"  onClick={handInformes}>
+        <form  className="container-flex-init" onClick={generatePDF}>
             <div className="container-detail-dasboard-in" >
-                <div className="button-checkout-one"   onClick={handlePrint}   >
+                <div className="button-checkout-one"     >
                     <button>Guardar informe (Solo se puede guardar una vez)</button>
                 </div>
             </div>
@@ -808,6 +836,20 @@ const FacturaCompany  =({jwt,roomBusy,roomSell,efectivoTotal,otrosMedios,dolares
     const totalCount = count +  totalTienda
 
     const totalDefinido =OtrosMedios + totalEfectivooNE
+
+
+    
+    const MyDocument = () => (
+        <Document>
+          <Page>
+            <View style={styles.container}>
+              <View style={styles.globalFactura}>
+                {/* Agrega aquí el contenido HTML */}
+              </View>
+            </View>
+          </Page>
+        </Document>
+      );
 
 
     return (
