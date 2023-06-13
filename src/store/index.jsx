@@ -13,6 +13,7 @@ import RoomsModalCheckingSlice from '../reducers/dashboardCheckingReducer'
 import { ForgetSlice } from '../reducers/forgetReducer'
 import { RoomDetail } from '../reducers/RoomDetailReducer'
 import { apiWhataapSlice } from '../reducers/apiWhatsaapReduccers'
+import { UpdateDetailPounterSlice } from '../reducers/updateDatailPounterReducer'
 
 const store = configureStore ({
     reducer:{
@@ -30,7 +31,8 @@ const store = configureStore ({
         Contact:ContactSlice.reducer,
         Forget:ForgetSlice.reducer,
         RoomDetail:RoomDetail.reducer,
-        apiWhataap:apiWhataapSlice.reducer
+        apiWhataap:apiWhataapSlice.reducer,
+        updateDetailPounter:UpdateDetailPounterSlice.reducer
     },
     devTools:true,
 })

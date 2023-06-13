@@ -28,8 +28,6 @@ const fromRervas =(event)  =>{
 
       const code = index.Codigo_reserva
 
-      console.log({"index":index})
-
         return {
           Num_Room:index.Num_Room,
           Codigo_Reserva:index.Codigo_reservaOne,

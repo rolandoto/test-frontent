@@ -188,6 +188,21 @@ const postApiWhasatapp = ({ to, plantilla,languaje,name }) => {
     })
 };
 
+const postUpdatailPounter= ({Fecha_final,id}) =>{
+  return fetch((`${config.serverRoute}/api/resecion/UpdatePonter`),{
+    method:"POST",
+      body:JSON.stringify({Fecha_final,id}),
+      headers:{
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      }
+      }).then(resp =>{
+      if(!resp.ok) throw new Error('Response is not ok')
+      return resp.json()
+  })
+}
+
+
   export default {
     get,
     post,
@@ -201,6 +216,7 @@ const postApiWhasatapp = ({ to, plantilla,languaje,name }) => {
     getForget,
     insertPayABono,
     postUpdateRoomDetail,
-    postApiWhasatapp
+    postApiWhasatapp,
+    postUpdatailPounter
   }
   

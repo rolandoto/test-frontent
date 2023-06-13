@@ -51,7 +51,8 @@ import { CiCircleCheck } from "react-icons/ci";
 import { BsBucket ,BsCalendarCheck,BsCheckCircle,BsBell} from "react-icons/bs";
 import { IoBedOutline ,IoBanOutline} from "react-icons/io5";
 import { Tooltip, Button, Grid } from "@nextui-org/react";
-
+import useUpdateDetailPointerActions from "../../action/useUpdateDetailPointerActions";
+import confetti  from "canvas-confetti"
 const GroupRows =({group,color,estado,iconState,letra}) =>{
 
 	return (
@@ -119,7 +120,7 @@ const Dashboard = (props) => {
 	const [cleanline,setcleanline] =useState(false)
 	const [block,setBlock] =useState(false)
 	const [lookinfor,setLookingfor] =useState()
-	const {jwt,update} =useContext(AutoProvider)
+	const {jwt,update,setUpadte} =useContext(AutoProvider)
 	const {toggleOpenDashBoard,toggleCloseDashboard} = useDashboardAction()
 	const {toggleOpenDashboardChecking,toggleCloseDashboardChecking}  = useDashboardCheckingAction()
 	const {dashboardVisible} = useSelector(selectDashboard)
@@ -137,6 +138,7 @@ const Dashboard = (props) => {
 	const [isPopperOpen, setIsPopperOpen] = useState(false);
 	const [isModalOpen, setIsModalOpen] = useState(false);
 
+	const {postUpdateDetailPointer} = useUpdateDetailPointerActions()
 	
 	const handleItemSelect = (itemId, e, time) => {
 		setSelectedItem(itemId);
@@ -265,10 +267,10 @@ const Dashboard = (props) => {
 	const bookings = [
 		{
 		id: 1,
-		group: 3,
+		group: 189,
 		title:`Reservas 365`,
-		start_time: new Date(`2022-09-${8+1}`),
-		end_time: new Date(`2022-09-${10+1}`),
+		start_time: new Date(`2023-06-12`),
+		end_time: new Date(`2023-06-14`),
 		state:50
 		},
 		{
@@ -288,6 +290,8 @@ const Dashboard = (props) => {
 		state:2,
 		},
 	];
+
+	const [pruebaR,setPruebaR] =useState(bookings)
 
 	const handClickState =() =>{
 		setModalState(true)
@@ -722,7 +726,7 @@ useEffect(() => {
 		  setSearch(roomDefinid);
 		}
 	  });
-  }, [room, update]);
+  }, [room]);
   
 
 	useEffect(() =>{
@@ -764,6 +768,8 @@ useEffect(() => {
 			}
 			return time
 	}
+
+	
 
 	/**
 	 * 
@@ -889,6 +895,32 @@ useEffect(() => {
   // definir estado para almacenar la fecha actual
   	const [currentDat, setCurrentDate] = useState(new Date());
 
+	const handleItemResize = (itemId, time, edge) => {
+		const fecha = moment(time).format('YYYY-MM-DD');		
+
+	const updatedItems = reservation.map(item => {
+		if (item.id === itemId) {
+		  return {
+			...item,
+            start_time: edge === 'left' ? time : item.start_time,
+            end_time: edge === 'left' ? item.start_time : time,
+		  };
+		} else {
+		  return item;
+		}
+	  });
+	 
+	  postUpdateDetailPointer({id:itemId,Fecha_final:fecha})
+	  confetti({
+		zIndex: 999,
+		particleCount: 100,
+		spread: 70,
+		origin: { x: 0.50, y: 0.8 }
+	  });  
+	  setpruebareservas(updatedItems)
+	};
+
+	
 	  const handleTimeChange = (visibleTimeStart, visibleTimeEnd, updateScrollCanvas) => {
 		const newDate = new Date(visibleTimeStart);
 		if (newDate.getMonth() !== currentDat.getMonth()) {
@@ -1085,12 +1117,14 @@ useEffect(() => {
 				items={ pruebareservas}
 				onItemSelect={handleItemSelect}
 				onContextMenu={handleContextMenu}
+				onItemResize={handleItemResize}
 				defaultTimeStart={moment().startOf("day").add(-3, "day")}
 				defaultTimeEnd={moment().startOf("day").add(30, "day")}
 				stackItems
 				itemHeightRatio={0.9}                                                             
 				lineHeight={34}
 				sidebarWidth={200}
+				sidebarContent={<div>Above The Left</div>}
 				itemRenderer={  itemRenderer}
 				onItemClick={(itemId, e, time) => onItemClick(itemId, e, time)}
 				now={nowOne}
