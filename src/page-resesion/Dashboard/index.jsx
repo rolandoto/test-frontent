@@ -52,7 +52,9 @@ import { BsBucket ,BsCalendarCheck,BsCheckCircle,BsBell} from "react-icons/bs";
 import { IoBedOutline ,IoBanOutline} from "react-icons/io5";
 import { Tooltip, Button, Grid } from "@nextui-org/react";
 import useUpdateDetailPointerActions from "../../action/useUpdateDetailPointerActions";
-import confetti  from "canvas-confetti"
+import UseListMotels from "../../hooks/UseListMotels";
+
+
 const GroupRows =({group,color,estado,iconState,letra}) =>{
 
 	return (
@@ -138,8 +140,26 @@ const Dashboard = (props) => {
 	const [isPopperOpen, setIsPopperOpen] = useState(false);
 	const [isModalOpen, setIsModalOpen] = useState(false);
 
-	const {postUpdateDetailPointer} = useUpdateDetailPointerActions()
+	const {postUpdateDetailPointer,error} = useUpdateDetailPointerActions()
+
+	const {iduser} = UseListMotels()
+
+	const FindIdHotel=(hotel) =>{
+		return hotel.id_hotel == jwt.result.id_hotel
+	  }
+
+	const hotel = iduser.find(FindIdHotel)
+
+	let countSeguro =0
 	
+	if(hotel?.segurohotelero ==0){
+		 countSeguro=0
+	}else{
+		 countSeguro = parseInt(hotel?.valorseguro)
+	}
+	
+	console.log(countSeguro)
+
 	const handleItemSelect = (itemId, e, time) => {
 		setSelectedItem(itemId);
 		setIsPopperOpen(true);
@@ -527,8 +547,7 @@ const Dashboard = (props) => {
 			  
 				const acum = [];
 			  
-				console.log(intervalContext);
-			  
+				
 				if (isToday) {
 				  acum.push(0);
 				}
@@ -540,7 +559,7 @@ const Dashboard = (props) => {
 				}
 			  
 				const dayOfWeek = moment(label, 'dd D').locale('es').format('ddd');
-				console.log(label);
+		
 			  
 				return (
 				  <div
@@ -735,7 +754,7 @@ useEffect(() => {
 			
 			setpruebareservas(index)
 		})
-	},[setSearch,update])
+	},[setSearch])
 	
 	if(search?.length ==0) {
 		setSearch(state)
@@ -895,30 +914,31 @@ useEffect(() => {
   // definir estado para almacenar la fecha actual
   	const [currentDat, setCurrentDate] = useState(new Date());
 
-	const handleItemResize = (itemId, time, edge) => {
-		const fecha = moment(time).format('YYYY-MM-DD');		
-
-	const updatedItems = reservation.map(item => {
-		if (item.id === itemId) {
-		  return {
-			...item,
-            start_time: edge === 'left' ? time : item.start_time,
-            end_time: edge === 'left' ? item.start_time : time,
-		  };
-		} else {
-		  return item;
-		}
-	  });
-	 
-	  postUpdateDetailPointer({id:itemId,Fecha_final:fecha})
-	  confetti({
-		zIndex: 999,
-		particleCount: 100,
-		spread: 70,
-		origin: { x: 0.50, y: 0.8 }
-	  });  
-	  setpruebareservas(updatedItems)
-	};
+	  const handleItemResize = (itemId, time, edge) => {
+		const fecha = moment(time).format('YYYY-MM-DD');
+	  
+		const updatedItems = reservation.map(item => {
+		  if (item.id === itemId) {
+			const { start_time, end_time } = item;
+			if (edge === 'left') {
+			  return {
+				...item,
+				start_time: time,
+			  };
+			} else {
+			  return {
+				...item,
+				end_time: time,
+			  };
+			}
+		  } else {
+			return item;
+		  }
+		});
+	  
+		setpruebareservas(updatedItems);
+		postUpdateDetailPointer({ id: itemId, Fecha_final: fecha });
+	  };
 
 	
 	  const handleTimeChange = (visibleTimeStart, visibleTimeEnd, updateScrollCanvas) => {
@@ -929,8 +949,6 @@ useEffect(() => {
 		  setCurrentDate(newDate);
 		}
 	  };
-
-
 	  const nowOne = new Date(2023, 4, 1, 3, 10);
 
 
@@ -1121,6 +1139,7 @@ useEffect(() => {
 				defaultTimeStart={moment().startOf("day").add(-3, "day")}
 				defaultTimeEnd={moment().startOf("day").add(30, "day")}
 				stackItems
+													
 				itemHeightRatio={0.9}                                                             
 				lineHeight={34}
 				sidebarWidth={200}
@@ -1128,7 +1147,9 @@ useEffect(() => {
 				itemRenderer={  itemRenderer}
 				onItemClick={(itemId, e, time) => onItemClick(itemId, e, time)}
 				now={nowOne}
-				canMove={true}>
+				canMove
+				canResize={"both"}
+				>
 				<TimelineHeaders className="list-booking-sticky"  >
 					<SidebarHeader />
 					<DateHeader

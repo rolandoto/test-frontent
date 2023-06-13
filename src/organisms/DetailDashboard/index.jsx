@@ -76,10 +76,7 @@ const DetailDasboard =(props) =>{
   padding-top: 9px  !important;
   z-index: 0 !important;
   background: gray;
-`;
-
-
-   
+`;   
     const {progress} =useProgress({id})
     const resultDashboard = DetailDashboard[0]
 
@@ -614,11 +611,13 @@ const priceLenceria = Lenceria?.reduce((acum,current) => {
 },0)
 
 
+console.log(resultDashboard)
+
   const hanDelete =() =>{
     ServiDelteReservation({id}).then(index =>{
       console.log(index)
       postDetailRoom({id:resultDashboard?.ID_Habitaciones,ID_estado_habitacion:0})
-      ServiceInfomeMovimiento({Nombre_recepcion:jwt.result.name,Fecha:now,Movimiento:`Reserva eliminada tipo habitacion ${resultFinish?.nombre} ${resultDashboard.Numero} nombre ${resultDashboard.Nombre} codigo reserva ${resultDashboard.id_persona} `,id:jwt.result.id_hotel}).then(index =>{
+      ServiceInfomeMovimiento({Nombre_recepcion:jwt.result.name,Fecha:now,Movimiento:`Reserva eliminada tipo habitacion ${resultFinish?.nombre} ${resultDashboard.Numero} nombre ${resultDashboard.Nombre} codigo reserva ${id} `,id:jwt.result.id_hotel}).then(index =>{
         window.location.href="/Home"
       }).catch(e =>{
           console.log(e)

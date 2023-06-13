@@ -549,7 +549,7 @@ const DashboardModal = (props) => {
                         showConfirmButton: false,
                         timer: 500
                       })
-                  ServiceInfomeMovimiento({Nombre_recepcion:jwt.result.name,Fecha:now,Movimiento:`Creación reserva tipo habiatcion ${findRoomOne.nombre} ${totalFindRoom.Numero}`,id:jwt.result.id_hotel}).then(index =>{
+                  ServiceInfomeMovimiento({Nombre_recepcion:jwt.result.name,Fecha:now,Movimiento:`Creación reserva tipo habitacion ${findRoomOne.nombre} ${totalFindRoom.Numero}`,id:jwt.result.id_hotel}).then(index =>{
                     setTimeout(() =>{
                         window.location.href="/Home"
                     },1000)

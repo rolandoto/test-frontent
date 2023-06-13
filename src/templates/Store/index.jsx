@@ -734,8 +734,6 @@ const StoreTemplate =({Store}) =>{
     const [isMainData, setMainData] = useState(
       Store?.query?.filter((element) => element.Nombre_categoria == "Snacks"));    
 
-    
-      
     console.log(isMainData)
       
     const [num,setNum] =useState()
