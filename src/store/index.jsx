@@ -14,6 +14,7 @@ import { ForgetSlice } from '../reducers/forgetReducer'
 import { RoomDetail } from '../reducers/RoomDetailReducer'
 import { apiWhataapSlice } from '../reducers/apiWhatsaapReduccers'
 import { UpdateDetailPounterSlice } from '../reducers/updateDatailPounterReducer'
+import { UpdateDetailPounterRangeSlice } from '../reducers/updateDatailPounterRangeReducer'
 
 const store = configureStore ({
     reducer:{
@@ -32,7 +33,8 @@ const store = configureStore ({
         Forget:ForgetSlice.reducer,
         RoomDetail:RoomDetail.reducer,
         apiWhataap:apiWhataapSlice.reducer,
-        updateDetailPounter:UpdateDetailPounterSlice.reducer
+        updateDetailPounter:UpdateDetailPounterSlice.reducer,
+        UpdateDetailPounterRangeSlice:UpdateDetailPounterRangeSlice.reducer
     },
     devTools:true,
 })

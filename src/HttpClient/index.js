@@ -203,6 +203,20 @@ const postUpdatailPounter= ({Fecha_final,id,countSeguro}) =>{
 }
 
 
+const postUpdatailPounterRange= ({desde,hasta,ID_Habitaciones,id}) =>{
+  return fetch((`${config.serverRoute}/api/resecion/UpdatePonterRange`),{
+    method:"POST",
+      body:JSON.stringify({desde,hasta,ID_Habitaciones,id}),
+      headers:{
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      }
+      }).then(resp =>{
+      if(!resp.ok) throw new Error('Response is not ok')
+      return resp.json()
+  })
+}
+
   export default {
     get,
     post,
@@ -217,6 +231,7 @@ const postUpdatailPounter= ({Fecha_final,id,countSeguro}) =>{
     insertPayABono,
     postUpdateRoomDetail,
     postApiWhasatapp,
-    postUpdatailPounter
+    postUpdatailPounter,
+    postUpdatailPounterRange
   }
   

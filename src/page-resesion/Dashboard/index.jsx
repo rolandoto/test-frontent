@@ -53,6 +53,7 @@ import { IoBedOutline ,IoBanOutline} from "react-icons/io5";
 import { Tooltip, Button, Grid } from "@nextui-org/react";
 import useUpdateDetailPointerActions from "../../action/useUpdateDetailPointerActions";
 import UseListMotels from "../../hooks/UseListMotels";
+import useUpdateDetailPounterRangeSliceActions from "../../action/useUpdateDetailPounterRangeSliceActions";
 
 
 const GroupRows =({group,color,estado,iconState,letra}) =>{
@@ -141,7 +142,7 @@ const Dashboard = (props) => {
 	const [isModalOpen, setIsModalOpen] = useState(false);
 
 	const {postUpdateDetailPointer,error} = useUpdateDetailPointerActions()
-
+	const {postUpdateDetailPointerRange} = useUpdateDetailPounterRangeSliceActions()
 	const {iduser} = UseListMotels()
 
 	const FindIdHotel=(hotel) =>{
@@ -941,6 +942,44 @@ useEffect(() => {
 	  };
 
 
+	  const handleItemMove = (itemId, dragTime, newGroupOrder) => {
+		let dragTimeOne =0
+		let ID_Habitaciones = 0
+		
+		
+		const group = search[newGroupOrder];
+
+		 reservation.map(item =>{
+			if(item.id  ==  itemId){
+				dragTimeOne= dragTime+( item.end_time - item.start_time)
+				ID_Habitaciones =group.id
+			}
+		} )
+
+		const fecha1 = moment(dragTime).format('YYYY-MM-DD');
+
+		const fecha2 = moment(dragTimeOne).format('YYYY-MM-DD');
+
+		const desde =  `${fecha1} 15:00:00`
+		const hasta = `${fecha2} 13:00:00`
+		
+		
+
+		const updatedItems = reservation.map(item =>
+		  item.id === itemId
+			? {
+				...item,
+				start_time: dragTime,
+				end_time: dragTime + (item.end_time - item.start_time),
+				group: group.id,
+			  }
+			: item,
+		);
+		postUpdateDetailPointerRange({desde,hasta,ID_Habitaciones,id:itemId})
+		setpruebareservas(updatedItems);
+	  };
+	
+
 	
 	  const handleTimeChange = (visibleTimeStart, visibleTimeEnd, updateScrollCanvas) => {
 		const newDate = new Date(visibleTimeStart);
@@ -1140,7 +1179,7 @@ useEffect(() => {
 				defaultTimeStart={moment().startOf("day").add(-3, "day")}
 				defaultTimeEnd={moment().startOf("day").add(30, "day")}
 				stackItems
-													
+				onItemMove={handleItemMove}									
 				itemHeightRatio={0.9}                                                             
 				lineHeight={34}
 				sidebarWidth={200}
