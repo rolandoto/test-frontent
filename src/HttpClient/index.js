@@ -188,10 +188,10 @@ const postApiWhasatapp = ({ to, plantilla,languaje,name }) => {
     })
 };
 
-const postUpdatailPounter= ({Fecha_final,id}) =>{
+const postUpdatailPounter= ({Fecha_final,id,countSeguro}) =>{
   return fetch((`${config.serverRoute}/api/resecion/UpdatePonter`),{
     method:"POST",
-      body:JSON.stringify({Fecha_final,id}),
+      body:JSON.stringify({Fecha_final,id,countSeguro}),
       headers:{
         Accept: 'application/json',
         'Content-Type': 'application/json',

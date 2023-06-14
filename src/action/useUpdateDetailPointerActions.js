@@ -13,12 +13,13 @@ const useUpdateDetailPointerActions = () => {
   const dispatch = useAppDispatch();
   const [error, setErro] = useState(false);
 
-  const postUpdateDetailPointer = async ({ id, Fecha_final }) => {
+  const postUpdateDetailPointer = async ({ id, Fecha_final, countSeguro }) => {
     dispatch(loading());
     try {
       const response = await HttpClient.postUpdatailPounter({
         id,
         Fecha_final,
+        countSeguro,
       });
       if (response) {
         dispatch(setUpdate(response));

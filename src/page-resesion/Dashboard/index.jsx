@@ -937,8 +937,9 @@ useEffect(() => {
 		});
 	  
 		setpruebareservas(updatedItems);
-		postUpdateDetailPointer({ id: itemId, Fecha_final: fecha });
+		postUpdateDetailPointer({ id: itemId, Fecha_final: fecha,countSeguro });
 	  };
+
 
 	
 	  const handleTimeChange = (visibleTimeStart, visibleTimeEnd, updateScrollCanvas) => {
