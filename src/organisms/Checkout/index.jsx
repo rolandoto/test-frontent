@@ -289,14 +289,10 @@ const CheckoutOrganism =({DetailDashboard,postDetailRoom,fetchDataApiWhatsapp}) 
 
     const handUpdateStatus =() =>{
       const  adeudado =  parseInt(resultDashboard.valor_abono)
-      const pago = parseInt(resultDashboard.valor_pago)
-
-      console.log(pago)
-      console.log(adeudado)
+      const pago = parseInt(resultDashboard.valor_habitacion)
 
       if(adeudado >= pago){
         handOpenInvoince()
-       
       }else{
         Swal.fire({
             position: 'center',

@@ -54,7 +54,6 @@ const fromRervas =(event)  =>{
 }
 
 export const ServiceReservas =({id}) =>{
-
   return fetch(`${config.serverRoute}/api/resecion/getreservarecepcion/${id}`)
   .then(resp  => resp.json())
   .then(data=> fromRervas(data))

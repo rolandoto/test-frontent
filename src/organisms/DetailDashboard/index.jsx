@@ -980,52 +980,8 @@ const hanClickLimpia =() => {
         </form>
       </div>
 
-      <div className="init top-one-detail-room" >
-        <form  className="container-flex-init"  onSubmit={e =>{
-          e.preventDefault()
-        }} >
-        <div className="container-detail-dasboard-in" > 
-
-        <span className="desde-detail-two-title" > Tipo habitacion:</span>
-        <span className="desde-detail-two-title" >Asignar habitacion:</span>
-
-            </div>
-              <div className="container-detail-dasboard-in" > 
-              <select   name="disponibilidad"
-                        onChange={handleChangeRoom}
-                        value={idRoom}
-                        className="desde-detail-two"    >
-                    <option></option>
-                    {habi?.map(category =>(
-                        <option 
-                        value={category.ID}   
-                        key={category.ID}>
-                        {category.nombre}
-                    </option>
-                    )
-                    )}
-                </select>
-
-                <select   name="disponibilidad"
-                          onChange={handAsignar}
-                          value={asignar}
-                        className="desde-detail-two"    >
-                    <option></option>
-                    {disponibilidad?.query?.map(category =>(
-                          <option 
-                          value={category.ID}   
-                          key={category.ID}>
-                          {category.Numero}
-                    </option>
-                    )
-                    )}
-                </select>
-                <div  onClick={handServiceChangeTypeRoom} >
-                      <button className="button-change-type-room"  > <span>Cambiar habitacion</span></button>
-                </div>    
-            </div>
-        </form>
-      </div>
+ 
+      
       <div className="init top-one-detail-room" >
             <form  className="container-flex-init"  onSubmit={e =>{
               e.preventDefault()
