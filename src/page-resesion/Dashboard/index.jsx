@@ -35,7 +35,7 @@ import Skeleton from "@mui/material/Skeleton";
 import Stack from "@mui/material/Stack";
 import { config } from "../../config";
 import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
-import { fontWeight } from "@mui/system";
+import { fontWeight, height } from "@mui/system";
 import  {Link} from "react-router-dom"
 import ReactTooltip from "react-tooltip";
 import styled from "styled-components";
@@ -54,7 +54,7 @@ import { Tooltip, Button, Grid } from "@nextui-org/react";
 import useUpdateDetailPointerActions from "../../action/useUpdateDetailPointerActions";
 import UseListMotels from "../../hooks/UseListMotels";
 import useUpdateDetailPounterRangeSliceActions from "../../action/useUpdateDetailPounterRangeSliceActions";
-
+import randomColor from "randomcolor";
 
 const GroupRows =({group,color,estado,iconState,letra}) =>{
 
@@ -113,6 +113,7 @@ const style = {
 	p: 4,
 }
 
+
 const Dashboard = (props) => {
 
 	const {id} = useParams()
@@ -133,14 +134,11 @@ const Dashboard = (props) => {
 	const [loadingSkeleto,setLoadingSkeleto] =useState(true)
 	const [hoveredItemId, setHoveredItemId] = useState(null);
 	const  now = moment().format("YYYY-MM-DD");
-
 	const timelineRef = useRef(null);
 	const  [totalDay ,setTotalDay] =useState()
-
 	const [selectedItem, setSelectedItem] = useState(null);
 	const [isPopperOpen, setIsPopperOpen] = useState(false);
 	const [isModalOpen, setIsModalOpen] = useState(false);
-
 	const {postUpdateDetailPointer,error} = useUpdateDetailPointerActions()
 	const {postUpdateDetailPointerRange} = useUpdateDetailPounterRangeSliceActions()
 	const {iduser} = UseListMotels()
@@ -362,18 +360,18 @@ const Dashboard = (props) => {
 		history.push(`/DetailDashboard/${itemId}`)
 	}
 
-	const [prueba,setPrueba] =useState(false)
-
-	const onItemDoubleclik =(itemId, e, time, onItemSelectParentUpdate, hand) =>{
-
-		return (
-			<div>
-			</div>
-		)
-	}
-
 	const [showInfo, setShowInfo] = useState(false);
 
+	const [reservationColor, setReservationColor] = React.useState(null);
+
+	const handleReservationClick = (itemId, e, time) => {
+		// Verifica si la reserva ya tiene el color amarillo
+		if (reservationColor === "yellow") {
+		  setReservationColor(null); // Si es amarillo, lo resetea a null para eliminar el color
+		} else {
+		  setReservationColor("yellow"); // Si no es amarillo, establece el color amarillo
+		}
+	  };
 	const itemRenderer = ({ item, itemContext, getItemProps }) => {
 
 		const handleMouseEnter = () => {
@@ -426,34 +424,41 @@ const Dashboard = (props) => {
 			iconState=<BsCheckCircle  fontSize={15} />
 		  }
 
+
+		const backgroundColor = itemContext.selected  ? "black" :color
+
 		const key = `${item.id}_${item.id}_schedule`;
 
 		const hanEnter =() => {
 			valo= true	
 		}
 
+		console.log({
+			"item":item
+		})
+
 		return (
 			
 		  <div 
-		  
+		  onClick={(e) => handleReservationClick(itemContext.itemId, e, itemContext.time)}
 		  data-for={key} data-tip
 			{...getItemProps({
 			  style: {
-				display: 'flex',
-				alignItems: 'center',
-				background: color,
-				border: '',
-				borderRadius: '12px',
-				padding: '8px',
-				color: colorWords,
-				position:"relative",
-				visibility:"visibility",
-				opacity:"1",
-				boxShadow:"0 2px 4px rgba(0, 0, 0, 0.4)"
-			  },
+				display: "flex",
+          alignItems: "center",
+          backgroundColor,
+          border: "",
+          borderRadius: "12px",
+          padding: "8px",
+          color: colorWords,
+          position: "relative",
+          visibility: "visible",
+          opacity: "100",
+          boxShadow: "0 2px 4px rgba(0, 0, 0, 0.4)",
+          transition: "background-color 0.8s ease",
+			  },	  
 			})}
-			onMouseEnter={hanEnter}
-		  >
+		>	
 			<div
 			  className="itemModal"
 			  
@@ -474,8 +479,6 @@ const Dashboard = (props) => {
 			   		<span className="margin-icon-state" >{iconState}</span>
 			  		<span className="text-words" >{title}</span>
 			   </div>
-
-			   
 				<div>
 						<Info  	place="top" 
 								variant="info" 
@@ -501,9 +504,7 @@ const Dashboard = (props) => {
 		);
 	  };
 
-
 	const intervalRendererdayNum= ({ getIntervalProps, intervalContext ,data }) => {
-
 
 		const label = intervalContext.intervalText;
 		const currentDate = moment().startOf("day");
@@ -540,6 +541,7 @@ const Dashboard = (props) => {
 		);
 			}
 			const intervalRendererday = ({ getIntervalProps, intervalContext, data }) => {
+				
 				const label = intervalContext.intervalText;
 				const currentDate = moment().startOf('day');
 				const isToday = moment(label, 'dd D').isSame(currentDate, 'day');
@@ -677,40 +679,6 @@ const Dashboard = (props) => {
     setShowModal(false);
   };
 
-
-  /*useEffect(() =>{
-	fetch(`${config.serverRoute}/api/resecion/getroomsresecion/${jwt.result.id_hotel}`)
-	.then(resp => resp.json())
-	.then(data => {
-		if(!data.ok){
-			console.log("true")
-		}else{
-			console.log(data)
-			const roomDefinid=[]
-			for(let i =0;i<data?.query?.length;i++){	
-				for(let e =0;e<data?.query?.length;e++){
-					const to= parseInt(data?.query[i]?.ID_Tipo_habitaciones)
-					const lo =(room[e]?.id_tipoHabitacion) 
-					if(to ==lo ){
-						roomDefinid.push({
-							title:`${data?.query[i]?.title} ${room[e]?.nombre}   `,
-							id:data?.query[i]?.id,
-							ID_Tipo_estados:data?.query[i]?.ID_Tipo_estados,
-							ID_Tipo_habitaciones:data?.query[i]?.ID_Tipo_habitaciones,
-							ID_estado_habiatcion:data?.query[i].ID_estado_habitacion
-						})
-					}else{
-						console.log("error")
-					}
-				}
-			}
-			setSate(roomDefinid)
-			setSearch(roomDefinid)
-		}
-	})
-},[room,update])
-*/
-
 useEffect(() => {
 	fetch(`${config.serverRoute}/api/resecion/getroomsresecion/${jwt.result.id_hotel}`)
 	  .then(resp => resp.json())
@@ -749,14 +717,14 @@ useEffect(() => {
   }, [room]);
   
 
-	useEffect(() =>{
-		ServiceReservas({id:jwt.result.id_hotel}).then(index=> {
-			setReservas(index)
-			
-			setpruebareservas(index)
-		})
-	},[setSearch])
+  useEffect(() =>{
+	ServiceReservas({id:jwt.result.id_hotel}).then(index=> {
+		setReservas(index)
+		setpruebareservas(index)
+	})
+  },[])
 	
+
 	if(search?.length ==0) {
 		setSearch(state)
 	}
@@ -963,8 +931,6 @@ useEffect(() => {
 		const desde =  `${fecha1} 15:00:00`
 		const hasta = `${fecha2} 13:00:00`
 		
-		
-
 		const updatedItems = reservation.map(item =>
 		  item.id === itemId
 			? {
@@ -1025,9 +991,6 @@ useEffect(() => {
 	const renderGroup = ({ group }) => {
 
 		const rows= []
-
-
-
 		if(group.ID_estado_habiatcion == 6){
 			rows.push(
 				<GroupRows 	
@@ -1173,7 +1136,7 @@ useEffect(() => {
 				 groupRenderer={renderGroup}
 				groups={search}
 				items={ pruebareservas}
-				onItemSelect={handleItemSelect}
+		
 				onContextMenu={handleContextMenu}
 				onItemResize={handleItemResize}
 				defaultTimeStart={moment().startOf("day").add(-3, "day")}
@@ -1185,13 +1148,35 @@ useEffect(() => {
 				sidebarWidth={200}
 				sidebarContent={<div>Above The Left</div>}
 				itemRenderer={  itemRenderer}
-				onItemClick={(itemId, e, time) => onItemClick(itemId, e, time)}
+				onItemClick={(itemId, e, time) =>{
+					onItemClick(itemId, e, time)
+				}}
 				now={nowOne}
+				itemStyle={{ background: "black" }}
 				canMove
 				canResize={"both"}
 				>
 				<TimelineHeaders className="list-booking-sticky"  >
-					<SidebarHeader />
+				<SidebarHeader>
+            {({ getRootProps }) => {
+              return <div {...getRootProps({
+				style:{
+					
+					borderRadius:"8px",
+					margin:"auto",
+					textAlign:"center",
+					display:"flex",
+					justifyContent:"center",
+					padding:'8px',
+					width:" 100px",
+					height: "96px"
+				}
+			  })}>
+			
+					<img src={jwt.result.logo} alt="" />
+			  </div>;
+            }}
+          </SidebarHeader>
 					<DateHeader
 					
 						unit="MONTH"

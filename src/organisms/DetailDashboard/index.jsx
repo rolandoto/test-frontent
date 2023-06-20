@@ -922,9 +922,10 @@ const hanClickLimpia =() => {
               </div>
           </div>
       </div>
-        <div  className="container-flex-init-global" >
+      <div  className="container-flex-init-global" >
             <div className="container-detail-dasboard-in" >
-              
+              <input type="date" className="desde-detail"   onChange={(e) => setspandOne(e.target.value)}  defaultValue={fecha_inicio}    />
+              <input type="date" className="desde-detail"   onChange={(e) =>setspand(e.target.value)}  defaultValue={fecha_final}  />
               <h2 className="cod-reserva" ><span className="title-code" >COD:</span> X14A-{resultDashboard?.Num_documento}{id}</h2>
           </div>
          

@@ -58,14 +58,14 @@ import RoomDetail from "./page-resesion/RoomDetail";
 function App() {
   const { jwt } = useContext(AutoProvider);
 
-  const val = jwt ?jwt.result.id_permissions : 1
-    
+  const val = jwt ? jwt.result.id_permissions : 1;
+
   if (val == 1) {
     return (
       <div>
         <Provider store={store}>
           <BrowserRouter>
-          <CustomNav />
+            <CustomNav />
             <Switch>
               <Route exact path="/" component={Login} />
               <PrivateRoute exact path="/Home" component={Home} />
@@ -123,7 +123,11 @@ function App() {
                 component={DetailStoreById}
               />
               <PrivateRoute exact path="/imbox" component={MinImbox} />
-              <PrivateRoute exact path="/Detailinforme/:id" component={DetailnformeStore} />
+              <PrivateRoute
+                exact
+                path="/Detailinforme/:id"
+                component={DetailnformeStore}
+              />
               <Route component={NoFound} />
             </Switch>
           </BrowserRouter>
@@ -133,10 +137,8 @@ function App() {
   } else if (val == 7) {
     return (
       <div>
-        
         <Provider store={store}>
           <BrowserRouter>
-           
             <CustomNav />
             <Switch>
               <Route exact path="/" component={Login} />
@@ -233,29 +235,29 @@ function App() {
                 path="/informeStore/:id"
                 component={InformeStore}
               />
-               <PrivateRoute
+              <PrivateRoute
                 exact
                 path="/checkingin3/:id"
                 component={Checkingn3}
               />
 
-                <PrivateRoute
+              <PrivateRoute
                 exact
                 path="/informeAccount"
                 component={InformeAccount}
               />
-               <PrivateRoute
+              <PrivateRoute
                 exact
                 path="/informeMovimiento"
                 component={InformeMovimiento}
               />
 
+              <PrivateRoute exact path="/RoomDetail" component={RoomDetail} />
               <PrivateRoute
                 exact
-                path="/RoomDetail"
-                component={RoomDetail}
+                path="/Detailinforme/:id"
+                component={DetailnformeStore}
               />
-               <PrivateRoute exact path="/Detailinforme/:id" component={DetailnformeStore} />
               <Route component={NoFound} />
             </Switch>
           </BrowserRouter>
@@ -265,10 +267,9 @@ function App() {
   } else if (val == 2) {
     return (
       <div>
-            
         <Provider store={store}>
           <BrowserRouter>
-          <CustomNav />
+            <CustomNav />
             <Switch>
               <Route exact path="/" component={Login} />
               <PrivateRoute exact path="/Home" component={Dashboard} />
@@ -368,7 +369,7 @@ function App() {
                 path="/informeStore/:id"
                 component={InformeStore}
               />
-               <PrivateRoute
+              <PrivateRoute
                 exact
                 path="/checkingin3/:id"
                 component={Checkingn3}
@@ -385,13 +386,13 @@ function App() {
                 component={InformeMovimiento}
               />
 
-            <PrivateRoute
-                exact
-                path="/RoomDetail"
-                component={RoomDetail}
-              />
+              <PrivateRoute exact path="/RoomDetail" component={RoomDetail} />
 
-                 <PrivateRoute exact path="/Detailinforme/:id" component={DetailnformeStore} />
+              <PrivateRoute
+                exact
+                path="/Detailinforme/:id"
+                component={DetailnformeStore}
+              />
               <Route component={NoFound} />
             </Switch>
           </BrowserRouter>

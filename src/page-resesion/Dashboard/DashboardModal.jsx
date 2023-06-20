@@ -102,8 +102,7 @@ const DashboardModal = (props) => {
         const now = moment().format("YYYY/MM/DD h:mm:ss")
 
         const nowOne = moment().format("YYYY/MM/DD h:mm:ss")
-
-        console.log(now)
+        console.log(room)
 
         const handAsignar =(event)  =>{
             setTo(false)
@@ -255,6 +254,8 @@ const DashboardModal = (props) => {
             return {nombre,ID}
         })
 
+        console.log(habi)
+
         useEffect(() =>{
          
             fetch(`${config.serverRoute}/api/resecion/getcanales`)
@@ -269,7 +270,6 @@ const DashboardModal = (props) => {
             .then(res => res.json())
             .then(data => setDocument(data))
 
-           
             fetch(`${config.serverRoute}/api/resecion/gettypepet`)
             .then(res => res.json())
             .then(data  => setPet(data))

@@ -997,3 +997,12 @@ hr {
 .flex-romm-grup , span {
   font-size: 13px;
 }
+
+.flecha {
+  width: 0;
+  height: 0;
+  border-top: 20px solid transparent; /* Ajusta el tamaño de la flecha cambiando el valor de 20px */
+  border-bottom: 20px solid transparent; /* Ajusta el tamaño de la flecha cambiando el valor de 20px */
+  border-right: 20px solid #000; /* Ajusta el tamaño de la flecha cambiando el valor de 20px y el color #000 */
+  border-radius: 5px; /* Ajusta el valor del border-radius según tus preferencias */
+}

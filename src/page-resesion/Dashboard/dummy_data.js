@@ -1,10 +1,45 @@
 import moment from "moment";
-import { date } from "yup";
 import { config } from "../../config";
+import randomColor from "randomcolor";
+
+
+let id = 1;
+
+
+let randomSeed = Math.floor(Math.random() * 1000);
+
+export const groupIds = {
+  windows: 1,
+  presidents: 2,
+  ntdoConsoles: 3,
+  ntdoHandhelds: 4,
+  sonyConsoles: 5,
+  sonyHandhelds: 6,
+  msftConsoles: 7,
+  pkmnGames: 8,
+  marioGames: 9
+};
+
+
+
+const setGroup = (el, i, ary, groupId) => new Object({
+  id: id,
+  group: groupId,
+  canMove: false,
+  end_time: i + 1 in ary ? ary[i + 1].start_time : moment(),
+  itemProps: {
+    style: {
+      background: randomColor({ luminosity: "dark", seed: el.id })
+    }
+  },
+  ...el
+});
+
 
 const fromRervas =(event)  =>{
   
-      const  to = event.query.map((index,e )=> {
+      const  to = event.query.map((index,e ,ary)=> {
+        setGroup(index,e ,ary, groupIds.windows)
       let daystart = new Date(index.Fecha_inicio)
    
       const start_time = daystart.toISOString().split('T')[0]
@@ -28,6 +63,8 @@ const fromRervas =(event)  =>{
 
       const code = index.Codigo_reserva
 
+      const color = randomColor({ luminosity: "light", seed: randomSeed })
+
         return {
           Num_Room:index.Num_Room,
           Codigo_Reserva:index.Codigo_reservaOne,
@@ -47,7 +84,8 @@ const fromRervas =(event)  =>{
           name,
           document,
           code,
-          last_name:last_name
+          last_name:last_name,
+          color
         }
       })
     return to
