@@ -1131,12 +1131,10 @@ useEffect(() => {
 			<Checking  
 						loading={checkingDasboardVisible}  
 						toggleCloseDashboardChecking={toggleCloseDashboardChecking}  />
-			
 			<Timeline
 				 groupRenderer={renderGroup}
 				groups={search}
 				items={ pruebareservas}
-		
 				onContextMenu={handleContextMenu}
 				onItemResize={handleItemResize}
 				defaultTimeStart={moment().startOf("day").add(-3, "day")}
@@ -1161,7 +1159,6 @@ useEffect(() => {
             {({ getRootProps }) => {
               return <div {...getRootProps({
 				style:{
-					
 					borderRadius:"8px",
 					margin:"auto",
 					textAlign:"center",
@@ -1169,7 +1166,7 @@ useEffect(() => {
 					justifyContent:"center",
 					padding:'8px',
 					width:" 100px",
-					height: "96px"
+					height: "63px"
 				}
 			  })}>
 			
@@ -1178,7 +1175,6 @@ useEffect(() => {
             }}
           </SidebarHeader>
 					<DateHeader
-					
 						unit="MONTH"
 						labelFormat="MMMM"
 						headerData={{ isMonth: false}}
@@ -1200,7 +1196,6 @@ useEffect(() => {
 						headerData={{ isMonth: false, currentDate }}
 						intervalRenderer={intervalRendererdayNum}
 						/>
-					
 				</TimelineHeaders>
 				<TimelineMarkers>
           
@@ -1211,7 +1206,5 @@ useEffect(() => {
 		<CardStore totalday={totalDay} />
 		</div>
 	);
-
 }
-
 export default Dashboard;
