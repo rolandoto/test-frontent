@@ -424,7 +424,7 @@ const Dashboard = (props) => {
 			iconState=<BsCheckCircle  fontSize={15} />
 		  }
 
-
+		console.log(itemContext)
 		const backgroundColor = itemContext.selected  ? "black" :color
 
 		const key = `${item.id}_${item.id}_schedule`;
@@ -432,6 +432,8 @@ const Dashboard = (props) => {
 		const hanEnter =() => {
 			valo= true	
 		}
+
+		
 
 		console.log({
 			"item":item
@@ -1202,7 +1204,7 @@ useEffect(() => {
           <CursorMarker />
         </TimelineMarkers>
 		</Timeline>
-
+			<br />
 		<CardStore totalday={totalDay} />
 		</div>
 	);
