@@ -72,13 +72,15 @@ const DetailDasboard =(props) =>{
     let countSeguro =0
 
     const Info = styled(ReactTooltip)`
-  max-width: 500px  !important;
-  padding-top: 9px  !important;
-  z-index: 0 !important;
-  background: gray;
-`;   
+    max-width: 500px  !important;
+    padding-top: 9px  !important;
+    z-index: 0 !important;
+    background: gray;
+  `;   
     const {progress} =useProgress({id})
     const resultDashboard = DetailDashboard[0]
+
+    console.log({"prosdas":progress})
 
     const findPersona =  resultDashboard?.tipo_persona == "persona"
     const findEmpresa = resultDashboard?.tipo_persona =="empresa"
@@ -980,9 +982,6 @@ const hanClickLimpia =() => {
             </div>
         </form>
       </div>
-
- 
-      
       <div className="init top-one-detail-room" >
             <form  className="container-flex-init"  onSubmit={e =>{
               e.preventDefault()

@@ -54,6 +54,7 @@ import DetailStoreById from "./component/DetailStore/DetailStoreById";
 import InformeMovimiento from "./page-resesion/Informes/InformeMovimiento";
 import CustomNav from "./Ui/CustomNav";
 import RoomDetail from "./page-resesion/RoomDetail";
+import MainDasboard from "./page-resesion/Dashboard/Main";
 
 function App() {
   const { jwt } = useContext(AutoProvider);
@@ -142,7 +143,7 @@ function App() {
             <CustomNav />
             <Switch>
               <Route exact path="/" component={Login} />
-              <PrivateRoute exact path="/Home" component={Dashboard} />
+              <PrivateRoute exact path="/Home" component={MainDasboard} />
               <PrivateRoute
                 exact
                 path="/DetailDashboard/:id"
@@ -272,7 +273,7 @@ function App() {
             <CustomNav />
             <Switch>
               <Route exact path="/" component={Login} />
-              <PrivateRoute exact path="/Home" component={Dashboard} />
+              <PrivateRoute exact path="/Home" component={MainDasboard} />
               <PrivateRoute
                 exact
                 path="/DetailDashboard/:id"

@@ -19,7 +19,7 @@ const CardStore =({totalday}) =>{
     return (
        <div className="container-flex-init-global-carbed" >
         
-            <Grid.Container xs={1} sm={40} gap={0}>
+            <Grid.Container xs={1} sm={3} gap={0}>
                     <span className="text-venta black-title-card  "  >Venta tienda Cop {tienda} </span>
                     <Grid>
                     <Progress value={progress == 100 ?100 :progress} color="gradient" />

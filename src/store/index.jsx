@@ -15,6 +15,7 @@ import { RoomDetail } from '../reducers/RoomDetailReducer'
 import { apiWhataapSlice } from '../reducers/apiWhatsaapReduccers'
 import { UpdateDetailPounterSlice } from '../reducers/updateDatailPounterReducer'
 import { UpdateDetailPounterRangeSlice } from '../reducers/updateDatailPounterRangeReducer'
+import { ReservationSlice } from '../reducers/ReservationReducers'
 
 const store = configureStore ({
     reducer:{
@@ -34,7 +35,8 @@ const store = configureStore ({
         RoomDetail:RoomDetail.reducer,
         apiWhataap:apiWhataapSlice.reducer,
         updateDetailPounter:UpdateDetailPounterSlice.reducer,
-        UpdateDetailPounterRangeSlice:UpdateDetailPounterRangeSlice.reducer
+        UpdateDetailPounterRangeSlice:UpdateDetailPounterRangeSlice.reducer,
+        ReservationSlice:ReservationSlice.reducer
     },
     devTools:true,
 })

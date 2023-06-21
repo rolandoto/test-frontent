@@ -16,6 +16,7 @@ import ServiceInfomeMovimientoPost from "../service/ServiceInformeMovimientoPost
 import moment from "moment";
 import { CiUser } from "react-icons/ci";
 
+
 const SideNavBar = () => {
 
     const {jwt,update,setUpadte} =useContext(AutoProvider)
@@ -207,26 +208,22 @@ const SideNavBar = () => {
 
         <ReactTooltip id="informacionTip" place="right" effect="solid">
                 {primerosNumeros?.map(index => {
-
                 const fecha =  moment(index.Fecha).utc().format('YYYY-MM-DD HH:mm:ss ')
 
                 return (
-
-            
-                
-                    <div className="" > 
-                    <div className="display-flex-card" >
-                    <div>   
-                            <div className="flex-card-One" >
-                                <span><CiUser fontSize={30} color="white" /></span>
-                                <span className="color-globito" >{index.Nombre_recepcion}</span>
+                    <div key={index.ID}  > 
+                        <div className="display-flex-card" >
+                        <div>   
+                                <div className="flex-card-One" >
+                                    <span><CiUser fontSize={30} color="white" /></span>
+                                    <span className="color-globito" >{index.Nombre_recepcion}</span>
+                                </div>
+                                <h4 className="color-globito  let-letra-movimiento" >{index.Movimiento}</h4>
                             </div>
-                            <h4 className="color-globito  let-letra-movimiento" >{index.Movimiento}</h4>
-                        </div>
-                            
-                        <div>
-                            <span className="color-globito" >{fecha}</span>
-                        </div>
+                                
+                            <div>
+                                <span className="color-globito" >{fecha}</span>
+                            </div>
                         
                     </div>
             

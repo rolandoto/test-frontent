@@ -167,6 +167,7 @@ const Checkingn2Organism =({id,postDetailRoom,fetchDataApiWhatsapp}) =>{
     const totalAbono =   (resulDetailDashboard?.valor_habitacion) 
    
     const now = moment().format("YYYY/MM/DD")
+    console.log(now)
 
     let dataOne ={
         Abono:resulDetailDashboard?.valor_habitacion,
@@ -225,8 +226,7 @@ const Checkingn2Organism =({id,postDetailRoom,fetchDataApiWhatsapp}) =>{
         }) 
     }
 
-    
-    console.log(inputPayValue)
+
 
     if(!resultFinish) return null
 

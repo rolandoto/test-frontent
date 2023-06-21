@@ -1,4 +1,4 @@
-import React, { Component, useRef } from "react";
+import React, { useRef } from "react";
 import moment from "moment";
 import "moment/locale/es";
 import Timeline,{
@@ -21,43 +21,30 @@ import "./index.css"
 import { useSelector } from "react-redux";
 import { selectDashboard } from "../../reducers/dashboardReducers";
 import useDashboardAction from "../../action/useDashboardAction";
-import DashboardModal from "./DashboardModal";
 import { useHistory, useParams } from "react-router-dom";
 import CardStore from "../../component/DetailStore/CardStore";
 import ServicetypeRooms from "../../service/ServicetypeRooms";
-import ModalSate from "../../organisms/Modals/State";
-import ModalCleanLine from "../../organisms/Modals/Cleanline";
 import { selectDashboardChecking } from "../../reducers/dashboardCheckingReducer";
 import useDashboardCheckingAction from "../../action/useDashboardCheckingAction";
-import Checking from "./Checking";
 import { VscVerified,VscSymbolEvent ,VscSignOut,VscSearch,VscRecord} from "react-icons/vsc";
 import Skeleton from "@mui/material/Skeleton";
 import Stack from "@mui/material/Stack";
 import { config } from "../../config";
-import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
-import { fontWeight, height } from "@mui/system";
-import  {Link} from "react-router-dom"
 import ReactTooltip from "react-tooltip";
 import styled from "styled-components";
 import ServiceAllTotalReservation from "../../service/ServiceAllTotalReservation";
-import ModalBlock from "../../organisms/Modals/Block";
 import { confirmAlert } from "react-confirm-alert";
 import { GiBroom } from "react-icons/gi";
-import CustomNav from "../../Ui/CustomNav";
-import ContainerGlobal from "../../Ui/ContainerGlobal";
-import Box from '@mui/material/Box';
-import Popper from '@mui/material/Popper';
-import { CiCircleCheck } from "react-icons/ci";
 import { BsBucket ,BsCalendarCheck,BsCheckCircle,BsBell} from "react-icons/bs";
 import { IoBedOutline ,IoBanOutline} from "react-icons/io5";
-import { Tooltip, Button, Grid } from "@nextui-org/react";
 import useUpdateDetailPointerActions from "../../action/useUpdateDetailPointerActions";
 import UseListMotels from "../../hooks/UseListMotels";
 import useUpdateDetailPounterRangeSliceActions from "../../action/useUpdateDetailPounterRangeSliceActions";
-import randomColor from "randomcolor";
+import useReservationActions from "../../action/useReservationActions";
+import { useAppSelector } from "../../hooks/redux";
+
 
 const GroupRows =({group,color,estado,iconState,letra}) =>{
-
 	return (
 		<div    style={{ backgroundColor: color, color:letra}} className="flex-romm-grup" >
 			<div>
@@ -89,32 +76,23 @@ const InfoMessage = styled.div`
   text-align: left;
   z-index: 0 !important;
 `;
-const useCountRoom =({id}) =>{
-	const [count,setCount] =useState()
 
-	useEffect(() =>{
-		fetch(`${config.serverRoute}/api/resecion/huespecount/${13}`)
-		.then(resp => resp.json())
-		.then(data => setCount(data.query))
-	},[setCount])
 
-	return {count}
-}
-
-const style = {
-	position: 'absolute',
-	top: '50%',
-	left: '50%',
-	transform: 'translate(-50%, -50%)',
-	width: 400,
-	bgcolor: 'background.paper',
-	border: '2px solid #000',
-	boxShadow: 24,
-	p: 4,
-}
-
+var keys = {
+	groupIdKey: 'id',
+	groupTitleKey: 'title',
+	groupRightTitleKey: 'rightTitle',
+	itemIdKey: 'id',
+	itemTitleKey: 'title',
+	itemDivTitleKey: 'title',
+	itemGroupKey: 'group',
+	itemTimeStartKey: 'start',
+	itemTimeEndKey: 'end',
+	groupLabelKey: 'title',
+  };
 
 const Dashboard = (props) => {
+
 
 	const {id} = useParams()
 	const [open, setOpen] = useState(true);
@@ -125,12 +103,9 @@ const Dashboard = (props) => {
 	const [block,setBlock] =useState(false)
 	const [lookinfor,setLookingfor] =useState()
 	const {jwt,update,setUpadte} =useContext(AutoProvider)
-	const {toggleOpenDashBoard,toggleCloseDashboard} = useDashboardAction()
-	const {toggleOpenDashboardChecking,toggleCloseDashboardChecking}  = useDashboardCheckingAction()
 	const {dashboardVisible} = useSelector(selectDashboard)
 	const {checkingDasboardVisible} = useSelector(selectDashboardChecking)
 	const history = useHistory()
-	const {count} =useCountRoom({id:jwt.result.id_hotel})
 	const [loadingSkeleto,setLoadingSkeleto] =useState(true)
 	const [hoveredItemId, setHoveredItemId] = useState(null);
 	const  now = moment().format("YYYY-MM-DD");
@@ -139,13 +114,18 @@ const Dashboard = (props) => {
 	const [selectedItem, setSelectedItem] = useState(null);
 	const [isPopperOpen, setIsPopperOpen] = useState(false);
 	const [isModalOpen, setIsModalOpen] = useState(false);
-	const {postUpdateDetailPointer,error} = useUpdateDetailPointerActions()
+	const {postUpdateDetailPointer} = useUpdateDetailPointerActions()
 	const {postUpdateDetailPointerRange} = useUpdateDetailPounterRangeSliceActions()
 	const {iduser} = UseListMotels()
+	
+	
+	
+	
+
 
 	const FindIdHotel=(hotel) =>{
 		return hotel.id_hotel == jwt.result.id_hotel
-	  }
+	}
 
 	const hotel = iduser.find(FindIdHotel)
 
@@ -157,13 +137,6 @@ const Dashboard = (props) => {
 		 countSeguro = parseInt(hotel?.valorseguro)
 	}
 	
-	console.log(countSeguro)
-
-	const handleItemSelect = (itemId, e, time) => {
-		setSelectedItem(itemId);
-		setIsPopperOpen(true);
-	  };
-	
 	  const handleContextMenu = (e, timelineProps) => {
 		e.preventDefault();
 		const { itemId } = timelineProps;
@@ -172,20 +145,6 @@ const Dashboard = (props) => {
 		setIsPopperOpen(true);
 	  };
 	
-	  const handlePopperClose = () => {
-		setSelectedItem(null);
-		setIsPopperOpen(false);
-	  };
-	
-	  const handleModalClose = () => {
-		setIsModalOpen(false);
-	  };
-	
-	  const handleModalOpen = () => {
-		setIsModalOpen(true);
-		setIsPopperOpen(false);
-	  };
-
 	useEffect(() =>{
 		ServiceAllTotalReservation({fecha:now,id:jwt.result.id_hotel}).then(index =>{
 			setTotalDay(index)
@@ -278,10 +237,6 @@ const Dashboard = (props) => {
 		)
    }
 	
-	const handleOpen = () =>{
-		setOpen(true);
-	} 
-	const handleClose = () => setOpen(false);
 
 	const bookings = [
 		{
@@ -310,8 +265,6 @@ const Dashboard = (props) => {
 		},
 	];
 
-	const [pruebaR,setPruebaR] =useState(bookings)
-
 	const handClickState =() =>{
 		setModalState(true)
 	}
@@ -337,131 +290,85 @@ const Dashboard = (props) => {
 		setBlock(false)
 	}
   
-	const { onCanvasClickParentUpdate } = props;
-
 	const currentDate = new moment();
-
-	const isWeekendDay = (intervalContext, data) => {
-		if (data.isMonth) {
-			return false;
-		}
-		const day = intervalContext.interval.startTime.day();
-		return day === 6 || day === 0; // Saturday or Sunday
-	}
-
-	const isCurrentDay = (intervalContext, data) => {
-		return (
-			!data.isMonth &&
-			intervalContext.interval.startTime.isSame(data.currentDate, "day")
-		);
-	}
 
 	const onItemClick = (itemId, e, time, onItemSelectParentUpdate) => {	
 		history.push(`/DetailDashboard/${itemId}`)
 	}
 
-	const [showInfo, setShowInfo] = useState(false);
-
-	const [reservationColor, setReservationColor] = React.useState(null);
-
-	const handleReservationClick = (itemId, e, time) => {
-		// Verifica si la reserva ya tiene el color amarillo
-		if (reservationColor === "yellow") {
-		  setReservationColor(null); // Si es amarillo, lo resetea a null para eliminar el color
-		} else {
-		  setReservationColor("yellow"); // Si no es amarillo, establece el color amarillo
-		}
-	  };
 	const itemRenderer = ({ item, itemContext, getItemProps }) => {
 
-		const handleMouseEnter = () => {
-		  setShowInfo(true);
-		};
-	  
-		const handleMouseLeave = () => {
-		  setShowInfo(false);
-		};
+	let colorWords;
+	let iconState;
+	let valo = false;
+	let title = itemContext.title; // Establecer título predeterminado
 
-		let colorWords 
-		let iconState
+	let color;
 
-		let valo =false
-		let title 
-
-		let color;
-		if (item.state === 0) {
-		  color = '#f31260';
-		  colorWords="white"
-		  iconState = <BsBell  fontSize={15} />
-		  title=itemContext.title
-		} else if (item.state === 1) {
-		  color = '#7828c8';
-		  colorWords="white"
-		  iconState= <BsBucket  fontSize={15}	  /> 
-		  title=itemContext.title
-		} else if (item.state === 2) {
-		  color = '#747171';
-		  colorWords="white"
-		  title=itemContext.title
-		} else if (item.state === 3) {
-		  color = '#17c964';
-		  colorWords="white"
-		  iconState= <VscSymbolEvent  fontSize={15}	  /> 
-		  title=itemContext.title
-		} else if (item.state === 4) {
-		  color = '#0DC034';
-		  colorWords="black"
-		  title=itemContext.title
-		}else if (item.state === 5) {
-			color = 'rgba(243, 217, 36, 0.8)';
-			colorWords="black"
-			title="Aseo"
-		  }
-		  else if (item.state === 6) {
-			color = '#0072f5';
-			colorWords="white"
-			title=itemContext.title
-			iconState=<BsCheckCircle  fontSize={15} />
-		  }
-
-		console.log(itemContext)
+	switch (item.state) {
+	case 0:
+		color = '#f31260';
+		colorWords = 'white';
+		iconState = <BsBell fontSize={15} />;
+		break;
+	case 1:
+		color = '#7828c8';
+		colorWords = 'white';
+		iconState = <BsBucket fontSize={15} />;
+		break;
+	case 2:
+		color = '#747171';
+		colorWords = 'white';
+		break;
+	case 3:
+		color = '#17c964';
+		colorWords = 'white';
+		iconState = <VscSymbolEvent fontSize={15} />;
+		break;
+	case 4:
+		color = '#0DC034';
+		colorWords = 'black';
+		break;
+	case 5:
+		color = 'rgba(243, 217, 36, 0.8)';
+		colorWords = 'black';
+		title = 'Aseo';
+		break;
+	case 6:
+		color = '#0072f5';
+		colorWords = 'white';
+		iconState = <BsCheckCircle fontSize={15} />;
+		break;
+	default:
+		break;
+	}
 		const backgroundColor = itemContext.selected  ? "black" :color
 
 		const key = `${item.id}_${item.id}_schedule`;
 
-		const hanEnter =() => {
-			valo= true	
-		}
-
-		
-
-		console.log({
-			"item":item
-		})
-
 		return (
 			
 		  <div 
-		  onClick={(e) => handleReservationClick(itemContext.itemId, e, itemContext.time)}
-		  data-for={key} data-tip
-			{...getItemProps({
-			  style: {
-				display: "flex",
-          alignItems: "center",
-          backgroundColor,
-          border: "",
-          borderRadius: "12px",
-          padding: "8px",
-          color: colorWords,
-          position: "relative",
-          visibility: "visible",
-          opacity: "100",
-          boxShadow: "0 2px 4px rgba(0, 0, 0, 0.4)",
-          transition: "background-color 0.8s ease",
-			  },	  
-			})}
-		>	
-			<div
+		
+				data-for={key} data-tip
+					{...getItemProps({
+					style: {
+						display: "flex",
+				alignItems: "center",
+				backgroundColor,
+				border: "",
+				borderRadius: "12px",
+				padding: "8px",
+				color: colorWords,
+				position: "relative",
+				visibility: "visible",
+				opacity: "100",
+				boxShadow: "0 2px 4px rgba(0, 0, 0, 0.4)",
+				transition: "background-color 0.8s ease",
+					},	  
+					})}
+				>	
+					<div
 			  className="itemModal"
 			  
 			></div>
@@ -633,8 +540,6 @@ const Dashboard = (props) => {
         })
     },[setRoom])
 
-	console.log({"room":room})
-
 	const [search,setSearch] =useState([])
 
 	const filtrar=(terminoBusqueda)=>{
@@ -681,42 +586,39 @@ const Dashboard = (props) => {
     setShowModal(false);
   };
 
-useEffect(() => {
-	fetch(`${config.serverRoute}/api/resecion/getroomsresecion/${jwt.result.id_hotel}`)
-	  .then(resp => resp.json())
-	  .then(data => {
-		if (!data.ok) {
-		  console.log("true");
-		} else {
-		  console.log(data);
-  
-		  const roomMap = room.reduce((map, r) => {
-			map[r.id_tipoHabitacion] = r;
-			return map;
-		  }, {});
-  
-		  const roomDefinid = data.query.reduce((result, query) => {
-			const tipoHabitacion = query.ID_Tipo_habitaciones;
-			const room = roomMap[tipoHabitacion];
-			if (room) {
-			  result.push({
-				title: `${query.title} ${room.nombre}`,
-				id: query.id,
-				ID_Tipo_estados: query.ID_Tipo_estados,
-				ID_Tipo_habitaciones: query.ID_Tipo_habitaciones,
-				ID_estado_habiatcion: query.ID_estado_habitacion
-			  });
-			} else {
-			  console.log("error");
+	useEffect(() => {
+		fetch(`${config.serverRoute}/api/resecion/getroomsresecion/${jwt.result.id_hotel}`)
+		.then(resp => resp.json())
+		.then(data => {
+			if (!data.ok) {
+			} else {  
+			const roomMap = room.reduce((map, r) => {
+				map[r.id_tipoHabitacion] = r;
+				return map;
+			}, {});
+	
+			const roomDefinid = data.query.reduce((result, query) => {
+				const tipoHabitacion = query.ID_Tipo_habitaciones;
+				const room = roomMap[tipoHabitacion];
+				if (room) {
+				result.push({
+					title: `${query.title} ${room.nombre}`,
+					id: query.id,
+					ID_Tipo_estados: query.ID_Tipo_estados,
+					ID_Tipo_habitaciones: query.ID_Tipo_habitaciones,
+					ID_estado_habiatcion: query.ID_estado_habitacion
+				});
+				} else {
+				console.log("error");
+				}
+				return result;
+			}, []);
+	
+			setSate(roomDefinid);
+			setSearch(roomDefinid);
 			}
-			return result;
-		  }, []);
-  
-		  setSate(roomDefinid);
-		  setSearch(roomDefinid);
-		}
-	  });
-  }, [room]);
+		});
+	}, [room]);
   
 
   useEffect(() =>{
@@ -726,7 +628,6 @@ useEffect(() => {
 	})
   },[])
 	
-
 	if(search?.length ==0) {
 		setSearch(state)
 	}
@@ -738,11 +639,7 @@ useEffect(() => {
 	const hanclickReservation =() =>{
 		history.push("/search")
 	}
-
-	const handChecking =() =>{
-		history.push("/checking")
-	}	
-
+	
 	const handRoomDetail =() =>{
 		history.push("/RoomDetail")
 	}
@@ -751,50 +648,7 @@ useEffect(() => {
 		setLoadingSkeleto(false)
 	},500)
 
-	const handContext =(action, item, time, resizeEdge) =>{
-			if (time < new Date().getTime()) {
-			  var newTime = Math.ceil(new Date().getTime() / (15*60*1000)) * (15*60*1000);
-			  return newTime;
-			}
-			return time
-	}
-
 	
-
-	/**
-	 * 
-	 * 
-		{
-		id: 2,
-		name:"Informe mantenimiento"
-		},
-		{
-		id: 3,
-		name:"Informe tienda "
-		},{
-		id: 4,
-		name:"Informe gerencia"
-		},
-		,,{
-		id: 7,
-		name:"Informe ventas"
-		},{
-		id: 8,
-		name:"Informe facturación"
-		},{
-		id: 9,
-		name:"Informe Camareria"
-		},
-		{
-		id: 10,
-		name:"Informe  caja menor"
-		},
-		{
-		id: 11,
-		name:"Informe caja mantenimiento"
-		}
-	 * 
-	 */
 
 	const Informes = [
 		{
@@ -879,7 +733,6 @@ useEffect(() => {
 
 	const handleItemHover = (itemId, time, e) => {
 		setHoveredItem(itemId);
-		
 	  };
 
   // definir estado para almacenar la fecha actual
@@ -910,7 +763,6 @@ useEffect(() => {
 		setpruebareservas(updatedItems);
 		postUpdateDetailPointer({ id: itemId, Fecha_final: fecha,countSeguro });
 	  };
-
 
 	  const handleItemMove = (itemId, dragTime, newGroupOrder) => {
 		let dragTimeOne =0
@@ -947,16 +799,7 @@ useEffect(() => {
 		setpruebareservas(updatedItems);
 	  };
 	
-
-	
-	  const handleTimeChange = (visibleTimeStart, visibleTimeEnd, updateScrollCanvas) => {
-		const newDate = new Date(visibleTimeStart);
-		if (newDate.getMonth() !== currentDat.getMonth()) {
-		  updateScrollCanvas(currentDat, currentDat);
-		} else {
-		  setCurrentDate(newDate);
-		}
-	  };
+	 
 	  const nowOne = new Date(2023, 4, 1, 3, 10);
 
 
@@ -1051,8 +894,13 @@ useEffect(() => {
 			</>
 	);
 	
-};
-				
+};		
+
+
+
+
+
+
 
 	if(loadingSkeleto) return Skele()
 	if(!pruebareservas) return null
@@ -1061,152 +909,141 @@ useEffect(() => {
 	if(!reservation)return null
 	if(!totalDay) return null
 	return (
-		<div ref={timelineRef} > 
+		<>			
+			<div ref={timelineRef} > 
 
-			<div className="top-index-home"></div>
-		 
-			<div className="container-calender">
-			
-				<div className="container-button" >
+<div className="top-index-home"></div>
 
-				<div>
-				
-			</div>
-					<button className='button-reservas' onClick={handClickReservaction} ><div className="flex-index-reservation" ><VscVerified fontSize={18} className="flex-contant" color="white"  /><span>Crear reserva</span></div></button>
-					<button className='button-reservas-type-one-one' onClick={handRoomDetail} ><div className="flex-index-reservation" ><VscSignOut className="flex-contan"  color="white" fontSize={18}/><span>Ver habitaciones </span> </div> </button>
+<div className="container-calender">
+
+	<div className="container-button" >
+
+	<div>
+	
+</div>
+		<button className='button-reservas' onClick={handClickReservaction} ><div className="flex-index-reservation" ><VscVerified fontSize={18} className="flex-contant" color="white"  /><span>Crear reserva</span></div></button>
+		<button className='button-reservas-type-one-one' onClick={handRoomDetail} ><div className="flex-index-reservation" ><VscSignOut className="flex-contan"  color="white" fontSize={18}/><span>Ver habitaciones </span> </div> </button>
+		
+
+	
+		<select  onChange={handClickInformAuditoria} value={stateInformes}					
+				className='button-reservas-type-one button-reservas-type-space button-reservas-type-one-two-two'>
 					
-			
-				
-					<select  onChange={handClickInformAuditoria} value={stateInformes}					
-							className='button-reservas-type-one button-reservas-type-space button-reservas-type-one-two-two'>
-								
-							<option   className="opo-room"  > Informe</option>
-							{Informes?.map(category =>(
-													<option 
-													className="opo-room"
-													value={category.id	}   
-													key={category.name}>
-													{category.name}
-												</option>
-							 										))}
-						</select>
-				
-					<select onChange={handRaiting}  
-													value={raiting} 
-													className='button-reservas-type-one button-reservas-type-space  button-reservas-type-one-two-two button-reservas-type-space-One-One' >
-													<option  className="opo-room" >  Ver habitaciones</option>
-													<option  className="opo-room" >Todas las Habitaciones</option>
-													
-												{room?.map(category =>(
-													<option 
-													 className="opo-room"
-													value={category.id_tipoHabitacion}   
-													key={category.ID}
-												>
-													{category.nombre}
-												</option>
-												)
-												)}
-												</select>
-					
-					<button className='button-reservas-type-one '   onClick={hanclickReservation} >
-							<div className="flex-index-reservation-one">
-									<BsCalendarCheck className="flex-contan-one"  color="grey" fontSize={18} /> <span >Reservas</span>
-							</div> 
-					</button>	
-				</div>
-			</div>
-			
-			<ModalSate 	
-						handChangeTypeRoomOne={handChangeTypeRoomOne}
-						modalState={modalState} 
-						handClickCloseState={handClickCloseState} 
-						handClikCleanline={handClikCleanline}
-						handBlock={handBlock} />
+				<option   className="opo-room"  > Informe</option>
+				{Informes?.map(category =>(
+										<option 
+										className="opo-room"
+										value={category.id	}   
+										key={category.id}>
+										{category.name}
+									</option>
+														 ))}
+			</select>
+	
+		<select onChange={handRaiting}  
+										value={raiting} 
+										className='button-reservas-type-one button-reservas-type-space  button-reservas-type-one-two-two button-reservas-type-space-One-One' >
+										<option  className="opo-room" >  Ver habitaciones</option>
+										<option  className="opo-room" >Todas las Habitaciones</option>
+										
+									{room?.map(category =>(
+										<option 
+										 className="opo-room"
+										value={category.id_tipoHabitacion}   
+										key={category.ID}
+									>
+										{category.nombre}
+									</option>
+									)
+									)}
+									</select>
+		
+		<button className='button-reservas-type-one '   onClick={hanclickReservation} >
+				<div className="flex-index-reservation-one">
+						<BsCalendarCheck className="flex-contan-one"  color="grey" fontSize={18} /> <span >Reservas</span>
+				</div> 
+		</button>	
+	</div>
+</div>
 
-			<ModalCleanLine 	
-							cleanline={cleanline} 
-							hanClickCloseCleanline={hanClickCloseCleanline}  />		
-			
-			<ModalBlock    	block={block}  
-							handCloseBlock={handCloseBlock}   />			
-			<Checking  
-						loading={checkingDasboardVisible}  
-						toggleCloseDashboardChecking={toggleCloseDashboardChecking}  />
-			<Timeline
-				 groupRenderer={renderGroup}
-				groups={search}
-				items={ pruebareservas}
-				onContextMenu={handleContextMenu}
-				onItemResize={handleItemResize}
-				defaultTimeStart={moment().startOf("day").add(-3, "day")}
-				defaultTimeEnd={moment().startOf("day").add(30, "day")}
-				stackItems
-				onItemMove={handleItemMove}									
-				itemHeightRatio={0.9}                                                             
-				lineHeight={34}
-				sidebarWidth={200}
-				sidebarContent={<div>Above The Left</div>}
-				itemRenderer={  itemRenderer}
-				onItemClick={(itemId, e, time) =>{
-					onItemClick(itemId, e, time)
-				}}
-				now={nowOne}
-				itemStyle={{ background: "black" }}
-				canMove
-				canResize={"both"}
-				>
-				<TimelineHeaders className="list-booking-sticky"  >
-				<SidebarHeader>
-            {({ getRootProps }) => {
-              return <div {...getRootProps({
-				style:{
-					borderRadius:"8px",
-					margin:"auto",
-					textAlign:"center",
-					display:"flex",
-					justifyContent:"center",
-					padding:'8px',
-					width:" 100px",
-					height: "63px"
-				}
-			  })}>
-			
-					<img src={jwt.result.logo} alt="" />
-			  </div>;
-            }}
-          </SidebarHeader>
-					<DateHeader
-						unit="MONTH"
-						labelFormat="MMMM"
-						headerData={{ isMonth: false}}
-						defaultTimeStart={moment().startOf("day")}
-						defaultTimeEnd={moment().startOf("day")}
-						intervalRenderer={intervalRenderer}
-					/>
-					<DateHeader
-						unit="day"
-						labelFormat="dddd"
-						defaultTimeStart={moment().startOf("day")}
-						defaultTimeEnd={moment().startOf("day")}
-						headerData={{ isMonth: true, currentDate, }}
-						intervalRenderer={intervalRendererday}
-					/>
-					<DateHeader
-						unit="day"
-						labelFormat="D"
-						headerData={{ isMonth: false, currentDate }}
-						intervalRenderer={intervalRendererdayNum}
-						/>
-				</TimelineHeaders>
-				<TimelineMarkers>
-          
-          <CursorMarker />
-        </TimelineMarkers>
-		</Timeline>
-			<br />
-		<CardStore totalday={totalDay} />
-		</div>
+
+<Timeline
+	key={keys}
+	groupRenderer={renderGroup}
+	groups={search}
+	items={ pruebareservas}
+	onContextMenu={handleContextMenu}
+	onItemResize={handleItemResize}
+	defaultTimeStart={moment().startOf("day").add(-3, "day")}
+	defaultTimeEnd={moment().startOf("day").add(30, "day")}
+	stackItems
+	onItemMove={handleItemMove}									
+	itemHeightRatio={0.9}                                                             
+	lineHeight={34}
+	sidebarWidth={200}
+	sidebarContent={<div>Above The Left</div>}
+	itemRenderer={  itemRenderer}
+	onItemClick={(itemId, e, time) =>{
+		onItemClick(itemId, e, time)
+	}}
+	now={nowOne}
+	itemStyle={{ background: "black" }}
+	canMove
+	canResize={"both"}
+	>
+	<TimelineHeaders className="list-booking-sticky"  >
+	<SidebarHeader>
+		{({ getRootProps }) => {
+		return <div {...getRootProps({
+			style:{
+				borderRadius:"8px",
+				margin:"auto",
+				textAlign:"center",
+				display:"flex",
+				justifyContent:"center",
+				padding:'8px',
+				width:" 100px",
+				height: "63px"
+			}
+		})}>
+		
+		<img src={jwt.result.logo} alt="" />
+  </div>;
+}}
+</SidebarHeader>
+		<DateHeader
+			unit="MONTH"
+			labelFormat="MMMM"
+			headerData={{ isMonth: false}}
+			defaultTimeStart={moment().startOf("day")}
+			defaultTimeEnd={moment().startOf("day")}
+			intervalRenderer={intervalRenderer}
+		/>
+		<DateHeader
+			unit="day"
+			labelFormat="dddd"
+			defaultTimeStart={moment().startOf("day")}
+			defaultTimeEnd={moment().startOf("day")}
+			headerData={{ isMonth: true, currentDate, }}
+			intervalRenderer={intervalRendererday}
+		/>
+		<DateHeader
+			unit="day"
+			labelFormat="D"
+			headerData={{ isMonth: false, currentDate }}
+			intervalRenderer={intervalRendererdayNum}
+			/>
+	</TimelineHeaders>
+	<TimelineMarkers>
+
+<CursorMarker />
+</TimelineMarkers>
+</Timeline>
+<br />
+<CardStore totalday={totalDay} />
+</div>
+		</>
+
 	);
 }
 export default Dashboard;

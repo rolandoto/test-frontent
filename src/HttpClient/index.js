@@ -217,6 +217,19 @@ const postUpdatailPounterRange= ({desde,hasta,ID_Habitaciones,id}) =>{
   })
 }
 
+const GetReservation=({url=""}) =>{
+  return fetch((`${config.serverRoute}/api/resecion/getreservarecepcion/${url}`),{
+    method: 'GET',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    }
+  }).then(res => {
+    if(!res.ok) throw new Error('Response is not ok')
+    return  res.json() 
+  })
+}
+
   export default {
     get,
     post,
@@ -232,6 +245,7 @@ const postUpdatailPounterRange= ({desde,hasta,ID_Habitaciones,id}) =>{
     postUpdateRoomDetail,
     postApiWhasatapp,
     postUpdatailPounter,
-    postUpdatailPounterRange
+    postUpdatailPounterRange,
+    GetReservation
   }
   

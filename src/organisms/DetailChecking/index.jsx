@@ -32,7 +32,7 @@ const DetailChekingOrganism =({id}) =>{
     const [documnet,setDocument] = useState()
     const [country,setCountry] =useState()
 
-    const totalId   = jwt.result.id_hotel == 7 ? true : false
+    const totalId   = jwt.result.id_hotel == 7 || jwt.result.id_hotel == 3 || jwt.result.id_hotel == 4 ? true : false
 	
     
     useEffect(() =>{
