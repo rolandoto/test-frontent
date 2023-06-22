@@ -142,7 +142,7 @@ const RoomDetailOrganism =({room,postDetailRoom}) =>{
         <ContainerGlobal>    
              <div className="card-two" >   
                 <ul class="flex-container wrap-reverse">
-                    {room.map(index => (
+                    {room?.map(index => (
                         <CardRowsRoom  {...index}
                         key={index.id}
                         postDetailRoom={postDetailRoom}  />

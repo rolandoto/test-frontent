@@ -11,12 +11,11 @@ const useReservationActions  =() =>{
     const dispatch = useAppDispatch()
     const { loading,Items,error} = useAppSelector((state) => state.ReservationSlice)
 
-    const getPost = () =>{
-        const posts = mapListOfReservationCardProps(Items.query)
-
+    const getPost = async() =>{
+        const {postsMapped} = mapListOfReservationCardProps({reservation:Items.query})
+        dispatch(ReservationSlice.actions.setReservationFilter(postsMapped))
     }
     
-
     const getPostByReservation =  async() =>{
         dispatch(ReservationSlice.actions.loading())
         try {
@@ -36,12 +35,12 @@ const useReservationActions  =() =>{
     }
 
 
-    const mapListOfReservationCardProps =(reservation) =>{
+    const mapListOfReservationCardProps =({reservation}) =>{
         let postsMapped = []
         for(let autor  of reservation){
             let daysend = new Date(autor.Fecha_final)
             let daystart = new Date(autor.Fecha_inicio)
-           const newResevaction =({
+            postsMapped.push({
                 Num_Room :autor.Num_Room,
                 Codigo_Reserva:autor.Codigo_reservaOne,
                 full_name:`${autor.Nombre} ${autor.Last_name}`,
@@ -63,15 +62,15 @@ const useReservationActions  =() =>{
                 last_name:autor.Last_name,
             })
            
-           postsMapped.push(newResevaction)
-
         }
+
+        return {postsMapped}
 
     }
        
-     
-
     return  {getPostByReservation,
+                getPost,
+                Items
             
                         
     }

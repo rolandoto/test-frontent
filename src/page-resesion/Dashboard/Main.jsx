@@ -8,20 +8,21 @@ import { useParams } from "react-router-dom/cjs/react-router-dom"
 import moment from "moment"
 
 const MainDasboard =() =>{
-    const id = useParams
-    const  {getPostByReservation} =useReservationActions()
+    const id = useParams()
+    const  {getPostByReservation,getPost} =useReservationActions()
 	const { loading,Items,error} = useAppSelector((state) => state.ReservationSlice)
-    const {progress} = useProgress({id:100})
+    const {progress} = useProgress({id:id})
 	const {query} = Items
 
     const fetchData =async() =>{
         await getPostByReservation()
-    }
-    
+    }   
+
     useEffect(() =>{
         fetchData()
-    },[])
+    },[id])
 
+    
     const fillConten =() =>{
         if(progress <100){
             return <LineProgress progress={progress} />  
@@ -33,12 +34,13 @@ const MainDasboard =() =>{
             return <p>...{error}</p>
         }
 
-        return <Dashboard />
+        return  
     }
-    
+
+
     return (
         <>
-        {fillConten()}
+       <Dashboard />
         </>
     )
     

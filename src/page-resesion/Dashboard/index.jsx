@@ -552,6 +552,7 @@ const Dashboard = (props) => {
 		setSearch(resultadosBusqueda);
 		}
 		
+	
 	const filtrarprueba=(terminoBusqueda)=>{
 		let resultadosBusqueda= reservation?.filter((elemento,index)=>{
 			if(elemento?.ID_Tipo_habitaciones?.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
@@ -896,13 +897,6 @@ const Dashboard = (props) => {
 	
 };		
 
-
-
-
-
-
-
-	if(loadingSkeleto) return Skele()
 	if(!pruebareservas) return null
 	if(!search)  return null
 	if(!state)  return null
@@ -912,136 +906,132 @@ const Dashboard = (props) => {
 		<>			
 			<div ref={timelineRef} > 
 
-<div className="top-index-home"></div>
+				<div className="top-index-home"></div>
 
-<div className="container-calender">
+				<div className="container-calender">
 
-	<div className="container-button" >
+					<div className="container-button" >
 
-	<div>
+					<div>
 	
-</div>
-		<button className='button-reservas' onClick={handClickReservaction} ><div className="flex-index-reservation" ><VscVerified fontSize={18} className="flex-contant" color="white"  /><span>Crear reserva</span></div></button>
-		<button className='button-reservas-type-one-one' onClick={handRoomDetail} ><div className="flex-index-reservation" ><VscSignOut className="flex-contan"  color="white" fontSize={18}/><span>Ver habitaciones </span> </div> </button>
-		
-
-	
-		<select  onChange={handClickInformAuditoria} value={stateInformes}					
-				className='button-reservas-type-one button-reservas-type-space button-reservas-type-one-two-two'>
+			</div>
+					<button className='button-reservas' onClick={handClickReservaction} ><div className="flex-index-reservation" ><VscVerified fontSize={18} className="flex-contant" color="white"  /><span>Crear reserva</span></div></button>
+					<button className='button-reservas-type-one-one' onClick={handRoomDetail} ><div className="flex-index-reservation" ><VscSignOut className="flex-contan"  color="white" fontSize={18}/><span>Ver habitaciones </span> </div> </button>
+					<select  onChange={handClickInformAuditoria} value={stateInformes}					
+							className='button-reservas-type-one button-reservas-type-space button-reservas-type-one-two-two'>
+								
+							<option   className="opo-room"  > Informe</option>
+							{Informes?.map(category =>(
+													<option 
+													className="opo-room"
+													value={category.id	}   
+													key={category.id}>
+													{category.name}
+												</option>
+																	))}
+						</select>
+				
+					<select onChange={handRaiting}  
+													value={raiting} 
+													className='button-reservas-type-one button-reservas-type-space  button-reservas-type-one-two-two button-reservas-type-space-One-One' >
+													<option  className="opo-room" >  Ver habitaciones</option>
+													<option  className="opo-room" >Todas las Habitaciones</option>
+													
+												{room?.map(category =>(
+													<option 
+													className="opo-room"
+													value={category.id_tipoHabitacion}   
+													key={category.ID}
+												>
+													{category.nombre}
+												</option>
+												)
+												)}
+												</select>
 					
-				<option   className="opo-room"  > Informe</option>
-				{Informes?.map(category =>(
-										<option 
-										className="opo-room"
-										value={category.id	}   
-										key={category.id}>
-										{category.name}
-									</option>
-														 ))}
-			</select>
-	
-		<select onChange={handRaiting}  
-										value={raiting} 
-										className='button-reservas-type-one button-reservas-type-space  button-reservas-type-one-two-two button-reservas-type-space-One-One' >
-										<option  className="opo-room" >  Ver habitaciones</option>
-										<option  className="opo-room" >Todas las Habitaciones</option>
-										
-									{room?.map(category =>(
-										<option 
-										 className="opo-room"
-										value={category.id_tipoHabitacion}   
-										key={category.ID}
-									>
-										{category.nombre}
-									</option>
-									)
-									)}
-									</select>
-		
-		<button className='button-reservas-type-one '   onClick={hanclickReservation} >
-				<div className="flex-index-reservation-one">
-						<BsCalendarCheck className="flex-contan-one"  color="grey" fontSize={18} /> <span >Reservas</span>
-				</div> 
-		</button>	
-	</div>
-</div>
+					<button className='button-reservas-type-one '   onClick={hanclickReservation} >
+							<div className="flex-index-reservation-one">
+									<BsCalendarCheck className="flex-contan-one"  color="grey" fontSize={18} /> <span >Reservas</span>
+							</div> 
+					</button>	
+				</div>
+			</div>
+			
+			<Timeline
+				key={keys}
+				groupRenderer={renderGroup}
+				groups={search}
+				items={ pruebareservas}
+				onContextMenu={handleContextMenu}
+				onItemResize={handleItemResize}
+				defaultTimeStart={moment().startOf("day").add(-3, "day")}
+				defaultTimeEnd={moment().startOf("day").add(30, "day")}
+				stackItems
+				onItemMove={handleItemMove}									
+				itemHeightRatio={0.9}                                                             
+				lineHeight={34}
+				sidebarWidth={200}
+				sidebarContent={<div>Above The Left</div>}
+				itemRenderer={  itemRenderer}
+				onItemClick={(itemId, e, time) =>{
+					onItemClick(itemId, e, time)
+				}}
+				now={nowOne}
+				itemStyle={{ background: "black" }}
+				canMove
+				canResize={"both"}
+				>
+				<TimelineHeaders className="list-booking-sticky"  >
+				<SidebarHeader>
+					{({ getRootProps }) => {
+					return <div {...getRootProps({
+						style:{
+							borderRadius:"8px",
+							margin:"auto",
+							textAlign:"center",
+							display:"flex",
+							justifyContent:"center",
+							padding:'8px',
+							width:" 100px",
+							height: "63px"
+						}
+					})}>
+					
+					<img src={jwt.result.logo} alt="" />
+			</div>;
+			}}
+			</SidebarHeader>
+					<DateHeader
+						unit="MONTH"
+						labelFormat="MMMM"
+						headerData={{ isMonth: false}}
+						defaultTimeStart={moment().startOf("day")}
+						defaultTimeEnd={moment().startOf("day")}
+						intervalRenderer={intervalRenderer}
+					/>
+					<DateHeader
+						unit="day"
+						labelFormat="dddd"
+						defaultTimeStart={moment().startOf("day")}
+						defaultTimeEnd={moment().startOf("day")}
+						headerData={{ isMonth: true, currentDate, }}
+						intervalRenderer={intervalRendererday}
+					/>
+					<DateHeader
+						unit="day"
+						labelFormat="D"
+						headerData={{ isMonth: false, currentDate }}
+						intervalRenderer={intervalRendererdayNum}
+						/>
+				</TimelineHeaders>
+				<TimelineMarkers>
 
-
-<Timeline
-	key={keys}
-	groupRenderer={renderGroup}
-	groups={search}
-	items={ pruebareservas}
-	onContextMenu={handleContextMenu}
-	onItemResize={handleItemResize}
-	defaultTimeStart={moment().startOf("day").add(-3, "day")}
-	defaultTimeEnd={moment().startOf("day").add(30, "day")}
-	stackItems
-	onItemMove={handleItemMove}									
-	itemHeightRatio={0.9}                                                             
-	lineHeight={34}
-	sidebarWidth={200}
-	sidebarContent={<div>Above The Left</div>}
-	itemRenderer={  itemRenderer}
-	onItemClick={(itemId, e, time) =>{
-		onItemClick(itemId, e, time)
-	}}
-	now={nowOne}
-	itemStyle={{ background: "black" }}
-	canMove
-	canResize={"both"}
-	>
-	<TimelineHeaders className="list-booking-sticky"  >
-	<SidebarHeader>
-		{({ getRootProps }) => {
-		return <div {...getRootProps({
-			style:{
-				borderRadius:"8px",
-				margin:"auto",
-				textAlign:"center",
-				display:"flex",
-				justifyContent:"center",
-				padding:'8px',
-				width:" 100px",
-				height: "63px"
-			}
-		})}>
-		
-		<img src={jwt.result.logo} alt="" />
-  </div>;
-}}
-</SidebarHeader>
-		<DateHeader
-			unit="MONTH"
-			labelFormat="MMMM"
-			headerData={{ isMonth: false}}
-			defaultTimeStart={moment().startOf("day")}
-			defaultTimeEnd={moment().startOf("day")}
-			intervalRenderer={intervalRenderer}
-		/>
-		<DateHeader
-			unit="day"
-			labelFormat="dddd"
-			defaultTimeStart={moment().startOf("day")}
-			defaultTimeEnd={moment().startOf("day")}
-			headerData={{ isMonth: true, currentDate, }}
-			intervalRenderer={intervalRendererday}
-		/>
-		<DateHeader
-			unit="day"
-			labelFormat="D"
-			headerData={{ isMonth: false, currentDate }}
-			intervalRenderer={intervalRendererdayNum}
-			/>
-	</TimelineHeaders>
-	<TimelineMarkers>
-
-<CursorMarker />
-</TimelineMarkers>
-</Timeline>
-<br />
-<CardStore totalday={totalDay} />
-</div>
+			<CursorMarker />
+			</TimelineMarkers>
+			</Timeline>
+			<br />
+			<CardStore totalday={totalDay} />
+			</div>
 		</>
 
 	);
