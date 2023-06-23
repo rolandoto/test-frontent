@@ -84,7 +84,7 @@ const CardRowsRoom =({title,id,ID_estado_habiatcion,postDetailRoom,hanchangeEsta
     }
     
     if(ID_estado_habiatcion == 3){
-        color = "rgb(103 183 90)"
+        color = "#17c964"
         letra ="white"
         return (
             <li class="flex-item" style={{backgroundColor:color }} onClick={handChangeTypeRoomOne}  >

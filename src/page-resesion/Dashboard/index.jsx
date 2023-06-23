@@ -597,23 +597,7 @@ const Dashboard = () => {
 		setInformes(e.target.value)	
 	}
 
-	const handChangeTypeRoomOne =(e) =>{
-		confirmAlert({
-		  title: '',
-		  message: 'Desea cambiar el estado de la habitacion a:',
-		  
-		  buttons: [
-			{
-			  label: 'Bloquear',
-			  onClick:() =>handBlock()
-			},
-			{
-			  label: 'Asear',
-			  onClick: () => handClikCleanline()
-			},
-		  ]
-		});
-	  }
+
 	  
 	useEffect(() =>{
 		if(stateInformes ==5){

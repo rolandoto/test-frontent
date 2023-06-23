@@ -9,6 +9,7 @@ import RoomDetailOrganism from "../../organisms/RoomDetail"
 import AutoProvider  from "../../privateRoute/AutoProvider"
 import ServicetypeRooms from "../../service/ServicetypeRooms"
 import LineProgress from "../../Ui/LineProgress"
+import HttpClient from "../../HttpClient"
 
 const RoomDetail =() =>{
 
@@ -32,36 +33,13 @@ const RoomDetail =() =>{
         })
     },[setState,loading])
 
-    useEffect(() =>{
-		fetch(`${config.serverRoute}/api/resecion/getroomsresecion/${jwt.result.id_hotel}`)
-		.then(resp => resp.json())
-		.then(data => {
-			if(!data.ok){
-				console.log("true")
-			}else{
-				console.log(data)
-				const roomDefinid=[]
-				for(let i =0;i<data?.query?.length;i++){	
-					for(let e =0;e<data?.query?.length;e++){
-						const to= parseInt(data?.query[i]?.ID_Tipo_habitaciones)
-						const lo =(room[e]?.id_tipoHabitacion) 
-						if(to ==lo ){
-							roomDefinid.push({
-								title:`${data?.query[i]?.title} ${room[e]?.nombre}   `,
-								id:data?.query[i]?.id,
-								ID_Tipo_estados:data?.query[i]?.ID_Tipo_estados,
-								ID_Tipo_habitaciones:data?.query[i]?.ID_Tipo_habitaciones,
-								ID_estado_habiatcion:data?.query[i].ID_estado_habitacion
-							})
-						}else{
-							console.log("error")
-						}
-					}
-				}
-				setState(roomDefinid)
-			}
+
+	useEffect(() => {
+		HttpClient.GetRoom({url:jwt.result.id_hotel}).then(index =>{
+			setState(index.query);
 		})
-	},[room,loading])
+	}, []);
+
 
     const fillContent =() =>{
         if(progress <100){
