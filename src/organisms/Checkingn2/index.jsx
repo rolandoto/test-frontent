@@ -210,7 +210,7 @@ const Checkingn2Organism =({id,postDetailRoom,fetchDataApiWhatsapp,postWhataapBy
     
 
     const handUpdateConfirms =async() =>{
-        fetchDataApiWhatsapp({phone:"3202720874",name:fullName})
+        fetchDataApiWhatsapp({phone:numberPhone,name:fullName})
         ServiceUpdateReservationpay({id,dataOne:dataTwo}).then(index  =>{
             postDetailRoom({id:resulDetailDashboard?.ID_Habitaciones,ID_estado_habitacion:3})
             ServiceStatus({id,ID_Tipo_Estados_Habitaciones:3}).then(index=>{
