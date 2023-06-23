@@ -863,12 +863,12 @@ const Dashboard = () => {
 							display:"flex",
 							justifyContent:"center",
 							padding:'8px',
-							width:" 100px",
+							width:"200px",
 							height: "63px"
 						}
 					})}>
 					
-					<img src={jwt.result.logo} alt="" />
+					<img  src={jwt.result.logo} alt="" />
 			</div>;
 			}}
 			</SidebarHeader>

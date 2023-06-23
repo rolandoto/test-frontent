@@ -9,10 +9,12 @@ import { confirmAlert } from "react-confirm-alert";
 import Swal from 'sweetalert2'
 import { BsBucket ,BsCalendarCheck,BsCheckCircle,BsBell} from "react-icons/bs";
 
-const CardRowsRoom =({title,id,ID_estado_habiatcion,postDetailRoom,hanchangeEstado}) =>{
+const CardRowsRoom =({title,id,ID_estado_habitacion,postDetailRoom,hanchangeEstado}) =>{
     
     let color 
     let letra
+
+    console.log({"sdasds":id,ID_estado_habitacion})
     
     const handChangeTypeRoomOne =(e) =>{
 		confirmAlert({
@@ -22,7 +24,7 @@ const CardRowsRoom =({title,id,ID_estado_habiatcion,postDetailRoom,hanchangeEsta
           customUI: ({ onClose }) => {
 
             const handSubmitRoomDetailAsear =() =>{
-                if(ID_estado_habiatcion ==3){
+                if(ID_estado_habitacion ==3){
                     Swal.fire({
                         position: 'center',
                         icon: 'error',
@@ -39,7 +41,7 @@ const CardRowsRoom =({title,id,ID_estado_habiatcion,postDetailRoom,hanchangeEsta
             }
         
             const handSubmitRoomDetailBloquear =() =>{
-                if(ID_estado_habiatcion ==3){
+                if(ID_estado_habitacion ==3){
                     Swal.fire({
                         position: 'center',
                         icon: 'error',
@@ -56,7 +58,7 @@ const CardRowsRoom =({title,id,ID_estado_habiatcion,postDetailRoom,hanchangeEsta
             }
         
             const handSubmitRoomDetailDisponible =() =>{
-                if(ID_estado_habiatcion ==3){
+                if(ID_estado_habitacion ==3){
                     Swal.fire({
                         position: 'center',
                         icon: 'error',
@@ -83,7 +85,7 @@ const CardRowsRoom =({title,id,ID_estado_habiatcion,postDetailRoom,hanchangeEsta
 		})
     }
     
-    if(ID_estado_habiatcion == 3){
+    if(ID_estado_habitacion == 3){
         color = "#17c964"
         letra ="white"
         return (
@@ -96,7 +98,7 @@ const CardRowsRoom =({title,id,ID_estado_habiatcion,postDetailRoom,hanchangeEsta
         )
     } 
 
-    if(ID_estado_habiatcion == 5){
+    if(ID_estado_habitacion == 5){
         color = "#f3d924cc"
         letra ="black"
         return (
@@ -109,7 +111,7 @@ const CardRowsRoom =({title,id,ID_estado_habiatcion,postDetailRoom,hanchangeEsta
         )
     } 
 
-    if(ID_estado_habiatcion == 2){
+    if(ID_estado_habitacion == 2){
         color = "#747171"
         letra ="white"
         return (
@@ -136,16 +138,19 @@ const CardRowsRoom =({title,id,ID_estado_habiatcion,postDetailRoom,hanchangeEsta
     )
 }
 
-const RoomDetailOrganism =({room,postDetailRoom}) =>{    
+const RoomDetailOrganism =({room,postDetailRoom,hanchangeEstado}) =>{ 
+    
 
     return (
         <ContainerGlobal>    
              <div className="card-two" >   
                 <ul class="flex-container wrap-reverse">
                     {room?.map(index => (
-                        <CardRowsRoom  {...index}
+                        <CardRowsRoom    {...index}
+                        ID_estado_habitacion={index.ID_estado_habiatcion}
                         key={index.id}
-                        postDetailRoom={postDetailRoom}  />
+                        postDetailRoom={postDetailRoom}
+                        hanchangeEstado={hanchangeEstado}  />
                     ))}
                     </ul>
             </div> 

@@ -503,7 +503,7 @@ const DetailChekingOrganism =({id}) =>{
                                 <input  type="text" 
                                         className="desde-detail-three"  
                                         placeholder="Nombre" 
-                                        defaultValue={index.Nombre}
+                                        defaultValue={index?.Nombre}
                                         readOnly={state}
                                         />
 
@@ -511,7 +511,7 @@ const DetailChekingOrganism =({id}) =>{
                                         className="desde-detail-three" 
                                         name="Apellido"  
                                         placeholder="Apellido" 
-                                        defaultValue={index.Apellido}
+                                        defaultValue={index?.Apellido}
                                         readOnly={state}
                                         />
 
@@ -527,7 +527,7 @@ const DetailChekingOrganism =({id}) =>{
                                         className="desde-detail-two" 
                                         name="Fecha" 
                                         placeholder="No Documento"  
-                                        defaultValue={index.Num_documento}
+                                        defaultValue={index?.Num_documento}
                                         readOnly={state}
                                         />
                             </div>
@@ -551,7 +551,7 @@ const DetailChekingOrganism =({id}) =>{
                                         className="desde-detail-three"
                                         name="Fecha" 
                                         placeholder="Nacionalidad"  
-                                        defaultValue={index.nombre} 
+                                        defaultValue={index?.nombre} 
                                         readOnly={state}
                                         />
 

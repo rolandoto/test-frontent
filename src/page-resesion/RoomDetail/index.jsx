@@ -38,7 +38,7 @@ const RoomDetail =() =>{
 		HttpClient.GetRoom({url:jwt.result.id_hotel}).then(index =>{
 			setState(index.query);
 		})
-	}, []);
+	}, [loading]);
 
 
     const fillContent =() =>{
