@@ -48,6 +48,7 @@ import { GiBroom } from "react-icons/gi";
 import { RiHotelBedLine } from "react-icons/ri";
 import ServiceStatus from "../../service/ServiceStatus";
 import { BsBucket ,BsCalendarCheck,BsCheckCircle,BsBell} from "react-icons/bs";
+import UseModalText from "../../hooks/UseModalText";
 
 const DetailDasboard =(props) =>{
     const {id} = useParams()
@@ -64,7 +65,7 @@ const DetailDasboard =(props) =>{
      return hotel.id_hotel == jwt.result.id_hotel
     }
 
-    const totalId = jwt.result.id_hotel == 7 ? true : false
+    const totalId = jwt.result.id_hotel == 7 || jwt.result.id_hotel == 3 || jwt.result.id_hotel == 4 ? true : false
 	
 
     const hotel = iduser.find(FindIdHotel)
@@ -302,9 +303,6 @@ const DetailDasboard =(props) =>{
     const fechaFormateadaFechaInicio = UseFechaFormateada({fecha:fecha.defaultValueone})
     const fechaFormateadaFechaFinal = UseFechaFormateada({fecha:fechaOne?.defaultValueone})
 
-    const fechaThree = fechaFormateadaFechaFinal.fechaFormateadaHasta
-
-    const resultFechaMayor = fechaFormateadaFechaInicio.fechaFormateadaHasta< espan ? true : true
    
     const tipos_adicional = [
       {
@@ -418,11 +416,9 @@ const DetailDasboard =(props) =>{
               icon: 'success',
               title: '<p>Abono exitoso</p>',
               showConfirmButton: false,
-              timer: 2000
+              timer: 1000
             })
-            setTimeout(() =>{
               window.location.reload()
-            },2000)
           }).catch(e =>{
               console.log(e)
           })
@@ -433,10 +429,15 @@ const DetailDasboard =(props) =>{
             icon: 'error',
             title: '<p>Error</p>',
             showConfirmButton: false,
-            timer: 2000
+            timer: 1000
           })
         })
     }
+
+    
+    const {handModalText} =UseModalText({handlModal:handClickInsertAbono,Text:"Agregar abono ?"})
+
+
 
     useEffect(() =>{
       fetch("https://grupohoteles.co/api/getTipeDocument")
@@ -474,8 +475,6 @@ const DetailDasboard =(props) =>{
   const valor_abono =  formatter.format(resultDashboard?.valor_abono)
   const total_Cobrar = resultDashboard?.valor_habitacion - resultDashboard?.valor_abono
   const cobrar = formatter.format(total_Cobrar)
-  
-  console.log(formattedNum)
 
   let count
 
@@ -559,10 +558,6 @@ const DetailDasboard =(props) =>{
   const Drogueria  = product?.filter(index => index.ID_Categoria ==4)    
   const Adultos  = product?.filter(index => index.ID_Categoria ==5)    
   const Lenceria  = product?.filter(index => index.ID_Categoria ==6)  
-
-
-  
-
 
     const totalBebidas = bebidas?.reduce((acum,current) => {
     return acum  + current.Cantidad
@@ -683,56 +678,10 @@ const  typy_buy =  [
 
 const [pdfOne,setPdfOne] =useState()
 
-function handleClickBasic() {
-  confirmAlert({
-    title: '',
-    message: 'Estas seguro de eliminar la reserva ?',
-    buttons: [
-      {
-        label: 'Si',
-        onClick: () => hanDelete()
-      },
-      {
-        label: 'No',
-        onClick: () => console.log("no")
-      }
-    ]
-  });
-}
 
-function hancliEtar() {
-  confirmAlert({
-    title: '',
-    message: 'Editar la informacion de la reserva?',
-    buttons: [
-      {
-        label: 'Si',
-        onClick: () =>state ?handChangeSave()  :handChangeEdit()
-      },
-      {
-        label: 'No',
-        onClick: () => console.log("no")
-      }
-    ]
-  });
-}
 
-function handComprobante() {
-  confirmAlert({
-    title: '',
-    message: 'Descargar comprobante reserva?',
-    buttons: [
-      {
-        label: 'Si',
-        onClick: () => hancPdf()
-      },
-      {
-        label: 'No',
-        onClick: () => console.log("no")
-      }
-    ]
-  });
-}
+
+
 
 var curr = new Date(resultDashboard?.Fecha_inicio);
 curr.setDate(curr.getDate());
@@ -774,22 +723,7 @@ const handServiceChangeTypeRoom =(e) =>{
   })
 }
 
-const handChangeTypeRoomOne =(e) =>{
-  confirmAlert({
-    title: '',
-    message: 'Confirmar cambio habitacion ?',
-    buttons: [
-      {
-        label: 'Si',
-        onClick: handServiceChangeTypeRoom()
-      },
-      {
-        label: 'No',
-        onClick: () => console.log("no")
-      }
-    ]
-  });
-}
+
 
 const hancPdf =() =>{
   ServePdf({  codigoReserva:resultDashboard?.Num_documento,Nombre:resultDashboard?.Nombre,room:resultFinish?.nombre,adults:resultDashboard?.Adultos,children:resultDashboard?.Ninos,tituloReserva:resultDashboard?.Nombre,abono:resultDashboard?.valor_abono,formaPago:resultDashboard?.forma_pago,telefono:resultDashboard.Celular,identificacion:resultDashboard.Num_documento,correo:resultDashboard.Correo,urllogo:jwt?.result?.logo,tarifa:resultDashboard.valor_habitacion,entrada:fecha_inicio,salida:fecha_final}).then(index => {
@@ -850,6 +784,12 @@ const hanClickLimpia =() => {
     })
   })
 }
+
+
+
+const  handComprobante =UseModalText({handlModal:hancPdf,Text:"Descargar comprobante reserva?"})
+const  hanclickEditar =UseModalText({handlModal:state ?handChangeSave :handChangeEdit,Text:"Editar la informacion de la reserva?"})
+const  handleClickEliminar =UseModalText({handlModal:hanDelete,Text:"Estas seguro de eliminar la reserva ?"})
 
  const toPriceNigth = UsePrice({number:resultDashboard?.valor_dia_habitacion})
 
@@ -1012,7 +952,7 @@ const hanClickLimpia =() => {
                           defaultValue={0}
                         className="desde-detail-two"  />
                 <div>
-                      <button className="button-change-type-room" onClick={handClickInsertAbono}  > <span>Agregar pago</span></button>
+                      <button className="button-change-type-room" onClick={handModalText}  > <span>Agregar pago</span></button>
                 </div>    
             </div>
         </form>
@@ -1036,7 +976,7 @@ const hanClickLimpia =() => {
                     Eliminar reserva
               </ReactTooltip>
            
-              <div className="name-pinter"  onClick={handleClickBasic} data-tip data-for="registerTip" >
+              <div className="name-pinter"  onClick={handleClickEliminar.handModalText} data-tip data-for="registerTip" >
             
                   <div>
                 
@@ -1048,7 +988,7 @@ const hanClickLimpia =() => {
               <ReactTooltip id="registerTip-1" place="top" effect="solid">
                     Actualizar reserva
               </ReactTooltip>
-              <div className="name-pinter"  onClick={ hancliEtar }   data-tip data-for="registerTip-1">
+              <div className="name-pinter"  onClick={ hanclickEditar.handModalText }   data-tip data-for="registerTip-1">
                   <div>
                     <img width={33}  src="https://medellin47.com/ico_pms/qedit.svg" alt="" />
                   </div>
@@ -1059,7 +999,7 @@ const hanClickLimpia =() => {
                     Descargar comprobante
               </ReactTooltip>
               <div  className="name-pinter"  data-tip data-for="registerTip-2" >
-                  <div onClick={ handComprobante } >
+                  <div onClick={ handComprobante.handModalText } >
                      <img width={33}  src="https://medellin47.com/ico_pms/qdoc.svg" alt="" />
                   </div>
               </div>
@@ -1494,7 +1434,7 @@ const handleState =(event, index) =>{
                       <TableRow>
                       <TableCell align="right">Fecha</TableCell> 
                       <TableCell align="right">Cantidad</TableCell>  
-                      <TableCell align="right">Cetegoria</TableCell>  
+                      <TableCell align="right">Categoria</TableCell>  
                       <TableCell align="right">Detalle</TableCell>
                       <TableCell align="right">Valor</TableCell>
                       <TableCell align="right">Estado pago</TableCell>

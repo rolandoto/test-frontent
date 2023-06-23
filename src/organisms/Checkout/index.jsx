@@ -19,6 +19,7 @@ import { confirmAlert } from "react-confirm-alert"; // Import
 import Swal from 'sweetalert2'
 import { CiUser ,CiShop,CiBank } from "react-icons/ci";
 import ServiceInfomeMovimiento from "../../service/ServiceInformeMovimiento"
+import UseModalText from "../../hooks/UseModalText"
 
 const CheckoutOrganism =({DetailDashboard,postDetailRoom,fetchDataApiWhatsapp}) =>{
 
@@ -411,22 +412,10 @@ const CheckoutOrganism =({DetailDashboard,postDetailRoom,fetchDataApiWhatsapp}) 
 
     const totalAobonoDecimal =totalAbono.toLocaleString();
 
-    function handClickCheckout() {
-        confirmAlert({
-          title: '',
-          message: 'Estas seguro de que desea hacer Check Out ?',
-          buttons: [
-            {
-              label: 'Si',
-              onClick: () => handUpdateStatus()
-            },
-            {
-              label: 'No',
-              onClick: () => console.log("no")
-            }
-          ]
-        });
-      }
+  
+    
+    const  handClickCheckout =UseModalText({handlModal:handUpdateStatus,Text:"Estas seguro de que desea hacer Check Out ?"})
+
 
     const handSendFactura =() =>{
         confirmAlert({
@@ -901,7 +890,7 @@ const CheckoutOrganism =({DetailDashboard,postDetailRoom,fetchDataApiWhatsapp}) 
             </div>
            
 
-            <div className="container-store-checkout-two" onClick={handClickCheckout} >
+            <div className="container-store-checkout-two" onClick={handClickCheckout.handModalText} >
                 <div className="container-flex-buttton-checkout" >    
                         <div className="button-checkout-one-one"  >
                             <div className="inke-in" > 

@@ -18,24 +18,6 @@ const MainDasboard =() =>{
         await getPostByReservation()
     }   
 
-    useEffect(() =>{
-        fetchData()
-    },[id])
-
-    
-    const fillConten =() =>{
-        if(progress <100){
-            return <LineProgress progress={progress} />  
-        }
-        if(loading){
-            return <p>...Cargando</p>
-        }
-        if(error){
-            return <p>...{error}</p>
-        }
-
-        return  
-    }
 
 
     return (

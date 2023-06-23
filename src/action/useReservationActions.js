@@ -11,19 +11,44 @@ const useReservationActions  =() =>{
     const dispatch = useAppDispatch()
     const { loading,Items,error} = useAppSelector((state) => state.ReservationSlice)
 
-    const getPost = async() =>{
-        const {postsMapped} = mapListOfReservationCardProps({reservation:Items.query})
-        dispatch(ReservationSlice.actions.setReservationFilter(postsMapped))
-    }
+  
     
     const getPostByReservation =  async() =>{
         dispatch(ReservationSlice.actions.loading())
         try {
-
             const postResponse = await  HttpClient.GetReservation({url:jwt.result.id_hotel})
 
             if(postResponse){
-                dispatch(ReservationSlice.actions.setReservation(postResponse))
+                const formatDateString = (dateString) => moment(dateString).utc().format('YYYY/MM/DD');
+      
+                const postsMapped = postResponse?.query?.map((reservationItem) => {
+                const { Fecha_final, Fecha_inicio, Num_Room, Codigo_reservaOne, Nombre, Last_name, Observation, Noches, Adultos, Ninos, ID_Habitaciones, ID_Tipo_estados, ID, Title, Document, Codigo_reserva } = reservationItem;
+                const daysend = new Date(Fecha_final);
+                const daystart = new Date(Fecha_inicio);
+            
+                return {
+                    Num_Room,
+                    Codigo_Reserva: Codigo_reservaOne,
+                    full_name: `${Nombre} ${Last_name}`,
+                    Observation,
+                    Fecha_inicio: formatDateString(Fecha_inicio),
+                    Fecha_final: formatDateString(Fecha_final),
+                    Noches,
+                    Adultos,
+                    Ninos,
+                    end_time: daysend,
+                    group: ID_Habitaciones,
+                    id: ID,
+                    title: Title,
+                    start_time: daystart,
+                    state: ID_Tipo_estados,
+                    name: Nombre,
+                    document: Document,
+                    code: Codigo_reserva,
+                    last_name: Last_name,
+                };
+                });
+                dispatch(ReservationSlice.actions.setReservation(postsMapped))
             }else{
                 dispatch(ReservationSlice.actions.setError("no found"))
             }
@@ -31,46 +56,33 @@ const useReservationActions  =() =>{
         } catch (error) {
                 dispatch(ReservationSlice.actions.setError("no found"))
         }
+    }   
 
-    }
 
+    const getRoomByReservation  = async() =>{
 
-    const mapListOfReservationCardProps =({reservation}) =>{
-        let postsMapped = []
-        for(let autor  of reservation){
-            let daysend = new Date(autor.Fecha_final)
-            let daystart = new Date(autor.Fecha_inicio)
-            postsMapped.push({
-                Num_Room :autor.Num_Room,
-                Codigo_Reserva:autor.Codigo_reservaOne,
-                full_name:`${autor.Nombre} ${autor.Last_name}`,
-                Observation:autor.Observation,
-                Fecha_inicio: moment(autor.Fecha_inicio).utc().format('YYYY/MM/DD'),
-                Fecha_final:moment(autor.Fecha_final).utc().format('YYYY/MM/DD'),
-                Noches:autor.Noches,
-                Adultos:autor.Adultos,
-                Ninos:autor.Ninos,
-                end_time: daysend,
-                group:autor.ID_Habitaciones,  
-                id:autor.ID,
-                title:`${autor.Title}`,
-                start_time: daystart,
-                state: autor.ID_Tipo_estados,
-                name: autor.Nombre,
-                document:autor.Document,
-                code:autor.Codigo_reserva,
-                last_name:autor.Last_name,
-            })
-           
+        try {   
+
+            const getRoom = await HttpClient.GetRoom({url:jwt.result.id_hotel})
+            
+            if(getRoom){
+                dispatch(ReservationSlice.actions.setRoom(getRoom?.query))
+            }
+
+        } catch (error) {
+            dispatch(ReservationSlice.actions.setError("no found"))
         }
 
-        return {postsMapped}
-
     }
+
+
+    
+
        
     return  {getPostByReservation,
-                getPost,
-                Items
+                Items,
+                getRoomByReservation,
+                ReservationSlice
             
                         
     }

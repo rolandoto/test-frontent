@@ -942,7 +942,7 @@ const DashboardModal = (props) => {
                                 <div className="contain-board  one-contain-gray-One">
                                         <ul className="flex-bedrooms paddint-let-terifa-day">
                                                 <li>
-                                                    <label className="title-stores">Tafira por dia</label>
+                                                    <label className="title-stores">Tarifa por dia</label>
                                                         <input className="button-dasboard-thre " defaultValue={default_Value}  onChange={handChangeValueEditar}   />
                                                 </li>
                                                 <li>

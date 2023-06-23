@@ -161,7 +161,6 @@ const postUpdateRoomDetail = ({ID_estado_habitacion,id}) =>{
   })
 }
 
-
 const postApiWhasatapp = ({ to, plantilla,languaje,name }) => {
   const formData = new FormData();
   formData.append('body', plantilla);
@@ -230,6 +229,20 @@ const GetReservation=({url=""}) =>{
   })
 }
 
+
+const GetRoom=({url=""}) =>{
+  return fetch((`${config.serverRoute}/api/resecion/getroomsresecion/${url}`),{
+    method: 'GET',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    }
+  }).then(res => {
+    if(!res.ok) throw new Error('Response is not ok')
+    return  res.json() 
+  })
+}
+
   export default {
     get,
     post,
@@ -246,6 +259,7 @@ const GetReservation=({url=""}) =>{
     postApiWhasatapp,
     postUpdatailPounter,
     postUpdatailPounterRange,
-    GetReservation
+    GetReservation,
+    GetRoom
   }
   

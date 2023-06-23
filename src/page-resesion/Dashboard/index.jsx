@@ -41,7 +41,8 @@ import useUpdateDetailPointerActions from "../../action/useUpdateDetailPointerAc
 import UseListMotels from "../../hooks/UseListMotels";
 import useUpdateDetailPounterRangeSliceActions from "../../action/useUpdateDetailPounterRangeSliceActions";
 import useReservationActions from "../../action/useReservationActions";
-import { useAppSelector } from "../../hooks/redux";
+import { useAppDispatch, useAppSelector } from "../../hooks/redux";
+import HttpClient from "../../HttpClient";
 
 
 const GroupRows =({group,color,estado,iconState,letra}) =>{
@@ -66,7 +67,6 @@ const Info = styled(ReactTooltip)`
   background-color: white !important;
   border-radius: 12px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-
 `;
 
 const InfoMessage = styled.div`
@@ -78,25 +78,13 @@ const InfoMessage = styled.div`
 `;
 
 
-var keys = {
-	groupIdKey: 'id',
-	groupTitleKey: 'title',
-	groupRightTitleKey: 'rightTitle',
-	itemIdKey: 'id',
-	itemTitleKey: 'title',
-	itemDivTitleKey: 'title',
-	itemGroupKey: 'group',
-	itemTimeStartKey: 'start',
-	itemTimeEndKey: 'end',
-	groupLabelKey: 'title',
-  };
-
-const Dashboard = (props) => {
+const Dashboard = () => {
 
 
 	const {id} = useParams()
 	const [open, setOpen] = useState(true);
 	const [reservation,setReservas] = useState()
+	const [pruebareservas,setpruebareservas] =useState()
 	const [state,setSate] =useState()
 	const [modalState,setModalState] =useState(false)
 	const [cleanline,setcleanline] =useState(false)
@@ -117,7 +105,7 @@ const Dashboard = (props) => {
 	const {postUpdateDetailPointer} = useUpdateDetailPointerActions()
 	const {postUpdateDetailPointerRange} = useUpdateDetailPounterRangeSliceActions()
 	const {iduser} = UseListMotels()
-	
+	const dispatch = useAppDispatch()
 	
 	
 	
@@ -265,14 +253,7 @@ const Dashboard = (props) => {
 		},
 	];
 
-	const handClickState =() =>{
-		setModalState(true)
-	}
-
-	const handClickCloseState =() =>{
-		setModalState(false)
-	}
-
+	
 	const handClikCleanline =() =>{
 		setcleanline(true)
 		setModalState(false)
@@ -286,10 +267,6 @@ const Dashboard = (props) => {
 		setcleanline(false)
 	}
 
-	const handCloseBlock =() =>{
-		setBlock(false)
-	}
-  
 	const currentDate = new moment();
 
 	const onItemClick = (itemId, e, time, onItemSelectParentUpdate) => {	
@@ -532,8 +509,7 @@ const Dashboard = (props) => {
 	
 	const [room,setRoom] = useState()
 	const [raiting,setRaiting]= useState('')
-	const [pruebareservas,setpruebareservas] =useState()
-
+	
 	useEffect(() =>{
         ServicetypeRooms({id:jwt.result.id_hotel}).then(index =>{
             setRoom(index)
@@ -552,83 +528,18 @@ const Dashboard = (props) => {
 		setSearch(resultadosBusqueda);
 		}
 		
-	
-	const filtrarprueba=(terminoBusqueda)=>{
-		let resultadosBusqueda= reservation?.filter((elemento,index)=>{
-			if(elemento?.ID_Tipo_habitaciones?.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
-				|| elemento?.name?.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())){
-				return elemento;
-			}
-		});
-		setpruebareservas(resultadosBusqueda);
-		}
-		
 	const handRaiting =(e)=>{
 		setRaiting(e.target.value)
 		filtrar(e.target.value)
 	}
 
-	const handLookingfor=(e) =>{
-		setLookingfor(e.target.value)
-		filtrarprueba(e.target.value)
-	}
-
-	const [showModal, setShowModal] = useState(false);
-  	const [contextItem, setContextItem] = useState(null);
-
-	const handleCanvasContextMenu = (groupId, time, e) => {
-		e.preventDefault();
-		const item = pruebareservas.find((item) => item.id === contextItem);
-		setContextItem(item);
-		setShowModal(true);
-	};
-
-  const handleCloseModal = () => {
-    setShowModal(false);
-  };
-
 	useEffect(() => {
-		fetch(`${config.serverRoute}/api/resecion/getroomsresecion/${jwt.result.id_hotel}`)
-		.then(resp => resp.json())
-		.then(data => {
-			if (!data.ok) {
-			} else {  
-			const roomMap = room.reduce((map, r) => {
-				map[r.id_tipoHabitacion] = r;
-				return map;
-			}, {});
-	
-			const roomDefinid = data.query.reduce((result, query) => {
-				const tipoHabitacion = query.ID_Tipo_habitaciones;
-				const room = roomMap[tipoHabitacion];
-				if (room) {
-				result.push({
-					title: `${query.title} ${room.nombre}`,
-					id: query.id,
-					ID_Tipo_estados: query.ID_Tipo_estados,
-					ID_Tipo_habitaciones: query.ID_Tipo_habitaciones,
-					ID_estado_habiatcion: query.ID_estado_habitacion
-				});
-				} else {
-				console.log("error");
-				}
-				return result;
-			}, []);
-	
-			setSate(roomDefinid);
-			setSearch(roomDefinid);
-			}
-		});
-	}, [room]);
+		HttpClient.GetRoom({url:jwt.result.id_hotel}).then(index =>{
+			setSate(index.query);
+			setSearch(index.query);
+		})
+	}, []);
   
-
-  useEffect(() =>{
-	ServiceReservas({id:jwt.result.id_hotel}).then(index=> {
-		setReservas(index)
-		setpruebareservas(index)
-	})
-  },[])
-	
 	if(search?.length ==0) {
 		setSearch(state)
 	}
@@ -644,10 +555,6 @@ const Dashboard = (props) => {
 	const handRoomDetail =() =>{
 		history.push("/RoomDetail")
 	}
-
-	setTimeout(() =>{
-		setLoadingSkeleto(false)
-	},500)
 
 	
 
@@ -681,6 +588,8 @@ const Dashboard = (props) => {
 			name:"Informe movimiento"
 		}
 	];
+
+
 
 	const [stateInformes,setInformes] =useState(0)
 
@@ -742,7 +651,7 @@ const Dashboard = (props) => {
 	  const handleItemResize = (itemId, time, edge) => {
 		const fecha = moment(time).format('YYYY-MM-DD');
 	  
-		const updatedItems = reservation.map(item => {
+		const updatedItems = reservation?.map(item => {
 		  if (item.id === itemId) {
 			const { start_time, end_time } = item;
 			if (edge === 'left') {
@@ -762,6 +671,7 @@ const Dashboard = (props) => {
 		});
 	  
 		setpruebareservas(updatedItems);
+		setReservas(updatedItems)
 		postUpdateDetailPointer({ id: itemId, Fecha_final: fecha,countSeguro });
 	  };
 
@@ -798,42 +708,12 @@ const Dashboard = (props) => {
 		);
 		postUpdateDetailPointerRange({desde,hasta,ID_Habitaciones,id:itemId})
 		setpruebareservas(updatedItems);
+		setReservas(updatedItems)
 	  };
 	
 	 
 	  const nowOne = new Date(2023, 4, 1, 3, 10);
 
-
-	/**
-	 *  <ul className="border-icon"  >
-					<div className="state-type" >
-						<li  className="imbox-color"> </li>
-						<span className="margin-let-rig"  >Check out</span>
-					</div>
-					
-					<div className="state-type" >
-						<li  className="imbox-color-one"> </li>
-						<span className="margin-let-rig" >Reserva</span>
-					</div>
-
-					<div className="state-type" >
-						<li  className="imbox-color-three"> </li>
-						<span className="margin-let-rig" >Check in</span>
-					</div>
-
-					<div className="state-type" >
-						<li  className="imbox-color-four	"> </li>
-						<span className="margin-let-rig" >Asear</span>
-					</div>
-
-					<div className="state-type" >
-						<li  className="imbox-color-five"> </li>
-						<span className="margin-let-rig" >Bloqueada</span>
-					</div>
-
-				</ul>
-	 * 
-	 */
 	const renderGroup = ({ group }) => {
 
 		const rows= []
@@ -894,14 +774,22 @@ const Dashboard = (props) => {
 				{rows}
 			</>
 	);
-	
-};		
 
-	if(!pruebareservas) return null
+};	
+
+	useEffect(() =>{
+		ServiceReservas({id:jwt.result.id_hotel}).then(index=> {
+			setReservas(index)
+			setpruebareservas(index)
+		})
+	},[setRoom])
+		
+
 	if(!search)  return null
 	if(!state)  return null
 	if(!reservation)return null
 	if(!totalDay) return null
+	if(!pruebareservas) return null
 	return (
 		<>			
 			<div ref={timelineRef} > 
@@ -958,10 +846,9 @@ const Dashboard = (props) => {
 			</div>
 			
 			<Timeline
-				key={keys}
 				groupRenderer={renderGroup}
 				groups={search}
-				items={ pruebareservas}
+				items={[...pruebareservas]}
 				onContextMenu={handleContextMenu}
 				onItemResize={handleItemResize}
 				defaultTimeStart={moment().startOf("day").add(-3, "day")}
