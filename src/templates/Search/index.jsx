@@ -31,12 +31,15 @@ const TemplateSearch =() =>{
         let resultadosBusqueda= state.filter((elemento,index)=>{
             if(elemento.name?.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
             || elemento.document?.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
+            || elemento.Codigo_Reserva?.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
+            || elemento.full_name?.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
             ){
             return elemento;
             }
         });
         setSearching(resultadosBusqueda);
     }
+
 
     const handChange =(e) =>{
         setUsername(e.target.value)
@@ -125,6 +128,18 @@ console.log(searching)
                 </div>
                 <tbody>
                  <table  className="de"  >
+                 <thead >
+                 <tr>
+                                    <th></th>
+                                    <th>Nombre</th>
+                                    <th>Apellido</th>
+                                    <th>Fecha entrada</th>
+                                    <th>Fecha salida</th>
+                                    <th>Codigo reserva</th>
+                                    <th>Documento</th>
+                                    <th>Opciones</th>
+                                </tr>
+                </thead>
                   {searching?.map(index =>{
                      let todaydesde = new Date(index.start_time)
                      const desde = todaydesde.toISOString().split('T')[0]
@@ -140,6 +155,8 @@ console.log(searching)
                             <td>{index.last_name}</td>
                             <td> Desde {desde}</td>
                             <td> Hasta {hasta}</td>
+                            <td>{index.Codigo_Reserva}</td>
+                            <td>{index.document}</td>
                             <td>
                             <button className="button-dasboard-thre-search-view"  onClick={() => handHistory(index.id)} >
                                         <span>ver</span> 
@@ -150,8 +167,7 @@ console.log(searching)
                     
                   )}
                 </table>
-                </tbody>
-                <tbody>
+               
                     <table  className="de"  >
                             <thead >
                                 <tr>

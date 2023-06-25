@@ -19,6 +19,8 @@ const Invoince =({resultDashboard=[],carts=[],dataCount,setInvoice,priceCart,cli
     const t= moment().format();   
     let today = new Date(t)
     const day = today.toISOString().split('T')[0]
+    const date = moment().set({ hour: 0, minute: 0, second: 0 }).format('YYYY-MM-DD');
+   
     const [state,setate] =useState(false)
     const [information,setInformacion] =useState()
     
@@ -124,7 +126,7 @@ const Invoince =({resultDashboard=[],carts=[],dataCount,setInvoice,priceCart,cli
 
 
                                 <span className="atm title-invoince-cart" >Recepcionista: {jwt.result.name} </span>
-                                <span className="atm title-invoince-cart" >Fecha: {day}</span>
+                                <span className="atm title-invoince-cart" >Fecha: {date}</span>
                                 <span className="title-invoince-cart" >Tipo pago: {raiting}</span>
                                 <span className="title-invoince-cart">Cliente: {client}</span>  
                                 <span className="title-invoince-cart">CC/NIT: {identification} </span> 
@@ -190,7 +192,7 @@ const Invoince =({resultDashboard=[],carts=[],dataCount,setInvoice,priceCart,cli
                                         <div  className="form-login container-invoince-to "> 
                                             <h6 className="p title-invoince " >Tienda {jwt.result.hotel}  </h6>
                                             <span className="atm title-invoince-cart" >Recepcionista: {jwt.result.name} </span>
-                                            <span className="atm title-invoince-cart" >Fecha: {day}</span>
+                                            <span className="atm title-invoince-cart" >Fecha: {date}</span>
                                             <span className="title-invoince-cart" >Tipo pago: {raiting}</span>
                                             <span className="title-invoince-cart">Cliente: {client}</span>  
                                             <span className="title-invoince-cart">CC/NIT: {identification} </span> 
@@ -266,7 +268,7 @@ const Invoince =({resultDashboard=[],carts=[],dataCount,setInvoice,priceCart,cli
 
 
                                 <span className="atm title-invoince-cart" >Recepcionista: {jwt.result.name} </span>
-                                <span className="atm title-invoince-cart" >Fecha: {day}</span>
+                                <span className="atm title-invoince-cart" >Fecha: {date}</span>
                                 <span className="title-invoince-cart" >Tipo pago: {raiting}</span>
                                 <span className="title-invoince-cart">Cliente: {client}</span>  
                                 <span className="title-invoince-cart">CC/NIT: {identification} </span> 

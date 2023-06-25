@@ -146,8 +146,8 @@ const DetailDasboard =(props) =>{
       const [asignar,setAsignar] =useState()
       const [loadingTypeRoom,setLoadingTypeRoom] =useState({loading:false,error:false})
  
-      const now = moment().format("YYYY/MM/DD")
-
+      const now = moment('2023/06/24').set({ hour: 0, minute: 0, second: 0 }).format('YYYY/MM/DD HH:mm:ss');
+      console.log({now})
       const handAsignar =(event)  =>{
         setAsignar(event.target.value)
       }
