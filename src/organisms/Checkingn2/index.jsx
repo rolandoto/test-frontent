@@ -166,7 +166,7 @@ const Checkingn2Organism =({id,postDetailRoom,fetchDataApiWhatsapp,postWhataapBy
 
     const totalAbono =   (resulDetailDashboard?.valor_habitacion) 
    
-    const now = moment().format("YYYY/MM/DD")
+    const now = moment().set({ hour: 0, minute: 0, second: 0 }).format('YYYY/MM/DD HH:mm:ss');
     console.log(now)
 
     let dataOne ={
