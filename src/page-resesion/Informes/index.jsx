@@ -11,6 +11,7 @@ import "./style.css"
 import { useContext } from "react"
 import AutoProvider  from "../../privateRoute/AutoProvider"
 import { useReactToPrint } from "react-to-print";
+import UseFilterAuditoria from "../../hooks/UseFilterAuditoria"
 
 const InformeAuditoria =() =>{
 
@@ -22,7 +23,6 @@ const InformeAuditoria =() =>{
     const [loadingInforme,setLoadingInforme] =useState(false)
     const {jwt} = useContext(AutoProvider)
 
-  
     const hadChangeFecha =(e) =>{
         setLokinforFecha(e.target.value)
     }
@@ -40,51 +40,115 @@ const InformeAuditoria =() =>{
         })
     }
 
-    const priceInformeStore = store?.reduce((acum,current) => {
-        return acum  +   parseInt(current.total) 
-    },0)
-
-
-    const priceInformeStoreOne = storeOne?.reduce((acum,current) => {
-        return acum  +   parseInt(current.total) 
-    },0)
-
-
-
-    let count =0
-    for(let i =0;i<auditoria?.length;i++){
-        if((auditoria[i].Tipo_persona =="empresa")){
-            const totalwith = parseInt(auditoria[i].abono ) *19/100
-            const total = totalwith + parseInt(auditoria[i].abono )
-            count += total
-        }else  if((auditoria[i].Iva ==1)){
-            const totalwith = parseInt(auditoria[i].abono ) *19/100
-            const total = totalwith + parseInt(auditoria[i].abono )
-            count += total
-        } else{
-            count += parseInt(auditoria[i].abono)
-        }
-    }
-
-    console.log(auditoria)
-
-   const totalPriceInforme =count +priceInformeStore+priceInformeStoreOne
-
-   const totalDefinisInforme = totalPriceInforme.toLocaleString();
-
+   
    let componentRef = useRef();
-
 
    const handlePrint = useReactToPrint({
     content: () => componentRef.current
-});
+    });
+
+    const handClikcDescargar =() =>{
+        handlePrint()
+    }
+
+    // <button className="button-informe-descargar">Descargar Informe</button>
+
+    const {filterAuditoriaRoom,setCategory} =  UseFilterAuditoria()
+
+    const  audiFiltrar =  filterAuditoriaRoom(auditoria)
+
+    const storeFilter = filterAuditoriaRoom(store)
+
+    const storeOneFiltrar =  filterAuditoriaRoom(storeOne)
+
+    const handChangeCategory =(event) =>{
+        setCategory(prevent  =>({
+            ...prevent,
+            Forma_pago:event.target.value,
+        }))
+    }
+
+    const priceInformeStore = storeFilter?.reduce((acum,current) => {
+        return acum  +   parseInt(current.total) 
+    },0)
+
+    const priceInformeStoreOne = storeOneFiltrar?.reduce((acum,current) => {
+        return acum  +   parseInt(current.total) 
+    },0)
+
+    let count =0
+    if(storeOneFiltrar){
+        for(let i =0;i<audiFiltrar?.length;i++){
+            if((audiFiltrar[i].Tipo_persona =="empresa")){
+                const totalwith = parseInt(audiFiltrar[i]?.abono ) *19/100
+                const total = totalwith + parseInt(audiFiltrar[i].abono )
+                count += total
+            }else  if((audiFiltrar[i].Iva ==1)){
+                const totalwith = parseInt(audiFiltrar[i]?.abono ) *19/100
+                const total = totalwith + parseInt(audiFiltrar[i]?.abono )
+                count += total
+            } else{
+                count += parseInt(audiFiltrar[i]?.abono)
+            }
+        }
+    }
 
 
-const handClikcDescargar =() =>{
-    handlePrint()
-}
+    const  tipo_forma_pago =  [
+        {   
+            id:1,
+            name:"Efectivo",
+        },
+        {
+            id:2,
+            name:"Consignaciones",
+        },
+        {   
+            id:3,
+            name:"Destino",
+        },
+        {   
+            id:4,
+            name:"Sitio Web",
+        },
+        {   
+            id:5,
+            name:"Payoneer",
+        },
+        {   
+            id:6,
+            name:"T.Debito",
+        },
+        {   
+            id:7,
+            name:"T.Credito",
+        },
+        {   
+            id:8,
+            name:"Hotel Beds",
+        },
+        {   
+            id:9,
+            name:"Despegar",
+        },
+        {   
+            id:10,
+            name:"Price Travel",
+        },
+        {   
+            id:11,
+            name:"Link de pago",
+        },
+        {   
+            id:12,
+            name:"Expedia",
+        },
+      ]
+      
+    
+    const totalPriceInforme = count +priceInformeStore+priceInformeStoreOne
 
-const totalLoading = auditoria ?auditoria  : store
+    const totalDefinisInforme = totalPriceInforme.toLocaleString();
 
     return (
         <ContainerGlobal>
@@ -93,9 +157,16 @@ const totalLoading = auditoria ?auditoria  : store
                         titleLoading={"Informe  auditoria"}  />
             <div>
                 <input type="date" className="input-selecto-dasboard-n1-reservaction"  onChange={hadChangeFecha} value={LookinforFecha}   />
+                <select className="input-selecto-dasboard-n1-reservaction"   onChange={handChangeCategory} >
+                    <option value="0">Filtrar tipo forma pago</option>
+                    {tipo_forma_pago.map(index =>(
+                        <option value={index.id} key={index.id} >
+                                {index.name}
+                        </option>
+                    ))}
+                </select>
                 <button className="button-informe-cosultar" onClick={hanLookingFor}>Consultar</button>
-                <button className="button-informe-descargar">Descargar Informe</button>
-               <button className="button-informe-imprimir" onClick={handClikcDescargar} >Imprimir</button>
+                <button className="button-informe-imprimir" onClick={handClikcDescargar} >Imprimir</button>
             </div>
            
             <table className="de"  ref={componentRef} >
@@ -113,8 +184,8 @@ const totalLoading = auditoria ?auditoria  : store
                         <th>Exento</th>
                         <th>Total</th>
                     </tr>
-                    {auditoria?.map(index =>{
-                          const fecha =  moment(index.Fecha_pago).utc().format('YYYY/MM/DD')
+                    {audiFiltrar?.map(index =>{
+                            const fecha =  moment(index.Fecha_pago).utc().format('YYYY/MM/DD')
 
                             const PriceWithienda =  parseInt(index.abono)
  
@@ -129,8 +200,8 @@ const totalLoading = auditoria ?auditoria  : store
                             const totalWith = totalDefinttion.toLocaleString()
 
                             const totalDefinit = totalWith  =="NaN" ?  parseInt(index.abono).toLocaleString()  : totalWith
-                            console.log(totalWith)
-                            return (
+
+                        return (
                         <tr>
                             <td className="width-informe" >X14A-{index.Num_documento}{index.ID_reserva}</td>
                             <td className="width-informe" >0</td>
@@ -146,11 +217,10 @@ const totalLoading = auditoria ?auditoria  : store
                         </tr>  
                        )})}
 
-                        {store?.map(index =>{
+                        {storeFilter?.map(index =>{
                              const fecha =  moment(index.Fecha_compra).utc().format('YYYY/MM/DD')
                              const PriceWithienda =  parseInt(index.total)
                              const totalWith = PriceWithienda.toLocaleString()
-                             console.log(index)
                             return (
                         <tr>
                             <td className="width-informe" >X14A-{index.Num_documento}{index.ID_Reserva}</td>
@@ -168,7 +238,7 @@ const totalLoading = auditoria ?auditoria  : store
                        )})}
 
                        
-                    {storeOne?.map(index =>{
+                    {storeOneFiltrar?.map(index =>{
                              const fecha =  moment(index.Fecha_compra).utc().format('YYYY/MM/DD')
                              const PriceWithienda =  parseInt(index.total)
                              const totalWith = PriceWithienda.toLocaleString()
@@ -197,7 +267,7 @@ const totalLoading = auditoria ?auditoria  : store
                     
                
         {loadingInforme &&  <DescargarInforme auditoria={auditoria} setLoadingInforme={setLoadingInforme}  totalPriceInforme={totalPriceInforme} />   }
-            
+      
         </ContainerGlobal>
     )
 

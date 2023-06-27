@@ -55,6 +55,7 @@ import InformeMovimiento from "./page-resesion/Informes/InformeMovimiento";
 import CustomNav from "./Ui/CustomNav";
 import RoomDetail from "./page-resesion/RoomDetail";
 import MainDasboard from "./page-resesion/Dashboard/Main";
+import Footer from "./component/Footer/Footer";
 
 function App() {
   const { jwt } = useContext(AutoProvider);
@@ -397,6 +398,7 @@ function App() {
               <Route component={NoFound} />
             </Switch>
           </BrowserRouter>
+          <Footer />
         </Provider>
       </div>
     );

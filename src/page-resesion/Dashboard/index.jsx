@@ -64,7 +64,9 @@ const Info = styled(ReactTooltip)`
   max-width: 500px;
   padding-top: 9px;
   z-index: 1000 !important;
-  background-color: white !important;
+  background: rgba(221, 218, 218, 0.7) !important ;
+  opacity: .95;
+  backdrop-filter: blur(8px);
   border-radius: 12px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 `;
