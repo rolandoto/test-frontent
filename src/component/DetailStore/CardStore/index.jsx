@@ -61,7 +61,7 @@ const CardStore =({totalday}) =>{
             </Grid.Container>
 
 
-            <WebVitals />
+
             
        </div>
     )

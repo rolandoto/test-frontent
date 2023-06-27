@@ -272,10 +272,10 @@ const InformeConsolidado = () => {
         })
     }
 
-    console.log({"pruebas": storeOne })
+    console.log({"pruebas": auditoria })
 
-
-    const totalFilterForma = auditoria?.filter(index => index.Tipo_forma_pago ==1)
+    
+    const totalFilterForma = auditoria?.filter(index => index.Forma_pago ==1)
 
     const totalFilterFormaStore = store?.filter(index => index.Forma_pago ==1)
 
@@ -283,7 +283,7 @@ const InformeConsolidado = () => {
 
 
 
-    const totalFilterFormaDebito = auditoria?.filter(index => index.Tipo_forma_pago ==6)
+    const totalFilterFormaDebito = auditoria?.filter(index => index.Forma_pago ==6)
 
     const totalFilterFormaStoreDebito= store?.filter(index => index.Forma_pago ==6)
 
@@ -320,7 +320,7 @@ const InformeConsolidado = () => {
 
     const tarjetaDebeito = countSix+countOneSix+countTwoSix 
 
-    const totalFilterFormaDebitoTwo = auditoria?.filter(index => index.Tipo_forma_pago ==7)
+    const totalFilterFormaDebitoTwo = auditoria?.filter(index => index.Forma_pago ==7)
 
     const totalFilterFormaStoreDebitoTwo= store?.filter(index => index.Forma_pago ==7)
 
@@ -355,7 +355,7 @@ const InformeConsolidado = () => {
 
     const totalCredito = countSixTwo +  countOneSixTwo +countTwoSixTwo
 
-    const totalFilterFormaDebitoThree = auditoria?.filter(index => index.Tipo_forma_pago ==5)
+    const totalFilterFormaDebitoThree = auditoria?.filter(index => index.Forma_pago ==5)
 
     const totalFilterFormaStoreDebitoThree= store?.filter(index => index.Forma_pago ==5)
 
@@ -391,7 +391,7 @@ const InformeConsolidado = () => {
 
     const totalPayoner = countSixThree  +countOneSixThree + countTwoSixthree
 
-    const totalFilterFormaDebitoThreeFour = auditoria?.filter(index => index.Tipo_forma_pago ==11)
+    const totalFilterFormaDebitoThreeFour = auditoria?.filter(index => index.Forma_pago ==11)
 
     const totalFilterFormaStoreDebitoThreeFour= store?.filter(index => index.Forma_pago ==11)
 
@@ -412,7 +412,6 @@ const InformeConsolidado = () => {
         }
     }
 
-
     let countOneSixFour =0
     for(let i =0;i<totalFilterFormaStoreDebitoThree?.length;i++){
         const totalwith = parseInt(totalFilterFormaStoreDebitoThree[i]?.total ) 
@@ -429,7 +428,7 @@ const InformeConsolidado = () => {
 
 
 
-    const totalFilterFormaOne = auditoria?.filter(index => index.Tipo_forma_pago !=1)
+    const totalFilterFormaOne = auditoria?.filter(index => index.Forma_pago !=1)
 
     const totalFilterFormaStoreOne = store?.filter(index => index.Forma_pago !=1)
 

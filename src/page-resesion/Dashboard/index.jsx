@@ -43,6 +43,7 @@ import useUpdateDetailPounterRangeSliceActions from "../../action/useUpdateDetai
 import useReservationActions from "../../action/useReservationActions";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import HttpClient from "../../HttpClient";
+import WebVitals from "../../component/Web-vital";
 
 
 const GroupRows =({group,color,estado,iconState,letra}) =>{
@@ -904,6 +905,10 @@ const Dashboard = () => {
 			</Timeline>
 			<br />
 			<CardStore totalday={totalDay} />
+			<WebVitals />
+            <WebVitals />
+            <WebVitals />
+            <WebVitals />
 			</div>
 		</>
 
