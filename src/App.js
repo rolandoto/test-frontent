@@ -133,6 +133,7 @@ function App() {
               <Route component={NoFound} />
             </Switch>
           </BrowserRouter>
+          <Footer />
         </Provider>
       </div>
     );
@@ -263,6 +264,7 @@ function App() {
               <Route component={NoFound} />
             </Switch>
           </BrowserRouter>
+          <Footer />
         </Provider>
       </div>
     );

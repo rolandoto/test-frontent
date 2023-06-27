@@ -5,6 +5,7 @@ import { RiStore2Line } from "react-icons/ri";
 import ContainerGlobal from "../../../Ui/ContainerGlobal";
 import { Progress, Grid } from "@nextui-org/react";
 import useProgress from "../../../hooks/useProgress";
+import WebVitals from "../../Web-vital";
 
 const CardStore =({totalday}) =>{
 
@@ -60,8 +61,8 @@ const CardStore =({totalday}) =>{
             </Grid.Container>
 
 
+            <WebVitals />
             
-           
        </div>
     )
 

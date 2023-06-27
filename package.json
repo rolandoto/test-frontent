@@ -25,6 +25,7 @@
     "dayjs": "^1.11.7",
     "dotenv": "^8.2.0",
     "formik": "^2.2.9",
+    "framer-motion": "^3.0.0",
     "fs": "^0.0.1-security",
     "html2canvas": "^1.4.1",
     "html2pdf.js": "^0.10.1",
