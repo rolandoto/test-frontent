@@ -11,6 +11,7 @@ import ServiceResolution from "../../service/serviceResolution";
 import UsePrice from "../../hooks/UsePrice";
 import   AutoProvider  from "../../privateRoute/AutoProvider";
 import { useContext } from "react";
+import { config } from "../../config";
 
 const Invoince =({resultDashboard=[],carts=[],dataCount,setInvoice,priceCart,client,identification,raiting,handLoading,loading,handLoadingOne,sinIvaCart,tienda,handSubmitInsertCartOne,hancCheckout}) =>{
         
@@ -18,6 +19,8 @@ const Invoince =({resultDashboard=[],carts=[],dataCount,setInvoice,priceCart,cli
     const t= moment().format();   
     let today = new Date(t)
     const day = today.toISOString().split('T')[0]
+    const date = moment().set({ hour: 0, minute: 0, second: 0 }).format('YYYY-MM-DD');
+   
     const [state,setate] =useState(false)
     const [information,setInformacion] =useState()
     
@@ -90,7 +93,7 @@ const Invoince =({resultDashboard=[],carts=[],dataCount,setInvoice,priceCart,cli
 
 
      useEffect(()  =>{
-        fetch(`http://localhost:4000/api/resecion/informationByIdHotel/${jwt.result.id_hotel}`)
+        fetch(`${config.serverRoute}/api/resecion/informationByIdHotel/${jwt.result.id_hotel}`)
         .then(resp => resp.json())
         .then(data =>setInformacion(data))
         .catch(e  => {
@@ -99,7 +102,7 @@ const Invoince =({resultDashboard=[],carts=[],dataCount,setInvoice,priceCart,cli
      },[setInformacion])
 
     const searchingHotel =  information?.query?.find(index =>index.id_hotel  == jwt.result.id_hotel )
-     
+     console.log({information})
     if(invo){
         return (
             <div   >
@@ -123,7 +126,7 @@ const Invoince =({resultDashboard=[],carts=[],dataCount,setInvoice,priceCart,cli
 
 
                                 <span className="atm title-invoince-cart" >Recepcionista: {jwt.result.name} </span>
-                                <span className="atm title-invoince-cart" >Fecha: {day}</span>
+                                <span className="atm title-invoince-cart" >Fecha: {date}</span>
                                 <span className="title-invoince-cart" >Tipo pago: {raiting}</span>
                                 <span className="title-invoince-cart">Cliente: {client}</span>  
                                 <span className="title-invoince-cart">CC/NIT: {identification} </span> 
@@ -151,7 +154,7 @@ const Invoince =({resultDashboard=[],carts=[],dataCount,setInvoice,priceCart,cli
                                 <span className="valo" > {totalPrice.price} </span>
                             </div>
                             <div className="sub-total title-invoince-cart" >
-                                <span>IVA</span>
+                                <span>IVA  </span>
                                 <span className="valo" >{totalIva}</span>
                             </div>
                             <div className="sub-total title-invoince-cart">
@@ -189,7 +192,7 @@ const Invoince =({resultDashboard=[],carts=[],dataCount,setInvoice,priceCart,cli
                                         <div  className="form-login container-invoince-to "> 
                                             <h6 className="p title-invoince " >Tienda {jwt.result.hotel}  </h6>
                                             <span className="atm title-invoince-cart" >Recepcionista: {jwt.result.name} </span>
-                                            <span className="atm title-invoince-cart" >Fecha: {day}</span>
+                                            <span className="atm title-invoince-cart" >Fecha: {date}</span>
                                             <span className="title-invoince-cart" >Tipo pago: {raiting}</span>
                                             <span className="title-invoince-cart">Cliente: {client}</span>  
                                             <span className="title-invoince-cart">CC/NIT: {identification} </span> 
@@ -248,7 +251,7 @@ const Invoince =({resultDashboard=[],carts=[],dataCount,setInvoice,priceCart,cli
                                 </div>
                                         <div  className="form-login container-invoince-to "> 
                                         <span className="invoince title-invoince-cart" >{jwt.result.hotel}</span>
-                                {jwt.result.id_hotel  == 7 && <span className="invoince title-invoince-cart" >Rolando Guerrero</span>  || jwt.result.id_hotel  == 3 && <span className="invoince title-invoince-cart" >Efraín Giraldo </span>} 
+                                {jwt.result.id_hotel  == 7 && <span className="invoince title-invoince-cart" >Rolando Guerrero</span>   ||  jwt.result.id_hotel  == 3 && <span className="invoince title-invoince-cart" >Efraín Giraldo </span>} 
                                 <span className="invoince title-invoince-cart" >Nit: {searchingHotel?.Nit}</span>
                                 <span className="invoince title-invoince-cart" >{searchingHotel?.Direcion}</span>
                                 <span className="invoince title-invoince-cart" >{searchingHotel?.Telefono}</span>
@@ -256,16 +259,16 @@ const Invoince =({resultDashboard=[],carts=[],dataCount,setInvoice,priceCart,cli
 
                             
                                 <h6 className="p title-invoince " >GRACIAS POR SU VISITA</h6>
-                                {jwt.result.id_hotel  == 7 ? <span></span> :<span className="p title-invoince-cart" >RES DIAN {searchingHotel?.Res_dian}</span> }  
+                                {jwt.result.id_hotel  == 7 ?   <span></span> :   <span className="p title-invoince-cart" >RES DIAN {searchingHotel?.Res_dian}</span>  &&  jwt.result.id_hotel  == 3  ? <span></span>  : <span className="p title-invoince-cart" >RES DIAN {searchingHotel?.Res_dian}</span>   }  
                                 <span className="p title-invoince-cart  ">Fecha: {moment(searchingHotel?.fecha).utc().format('YYYY/MM/DD')}</span>
-                                <span className="p title-invoince-cart  ">{jwt.result.id_hotel  == 7 ? "Numeracion" : "Resolucion"} {searchingHotel?.Resolucion_initial} al {searchingHotel?.Resolucion_final}</span>
+                                <span className="p title-invoince-cart  ">{jwt.result.id_hotel  == 7 ? "Numeracion" : "Resolucion"  &&  jwt.result.id_hotel  == 3 ?  "Numeracion" : "Resolucion"  } {searchingHotel?.Resolucion_initial} al {searchingHotel?.Resolucion_final}</span>
                                 <span className="p title-invoince-cart  ">FACTURA DE VENTA</span>
                                 <span className="p title-invoince-cart  ">{jwt.result.id_hotel  == 7 ? "FV":"FP" && jwt.result.id_hotel  == 3 ? "FV":"FP"  }-{dataCount?.Resolucion}</span>
                                 
 
 
                                 <span className="atm title-invoince-cart" >Recepcionista: {jwt.result.name} </span>
-                                <span className="atm title-invoince-cart" >Fecha: {day}</span>
+                                <span className="atm title-invoince-cart" >Fecha: {date}</span>
                                 <span className="title-invoince-cart" >Tipo pago: {raiting}</span>
                                 <span className="title-invoince-cart">Cliente: {client}</span>  
                                 <span className="title-invoince-cart">CC/NIT: {identification} </span> 
