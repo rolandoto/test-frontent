@@ -102,7 +102,7 @@ const Invoince =({resultDashboard=[],carts=[],dataCount,setInvoice,priceCart,cli
      },[setInformacion])
 
     const searchingHotel =  information?.query?.find(index =>index.id_hotel  == jwt.result.id_hotel )
-     console.log({information})
+
     if(invo){
         return (
             <div   >
@@ -251,19 +251,19 @@ const Invoince =({resultDashboard=[],carts=[],dataCount,setInvoice,priceCart,cli
                                 </div>
                                         <div  className="form-login container-invoince-to "> 
                                         <span className="invoince title-invoince-cart" >{jwt.result.hotel}</span>
-                                {jwt.result.id_hotel  == 7 && <span className="invoince title-invoince-cart" >Rolando Guerrero</span>   ||  jwt.result.id_hotel  == 3 && <span className="invoince title-invoince-cart" >Efraín Giraldo </span>} 
+                                {jwt.result.id_hotel  == 7 && <span className="invoince title-invoince-cart" >Rolando Guerrero</span>   ||  jwt.result.id_hotel  == 3 && <span className="invoince title-invoince-cart" >Efraín Giraldo </span>||  jwt.result.id_hotel  == 4 && <span className="invoince title-invoince-cart" >Efraín Giraldo </span> } 
                                 <span className="invoince title-invoince-cart" >Nit: {searchingHotel?.Nit}</span>
                                 <span className="invoince title-invoince-cart" >{searchingHotel?.Direcion}</span>
                                 <span className="invoince title-invoince-cart" >{searchingHotel?.Telefono}</span>
-                                { jwt.result.id_hotel  == 7 && <span className="invoince title-invoince-cart" >No responsable</span> ||  jwt.result.id_hotel  == 3 && <span className="invoince title-invoince-cart" >No responsable</span> }
+                                { jwt.result.id_hotel  == 7 && <span className="invoince title-invoince-cart" >No responsable</span> ||  jwt.result.id_hotel  == 3 && <span className="invoince title-invoince-cart" >No responsable</span> ||  jwt.result.id_hotel  == 4 && <span className="invoince title-invoince-cart" >No responsable</span> }
 
                             
                                 <h6 className="p title-invoince " >GRACIAS POR SU VISITA</h6>
-                                {jwt.result.id_hotel  == 7 ?   <span></span> :   <span className="p title-invoince-cart" >RES DIAN {searchingHotel?.Res_dian}</span>  &&  jwt.result.id_hotel  == 3  ? <span></span>  : <span className="p title-invoince-cart" >RES DIAN {searchingHotel?.Res_dian}</span>   }  
+                                {jwt.result.id_hotel  == 7 ?   <span></span> :   <span className="p title-invoince-cart" >RES DIAN {searchingHotel?.Res_dian}</span>  &&  jwt.result.id_hotel  == 3  ? <span></span>  : <span className="p title-invoince-cart" >RES DIAN {searchingHotel?.Res_dian}</span>  &&  jwt.result.id_hotel  == 4  ? <span></span>  : <span className="p title-invoince-cart" >RES DIAN {searchingHotel?.Res_dian}</span>   }  
                                 <span className="p title-invoince-cart  ">Fecha: {moment(searchingHotel?.fecha).utc().format('YYYY/MM/DD')}</span>
-                                <span className="p title-invoince-cart  ">{jwt.result.id_hotel  == 7 ? "Numeracion" : "Resolucion"  &&  jwt.result.id_hotel  == 3 ?  "Numeracion" : "Resolucion"  } {searchingHotel?.Resolucion_initial} al {searchingHotel?.Resolucion_final}</span>
+                                <span className="p title-invoince-cart  ">{jwt.result.id_hotel  == 7 ? "Numeracion" : "Resolucion"  &&  jwt.result.id_hotel  == 3 ?  "Numeracion" : "Resolucion"  &&  jwt.result.id_hotel  == 4 ?  "Numeracion" : "Resolucion" } {searchingHotel?.Resolucion_initial} al {searchingHotel?.Resolucion_final}</span>
                                 <span className="p title-invoince-cart  ">FACTURA DE VENTA</span>
-                                <span className="p title-invoince-cart  ">{jwt.result.id_hotel  == 7 ? "FV":"FP" && jwt.result.id_hotel  == 3 ? "FV":"FP"  }-{dataCount?.Resolucion}</span>
+                                <span className="p title-invoince-cart  ">{jwt.result.id_hotel  == 7 ? "FV":"FP" && jwt.result.id_hotel  == 3 ? "FV":"FP"  && jwt.result.id_hotel  == 4 ? "FV":"FP"  }-{dataCount?.Resolucion}</span>
                                 
 
 

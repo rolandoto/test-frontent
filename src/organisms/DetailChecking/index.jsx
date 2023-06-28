@@ -340,33 +340,14 @@ const DetailChekingOrganism =({id}) =>{
 
     const finishValor = formatter.format(convertirFinishOne)
 
-    const handPay =() =>{
-        ServiceUpdateReservationpay({id,dataOne:dataPay}).then(index =>{
-            console.log(index)
-        }).catch(e =>{
-            console.log(e)
-        })
-    }
-
-    
+   
 
     let dataTwo ={
         Tipo_persona:tipoPersonas,
         Iva:totalId ? 2:change.Iva
     } 
 
-    
-
-    console.log(dataTwo)
-
-      const handSubmit =() =>{
-            ServiceUpdateReservation({id:resulDetailDashboard.id_persona,data:dataTwo}).then(index =>{
-            console.log(index)
-        }).catch(e =>{
-            console.log(e)
-        })           
-    }
-
+   
 
     const hanClickingn2 =() =>{
         if(change.Iva== null){
@@ -387,9 +368,17 @@ const DetailChekingOrganism =({id}) =>{
                 timer: 2000
             })
         } else{
-            handPay()
-            handSubmit()
-            history.push(`/checkingin2/${id}`)
+            
+                ServiceUpdateReservation({id:resulDetailDashboard.id_persona,data:dataTwo}).then(index =>{
+                        ServiceUpdateReservationpay({id,dataOne:dataPay}).then(index =>{
+                            history.push(`/checkingin2/${id}`)
+                        }).catch(e =>{
+                            console.log(e)
+                        })
+                }).catch(e =>{
+                console.log(e)
+             })           
+           
         }
     
     }
