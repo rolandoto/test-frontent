@@ -31,11 +31,15 @@ const fromRervas =(event)  =>{
           title,
           start_time: daystart,
           state:state,
+          valor_habitacion:index.Valor_habitacion,
+          abono:index.abono,
           name,
           document,
           code,
           last_name:last_name,
-       
+          Celular:index.Celular,
+          codigo:index.codigo,
+          nacionalidad:index.nacionalidad
         }
       })
     return to

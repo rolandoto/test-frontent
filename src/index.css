@@ -952,6 +952,14 @@ tr {
   margin-left: 10px;
 }
 
+.cancel-one{
+  background: #17c964;
+  color: white;
+  padding: 2px;
+  border-radius: 5px;
+  margin-left: 10px;
+}
+
 .descri {
   width: 1000px;
 }

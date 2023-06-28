@@ -137,6 +137,11 @@ console.log(searching)
                                     <th>Fecha salida</th>
                                     <th>Codigo reserva</th>
                                     <th>Documento</th>
+                                    <th>Abono</th>
+                                    <th>Total hospedaje</th>
+                                    <th>Prefijo</th>
+                                    <th>Celular</th>
+                                    <th>Nacionalidad</th>
                                     <th>Opciones</th>
                                 </tr>
                 </thead>
@@ -147,16 +152,27 @@ console.log(searching)
                      let todayhasta = new Date(index.end_time)
                      const hasta = todayhasta.toISOString().split('T')[0]
 
+                     const valor_habitacion =  parseInt(index.valor_habitacion)
+
+                     const abono = parseInt(index.abono)
+
                     if(index.state ==0)
                         return (
-                        <tr className="table-color" >
-                            <td> <span  className="imbox-search"  ><AiOutlineSearch color="black" /></span> </td>
+                        <tr className="" >
+                            <td> <span  className="imbox-search"  > {abono > 0  ? <span className="cancel-one" >Abonada</span> : <span className="cancel" >Adeudada</span>}  </span> </td>
                             <td>{index.name}</td>
                             <td>{index.last_name}</td>
                             <td> Desde {desde}</td>
                             <td> Hasta {hasta}</td>
                             <td>{index.Codigo_Reserva}</td>
                             <td>{index.document}</td>
+                            <td>${abono.toLocaleString()}</td>
+                            <td>${valor_habitacion.toLocaleString()}</td>
+                            <td>{index.codigo}</td>
+                            <td>{index.Celular}</td>
+                            <td>{index.nacionalidad}</td>
+
+
                             <td>
                             <button className="button-dasboard-thre-search-view"  onClick={() => handHistory(index.id)} >
                                         <span>ver</span> 

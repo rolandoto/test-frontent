@@ -44,7 +44,7 @@ import useReservationActions from "../../action/useReservationActions";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import HttpClient from "../../HttpClient";
 import WebVitals from "../../component/Web-vital";
-
+import { CiBadgeDollar } from "react-icons/ci";
 
 const GroupRows =({group,color,estado,iconState,letra}) =>{
 	return (
@@ -278,6 +278,8 @@ const Dashboard = () => {
 
 	const itemRenderer = ({ item, itemContext, getItemProps }) => {
 
+	const abono = parseInt(item.abono)
+
 	let colorWords;
 	let iconState;
 	let valo = false;
@@ -287,9 +289,15 @@ const Dashboard = () => {
 
 	switch (item.state) {
 	case 0:
-		color = '#f31260';
-		colorWords = 'white';
-		iconState = <BsBell fontSize={15} />;
+		if(abono>0){
+			color = '#ff9275';
+			colorWords = 'white ';
+			iconState = <CiBadgeDollar fontSize={20} /> ;
+		}else{
+			color = '#f31260';
+			colorWords = 'white';
+			iconState = <BsBell fontSize={15} />;
+		}
 		break;
 	case 1:
 		color = '#7828c8';
@@ -325,6 +333,10 @@ const Dashboard = () => {
 		const backgroundColor = itemContext.selected  ? "black" :color
 
 		const key = `${item.id}_${item.id}_schedule`;
+
+		const total_habitacion = parseInt(item.valor_habitacion)
+
+	
 
 		return (
 			
@@ -383,6 +395,8 @@ const Dashboard = () => {
 									<li className="color-white " >Noches :{item.Noches}</li>
 									<li className="color-white " >Adultos :{item.Adultos}</li>
 									<li className="color-white " >Niños :{item.Ninos}</li>
+									<li className="color-white " >Total hospedaje :${total_habitacion.toLocaleString()}</li>
+									<li className="color-white " >Abono :${abono.toLocaleString()}</li>
 									</ul>
 								</div>
 							</InfoMessage>
