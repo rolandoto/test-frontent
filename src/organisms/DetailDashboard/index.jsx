@@ -93,7 +93,7 @@ const DetailDasboard =(props) =>{
       minimumFractionDigits: 0
     })
 
-    console.log(resultDashboard)
+
 
     const [values, setValues] = React.useState({
         Nombre: null,
@@ -128,7 +128,7 @@ const DetailDasboard =(props) =>{
       const [loadingFecha,setLoadingFecha] =useState({loading:false,error:false})
       const [huesped,setHuesped] =useState(false)
       const [consumo,setConsumo] =useState(false)
-      const [pago,setPago] =useState(false)
+      const [pago,setPago] =useState(true)
       const [quyery,setQuery] =useState()
       const [documnet,setDocument] = useState()
       const [country,setCountry] =useState()
@@ -608,8 +608,6 @@ const priceLenceria = Lenceria?.reduce((acum,current) => {
 },0)
 
 
-console.log(resultDashboard)
-
   const hanDelete =() =>{
     ServiDelteReservation({id}).then(index =>{
       console.log(index)
@@ -678,15 +676,9 @@ const  typy_buy =  [
 
 const [pdfOne,setPdfOne] =useState()
 
-
-
-
-
-
 var curr = new Date(resultDashboard?.Fecha_inicio);
 curr.setDate(curr.getDate());
 var fecha_inicio = curr.toISOString().substring(0,10);
-
 
 var currOne = new Date(resultDashboard?.Fecha_final);
 currOne.setDate(currOne.getDate());
@@ -722,8 +714,6 @@ const handServiceChangeTypeRoom =(e) =>{
     })
   })
 }
-
-
 
 const hancPdf =() =>{
   ServePdf({  codigoReserva:resultDashboard?.Num_documento,Nombre:resultDashboard?.Nombre,room:resultFinish?.nombre,adults:resultDashboard?.Adultos,children:resultDashboard?.Ninos,tituloReserva:resultDashboard?.Nombre,abono:resultDashboard?.valor_abono,formaPago:resultDashboard?.forma_pago,telefono:resultDashboard.Celular,identificacion:resultDashboard.Num_documento,correo:resultDashboard.Correo,urllogo:jwt?.result?.logo,tarifa:resultDashboard.valor_habitacion,entrada:fecha_inicio,salida:fecha_final}).then(index => {
@@ -785,13 +775,13 @@ const hanClickLimpia =() => {
   })
 }
 
-
-
 const  handComprobante =UseModalText({handlModal:hancPdf,Text:"Descargar comprobante reserva?"})
 const  hanclickEditar =UseModalText({handlModal:state ?handChangeSave :handChangeEdit,Text:"Editar la informacion de la reserva?"})
 const  handleClickEliminar =UseModalText({handlModal:hanDelete,Text:"Estas seguro de eliminar la reserva ?"})
 
  const toPriceNigth = UsePrice({number:resultDashboard?.valor_dia_habitacion})
+
+ if(!resultDashboard) return <h1>algo error</h1>
 
   if(!docu) return null
     
@@ -1255,9 +1245,7 @@ const Huesped =({quyery,handEditar,handChangeSubmit ,stateButton,DetailDashboard
     if(quyery[i+1]){
       query.push(quyery[i])
     }
-  }
-
-  console.log(DetailDashboard)
+}
 
   return (
     
@@ -1366,7 +1354,11 @@ const Consumo =(props) =>{
             {   
                 id:7,
                 name:"T.Credito",
-            }
+            },
+            {   
+              id:2,
+              name:"Consignaciones",
+          }
           ]
 
   const cart =[]
