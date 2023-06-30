@@ -7,7 +7,7 @@ export default function WebVitals() {
   return (
     <div className="relative h-full w-full">
       <motion.svg
-        className="absolute inset-0 m-auto"
+     
         viewBox="0 0 100 100"
         width={140}
         height={140}

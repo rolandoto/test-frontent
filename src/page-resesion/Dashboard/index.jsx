@@ -45,6 +45,9 @@ import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import HttpClient from "../../HttpClient";
 import WebVitals from "../../component/Web-vital";
 import { CiBadgeDollar } from "react-icons/ci";
+import { Button, Spacer } from '@nextui-org/react';
+import { CameraIcon, HeartIcon, LockIcon, NotificationIcon } from "./IconReservation";
+
 
 const GroupRows =({group,color,estado,iconState,letra}) =>{
 	return (
@@ -59,7 +62,6 @@ const GroupRows =({group,color,estado,iconState,letra}) =>{
 		</div>
 	)
 }
-
 
 const Info = styled(ReactTooltip)`
   max-width: 500px;
@@ -277,6 +279,7 @@ const Dashboard = () => {
 	}
 
 	const itemRenderer = ({ item, itemContext, getItemProps }) => {
+	const total_habitacion = parseInt(item.valor_habitacion)
 
 	const abono = parseInt(item.abono)
 
@@ -309,9 +312,15 @@ const Dashboard = () => {
 		colorWords = 'white';
 		break;
 	case 3:
-		color = '#17c964';
-		colorWords = 'white';
-		iconState = <VscSymbolEvent fontSize={15} />;
+		if(abono >= total_habitacion){
+			color = '#17c964';
+			colorWords = 'white';
+			iconState = <VscSymbolEvent fontSize={15} />;
+		}else{
+			color = 'green';
+			colorWords = 'white';
+			iconState = <VscSymbolEvent fontSize={15} />;
+		}
 		break;
 	case 4:
 		color = '#0DC034';
@@ -333,10 +342,7 @@ const Dashboard = () => {
 		const backgroundColor = itemContext.selected  ? "black" :color
 
 		const key = `${item.id}_${item.id}_schedule`;
-
-		const total_habitacion = parseInt(item.valor_habitacion)
-
-	
+		
 
 		return (
 			
@@ -376,11 +382,15 @@ const Dashboard = () => {
 				whiteSpace: 'nowrap',
 			  }}
 			>
+
+				
 			   <div className="icon-state-reservation" >
 			   		<span className="margin-icon-state" >{iconState}</span>
 			  		<span className="text-words" >{title}</span>
 			   </div>
 				<div>
+				
+				
 						<Info  	place="top" 
 								variant="info" 
 								id={key}  >
@@ -784,6 +794,20 @@ const Dashboard = () => {
 			setpruebareservas(index)
 		})
 	},[setRoom])
+
+const [isOpen, setIsOpen] = useState(false);
+  const [selectedOption, setSelectedOption] = useState(null);
+
+  const handleToggleDropdown = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const handleOptionSelect = (option) => {
+    setSelectedOption(option);
+    setIsOpen(false);
+  };
+
+
 		
 
 	if(!search)  return null
@@ -794,19 +818,20 @@ const Dashboard = () => {
 	return (
 		<>			
 			<div ref={timelineRef} > 
-
-				<div className="top-index-home"></div>
-
-				<div className="container-calender">
-
-					<div className="container-button" >
-
-					<div>
-	
-			</div>
-					<button className='button-reservas' onClick={handClickReservaction} ><div className="flex-index-reservation" ><VscVerified fontSize={18} className="flex-contant" color="white"  /><span>Crear reserva</span></div></button>
-					<button className='button-reservas-type-one-one' onClick={handRoomDetail} ><div className="flex-index-reservation" ><VscSignOut className="flex-contan"  color="white" fontSize={18}/><span>Ver habitaciones </span> </div> </button>
-					<select  onChange={handClickInformAuditoria} value={stateInformes}					
+			<div style={{ display: "flex"}}>
+			<Spacer x={4} y={3} />
+			<Button  
+					onClick={handClickReservaction}
+					style={{width:"20%"}}  
+					color="error" 
+					icon={<HeartIcon fill="currentColor" filled   />} >Crear reserva</Button>
+			<Spacer x={0.5} y={1} />
+			<Button 
+					onClick={handRoomDetail}
+					style={{width:"20%"}}  
+					icon={<CameraIcon fill="currentColor" />}  >Ver habitaciones</Button>
+			<Spacer  x={0.5} y={1} />
+			<select  onChange={handClickInformAuditoria} value={stateInformes}					
 							className='button-reservas-type-one button-reservas-type-space button-reservas-type-one-two-two'>
 								
 							<option   className="opo-room"  > Informe</option>
@@ -819,8 +844,15 @@ const Dashboard = () => {
 												</option>
 																	))}
 						</select>
-				
-					<select onChange={handRaiting}  
+			
+
+			<Button 	
+					onClick={hanclickReservation}
+					style={{width:"20%"}}  
+					icon={<NotificationIcon fill="currentColor" />}  color="secondary">Reservas</Button>
+			<Spacer  x={0.5} y={1} />
+			<Button style={{width:"20%"}}  color="error" flat>Delete User</Button>
+			<select onChange={handRaiting}  
 													value={raiting} 
 													className='button-reservas-type-one button-reservas-type-space  button-reservas-type-one-two-two button-reservas-type-space-One-One' >
 													<option  className="opo-room" >  Ver habitaciones</option>
@@ -837,14 +869,10 @@ const Dashboard = () => {
 												)
 												)}
 												</select>
-					
-					<button className='button-reservas-type-one '   onClick={hanclickReservation} >
-							<div className="flex-index-reservation-one">
-									<BsCalendarCheck className="flex-contan-one"  color="grey" fontSize={18} /> <span >Reservas</span>
-							</div> 
-					</button>	
-				</div>
-			</div>
+												<Spacer  x={0.5} y={1} />
+		</div>
+
+				
 			
 			<Timeline
 				groupRenderer={renderGroup}
@@ -919,10 +947,7 @@ const Dashboard = () => {
 			</Timeline>
 			<br />
 			<CardStore totalday={totalDay} />
-			<WebVitals />
-            <WebVitals />
-            <WebVitals />
-            <WebVitals />
+			
 			</div>
 		</>
 
