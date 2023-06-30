@@ -1,206 +1,336 @@
-.button-informe-cosultar{
-    padding: 16px;
-    margin: auto;
-    text-align: center;
-    justify-content: center;
-    align-items: center;
-    margin-top: 21px;
-    border-radius: 8px;
-    background: #13a722d4;
-    color: white;
-    cursor: pointer;
-    width: 24%;
-    height: auto;
-    margin-left: 18px;
+.button-informe-cosultar {
+  padding: 16px;
+  margin: auto;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  margin-top: 21px;
+  border-radius: 8px;
+  background: #13a722d4;
+  color: white;
+  cursor: pointer;
+  width: 24%;
+  height: auto;
+  margin-left: 18px;
 }
 
-.with-button-room-to-sell{
-    width: 15% !important;
+.with-button-room-to-sell {
+  width: 15% !important;
 }
 
-.with-button-room-to-sell-One{
-    width: 17% !important;
+.with-button-room-to-sell-One {
+  width: 17% !important;
 }
 
-.button-informe-descargar{
-    padding: 16px;
-    margin: auto;
-    text-align: center;
-    justify-content: center;
-    align-items: center;
-    margin-top: 21px;
-    border-radius: 8px;
-    background: #eb6b7f;
-    color: white;
-    cursor: pointer;
-    width: 24%;
-    height: auto;
-    margin-left: 18px;
+.button-informe-descargar {
+  padding: 16px;
+  margin: auto;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  margin-top: 21px;
+  border-radius: 8px;
+  background: #eb6b7f;
+  color: white;
+  cursor: pointer;
+  width: 24%;
+  height: auto;
+  margin-left: 18px;
 }
 
-
-.button-informe-imprimir{
-    padding: 16px;
-    margin: auto;
-    text-align: center;
-    justify-content: center;
-    align-items: center;
-    margin-top: 21px;
-    border-radius: 8px;
-    background: black;
-    color: white !important;
-    cursor: pointer;
-    width: 24%;
-    height: auto;
-    margin-left: 18px;
-    text-decoration: none;
+.button-informe-imprimir {
+  padding: 16px;
+  margin: auto;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  margin-top: 21px;
+  border-radius: 8px;
+  background: black;
+  color: white !important;
+  cursor: pointer;
+  width: 24%;
+  height: auto;
+  margin-left: 18px;
+  text-decoration: none;
 }
 
-.button-informe-imprimir a{
-    padding: 16px;
-    margin: auto;
-    text-align: center;
-    justify-content: center;
-    align-items: center;
-    margin-top: 21px;
-    border-radius: 8px;
-    background: black;
-    color: white !important;
-    cursor: pointer;
-    width: 24%;
-    height: auto;
-    margin-left: 18px;
-    text-decoration: none;
+.button-informe-imprimir a {
+  padding: 16px;
+  margin: auto;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  margin-top: 21px;
+  border-radius: 8px;
+  background: black;
+  color: white !important;
+  cursor: pointer;
+  width: 24%;
+  height: auto;
+  margin-left: 18px;
+  text-decoration: none;
 }
 
-.Reservada-camareria{
-    background: #FF9990 !important;
+.Reservada-camareria {
+  background: #ff9990 !important;
 }
 
-.Ocupada-camareria{
-    background: rgb(103 183 90);
-    color: white;
+.Ocupada-camareria {
+  background: rgb(103 183 90);
+  color: white;
 }
 
-.Aseo-camareria{
-    background: #E9C9FF;
+.Aseo-camareria {
+  background: #e9c9ff;
 }
 
-.Aseo-camareriaONe{
-    background: #e27382;
+.Aseo-camareriaONe {
+  background: #e27382;
 }
 
-.limpia-camarerar{
-    background: #82d8cd;
+.limpia-camarerar {
+  background: #82d8cd;
 }
 
-.container-title-camareras{
-    text-align: center;
+.container-title-camareras {
+  text-align: center;
 }
 
-.container-camareras-room{
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
+.container-camareras-room {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
 }
 
 .box {
-    height: 40px;
-    width: 100px;
-  }
-  
-  .box:empty {
-    border: solid 1px ;
-  }
-
-  .container-global-camarera{
-    max-width: 1550px;
-    margin-top: 15;
-    display: flex;
-    margin: auto;
-    max-height: 709px;
-  }
-
-  .top-pdf{
-    max-width:  1550px;;
-  }
-
-  .flex-container-room{
-    display: flex !important;
-  }
-
-  .flex-container-room-One{
-    display: flex !important;
+  height: 40px;
+  width: 100px;
 }
 
-.rota-room-to-sell{
-    transform: rotateZ(-90deg);
-}
-.rota-room-to-sellOne{
-    transform: rotateZ(90deg);
+.box:empty {
+  border: solid 1px;
 }
 
-.flex-container-room  tr {
-    border: white;
+.container-global-camarera {
+  max-width: 1550px;
+  margin-top: 15;
+  display: flex;
+  margin: auto;
+  max-height: 709px;
+}
+
+.top-pdf {
+  max-width: 1550px;
+}
+
+.flex-container-room {
+  display: flex !important;
+}
+
+.flex-container-room-One {
+  display: flex !important;
+}
+
+.rota-room-to-sell {
+  transform: rotateZ(-90deg);
+}
+.rota-room-to-sellOne {
+  transform: rotateZ(90deg);
+}
+
+.flex-container-room tr {
+  border: white;
 }
 
 tr:nth-child(even) {
-    background-color: white;
+  background-color: white;
 }
 
-.to-tr{
-    display: grid;
+.to-tr {
+  display: grid;
 }
 
-.template-flex{
-    display: flex;
+.template-flex {
+  display: flex;
 }
-.flex-room-to-sell{
-    display: grid;
-}
-
-.top-pq{
-    width: 195px;
+.flex-room-to-sell {
+  display: grid;
 }
 
+.top-pq {
+  width: 195px;
+}
 
-.top-room-to-sell-width{
-    width: 96px;
-    justify-content: center;
+.top-room-to-sell-width {
+  width: 96px;
+  justify-content: center;
 }
 
 .footer {
-    position: fixed;
-    right: 10px;
-    bottom: 16px;
-    text-align: left;
-    background: rgba(221, 218, 218, 0.7);
-    padding: 8px 24px;
-    border-radius: 32px;
-    opacity: .95;
-    backdrop-filter: blur(8px);
-    z-index: 1000;
-  }
-  
-  .footer span {
-    font-size: 14px;
-    color: #09f;
-    opacity: .8;
-  }
-  
-  .footer h4, .footer h5 {
-    margin: 0;
+  position: fixed;
+  right: 10px;
+  bottom: 2px;
+  text-align: left;
+  background: #ff7d03;
+  border-radius: 32px;
+  opacity: 0.95;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+  transition: background-color 0.8s ease;
+  z-index: 1000;
+}
+
+.footer-one {
+  position: fixed;
+  right: 10px;
+  bottom: 50px;
+  text-align: left;
+  background: #008cff;
+  border-radius: 32px;
+  opacity: 0.95;
+  backdrop-filter: blur(2px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+  transition: background-color 0.8s ease;
+  z-index: 1000;
+}
+
+.footer span {
+  font-size: 14px;
+  color: white;
+  opacity: 0.8;
+}
+
+.footer h4,
+.footer h5 {
+  margin: 0;
+  display: flex;
+}
+
+.footer span {
+  font-size: 12px;
+  color: white;
+  opacity: 0.8;
+}
+
+.footer h4,
+.footer h5 {
+  margin: 0;
+  font-size: 13px;
+  display: flex;
+}
+
+.footer-one span {
+  font-size: 14px;
+  color: white;
+  opacity: 0.8;
+}
+
+.footer-one h4,
+.footer-one h5 {
+  margin: 0;
+  display: flex;
+}
+
+.footer-one span {
+  font-size: 12px;
+  color: white;
+  opacity: 0.8;
+}
+
+.footer-one h4,
+.footer-one h5 {
+  margin: 0;
+  font-size: 13px;
+  display: flex;
+  color: white;
+}
+
+.footer-two {
+  position: fixed;
+  right: 10px;
+  bottom: 98px;
+  text-align: left;
+  background: #17c964;
+  border-radius: 32px;
+  opacity: 0.95;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+  transition: background-color 0.8s ease;
+  z-index: 1000;
+}
+
+.footer-two span {
+  font-size: 14px;
+  color: #09f;
+  opacity: 0.8;
+}
+
+.footer-two h4,
+.footer-two h5 {
+  margin: 0;
+  display: flex;
+  color: white;
+}
+
+.footer-two span {
+  font-size: 12px;
+  color: white;
+  opacity: 0.8;
+}
+
+.footer-two h4,
+.footer-twoh5 {
+  margin: 0;
+  font-size: 13px;
+  display: flex;
+}
+
+.footer-four {
+  position: fixed;
+  right: 10px;
+  bottom: 145px;
+  text-align: left;
+  background: #f31260;
+  border-radius: 32px;
+  opacity: 0.95;
+  backdrop-filter: blur(8px);
+  z-index: 1000;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+  transition: background-color 0.8s ease;
+}
+
+.footer-four span {
+  font-size: 14px;
+  color: white;
+  opacity: 0.8;
+}
+
+.footer-four h4,
+.footer-four h5 {
+  margin: 0;
+  display: flex;
+  color: white;
+  font-weight: 500;
+}
+
+.footer-four span {
+  font-size: 12px;
+  color: white;
+  opacity: 0.8;
+}
+
+.footer-four h4,
+.footer-four h5 {
+  margin: 0;
+  font-size: 13px;
+  display: flex;
+}
+
+.flex-footer{
     display: flex;
-  }
-  
-  .footer span {
-    font-size: 12px;
-    color: #09f;
-    opacity: .8;
-  }
-  
-  .footer h4, .footer h5 {
-    margin: 0;
-    font-size: 13px;
-    display: flex;
-  }
+    justify-content: space-between;
+    color: white;
+    font-weight: 600;
+    align-items: center;
+}

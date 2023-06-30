@@ -311,13 +311,9 @@ const DetailDasboard =(props) =>{
       },
       {
         id: 2,
-        name: "Larga",
+        name: "Larga",  
       },
     ];
-
-    const handClickNextChecking =() =>{
-      history.push("/checking")
-    }
 
     const hanClickDetailCheckout =() =>{
       if(findFirma){
@@ -434,10 +430,7 @@ const DetailDasboard =(props) =>{
         })
     }
 
-    
     const {handModalText} =UseModalText({handlModal:handClickInsertAbono,Text:"Agregar abono ?"})
-
-
 
     useEffect(() =>{
       fetch("https://grupohoteles.co/api/getTipeDocument")
@@ -607,10 +600,11 @@ const priceLenceria = Lenceria?.reduce((acum,current) => {
     return acum  + current.Cantidad * current.Precio
 },0)
 
+console.log(resultDashboard)
 
   const hanDelete =() =>{
+
     ServiDelteReservation({id}).then(index =>{
-      console.log(index)
       postDetailRoom({id:resultDashboard?.ID_Habitaciones,ID_estado_habitacion:0})
       ServiceInfomeMovimiento({Nombre_recepcion:jwt.result.name,Fecha:now,Movimiento:`Reserva eliminada tipo habitacion ${resultFinish?.nombre} ${resultDashboard.Numero} nombre ${resultDashboard.Nombre} codigo reserva ${id} `,id:jwt.result.id_hotel}).then(index =>{
         window.location.href="/Home"
@@ -777,6 +771,7 @@ const hanClickLimpia =() => {
 
 const  handComprobante =UseModalText({handlModal:hancPdf,Text:"Descargar comprobante reserva?"})
 const  hanclickEditar =UseModalText({handlModal:state ?handChangeSave :handChangeEdit,Text:"Editar la informacion de la reserva?"})
+
 const  handleClickEliminar =UseModalText({handlModal:hanDelete,Text:"Estas seguro de eliminar la reserva ?"})
 
  const toPriceNigth = UsePrice({number:resultDashboard?.valor_dia_habitacion})

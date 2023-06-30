@@ -46,14 +46,7 @@ const CardStore =({totalday}) =>{
             </Grid>           
             </Grid.Container>
         </li>
-             <li>
-                    <div className="flex-card-card" >
-                    <WebVitals />
-                    <WebVitals />
-                    <WebVitals />
-                    <WebVitals />
-                </div>
-             </li>
+             
         
         </ul>
         </div>

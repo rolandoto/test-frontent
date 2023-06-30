@@ -130,10 +130,11 @@ function App() {
                 path="/Detailinforme/:id"
                 component={DetailnformeStore}
               />
+                 <Footer />
               <Route component={NoFound} />
             </Switch>
           </BrowserRouter>
-          <Footer />
+       
         </Provider>
       </div>
     );
@@ -261,10 +262,10 @@ function App() {
                 path="/Detailinforme/:id"
                 component={DetailnformeStore}
               />
+              
               <Route component={NoFound} />
             </Switch>
           </BrowserRouter>
-          <Footer />
         </Provider>
       </div>
     );
@@ -400,7 +401,7 @@ function App() {
               <Route component={NoFound} />
             </Switch>
           </BrowserRouter>
-          <Footer />
+         
         </Provider>
       </div>
     );

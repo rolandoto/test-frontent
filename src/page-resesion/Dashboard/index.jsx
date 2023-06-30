@@ -47,6 +47,7 @@ import WebVitals from "../../component/Web-vital";
 import { CiBadgeDollar } from "react-icons/ci";
 import { Button, Spacer } from '@nextui-org/react';
 import { CameraIcon, HeartIcon, LockIcon, NotificationIcon } from "./IconReservation";
+import Footer from "../../component/Footer/Footer";
 
 
 const GroupRows =({group,color,estado,iconState,letra}) =>{
@@ -849,7 +850,7 @@ const [isOpen, setIsOpen] = useState(false);
 			<Button 	
 					onClick={hanclickReservation}
 					style={{width:"20%"}}  
-					icon={<NotificationIcon fill="currentColor" />}  color="secondary">Reservas</Button>
+					icon={<NotificationIcon fill="currentColor" />}  color="secondary"   >Reservas</Button>
 			<Spacer  x={0.5} y={1} />
 			<Button style={{width:"20%"}}  color="error" flat>Delete User</Button>
 			<select onChange={handRaiting}  
@@ -945,9 +946,7 @@ const [isOpen, setIsOpen] = useState(false);
 			<CursorMarker />
 			</TimelineMarkers>
 			</Timeline>
-			<br />
-			<CardStore totalday={totalDay} />
-			
+			<Footer totalday={totalDay}   />
 			</div>
 		</>
 
