@@ -43,12 +43,10 @@ import useUpdateDetailPounterRangeSliceActions from "../../action/useUpdateDetai
 import useReservationActions from "../../action/useReservationActions";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import HttpClient from "../../HttpClient";
-import WebVitals from "../../component/Web-vital";
 import { CiBadgeDollar } from "react-icons/ci";
 import { Button, Spacer } from '@nextui-org/react';
 import { CameraIcon, HeartIcon, LockIcon, NotificationIcon } from "./IconReservation";
 import Footer from "../../component/Footer/Footer";
-
 
 const GroupRows =({group,color,estado,iconState,letra}) =>{
 	return (
@@ -86,16 +84,12 @@ const InfoMessage = styled.div`
 
 const Dashboard = () => {
 
-
-	const {id} = useParams()
-	const [open, setOpen] = useState(true);
 	const [reservation,setReservas] = useState()
 	const [pruebareservas,setpruebareservas] =useState()
 	const [state,setSate] =useState()
 	const [modalState,setModalState] =useState(false)
 	const [cleanline,setcleanline] =useState(false)
 	const [block,setBlock] =useState(false)
-	const [lookinfor,setLookingfor] =useState()
 	const {jwt,update,setUpadte} =useContext(AutoProvider)
 	const {dashboardVisible} = useSelector(selectDashboard)
 	const {checkingDasboardVisible} = useSelector(selectDashboardChecking)
@@ -107,7 +101,6 @@ const Dashboard = () => {
 	const  [totalDay ,setTotalDay] =useState()
 	const [selectedItem, setSelectedItem] = useState(null);
 	const [isPopperOpen, setIsPopperOpen] = useState(false);
-	const [isModalOpen, setIsModalOpen] = useState(false);
 	const {postUpdateDetailPointer} = useUpdateDetailPointerActions()
 	const {postUpdateDetailPointerRange} = useUpdateDetailPounterRangeSliceActions()
 	const {iduser} = UseListMotels()
@@ -418,6 +411,11 @@ const Dashboard = () => {
 		);
 	  };
 
+
+
+	 
+
+
 	const intervalRendererdayNum= ({ getIntervalProps, intervalContext ,data }) => {
 
 		const label = intervalContext.intervalText;
@@ -617,8 +615,6 @@ const Dashboard = () => {
 		}
 	];
 
-
-
 	const [stateInformes,setInformes] =useState(0)
 
 	const handClickInformAuditoria =(e) =>{
@@ -626,7 +622,6 @@ const Dashboard = () => {
 	}
 
 
-	  
 	useEffect(() =>{
 		if(stateInformes ==5){
 			return history.push("/informeauditoria")
@@ -651,39 +646,55 @@ const Dashboard = () => {
 		}
 	},[stateInformes,setInformes])
 
-	const [hoveredItem, setHoveredItem] = useState(null);
-
-	const handleItemHover = (itemId, time, e) => {
-		setHoveredItem(itemId);
-	  };
-
-  // definir estado para almacenar la fecha actual
-  	const [currentDat, setCurrentDate] = useState(new Date());
-
 	  const handleItemResize = (itemId, time, edge) => {
 		const fecha = moment(time).format('YYYY-MM-DD');
 	  
-		const updatedItems = reservation?.map(item => {
-		  if (item.id === itemId) {
-			const { start_time, end_time } = item;
-			if (edge === 'left') {
-			  return {
-				...item,
-				start_time: time,
-			  };
-			} else {
-			  return {
-				...item,
-				end_time: time,
-			  };
-			}
-		  } else {
-			return item;
-		  }
-		});
-	  
-		setpruebareservas(updatedItems);
-		setReservas(updatedItems)
+		const newReservation = structuredClone(pruebareservas)
+
+		const ReservationIndex = pruebareservas.findIndex(item => item.id == itemId)
+
+		const handModalText =(e) =>{
+			confirmAlert({
+			  title: '',
+			  message: Text,
+			  
+				  customUI: ({ onClose }) => {
+	
+					const handClick =() =>{
+						if (edge === 'left') {
+							newReservation[ReservationIndex].start_time = time
+							setpruebareservas(newReservation);
+							setReservas(newReservation)
+							postUpdateDetailPointer({ id: itemId, Fecha_final: fecha,countSeguro });
+							
+						}else{
+							newReservation[ReservationIndex].end_time = time
+							setpruebareservas(newReservation);
+							setReservas(newReservation)
+							postUpdateDetailPointer({ id: itemId, Fecha_final: fecha,countSeguro });
+						}
+						onClose() 
+					}
+		
+				   const handClose =() =>{
+					setpruebareservas(newReservation);
+					setReservas(newReservation)
+					onClose() 
+				   }
+		
+					return (
+						<div className="popup-overlay"  >
+							<h4 className="let-letra" >Confirmar cambio de reserva ?</h4>
+							<button  className="react-confirm-alert-button-group" onClick={handClick} >Si</button>
+							<button  className="react-confirm-alert-button-group" onClick={ handClose} >No</button>
+					  </div>         
+					);
+				  }
+			})
+		}
+
+		handModalText()
+
 		postUpdateDetailPointer({ id: itemId, Fecha_final: fecha,countSeguro });
 	  };
 
@@ -699,28 +710,59 @@ const Dashboard = () => {
 				dragTimeOne= dragTime+( item.end_time - item.start_time)
 				ID_Habitaciones =group.id
 			}
-		} )
+		})
 
 		const fecha1 = moment(dragTime).format('YYYY-MM-DD');
-
 		const fecha2 = moment(dragTimeOne).format('YYYY-MM-DD');
 
 		const desde =  `${fecha1} 15:00:00`
 		const hasta = `${fecha2} 13:00:00`
+		const newReservation = structuredClone(pruebareservas)
+
+		const handModalText =(e) =>{
+			confirmAlert({
+			  title: '',
+			  message: Text,
+			  
+				  customUI: ({ onClose }) => {
+	
+					const handClick =() =>{
+							const updatedItems = reservation.map(item =>
+								item.id === itemId
+								  ? {
+									  ...item,
+									  start_time: dragTime,
+									  end_time: dragTime + (item.end_time - item.start_time),
+									  group: group.id,
+									}
+								  : item,
+							  );
+							
+							  postUpdateDetailPointerRange({desde,hasta,ID_Habitaciones,id:itemId})
+							  setpruebareservas(updatedItems);
+							  setReservas(updatedItems)
+						onClose() 
+					}
 		
-		const updatedItems = reservation.map(item =>
-		  item.id === itemId
-			? {
-				...item,
-				start_time: dragTime,
-				end_time: dragTime + (item.end_time - item.start_time),
-				group: group.id,
-			  }
-			: item,
-		);
-		postUpdateDetailPointerRange({desde,hasta,ID_Habitaciones,id:itemId})
-		setpruebareservas(updatedItems);
-		setReservas(updatedItems)
+				   const handClose =() =>{
+					
+					setpruebareservas(newReservation);
+					setReservas(newReservation)
+					onClose() 
+				   }
+		
+					return (
+						<div className="popup-overlay"  >
+							<h4 className="let-letra" >Confirmar cambio de habitacion ?</h4>
+							<button  className="react-confirm-alert-button-group" onClick={handClick} >Si</button>
+							<button  className="react-confirm-alert-button-group" onClick={ handClose} >No</button>
+					  </div>         
+					);
+				  }
+			})
+		}
+
+		handModalText()
 	  };
 	
 	 
@@ -808,9 +850,6 @@ const [isOpen, setIsOpen] = useState(false);
     setIsOpen(false);
   };
 
-
-		
-
 	if(!search)  return null
 	if(!state)  return null
 	if(!reservation)return null
@@ -825,12 +864,12 @@ const [isOpen, setIsOpen] = useState(false);
 					onClick={handClickReservaction}
 					style={{width:"20%"}}  
 					color="error" 
-					icon={<HeartIcon fill="currentColor" filled   />} >Crear reserva</Button>
+					icon={<HeartIcon fill="currentColor" filled   />} > <span  className="text-words" >Crear reserva</span> </Button>
 			<Spacer x={0.5} y={1} />
 			<Button 
 					onClick={handRoomDetail}
 					style={{width:"20%"}}  
-					icon={<CameraIcon fill="currentColor" />}  >Ver habitaciones</Button>
+					icon={<CameraIcon fill="currentColor" />}  > <span  className="text-words" > Ver habitaciones</span></Button>
 			<Spacer  x={0.5} y={1} />
 			<select  onChange={handClickInformAuditoria} value={stateInformes}					
 							className='button-reservas-type-one button-reservas-type-space button-reservas-type-one-two-two'>
@@ -850,9 +889,9 @@ const [isOpen, setIsOpen] = useState(false);
 			<Button 	
 					onClick={hanclickReservation}
 					style={{width:"20%"}}  
-					icon={<NotificationIcon fill="currentColor" />}  color="secondary"   >Reservas</Button>
+					icon={<NotificationIcon fill="currentColor" />}  color="secondary">  <span  className="text-words" > Reservas </span> </Button>
 			<Spacer  x={0.5} y={1} />
-			<Button style={{width:"20%"}}  color="error" flat>Delete User</Button>
+			<Button style={{width:"20%"}}  color="error" flat> <span  className="text-words" > Delete User </span>  </Button>
 			<select onChange={handRaiting}  
 													value={raiting} 
 													className='button-reservas-type-one button-reservas-type-space  button-reservas-type-one-two-two button-reservas-type-space-One-One' >

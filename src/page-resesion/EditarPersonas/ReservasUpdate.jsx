@@ -9,17 +9,14 @@ import LoadingDetail from "../../Ui/LoadingDetail";
 import  AutoProvider  from "../../privateRoute/AutoProvider";
 import { config } from "../../config";
 import ServiceUpdateReservation from "../../service/ServiceUpdatereservation";
+import UseDocument from "../../hooks/useDocument";
 
 
 const ReservasUpdate =(props) =>{
-
-    const history =useHistory()
     const {DetailDashboard,fetchData} = props
     const {id} =useParams()
     const [state,setSatate] =useState()
     const [room,setRoom] =useState()
-    const [tipoDocumento,setTipoDocumento] =useState()
-
     const [nombre,setNombre] =useState()
     const [apellido,setApellido] =useState()
     const [document,setDocumento] =useState()
@@ -28,11 +25,12 @@ const ReservasUpdate =(props) =>{
     const [celular,setCelular] =useState()
     const [loading,setLoading] =useState(false)
     const [nacionalidad,setNacionalidad] =useState()
+    const [typeDocument,setypeDocument] = useState() 
     const [country,setCountry] =useState()
     const {jwt} = useContext(AutoProvider)
+    const  documentUse = UseDocument()
 
     const resultDasboard =  DetailDashboard[0]
-
 
     const init  =   moment(resultDasboard?.Fecha_inicio).utc().format('MM/DD/YYYY')
     const fin = moment(resultDasboard?.Fecha_final).utc().format('MM/DD/YYYY')
@@ -44,7 +42,7 @@ const ReservasUpdate =(props) =>{
     
     const day =diff/(1000*60*60*24)
 
-    const docu = tipoDocumento?.find(index =>  index?.ID == resultDasboard?.ID_Tipo_documento)
+    const docu = documentUse.document?.find(index =>  index?.ID == resultDasboard?.ID_Tipo_documento)
 
     const resultFinish = room?.find(index=>index?.id_tipoHabitacion == state?.ID_Tipo_habitaciones)
 
@@ -52,33 +50,27 @@ const ReservasUpdate =(props) =>{
     const f = moment(resultDasboard?.Fecha_final).utc().format('YYYY/MM/DD')
     const n = moment(resultDasboard?.Fecha_nacimiento).utc().format('YYYY/MM/DD')
     
-  
-
-    
     useEffect(() =>{
         ServicetypeRooms({id:jwt.result.id_hotel}).then(index =>{
             setRoom(index)
         })
-      fetch("https://grupohoteles.co/api/getTipeDocument")
-      .then(index =>index.json())
-      .then(data => setTipoDocumento(data))
       fetch(`${config.serverRoute}/api/resecion/getcountry`)
             .then(resp => resp.json())
             .then(data=> setCountry(data))
   },[])
 
+    let data  ={
+            Num_documento:document,
+            Nombre:nombre,
+            Apellido:apellido,
+            Fecha_nacimiento:nacimiento,
+            Correo:correo,
+            Celular:celular,
+            ID_Prefijo:nacionalidad,
+            ID_Tipo_documento:typeDocument
+    }
 
-  let data  ={
-        Num_documento:document,
-        Nombre:nombre,
-        Apellido:apellido,
-        Fecha_nacimiento:nacimiento,
-        Correo:correo,
-        Celular:celular,
-        ID_Prefijo:nacionalidad
-  }
-
-  
+    console.log(typeDocument)
 
   const handClick =() =>{
     ServiceUpdateReservation({id,data}).then(index =>{
@@ -91,8 +83,6 @@ const ReservasUpdate =(props) =>{
 
   const habitacion = room?.find(index=>index?.id_tipoHabitacion == resultDasboard?.ID_Tipo_habitaciones)
 
-
-  
     return (
         <>
             <div className="container-flex-init-global"  >
@@ -155,14 +145,27 @@ const ReservasUpdate =(props) =>{
                                             onChange={(e) => setApellido(e.target.value)}
                                             />
 
-                                    <input  type="text" 
+                                    <select  type="text" 
                                             className="desde-detail-two" 
                                             placeholder="Tipo de documento"
-                                            name="Fecha" 
-                                            readOnly={true}
+                                            name="Fecha"
+                                            onChange={(e) => setypeDocument(e.target.value)}
                                             defaultValue={docu?.nombre}
                                             
-                                            />
+                                    >
+                                        <option >{docu?.nombre}</option>
+                                                                    {documentUse?.document?.map(category =>(
+                                                                        <option 
+                                                                        value={category.ID}   
+                                                                        key={category.ID}
+                                                                    >
+                                                                        {category.nombre}
+                                                                    </option>
+                                                                    )
+                                                                    )}
+                                        
+
+                                    </select>
 
                                     <input  type="text" 
                                             className="desde-detail-two" 

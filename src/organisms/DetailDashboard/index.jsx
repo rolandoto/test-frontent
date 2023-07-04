@@ -67,21 +67,12 @@ const DetailDasboard =(props) =>{
 
     const totalId = jwt.result.id_hotel == 7 || jwt.result.id_hotel == 3 || jwt.result.id_hotel == 4 ? true : false
 	
-
     const hotel = iduser.find(FindIdHotel)
-
-    let countSeguro =0
-
-    const Info = styled(ReactTooltip)`
-    max-width: 500px  !important;
-    padding-top: 9px  !important;
-    z-index: 0 !important;
-    background: gray;
-  `;   
+ 
     const {progress} =useProgress({id})
     const resultDashboard = DetailDashboard[0]
 
-    console.log({"prosdas":progress})
+    console.log({"detail":resultDashboard.valor_abono})
 
     const findPersona =  resultDashboard?.tipo_persona == "persona"
     const findEmpresa = resultDashboard?.tipo_persona =="empresa"
@@ -92,8 +83,6 @@ const DetailDasboard =(props) =>{
       currency: 'COP',
       minimumFractionDigits: 0
     })
-
-
 
     const [values, setValues] = React.useState({
         Nombre: null,
@@ -147,15 +136,7 @@ const DetailDasboard =(props) =>{
       const [loadingTypeRoom,setLoadingTypeRoom] =useState({loading:false,error:false})
  
       const now = moment().set({ hour: 0, minute: 0, second: 0 }).format('YYYY/MM/DD HH:mm:ss');
-      console.log({now})
-      const handAsignar =(event)  =>{
-        setAsignar(event.target.value)
-      }
-
-      const handleChangeRoom =(event) => {
-        setIdRoom(event.target.value);
-      }
-
+   
       const handChangeObservation =(e) =>{
         setObservacion(e.target.value)
       }
@@ -234,7 +215,6 @@ const DetailDasboard =(props) =>{
     }
 
     const handChangeSave =() =>{
-
       ServiceInfomeMovimiento({Nombre_recepcion:jwt.result.name,Fecha:now,Movimiento:`Se actualizo datos personales tipo habitacion ${resultFinish?.nombre} ${resultDashboard.Numero} nombre ${resultDashboard.Nombre} codigo reserva ${resultDashboard.id_persona}`,id:jwt.result.id_hotel}).then(index =>{
         Swal.fire({
           position: 'center',
@@ -276,9 +256,7 @@ const DetailDasboard =(props) =>{
     const numOne  = numEnteroOne + addone
     const convertirFinishOne = parseInt(numOne) - convertirFinisht
 
-    const finishValor = formatter.format(convertirFinishOne)
 
-    const finisAbono = formatter.format(convertirFinish)
 
     let data ={
       Nombre,
@@ -295,14 +273,6 @@ const DetailDasboard =(props) =>{
       desdeOne:`${fecha.defaultValueone} 15:00:00`,
       hastaOne:`${espanOne} 15:00:00`,
   }   
-
-
-    const date1 = new Date(fechaOne?.defaultValueone)
-    const date2 = new  Date(espan)
-
-    const fechaFormateadaFechaInicio = UseFechaFormateada({fecha:fecha.defaultValueone})
-    const fechaFormateadaFechaFinal = UseFechaFormateada({fecha:fechaOne?.defaultValueone})
-
    
     const tipos_adicional = [
       {
@@ -327,38 +297,12 @@ const DetailDasboard =(props) =>{
       }
     }
     
-    const handClick =() =>{
-        Servicedetailespandir({desde:dataAvaible.desde,hasta:dataAvaible.hasta,desdeOne:dataAvaible.desdeOne,habitaciones:resultDashboard.ID_Tipo_habitaciones,ID_Habitaciones:resultDashboard.ID_Habitaciones,id,dayOne,valor_dia_habitacion:resultDashboard.valor_dia_habitacion}).then(index =>{
-          setLoadingFecha({loading:true})
-          ServiceInfomeMovimiento({ Nombre_recepcion:jwt.result.name,Fecha:now,Movimiento:`Actualizar fecha tipo habitacion ${resultFinish?.nombre} ${resultDashboard.Numero} nombre ${resultDashboard.Nombre}  codigo reserva ${resultDashboard.id_persona}`,id:jwt.result.id_hotel}).then(index =>{
-            Swal.fire({
-              position: 'center',
-              icon: 'success',
-              title: '<p>Fecha actulizado</p>',
-              showConfirmButton: false,
-              timer: 2000
-            })
-            setTimeout(() =>{
-              window.location.reload()
-            },2000)
-          }).catch(e =>{
-              console.log(e)
-          })
-        }).catch(e =>{
-          setLoadingFecha({error:true})
-        })
-    }
+
   
     const docu = tipoDocumento?.find(index =>  index?.ID == resultDashboard?.ID_Tipo_documento)
 
-    const habi = room?.map(index => {
-      const ID = index.id_tipoHabitacion
-      const {nombre} = index
-      return {nombre,ID}
-    })
-
     const resultFinish = room?.find(index=>index?.id_tipoHabitacion == resultDashboard?.ID_Tipo_habitaciones)
-    console.log(resultFinish)
+ 
     const item = state  ? <span>Editar</span> : <span>Guardar</span>
     
     const handEditar =(e) =>{
@@ -461,7 +405,6 @@ const DetailDasboard =(props) =>{
             .then(data =>setDisponibilidad(data))
   },[loadinConsumo,idRoom])
 
-  
   var numDefinish =  parseInt(resultDashboard?.valor_habitacion);
   const formattedNum = numDefinish.toLocaleString();  
   const valor_habitacion = formatter.format(resultDashboard?.valor_habitacion)
@@ -600,21 +543,27 @@ const priceLenceria = Lenceria?.reduce((acum,current) => {
     return acum  + current.Cantidad * current.Precio
 },0)
 
-console.log(resultDashboard)
-
   const hanDelete =() =>{
-
-    ServiDelteReservation({id}).then(index =>{
-      postDetailRoom({id:resultDashboard?.ID_Habitaciones,ID_estado_habitacion:0})
-      ServiceInfomeMovimiento({Nombre_recepcion:jwt.result.name,Fecha:now,Movimiento:`Reserva eliminada tipo habitacion ${resultFinish?.nombre} ${resultDashboard.Numero} nombre ${resultDashboard.Nombre} codigo reserva ${id} `,id:jwt.result.id_hotel}).then(index =>{
-        window.location.href="/Home"
-      }).catch(e =>{
-          console.log(e)
+    if(parseInt(resultDashboard.valor_abono) <=0){
+      ServiDelteReservation({id}).then(index =>{  
+        postDetailRoom({id:resultDashboard?.ID_Habitaciones,ID_estado_habitacion:0})
+        ServiceInfomeMovimiento({Nombre_recepcion:jwt.result.name,Fecha:now,Movimiento:`Reserva eliminada tipo habitacion ${resultFinish?.nombre} ${resultDashboard.Numero} nombre ${resultDashboard.Nombre} codigo reserva ${id} `,id:jwt.result.id_hotel}).then(index =>{
+          window.location.href="/Home"
+        }).catch(e =>{
+            console.log(e)
+        })
+    }).catch(e =>{
+        console.log("error")
+    })
+    }else{
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: '<p>no se puede eliminar la reserva</p>',
+        showConfirmButton: false,
+        timer: 1000
       })
-    
-  }).catch(e =>{
-      console.log("error")
-  })
+    }  
 } 
 
 const  typy_buy =  [
@@ -680,35 +629,6 @@ var fecha_final = currOne.toISOString().substring(0,10);
 
 const PriceRoomById= room?.find(index=>index?.id_tipoHabitacion == idRoom)
 
-const handServiceChangeTypeRoom =(e) =>{
-  e.preventDefault()
-  ServiceUpdateDetailTypeRoom({desde:dataAvaible.desdeOne,hasta:dataAvaible.desde,ID_Habitaciones:asignar,id,ID_Tipo_habitaciones:idRoom,RoomById:PriceRoomById}).then(index => {
-    ServiceInfomeMovimiento({Nombre_recepcion:jwt.result.name,Fecha:now,Movimiento:`Reserva cambio tipo habitacion ${resultFinish?.nombre} ${resultDashboard.Numero} nombre ${resultDashboard.Nombre} codigo reserva ${resultDashboard.id_persona}`,id:jwt.result.id_hotel}).then(index =>{
-      Swal.fire({
-        position: 'center',
-        icon: 'success',
-        title: '<p>Cambio de habitacion exitoso</p>',
-        showConfirmButton: false,
-        timer: 2000
-      })
-      setTimeout(() =>{
-        window.location.reload()
-      },2000)
-    }).catch(e =>{
-        console.log(e)
-    })
-   
-  }).catch(e =>{
-    Swal.fire({
-      position: 'center',
-      icon: 'error',
-      title: '<p>Error al cambiar habitacion</p>',
-      showConfirmButton: false,
-      timer: 2000
-    })
-  })
-}
-
 const hancPdf =() =>{
   ServePdf({  codigoReserva:resultDashboard?.Num_documento,Nombre:resultDashboard?.Nombre,room:resultFinish?.nombre,adults:resultDashboard?.Adultos,children:resultDashboard?.Ninos,tituloReserva:resultDashboard?.Nombre,abono:resultDashboard?.valor_abono,formaPago:resultDashboard?.forma_pago,telefono:resultDashboard.Celular,identificacion:resultDashboard.Num_documento,correo:resultDashboard.Correo,urllogo:jwt?.result?.logo,tarifa:resultDashboard.valor_habitacion,entrada:fecha_inicio,salida:fecha_final}).then(index => {
     const link = document.createElement('a')
@@ -771,7 +691,6 @@ const hanClickLimpia =() => {
 
 const  handComprobante =UseModalText({handlModal:hancPdf,Text:"Descargar comprobante reserva?"})
 const  hanclickEditar =UseModalText({handlModal:state ?handChangeSave :handChangeEdit,Text:"Editar la informacion de la reserva?"})
-
 const  handleClickEliminar =UseModalText({handlModal:hanDelete,Text:"Estas seguro de eliminar la reserva ?"})
 
  const toPriceNigth = UsePrice({number:resultDashboard?.valor_dia_habitacion})
