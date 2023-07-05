@@ -1,0 +1,84 @@
+ 
+.container-webcheckin{
+    text-align: center;
+    margin: auto;
+    padding: 2%;
+}
+
+.container-webcheckin {
+    display: flex;
+    margin: auto;
+    max-width: 500px;
+    height: 100vh;
+    flex-direction: column;
+    box-shadow: 0 0 50px rgba(0,0,0,.4);
+}
+
+  .progress-container {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    margin-bottom: 30px;
+    min-width: 100%;
+    width: 100%;
+    margin-top: 42px;
+  }
+  .progress-container::before {
+    content: '';
+    background:black;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    height: 4px;
+    width: 100%;
+  }
+  .progress {
+    content: "";
+    background: #17c964;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    height: 4px;
+    width: 0;
+    transition: width 0.3s ease;
+    width: 50%;
+  }
+  .circle {
+    background-color: black;
+    color: #999;
+    border-radius: 50%;
+    height: 50px;
+    width: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: .4s ease;
+    z-index: 1;
+  }
+  .circle.active {
+    background: #17c964;
+  }
+
+  .container-webcheking{
+    margin-top: 11%;
+  }
+
+  .title-web-checking{
+    text-align: initial;
+  }
+
+  .title-web-checking >span{
+    font-size: 25px;
+    font-weight: 100;
+  }
+
+  .title-label{
+    font-size: 20px;
+    font-weight: 100;
+  }
+
+  .container-form-web-checking{
+    margin-top: 30%;
+  }

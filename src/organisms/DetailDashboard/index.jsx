@@ -30,27 +30,18 @@ import ServiDelteReservation from "../../service/ServiDelecteReservation";
 import ServePdf from "../../service/PdfServe";
 import { confirmAlert } from "react-confirm-alert"; // Import
 import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
-import { RxCircleBackslash } from "react-icons/rx";
-import { BiMessageSquareEdit } from "react-icons/bi";
-import { SlBookOpen } from "react-icons/sl";
-import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
 import ServicePayReservationSore from "../../service/ServicePayReservationSore";
-import ServiceUpdateDetailTypeRoom from "../../service/ServiceUpdateDetailTypeRoom";
-import UseFechaFormateada from "../../hooks/UseFechaFormateado";
 import { VscVerified,VscSymbolEvent ,VscSignOut,VscSearch,VscRecord} from "react-icons/vsc";
 import HttpClient from "../../HttpClient"
 import Swal from 'sweetalert2'
 import ReactTooltip from "react-tooltip";
-import styled from "styled-components";
 import ServiceInfomeMovimiento from "../../service/ServiceInformeMovimiento";
 import { GiBroom } from "react-icons/gi";
-import { RiHotelBedLine } from "react-icons/ri";
 import ServiceStatus from "../../service/ServiceStatus";
 import { BsBucket ,BsCalendarCheck,BsCheckCircle,BsBell} from "react-icons/bs";
 import UseModalText from "../../hooks/UseModalText";
-import { Button, Table as table } from "@nextui-org/react";
-import { CiBadgeDollar } from "react-icons/ci";
+import { Button, Spacer, Table as table,Tooltip } from "@nextui-org/react";
+import { CiBadgeDollar,CiDollar } from "react-icons/ci";
 
 const DetailDasboard =(props) =>{
     const {id} = useParams()
@@ -758,7 +749,7 @@ const  handleClickEliminar =UseModalText({handlModal:hanDelete,Text:"Estas segur
               <div  >
               <Button style={{height:"110px"}}  color={`${totalPrice <=0 ? "success" : "error" }`} >
                 {totalPrice <= 0 ?  <span className="negrita-detail-reserva" >   <BsCheckCircle  className="text-center-icon"   fontSize={25} color="white"  />Al dia con  el pago</span> : <span className="negrita-detail-reserva" >   <CiBadgeDollar  className="text-center-icon"   fontSize={45} color="white"  />  ${cobrar.toLocaleString()}</span>   }   
-                   </Button>
+                </Button>
               </div>
               
               <div className="border-detail" >
@@ -771,17 +762,17 @@ const  handleClickEliminar =UseModalText({handlModal:hanDelete,Text:"Estas segur
                   <span>Abono:</span>
                    <span className="negrita-detail-reserva" >{valor_abono}</span>
               </div>
-              <div className="border-detail border-detail-one " >
-                  <div  onClick={hanClickAsear}  >
-                    <GiBroom className="text-center-icon"  fontSize={25} color="black"  /> 
-                      <span>Asear habitacion</span>
-                    </div>
+              <div>
+                
+                  <Button  onClick={hanClickAsear} style={{height:"110px"}} color={"warning"}  >
+                     <span className="negrita-detail-reserva" >   <GiBroom   className="text-center-icon"   fontSize={25} color="white"  />Asear habitacion</span>
+                  </Button>
               </div>
-               <div className="border-detail border-detail-two  " >
-               <div  onClick={hanClickLimpia}  >
-                  <BsCheckCircle  className="text-center-icon"   fontSize={25} color="black"  /> 
-                  <span> Habitacion limpia</span>
-                </div>
+              <Spacer x={0.4} y={1} />
+               <div  >
+                <Button  onClick={hanClickLimpia}   style={{height:"110px",width:"100%"}} color={"primary"}   >
+                     <span className="negrita-detail-reserva" >   <BsCheckCircle     className="text-center-icon"   fontSize={25} color="white"  />Habitacion limpia</span>
+                </Button>
               </div>
           </div>
       </div>
@@ -791,7 +782,6 @@ const  handleClickEliminar =UseModalText({handlModal:hanDelete,Text:"Estas segur
               <input type="date" className="desde-detail"   onChange={(e) =>setspand(e.target.value)}  defaultValue={fecha_final}  />
               <h2 className="cod-reserva" ><span className="title-code" >COD:</span> X14A-{resultDashboard?.Num_documento}{id}</h2>
           </div>
-         
       </div>
       <div className="init" >
         <form  className="container-flex-init" >
@@ -866,7 +856,6 @@ const  handleClickEliminar =UseModalText({handlModal:hanDelete,Text:"Estas segur
                     )
                     )}
                 </select>
-
                 <input   name="PayAbono"
                           onChange={handleInputPay}
                           type="number"
@@ -874,25 +863,39 @@ const  handleClickEliminar =UseModalText({handlModal:hanDelete,Text:"Estas segur
                           defaultValue={0}
                         className="desde-detail-two"  />
                 <div>
-                      <button className="button-change-type-room" onClick={handModalText}  > <span>Agregar pago</span></button>
+                <Tooltip content={"Agregar pago sin coma, ni punto "} style={{color:"white"}} >
+                <Button style={{background:"black"}} 
+                 className="button-change-type-room"  
+                  onClick={handModalText} 
+                 icon={(<CiDollar     className="text-center-icon"   fontSize={25} color="white"  />)}  >
+                     <span className="negrita-detail-reserva" >Agregar abono</span>
+                  </Button>
+                </Tooltip>  
                 </div>    
             </div>
         </form>
       </div>
 
         <div className="container-flex-init-one-center " >
-              <div>
-                  <button className={`${ findFirma ? "button-checking-detail-firma" : "button-checking-detail-finish-button" } `} onClick={handChecking} >
-                      <span className="title-button"  > <div className="inke-in" >
-                      <VscSymbolEvent fontSize={18} className="flex-contan"  color="white" /> <span> Check in</span> 
-                      </div>   </span>
-                  </button>
+              <div> 
+                  <Button
+                  onClick={handChecking}
+                     disabled={findFirma}
+                    className="button-checking-detail-one-das"
+                    style={{width:"100%"}}  
+                    color="success" 
+                    icon={( <VscSymbolEvent fontSize={18} className="flex-contan"  color="white" />)}
+                     > <span  className="text-words" >Check in</span> </Button>
               </div>
               <div>
-                  <button className={`${!findFirma ?   "button-checking-detail-firma": " button-checking-detail-checkout" }  `} onClick={hanClickDetailCheckout}  >
-                      <span className="title-button"  > <div className="inke-in" > <VscSignOut className="flex-contan"  color="white" fontSize={18}  /> <span> Check out </span> 
-                                            </div></span>
-                  </button>
+              <Button
+              icon={(<VscSignOut className="flex-contan"  color="white" fontSize={18}  /> )}
+              onClick={hanClickDetailCheckout} 
+                     disabled={!findFirma}
+                    className="button-checking-detail-one-das"
+                    style={{width:"100%"}}  
+                    color="success" 
+                     > <span  className="text-words" >Check out</span> </Button>
               </div>
               <ReactTooltip id="registerTip" place="top" effect="solid">
                     Eliminar reserva
@@ -944,10 +947,7 @@ const  handleClickEliminar =UseModalText({handlModal:hanDelete,Text:"Estas segur
                               checked={isChecked}/> Empresa
               </div> 
             }
-            <div>
-                <input className="button-checking-detail-one-dash" type={"number"}  disabled={true}  placeholder="Abono" onChange={(e) =>setAbono(e.target.value)} />
-            </div> 
-          
+        
             <div>
             <Button
             className="button-checking-detail-one-das"

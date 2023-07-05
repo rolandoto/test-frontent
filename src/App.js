@@ -56,6 +56,7 @@ import CustomNav from "./Ui/CustomNav";
 import RoomDetail from "./page-resesion/RoomDetail";
 import MainDasboard from "./page-resesion/Dashboard/Main";
 import Footer from "./component/Footer/Footer";
+import WebChecking from "./page-resesion/webChecking";
 
 function App() {
   const { jwt } = useContext(AutoProvider);
@@ -130,11 +131,15 @@ function App() {
                 path="/Detailinforme/:id"
                 component={DetailnformeStore}
               />
-                 <Footer />
+             
+             <Route
+                exact
+                path="/webchecking"
+                component={WebChecking}
+              />
               <Route component={NoFound} />
             </Switch>
           </BrowserRouter>
-       
         </Provider>
       </div>
     );
@@ -411,6 +416,11 @@ function App() {
         <BrowserRouter>
           <HeaderComunicate />
           <Switch>
+          <Route
+                exact
+                path="/webchecking"
+                component={WebChecking}
+              />
             <Route exact path="/" component={Login} />
             <PrivateRoute exact path="/Home" component={Comunicate} />
             <Route component={NoFound} />

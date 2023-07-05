@@ -888,7 +888,7 @@ const [isOpen, setIsOpen] = useState(false);
 					style={{width:"20%"}}  
 					icon={<NotificationIcon fill="currentColor" />}  color="secondary">  <span  className="text-words" > Reservas </span> </Button>
 			<Spacer  x={0.5} y={1} />
-			<Button style={{width:"20%"}}  color="error" flat> <span  className="text-words" > Delete User </span>  </Button>
+			<Button style={{width:"20%"}}  color="error" flat> <span  className="text-words" >Total reservas</span>  </Button>
 			<select onChange={handRaiting}  
 													value={raiting} 
 													className='button-reservas-type-one button-reservas-type-space  button-reservas-type-one-two-two button-reservas-type-space-One-One' >
@@ -945,8 +945,8 @@ const [isOpen, setIsOpen] = useState(false);
 							display:"flex",
 							justifyContent:"center",
 							padding:'8px',
-							width:"200px",
-							height: "63px"
+							width:"10px ",
+							height: "67px"
 						}
 					})}>
 					
