@@ -276,13 +276,19 @@ const Checkingn3 =() =>{
                         <span className="negrita-detail-reserva" >{toPriceAbono.price}</span>
                     </div> 
 
+
                   
                 </div>
-                <Button
+
+                <div className="  one-button-checking"  >
+                    <Button
 				         onClick={hanClickinContracto}
 					style={{width:"100%"}}  
 					color="success" 
 				 > <span  className="text-words" >Continuar</span> </Button>
+                    </div>
+                  
+              
             </>
         )
     

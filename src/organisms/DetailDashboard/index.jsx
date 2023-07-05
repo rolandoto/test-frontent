@@ -49,7 +49,8 @@ import { RiHotelBedLine } from "react-icons/ri";
 import ServiceStatus from "../../service/ServiceStatus";
 import { BsBucket ,BsCalendarCheck,BsCheckCircle,BsBell} from "react-icons/bs";
 import UseModalText from "../../hooks/UseModalText";
-import { Table as table } from "@nextui-org/react";
+import { Button, Table as table } from "@nextui-org/react";
+import { CiBadgeDollar } from "react-icons/ci";
 
 const DetailDasboard =(props) =>{
     const {id} = useParams()
@@ -61,6 +62,8 @@ const DetailDasboard =(props) =>{
     const history = useHistory()
     const {iduser} = UseListMotels()
     const {jwt} = useContext(AutoProvider)
+
+
 
     const FindIdHotel=(hotel) =>{
      return hotel.id_hotel == jwt.result.id_hotel
@@ -335,7 +338,7 @@ const DetailDasboard =(props) =>{
 
     const [inputPayValue, setInputPayValue] = useState({
       ID_Reserva: id,
-      PayAbono: null,
+      PayAbono: 0,
       Fecha_pago: now,
       Tipo_forma_pago: null,
       Nombre_recepcion:jwt.result.name
@@ -350,6 +353,9 @@ const DetailDasboard =(props) =>{
     }
 
     const handClickInsertAbono =()  => {
+      if(inputPayValue.PayAbono > 0 ){
+        
+      }
         HttpClient.insertPayABono({data:inputPayValue}).then(index=> {
           ServiceInfomeMovimiento({Nombre_recepcion:jwt.result.name,Fecha:now,Movimiento:`Abono agregado tipo habitacion ${resultFinish?.nombre} ${resultDashboard.Numero} nombre ${resultDashboard.Nombre} codigo reserva ${resultDashboard.id_persona}`,id:jwt.result.id_hotel}).then(index =>{
             Swal.fire({
@@ -407,11 +413,16 @@ const DetailDasboard =(props) =>{
   },[loadinConsumo,idRoom])
 
   var numDefinish =  parseInt(resultDashboard?.valor_habitacion);
+
   const formattedNum = numDefinish.toLocaleString();  
   const valor_habitacion = formatter.format(resultDashboard?.valor_habitacion)
   const valor_abono =  formatter.format(resultDashboard?.valor_abono)
   const total_Cobrar = resultDashboard?.valor_habitacion - resultDashboard?.valor_abono
-  const cobrar = formatter.format(total_Cobrar)
+  const cobrar =  parseInt( resultDashboard?.valor_habitacion) - parseInt(resultDashboard?.valor_abono)
+
+  const totalPrice =  DetailDashboard.reduce((acum,item)  =>  acum  + parseInt(item.valor_habitacion) - parseInt(item.valor_abono) - parseInt(inputPayValue.PayAbono),0) 
+
+  const totaCobrar  =  totalPrice  ? totalPrice : 0
 
   let count
 
@@ -691,15 +702,12 @@ const hanClickLimpia =() => {
 }
 
 
-console.log(inputPayValue)
-
-const totalWithCobrar =  numDefinish   -inputPayValue.PayAbono 
-
 const  handComprobante =UseModalText({handlModal:hancPdf,Text:"Descargar comprobante reserva?"})
 const  hanclickEditar =UseModalText({handlModal:state ?handChangeSave :handChangeEdit,Text:"Editar la informacion de la reserva?"})
 const  handleClickEliminar =UseModalText({handlModal:hanDelete,Text:"Estas seguro de eliminar la reserva ?"})
 
  const toPriceNigth = UsePrice({number:resultDashboard?.valor_dia_habitacion})
+
 
  if(!resultDashboard) return <h1>algo error</h1>
 
@@ -746,16 +754,19 @@ const  handleClickEliminar =UseModalText({handlModal:hanDelete,Text:"Estas segur
                    <span>Total hospedaje:</span>
                    <span className="negrita-detail-reserva" >{valor_habitacion}</span>
               </div>
-             
+            
+              <div  >
+              <Button style={{height:"110px"}}  color={`${totalPrice <=0 ? "success" : "error" }`} >
+                {totalPrice <= 0 ?  <span className="negrita-detail-reserva" >   <BsCheckCircle  className="text-center-icon"   fontSize={25} color="white"  />Al dia con  el pago</span> : <span className="negrita-detail-reserva" >   <CiBadgeDollar  className="text-center-icon"   fontSize={45} color="white"  />  ${cobrar.toLocaleString()}</span>   }   
+                   </Button>
+              </div>
+              
               <div className="border-detail" >
                   <span>Tipo habitacion:</span>
                    <span className="negrita-detail-reserva"  >{resultFinish?.nombre} {resultDashboard.Numero}</span>
               </div>
 
-              <div className="border-detail" >
-                    <span>Tipo de pago:</span>
-                   <span className="negrita-detail-reserva" >{resultDashboard?.forma_pago}</span>
-              </div>
+             
               <div className="border-detail" >
                   <span>Abono:</span>
                    <span className="negrita-detail-reserva" >{valor_abono}</span>
@@ -859,6 +870,7 @@ const  handleClickEliminar =UseModalText({handlModal:hanDelete,Text:"Estas segur
                 <input   name="PayAbono"
                           onChange={handleInputPay}
                           type="number"
+                          value={inputPayValue.PayAbono}
                           defaultValue={0}
                         className="desde-detail-two"  />
                 <div>
@@ -935,8 +947,14 @@ const  handleClickEliminar =UseModalText({handlModal:hanDelete,Text:"Estas segur
             <div>
                 <input className="button-checking-detail-one-dash" type={"number"}  disabled={true}  placeholder="Abono" onChange={(e) =>setAbono(e.target.value)} />
             </div> 
+          
             <div>
-                <button className="button-checking-detail-one-das" > <span> Total cobro {cobrar}  </span></button>
+            <Button
+            className="button-checking-detail-one-das"
+            style={{width:"100%"}}  
+            color={`${totalPrice <=0 ? "success" : "error" }`} 
+          > <span  className="text-words" >Total a cobro ${totaCobrar.toLocaleString()} </span> </Button>
+              
             </div>
       </div>
       <div >
