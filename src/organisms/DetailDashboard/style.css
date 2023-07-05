@@ -719,7 +719,7 @@
 .button-change-type-room{
   border: none;
     padding: 0;
-    width: 513px;
+    width: 513px !important;
     border-radius: 8px;
     color: white;
     height: 53px;

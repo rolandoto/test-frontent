@@ -866,6 +866,7 @@ const  handleClickEliminar =UseModalText({handlModal:hanDelete,Text:"Estas segur
                 <Tooltip content={"Agregar pago sin coma, ni punto "} style={{color:"white"}} >
                 <Button style={{background:"black"}} 
                  className="button-change-type-room"  
+                 
                   onClick={handModalText} 
                  icon={(<CiDollar     className="text-center-icon"   fontSize={25} color="white"  />)}  >
                      <span className="negrita-detail-reserva" >Agregar abono</span>
