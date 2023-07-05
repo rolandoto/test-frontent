@@ -107,9 +107,6 @@ const Dashboard = () => {
 	const dispatch = useAppDispatch()
 	
 	
-	
-
-
 	const FindIdHotel=(hotel) =>{
 		return hotel.id_hotel == jwt.result.id_hotel
 	}

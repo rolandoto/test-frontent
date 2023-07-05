@@ -49,6 +49,7 @@ import { RiHotelBedLine } from "react-icons/ri";
 import ServiceStatus from "../../service/ServiceStatus";
 import { BsBucket ,BsCalendarCheck,BsCheckCircle,BsBell} from "react-icons/bs";
 import UseModalText from "../../hooks/UseModalText";
+import { Table as table } from "@nextui-org/react";
 
 const DetailDasboard =(props) =>{
     const {id} = useParams()
@@ -689,6 +690,11 @@ const hanClickLimpia =() => {
   })
 }
 
+
+console.log(inputPayValue)
+
+const totalWithCobrar =  numDefinish   -inputPayValue.PayAbono 
+
 const  handComprobante =UseModalText({handlModal:hancPdf,Text:"Descargar comprobante reserva?"})
 const  hanclickEditar =UseModalText({handlModal:state ?handChangeSave :handChangeEdit,Text:"Editar la informacion de la reserva?"})
 const  handleClickEliminar =UseModalText({handlModal:hanDelete,Text:"Estas seguro de eliminar la reserva ?"})
@@ -1226,28 +1232,8 @@ const Huesped =({quyery,handEditar,handChangeSubmit ,stateButton,DetailDashboard
 
 const Consumo =(props) =>{
 
-  const  {day,
+  const  {
           habitacion,
-          totalAlojamiento,
-          totalBebidas,
-          priceBebidas,
-          bebidas,
-          totalSnacks,
-          priceSnacks,
-          Snacks,
-          totalSouvenir,
-          priceSouvenir,
-          Souvenir,
-          totalDrogueria,
-          priceDrogueria,
-          Drogueria,
-          totalAdultos,
-          priceAdultos,
-          Adultos,
-          totalLenceria,
-          priceLenceria,
-          Lenceria,
-          jwt,
           setLoadingConsumo,
           loadinConsumo,
           product} = props

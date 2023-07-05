@@ -11,6 +11,8 @@ import UsePrice from "../../hooks/UsePrice";
 import ServiceUpdateReservationpay from "../../service/ServiceUpdatereservationpay";
 import ServiceStatus from "../../service/ServiceStatus";
 import "moment/locale/es";
+import { Button } from "@nextui-org/react";
+
 
 const Checkingn3 =() =>{
     moment.locale("en-in");  
@@ -276,9 +278,11 @@ const Checkingn3 =() =>{
 
                   
                 </div>
-                        <div className="checkin2  one-button-checking"  onClick={hanClickinContracto}>
-                            <button>Continuar</button>
-                </div> 
+                <Button
+				         onClick={hanClickinContracto}
+					style={{width:"100%"}}  
+					color="success" 
+				 > <span  className="text-words" >Continuar</span> </Button>
             </>
         )
     
@@ -338,10 +342,12 @@ const Checkingn3 =() =>{
                                 <span className="negrita-detail-reserva" >{toPriceAbono.price}</span>
                             </div>         
                 </div>
-                           
-                <div className="checkin2"  onClick={hanClickinContracto}>
-                            <button>Continuar</button>
-                        </div>
+                     <Button
+				         onClick={hanClickinContracto}
+					style={{width:"100%"}}  
+					color="success" 
+				 > <span  className="text-words" >Continuar</span> </Button>
+              
                     </div>
     
            

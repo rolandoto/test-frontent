@@ -13,6 +13,10 @@ import ServiceUpdateReservationpay from "../../service/ServiceUpdatereservationp
 import ServiceStatus from "../../service/ServiceStatus";
 import HttpClient from "../../HttpClient";
 import ServiceInfomeMovimiento from "../../service/ServiceInformeMovimiento";
+import { confirmAlert } from "react-confirm-alert";
+import Swal from "sweetalert2";
+import { HeartIcon } from "../../page-resesion/Dashboard/IconReservation";
+import { Button } from "@nextui-org/react";
 
 const Checkingn2Organism =({id,postDetailRoom,fetchDataApiWhatsapp,postWhataapById}) =>{
     
@@ -69,8 +73,6 @@ const Checkingn2Organism =({id,postDetailRoom,fetchDataApiWhatsapp,postWhataapBy
     let data ={
         Firma:"1"
       } 
-
-    
 
         useEffect(() =>{
             ServicetypeRooms({id:jwt.result.id_hotel}).then(index =>{
@@ -169,12 +171,7 @@ const Checkingn2Organism =({id,postDetailRoom,fetchDataApiWhatsapp,postWhataapBy
     const now = moment().set({ hour: 0, minute: 0, second: 0 }).format('YYYY/MM/DD HH:mm:ss');
     console.log(now)
 
-    let dataOne ={
-        Abono:resulDetailDashboard?.valor_habitacion,
-        AbonoOne:resulDetailDashboard?.valor_habitacion - resulDetailDashboard?.valor_abono ,
-        Fecha_pago:now,
-        Valor_habitacion:resulDetailDashboard?.valor_habitacion
-    }
+  
     
     const inputPayValue ={
         ID_Reserva: id,
@@ -184,9 +181,12 @@ const Checkingn2Organism =({id,postDetailRoom,fetchDataApiWhatsapp,postWhataapBy
         Nombre_recepcion:jwt.result.name
     }
 
+
+    const [disable,setDisable] =useState(false)
+
     const handFirmar =() =>{
         ServiceUpdateReservation({id:resulDetailDashboard.id_persona,data}).then(index =>{
-            if(inputPayValue.PayAbono <=0){
+            if( ( parseInt(resulDetailDashboard?.valor_abono) >0)){
             }else {
                 HttpClient.insertPayABono({data:inputPayValue}).then(index =>{
                     console.log(index)
@@ -207,26 +207,70 @@ const Checkingn2Organism =({id,postDetailRoom,fetchDataApiWhatsapp,postWhataapBy
     const totalNumberPhone = numberPhone.replace("+","")
 
     const fullName =   resulDetailDashboard?.Nombre +" "+ resulDetailDashboard?.Apellido
+
+ 
+  
+    const handUpdateConfirms = async () => {
+        setDisable(true);
+        try {
+          await fetchDataApiWhatsapp({ phone: numberPhone, name: fullName });
+          await ServiceUpdateReservationpay({ id, dataOne: dataTwo });
+      
+          await postDetailRoom({ id: resulDetailDashboard?.ID_Habitaciones, ID_estado_habitacion: 3 });
+          await ServiceStatus({ id, ID_Tipo_Estados_Habitaciones: 3 });
+      
+          const movimiento = `Check in realizado tipo habitacion ${resultFinish?.nombre} ${resulDetailDashboard.Numero} nombre ${resulDetailDashboard.Nombre} codigo reserva ${resulDetailDashboard.id_persona}`;
+      
+          await ServiceInfomeMovimiento({ Nombre_recepcion: jwt.result.name, Fecha: now, Movimiento: movimiento, id: jwt.result.id_hotel });
+          setDisable(false);
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: '<p>pago exitoso</p>',
+            showConfirmButton: false,
+            timer: 2000
+          });
+      
+        
+          history.push(`/checkingin3/${id}`);
+        } catch (error) {
+          console.log(error);
+        }
+      };
+
+
+    const handModalText =(e) =>{
+        confirmAlert({
+          title: '',
+          message: Text,
+          
+              customUI: ({ onClose }) => {
+
+                const handClick =() =>{
+                 
+                    hanClickinContracto()
+                    onClose() 
+                }
     
+               const handClose =() =>{
+                    onClose() 
+               }
+    
+                return (
+                    <div className="popup-overlay"  >
+                        <h4 className="let-letra" >Comfirma pago ?</h4>
+                        <button  className="react-confirm-alert-button-group" onClick={handClick} >Si</button>
+                        <button  className="react-confirm-alert-button-group" onClick={ handClose} >No</button>
+                  </div>         
+                );
+              }
+        })
+        }
 
-    const handUpdateConfirms =async() =>{
-        fetchDataApiWhatsapp({phone:numberPhone,name:fullName})
-        ServiceUpdateReservationpay({id,dataOne:dataTwo}).then(index  =>{
-            postDetailRoom({id:resulDetailDashboard?.ID_Habitaciones,ID_estado_habitacion:3})
-            ServiceStatus({id,ID_Tipo_Estados_Habitaciones:3}).then(index=>{
-                ServiceInfomeMovimiento({Nombre_recepcion:jwt.result.name,Fecha:now,Movimiento:`Check in realizado tipo habitacion ${resultFinish?.nombre}  ${resulDetailDashboard.Numero}  nombre ${resulDetailDashboard.Nombre} codigo reserva ${resulDetailDashboard.id_persona}  `,id:jwt.result.id_hotel}).then(index =>{
-                    window.location.href =(`/checkingin3/${id}`)
-                }).catch(e =>{
-                    console.log(e)
-                })
-            }).catch(e =>{
-                console.log(e)
-            })
-        }).catch(e =>{
-            console.log(e)
-        }) 
-    }
+        
 
+
+    
 
 
     if(!resultFinish) return null
@@ -304,8 +348,13 @@ const Checkingn2Organism =({id,postDetailRoom,fetchDataApiWhatsapp,postWhataapBy
 
                   
                 </div>
-                        <div className="checkin2  one-button-checking"  onClick={hanClickinContracto} >
-                            <button>Continuar</button>
+                        <div className="  one-button-checking"  >
+                        <Button 
+					disabled={disable}
+                    onClick={handModalText}
+					style={{width:"100%"}}  
+					color="success" 
+				 > <span  className="text-words" >Continuar</span> </Button>
                 </div> 
             </>
         )
@@ -380,9 +429,12 @@ const Checkingn2Organism =({id,postDetailRoom,fetchDataApiWhatsapp,postWhataapBy
                             </div>         
                 </div>
                            
-                <div className="checkin2"  onClick={hanClickinContracto}>
-                            <button>Continuar</button>
-                        </div>
+                <Button 
+					disabled={disable}
+                    onClick={handModalText}
+					style={{width:"100%"}}  
+					color="success" 
+				 > <span  className="text-words" >Continuar</span> </Button>
                     </div>
     
            

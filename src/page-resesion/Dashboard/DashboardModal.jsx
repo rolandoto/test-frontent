@@ -5,7 +5,7 @@
     import ServicetypeRooms from "../../service/ServicetypeRooms";
     import Input from "../../Ui/Input";
     import Selected from "../../Ui/Select";
-    import { Loading ,Grid} from "@nextui-org/react";
+    import { Loading ,Grid, Button} from "@nextui-org/react";
     import ServiceAvaiblereservation from "../../service/ServiceAviableReception";
     import ServiceRoomsAviable from "../../service/ServiceRoomsAvaible";
     import CurrencyInput from 'react-currency-input-field';
@@ -726,10 +726,18 @@ const DashboardModal = (props) => {
 
                                                 <ul className="container-button-dasboard" >
                                                     <li>
-                                                        <button className="button-dasboard-one-one" onClick={handClick}  >
-                                                                { <span>Validar</span>}  
+                                                        <button className="button-dasboard-one-one" >
+                                                        <Button
+                                                        className="button-dasboard-one-one"
+                                                            onClick={handClick}  
+                                                        style={{width:"100%"}}  
+                                                        color="success" 
+                                                    > <span  className="text-words" >Continuar</span> </Button>
                                                         </button>
+                                                       
                                                     </li> 
+
+                                                    <li></li>
                                                 </ul> 
                                                     
                                         <div  className="container-border-gray "  >

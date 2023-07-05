@@ -34,7 +34,6 @@ const DetailChekingOrganism =({id}) =>{
 
     const totalId   = jwt.result.id_hotel == 7 || jwt.result.id_hotel == 3 || jwt.result.id_hotel == 4 ? true : false
 	
-    
     useEffect(() =>{
         fetch(`${config.serverRoute}/api/resecion/getdetailchecking/${id}`)
         .then(resp => resp.json())
@@ -45,8 +44,6 @@ const DetailChekingOrganism =({id}) =>{
         ID_Tipo_Forma_pago:null,
         Iva:null
     })
-
-
 
     const  resulDetailDashboard = DetailDashboard[0]
     const findPersona =  resulDetailDashboard?.tipo_persona == "persona"
@@ -60,8 +57,6 @@ const DetailChekingOrganism =({id}) =>{
     const [infantes,setInfantes] =useState()
     const [valid,setValid] =useState(true)
     
-    
-    console.log(tipoPersonas)
     function handleOnChange(event) {
         setTipoPersona("persona")
         setIsChecked(!isChecked);
@@ -321,8 +316,6 @@ const DetailChekingOrganism =({id}) =>{
         Valor:total
     }
 
-
-
     const handClickReservation =() =>{
         ServiceAddHuespedes({id,huespe,data,dataPay}).then(index =>{
             window.location.href =`/detailchecking/${id}`
@@ -340,14 +333,10 @@ const DetailChekingOrganism =({id}) =>{
 
     const finishValor = formatter.format(convertirFinishOne)
 
-   
-
     let dataTwo ={
         Tipo_persona:tipoPersonas,
         Iva:totalId ? 2:change.Iva
     } 
-
-   
 
     const hanClickingn2 =() =>{
         if(change.Iva== null){
