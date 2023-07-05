@@ -377,10 +377,10 @@
 .button-checking-detail-one-das {
   border: none;
   padding: 20px;
-  width: 527px;
+  width: 100% !important;
   border-radius: 8px;
   color: white;
-  height: 48px;
+  height: 48px !important;
   align-items: center;
   text-align: center;
   display: flex;
@@ -722,7 +722,7 @@
     width: 513px !important;
     border-radius: 8px;
     color: white;
-    height: 53px;
+    height: 53px !important;
     align-items: center;
     /* text-align: center; */
     display: flex;

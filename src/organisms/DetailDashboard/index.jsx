@@ -883,7 +883,7 @@ const  handleClickEliminar =UseModalText({handlModal:hanDelete,Text:"Estas segur
                   onClick={handChecking}
                      disabled={findFirma}
                     className="button-checking-detail-one-das"
-                    style={{width:"100%"}}  
+                    
                     color="success" 
                     icon={( <VscSymbolEvent fontSize={18} className="flex-contan"  color="white" />)}
                      > <span  className="text-words" >Check in</span> </Button>
@@ -894,7 +894,7 @@ const  handleClickEliminar =UseModalText({handlModal:hanDelete,Text:"Estas segur
               onClick={hanClickDetailCheckout} 
                      disabled={!findFirma}
                     className="button-checking-detail-one-das"
-                    style={{width:"100%"}}  
+                  
                     color="success" 
                      > <span  className="text-words" >Check out</span> </Button>
               </div>
@@ -951,8 +951,7 @@ const  handleClickEliminar =UseModalText({handlModal:hanDelete,Text:"Estas segur
         
             <div>
             <Button
-            className="button-checking-detail-one-das"
-            style={{width:"100%"}}  
+            className="button-checking-detail-one-das" 
             color={`${totalPrice <=0 ? "success" : "error" }`} 
           > <span  className="text-words" >Total a cobro ${totaCobrar.toLocaleString()} </span> </Button>
               
