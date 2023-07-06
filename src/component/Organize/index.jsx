@@ -23,9 +23,14 @@ const Organize =({setOrganize,handModalInvoice,handRaiting,raiting,setClient,cli
           name: "T.Credito",
           imgSrc:
             "https://github.com/rolandoto/image-pms/blob/main/1_Mesa-06.png?raw=true",
-        }
+        },
+        {
+            id: 2,
+            name: "Consignaciones",
+            imgSrc:
+              "https://github.com/rolandoto/image-pms/blob/main/1_Mesa-06.png?raw=true",
+          }
       ];
-
 
     const [error,setError] =useState(false)
 
