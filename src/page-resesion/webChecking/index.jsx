@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import "./webchecking.css"
 import { Button, Spacer } from "@nextui-org/react";
-import { BsCheck2 } from "react-icons/bs";
+import { BsCheck2 ,BsChevronRight} from "react-icons/bs";
 
 const stepperDetails = [
     {
@@ -46,7 +46,7 @@ const FormInpuWebchecking =({changeCheckbox}) =>{
                         style={{width:"100%",height:"50px"}} 
                         auto color={"success"}
                           >
-                    Siguiente
+                    <BsChevronRight  className="text-center-icon"   fontSize={25} color="white"  />
                </Button>
                <Spacer x={0.1} y={0.5} />
                <Button  

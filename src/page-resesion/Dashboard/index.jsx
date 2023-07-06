@@ -71,6 +71,7 @@ const Info = styled(ReactTooltip)`
   backdrop-filter: blur(8px);
   border-radius: 12px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  z-index: 1000 !important;
 `;
 
 const InfoMessage = styled.div`
@@ -78,9 +79,8 @@ const InfoMessage = styled.div`
   font-size: 13px;
   line-height: 1.4;
   text-align: left;
-  z-index: 0 !important;
+  z-index: 1000 !important;
 `;
-
 
 const Dashboard = () => {
 
@@ -106,7 +106,6 @@ const Dashboard = () => {
 	const {iduser} = UseListMotels()
 	const dispatch = useAppDispatch()
 	
-	
 	const FindIdHotel=(hotel) =>{
 		return hotel.id_hotel == jwt.result.id_hotel
 	}
@@ -121,13 +120,13 @@ const Dashboard = () => {
 		 countSeguro = parseInt(hotel?.valorseguro)
 	}
 	
-	  const handleContextMenu = (e, timelineProps) => {
-		e.preventDefault();
-		const { itemId } = timelineProps;
-	
-		setSelectedItem(itemId);
-		setIsPopperOpen(true);
-	  };
+	const handleContextMenu = (e, timelineProps) => {
+	e.preventDefault();
+	const { itemId } = timelineProps;
+
+	setSelectedItem(itemId);
+	setIsPopperOpen(true);
+	};
 	
 	useEffect(() =>{
 		ServiceAllTotalReservation({fecha:now,id:jwt.result.id_hotel}).then(index =>{

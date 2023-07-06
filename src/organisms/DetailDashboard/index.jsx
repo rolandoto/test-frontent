@@ -1351,6 +1351,7 @@ const handleState =(event, index) =>{
                       <TableCell align="right">Registro pago</TableCell>
                       <TableCell align="right">Registro pago</TableCell>
                       <TableCell align="right">Recepcion</TableCell>
+                      
                       </TableRow>
                   </TableHead>
                   <TableBody>
@@ -1463,6 +1464,7 @@ console.log({"aqui estoy yo:":payState})
                    <TableCell align="right">Tipo pago</TableCell>
                    <TableCell align="right">Abono</TableCell>
                    <TableCell align="right">Recepcion</TableCell>
+                   <TableCell align="right">Editar forma de pago</TableCell>
                    </TableRow>
                </TableHead>
                <TableBody>
@@ -1470,14 +1472,9 @@ console.log({"aqui estoy yo:":payState})
                       const fecha =moment(index.Fecha_pago).utc().format('YYYY/MM/DD')
                       const abonoWithIva  = index.Abono * 19/100 
                       const totalIva  = index.Abono + abonoWithIva
-                      const abono = index.Abono
-
                       const totalDefinid = index.Iva ==1? totalIva : parseInt(index.Abono)
-
                       const totalDefinttion = index.Tipo_persona =="empresa" ?totalIva:totalDefinid
                       const total = totalDefinttion.toLocaleString()
-
-                      console.log(index)
 
                       return (
                           <TableRow>
@@ -1485,13 +1482,14 @@ console.log({"aqui estoy yo:":payState})
                             <TableCell align="right">{index.Nombre}</TableCell>
                             <TableCell align="right">${total}</TableCell>
                             <TableCell align="right">{index.Nombre_recepcion}</TableCell>
+                            <TableCell className="editar-checking" ><CiEdit fontSize={30} color="black" /></TableCell>
                           </TableRow>
                         )
                        })}
                </TableBody>
                <TableHead>
                    <TableRow>
-                    <TableCell align="right">Total     ${total}</TableCell>
+                    <TableCell align="right">Total ${total}</TableCell>
                    </TableRow>
                </TableHead>
                </Table>
