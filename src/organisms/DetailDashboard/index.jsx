@@ -292,8 +292,6 @@ const DetailDasboard =(props) =>{
       }
     }
     
-
-  
     const docu = tipoDocumento?.find(index =>  index?.ID == resultDashboard?.ID_Tipo_documento)
 
     const resultFinish = room?.find(index=>index?.id_tipoHabitacion == resultDashboard?.ID_Tipo_habitaciones)
@@ -498,8 +496,8 @@ const DetailDasboard =(props) =>{
   const Adultos  = product?.filter(index => index.ID_Categoria ==5)    
   const Lenceria  = product?.filter(index => index.ID_Categoria ==6)  
 
-    const totalBebidas = bebidas?.reduce((acum,current) => {
-    return acum  + current.Cantidad
+  const totalBebidas = bebidas?.reduce((acum,current) => {
+  return acum  + current.Cantidad
 },0)
 
 const priceBebidas = bebidas?.reduce((acum,current) => {
@@ -698,11 +696,6 @@ const  hanclickEditar =UseModalText({handlModal:state ?handChangeSave :handChang
 const  handleClickEliminar =UseModalText({handlModal:hanDelete,Text:"Estas seguro de eliminar la reserva ?"})
 
  const toPriceNigth = UsePrice({number:resultDashboard?.valor_dia_habitacion})
-
-
- if(!resultDashboard) return <h1>algo error</h1>
-
-  if(!docu) return null
     
     return (
       <>

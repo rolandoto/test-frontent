@@ -33,7 +33,7 @@ const DetailDashboard =() =>{
             return <p>...Cargando</p>
         }
         if(error){
-            return <p>...{error}</p>
+            return <h1 style={{textAlign:"center"}}>...{error}</h1>
         }
  
     return    <DetailDasboard  

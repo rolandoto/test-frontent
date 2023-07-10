@@ -69,30 +69,6 @@ const TemplateSearch =() =>{
     }
 
 
-    /**   <tbody>
-        <table  className="de"  >
-                <thead >
-                    <tr>
-                        <th>Fecha</th>
-                        <th>Ubicacion</th>
-                        <th>Descripcion</th>
-                    </tr>
-                </thead>
-                {forget.map((index,e) => {
-                    let today = new Date(index.date )
-                    const result = today.toISOString().split('T')[0]
-                    if(!result) return null
-                    return (
-                        <tr key={e}>   
-                            <td>{result}</td>
-                            <td>{index.ubicacion}</td>
-                            <td>{index.description}</td>
-                    </tr>
-                    )
-                })} 
-</table>
-</tbody> 
-*/  
 
 console.log(searching)
 

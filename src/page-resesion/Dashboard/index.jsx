@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef ,useState,useEffect,useContext} from "react";
 import moment from "moment";
 import "moment/locale/es";
 import Timeline,{
@@ -6,42 +6,26 @@ import Timeline,{
   SidebarHeader,
   DateHeader,
   TimelineMarkers,
-  CustomMarker,
-  TodayMarker,
   CursorMarker
 } from "react-calendar-timeline";
 import { ServiceReservas } from "./dummy_data";
 import 'react-calendar-timeline/lib/Timeline.css'
 import "./BookingsTimeline.css";
-import { useState } from "react";
-import { useEffect } from "react";
-import { useContext } from "react";
 import AutoProvider  from "../../privateRoute/AutoProvider";
 import "./index.css"
-import { useSelector } from "react-redux";
-import { selectDashboard } from "../../reducers/dashboardReducers";
-import useDashboardAction from "../../action/useDashboardAction";
-import { useHistory, useParams } from "react-router-dom";
-import CardStore from "../../component/DetailStore/CardStore";
+import { useHistory } from "react-router-dom";
 import ServicetypeRooms from "../../service/ServicetypeRooms";
-import { selectDashboardChecking } from "../../reducers/dashboardCheckingReducer";
-import useDashboardCheckingAction from "../../action/useDashboardCheckingAction";
-import { VscVerified,VscSymbolEvent ,VscSignOut,VscSearch,VscRecord} from "react-icons/vsc";
-import Skeleton from "@mui/material/Skeleton";
-import Stack from "@mui/material/Stack";
-import { config } from "../../config";
+import { VscSymbolEvent } from "react-icons/vsc";
 import ReactTooltip from "react-tooltip";
 import styled from "styled-components";
 import ServiceAllTotalReservation from "../../service/ServiceAllTotalReservation";
 import { confirmAlert } from "react-confirm-alert";
 import { GiBroom } from "react-icons/gi";
-import { BsBucket ,BsCalendarCheck,BsCheckCircle,BsBell} from "react-icons/bs";
+import { BsBucket ,BsCheckCircle,BsBell} from "react-icons/bs";
 import { IoBedOutline ,IoBanOutline} from "react-icons/io5";
 import useUpdateDetailPointerActions from "../../action/useUpdateDetailPointerActions";
 import UseListMotels from "../../hooks/UseListMotels";
 import useUpdateDetailPounterRangeSliceActions from "../../action/useUpdateDetailPounterRangeSliceActions";
-import useReservationActions from "../../action/useReservationActions";
-import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import HttpClient from "../../HttpClient";
 import { CiBadgeDollar } from "react-icons/ci";
 import { Button, Spacer } from '@nextui-org/react';
@@ -79,32 +63,23 @@ const InfoMessage = styled.div`
   font-size: 13px;
   line-height: 1.4;
   text-align: left;
+
   z-index: 1000 !important;
 `;
 
 const Dashboard = () => {
-
+	const currentDate = new moment();
 	const [reservation,setReservas] = useState()
 	const [pruebareservas,setpruebareservas] =useState()
 	const [state,setSate] =useState()
-	const [modalState,setModalState] =useState(false)
-	const [cleanline,setcleanline] =useState(false)
-	const [block,setBlock] =useState(false)
-	const {jwt,update,setUpadte} =useContext(AutoProvider)
-	const {dashboardVisible} = useSelector(selectDashboard)
-	const {checkingDasboardVisible} = useSelector(selectDashboardChecking)
+	const {jwt} =useContext(AutoProvider)
 	const history = useHistory()
-	const [loadingSkeleto,setLoadingSkeleto] =useState(true)
-	const [hoveredItemId, setHoveredItemId] = useState(null);
 	const  now = moment().format("YYYY-MM-DD");
 	const timelineRef = useRef(null);
 	const  [totalDay ,setTotalDay] =useState()
-	const [selectedItem, setSelectedItem] = useState(null);
-	const [isPopperOpen, setIsPopperOpen] = useState(false);
 	const {postUpdateDetailPointer} = useUpdateDetailPointerActions()
 	const {postUpdateDetailPointerRange} = useUpdateDetailPounterRangeSliceActions()
 	const {iduser} = UseListMotels()
-	const dispatch = useAppDispatch()
 	
 	const FindIdHotel=(hotel) =>{
 		return hotel.id_hotel == jwt.result.id_hotel
@@ -120,14 +95,6 @@ const Dashboard = () => {
 		 countSeguro = parseInt(hotel?.valorseguro)
 	}
 	
-	const handleContextMenu = (e, timelineProps) => {
-	e.preventDefault();
-	const { itemId } = timelineProps;
-
-	setSelectedItem(itemId);
-	setIsPopperOpen(true);
-	};
-	
 	useEffect(() =>{
 		ServiceAllTotalReservation({fecha:now,id:jwt.result.id_hotel}).then(index =>{
 			setTotalDay(index)
@@ -136,281 +103,145 @@ const Dashboard = () => {
 		})
 	},[])
 
-	const Skele =() =>{
-		return (
-		   <Stack spacing={1} className="App-new-skeleto">
-			 <ul className="container-flex">
-			   <Skeleton
-				 variant="text"
-				 width={250}
-				 height={80}
-				 className="border-sekeleton"
-			   />
-			   <Skeleton
-				 variant="text"
-				 sx={{ fontSize: "1rem" }}
-				 width={250}
-				 height={80}
-				 className="border-sekeleton"
-			   />
-			   <Skeleton
-				 variant="text"
-				 sx={{ fontSize: "1rem" }}
-				 width={250}
-				 height={80}
-				 className="border-sekeleton"
-			   />
-			   <Skeleton
-				 variant="text"
-				 sx={{ fontSize: "1rem" }}
-				 width={200}
-				 height={80}
-				 className="border-sekeleton"
-			   />
-			   <Skeleton
-				 variant="text"
-				 sx={{ fontSize: "1rem" }}
-				 width={250}
-				 height={80}
-				 className="border-sekeleton"
-			   />
-			   <Skeleton
-				 variant="text"
-				 sx={{ fontSize: "1rem" }}
-				 width={250}
-				 height={80}
-				 className="border-sekeleton"
-			   />
-			 </ul>
-		  
-			 <ul className="container-flex">
-			 <Skeleton variant="rectangular" width={1494} height={600} />
-			 </ul>
-			 <ul className="container-flex">
-			   <Skeleton
-				 variant="text"
-				 sx={{ fontSize: "1rem" }}
-				 width={365}
-				 height={210}
-				 className="border-sekeleton"
-			   />
-			   <Skeleton
-				 variant="text"
-				 sx={{ fontSize: "1rem" }}
-				 width={365}
-				 height={210}
-				 className="border-sekeleton"
-			   />
-			   <Skeleton
-				 variant="text"
-				 sx={{ fontSize: "1rem" }}
-				 width={365}
-				 height={210}
-				 className="border-sekeleton"
-			   />
-			   <Skeleton
-				 variant="text"
-				 sx={{ fontSize: "1rem" }}
-				 width={365}
-				 height={210}
-				 className="border-sekeleton"
-			   />
-			 </ul>
-		 </Stack>
-		)
-   }
 	
-
-	const bookings = [
-		{
-		id: 1,
-		group: 189,
-		title:`Reservas 365`,
-		start_time: new Date(`2023-06-12`),
-		end_time: new Date(`2023-06-14`),
-		state:50
-		},
-		{
-		id: 2,
-		group: 1,
-		title: "Reservas  3065",
-		start_time: moment().add(-3, "day"),
-		end_time: moment().add(1, "day"),
-		state:3
-		},
-		{
-		id: 3,
-		group: 5,
-		title: "Reservas  3065",
-		start_time: moment().add(2, "day"),
-		end_time: moment().add(4, "day"),
-		state:2,
-		},
-	];
-
-	
-	const handClikCleanline =() =>{
-		setcleanline(true)
-		setModalState(false)
-	}
-
-	const handBlock =() =>{
-		setBlock(true)
-	}
-
-	const hanClickCloseCleanline =()=>{
-		setcleanline(false)
-	}
-
-	const currentDate = new moment();
-
 	const onItemClick = (itemId, e, time, onItemSelectParentUpdate) => {	
 		history.push(`/DetailDashboard/${itemId}`)
 	}
 
 	const itemRenderer = ({ item, itemContext, getItemProps }) => {
-	const total_habitacion = parseInt(item.valor_habitacion)
+		const total_habitacion = parseInt(item.valor_habitacion)
 
-	const abono = parseInt(item.abono)
+		const abono = parseInt(item.abono)
 
-	let colorWords;
-	let iconState;
-	let valo = false;
-	let title = itemContext.title; // Establecer título predeterminado
+		let colorWords;
+		let iconState;
+		let title = itemContext.title; // Establecer título predeterminado
 
-	let color;
+		let color;
 
-	switch (item.state) {
-	case 0:
-		if(abono>0){
-			color = '#ff9275';
-			colorWords = 'white ';
-			iconState = <CiBadgeDollar fontSize={20} /> ;
-		}else{
-			color = '#f31260';
+		switch (item.state) {
+		case 0:
+			if(abono>0){
+				color = '#ff9275';
+				colorWords = 'white ';
+				iconState = <CiBadgeDollar fontSize={20} /> ;
+			}else{
+				color = '#f31260';
+				colorWords = 'white';
+				iconState = <BsBell fontSize={15} />;
+			}
+			break;
+		case 1:
+			color = '#7828c8';
 			colorWords = 'white';
-			iconState = <BsBell fontSize={15} />;
+			iconState = <BsBucket fontSize={15} />;
+			break;
+		case 2:
+			color = '#747171';
+			colorWords = 'white';
+			break;
+		case 3:
+			if(abono >= total_habitacion){
+				color = '#17c964';
+				colorWords = 'white';
+				iconState = <VscSymbolEvent fontSize={15} />;
+			}else{
+				color = 'green';
+				colorWords = 'white';
+				iconState = <VscSymbolEvent fontSize={15} />;
+			}
+			break;
+		case 4:
+			color = '#0DC034';
+			colorWords = 'black';
+			break;
+		case 5:
+			color = 'rgba(243, 217, 36, 0.8)';
+			colorWords = 'black';
+			title = 'Aseo';
+			break;
+		case 6:
+			color = '#0072f5';
+			colorWords = 'white';
+			iconState = <BsCheckCircle fontSize={15} />;
+			break;
+		default:
+			break;
 		}
-		break;
-	case 1:
-		color = '#7828c8';
-		colorWords = 'white';
-		iconState = <BsBucket fontSize={15} />;
-		break;
-	case 2:
-		color = '#747171';
-		colorWords = 'white';
-		break;
-	case 3:
-		if(abono >= total_habitacion){
-			color = '#17c964';
-			colorWords = 'white';
-			iconState = <VscSymbolEvent fontSize={15} />;
-		}else{
-			color = 'green';
-			colorWords = 'white';
-			iconState = <VscSymbolEvent fontSize={15} />;
-		}
-		break;
-	case 4:
-		color = '#0DC034';
-		colorWords = 'black';
-		break;
-	case 5:
-		color = 'rgba(243, 217, 36, 0.8)';
-		colorWords = 'black';
-		title = 'Aseo';
-		break;
-	case 6:
-		color = '#0072f5';
-		colorWords = 'white';
-		iconState = <BsCheckCircle fontSize={15} />;
-		break;
-	default:
-		break;
-	}
-		const backgroundColor = itemContext.selected  ? "black" :color
+			const backgroundColor = itemContext.selected  ? "black" :color
 
-		const key = `${item.id}_${item.id}_schedule`;
-		
-
-		return (
+			const key = `${item.id}_${item.id}_schedule`;
 			
-		  <div 
-		
-				data-for={key} data-tip
-					{...getItemProps({
-					style: {
-						display: "flex",
-				alignItems: "center",
-				backgroundColor,
-				border: "",
-				borderRadius: "12px",
-				padding: "8px",
-				color: colorWords,
-				position: "relative",
-				visibility: "visible",
-				opacity: "100",
-				boxShadow: "0 2px 4px rgba(0, 0, 0, 0.4)",
-				transition: "background-color 0.8s ease",
-					},	  
-					})}
-				>	
-					<div
-			  className="itemModal"
-			  
-			></div>
-	  
-			<div
-			  style={{
-				position: 'sticky',
-				left: '0',
-				display: 'inline-block',
-				overflow: 'hidden',
-				padding: '0 1x',
-				textOverflow: 'ellipsis',
-				whiteSpace: 'nowrap',
-			  }}
-			>
 
+			return (
 				
-			   <div className="icon-state-reservation" >
-			   		<span className="margin-icon-state" >{iconState}</span>
-			  		<span className="text-words" >{title}</span>
-			   </div>
-				<div>
+			<div 
+			
+					data-for={key} data-tip
+						{...getItemProps({
+						style: {
+							display: "flex",
+					alignItems: "center",
+					backgroundColor,
+					border: "",
+					borderRadius: "12px",
+					padding: "8px",
+					color: colorWords,
+					position: "relative",
+					visibility: "visible",
+					opacity: "100",
+					boxShadow: "0 2px 4px rgba(0, 0, 0, 0.4)",
+					transition: "background-color 0.8s ease",
+						},	  
+						})}
+					>	
+						<div
+				className="itemModal"
 				
-				
-						<Info  	place="top" 
-								variant="info" 
-								id={key}  >
-							<InfoMessage>
-								<div className="go" >
-									<ul >
-									<li className="color-white " >Numero Habitacion :{item.Num_Room}</li>
-									<li className="color-white " >Codigo reserva :{item.Codigo_Reserva}</li>
-									<li className="color-white " >Huesped: {item.full_name}</li>
-									<li className="color-white " >Check in :{item.Fecha_inicio}</li>
-									<li className="color-white " >Check out :{item.Fecha_final}</li>
-									<li className="color-white " >Noches :{item.Noches}</li>
-									<li className="color-white " >Adultos :{item.Adultos}</li>
-									<li className="color-white " >Niños :{item.Ninos}</li>
-									<li className="color-white " >Total hospedaje :${total_habitacion.toLocaleString()}</li>
-									<li className="color-white " >Abono :${abono.toLocaleString()}</li>
-									</ul>
-								</div>
-							</InfoMessage>
-						</Info>
+				></div>
+		
+				<div
+				style={{
+					position: 'sticky',
+					left: '0',
+					display: 'inline-block',
+					overflow: 'hidden',
+					padding: '0 1x',
+					textOverflow: 'ellipsis',
+					whiteSpace: 'nowrap',
+				}}
+				>
+				<div className="icon-state-reservation" >
+						<span className="margin-icon-state" >{iconState}</span>
+						<span className="text-words" >{title}</span>
 				</div>
-			</div>
+					<div>
+					
+							<Info  	place="top" 
+									variant="info" 
+									id={key}  >
+								<InfoMessage>
+									<div className="go" >
+										<ul >
+										<li className="color-white " >Numero Habitacion :{item.Num_Room}</li>
+										<li className="color-white " >Codigo reserva :{item.Codigo_Reserva}</li>
+										<li className="color-white " >Huesped: {item.full_name}</li>
+										<li className="color-white " >Check in :{item.Fecha_inicio}</li>
+										<li className="color-white " >Check out :{item.Fecha_final}</li>
+										<li className="color-white " >Noches :{item.Noches}</li>
+										<li className="color-white " >Adultos :{item.Adultos}</li>
+										<li className="color-white " >Niños :{item.Ninos}</li>
+										<li className="color-white " >Total hospedaje :${total_habitacion.toLocaleString()}</li>
+										<li className="color-white " >Abono :${abono.toLocaleString()}</li>
+										</ul>
+									</div>
+								</InfoMessage>
+							</Info>
+					</div>
+				</div>
 		</div>
 		);
 	  };
-
-
-
-	 
-
 
 	const intervalRendererdayNum= ({ getIntervalProps, intervalContext ,data }) => {
 
@@ -914,7 +745,6 @@ const [isOpen, setIsOpen] = useState(false);
 				groupRenderer={renderGroup}
 				groups={search}
 				items={[...pruebareservas]}
-				onContextMenu={handleContextMenu}
 				onItemResize={handleItemResize}
 				defaultTimeStart={moment().startOf("day").add(-3, "day")}
 				defaultTimeEnd={moment().startOf("day").add(30, "day")}
@@ -936,7 +766,13 @@ const [isOpen, setIsOpen] = useState(false);
 				<TimelineHeaders className="list-booking-sticky"  >
 				<SidebarHeader>
 					{({ getRootProps }) => {
-					return <div {...getRootProps({
+					return( 
+						 <div style={{	margin:"auto",
+						 				display:"flex",
+										justifyContent:"center",
+										width:"210px"}}  
+						>
+							 <div {...getRootProps({
 						style:{
 							borderRadius:"8px",
 							margin:"auto",
@@ -944,14 +780,14 @@ const [isOpen, setIsOpen] = useState(false);
 							display:"flex",
 							justifyContent:"center",
 							padding:'8px',
-							width:"10px ",
+							width:"208px ",
 							height: "67px"
 						}
 					})}>
-					
 					<img  src={jwt.result.logo} alt="" />
-			</div>;
-			}}
+			</div>
+			</div>
+			)}}
 			</SidebarHeader>
 					<DateHeader
 						unit="MONTH"

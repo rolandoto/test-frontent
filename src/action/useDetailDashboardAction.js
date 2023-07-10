@@ -18,7 +18,7 @@ const useDetailDashboardAction =()=>{
                 dispatch(setError("Get with was found"))
             }
         } catch (error) {
-            dispatch(setError("get with was found"))
+            dispatch(setError("get whit no found"))
         }           
     }
 

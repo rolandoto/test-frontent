@@ -83,10 +83,12 @@ const GetDetailReservation=(url="") =>{
       Accept: 'application/json',
       'Content-Type': 'application/json',
     }
-  }).then(res => {
-    if(!res.ok) throw new Error('Response is not ok')
-    return  res.json() 
-  })
+  }).then(resp =>{
+    if(!resp.ok) throw new Error('Response is not ok')
+    return resp.json()
+}).then(resp=>{
+    return resp
+})
 }
 
 const GetBictacoras=(url="") =>{
@@ -187,6 +189,23 @@ const postApiWhasatapp = ({ to, plantilla,name }) => {
     })
 };
 
+
+const UploadImage =({file1,file2,ID}) =>{
+  const formData = new FormData();
+  formData.append('myFile', file1);
+  formData.append('myFile', file2);
+  formData.append("id",ID)
+  return fetch(`${config.serverRoute}/api/resecion/uploadfile`, {
+    method: 'POST',
+    body: formData,
+  }).then(resp =>{
+    if(!resp.ok) throw new Error('Response is not ok')
+    return resp.json()
+}).then(resp=>{
+    return resp
+})
+}
+
 const postUpdatailPounter= ({Fecha_final,id,countSeguro}) =>{
   return fetch((`${config.serverRoute}/api/resecion/UpdatePonter`),{
     method:"POST",
@@ -243,6 +262,8 @@ const GetRoom=({url=""}) =>{
   })
 }
 
+
+
   export default {
     get,
     post,
@@ -260,6 +281,7 @@ const GetRoom=({url=""}) =>{
     postUpdatailPounter,
     postUpdatailPounterRange,
     GetReservation,
-    GetRoom
+    GetRoom,
+    UploadImage
   }
   

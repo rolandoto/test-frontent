@@ -69,10 +69,7 @@ const Checkingn2Organism =({id,postDetailRoom,fetchDataApiWhatsapp,postWhataapBy
     const addtOne = "000"
     const numtOne  = numEnterotOne + addtOne
     const convertirFinishtONe = parseInt(numtOne)
-    
-    let data ={
-        Firma:"1"
-      } 
+ 
 
         useEffect(() =>{
             ServicetypeRooms({id:jwt.result.id_hotel}).then(index =>{
@@ -169,9 +166,6 @@ const Checkingn2Organism =({id,postDetailRoom,fetchDataApiWhatsapp,postWhataapBy
     const totalAbono =   (resulDetailDashboard?.valor_habitacion) 
    
     const now = moment().set({ hour: 0, minute: 0, second: 0 }).format('YYYY/MM/DD HH:mm:ss');
-    console.log(now)
-
-  
     
     const inputPayValue ={
         ID_Reserva: id,
@@ -185,17 +179,12 @@ const Checkingn2Organism =({id,postDetailRoom,fetchDataApiWhatsapp,postWhataapBy
     const [disable,setDisable] =useState(false)
 
     const handFirmar =() =>{
-        ServiceUpdateReservation({id:resulDetailDashboard.id_persona,data}).then(index =>{
             if( ( parseInt(resulDetailDashboard?.valor_abono) >0)){
             }else {
                 HttpClient.insertPayABono({data:inputPayValue}).then(index =>{
                     console.log(index)
                 })
             }
-            console.log(index)
-            }).catch(e =>{
-            console.log(e)
-        })
     }
     
     let dataTwo = {
@@ -208,8 +197,7 @@ const Checkingn2Organism =({id,postDetailRoom,fetchDataApiWhatsapp,postWhataapBy
 
     const fullName =   resulDetailDashboard?.Nombre +" "+ resulDetailDashboard?.Apellido
 
- 
-  
+
     const handUpdateConfirms = async () => {
         setDisable(true);
         try {

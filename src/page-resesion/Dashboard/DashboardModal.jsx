@@ -622,8 +622,6 @@ const DashboardModal = (props) => {
     
         const  [pdf,setPdf] =useState(false)
         const [pdfOne,setPdfOne] =useState()
-        const [loadingPdf,setTloadging] =useState(false)
-      
         const PdfGenerate =[]
 
         const tipo_forma_pago = typy_buy?.find(index => index.id == change.ID_Tipo_Forma_pago)
@@ -644,16 +642,7 @@ const DashboardModal = (props) => {
               console.log(e)
             })
         }
-      /**const link = document.createElement('a');
-        link.href =PdfGenerate;
-        link.setAttribute('target', '_blank');
-        link.download = 'Documento.pdf';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link)  
-      */
-      
-         
+   
         const {progress} = useProgress({id:"1"})
     
         if(!room)  return null
@@ -793,7 +782,7 @@ const DashboardModal = (props) => {
                                                                 name={"talla_perro"}
                                                                 className='select-hotel-type-personality'
                                                         >
-                                                            <option >No</option>
+                                                            <option value={3} >No</option>
                                                             {pet?.query?.map(category =>(
                                                                 <option 
                                                                 value={category.ID}   
@@ -973,7 +962,7 @@ const DashboardModal = (props) => {
                                                                 required
                                                                 name="ID_Tipo_Forma_pago"
                                                                 className='select-hotel-type-rooms-finis-dasboard'>
-                                                            <option>Tipo de pago</option>
+                                                            <option value={1}  >Tipo de pago</option>
                                                             {typy_buy?.map(category =>(
                                                                 <option 
                                                                 value={category.id}   

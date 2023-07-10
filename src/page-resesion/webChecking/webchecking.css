@@ -14,7 +14,6 @@
     width: 100vw;
     flex-direction: column;
     box-shadow: 0 0 50px rgba(0,0,0,.4);
-
 }
 
   .progress-container {
@@ -36,6 +35,7 @@
     height: 4px;
     width: 100%;
   }
+
   .progress {
     content: "";
     background: #17c964;
@@ -72,6 +72,10 @@
     text-align: initial;
   }
 
+  .title-web-end{
+    text-align: end;
+  }
+
   .title-web-checking >span{
     font-size: 25px;
     font-weight: 100;
@@ -82,6 +86,56 @@
     font-weight: 100;
   }
 
-  .container-form-web-checking{
-    margin-top: 30%;
+  .conatiner-code-reservation{
+    display: flex;
+    justify-content: end;
+  }
+
+  .conatiner-code-reservation > ul>li{
+    text-align: justify;    
+  }
+
+  .conatiner-code-reservation {
+    font-size: 18px;
+    font-weight: 100;
+  }
+  
+  .top-webschecking{
+    margin-top: 29px;
+  }
+
+  .heigh-webchecking {
+    margin: auto;
+    font-size: 14px;
+  }
+
+  .font-size-webchecking{
+    font-size: 25px;
+    color: black;
+  }
+
+  .font-size-span{
+    font-size: 11px;
+   
+  }
+
+  
+
+  .container-flex-web-checking{
+    display: flex;
+    justify-content: space-between;
+
+  }
+
+  .container-form-web-checkingOne{
+    margin-top: 61px;
+  }
+
+  .top-web{
+    margin-top:24px;
+    height:19px;
+  }
+
+  .top-web > li {
+    width: 130px;
   }
