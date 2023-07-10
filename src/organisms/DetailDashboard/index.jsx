@@ -251,8 +251,6 @@ const DetailDasboard =(props) =>{
     const numOne  = numEnteroOne + addone
     const convertirFinishOne = parseInt(numOne) - convertirFinisht
 
-
-
     let data ={
       Nombre,
       Apellido,

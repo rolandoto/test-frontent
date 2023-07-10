@@ -32,8 +32,6 @@ const DetailChekingOrganism =({id}) =>{
     const [documnet,setDocument] = useState()
     const [country,setCountry] =useState()
 
-    const totalId   = jwt.result.id_hotel == 7 || jwt.result.id_hotel == 3 || jwt.result.id_hotel == 4 ? true : false
-	
     useEffect(() =>{
         fetch(`${config.serverRoute}/api/resecion/getdetailchecking/${id}`)
         .then(resp => resp.json())
@@ -48,7 +46,6 @@ const DetailChekingOrganism =({id}) =>{
     const  resulDetailDashboard = DetailDashboard[0]
     const findPersona =  resulDetailDashboard?.tipo_persona == "persona"
     const findEmpresa = resulDetailDashboard?.tipo_persona =="empresa"
-   
     const [tipoPersonas,setTipoPersona] =useState()
     const [isChecked, setIsChecked] = useState(findPersona);
     const [isChecke, setIsChecke] = useState(findEmpresa);
@@ -94,10 +91,6 @@ const DetailChekingOrganism =({id}) =>{
 		})
 	},[setSearch])
     
-    const handChangeSearch =(e) =>{
-        setSearch(e.target.value)
-    }
-
         const fetchData =async() =>{
         await getDetailReservationById({id})
         }
@@ -149,8 +142,6 @@ const DetailChekingOrganism =({id}) =>{
     }
 
     const item  = state ? <span>Editar huespedes</span> : <span>guardar</span>
-
-     
 
       const  typy_buy =  [
         {   
@@ -333,11 +324,22 @@ const DetailChekingOrganism =({id}) =>{
 
     const finishValor = formatter.format(convertirFinishOne)
 
-    let dataTwo ={
-        Tipo_persona:tipoPersonas,
-        Iva:totalId ? 2:change.Iva
-    } 
+    let totalId = false;
 
+    switch (jwt.result.id_hotel) {
+    case 7:
+    case 3:
+    case 4:
+        totalId = true;
+        break;
+    }
+
+    let dataTwo = {
+    Tipo_persona: tipoPersonas,
+    Iva: totalId ? 2 : change.Iva
+    };
+        
+ 
     const hanClickingn2 =() =>{
         if(change.Iva== null){
             Swal.fire({
