@@ -31,7 +31,8 @@ import ServePdf from "../../service/PdfServe";
 import { confirmAlert } from "react-confirm-alert"; // Import
 import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
 import ServicePayReservationSore from "../../service/ServicePayReservationSore";
-import { VscVerified,VscSymbolEvent ,VscSignOut,VscSearch,VscRecord} from "react-icons/vsc";
+import { VscSymbolEvent ,VscSignOut,VscSearch,VscAccount} from "react-icons/vsc";
+import { VscVerified} from "react-icons/vsc";
 import HttpClient from "../../HttpClient"
 import Swal from 'sweetalert2'
 import ReactTooltip from "react-tooltip";
@@ -40,8 +41,8 @@ import { GiBroom } from "react-icons/gi";
 import ServiceStatus from "../../service/ServiceStatus";
 import { BsBucket ,BsCalendarCheck,BsCheckCircle,BsBell} from "react-icons/bs";
 import UseModalText from "../../hooks/UseModalText";
-import { Button, Spacer, Table as table,Tooltip } from "@nextui-org/react";
-import { CiBadgeDollar,CiDollar } from "react-icons/ci";
+import { Button, Image, Spacer, Table as table,Tooltip } from "@nextui-org/react";
+import { CiBadgeDollar,CiDollar ,CiExport,CiUser} from "react-icons/ci";
 
 const DetailDasboard =(props) =>{
     const {id} = useParams()
@@ -67,7 +68,7 @@ const DetailDasboard =(props) =>{
     const {progress} =useProgress({id})
     const resultDashboard = DetailDashboard[0]
 
-    console.log({"detail":resultDashboard.valor_abono})
+    console.log({"detail":resultDashboard})
 
     const findPersona =  resultDashboard?.tipo_persona == "persona"
     const findEmpresa = resultDashboard?.tipo_persona =="empresa"
@@ -129,6 +130,7 @@ const DetailDasboard =(props) =>{
       const [disponibilidad,setDisponibilidad] =useState()
       const [asignar,setAsignar] =useState()
       const [loadingTypeRoom,setLoadingTypeRoom] =useState({loading:false,error:false})
+      
  
       const now = moment().set({ hour: 0, minute: 0, second: 0 }).format('YYYY/MM/DD HH:mm:ss');
    
@@ -724,10 +726,9 @@ const  handleClickEliminar =UseModalText({handlModal:hanDelete,Text:"Estas segur
           <div className="container-detail-dasboard-in-one" >
               <div className="border-detail " >
                    <span>Cantidad noches:</span>
+                   
                    <span className="negrita-detail-reserva" >{day} noches</span>
-              </div>
 
-              <div className="border-detail" >
                    <span>Valor noche:</span>
                    <span className="negrita-detail-reserva"> {toPriceNigth.price}</span>
               </div>
@@ -736,19 +737,28 @@ const  handleClickEliminar =UseModalText({handlModal:hanDelete,Text:"Estas segur
                    <span>Total hospedaje:</span>
                    <span className="negrita-detail-reserva" >{valor_habitacion}</span>
               </div>
-            
+             
               <div  >
+              <Spacer x={2} y={0} />
               <Button style={{height:"110px"}}  color={`${totalPrice <=0 ? "success" : "error" }`} >
-                {totalPrice <= 0 ?  <span className="negrita-detail-reserva" >   <BsCheckCircle  className="text-center-icon"   fontSize={25} color="white"  />Al dia con  el pago</span> : <span className="negrita-detail-reserva" >   <CiBadgeDollar  className="text-center-icon"   fontSize={45} color="white"  />  ${cobrar.toLocaleString()}</span>   }   
-                </Button>
+                   {totalPrice <= 0 ?  <span className="negrita-detail-reserva" >   <BsCheckCircle  className="text-center-icon"   fontSize={25} color="white"  />Al dia con  el pago</span> : <span className="negrita-detail-reserva" >   <CiBadgeDollar  className="text-center-icon"   fontSize={45} color="white"  />  ${cobrar.toLocaleString()}</span>   }   
+              </Button>
               </div>
+
+              <Spacer x={0.4} y={1} />
+              {resultDashboard.Foto_documento_adelante ?  (
+               <div  >
+                <Button   style={{height:"110px",width:"100%"}} color={"gradient"}   >
+                     <span className="negrita-detail-reserva" >   <VscVerified     className="text-center-icon"   fontSize={30} color="white"  />web check in realizado</span>
+                </Button>
+              </div>) :  null  } 
+              
               
               <div className="border-detail" >
                   <span>Tipo habitacion:</span>
                    <span className="negrita-detail-reserva"  >{resultFinish?.nombre} {resultDashboard.Numero}</span>
               </div>
 
-             
               <div className="border-detail" >
                   <span>Abono:</span>
                    <span className="negrita-detail-reserva" >{valor_abono}</span>
@@ -824,19 +834,22 @@ const  handleClickEliminar =UseModalText({handlModal:hanDelete,Text:"Estas segur
             </div>
         </form>
       </div>
-      <div className="init top-one-detail-room" >
+      <div className="init-photo top-one-detail-room" >
             <form  className="container-flex-init"  onSubmit={e =>{
               e.preventDefault()
             }} >
         <div className="container-detail-dasboard-in" > 
-        <span className="desde-detail-two-title" >Forma pago:</span>
-        <span className="desde-detail-two-title" >Abono:</span>
+        <span className="desde-detail-two-title-photo" >Forma pago:</span>
+        <span className="desde-detail-two-title-photo-three" >Abono:</span>
+        <span className="desde-detail-two-title-photo-four" >Documento 1:</span>
+        <span className="desde-detail-two-title-photo-four" >Documento 2:</span>
+        <span className="desde-detail-two-title-photo" >Firma:</span>
             </div>
               <div className="container-detail-dasboard-in" > 
               <select   name="Tipo_forma_pago"
                         value={inputPayValue.Tipo_forma_pago}
                         onChange={handleInputPay}
-                        className="desde-detail-two"    >
+                        className="desde-detail-twophoto"    >
                     <option></option>
                     {typy_buy?.map(category =>(
                         <option 
@@ -852,7 +865,7 @@ const  handleClickEliminar =UseModalText({handlModal:hanDelete,Text:"Estas segur
                           type="number"
                           value={inputPayValue.PayAbono}
                           defaultValue={0}
-                        className="desde-detail-two"  />
+                        className="desde-detail-twophoto"  />
                 <div>
                 <Tooltip content={"Agregar pago sin coma, ni punto "} style={{color:"white"}} >
                 <Button style={{background:"black"}} 
@@ -862,8 +875,35 @@ const  handleClickEliminar =UseModalText({handlModal:hanDelete,Text:"Estas segur
                  icon={(<CiDollar     className="text-center-icon"   fontSize={25} color="white"  />)}  >
                      <span className="negrita-detail-reserva" >Agregar abono</span>
                   </Button>
-                </Tooltip>  
-                </div>    
+                </Tooltip> 
+              
+                </div>  
+                 <Image
+                  width={290}
+                  height={120} 
+                    src={`${resultDashboard.Foto_documento_adelante ? resultDashboard.Foto_documento_adelante : "https://bysperfeccionoral.com/wp-content/uploads/2020/01/136-1366211_group-of-10-guys-login-user-icon-png.jpg"  }`}
+                    objectFit="initial"
+                    alt="Default Image"
+                  />
+  
+                  <Image
+                    width={290}
+                    height={120} 
+                    src={`${resultDashboard.Foto_documento_atras ? resultDashboard.Foto_documento_atras : "https://bysperfeccionoral.com/wp-content/uploads/2020/01/136-1366211_group-of-10-guys-login-user-icon-png.jpg"  }`}
+                    objectFit="initial"
+                    alt="Default Image"
+                  />
+
+                  <Image
+                    width={290}
+                    height={120}  
+                    src="https://bysperfeccionoral.com/wp-content/uploads/2020/01/136-1366211_group-of-10-guys-login-user-icon-png.jpg"
+                    objectFit="initial"
+                    alt="Default Image"
+                  />
+                <div>
+                </div>
+              
             </div>
         </form>
       </div>
@@ -975,6 +1015,7 @@ const  handleClickEliminar =UseModalText({handlModal:hanDelete,Text:"Estas segur
                     <li className={`${huesped ? "desde-detail-three-estados-black-one-finish" :"desde-detail-three-estados" } `} onClick={handHuesped} >Huespedes:</li>
                     <li className={`${consumo ? "desde-detail-three-estados-black" :"desde-detail-three-estados" } `} onClick={handConsumo} >Consumos:</li>
                     <li className={`${pago ? "desde-detail-three-estados-black" :"desde-detail-three-estados" } `}  onClick={handPago} >Pagos:</li>
+                    <li className={`${!pago ? "desde-detail-three-estados-black" :"desde-detail-three-estados" } `}   >Historial:</li>
                 </ul>
            { huesped && <Huesped  quyery={quyery}
                                   DetailDashboard={DetailDashboard}
@@ -1013,7 +1054,9 @@ const  handleClickEliminar =UseModalText({handlModal:hanDelete,Text:"Estas segur
                                 Lenceria={Lenceria}
                               
                                  />}
-          {pago && <Pagos pagos={resultDashboard}  idReserva={id} />}
+          {pago && <Pagos   pagos={resultDashboard}  
+                            idReserva={id}
+                            typy_buy={typy_buy}   />}
         </div>       
       </form>
       </div>
@@ -1241,14 +1284,13 @@ const Huesped =({quyery,handEditar,handChangeSubmit ,stateButton,DetailDashboard
 
 const Consumo =(props) =>{
 
+  
+
   const  {
           habitacion,
           setLoadingConsumo,
           loadinConsumo,
           product} = props
-
-
-
 
           const  typy_buy =  [
             {   
@@ -1318,6 +1360,8 @@ const handleState =(event, index) =>{
       })
     }
   }
+
+  
 
   if(!habitacion) return null
 
@@ -1406,15 +1450,19 @@ const handleState =(event, index) =>{
 
 const Pagos =(props) =>{
 
-  const  {pagos,idReserva} = props
+  const  {pagos,idReserva,typy_buy} = props
 
   const [payState,setPatSate]=useState()
 
+  const [loading, setloading] = useState(false);
+ 
   useEffect(() =>{
     fetch(`${config.serverRoute}/api/resecion/getPayabono/${idReserva}`)
     .then(resp => resp.json())
     .then(data=> setPatSate(data.query))
-  },[idReserva])
+  },[loading])
+
+
 
 let count =0
 for(let i =0;i<payState?.length;i++){
@@ -1431,16 +1479,9 @@ for(let i =0;i<payState?.length;i++){
     }
 }
 
-const priceTotal = payState?.reduce((acum,current) => {
-  return acum  +  current.Abono
-},0)
-
-
 const total = count?.toLocaleString()
-console.log({"aqui estoy yo:":payState})
 
-
-  return (
+return (
     <div >  
          <TableContainer component={Paper}  className="top-table-One" onSubmit={(e) =>{
            e.preventDefault()
@@ -1452,30 +1493,15 @@ console.log({"aqui estoy yo:":payState})
                <TableHead>
                    <TableRow>
                    <TableCell align="right">Fecha</TableCell>
-                   <TableCell align="right">Tipo pago</TableCell>
                    <TableCell align="right">Abono</TableCell>
                    <TableCell align="right">Recepcion</TableCell>
+                   <TableCell align="right">Tipo pago</TableCell>
                    <TableCell align="right">Editar forma de pago</TableCell>
                    </TableRow>
                </TableHead>
                <TableBody>
                      {payState?.map(index =>{
-                      const fecha =moment(index.Fecha_pago).utc().format('YYYY/MM/DD')
-                      const abonoWithIva  = index.Abono * 19/100 
-                      const totalIva  = index.Abono + abonoWithIva
-                      const totalDefinid = index.Iva ==1? totalIva : parseInt(index.Abono)
-                      const totalDefinttion = index.Tipo_persona =="empresa" ?totalIva:totalDefinid
-                      const total = totalDefinttion.toLocaleString()
-
-                      return (
-                          <TableRow>
-                            <TableCell align="right">{fecha}</TableCell>
-                            <TableCell align="right">{index.Nombre}</TableCell>
-                            <TableCell align="right">${total}</TableCell>
-                            <TableCell align="right">{index.Nombre_recepcion}</TableCell>
-                            <TableCell className="editar-checking" ><CiEdit fontSize={30} color="black" /></TableCell>
-                          </TableRow>
-                        )
+                           return  <ItemCardPago index={index}typy_buy={typy_buy}  setloading={setloading} />
                        })}
                </TableBody>
                <TableHead>
@@ -1487,4 +1513,68 @@ console.log({"aqui estoy yo:":payState})
          </TableContainer> 
      </div>  
 )
+}
+
+
+
+const ItemCardPago =({index,typy_buy,setloading}) => { 
+
+  const fecha =moment(index.Fecha_pago).utc().format('YYYY/MM/DD')
+  const abonoWithIva  = index.Abono * 19/100 
+  const totalIva  = index.Abono + abonoWithIva
+  const totalDefinid = index.Iva ==1? totalIva : parseInt(index.Abono)
+  const totalDefinttion = index.Tipo_persona =="empresa" ?totalIva:totalDefinid
+  const total = totalDefinttion.toLocaleString()
+
+  const [isEditing, setIsEditing] = useState(false)
+  const [pay,setPay]=useState(null)
+
+  let taskContent
+
+  const handClickSave =() =>{
+      HttpClient.handchangeformapay({ID:index.ID,Tipo_forma_pago:pay}).then(itemForma =>{
+      setIsEditing(false)
+      setloading(evenItem =>({
+        ...evenItem,
+        Isval: !evenItem
+      }))
+    }).catch(e =>{
+      console.log("error")
+    })
+  }
+
+  if(isEditing){
+      taskContent  =(
+        <> 
+          <TableCell>                      
+            <select   className="desde-detail-two-pagos-store"
+                onChange={(e) =>setPay(e.target.value)} 
+                >
+              {typy_buy.map(itemTybuy => (
+                <option value={itemTybuy.id} >{itemTybuy.name}</option>
+              ))}
+          </select>
+        </TableCell>
+          <TableCell ><CiExport fontSize={30} color="black"  className="editar-checking" onClick={handClickSave}   /></TableCell>
+        </>
+      )
+    }else{
+      taskContent =(
+        <>                         
+          <TableCell align="right">{index.Nombre}</TableCell>
+          <TableCell className="editar-checking" onClick={() => setIsEditing(true) }  ><CiEdit fontSize={30} color="black" /></TableCell>
+        </>
+
+      )
+    }
+
+  return (
+      <TableRow>
+        <TableCell align="right">{fecha}</TableCell>
+        <TableCell align="right">${total}</TableCell>
+        <TableCell align="right">{index.Nombre_recepcion}</TableCell>
+        {taskContent}
+      </TableRow>
+    )
+  
 }

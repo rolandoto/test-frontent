@@ -263,7 +263,21 @@ const GetRoom=({url=""}) =>{
 }
 
 
-
+const handchangeformapay  =({ID,Tipo_forma_pago}) => {
+  return fetch((`${config.serverRoute}/api/resecion/updateformapago`),{
+    method:"POST",
+      body:JSON.stringify({ID,Tipo_forma_pago}),
+      headers:{
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      }
+      }).then(resp =>{
+        if(!resp.ok) throw new Error('Response is not ok')
+        return resp.json()
+    }).then(resp=>{
+        return resp
+    })
+} 
   export default {
     get,
     post,
@@ -282,6 +296,7 @@ const GetRoom=({url=""}) =>{
     postUpdatailPounterRange,
     GetReservation,
     GetRoom,
-    UploadImage
+    UploadImage,
+    handchangeformapay
   }
   

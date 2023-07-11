@@ -13,7 +13,6 @@
 
 .container-detail-dasboard-in {
   display: flex;
-  align-items: center;
 }
 
 .container-detail-dasboard-in-one {
@@ -40,6 +39,16 @@
   border-radius: 8px;
   margin: 4px;
   width: 32%;
+  padding: 10px;
+}
+
+.desde-detail-twophoto{
+  height: 50px;
+  border: none;
+  background: white;
+  border-radius: 8px;
+  margin: 4px;
+  width: 11%;
   padding: 10px;
 }
 
@@ -161,6 +170,17 @@
   background: #ebebeb;
   border-radius: 10px;
   height: 122px;
+  margin-top: 5px;
+}
+
+.init-photo {
+  padding: 2px 5px 0px 5px;
+  display: block;
+  max-width: 1481px;
+  margin: auto;
+  background: #ebebeb;
+  border-radius: 10px;
+  height: 174px;
   margin-top: 5px;
 }
 
@@ -289,6 +309,45 @@
   border-radius: 8px;
   margin: 4px;
   width: 31%;
+  padding: 10px;
+}
+
+.desde-detail-two-title-photo{
+  height: 30px;
+  border: none;
+  border-radius: 8px;
+  margin: 4px;
+  width: 11%;
+  padding: 10px;
+}
+
+
+
+.desde-detail-two-title-photo-one{
+  height: 30px;
+  border: none;
+  border-radius: 8px;
+  margin: 4px;
+  width: 15%;
+  padding: 10px;
+}
+
+
+.desde-detail-two-title-photo-four{
+  height: 30px;
+  border: none;
+  border-radius: 8px;
+  margin: 4px;
+  width: 21%;
+  padding: 10px;
+}
+
+.desde-detail-two-title-photo-three{
+  height: 30px;
+  border: none;
+  border-radius: 8px;
+  margin: 4px;
+  width: 25%;
   padding: 10px;
 }
 
@@ -719,7 +778,7 @@
 .button-change-type-room{
   border: none;
     padding: 0;
-    width: 513px !important;
+
     border-radius: 8px;
     color: white;
     height: 53px !important;
