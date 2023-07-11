@@ -326,20 +326,18 @@ const DetailChekingOrganism =({id}) =>{
 
     let totalId = false;
 
-    switch (jwt.result.id_hotel) {
-    case 7:
-    case 3:
-    case 4:
+    if (jwt.result.id_hotel == 7 || jwt.result.id_hotel == 3 || jwt.result.id_hotel == 4) {
         totalId = true;
-        break;
     }
 
     let dataTwo = {
-    Tipo_persona: tipoPersonas,
-    Iva: totalId ? 2 : change.Iva
+        Tipo_persona: tipoPersonas,
+        Iva: totalId ? 2 : change.Iva
     };
-        
- 
+
+    console.log(dataTwo)
+    console.log(totalId)
+    
     const hanClickingn2 =() =>{
         if(change.Iva== null){
             Swal.fire({
