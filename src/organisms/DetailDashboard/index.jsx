@@ -62,10 +62,7 @@ const DetailDasboard =(props) =>{
     }
 
     const totalId = jwt.result.id_hotel == 7 || jwt.result.id_hotel == 3 || jwt.result.id_hotel == 4 ? true : false
-	
-    const hotel = iduser.find(FindIdHotel)
  
-    const {progress} =useProgress({id})
     const resultDashboard = DetailDashboard[0]
 
     console.log({"detail":resultDashboard})
@@ -640,8 +637,7 @@ const hancPdf =() =>{
     link.click();
     document.body.removeChild(link) 
       setPdfOne(index)
-      ServiceInfomeMovimiento({Nombre_recepcion:jwt.result.name,Fecha:now,Movimiento:`Descargar comprobante tipo habitacion ${resultFinish?.nombre} ${resultDashboard.Numero} nombre ${resultDashboard.Nombre},  codigo reserva ${resultDashboard.id_persona}` ,id:jwt.result.id_hotel}).then(index =>{
-                            
+      ServiceInfomeMovimiento({Nombre_recepcion:jwt.result.name,Fecha:now,Movimiento:`Descargar comprobante tipo habitacion ${resultFinish?.nombre} ${resultDashboard.Numero} nombre ${resultDashboard.Nombre},  codigo reserva ${resultDashboard.id_persona}` ,id:jwt.result.id_hotel}).then(index =>{                  
       }).catch(e =>{
           console.log(e)
       })
@@ -651,45 +647,64 @@ const hancPdf =() =>{
 } 
 
 const hanClickAsear =() => {
-  ServiceStatus({id,ID_Tipo_Estados_Habitaciones:5}).then(index => {
-    Swal.fire({
-      position: 'center',
-      icon: 'success',
-      title: '<p>Exitoso</p>',
-      showConfirmButton: false,
-      timer: 2000
-    })
-  }).catch(e =>{
-    Swal.fire({
-      position: 'center',
-      icon: 'error',
-      title: '<p>Error al cambiar habitacion</p>',
-      showConfirmButton: false,
-      timer: 2000
-    })
-  })
+    if(resultDashboard?.Estado !="3"){
+      ServiceStatus({id,ID_Tipo_Estados_Habitaciones:5}).then(index => {
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: '<p>Exitoso</p>',
+          showConfirmButton: false,
+          timer: 2000
+        })
+      }).catch(e =>{
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: '<p>Error al cambiar habitacion</p>',
+          showConfirmButton: false,
+          timer: 2000
+        })
+      })
+    }else{
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: '<p>habitacion todavia ocupada</p>',
+        showConfirmButton: false,
+        timer: 2000
+      })
+    }
 }
 
 const hanClickLimpia =() => {
-  ServiceStatus({id,ID_Tipo_Estados_Habitaciones:6}).then(index => {
-    Swal.fire({
-      position: 'center',
-      icon: 'success',
-      title: '<p>Exitoso</p>',
-      showConfirmButton: false,
-      timer: 2000
+  if(resultDashboard?.Estado !="3"){
+    ServiceStatus({id,ID_Tipo_Estados_Habitaciones:6}).then(index => {
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: '<p>Exitoso</p>',
+        showConfirmButton: false,
+        timer: 2000
+      })
+    }).catch(e =>{
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: '<p>Error al cambiar habitacion</p>',
+        showConfirmButton: false,
+        timer: 2000
+      })
     })
-  }).catch(e =>{
+  }else {
     Swal.fire({
       position: 'center',
       icon: 'error',
-      title: '<p>Error al cambiar habitacion</p>',
+      title: '<p>Error habitacion todavia ocupada</p>',
       showConfirmButton: false,
       timer: 2000
     })
-  })
+  }
 }
-
 
 const  handComprobante =UseModalText({handlModal:hancPdf,Text:"Descargar comprobante reserva?"})
 const  hanclickEditar =UseModalText({handlModal:state ?handChangeSave :handChangeEdit,Text:"Editar la informacion de la reserva?"})

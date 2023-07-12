@@ -1006,3 +1006,16 @@ hr {
   border-right: 20px solid #000; /* Ajusta el tamaño de la flecha cambiando el valor de 20px y el color #000 */
   border-radius: 5px; /* Ajusta el valor del border-radius según tus preferencias */
 }
+
+.handle-icon{
+  position: relative;
+  pointer-events: none;
+  content: '';
+  height: 100%;
+  display: block;
+  width: 2px;
+  background: white;
+  left: 4px;
+  right: 4px;
+  position: absolute;
+}

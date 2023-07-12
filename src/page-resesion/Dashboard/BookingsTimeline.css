@@ -579,3 +579,120 @@ hr.border {
   border: transparent solid 50px;
   border-right-color: red;
 }
+
+.rct-item-tooltip {
+  z-index: 75;
+  margin-left: 8px;
+  display: flex;
+  align-items: center;
+}
+
+.rct-item-tooltip-content {
+  background: rgb(241, 9, 9);
+  padding: 8px 16px;
+  white-space: nowrap;
+  font-size: 12px;
+  color: white;
+  border-radius: 5px;
+}
+
+.rct-item-following-indicator {
+  position: absolute;
+  opacity: 0;
+  transition: opacity 300ms ease;
+  
+  .rct-item--is-resizing & {
+    opacity: 1;
+  }
+}
+
+
+
+.release {
+  font-size: 24px;
+  background-color: tomato !important;
+}
+
+.btn-wrapper {
+  margin-top: 20px;
+}
+
+.sidebar-group {
+  line-height: 1.2;
+}
+
+.sidebar-dates {
+  margin-top: 5px;
+  font-size: 12px;
+  color: lightseagreen;
+}
+
+
+
+
+
+.rct-item-handler {
+  cursor: col-resize !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .handle-icon {
+    height: 45%;
+    position: relative;
+    pointer-events: none;
+    
+  }
+}
+
+
+.rct-item-tooltip {
+  z-index: 75;
+  margin-left: 8px;
+  display: flex;
+  align-items: center;
+}
+
+.rct-item-tooltip-content {
+  background: black;
+  padding: 8px 16px;
+  white-space: nowrap;
+  font-size: 12px;
+  color: white;
+  border-radius: 5px;
+}
+
+.rct-item-following-indicator {
+  position: absolute;
+  opacity: 0;
+  transition: opacity 300ms ease;
+  
+  .rct-item--is-resizing & {
+    opacity: 1;
+  }
+}
+
+.rct-item-arrow {
+  width: 50px;
+  margin-left: -50px;
+  z-index: 90;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  & + & {
+    margin-top: 60px
+  }
+}
+
+.rct-infolabel {
+  display: none;
+  opacity: 0;
+}
+
+
+.rtc-item-hotspot {
+  position: absolute;
+  display: block;
+  width: 30px;
+}

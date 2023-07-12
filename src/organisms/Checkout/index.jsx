@@ -43,6 +43,8 @@ const CheckoutOrganism =({DetailDashboard,postDetailRoom,fetchDataApiWhatsapp}) 
         setComprobante(true)
     }   
 
+
+
     const [fp,setfP] =useState()
 
     const MenuItems = [
@@ -105,10 +107,10 @@ const CheckoutOrganism =({DetailDashboard,postDetailRoom,fetchDataApiWhatsapp}) 
             setRoom(index)
         })
     },[])
-    console.log(resultDashboard)
+   
     const resultFinish = room?.find(index=>index?.id_tipoHabitacion == resultDashboard?.ID_Tipo_habitaciones)
 
-    console.log(resultFinish)
+
 
     useEffect(() =>{
         fetch(`${config.serverRoute}/api/resecion/getcartreservaction/${id}`)
@@ -207,6 +209,7 @@ const CheckoutOrganism =({DetailDashboard,postDetailRoom,fetchDataApiWhatsapp}) 
         .then(resp => resp.json())
         .then(data=> {
             setSearchFilter(data)
+            setPreSearchFilter(data)
         } )
     },[])
 
@@ -224,13 +227,14 @@ const CheckoutOrganism =({DetailDashboard,postDetailRoom,fetchDataApiWhatsapp}) 
     const juridica = searchFilter?.filter(index => index.type_people =="Persona Juridica")
 
     const filtrar=(terminoBusqueda)=>{
-        let resultadosBusqueda= juridica.filter((elemento,index)=>{
-            if(elemento.name_people.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
+        let resultadosBusqueda= searchFilter.filter((elemento,index)=>{
+            if(elemento?.name_people.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
              ||elemento.apellido_people.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
             ){
             return elemento;
             }
         });
+        
     setPreSearchFilter(resultadosBusqueda)
     }
 
@@ -280,7 +284,6 @@ const CheckoutOrganism =({DetailDashboard,postDetailRoom,fetchDataApiWhatsapp}) 
 
     const  dataCount = to?.find(index => index.ID_hotel == jwt.result.id_hotel)
 
-    console.log(dataCount)
 
     useEffect(()  =>{
         fetch(`${config.serverRoute}/api/resecion/resolucion`)
@@ -434,7 +437,9 @@ const CheckoutOrganism =({DetailDashboard,postDetailRoom,fetchDataApiWhatsapp}) 
           });
     }
 
-    console.log(resultDashboard)
+
+
+    console.log({"filterSearch":preSearchFilter})
 
     if(findEmpresa)
     return (
@@ -924,8 +929,6 @@ const Factura  =({Room,Valor_dia_habitacion,resultFinish,comprobante,setComproba
     const toPrice = parseInt(Valor_dia_habitacion?.valor_dia_habitacion)
     const valor_dia = UsePrice({number:toPrice})
 
-    console.log({"resultFinish":resultFinish})
-
     const rayDate = []
     for (let date = startDate; date <= endDate; date.setDate(date.getDate() + 1)) {
         let month = date.toLocaleString("default", { month: "long" });
@@ -1111,7 +1114,7 @@ const FacturaCompany  =({validFilterSearch,valorTotalIva,formatoIva,formattedNum
     const rayDate = []
     for (let date = startDate; date <= endDate; date.setDate(date.getDate() + 1)) {
         let month = date.toLocaleString("default", { month: "long" });
-        console.log(month)
+     
             rayDate.push({
             Fecha:(date.getDate()+" " +month) ,
             Room:Room?.nombre,
@@ -1169,7 +1172,7 @@ const FacturaCompany  =({validFilterSearch,valorTotalIva,formatoIva,formattedNum
 
   const valorNetuno = validFilterSearch.toLocaleString();
 
-  console.log(totalConIVA)
+
 
     return (
      <>
