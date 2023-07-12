@@ -209,7 +209,6 @@ const CheckoutOrganism =({DetailDashboard,postDetailRoom,fetchDataApiWhatsapp}) 
         .then(resp => resp.json())
         .then(data=> {
             setSearchFilter(data)
-            setPreSearchFilter(data)
         } )
     },[])
 
@@ -361,6 +360,7 @@ const CheckoutOrganism =({DetailDashboard,postDetailRoom,fetchDataApiWhatsapp}) 
     var formatteOne = totalStore.toLocaleString();
 
     const [factura,setFactura] = useState(false)
+
     let timerInterval
     const handServiFormularios =() =>{
         if(filterSearch) {
@@ -415,10 +415,7 @@ const CheckoutOrganism =({DetailDashboard,postDetailRoom,fetchDataApiWhatsapp}) 
 
     const totalAobonoDecimal =totalAbono.toLocaleString();
 
-  
-    
     const  handClickCheckout =UseModalText({handlModal:handUpdateStatus,Text:"Estas seguro de que desea hacer Check Out ?"})
-
 
     const handSendFactura =() =>{
         confirmAlert({
