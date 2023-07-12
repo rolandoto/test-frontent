@@ -240,17 +240,36 @@ const WebChecking =() =>{
                 username={information.Codigo_Reserva}  />
 
                 <TitleWebCheckingtitle  username={information.name} />
-                <div className="title-web-checking " >
-                    <div className="container-flex-web-checking  top-web "   >
-                        <li className="li-webchecking" > <span className="font-size-span" >Nombre: {information.name}</span></li>
-                        <li className="li-webchecking" >  <span className="font-size-span" >Apellido: {information.last_name}</span></li>
-                        <li className="li-webchecking" > <span className="font-size-span" >telefono: {information.Celular}</span></li>
+                <div className="title-web-checking  " >
+                    <div>
+                        <ul className="row-flex-webchecking" >
+                            <li className="li-webchecking negrita-webchecking " > <span  className="font-size-span" >Nombre:</span></li>
+                            <li className="li-webchecking negrita-webchecking " > <span className="font-size-span" >Apellido:</span></li>
+                            <li className="li-webchecking negrita-webchecking " > <span className="font-size-span" >Nacionalidad:</span></li>
+                        </ul>     
                     </div>
-                    <div className="container-flex-web-checking"   >
-                        <li className="li-webchecking" > <span className="font-size-span" >Tipo documento: {documento.nombre}</span></li>
-                        <li className="li-webchecking" > <span className="font-size-span" >Tipo habitacion: {findHotel?.nombre}</span></li>
-                        <li className="li-webchecking" >  <span className="font-size-span" >Nacionalidad: {information.nacionalidad}</span></li>
+                    <div className=""   >
+                        <ul className="row-flex-webchecking" >
+                            <li className="li-webchecking  " > <span className="font-size-span" > {information.name}</span></li>
+                            <li className="li-webchecking" >  <span className="font-size-span" >{information.last_name}</span></li>
+                            <li className="li-webchecking" >  <span className="font-size-span" > {information.nacionalidad} </span> </li>
+                        </ul>   
                     </div>
+                    <div>
+                        <ul className="row-flex-webchecking" >
+                            <li className="li-webchecking negrita-webchecking " > <span className="font-size-span" >telefono:</span></li>
+                            <li className="li-webchecking negrita-webchecking " > <span className="font-size-span" >Tipo documento:</span></li>
+                            <li className="li-webchecking negrita-webchecking " > <span className="font-size-span" >Tipo habitacion:</span></li>
+                        </ul>     
+                    </div>
+                    <div className="row-flex-webchecking"   >
+                        <li className="li-webchecking" > <span className="font-size-span" >  {information.Celular}</span></li>
+                        <li className="li-webchecking" > <span className="font-size-span" > {documento.nombre}</span></li>
+                        <li className="li-webchecking" > <span className="font-size-span" > {findHotel?.nombre}</span></li>
+                       
+                    </div>
+
+                    
                 </div>
                 <div className="container-form-web-checking-one" >
                     <div className="form-login title-web-checking container-form-web-checkingOne"  >
@@ -301,7 +320,9 @@ const WebChecking =() =>{
                     onClick={handNex}
                     style={{width:"100%",height:"50px"}} 
                     auto color={"success"}
-                        ></Button>
+                        >
+                              <BsChevronRight  className="text-center-icon"   fontSize={25} color="white"  />
+                        </Button>
 
                 </div>
 
@@ -315,7 +336,9 @@ const WebChecking =() =>{
                 state={state}
                 changeSteep={changeSteep}
                 progressBarWidth={progressBarWidth}/>
-                <h1>congrulation</h1>
+                <div className="title-web-checking" >
+                    <span>web check in realizado! <span style={{fontWeight:"400",fontSize:"25px"}} ></span> </span>
+            </div>
              </div>
             </>
         )

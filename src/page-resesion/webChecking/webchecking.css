@@ -6,14 +6,15 @@
 }
 
 .container-webcheckin {
-    display: flex;
-    margin: auto;
+  display: flex;
     max-width: 500px;
     max-height: 1100px;
-    height: 100vh;
-    width: 100vw;
     flex-direction: column;
-    box-shadow: 0 0 50px rgba(0,0,0,.4);
+    background: #fff;
+    height: auto;
+    width: 100vw;
+    overflow: auto;
+ 
 }
 
   .progress-container {
@@ -70,6 +71,7 @@
 
   .title-web-checking{
     text-align: initial;
+    margin-top: 15px;
   }
 
   .title-web-end{
@@ -128,7 +130,7 @@
   }
 
   .container-form-web-checkingOne{
-    margin-top: 61px;
+    margin-top: 30px;
   }
 
   .top-web{
@@ -138,4 +140,15 @@
 
   .top-web > li {
     width: 130px;
+  }
+
+  .row-flex-webchecking{
+    display: flex;
+    justify-content: space-between;
+    margin: auto;
+    height: 21px ;
+  }
+
+  .negrita-webchecking{
+    font-weight: 600;
   }
