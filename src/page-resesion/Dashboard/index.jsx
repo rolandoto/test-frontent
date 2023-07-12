@@ -6,7 +6,7 @@ import Timeline,{
   SidebarHeader,
   DateHeader,
   TimelineMarkers,
-  CursorMarker
+  CustomMarker
 } from "react-calendar-timeline";
 import { ServiceReservas } from "./dummy_data";
 import 'react-calendar-timeline/lib/Timeline.css'
@@ -192,6 +192,7 @@ const Dashboard = () => {
 					opacity: "100",
 					boxShadow: "0 2px 4px rgba(0, 0, 0, 0.4)",
 					transition: "background-color 0.8s ease",
+					zIndex:1000
 						},	  
 						})}
 					>	
@@ -764,6 +765,8 @@ const [isOpen, setIsOpen] = useState(false);
 				canResize={"both"}
 				>
 				<TimelineHeaders className="list-booking-sticky"  >
+
+				
 				<SidebarHeader>
 					{({ getRootProps }) => {
 					return( 
@@ -781,7 +784,8 @@ const [isOpen, setIsOpen] = useState(false);
 							justifyContent:"center",
 							padding:'8px',
 							width:"208px ",
-							height: "67px"
+							height: "67px",
+							zIndex:0
 						}
 					})}>
 					<img  src={jwt.result.logo} alt="" />
@@ -814,7 +818,28 @@ const [isOpen, setIsOpen] = useState(false);
 				</TimelineHeaders>
 				<TimelineMarkers>
 
-			<CursorMarker />
+				<CustomMarker date={Date.now()}>
+          {/* custom renderer for this marker */}
+          {({ styles, date }) => {
+            const customStyles = {
+              ...styles,
+			  position: "absolute",
+			  top:"0px",
+			  bottom: "0px",
+			  width: "3%",
+			  backgroundColor: "rgba(23, 201, 100, 0.32)",
+			  left:" 1845.47px",
+			  margin: "auto",
+			  zIndex: "100",
+              pointerEvents: "auto"
+            };
+            return (
+              <div
+                style={customStyles}
+              />
+            );
+          }}
+        </CustomMarker>
 			</TimelineMarkers>
 			</Timeline>
 			<Footer totalday={totalDay}   />
