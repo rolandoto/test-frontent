@@ -194,7 +194,6 @@ const CheckoutOrganism =({DetailDashboard,postDetailRoom,fetchDataApiWhatsapp}) 
         .then(data=> setQuery(data?.query))
     },[])
 
-    
 
     const handCloseInvoince =() =>{
         setInvoice(false)

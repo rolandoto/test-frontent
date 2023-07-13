@@ -2,7 +2,7 @@ import React from "react";
 import CartItem from "../../../component/CartItems/CartItems";
 
 const Cart =({handModal,priceCart,carts,handTotal,Items}) =>{
-
+    
     return (
         <div className="cartCheckOutContianer">
             <div className="cartContainer">

@@ -775,11 +775,15 @@ const StoreTemplate =({Store}) =>{
 
     const to =  carts.cart.find(index => index.ID === evt.ID)
 
+    const findImage = MenuItems.find(itemCategory =>  itemCategory.id ==evt.id_categoria )
+
     if(!to) {
+
+      console.log({"cart":carts})
      
       return  setCarts({
           ...carts,
-          cart:[...carts.cart,{...evt,quantity:1}]
+          cart:[...carts.cart,{...evt,quantity:1,img:findImage.imgSrc}]
         })
       }
     }
@@ -845,7 +849,7 @@ const StoreTemplate =({Store}) =>{
       Cart:carts.cart,
       ID_Hoteles:jwt.result.id_hotel,
       Fecha_compra:now,
-      Nombre_recepcion:jwt.result.name
+      Nombre_recepcion:jwt.result.name,
     }
     
     const handSubmitInsertCart =() =>{

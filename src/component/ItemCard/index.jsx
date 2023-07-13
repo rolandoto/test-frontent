@@ -9,8 +9,6 @@ const ItemCard =({index,handCart}) =>{
 
     const [show,element] = UsenearScrean()
 
-    
-    
     return ( 
         <> 
             <div className="itemCard" key={index.ID} ref={element} >

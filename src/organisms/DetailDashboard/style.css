@@ -732,14 +732,14 @@
 
 
 .pay_deudado{
-  background: #eb6b7f;
+  background: #f31260;
   color: white !important;
   width: 134px;
   height: 16px;
 }
 
 .pay_deudado-One-One{
-  background: #eb6b7f;
+  background: #f31260;
   color: white !important;
   height: 16px;
 }
@@ -752,7 +752,7 @@
 }
 
 .pay_Pagado{
-  background: #13a722d4;
+  background: #17c964;
   color: white;
   padding: 8px;
   border-radius: 8px;
@@ -760,7 +760,7 @@
 }
 
 .pay_Pagado-deuda{
-  background: #13a722d4;
+  background: #17c964;
   color: white !important;
   width: 134px;
   height: 16px;
@@ -856,3 +856,4 @@
 .text-center-icon{
   margin: auto;
 }
+

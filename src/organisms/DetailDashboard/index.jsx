@@ -41,7 +41,7 @@ import { GiBroom } from "react-icons/gi";
 import ServiceStatus from "../../service/ServiceStatus";
 import { BsBucket ,BsCalendarCheck,BsCheckCircle,BsBell} from "react-icons/bs";
 import UseModalText from "../../hooks/UseModalText";
-import { Button, Image, Spacer, Table as table,Tooltip } from "@nextui-org/react";
+import { Button, Image, Spacer, Table as table,Tooltip, User } from "@nextui-org/react";
 import { CiBadgeDollar,CiDollar ,CiExport,CiUser} from "react-icons/ci";
 
 const DetailDasboard =(props) =>{
@@ -1347,12 +1347,14 @@ const handleState =(event, index) =>{
       Nombre_categoria:product[i].Nombre,
       Nombre_Producto:product[i].Nombre_producto,
       Price:product[i].Precio.toLocaleString(),
+      img:product[i].img_product,
       Fecha:moment(product[i].Fecha_compra).utc().format('YYYY/MM/DD'),
       Cantidad:product[i].Cantidad,
       Pago_deuda:product[i].pago_deuda,
       Forma_pago:product[i].Forma_pago,
       Tipo_pago:product[i].forma_pago,
-      Nombre_Recepcion:product[i].Nombre_recepcion
+      Nombre_Recepcion:product[i].Nombre_recepcion,
+      img:product[i].img_product 
     })
   }
   
@@ -1376,7 +1378,6 @@ const handleState =(event, index) =>{
     }
   }
 
-  
 
   if(!habitacion) return null
 
@@ -1392,10 +1393,9 @@ const handleState =(event, index) =>{
                   <Table sx={{width:1300 ,marginTop:4}} size="small" aria-label="a dense table"> 
                   <TableHead>
                       <TableRow>
-                      <TableCell align="right">Fecha</TableCell> 
+                      <TableCell align="right">Producto</TableCell> 
                       <TableCell align="right">Cantidad</TableCell>  
-                      <TableCell align="right">Categoria</TableCell>  
-                      <TableCell align="right">Detalle</TableCell>
+                      <TableCell align="right">Fecha</TableCell> 
                       <TableCell align="right">Valor</TableCell>
                       <TableCell align="right">Estado pago</TableCell>
                       <TableCell align="right">Registro pago</TableCell>
@@ -1412,10 +1412,23 @@ const handleState =(event, index) =>{
                           if(row.Pago_deuda ==0){
                           return(
                            <TableRow>
+                              <TableCell>  
+
+                              <User
+                                bordered
+                                squared
+                                color="error"
+                                size="lg"
+                                className="color-black"
+                                style={{color:"black"}}
+                                  src={row.img}
+                                  name={row.Nombre_categoria}
+                                  zoomed
+                                  description={row.Nombre_Producto}
+                                /> 
+                                   </TableCell>
+                                   <TableCell>{row.Cantidad} </TableCell>
                               <TableCell>{row.Fecha} </TableCell>
-                              <TableCell>{row.Cantidad} </TableCell>
-                              <TableCell>{row.Nombre_categoria} </TableCell>
-                              <TableCell>{row.Nombre_Producto} </TableCell>
                               <TableCell>Cop {row.Price} </TableCell>
                               <TableCell className="pay_deudado" ><span>Adeudado</span></TableCell>
                              
@@ -1438,15 +1451,25 @@ const handleState =(event, index) =>{
                 </TableCell>
                 <TableCell> <span className="pay_Pagado" onClick={() => handPayProduct(row.ID)} >Pagar producto</span></TableCell>
                 <TableCell>{row.Nombre_Recepcion}</TableCell>
-                           </TableRow>
+                  </TableRow>
                           )
                         } else if(row.Pago_deuda ==1){
                           return (
                           <TableRow>
+                             <TableCell>  
+                              <User
+                                bordered
+                                color="success"
+                                squared
+                                  src={row.img}
+                                  size="lg"
+                                  name={row.Nombre_categoria}
+                                 zoomed
+                                 description={row.Nombre_Producto}
+                                />
+                                  </TableCell>
+                                  <TableCell>{row.Cantidad} </TableCell>
                               <TableCell>{row.Fecha} </TableCell>
-                              <TableCell>{row.Cantidad} </TableCell>
-                              <TableCell>{row.Nombre_categoria} </TableCell>
-                              <TableCell>{row.Nombre_Producto} </TableCell>
                               <TableCell>Cop {row.Price} </TableCell>
                               <TableCell className="pay_Pagado-deuda" ><span >Pagado</span></TableCell>
                               <TableCell  ><span >Pagado</span></TableCell>
@@ -1462,6 +1485,12 @@ const handleState =(event, index) =>{
         </div>  
   )
 }
+
+
+
+
+
+
 
 const Pagos =(props) =>{
 

@@ -54,7 +54,7 @@ function CartItem({index,Items,handTotal}) {
  
     <div className="cartItem" id={index.ID}  >
       <div className="imgBoxe">
-        <img src={"Prueba"}  alt="" />
+        <img src={index.img}  alt="" />
       </div>
         <div className="itemSection">
             <h2 className="itemName">{index.Nombre}</h2>
