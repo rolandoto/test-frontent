@@ -43,10 +43,14 @@ const Organize =({setOrganize,handModalInvoice,handRaiting,raiting,setClient,cli
             setError(true)
         }else if(client.length<3){
             setError(true)   
+        }else if(parseInt(raiting)<=0){
+            setError(true)   
         }else{
             handModalInvoice()
         }
     }
+
+
     return (
         <div className="border-ri" >
             <div className="content-Modal" >
@@ -72,7 +76,7 @@ const Organize =({setOrganize,handModalInvoice,handRaiting,raiting,setClient,cli
                                                     value={raiting} 
                                                     className='select-hotel' >
                                                     <option disabled >raiting tuype</option>
-                                                    <option  >Selecione</option>
+                                                    <option value={0}  >Selecione</option>
                                                     {iduser.map(category =>(
                                                         <option 
                                                         value={category.id}   
@@ -82,6 +86,7 @@ const Organize =({setOrganize,handModalInvoice,handRaiting,raiting,setClient,cli
                                                     )
                                                     )}
                                             </select>
+                                            {error && <span className="error"  >selecione forma pago</span>}
                                             <button className='button-login'>
                                                     Facturar
                                             </button>

@@ -809,7 +809,7 @@ const StoreTemplate =({Store}) =>{
       setOrganize(true)
       setState(false)
     }
-    const [raiting,setRaiting]= useState('')
+    const [raiting,setRaiting]= useState(0)
 
     const handRaiting =(e)=>{
       setRaiting(e.target.value)
