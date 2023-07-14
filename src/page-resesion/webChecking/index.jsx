@@ -285,6 +285,12 @@ const WebChecking =() =>{
                         <label htmlFor="" className="title-label" >Sube tu documento: {documento.nombre} </label>
                         
                                <div className="file-input-container">
+                               <input
+                                       type="file"
+                                       id="fileInputone"
+                                        onChange={(e) =>setImagePath(e.target.files[0])}
+                                        className="file-input"
+                                    />
                                     <label htmlFor="fileInputone" className="file-input-label">
                                         {imagePath ? "imagen selecionada": 'Seleccionar archivo'}
                                         <PiCameraThin color="black"   fontSize={25}  />
