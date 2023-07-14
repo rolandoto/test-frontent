@@ -135,10 +135,8 @@ const WebChecking =() =>{
     const [information,setInformation] =useState()
     const [documento] =UseDocument({itemId:information?.ID_document})  
     const [findHotel] = UseHabitacion({itemId:information?.ID_hotel,group:information?.ID_tipo_habitaciones})
-    const [imagePath, setImagePath] = useState();
-    const [imageOne,setImageOne] =useState()
-
-    console.log(documento)
+    const [imagePath, setImagePath] = useState("");
+    const [imageOne,setImageOne] =useState("")
 
     const handNex =() =>{
         setCheckBox(checkbox + 1)
@@ -208,6 +206,15 @@ const WebChecking =() =>{
         }
     }
 
+
+    const [selectedFile, setSelectedFile] = useState(null);
+
+    const handleFileChange = (event) => {
+      const file = event.target.files[0];
+      setSelectedFile(file);
+    };
+  
+
     const progressBarWidth = calculateProgressWidth();
 
     if(checkbox ==1) {
@@ -276,18 +283,26 @@ const WebChecking =() =>{
                 <div className="container-form-web-checking-one" >
                     <div className="form-login title-web-checking container-form-web-checkingOne"  >
                         <label htmlFor="" className="title-label" >Sube tu documento: {documento.nombre} </label>
-                        <PiCameraThin color="black"  />
-                        <PiCameraRotateThin color="black"  />
-                        <input type="file"
-                                onChange={(e) =>setImagePath(e.target.files[0])}
-                                className="username" 
-                                accept="image"
-                                placeholder="XDE-4567890-0987" />
-                        <input  type="file"
-                                onChange={(e) => setImageOne(e.target.files[0])}
-                                className="username"  
-                                accept="image"
-                                placeholder="XDE-4567890-0987" />
+                        
+                               <div className="file-input-container">
+                                    <label htmlFor="fileInputone" className="file-input-label">
+                                        {imagePath ? "imagen selecionada": 'Seleccionar archivo'}
+                                        <PiCameraThin color="black"   fontSize={25}  />
+                                    </label>
+                                </div> 
+
+                                 <div className="file-input-container">
+                                    <input
+                                       type="file"
+                                       id="fileInput"
+                                        onChange={(e) =>setImageOne(e.target.files[0])}
+                                        className="file-input"
+                                    />
+                                    <label htmlFor="fileInput" className="file-input-label">
+                                        {imageOne ? "imagen selecionada" : 'Seleccionar archivo'}
+                                        <PiCameraRotateThin color="black"   fontSize={25}  />
+                                    </label>
+                                </div>      
                     </div>
                 </div>
 
