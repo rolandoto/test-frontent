@@ -16,6 +16,7 @@ import ServiceReservationCheckin from "../../service/ServiceReservasCheckin";
 import moment from "moment";
 import "moment/locale/es";
 import ServiceaInsertStore from "../../service/ServiceInsertCart";
+import { Button } from "@nextui-org/react";
 
 const StoreTemplate =({Store}) =>{
 
@@ -850,16 +851,19 @@ const StoreTemplate =({Store}) =>{
       ID_Hoteles:jwt.result.id_hotel,
       Fecha_compra:now,
       Nombre_recepcion:jwt.result.name,
-    }
+    } 
+
+    const [loadingAsignar,setLoadingAsignar]  =useState(false)
     
     const handSubmitInsertCart =() =>{
+      setLoadingAsignar(true) 
        ServiceaInsertCart({data}).then(index =>{
           window.location.reload()
        }).catch(e=> {
           console.log(e)
        })
     }
-
+    
     var n1 = 2000;
     var n2 = 1000;
     var numero = Math.floor(Math.random() * (n1 - (n2 - 1))) + n2;
@@ -875,7 +879,6 @@ const StoreTemplate =({Store}) =>{
       Nombre_recepcion:jwt.result.name
     }
 
-    console.log(dataOne)
 
     const handSubmitInsertCartOne =() =>{
       ServiceaInsertStore({data:dataOne}).then(index =>{
@@ -966,7 +969,13 @@ const StoreTemplate =({Store}) =>{
                                                     )}
                                                 </select>
                                       </li>
-                                    <button className='button-login' onClick={handSubmitInsertCart} >Asignar habitacion</button>
+                                      <Button   
+                                              disabled={loadingAsignar}
+                                              style={{background: !loadingAsignar &&"black",color:"white"}}
+                                              onClick={handSubmitInsertCart}
+                                                
+                                       > <span  className="text-words" >Crear reserva</span> </Button>
+                                   
                                 </div> 
                             </div>
                     </div>

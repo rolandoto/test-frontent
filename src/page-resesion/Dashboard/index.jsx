@@ -32,6 +32,7 @@ import { Button, Spacer } from '@nextui-org/react';
 import { CameraIcon, HeartIcon, LockIcon, NotificationIcon } from "./IconReservation";
 import Footer from "../../component/Footer/Footer";
 
+
 const GroupRows =({group,color,estado,iconState,letra}) =>{
 	return (
 		<div    style={{ backgroundColor: color, color:letra}} className="flex-romm-grup" >
@@ -332,6 +333,7 @@ const Dashboard = () => {
 				  </div>
 				);
 			  };
+
 	const intervalRenderer = ({ intervalContext, getIntervalProps, data }) => {
 		return (
 		<div
@@ -738,9 +740,6 @@ const [isOpen, setIsOpen] = useState(false);
 												</select>
 												<Spacer  x={0.5} y={1} />
 		</div>
-
-				
-			
 			<Timeline
 				groupRenderer={renderGroup}
 				groups={search}

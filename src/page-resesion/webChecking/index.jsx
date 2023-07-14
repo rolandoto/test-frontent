@@ -7,6 +7,7 @@ import UseDocument from "../../hooks/useDococument";
 import UseHabitacion from "../../hooks/useHabitacion";
 import HttpClient from "../../HttpClient";
 import Swal from "sweetalert2";
+import { PiCameraThin,PiCameraRotateThin } from "react-icons/pi";
 
 const stepperDetails = [
     {
@@ -137,6 +138,8 @@ const WebChecking =() =>{
     const [imagePath, setImagePath] = useState();
     const [imageOne,setImageOne] =useState()
 
+    console.log(documento)
+
     const handNex =() =>{
         setCheckBox(checkbox + 1)
         changeSteep(checkbox)
@@ -184,7 +187,6 @@ const WebChecking =() =>{
         setSatate(newSteep)
     }
 
-    
     const changeBack =(itemId) =>{
         const Steeper = state.findIndex((itemStepes) => itemStepes.count ==itemId)
         const newSteep = structuredClone(state)
@@ -273,14 +275,18 @@ const WebChecking =() =>{
                 </div>
                 <div className="container-form-web-checking-one" >
                     <div className="form-login title-web-checking container-form-web-checkingOne"  >
-                        <label htmlFor="" className="title-label" >Sube tu documento:</label>
+                        <label htmlFor="" className="title-label" >Sube tu documento: {documento.nombre} </label>
+                        <PiCameraThin color="black"  />
+                        <PiCameraRotateThin color="black"  />
                         <input type="file"
                                 onChange={(e) =>setImagePath(e.target.files[0])}
-                                className="username"  
+                                className="username" 
+                                accept="image"
                                 placeholder="XDE-4567890-0987" />
                         <input  type="file"
                                 onChange={(e) => setImageOne(e.target.files[0])}
                                 className="username"  
+                                accept="image"
                                 placeholder="XDE-4567890-0987" />
                     </div>
                 </div>
