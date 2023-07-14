@@ -57,6 +57,7 @@ import RoomDetail from "./page-resesion/RoomDetail";
 import MainDasboard from "./page-resesion/Dashboard/Main";
 import Footer from "./component/Footer/Footer";
 import WebChecking from "./page-resesion/webChecking";
+import Checkingn4 from "./page-resesion/checking4";
 
 function App() {
   const { jwt } = useContext(AutoProvider);
@@ -267,6 +268,11 @@ function App() {
                 path="/Detailinforme/:id"
                 component={DetailnformeStore}
               />
+              <PrivateRoute
+                exact
+                path="/typefirmar"
+                component={Checkingn4}
+              />
               
               <Route component={NoFound} />
             </Switch>
@@ -402,6 +408,12 @@ function App() {
                 exact
                 path="/Detailinforme/:id"
                 component={DetailnformeStore}
+              />
+
+<PrivateRoute
+                exact
+                path="/typefirmar"
+                component={Checkingn4}
               />
               <Route component={NoFound} />
             </Switch>

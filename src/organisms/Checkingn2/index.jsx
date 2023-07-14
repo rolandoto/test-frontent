@@ -197,11 +197,14 @@ const Checkingn2Organism =({id,postDetailRoom,fetchDataApiWhatsapp,postWhataapBy
 
     const fullName =   resulDetailDashboard?.Nombre +" "+ resulDetailDashboard?.Apellido
 
+    useEffect(() =>{
+         fetchDataApiWhatsapp({ phone: totalNumberPhone});
+    },[])
 
     const handUpdateConfirms = async () => {
         setDisable(true);
         try {
-          await fetchDataApiWhatsapp({ phone: numberPhone, name: fullName });
+        
           await ServiceUpdateReservationpay({ id, dataOne: dataTwo });
       
           await postDetailRoom({ id: resulDetailDashboard?.ID_Habitaciones, ID_estado_habitacion: 3 });

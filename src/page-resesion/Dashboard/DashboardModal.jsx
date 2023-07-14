@@ -923,7 +923,7 @@ const DashboardModal = (props) => {
                                                         </li>
 
                                                     <li>
-                                                        <label className="title-stores">Celular</label>
+                                                        <label className="title-stores">Celular/sin indicativo</label>
                                                         <input className="input-stores-personality-one--fininsh-prefijo " required  name="Celular"     type="number"  value={item.Celular}  onChange={(event) =>  handleInpuHuespe(event, index)} />
                                                     </li>   
                                                 </ul>

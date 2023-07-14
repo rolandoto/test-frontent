@@ -282,7 +282,7 @@ const WebChecking =() =>{
                 </div>
                 <div className="container-form-web-checking-one" >
                     <div className="form-login title-web-checking container-form-web-checkingOne"  >
-                        <label htmlFor="" className="title-label" >Sube tu documento: {documento.nombre} </label>
+                        <label htmlFor="" className="title-label" > <span className="font-size-webchecking">Sube tu documento: </span>{documento.nombre} </label>
                         
                                <div className="file-input-container">
                                <input
@@ -292,7 +292,7 @@ const WebChecking =() =>{
                                         className="file-input"
                                     />
                                     <label htmlFor="fileInputone" className="file-input-label">
-                                        {imagePath ? "imagen selecionada": 'Seleccionar archivo'}
+                                        {imagePath ? "imagen selecionada": 'Foto frontal documento...'}
                                         <PiCameraThin color="black"   fontSize={25}  />
                                     </label>
                                 </div> 
@@ -305,7 +305,7 @@ const WebChecking =() =>{
                                         className="file-input"
                                     />
                                     <label htmlFor="fileInput" className="file-input-label">
-                                        {imageOne ? "imagen selecionada" : 'Seleccionar archivo'}
+                                        {imageOne ? "imagen selecionada" : 'Foto posterior documento...'}
                                         <PiCameraRotateThin color="black"   fontSize={25}  />
                                     </label>
                                 </div>      

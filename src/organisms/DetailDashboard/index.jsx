@@ -856,8 +856,8 @@ const  handleClickEliminar =UseModalText({handlModal:hanDelete,Text:"Estas segur
         <div className="container-detail-dasboard-in" > 
         <span className="desde-detail-two-title-photo" >Forma pago:</span>
         <span className="desde-detail-two-title-photo-three" >Abono:</span>
-        <span className="desde-detail-two-title-photo-four" >Documento 1:</span>
-        <span className="desde-detail-two-title-photo-four" >Documento 2:</span>
+        <span className="desde-detail-two-title-photo-four" >Documento frontal:</span>
+        <span className="desde-detail-two-title-photo-four" >Documento posterior:</span>
         <span className="desde-detail-two-title-photo" >Firma:</span>
             </div>
               <div className="container-detail-dasboard-in" > 
@@ -894,25 +894,25 @@ const  handleClickEliminar =UseModalText({handlModal:hanDelete,Text:"Estas segur
               
                 </div>  
                  <Image
-                  width={290}
-                  height={120} 
-                    src={`${resultDashboard.Foto_documento_adelante ? resultDashboard.Foto_documento_adelante : "https://bysperfeccionoral.com/wp-content/uploads/2020/01/136-1366211_group-of-10-guys-login-user-icon-png.jpg"  }`}
+                  width={280}
+                  height={125} 
+                    src={`${resultDashboard.Foto_documento_adelante ? resultDashboard.Foto_documento_adelante : "https://github.com/rolandoto/image-pms/blob/main/pdf_Mesa%20de%20trabajo%201_Mesa%20de%20trabajo%201%20(1).png?raw=true"  }`}
                     objectFit="initial"
                     alt="Default Image"
                   />
-  
+                  
                   <Image
-                    width={290}
-                    height={120} 
-                    src={`${resultDashboard.Foto_documento_atras ? resultDashboard.Foto_documento_atras : "https://bysperfeccionoral.com/wp-content/uploads/2020/01/136-1366211_group-of-10-guys-login-user-icon-png.jpg"  }`}
+                    width={275}
+                    height={125} 
+                    src={`${resultDashboard.Foto_documento_atras ? resultDashboard.Foto_documento_atras : "https://github.com/rolandoto/image-pms/blob/main/pdf_Mesa%20de%20trabajo%201_Mesa%20de%20trabajo%201%20(1).png?raw=true"  }`}
                     objectFit="initial"
                     alt="Default Image"
                   />
 
                   <Image
-                    width={290}
-                    height={120}  
-                    src="https://bysperfeccionoral.com/wp-content/uploads/2020/01/136-1366211_group-of-10-guys-login-user-icon-png.jpg"
+                     width={280}
+                     height={125} 
+                    src="https://github.com/rolandoto/image-pms/blob/main/pdf_Mesa%20de%20trabajo%201_Mesa%20de%20trabajo%201%20(1).png?raw=true"
                     objectFit="initial"
                     alt="Default Image"
                   />

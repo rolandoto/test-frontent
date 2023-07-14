@@ -183,7 +183,7 @@ const ReservasUpdate =(props) =>{
                 <span className="desde-detail-three-das" > Fecha Nacimiento </span>
                 <span className="desde-detail-three-das" >Nacionalidad </span>
                 <span className="desde-detail-two-das" >Correo electronico</span>    
-                <span  className="desde-detail-three-das">Celular</span>
+                <span  className="desde-detail-three-das">Celular /sin indicativo</span>
             </div>
 
             <div className="container-detail-dasboard-in" >

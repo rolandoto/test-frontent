@@ -204,11 +204,9 @@ const Checkingn3 =() =>{
 
     const handUpdateConfirms =() =>{
        if(isChecked){
-        window.location.href =(`/contracto`)
-       }
-     
+        window.location.href =(`/typefirmar`)
+       }     
     }
-
 
     function handleOnChange(event) {
         setIsChecked(!isChecked);

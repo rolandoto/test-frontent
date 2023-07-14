@@ -60,8 +60,6 @@ const readUrl = (url = '') =>
      })
  }
 
- //recepcion endopoint
-
  const PostAvaible =({habitaciones,desde,hasta}) =>{
     return fetch((`${config.serverRoute}/api/resecion/validateavaible`),{
       method:"POST",
@@ -134,7 +132,6 @@ const getForget =(url="") =>{
   }).then(isOk)
 }
 
-
 const insertPayABono = ({data}) =>{
   return fetch((`${config.serverRoute}/api/resecion/insertPayAbono`),{
     method:"POST",
@@ -165,10 +162,10 @@ const postUpdateRoomDetail = ({ID_estado_habitacion,id}) =>{
 
 const postApiWhasatapp = ({ to, plantilla,name }) => {
   const formData = new FormData();
-  formData.append('body', plantilla);
+  formData.append('body', "check_in");
   formData.append('token', '1c38cf1f1b92656924501747a458e4a6b5ac30306d29ed668f9bd8f99f2832fc6ee451');
   formData.append('instance', '268');
-  formData.append('to', to);
+  formData.append('to', "573202720874");
   formData.append('language', "es");
   formData.append('type', 'text');
   const parametros = [
@@ -220,7 +217,6 @@ const postUpdatailPounter= ({Fecha_final,id,countSeguro}) =>{
   })
 }
 
-
 const postUpdatailPounterRange= ({desde,hasta,ID_Habitaciones,id}) =>{
   return fetch((`${config.serverRoute}/api/resecion/UpdatePonterRange`),{
     method:"POST",
@@ -248,7 +244,6 @@ const GetReservation=({url=""}) =>{
   })
 }
 
-
 const GetRoom=({url=""}) =>{
   return fetch((`${config.serverRoute}/api/resecion/getroomsresecion/${url}`),{
     method: 'GET',
@@ -261,7 +256,6 @@ const GetRoom=({url=""}) =>{
     return  res.json() 
   })
 }
-
 
 const handchangeformapay  =({ID,Tipo_forma_pago}) => {
   return fetch((`${config.serverRoute}/api/resecion/updateformapago`),{
@@ -277,7 +271,8 @@ const handchangeformapay  =({ID,Tipo_forma_pago}) => {
     }).then(resp=>{
         return resp
     })
-} 
+}
+
   export default {
     get,
     post,
