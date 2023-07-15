@@ -12,10 +12,10 @@ const useUpdateDetailPounterRangeSliceActions =() =>{
 
     const dispatch = useAppDispatch()
 
-    const postUpdateDetailPointerRange =  async({desde,hasta,ID_Habitaciones,id}) =>{
+    const postUpdateDetailPointerRange =  async({desde,hasta,ID_Habitaciones,id,ID_estado_habiatcion}) =>{
         dispatch(loading());
         try {
-            const response  = await HttpClient.postUpdatailPounterRange({desde,hasta,ID_Habitaciones,id})
+            const response  = await HttpClient.postUpdatailPounterRange({desde,hasta,ID_Habitaciones,id,ID_estado_habiatcion})
             if(response){
                 dispatch(setUpdate(response))
                 confetti({

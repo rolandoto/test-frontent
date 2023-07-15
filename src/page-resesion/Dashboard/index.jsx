@@ -530,15 +530,16 @@ const Dashboard = () => {
 	  const handleItemMove = (itemId, dragTime, newGroupOrder) => {
 		let dragTimeOne =0
 		let ID_Habitaciones = 0
-		
+		let ID_estado_habiatcion =0
 		const group = search[newGroupOrder];
 
-		console.log({group})
+		console.log({itemId})
 
 		 reservation.map(item =>{
 			if(item.id  ==  itemId){
 				dragTimeOne= dragTime+( item.end_time - item.start_time)
 				ID_Habitaciones =group.id
+				ID_estado_habiatcion=group.ID_estado_habiatcion
 			}
 		})
 
@@ -547,7 +548,9 @@ const Dashboard = () => {
 
 		const desde =  `${fecha1} 15:00:00`
 		const hasta = `${fecha2} 13:00:00`
-		const newReservation = structuredClone(pruebareservas)
+		const newReservation = structuredClone(pruebareservas) 
+
+
 
 		const handModalText =(e) =>{
 			confirmAlert({
@@ -567,8 +570,7 @@ const Dashboard = () => {
 									}
 								  : item,
 							  );
-							
-							  postUpdateDetailPointerRange({desde,hasta,ID_Habitaciones,id:itemId})
+							  postUpdateDetailPointerRange({desde,hasta,ID_Habitaciones,id:itemId,ID_estado_habiatcion})
 							  setpruebareservas(updatedItems);
 							  setReservas(updatedItems)
 						onClose() 

@@ -217,10 +217,10 @@ const postUpdatailPounter= ({Fecha_final,id,countSeguro}) =>{
   })
 }
 
-const postUpdatailPounterRange= ({desde,hasta,ID_Habitaciones,id}) =>{
+const postUpdatailPounterRange= ({desde,hasta,ID_Habitaciones,id,ID_estado_habiatcion}) =>{
   return fetch((`${config.serverRoute}/api/resecion/UpdatePonterRange`),{
     method:"POST",
-      body:JSON.stringify({desde,hasta,ID_Habitaciones,id}),
+      body:JSON.stringify({desde,hasta,ID_Habitaciones,id,ID_estado_habiatcion}),
       headers:{
         Accept: 'application/json',
         'Content-Type': 'application/json',
