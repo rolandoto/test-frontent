@@ -285,7 +285,18 @@ const DetailDasboard =(props) =>{
 
     const handChecking =() =>{
       if(!findFirma){
-        history.push(`/detailchecking/${id}`)
+        HttpClient.validCheckingAll({ID:resultDashboard.ID_Habitaciones}).then(itemValid =>{
+          history.push(`/detailchecking/${id}`)
+        }).catch(e =>{
+          Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: '<p>todavia hay una habitacion con check in</p>',
+            showConfirmButton: false,
+            timer: 1000
+          })
+        })
+      
       }
     }
     
@@ -676,8 +687,9 @@ const hanClickAsear =() => {
     }
 }
 
-const hanClickLimpia =() => {
+const hanClickLimpia =async() => {
   if(resultDashboard?.Estado !="3"){
+    await postDetailRoom({ id: resultDashboard?.ID_Habitaciones, ID_estado_habitacion: 0 });
     ServiceStatus({id,ID_Tipo_Estados_Habitaciones:6}).then(index => {
       Swal.fire({
         position: 'center',
@@ -900,7 +912,7 @@ const  handleClickEliminar =UseModalText({handlModal:hanDelete,Text:"Estas segur
                     objectFit="initial"
                     alt="Default Image"
                   />
-                  
+
                   <Image
                     width={275}
                     height={125} 

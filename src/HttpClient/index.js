@@ -273,6 +273,21 @@ const handchangeformapay  =({ID,Tipo_forma_pago}) => {
     })
 }
 
+const validCheckingAll  =({ID}) => {
+  return fetch((`${config.serverRoute}/api/resecion/validChecking/${ID}`),{
+    method:"POST",
+      headers:{
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      }
+      }).then(resp =>{
+        if(!resp.ok) throw new Error('Response is not ok')
+        return resp.json()
+    }).then(resp=>{
+        return resp
+    })
+}
+
   export default {
     get,
     post,
@@ -292,6 +307,7 @@ const handchangeformapay  =({ID,Tipo_forma_pago}) => {
     GetReservation,
     GetRoom,
     UploadImage,
-    handchangeformapay
+    handchangeformapay,
+    validCheckingAll
   }
   

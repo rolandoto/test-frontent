@@ -531,8 +531,9 @@ const Dashboard = () => {
 		let dragTimeOne =0
 		let ID_Habitaciones = 0
 		
-		
 		const group = search[newGroupOrder];
+
+		console.log({group})
 
 		 reservation.map(item =>{
 			if(item.id  ==  itemId){
@@ -640,8 +641,10 @@ const Dashboard = () => {
 					letra="black" 
 					key={group.id} 
 
-					iconState={<VscSymbolEvent  fontSize={15}/> }
-					/>
+					iconState={	<div class="live-indicator">
+									<span class="live-text">En vivo</span>
+								</div>}
+									/>
 			)
 		}
 			rows.push(
