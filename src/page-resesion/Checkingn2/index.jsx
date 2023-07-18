@@ -14,7 +14,7 @@ const Checkingn2 =() =>{
     const {postWhataapById} = useApiWhataapActions()
 
     const fetchDataApiWhatsapp =async({phone}) =>{
-        await postWhataapById({plantilla:"check_in",to:"573202720874"})
+        await postWhataapById({plantilla:"check_in",to:phone})
     }
 
     const fillContent =() =>{

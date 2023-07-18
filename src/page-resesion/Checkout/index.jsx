@@ -17,10 +17,10 @@ const Checkout =() =>{
     const {loading,error,DetailDashboard
     } = useSelector((state) => state.DetailDashboard)
 
-    const {postWhataapById} = useApiWhataapActions()
+    const {postWhataapByIdCheckout} = useApiWhataapActions()
 
-    const fetchDataApiWhatsapp =async({phone,languaje,name}) =>{
-        await postWhataapById({plantilla:"check_in",to:phone,languaje,name})
+    const fetchDataApiWhatsapp =async({phone,languaje,name,hotel}) =>{
+        await postWhataapByIdCheckout({plantilla:"pruba",to:phone,languaje,name,hotel})
     }
 
     const fetchData =async() =>{

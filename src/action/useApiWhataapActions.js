@@ -23,8 +23,26 @@ const useApiWhataapActions =() =>{
         }
     }
 
+    const postWhataapByIdCheckout =async({plantilla,to,languaje,name,hotel}) =>{
+        dispatch(loading())
+        try {
+
+            const postResponse =  await HttpClient.postApiWhasatappCheckout({plantilla,to,languaje,name,hotel})
+
+            if(postResponse){
+                console.log("hotel")
+            }else{
+                console.log("error")
+            }
+
+        } catch (error) {
+            console.log("error")
+        }
+    }
+
     return {
-        postWhataapById
+        postWhataapById,
+        postWhataapByIdCheckout
     }
 }
 

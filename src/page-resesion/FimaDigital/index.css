@@ -1,0 +1,15 @@
+.signatureCanvas {
+    border: 1px solid black;
+    width: 100%;
+    min-height: 500px;
+  }
+  
+
+  .parrafo-firmadigital{
+    font-size: 12px;
+    text-align: justify;
+  }
+
+  .container-flex-firma{
+    display: flex;
+  }

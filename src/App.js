@@ -58,6 +58,7 @@ import MainDasboard from "./page-resesion/Dashboard/Main";
 import Footer from "./component/Footer/Footer";
 import WebChecking from "./page-resesion/webChecking";
 import Checkingn4 from "./page-resesion/checking4";
+import FirmaDigital from "./page-resesion/FimaDigital";
 
 function App() {
   const { jwt } = useContext(AutoProvider);
@@ -273,6 +274,11 @@ function App() {
                 path="/typefirmar"
                 component={Checkingn4}
               />
+              <PrivateRoute
+                exact
+                path="/firmadigital/:id"
+                component={FirmaDigital}
+              />
               
               <Route component={NoFound} />
             </Switch>
@@ -410,15 +416,19 @@ function App() {
                 component={DetailnformeStore}
               />
 
-<PrivateRoute
+              <PrivateRoute
                 exact
-                path="/typefirmar"
+                path="/typefirmar/:id"
                 component={Checkingn4}
+              />
+              <PrivateRoute
+                exact
+                path="/firmadigital/:id"
+                component={FirmaDigital}
               />
               <Route component={NoFound} />
             </Switch>
           </BrowserRouter>
-         
         </Provider>
       </div>
     );

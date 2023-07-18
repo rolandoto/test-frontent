@@ -681,8 +681,6 @@ const DetailChekingOrganism =({id}) =>{
                 </div>
 
                     <div className="container-flex-init-one" >
-                        
-
                             <div className="container-checkbox" >
                             <input   type="checkbox" 
                                         className={`checkbox-round  ${isChecked && "checkbox-round-click"} `}

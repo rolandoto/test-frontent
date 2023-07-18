@@ -32,7 +32,6 @@ import { Button, Spacer } from '@nextui-org/react';
 import { CameraIcon, HeartIcon, LockIcon, NotificationIcon } from "./IconReservation";
 import Footer from "../../component/Footer/Footer";
 
-
 const GroupRows =({group,color,estado,iconState,letra}) =>{
 	return (
 		<div    style={{ backgroundColor: color, color:letra}} className="flex-romm-grup" >
@@ -104,7 +103,6 @@ const Dashboard = () => {
 		})
 	},[])
 
-	
 	const onItemClick = (itemId, e, time, onItemSelectParentUpdate) => {	
 		history.push(`/DetailDashboard/${itemId}`)
 	}
@@ -411,16 +409,14 @@ const Dashboard = () => {
 		history.push("/RoomDetail")
 	}
 
-	
-
 	const Informes = [
 		{
-		id: 1,
-		name:"Informe Camareria"
+			id: 1,
+			name:"Informe Camareria"
 		},
 		{
-		id: 5,
-		name:"Informe auditoría"
+			id: 5,
+			name:"Informe auditoría"
 		},
 		{
 			id: 6,
@@ -526,14 +522,11 @@ const Dashboard = () => {
 
 		postUpdateDetailPointer({ id: itemId, Fecha_final: fecha,countSeguro });
 	  };
-
 	  const handleItemMove = (itemId, dragTime, newGroupOrder) => {
 		let dragTimeOne =0
 		let ID_Habitaciones = 0
 		let ID_estado_habiatcion =0
 		const group = search[newGroupOrder];
-
-		console.log({itemId})
 
 		 reservation.map(item =>{
 			if(item.id  ==  itemId){

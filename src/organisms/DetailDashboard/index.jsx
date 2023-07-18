@@ -924,7 +924,7 @@ const  handleClickEliminar =UseModalText({handlModal:hanDelete,Text:"Estas segur
                   <Image
                      width={280}
                      height={125} 
-                    src="https://github.com/rolandoto/image-pms/blob/main/pdf_Mesa%20de%20trabajo%201_Mesa%20de%20trabajo%201%20(1).png?raw=true"
+                     src={`${resultDashboard.Pasaporte ? resultDashboard.Pasaporte : "https://github.com/rolandoto/image-pms/blob/main/pdf_Mesa%20de%20trabajo%201_Mesa%20de%20trabajo%201%20(1).png?raw=true"  }`}
                     objectFit="initial"
                     alt="Default Image"
                   />

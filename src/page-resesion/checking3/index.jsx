@@ -204,7 +204,7 @@ const Checkingn3 =() =>{
 
     const handUpdateConfirms =() =>{
        if(isChecked){
-        window.location.href =(`/typefirmar`)
+        window.location.href =(`/typefirmar/${id}`)
        }     
     }
 

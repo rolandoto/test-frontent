@@ -313,7 +313,7 @@ const CheckoutOrganism =({DetailDashboard,postDetailRoom,fetchDataApiWhatsapp}) 
 
     const hancCheckout =() => {
         ServiceStatus({id,ID_Tipo_Estados_Habitaciones:1}).then(index=>{
-            fetchDataApiWhatsapp({phone:totalNumberPhone,name:fullName})
+            fetchDataApiWhatsapp({phone:totalNumberPhone,name:fullName,hotel:jwt.result.hotel})
             postDetailRoom({id:resultDashboard.ID_Habitaciones,ID_estado_habitacion:5})
             ServiceResolution({Resolucion:dataCount.Resolucion+1,ID:dataCount.ID}).then(index=>{
                 ServiceInfomeMovimiento({Nombre_recepcion:jwt.result.name,Fecha:now,Movimiento:`Check out realizado tipo habitacion ${resultFinish?.nombre} ${resultDashboard.Numero}`,id:jwt.result.id_hotel}).then(index =>{

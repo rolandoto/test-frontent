@@ -206,15 +206,14 @@ const WebChecking =() =>{
         }
     }
 
-
     const [selectedFile, setSelectedFile] = useState(null);
 
     const handleFileChange = (event) => {
       const file = event.target.files[0];
       setSelectedFile(file);
     };
-  
 
+   
     const progressBarWidth = calculateProgressWidth();
 
     if(checkbox ==1) {
@@ -350,9 +349,7 @@ const WebChecking =() =>{
                         >
                               <BsChevronRight  className="text-center-icon"   fontSize={25} color="white"  />
                         </Button>
-
                 </div>
-
             </>
         )
     }else{

@@ -162,10 +162,10 @@ const postUpdateRoomDetail = ({ID_estado_habitacion,id}) =>{
 
 const postApiWhasatapp = ({ to, plantilla,name }) => {
   const formData = new FormData();
-  formData.append('body', "check_in");
+  formData.append('body', plantilla);
   formData.append('token', '1c38cf1f1b92656924501747a458e4a6b5ac30306d29ed668f9bd8f99f2832fc6ee451');
   formData.append('instance', '268');
-  formData.append('to', "573202720874");
+  formData.append('to',to);
   formData.append('language', "es");
   formData.append('type', 'text');
   const parametros = [
@@ -187,20 +187,62 @@ const postApiWhasatapp = ({ to, plantilla,name }) => {
 };
 
 
-const UploadImage =({file1,file2,ID}) =>{
+
+const postApiWhasatappCheckout = ({ to, plantilla,name ,hotel}) => {
   const formData = new FormData();
-  formData.append('myFile', file1);
-  formData.append('myFile', file2);
-  formData.append("id",ID)
-  return fetch(`${config.serverRoute}/api/resecion/uploadfile`, {
+  formData.append('body', plantilla);
+  formData.append('token', '1c38cf1f1b92656924501747a458e4a6b5ac30306d29ed668f9bd8f99f2832fc6ee451');
+  formData.append('instance', '268');
+  formData.append('to',to);
+  formData.append('language', "es");
+  formData.append('type', 'text');
+  const parametros = [
+    { type: 'text', text:hotel },
+    { type: 'text', text: ' https://grupo-hoteles.com/suvenir' },
+  ];
+  formData.append('parameters', JSON.stringify(parametros));
+  return fetch('https://whatslight.com/manager/ajax/chat_api.ajax.php', {
     method: 'POST',
     body: formData,
-  }).then(resp =>{
-    if(!resp.ok) throw new Error('Response is not ok')
-    return resp.json()
-}).then(resp=>{
-    return resp
-})
+  })
+    .then(resp => {
+      if (resp.status === 'error') throw new Error('Response is not ok');
+      return resp.json();
+    }).catch(e =>{
+      console.log(e)
+    })
+};
+
+
+const UploadImage =({file1,file2,ID}) =>{
+    const formData = new FormData();
+    formData.append('myFile', file1);
+    formData.append('myFile', file2);
+    formData.append("id",ID)
+    return fetch(`${config.serverRoute}/api/resecion/uploadfile`, {
+      method: 'POST',
+      body: formData,
+    }).then(resp =>{
+      if(!resp.ok) throw new Error('Response is not ok')
+      return resp.json()
+  }).then(resp=>{
+      return resp
+  })
+}
+
+const UploadImageFirma =({file1,ID}) =>{
+    const formData = new FormData();
+      formData.append('myFile', file1);
+      formData.append("id",ID)
+      return fetch(`${config.serverRoute}/api/resecion/uploadfileSignature`, {
+        method: 'POST',
+        body: formData,
+      }).then(resp =>{
+        if(!resp.ok) throw new Error('Response is not ok')
+        return resp.json()
+    }).then(resp=>{
+        return resp
+    })
 }
 
 const postUpdatailPounter= ({Fecha_final,id,countSeguro}) =>{
@@ -308,6 +350,8 @@ const validCheckingAll  =({ID}) => {
     GetRoom,
     UploadImage,
     handchangeformapay,
-    validCheckingAll
+    validCheckingAll,
+    UploadImageFirma,
+    postApiWhasatappCheckout
   }
   
