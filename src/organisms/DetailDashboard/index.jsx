@@ -552,6 +552,9 @@ const priceLenceria = Lenceria?.reduce((acum,current) => {
     return acum  + current.Cantidad * current.Precio
 },0)
 
+
+
+
   const hanDelete =() =>{
     if(parseInt(resultDashboard.valor_abono) <=0){
       ServiDelteReservation({id}).then(index =>{  

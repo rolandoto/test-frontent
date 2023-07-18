@@ -186,8 +186,6 @@ const postApiWhasatapp = ({ to, plantilla,name }) => {
     })
 };
 
-
-
 const postApiWhasatappCheckout = ({ to, plantilla,name ,hotel}) => {
   const formData = new FormData();
   formData.append('body', plantilla);
