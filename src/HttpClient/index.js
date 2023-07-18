@@ -169,7 +169,7 @@ const postApiWhasatapp = ({ to, plantilla,name }) => {
   formData.append('language', "es");
   formData.append('type', 'text');
   const parametros = [
-    { type: 'text', text: 'Paola' },
+    { type: 'text', text: name },
     { type: 'text', text: 'https://grupo-hoteles.com/planes_turisticos' },
     { type: 'text', text: ' https://grupo-hoteles.com/suvenir' },
   ];

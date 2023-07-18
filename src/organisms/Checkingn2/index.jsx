@@ -195,11 +195,13 @@ const Checkingn2Organism =({id,postDetailRoom,fetchDataApiWhatsapp,postWhataapBy
 
     const totalNumberPhone = numberPhone.replace("+","")
 
+    console.log(resulDetailDashboard)
+
     const handUpdateConfirms = async () => {
         setDisable(true);
         try {
 
-          await fetchDataApiWhatsapp({ phone: totalNumberPhone});
+          await fetchDataApiWhatsapp({ phone: totalNumberPhone, name:`${resulDetailDashboard.Nombre} ${resulDetailDashboard.Apellido}`});
         
           await ServiceUpdateReservationpay({ id, dataOne: dataTwo });
       
