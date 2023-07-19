@@ -771,14 +771,13 @@ const [isOpen, setIsOpen] = useState(false);
 				groups={search}
 				items={[...pruebareservas]}
 				onItemResize={handleItemResize}
-				defaultTimeStart={moment().startOf("day").add(-3, "day")}
-				defaultTimeEnd={moment().startOf("day").add(30, "day")}
+				defaultTimeStart={moment().startOf("day").add(-4, "day")}
+				defaultTimeEnd={moment().startOf("day").add(18, "day")}
 				stackItems
-			
 				onItemMove={handleItemMove}									
 				itemHeightRatio={0.9}                                                             
 				lineHeight={34}
-				sidebarWidth={200}
+				sidebarWidth={225}
 				sidebarContent={<div>Above The Left</div>}
 				itemRenderer={  itemRenderer}
 				onItemClick={(itemId, e, time) =>{
@@ -798,7 +797,7 @@ const [isOpen, setIsOpen] = useState(false);
 						 <div style={{	margin:"auto",
 						 				display:"flex",
 										justifyContent:"center",
-										width:"210px"}}  
+										width:"234px"}}  
 						>
 							 <div {...getRootProps({
 						style:{
