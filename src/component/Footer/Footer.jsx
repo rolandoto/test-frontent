@@ -15,7 +15,7 @@ const Footer =({totalday}) =>{
 //#0072f5
     return (
         <>
-         <footer className='footer-one'  style={{width:`${10}%`}} >
+         <footer className='footer-one'  style={{width:`${200}px`}} >
          <ul className="flex-footer icon-state-reservation">
                         <span className="text-words" >Total huespedes</span>
                         <span className="text-words" >{huesped}</span>
@@ -23,7 +23,7 @@ const Footer =({totalday}) =>{
 
                     </ul>
             </footer>
-            <footer className='footer' style={{width:`${10}%`}}   >
+            <footer className='footer' style={{width:`${200}px`}}   >
             <ul className="flex-footer icon-state-reservation"  >
                         <span className="text-words" >Total venta</span>
                         <span className="text-words" >${tienda}</span>
@@ -32,7 +32,7 @@ const Footer =({totalday}) =>{
                     </ul>
             </footer>
            
-            <footer className='footer-two'  style={{width:`${10}%`}}   >
+            <footer className='footer-two'  style={{width:`${200}px`}}   >
             <ul className="flex-footer icon-state-reservation">
                         <span className="text-words" >Habitaciones ocupada</span>
                         <span className="text-words" >{HabitacionOcupadas}</span>
@@ -40,7 +40,7 @@ const Footer =({totalday}) =>{
                     </ul>
             </footer>
 
-             <footer className='footer-four' style={{width:`${10}%`}} >
+             <footer className='footer-four' style={{width:`${200}px`}} >
                     <ul className="flex-footer icon-state-reservation">
                         <span className="text-words" >  Total reservas</span>
                         <span className="text-words" >{totalWidth} </span>

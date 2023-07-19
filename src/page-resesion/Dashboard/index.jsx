@@ -80,6 +80,34 @@ const Dashboard = () => {
 	const {postUpdateDetailPointer} = useUpdateDetailPointerActions()
 	const {postUpdateDetailPointerRange} = useUpdateDetailPounterRangeSliceActions()
 	const {iduser} = UseListMotels()
+
+	const [visibleTimeStart, setVisibleTimeStart] = useState(new Date());
+	const [visibleTimeEnd, setVisibleTimeEnd] = useState(new Date());
+  
+	const handleZoomIn = () => {
+		const newVisibleTimeStart = new Date(visibleTimeStart);
+		const newVisibleTimeEnd = new Date(visibleTimeEnd);
+	
+		newVisibleTimeStart.setHours(0, 0, 0, 0);
+		newVisibleTimeEnd.setHours(23, 59, 59, 999);
+	
+		const zoomFactor = 0.5; // Factor de zoom, puedes ajustarlo según tus necesidades
+	
+		const visibleTimeDuration = newVisibleTimeEnd.getTime() - newVisibleTimeStart.getTime();
+		const newDuration = visibleTimeDuration * zoomFactor;
+	
+		const center = (newVisibleTimeStart.getTime() + newVisibleTimeEnd.getTime()) / 2;
+		const newVisibleTimeStartMs = center - newDuration / 2;
+		const newVisibleTimeEndMs = center + newDuration / 2;
+	
+		setVisibleTimeStart(new Date(newVisibleTimeStartMs));
+		setVisibleTimeEnd(new Date(newVisibleTimeEndMs));
+	};
+
+	const handleZoomOut = () => {
+		// Implementa la lógica para hacer zoom out, si es necesario
+	};
+	
 	
 	const FindIdHotel=(hotel) =>{
 		return hotel.id_hotel == jwt.result.id_hotel
@@ -685,7 +713,7 @@ const [isOpen, setIsOpen] = useState(false);
 	return (
 		<>			
 			<div ref={timelineRef} > 
-			<div style={{ display: "flex"}}>
+			<div  className="container-button">
 			<Spacer x={4} y={3} />
 			<Button  
 					onClick={handClickReservaction}
@@ -718,7 +746,7 @@ const [isOpen, setIsOpen] = useState(false);
 					style={{width:"20%"}}  
 					icon={<NotificationIcon fill="currentColor" />}  color="secondary">  <span  className="text-words" > Reservas </span> </Button>
 			<Spacer  x={0.5} y={1} />
-			<Button style={{width:"20%"}}  color="error" flat> <span  className="text-words" >Total reservas</span>  </Button>
+			<Button style={{width:"20%"}}  color="error" flat  > <span  className="text-words" ONCL >Zoom In</span>  </Button>
 			<select onChange={handRaiting}  
 													value={raiting} 
 													className='button-reservas-type-one button-reservas-type-space  button-reservas-type-one-two-two button-reservas-type-space-One-One' >
@@ -746,6 +774,7 @@ const [isOpen, setIsOpen] = useState(false);
 				defaultTimeStart={moment().startOf("day").add(-3, "day")}
 				defaultTimeEnd={moment().startOf("day").add(30, "day")}
 				stackItems
+			
 				onItemMove={handleItemMove}									
 				itemHeightRatio={0.9}                                                             
 				lineHeight={34}
