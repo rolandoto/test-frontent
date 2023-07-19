@@ -771,7 +771,7 @@ const [isOpen, setIsOpen] = useState(false);
 				groups={search}
 				items={[...pruebareservas]}
 				onItemResize={handleItemResize}
-				defaultTimeStart={moment().startOf("day").add(-4, "day")}
+				defaultTimeStart={moment().startOf("day").add(-1, "day")}
 				defaultTimeEnd={moment().startOf("day").add(18, "day")}
 				stackItems
 				onItemMove={handleItemMove}									
@@ -810,7 +810,7 @@ const [isOpen, setIsOpen] = useState(false);
 							width:"208px ",
 							height: "67px"
 						}
-					})}>
+					})}>		
 					<img  src={jwt.result.logo} alt="" />
 			</div>
 			</div>
