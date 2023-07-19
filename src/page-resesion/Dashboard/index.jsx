@@ -700,10 +700,7 @@ const [isOpen, setIsOpen] = useState(false);
     setIsOpen(!isOpen);
   };
 
-  const handleOptionSelect = (option) => {
-    setSelectedOption(option);
-    setIsOpen(false);
-  };
+  
 
 	if(!search)  return null
 	if(!state)  return null
