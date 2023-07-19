@@ -561,7 +561,8 @@ tr {
   /* width: 146%; */
   justify-content: center;
   display: flex;
-  max-width: 1485px;
+  max-width: 80%;
+    min-width: 80%;
   /* max-height: 1100px; */
   flex-direction: column;
   background: #fff;

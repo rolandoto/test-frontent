@@ -71,11 +71,11 @@ const Bictacoras  =() =>{
 
     return <>
               <InputBictacoras 
-              handSubmitBictacoras={handSubmitBictacoras}
-                setBbicacion={setBbicacion}
-                ubicacione={ubicacione}
-                setDescription={setDescription}
-                descriptione={descriptione} />
+                handSubmitBictacoras={handSubmitBictacoras}
+                  setBbicacion={setBbicacion}
+                  ubicacione={ubicacione}
+                  setDescription={setDescription}
+                  descriptione={descriptione} />
              <BictacorasTemplate Bitacoras={Bitacoras} />
          </>
 
