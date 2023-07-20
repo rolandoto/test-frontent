@@ -677,7 +677,7 @@ const DashboardModal = (props) => {
 
         if(createReservation) return   <LineProgress progress={progress} />  
         return (
-            <div className="container-bicta" >
+            <div className="container-bictaONe" >
               
                                             <LoadingDetail      error={loadingPersona.error}  
                                                                     title="Error maximo de personas" />
