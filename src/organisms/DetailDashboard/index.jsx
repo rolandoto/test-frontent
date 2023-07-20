@@ -1405,7 +1405,7 @@ const handleState =(event, index) =>{
               <LoadingDetail  
                               loading={true}
                               titleLoading={"Consumos"}  />
-                  <Table sx={{marginTop:4}} size="small" aria-label="a dense table"> 
+                  <Table sx={{width:1300 ,marginTop:4}} size="small"  aria-label="a dense table"> 
                   <TableHead>
                       <TableRow>
                       <TableCell align="right">Producto</TableCell> 
