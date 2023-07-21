@@ -14,6 +14,7 @@ import ServiceAddHuespedes from "../../service/ServiceAddHuespedes";
 import { config } from "../../config";
 import ServiceUpdateReservation from "../../service/ServiceUpdatereservation";
 import Swal from 'sweetalert2'
+import { Button } from "@nextui-org/react";
 
 const DetailChekingOrganism =({id}) =>{
     const history = useHistory()
@@ -386,21 +387,21 @@ const DetailChekingOrganism =({id}) =>{
                                         title={"Tienes que "}  />
 
                     <div className="container-detail-dasboard-in-one" >
-                        <div className="border-detail" >
+                        <div style={{background: "#ebebeb"}} className="border-detail"  >
                             <span> noches {day}  </span>
                         </div>
 
-                        <div className="border-detail" >
+                        <div style={{background: "#ebebeb"}} className="border-detail" >
                             <span>{resulDetailDashboard?.valor_habitacion}</span>
                         </div>
 
-                        <div className="border-detail" >
+                        <div style={{background: "#ebebeb"}} className="border-detail"  >
                             <span>{resultFinish?.nombre}</span>
                         </div>
-                        <div className="border-detail" >
+                        <div style={{background: "#ebebeb"}} className="border-detail"  >
                             <span>{resulDetailDashboard?.forma_pago}</span>
                         </div>
-                        <div className="border-detail" >
+                        <div style={{background: "#ebebeb",}} className="border-detail"  >
                             <span>Abono {resulDetailDashboard?.valor_abono} </span>
                         </div>
                     </div>
@@ -413,7 +414,7 @@ const DetailChekingOrganism =({id}) =>{
                     </div>
                 </div>
                 <div>
-                    <form  className="container-flex-init" >
+                    <form  className="container-flex-init-One" >
                     <div className="container-detail-dasboard-in" > 
 
                     <span className="desde-detail-two-title" > Adultos </span>
@@ -470,7 +471,7 @@ const DetailChekingOrganism =({id}) =>{
                         const nacimiento = moment(index?.Fecha_nacimiento).utc().format('YYYY/MM/DD')
                         return (
                 
-                        <form className="container-flex-init init-one-finish onoot" >
+                        <form className="container-flex-init-One init-one-finish onoot" >
                         <div className="container-detail-dasboard-in" > 
                             <span className="desde-detail-three-das" > Nombre</span>
                             <span className="desde-detail-three-das" >Apellido </span>
@@ -680,7 +681,7 @@ const DetailChekingOrganism =({id}) =>{
                     }
                 </div>
 
-                    <div className="container-flex-init-one" >
+                    <div className="container-flex-init-one-row" >
                             <div className="container-checkbox" >
                             <input   type="checkbox" 
                                         className={`checkbox-round  ${isChecked && "checkbox-round-click"} `}
@@ -716,24 +717,16 @@ const DetailChekingOrganism =({id}) =>{
                                         )}
                                     </select>  
                         </div>
+
+
+                        <Button
+                        onClick={hanClickingn2}
                         
-                        <div className="container-checkbox"    >
-                            <button className="button-dasboard-six-one-one-one"  >
-                                <CiCirclePlus fontSize={30}  /> <span>  Añadir personas  </span> 
-                            </button>
-               
-                            </div>
-                        <div onClick={handState} >
-                            <button className="button-checking-detail-one-one"   > <span>{item}</span></button>
-                        </div> 
-                        <div onClick={hanClickingn2} >
-                            <button className="button-checking-detail"    >
-                                <span className="title-button"   >Continuar</span>
-                            </button>
-                        </div> 
+                    className="button-checking-detail"
+                    color="success" > <span  className="text-words" >Check in</span> </Button>
                 </div>
 
-                <div className="container-flex-init-one" >  
+                <div className="container-flex-init-one-row" >  
                 <textarea    
                         rows="10"                                         
                         cols="142" 

@@ -222,7 +222,7 @@ const Checkingn3 =() =>{
                                 loading={true}
                                 titleLoading={"Pagina 3"}  />
     
-                <div  className="container-flex-init-global init-checkingn2" >
+                <div  >
                     <div className="container-detail-dasboard-in" >
                         <input type="text" className="desde-detail" defaultValue={i}   />
                         <input type="text" className="desde-detail" name="Fecha" defaultValue={f}   />
@@ -298,7 +298,7 @@ const Checkingn3 =() =>{
                                 loading={true}
                                 titleLoading={"Pagina 3"}  />
     
-                <div  className="container-flex-init-global init-checkingn2" >
+                <div >
                     <div className="container-detail-dasboard-in" >
                         <input type="text" className="desde-detail" defaultValue={i}   />
                         <input type="text" className="desde-detail" name="Fecha" defaultValue={f}   />
@@ -321,27 +321,27 @@ const Checkingn3 =() =>{
                     </div>
                         
                     <div className="container-detail-dasboard-in-one container-detail-dasboard-in-one-two" >
-                            <div className="border-detail " >
+                            <div style={{background: "#ebebeb"}} className="border-detail"  >
                                 <span>Cantidad noches</span>
                                 <span className="negrita-detail-reserva" >{day} noches</span>
                             </div>
 
-                            <div className="border-detail" >
+                            <div style={{background: "#ebebeb"}} className="border-detail"  >
                                 <span>Valor noche</span>
                                 <span className="negrita-detail-reserva"> {toPricediaHabitacion.price}</span>
                             </div>
 
-                            <div className="border-detail" >
+                            <div style={{background: "#ebebeb"}} className="border-detail"  >
                                 <span>Total hospedaje</span>
                                 <span className="negrita-detail-reserva" >{totalWithIva}</span>
                             </div>
                             
-                            <div className="border-detail" >
+                            <div style={{background: "#ebebeb"}} className="border-detail"  >
                                 <span>Tipo habitacion</span>
                                 <span className="negrita-detail-reserva"  >{resultFinish?.nombre}</span>
                             </div>
 
-                            <div className="border-detail" >
+                            <div style={{background: "#ebebeb"}} className="border-detail"  >
                                     <span>Abono</span>
                                 <span className="negrita-detail-reserva" >{toPriceAbono.price}</span>
                             </div>         

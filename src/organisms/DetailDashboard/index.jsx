@@ -41,7 +41,7 @@ import { GiBroom } from "react-icons/gi";
 import ServiceStatus from "../../service/ServiceStatus";
 import { BsBucket ,BsCalendarCheck,BsCheckCircle,BsBell} from "react-icons/bs";
 import UseModalText from "../../hooks/UseModalText";
-import { Button, Image, Spacer, Table as table,Tooltip, User } from "@nextui-org/react";
+import { Button, Grid, Image, Spacer, Table as table,Tooltip, User } from "@nextui-org/react";
 import { CiBadgeDollar,CiDollar ,CiExport,CiUser} from "react-icons/ci";
 
 const DetailDasboard =(props) =>{
@@ -754,7 +754,7 @@ const  handleClickEliminar =UseModalText({handlModal:hanDelete,Text:"Estas segur
                       title="Completa todos los campos por favor" />
 
           <div className="container-detail-dasboard-in-one" >
-              <div className="border-detail " >
+              <div  style={{background:"#ebebeb"}}  className="border-detail " >
                    <span>Cantidad noches:</span>
                    
                    <span className="negrita-detail-reserva" >{day} noches</span>
@@ -763,48 +763,40 @@ const  handleClickEliminar =UseModalText({handlModal:hanDelete,Text:"Estas segur
                    <span className="negrita-detail-reserva"> {toPriceNigth.price}</span>
               </div>
 
-              <div className="border-detail" >
+              <div  style={{background:"#ebebeb"}} className="border-detail"   >
                    <span>Total hospedaje:</span>
                    <span className="negrita-detail-reserva" >{valor_habitacion}</span>
               </div>
-             
-              <div  >
-              <Spacer x={2} y={0} />
-              <Button style={{height:"110px"}}  color={`${totalPrice <=0 ? "success" : "error" }`} >
+           
+              <div  style={{background:`${totalPrice <=0 ? "#17c964" : "#f21361" }`,color:"white"}} className="border-detail" >
                    {totalPrice <= 0 ?  <span className="negrita-detail-reserva" >   <BsCheckCircle  className="text-center-icon"   fontSize={25} color="white"  />Al dia con  el pago</span> : <span className="negrita-detail-reserva" >   <CiBadgeDollar  className="text-center-icon"   fontSize={45} color="white"  />  ${cobrar.toLocaleString()}</span>   }   
-              </Button>
               </div>
+              
 
-              <Spacer x={0.4} y={1} />
-              {resultDashboard.Foto_documento_adelante ?  (
-               <div  >
-                <Button   style={{height:"110px",width:"100%"}} color={"gradient"}   >
-                     <span className="negrita-detail-reserva" >   <VscVerified     className="text-center-icon"   fontSize={30} color="white"  />web check in realizado</span>
-                </Button>
-              </div>) :  null  } 
-              
-              
-              <div className="border-detail" >
+               <div  style={{background:"#ebebeb"}} className="border-detail" >
                   <span>Tipo habitacion:</span>
                    <span className="negrita-detail-reserva"  >{resultFinish?.nombre} {resultDashboard.Numero}</span>
               </div>
 
-              <div className="border-detail" >
+              {resultDashboard.Foto_documento_adelante ?  (
+                 <div  style={{background:"background: rgb(34,193,195)",background: "linear-gradient(32deg, rgba(34,193,195,1) 0%, rgba(143,102,189,1) 62%, rgba(253,187,45,1) 100%)",color:"white"}} className="border-detail" >
+                  <span className="negrita-detail-reserva" >   <VscVerified     className="text-center-icon"   fontSize={30} color="white"  />web check in realizado</span>
+              </div>) :  null  } 
+
+              <div  style={{background:"#ebebeb"}} className="border-detail" >
                   <span>Abono:</span>
                    <span className="negrita-detail-reserva" >{valor_abono}</span>
               </div>
-              <div>
-                
-                  <Button  onClick={hanClickAsear} style={{height:"110px"}} color={"warning"}  >
+
+              <button  onClick={hanClickAsear} style={{background: "#f5a623",color:"white"}} className="border-detail" >
                      <span className="negrita-detail-reserva" >   <GiBroom   className="text-center-icon"   fontSize={25} color="white"  />Asear habitacion</span>
-                  </Button>
-              </div>
-              <Spacer x={0.4} y={1} />
-               <div  >
-                <Button  onClick={hanClickLimpia}   style={{height:"110px",width:"100%"}} color={"primary"}   >
+              </button>
+
+              
+               <button   onClick={hanClickLimpia}  style={{background: "#0070f3",color:"white"}} className="border-detail" >          
                      <span className="negrita-detail-reserva" >   <BsCheckCircle     className="text-center-icon"   fontSize={25} color="white"  />Habitacion limpia</span>
-                </Button>
-              </div>
+                </button>
+             
           </div>
       </div>
       <div  className="container-flex-init-global" >
@@ -908,29 +900,37 @@ const  handleClickEliminar =UseModalText({handlModal:hanDelete,Text:"Estas segur
                 </Tooltip> 
               
                 </div>  
-                 <Image
-                  width={280}
-                  height={125} 
-                    src={`${resultDashboard.Foto_documento_adelante ? resultDashboard.Foto_documento_adelante : "https://github.com/rolandoto/image-pms/blob/main/pdf_Mesa%20de%20trabajo%201_Mesa%20de%20trabajo%201%20(1).png?raw=true"  }`}
-                    objectFit="initial"
-                    alt="Default Image"
-                  />
 
+                <div className="row-flex-one"   >
+                 
+                    <Image
+                        src={`${resultDashboard.Foto_documento_adelante ? resultDashboard.Foto_documento_adelante : "https://github.com/rolandoto/image-pms/blob/main/pdf_Mesa%20de%20trabajo%201_Mesa%20de%20trabajo%201%20(1).png?raw=true"  }`}
+                        objectFit="initial"
+                        alt="Default Image"
+                        className="img-photo"
+                        height={120}
+                      />
+                  
+                    
                   <Image
-                    width={275}
-                    height={125} 
-                    src={`${resultDashboard.Foto_documento_atras ? resultDashboard.Foto_documento_atras : "https://github.com/rolandoto/image-pms/blob/main/pdf_Mesa%20de%20trabajo%201_Mesa%20de%20trabajo%201%20(1).png?raw=true"  }`}
-                    objectFit="initial"
-                    alt="Default Image"
-                  />
+                      src={`${resultDashboard.Foto_documento_atras ? resultDashboard.Foto_documento_atras : "https://github.com/rolandoto/image-pms/blob/main/pdf_Mesa%20de%20trabajo%201_Mesa%20de%20trabajo%201%20(1).png?raw=true"  }`}
+                      objectFit="initial"
+                      alt="Default Image"
+                      className="img-photo"
+                      height={120}
+                    />
+                  
 
+                  
                   <Image
-                     width={280}
-                     height={125} 
-                     src={`${resultDashboard.Pasaporte ? resultDashboard.Pasaporte : "https://github.com/rolandoto/image-pms/blob/main/pdf_Mesa%20de%20trabajo%201_Mesa%20de%20trabajo%201%20(1).png?raw=true"  }`}
-                    objectFit="initial"
-                    alt="Default Image"
-                  />
+                    
+                      src={`${resultDashboard.Pasaporte ? resultDashboard.Pasaporte : "https://github.com/rolandoto/image-pms/blob/main/pdf_Mesa%20de%20trabajo%201_Mesa%20de%20trabajo%201%20(1).png?raw=true"  }`}
+                      objectFit="initial"
+                      alt="Default Image"
+                      className="img-photo"
+                      height={120}
+                    />
+                </div>
                 <div>
                 </div>
               
@@ -1250,16 +1250,14 @@ const Huesped =({quyery,handEditar,handChangeSubmit ,stateButton,DetailDashboard
 }
 
   return (
-    
-    <div >
-            
-            <TableContainer component={Paper}  className="top-table-One" onSubmit={(e) =>{
+    <Paper sx={{ width: '100%',margin:"10px" }}>
+            <TableContainer   onSubmit={(e) =>{
               e.preventDefault()
             }} >
             <LoadingDetail  
                             loading={true}
                             titleLoading={"Huespedes"}  />
-                <Table sx={{width:1300 ,marginTop:4}} size="small" aria-label="a dense table"> 
+                <Table  size="small" aria-label="a dense table"> 
                  
                 <TableHead>
                     <TableRow>
@@ -1308,7 +1306,7 @@ const Huesped =({quyery,handEditar,handChangeSubmit ,stateButton,DetailDashboard
                       </button>
                   </div>
                   
-            </div>       
+              </Paper>      
    )
 }
 
@@ -1397,18 +1395,18 @@ const handleState =(event, index) =>{
   if(!habitacion) return null
 
   return (
-       <div >  
-
-            <TableContainer component={Paper} className="top-table-One"  onSubmit={(e) =>{
+       <Paper sx={{ width: '90%',margin:"10px" }}> 
+            <TableContainer  onSubmit={(e) =>{
               e.preventDefault()
             }} >
               <LoadingDetail  
                               loading={true}
                               titleLoading={"Consumos"}  />
-                  <Table sx={{width:1300 ,marginTop:4}} size="small"  aria-label="a dense table"> 
+                  <Table   > 
                   <TableHead>
                       <TableRow>
                       <TableCell align="right">Producto</TableCell> 
+                      <TableCell align="right">Nombre producto</TableCell> 
                       <TableCell align="right">Cantidad</TableCell>  
                       <TableCell align="right">Fecha</TableCell> 
                       <TableCell align="right">Valor</TableCell>
@@ -1434,7 +1432,7 @@ const handleState =(event, index) =>{
                                 squared
                                 color="error"
                                 size="lg"
-                                className="color-black"
+                               
                                 style={{color:"black"}}
                                   src={row.img}
                                   name={row.Nombre_categoria}
@@ -1471,18 +1469,18 @@ const handleState =(event, index) =>{
                         } else if(row.Pago_deuda ==1){
                           return (
                           <TableRow>
-                             <TableCell>  
+                             <TableCell  style={{width:10}}  >   
                               <User
+                           
                                 bordered
                                 color="success"
                                 squared
                                   src={row.img}
-                                  size="lg"
                                   name={row.Nombre_categoria}
                                  zoomed
-                                 description={row.Nombre_Producto}
                                 />
                                   </TableCell>
+                                  <TableCell>{row.Nombre_Producto} </TableCell>
                                   <TableCell>{row.Cantidad} </TableCell>
                               <TableCell>{row.Fecha} </TableCell>
                               <TableCell>Cop {row.Price} </TableCell>
@@ -1496,16 +1494,9 @@ const handleState =(event, index) =>{
                   </TableBody>
                   </Table>
             </TableContainer> 
-             
-        </div>  
+        </Paper>  
   )
 }
-
-
-
-
-
-
 
 const Pagos =(props) =>{
 
@@ -1541,14 +1532,14 @@ for(let i =0;i<payState?.length;i++){
 const total = count?.toLocaleString()
 
 return (
-    <div >  
-         <TableContainer component={Paper}  className="top-table-One" onSubmit={(e) =>{
+  <Paper sx={{ width: '100%',margin:"10px" }}>
+         <TableContainer  component={Paper}   onSubmit={(e) =>{
            e.preventDefault()
          }} >
            <LoadingDetail  
                            loading={true}
                            titleLoading={"Pagos"}  />
-               <Table sx={{width:1300 ,marginTop:4}} size="small" aria-label="a dense table"> 
+               <Table  > 
                <TableHead>
                    <TableRow>
                    <TableCell align="right">Fecha</TableCell>
@@ -1570,7 +1561,7 @@ return (
                </TableHead>
                </Table>
          </TableContainer> 
-     </div>  
+     </Paper>  
 )
 }
 

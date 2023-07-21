@@ -1,14 +1,16 @@
 .border-detail {
-  background: #ebebeb;
+
   padding: 10px;
   border-radius: 10px;
   margin: 5px;
-  width: 289px;
+  width: 19%;
   height: 111px;
   display: grid;
   align-items: center;
   justify-content: center;
   text-align: center;
+  animation: ease ;
+  transition:background-color 0.8s ease;
 }
 
 .container-detail-dasboard-in {
@@ -19,7 +21,7 @@
   display: flex;
   align-items: center;
   margin-top: 5px;
-  justify-content: center;
+  justify-content: space-between;
 }
 
 .desde-detail {
@@ -48,7 +50,7 @@
   background: white;
   border-radius: 8px;
   margin: 4px;
-  width: 11%;
+  width: 18%;
   padding: 10px;
 }
 
@@ -114,7 +116,7 @@
 }
 
 .container-flex-init-global {
-  max-width: 1490px;
+  max-width: 83%;
   margin-top: 15;
   margin: auto !important;
 }
@@ -126,9 +128,17 @@
 
 .container-flex-init {
   justify-content: revert;
-  max-width: 1490px;
-  margin: auto;
+    margin: auto;
 }
+
+
+.container-flex-init-One{
+  justify-content: revert;
+    margin: auto;
+    max-width: 83%;
+}
+
+
 .cod-reserva {
   font-weight: 400;
   color: black;
@@ -165,7 +175,7 @@
 .init {
   padding: 2px 5px 0px 5px;
   display: block;
-  max-width: 1481px;
+  max-width: 83%;
   margin: auto;
   background: #ebebeb;
   border-radius: 10px;
@@ -176,7 +186,7 @@
 .init-photo {
   padding: 2px 5px 0px 5px;
   display: block;
-  max-width: 1481px;
+  max-width: 83%;
   margin: auto;
   background: #ebebeb;
   border-radius: 10px;
@@ -209,7 +219,7 @@
 .init-one-three {
   padding: 15px;
   display: block;
-  max-width: 1481px;
+  max-width: 83%;
   margin: auto;
   background: #ebebeb;
   border-radius: 10px;
@@ -241,10 +251,20 @@
   align-items: center;
 }
 
+
+.container-flex-init-one-row{
+  display: flex;
+  justify-content: space-between;
+  max-width: 83%;
+  margin: auto;
+  margin-top: 3px;
+  align-items: center;
+}
+
 .container-flex-init-one-center {
   display: flex;
   justify-content: space-between;
-  max-width: 1480px;
+  max-width: 83%;
   margin: auto;
   margin-top: 8px;
   align-items: center;
@@ -252,7 +272,6 @@
 
 .button-checking-detail {
   border: none;
-  background: #00b712;
   padding: 20px;
   width: 447px;
   border-radius: 8px;
@@ -347,7 +366,7 @@
   border: none;
   border-radius: 8px;
   margin: 4px;
-  width: 25%;
+  width: 26%;
   padding: 10px;
 }
 
@@ -655,7 +674,7 @@
 .container-flex-init-one-container-delete {
   display: block;
   justify-content: space-between;
-  max-width: 1480px;
+  max-width: 83%;
   margin: auto;
   margin-top: 11px;
 }
@@ -857,3 +876,17 @@
   margin: auto;
 }
 
+.row-img{
+  background: white;
+  padding: 5px;
+}
+
+.row-flex-one{
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.img-photo{
+  width: 30%;
+}

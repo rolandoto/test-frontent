@@ -272,7 +272,7 @@ const Checkingn2Organism =({id,postDetailRoom,fetchDataApiWhatsapp,postWhataapBy
                                 loading={true}
                                 titleLoading={"Checking"}  />
     
-                <div  className="container-flex-init-global init-checkingn2" >
+                <div  className="init-checkingn2" >
                     <div className="container-detail-dasboard-in" >
                         <input type="text" className="desde-detail" defaultValue={i}   />
                         <input type="text" className="desde-detail" name="Fecha" defaultValue={f}   />
@@ -305,38 +305,36 @@ const Checkingn2Organism =({id,postDetailRoom,fetchDataApiWhatsapp,postWhataapBy
                          <div className="top-title-re" >
                             <span className="close-negritaOne">Recuerda que la emision de la factura electronica o pos es en el check out</span>
                         </div>
-               
-                       
                     </div>
 
-                    <div className="container-detail-dasboard-in-one container-detail-dasboard-in-one-two" >
-                    <div className="border-detail " >
+                    <div className="container-detail-dasboard-in-one container-detail-dasboard-in-one-tw" >
+                    <div style={{background: "#ebebeb"}} className="border-detail" >
                         <span>Cantidad noches</span>
                         <span className="negrita-detail-reserva" >{day} noches</span>
                     </div>
 
-                    <div className="border-detail" >
+                    <div style={{background: "#ebebeb"}} className="border-detail" >
                         <span>Valor noche</span>
                         <span className="negrita-detail-reserva">  {toPricediaHabitacion.price}</span>
                     </div>
 
-                    <div className="border-detail" >
+                    <div style={{background: "#ebebeb"}} className="border-detail" >
                         <span>Total hospedaje</span>
                         <span className="negrita-detail-reserva" > {totalWithIva}</span>
                     </div>
                     
-                    <div className="border-detail" >
+                    <div style={{background: "#ebebeb"}} className="border-detail" >
                         <span>Tipo pago </span>
                         <span className="negrita-detail-reserva"  >{resulDetailDashboard?.forma_pago}</span>
                     </div>
 
-                    <div className="border-detail" >
+                    <div style={{background: "#ebebeb"}} className="border-detail" >
                             <span>Abono</span>
                         <span className="negrita-detail-reserva" >{toPriceAbono.price}</span>
                     </div> 
 
                   
-                </div>
+              
                         <div className="  one-button-checking"  >
                         <Button 
 					disabled={disable}
@@ -345,6 +343,7 @@ const Checkingn2Organism =({id,postDetailRoom,fetchDataApiWhatsapp,postWhataapBy
 					color="success" 
 				 > <span  className="text-words" >Continuar</span> </Button>
                 </div> 
+                </div>
             </>
         )
     
@@ -356,7 +355,7 @@ const Checkingn2Organism =({id,postDetailRoom,fetchDataApiWhatsapp,postWhataapBy
                                 loading={true}
                                 titleLoading={"Checking"}  />
     
-                <div  className="container-flex-init-global init-checkingn2" >
+                <div  className="" >
                     <div className="container-detail-dasboard-in" >
                         <input type="text" className="desde-detail" defaultValue={i}   />
                         <input type="text" className="desde-detail" name="Fecha" defaultValue={f}   />
@@ -392,27 +391,27 @@ const Checkingn2Organism =({id,postDetailRoom,fetchDataApiWhatsapp,postWhataapBy
                         </div>
                       
                     <div className="container-detail-dasboard-in-one container-detail-dasboard-in-one-two" >
-                            <div className="border-detail " >
+                            <div style={{background: "#ebebeb"}} className="border-detail" >
                                 <span>Cantidad noches</span>
                                 <span className="negrita-detail-reserva" >{day} noches</span>
                             </div>
 
-                            <div className="border-detail" >
+                            <div style={{background: "#ebebeb"}} className="border-detail" >
                                 <span>Valor noche</span>
                                 <span className="negrita-detail-reserva"> {toPricediaHabitacion.price}</span>
                             </div>
 
-                            <div className="border-detail" >
+                            <div style={{background: "#ebebeb"}} className="border-detail" >
                                 <span>Total hospedaje</span>
                                 <span className="negrita-detail-reserva" >{totalWithIva}</span>
                             </div>
                             
-                            <div className="border-detail" >
+                            <div style={{background: "#ebebeb"}} className="border-detail" >
                                 <span>Tipo habitacion</span>
                                 <span className="negrita-detail-reserva"  >{resultFinish?.nombre}</span>
                             </div>
 
-                            <div className="border-detail" >
+                            <div style={{background: "#ebebeb"}} className="border-detail">
                                     <span>Abono</span>
                                 <span className="negrita-detail-reserva" >{toPriceAbono.price}</span>
                             </div>         
