@@ -719,7 +719,7 @@ const DetailChekingOrganism =({id}) =>{
                         </div>
 
             
-            <div className="container-checkbox"  style={{width:"37%"}}   >
+            <div className="container-checkbox"  style={{width:"37%",height:"20%"}}   >
                         <Button
                        
                         onClick={hanClickingn2}
