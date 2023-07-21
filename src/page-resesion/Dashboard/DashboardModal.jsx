@@ -533,78 +533,41 @@ const DashboardModal = (props) => {
 
         const findRoomOne =  room?.find(index => index?.id_tipoHabitacion == fecha)
 
-
           const handClickReservation = async () => {
-            if (valid) {
-              setLoadingReservation({ loading: true });
-          
-              try {
-                const pdfResult = await ServePdf({
-                  codigoReserva: resultHuespe?.Num_documento,
-                  Nombre: resultHuespe?.Nombre,
-                  room: habitacion_asignar?.Numero,
-                  adults: change?.adultos,
-                  children: change?.niños,
-                  tituloReserva: findRoomOne?.nombre,
-                  abono: change?.abono,
-                  formaPago: tipo_forma_pago?.name,
-                  telefono: resultHuespe.Celular,
-                  identificacion: resultHuespe.Num_documento,
-                  correo: resultHuespe.Correo,
-                  urllogo:
-                    "https://github.com/rolandoto/image-pms/blob/main/WhatsApp%20Image%202023-02-06%20at%203.49.08%20PM.jpeg?raw=true",
-                }); 
-          
-                const reservationResult = await ServiceAvaiblereservation({
-                  desde: dataAvaible.desde,
-                  hasta: dataAvaible.hasta,
-                  habitaciones: dataAvaible.habitaciones,
-                  disponibilidad: dataAvaible.disponibilidad,
-                  id_estados_habitaciones: 0,
-                  ID_Canal: change.canal_reserva,
-                  Adultos: change.adultos,
-                  Ninos: change.niños,
-                  ID_Talla_mascota: change.talla_perro,
-                  Infantes: change.infantes,
-                  Noches: ResultDay,
-                  huespe,
-                  Observacion: change.observacion,
-                  valor: totalResultglobal,
-                  ID_Tipo_Forma_pago: change.ID_Tipo_Forma_pago,
-                  abono: change.abono,
-                  valor_habitacion: valor_habiatcion,
-                  Tipo_persona: "sdasdsa",
-                  valor_dia_habitacion: default_Value,
-                  resepcion: jwt.result.name,
-                  link: "https://test-frontent-wk73.vercel.app/webchecking",
-                  id_hotel: jwt.result.id_hotel,
-                  nowOne,
-                });
-          
-                setLoadingReservation({ loading: false });
-                setCreateReservation(true);
+            if(valid){
+                setLoadingReservation({loading:true})
+               
+                    ServiceAvaiblereservation({desde:dataAvaible.desde,hasta:dataAvaible.hasta,habitaciones:dataAvaible.habitaciones,disponibilidad:dataAvaible.disponibilidad,id_estados_habitaciones:0,ID_Canal:change.canal_reserva,Adultos:change.adultos,Ninos:change.niños,ID_Talla_mascota:change.talla_perro,Infantes:change.infantes,Noches:ResultDay,huespe,Observacion:change.observacion,valor:totalResultglobal,ID_Tipo_Forma_pago:change.ID_Tipo_Forma_pago,abono:change.abono,valor_habitacion:valor_habiatcion,Tipo_persona:"sdasdsa",valor_dia_habitacion:default_Value,resepcion:jwt.result.name,link:"wwww.com",id_hotel:jwt.result.id_hotel,nowOne}).then(index =>{
+                        setLoadingReservation({loading:false}) 
+                        setCreateReservation(true)
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'success',
+                            title: '<p>Reserva creada</p>',
+                            showConfirmButton: false,
+                            timer: 500
+                          })
+                      ServiceInfomeMovimiento({Nombre_recepcion:jwt.result.name,Fecha:now,Movimiento:`Creación reserva tipo habitacion ${findRoomOne.nombre} ${totalFindRoom.Numero}`,id:jwt.result.id_hotel}).then(index =>{
+                        setTimeout(() =>{
+                            window.location.href="/Home"
+                        },1000)
+                      }).catch(e =>{
+                          console.log(e)
+                      })
+                  
+                }).catch(e =>{
+                    setLoadingReservation({error:false})
+                    
+                })
+            }else{
+                setLoadingReservation({error:true})
                 Swal.fire({
-                  position: "center",
-                  icon: "success",
-                  title: "<p>Reserva creada</p>",
-                  showConfirmButton: false,
-                  timer: 500,
-                });
-                
-                setTimeout(() => {
-                        window.location.href="/home"
-                },2000)
-
-                await ServiceInfomeMovimiento({
-                  Nombre_recepcion: jwt.result.name,
-                  Fecha: now,
-                  Movimiento: `Creación reserva tipo habitacion ${findRoomOne.nombre} ${totalFindRoom.Numero}`,
-                  id: jwt.result.id_hotel,
-                });
-              } catch (error) {
-                console.error(error);
-                setLoadingReservation({ error: true });
-              }
+                    position: 'center',
+                    icon: 'error',
+                    title: '<p>Completa todos los formularios</p>',
+                    showConfirmButton: false,
+                    timer: 2000
+                  })
             }
           };
 
@@ -677,7 +640,7 @@ const DashboardModal = (props) => {
 
         if(createReservation) return   <LineProgress progress={progress} />  
         return (
-            <div className="container-bicta" >
+            <div className="container-bictaONe" >
               
                                             <LoadingDetail      error={loadingPersona.error}  
                                                                     title="Error maximo de personas" />
