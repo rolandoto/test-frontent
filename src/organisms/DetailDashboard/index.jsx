@@ -1225,15 +1225,16 @@ const  handleClickEliminar =UseModalText({handlModal:hanDelete,Text:"Estas segur
                                             )
                                           )}
                                     </select>
-                              </div>                              
-                      </form>
-}
-
-            {stateButton &&<div className="container-flex-init-one" >
+                              </div>  
+                              {stateButton &&<div className="container-flex-init-one" >
                         <button className="button-dasboard-six-one-one-one" onClick={hanAdd}   >
                             <span>Añadir huesped </span> 
                         </button>
-                    </div>}
+                    </div>}                            
+                      </form>
+}
+
+         
       </>
     )
 }

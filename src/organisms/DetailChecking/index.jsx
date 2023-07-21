@@ -718,14 +718,15 @@ const DetailChekingOrganism =({id}) =>{
                                     </select>  
                         </div>
 
-
+            
+            <div className="container-checkbox" >
                         <Button
                         onClick={hanClickingn2}
                         
                     className="button-checking-detail"
-                    color="success" > <span  className="text-words" >Check in</span> </Button>
+                    color="success" > <span  className="text-words" >Conitinuar</span> </Button>
                 </div>
-
+            </div>
                 <div className="container-flex-init-one-row" >  
                 <textarea    
                         rows="10"                                         
