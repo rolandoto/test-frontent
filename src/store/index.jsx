@@ -17,6 +17,14 @@ import { UpdateDetailPounterSlice } from '../reducers/updateDatailPounterReducer
 import { UpdateDetailPounterRangeSlice } from '../reducers/updateDatailPounterRangeReducer'
 import { ReservationSlice } from '../reducers/ReservationReducers'
 
+
+
+
+const persistanceLocalStorageMiddleware = (store) => (next) => (action) => {
+	next(action);
+	localStorage.setItem("__redux__state__", JSON.stringify(store.getState()));
+};
+
 const store = configureStore ({
     reducer:{
         //los nombres donde se llaman en el hooks
@@ -39,6 +47,7 @@ const store = configureStore ({
         ReservationSlice:ReservationSlice.reducer
     },
     devTools:true,
+    middleware: [persistanceLocalStorageMiddleware],
 })
 
 export const RootState = store.getState

@@ -186,7 +186,7 @@ const postApiWhasatapp = ({ to, plantilla,name }) => {
     })
 };
 
-const postApiWhasatappCheckout = ({ to, plantilla,name ,hotel}) => {
+const postApiWhasatappCheckout = ({ to, plantilla,name ,hotel,factura}) => {
   const formData = new FormData();
   formData.append('body', plantilla);
   formData.append('token', '1c38cf1f1b92656924501747a458e4a6b5ac30306d29ed668f9bd8f99f2832fc6ee451');
@@ -196,7 +196,8 @@ const postApiWhasatappCheckout = ({ to, plantilla,name ,hotel}) => {
   formData.append('type', 'text');
   const parametros = [
     { type: 'text', text:hotel },
-    { type: 'text', text: ' https://grupo-hoteles.com/suvenir' },
+    { type: 'text', text: 'https://grupo-hoteles.com/suvenir' },
+    { type: 'text', text: factura },
   ];
   formData.append('parameters', JSON.stringify(parametros));
   return fetch('https://whatslight.com/manager/ajax/chat_api.ajax.php', {
@@ -209,8 +210,7 @@ const postApiWhasatappCheckout = ({ to, plantilla,name ,hotel}) => {
     }).catch(e =>{
       console.log(e)
     })
-};
-
+}
 
 const UploadImage =({file1,file2,ID}) =>{
     const formData = new FormData();

@@ -31,6 +31,7 @@ import { CiBadgeDollar } from "react-icons/ci";
 import { Button, Spacer } from '@nextui-org/react';
 import { CameraIcon, HeartIcon, LockIcon, NotificationIcon } from "./IconReservation";
 import Footer from "../../component/Footer/Footer";
+import { RiWhatsappFill } from "react-icons/ri";
 
 const GroupRows =({group,color,estado,iconState,letra}) =>{
 	return (
@@ -63,7 +64,6 @@ const InfoMessage = styled.div`
   font-size: 13px;
   line-height: 1.4;
   text-align: left;
-
   z-index: 1000 !important;
 `;
 
@@ -107,7 +107,6 @@ const Dashboard = () => {
 	const handleZoomOut = () => {
 		// Implementa la lógica para hacer zoom out, si es necesario
 	};
-	
 	
 	const FindIdHotel=(hotel) =>{
 		return hotel.id_hotel == jwt.result.id_hotel
@@ -693,14 +692,22 @@ const Dashboard = () => {
 		})
 	},[setRoom])
 
-const [isOpen, setIsOpen] = useState(false);
-  const [selectedOption, setSelectedOption] = useState(null);
+	const [isOpen, setIsOpen] = useState(false);
+  	const [selectedOption, setSelectedOption] = useState(null);
 
-  const handleToggleDropdown = () => {
-    setIsOpen(!isOpen);
-  };
+	const handleToggleDropdown = () => {
+		setIsOpen(!isOpen);
+	};
 
-  
+	const handCLickWhatsapp =() =>{
+		const link = document.createElement('a');
+		link.href = "https://api.whatsapp.com/send/?phone=573195550001";
+		link.setAttribute('target', '_blank');
+		document.body.appendChild(link);
+		setTimeout(() => {
+		link.click();
+}, 100);
+	}
 
 	if(!search)  return null
 	if(!state)  return null
@@ -741,9 +748,15 @@ const [isOpen, setIsOpen] = useState(false);
 			<Button 	
 					onClick={hanclickReservation}
 					style={{width:"20%"}}  
-					icon={<NotificationIcon fill="currentColor" />}  color="secondary">  <span  className="text-words" > Reservas </span> </Button>
+					icon={<NotificationIcon fill="currentColor" />} 
+					color="secondary">  <span  className="text-words" > Reservas </span> </Button>
 			<Spacer  x={0.5} y={1} />
-			<Button style={{width:"20%"}}  color="error" flat  > <span  className="text-words" ONCL >Zoom In</span>  </Button>
+			<Button 
+					onClick={handCLickWhatsapp} 
+					style={{width:"20%"}}   
+					color="success" flat 
+					icon={<RiWhatsappFill fill="currentColor" fontSize={25}
+						 />} > <span  className="text-words" ONCL >Soporte</span>  </Button>
 			<select onChange={handRaiting}  
 													value={raiting} 
 													className='button-reservas-type-one button-reservas-type-space  button-reservas-type-one-two-two button-reservas-type-space-One-One' >

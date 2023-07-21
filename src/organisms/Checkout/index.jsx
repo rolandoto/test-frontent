@@ -20,6 +20,7 @@ import Swal from 'sweetalert2'
 import { CiUser ,CiShop,CiBank } from "react-icons/ci";
 import ServiceInfomeMovimiento from "../../service/ServiceInformeMovimiento"
 import UseModalText from "../../hooks/UseModalText"
+import ServePdf from "../../service/PdfServe"
 
 const CheckoutOrganism =({DetailDashboard,postDetailRoom,fetchDataApiWhatsapp}) =>{
 
@@ -283,6 +284,14 @@ const CheckoutOrganism =({DetailDashboard,postDetailRoom,fetchDataApiWhatsapp}) 
     const  dataCount = to?.find(index => index.ID_hotel == jwt.result.id_hotel)
 
 
+    var curr = new Date(resultDashboard?.Fecha_inicio);
+    curr.setDate(curr.getDate());
+    var fecha_inicio = curr.toISOString().substring(0,10);
+
+    var currOne = new Date(resultDashboard?.Fecha_final);
+    currOne.setDate(currOne.getDate());
+    var fecha_final = currOne.toISOString().substring(0,10);
+
     useEffect(()  =>{
         fetch(`${config.serverRoute}/api/resecion/resolucion`)
         .then(res => res.json())
@@ -311,13 +320,15 @@ const CheckoutOrganism =({DetailDashboard,postDetailRoom,fetchDataApiWhatsapp}) 
 
     const fullName =   resultDashboard.Nombre +" "+ resultDashboard.Apellido
 
-    const hancCheckout =() => {
+    const hancCheckout =async() => {
+        ServePdf({ codigoReserva:resultDashboard?.Num_documento,Nombre:resultDashboard?.Nombre,room:resultFinish?.nombre,adults:resultDashboard?.Adultos,children:resultDashboard?.Ninos,tituloReserva:resultDashboard?.Nombre,abono:resultDashboard?.valor_abono,formaPago:resultDashboard?.forma_pago,telefono:resultDashboard.Celular,identificacion:resultDashboard.Num_documento,correo:resultDashboard.Correo,urllogo:jwt?.result?.logo,tarifa:resultDashboard.valor_habitacion,entrada:fecha_inicio,salida:fecha_final}).then(index=>{
+            fetchDataApiWhatsapp({phone:totalNumberPhone,name:fullName,hotel:jwt.result.hotel,factura:index[0]})
+        })
         ServiceStatus({id,ID_Tipo_Estados_Habitaciones:1}).then(index=>{
-            fetchDataApiWhatsapp({phone:totalNumberPhone,name:fullName,hotel:jwt.result.hotel})
+          
             postDetailRoom({id:resultDashboard.ID_Habitaciones,ID_estado_habitacion:5})
             ServiceResolution({Resolucion:dataCount.Resolucion+1,ID:dataCount.ID}).then(index=>{
                 ServiceInfomeMovimiento({Nombre_recepcion:jwt.result.name,Fecha:now,Movimiento:`Check out realizado tipo habitacion ${resultFinish?.nombre} ${resultDashboard.Numero}`,id:jwt.result.id_hotel}).then(index =>{
-                    
                 }).catch(e =>{
                     console.log(e)
                 })
@@ -354,6 +365,7 @@ const CheckoutOrganism =({DetailDashboard,postDetailRoom,fetchDataApiWhatsapp}) 
     const validFilterSearch =  filterSearch?.id ==5 ? numOne  +resultNum : totalIva
 
     const valorTotalIva = totalIva.toLocaleString();
+
     const formatoIva = Iva.toLocaleString();
 
     var formatteOne = totalStore.toLocaleString();
@@ -739,9 +751,7 @@ const CheckoutOrganism =({DetailDashboard,postDetailRoom,fetchDataApiWhatsapp}) 
                                         <ul>
                                                 <li className="totalPricecheckout-two" >{resultDashboard?.Nombre} {resultDashboard?.Apellido}</li>           
                                                 <li className="totalPricecheckout-two" >{resultDashboard?.Num_documento}</li>           
-                                                <li className="totalPricecheckout-two" >{resultDashboard?.Correo}</li>   
-                                              
-                                                               
+                                                <li className="totalPricecheckout-two" >{resultDashboard?.Correo}</li>             
                                         </ul>  
                                     </div>
 
@@ -1167,8 +1177,6 @@ const FacturaCompany  =({validFilterSearch,valorTotalIva,formatoIva,formattedNum
   let Num3 = total.toLocaleString();
 
   const valorNetuno = validFilterSearch.toLocaleString();
-
-
 
     return (
      <>

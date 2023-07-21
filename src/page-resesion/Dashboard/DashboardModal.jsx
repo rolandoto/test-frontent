@@ -553,7 +553,7 @@ const DashboardModal = (props) => {
                   correo: resultHuespe.Correo,
                   urllogo:
                     "https://github.com/rolandoto/image-pms/blob/main/WhatsApp%20Image%202023-02-06%20at%203.49.08%20PM.jpeg?raw=true",
-                });
+                }); 
           
                 const reservationResult = await ServiceAvaiblereservation({
                   desde: dataAvaible.desde,
