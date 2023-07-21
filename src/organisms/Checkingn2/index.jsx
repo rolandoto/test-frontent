@@ -305,7 +305,7 @@ const Checkingn2Organism =({id,postDetailRoom,fetchDataApiWhatsapp,postWhataapBy
                          <div className="top-title-re" >
                             <span className="close-negritaOne">Recuerda que la emision de la factura electronica o pos es en el check out</span>
                         </div>
-                    </div>
+                 
 
                     <div className="container-detail-dasboard-in-one container-detail-dasboard-in-one-tw" >
                     <div style={{background: "#ebebeb"}} className="border-detail" >
@@ -333,8 +333,8 @@ const Checkingn2Organism =({id,postDetailRoom,fetchDataApiWhatsapp,postWhataapBy
                         <span className="negrita-detail-reserva" >{toPriceAbono.price}</span>
                     </div> 
 
-                  
-              
+                    </div>
+                    </div>
                         <div className="  one-button-checking"  >
                         <Button 
 					disabled={disable}
@@ -343,7 +343,7 @@ const Checkingn2Organism =({id,postDetailRoom,fetchDataApiWhatsapp,postWhataapBy
 					color="success" 
 				 > <span  className="text-words" >Continuar</span> </Button>
                 </div> 
-                </div>
+              
             </>
         )
     
