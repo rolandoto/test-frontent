@@ -273,7 +273,7 @@
 .button-checking-detail {
   border: none;
   padding: 20px;
-  width: 447px;
+  width: 427px !important;
   border-radius: 8px;
   color: white;
   height: 48px;
@@ -884,6 +884,7 @@
 .row-flex-one{
   display: flex !important;
   justify-content: space-around !important;
+  width: 50%;
 }
 
 .img-photo{
