@@ -578,7 +578,7 @@
 
 .ono {
   margin-top: 10px;
-  height: 391px !important;
+  height: 357px !important;
 }
 
 .button-checking-detail-checkout {
@@ -884,7 +884,6 @@
 .row-flex-one{
   display: flex !important;
   justify-content: space-around !important;
-  width: 100% !important;
 }
 
 .img-photo{
