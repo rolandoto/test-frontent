@@ -336,7 +336,7 @@
   border: none;
   border-radius: 8px;
   margin: 4px;
-  width: 11%;
+  width: 24%;
   padding: 10px;
 }
 
@@ -366,7 +366,7 @@
   border: none;
   border-radius: 8px;
   margin: 4px;
-  width: 26%;
+  width: 43%;
   padding: 10px;
 }
 
@@ -904,6 +904,6 @@
 
 .img-photo{
   width: 30%;
-  height: 80%;
+  height: 120px;
   border-radius: 10px;
 }
