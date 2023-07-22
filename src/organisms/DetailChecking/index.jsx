@@ -720,12 +720,12 @@ const DetailChekingOrganism =({id}) =>{
 
             
             <div className="container-checkbox"  style={{width:"37%",height:"20%"}}   >
-                        <Button
+                        <button
                        
                         onClick={hanClickingn2}
                         
-                    className="button-checking-detail-one-das"
-                    color="success" > <span  className="text-words" >Conitinuar</span> </Button>
+                    className="button-checking-detail-one-das-one-fins"
+                    color="success" > <span  className="text-words" >Conitinuar</span> </button>
                 </div>
             </div>
                 <div className="container-flex-init-one-row" >  

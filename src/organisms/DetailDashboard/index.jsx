@@ -903,32 +903,32 @@ const  handleClickEliminar =UseModalText({handlModal:hanDelete,Text:"Estas segur
 
                 <div className="row-flex-one"   >
                  
-                    <Image
+                    <img
                         src={`${resultDashboard.Foto_documento_adelante ? resultDashboard.Foto_documento_adelante : "https://github.com/rolandoto/image-pms/blob/main/pdf_Mesa%20de%20trabajo%201_Mesa%20de%20trabajo%201%20(1).png?raw=true"  }`}
                         objectFit="initial"
                         alt="Default Image"
                         className="img-photo"
-                        height={120}
+                    
                       />
                   
                     
-                  <Image
+                  <img
                       src={`${resultDashboard.Foto_documento_atras ? resultDashboard.Foto_documento_atras : "https://github.com/rolandoto/image-pms/blob/main/pdf_Mesa%20de%20trabajo%201_Mesa%20de%20trabajo%201%20(1).png?raw=true"  }`}
                       objectFit="initial"
                       alt="Default Image"
                       className="img-photo"
-                      height={120}
+                 
                     />
                   
 
                   
-                  <Image
+                  <img
                     
                       src={`${resultDashboard.Pasaporte ? resultDashboard.Pasaporte : "https://github.com/rolandoto/image-pms/blob/main/pdf_Mesa%20de%20trabajo%201_Mesa%20de%20trabajo%201%20(1).png?raw=true"  }`}
                       objectFit="initial"
                       alt="Default Image"
                       className="img-photo"
-                      height={120}
+                   
                     />
                 </div>
                 <div>

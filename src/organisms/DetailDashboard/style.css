@@ -466,6 +466,21 @@
   cursor: pointer;
 }
 
+.button-checking-detail-one-das-one-fins{
+  border: none;
+  padding: 20px;
+  width: 100% !important;
+  border-radius: 8px;
+  color: white;
+  height: 48px !important;
+  align-items: center;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+  background: #17c964;
+}
+
 .button-checking-detail-one-das-one-finish {
   border: none;
   background: black;
@@ -889,4 +904,6 @@
 
 .img-photo{
   width: 30%;
+  height: 80%;
+  border-radius: 10px;
 }
