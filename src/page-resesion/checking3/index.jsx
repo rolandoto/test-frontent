@@ -244,38 +244,38 @@ const Checkingn3 =() =>{
                          </h2>
                        
                        
-                    </div>
-
+                  
                  
 
                     <div className="container-detail-dasboard-in-one container-detail-dasboard-in-one-two" >
-                    <div className="border-detail " >
+                    <div style={{background: "#ebebeb"}} className="border-detail" >
                         <span>Cantidad noches</span>
                         <span className="negrita-detail-reserva" >{day} noche</span>
                     </div>
 
-                    <div className="border-detail" >
+                    <div style={{background: "#ebebeb"}} className="border-detail">
                         <span>Valor noche</span>
                         <span className="negrita-detail-reserva">  {toPricediaHabitacion.price}</span>
                     </div>
 
-                    <div className="border-detail" >
+                    <div style={{background: "#ebebeb"}} className="border-detail">
                         <span>Total hospedaje</span>
                         <span className="negrita-detail-reserva" > {totalWithIva}</span>
                     </div>
                     
-                    <div className="border-detail" >
+                    <div style={{background: "#ebebeb"}} className="border-detail" >
                         <span>Tipo pago </span>
                         <span className="negrita-detail-reserva"  >{resulDetailDashboard?.forma_pago}</span>
                     </div>
 
-                    <div className="border-detail" >
+                    <div style={{background: "#ebebeb"}} className="border-detail" >
                             <span>Abono</span>
                         <span className="negrita-detail-reserva" >{toPriceAbono.price}</span>
                     </div> 
 
 
-                  
+                    </div>
+
                 </div>
 
                 <div className="  one-button-checking"  >
