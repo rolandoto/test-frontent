@@ -407,6 +407,10 @@
 .button-reservas-type-space {
   margin-right: 7px;
   margin-left: -3px;;
+  background: black;
+    color: white;
+    border: none;
+    border-radius: 14px;
 }
 
 .button-reservas-type-space-One-One{
