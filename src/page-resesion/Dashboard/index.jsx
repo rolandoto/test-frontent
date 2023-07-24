@@ -733,7 +733,7 @@ const Dashboard = () => {
 			<select  onChange={handClickInformAuditoria} value={stateInformes}					
 							className='button-reservas-type-one button-reservas-type-space button-reservas-type-one-two-two'>
 								
-							<option   className="opo-room"  > Informe</option>
+							<option   className="opo-room"  > Informes</option>
 							{Informes?.map(category =>(
 													<option 
 													className="opo-room"
@@ -743,8 +743,6 @@ const Dashboard = () => {
 												</option>
 																	))}
 						</select>
-			
-
 			<Button 	
 					onClick={hanclickReservation}
 					style={{width:"20%"}}  

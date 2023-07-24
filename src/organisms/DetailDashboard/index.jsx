@@ -861,8 +861,8 @@ const  handleClickEliminar =UseModalText({handlModal:hanDelete,Text:"Estas segur
         <div className="container-detail-dasboard-in" > 
         <span className="desde-detail-two-title-photo" >Forma pago:</span>
         <span className="desde-detail-two-title-photo-three" >Abono:</span>
-        <span className="desde-detail-two-title-photo-four" >Documento:</span>
-        <span className="desde-detail-two-title-photo-four" >Documento:</span>
+        <span className="desde-detail-two-title-photo-four" >Doc frontal:</span>
+        <span className="desde-detail-two-title-photo-four" >Doc posterior:</span>
         <span className="desde-detail-two-title-photo" >Firma:</span>
             </div>
               <div className="container-detail-dasboard-in" > 
