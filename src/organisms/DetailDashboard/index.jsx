@@ -754,9 +754,7 @@ const  handleClickEliminar =UseModalText({handlModal:hanDelete,Text:"Estas segur
                       title="Completa todos los campos por favor" />
 
           <div className="container-detail-dasboard-in-one" >
-              <div  style={{background:"#ebebeb"}}  className="border-detail " >
-                   <span>Cantidad noches:</span>
-                   
+              <div  style={{background:"#ebebeb"}}  className="border-detail " > 
                    <span className="negrita-detail-reserva" >{day} noches</span>
 
                    <span>Valor noche:</span>
@@ -863,8 +861,8 @@ const  handleClickEliminar =UseModalText({handlModal:hanDelete,Text:"Estas segur
         <div className="container-detail-dasboard-in" > 
         <span className="desde-detail-two-title-photo" >Forma pago:</span>
         <span className="desde-detail-two-title-photo-three" >Abono:</span>
-        <span className="desde-detail-two-title-photo-four" >Documento frontal:</span>
-        <span className="desde-detail-two-title-photo-four" >Documento posterior:</span>
+        <span className="desde-detail-two-title-photo-four" >Documento:</span>
+        <span className="desde-detail-two-title-photo-four" >Documento:</span>
         <span className="desde-detail-two-title-photo" >Firma:</span>
             </div>
               <div className="container-detail-dasboard-in" > 
