@@ -986,7 +986,24 @@
   background: white;
 }
 
+
+.img-photo-one{
+  width: 20%;
+  height: 120px;
+  border-radius: 10px;
+  background: white;
+  border: 1px solid #ccc;
+  margin-left: 10px;
+}
+
 .row-text-box{
   display: contents;
 
+}
+
+.row-web-checking{
+  display: flex;
+  justify-content: center;
+  margin-top: -118px;
+  margin-left: 30%;
 }

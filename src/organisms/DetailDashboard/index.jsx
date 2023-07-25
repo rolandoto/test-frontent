@@ -50,10 +50,8 @@ const DetailDasboard =(props) =>{
     const {iduser} = UseListMotels()
     const {jwt} = useContext(AutoProvider)
 
-
-
     const FindIdHotel=(hotel) =>{
-     return hotel.id_hotel == jwt.result.id_hotel
+      return hotel.id_hotel == jwt.result.id_hotel
     }
 
     const totalId = jwt.result.id_hotel == 7 || jwt.result.id_hotel == 3 || jwt.result.id_hotel == 4 ? true : false

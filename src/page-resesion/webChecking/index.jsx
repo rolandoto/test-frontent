@@ -128,6 +128,8 @@ const Steep =({state,progressBarWidth}) =>{
 }
 
 const WebChecking =() =>{
+
+    
     const [state,setSatate] = useState(stepperDetails)
     const [checkbox,setCheckBox] =useState(1)
     const [progressWidth, setProgressWidth] = useState(0);
@@ -213,7 +215,6 @@ const WebChecking =() =>{
       setSelectedFile(file);
     };
 
-   
     const progressBarWidth = calculateProgressWidth();
 
     if(checkbox ==1) {
@@ -277,7 +278,6 @@ const WebChecking =() =>{
                        
                     </div>
 
-                    
                 </div>
                 <div className="container-form-web-checking-one" >
                     <div className="form-login title-web-checking container-form-web-checkingOne"  >

@@ -1,18 +1,20 @@
 import { Button, Spacer } from "@nextui-org/react"
 import React from "react"
 import { PiSignatureLight } from "react-icons/pi";
-import { useParams } from "react-router-dom";
+import { useParams,useHistory } from "react-router-dom";
 
 const Checkingn4 =() =>{
 
     const {id} = useParams()
+    const history =  useHistory()
+
 
     const handNext =() =>{
-        window.location.href =(`/contracto`)
+        history.push(`/uploadImgeChecking/${id}`)
     }
 
      const handNextFirmadegital =() =>{
-        window.location.href =(`/firmadigital/${id}`)
+        history.push(`/firmadigital/${id}`)
     }
     
     return  (

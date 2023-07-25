@@ -73,68 +73,57 @@ const InformeRoomToSell =() =>{
 
                 <div >
                     <div style={{display:"flex",alignItems:"center"}} >
-
-                
-                    <input type="date" className="input-selecto-dasboard-n1-reservaction"  onChange={hadChangeFecha}    />
-                    <input type="date" className="input-selecto-dasboard-n1-reservaction"  onChange={hadChangeFechaOne}    />
-                    <button className="button-informe-cosultar  with-button-room-to-sell " onClick={hanLookingFor} >Consultar</button>
-                    {roomtosell?.length>0 && <button className="button-informe-descargar  with-button-room-to-sell "  onClick={handClikcDescargar} >Descargar Informe</button>}
-                    {roomtosell?.length>0 &&<button className="button-informe-imprimir with-button-room-to-sell-One"  onClick={handlePrint} ><a href="#" >
-                        Imprimir
-                    </a></button>}
+                        <input type="date" className="input-selecto-dasboard-n1-reservaction"  onChange={hadChangeFecha}    />
+                        <input type="date" className="input-selecto-dasboard-n1-reservaction"  onChange={hadChangeFechaOne}    />
+                        <button className="button-informe-cosultar  with-button-room-to-sell " onClick={hanLookingFor} >Consultar</button>
+                        <button className="button-informe-imprimir"  onClick={handlePrint} >
+                                Imprimir
+                        
+                        </button>
                     </div>
             <table className="de  "  >   
-            
-            <tbody ref={componentRef}  >
-    
-                <tr>
-                    <th  className="top-pq"  >Nombre</th>
-                    {array.map(index => (
-                        <th className=" top-room-to-sell-width" >{index.day}</th>
-                    ))}
-                </tr>
+                <tbody ref={componentRef}  >
+                    <tr>
+                        <th  className="top-pq"  >Nombre</th>
+                        {array.map(index => (
+                            <th className=" top-room-to-sell-width" >{index.day}</th>
+                        ))}
+                    </tr>
 
-                <div className="template-flex" >
-                <tr className="to-tr top-pq" >
-                   {room?.map(index  =>(
-                    <>
-                    <td>{index.nombre}</td>
-                 
-                    </>
-                   ))}
-                   
-                </tr> 
-                {roomtosell?.map((index)  => (
-                    <tr  className="flex-room-to-sell top-room-to-sell-width" > 
-                        {index?.map((row, i) => {
-                      
-                        const fechaActual = row.fecha;
-                        const fechaAnterior = i > 0 ? index[i - 1].fecha : null;
-                        console.log(fechaActual)
-                        if (fechaAnterior !== null && fechaActual !== fechaAnterior) {
-                            return (
+                    <div className="template-flex" >
+                    <tr className="to-tr top-pq" >
+                    {room?.map(index  =>(
+                        <>
+                        <td>{index.nombre}</td>
+                    
+                        </>
+                    ))}
+                    </tr> 
+                    {roomtosell?.map((index)  => (
+                        <tr  className="flex-room-to-sell top-room-to-sell-width" > 
+                            {index?.map((row, i) => {
+                        
+                            const fechaActual = row.fecha;
+                            const fechaAnterior = i > 0 ? index[i - 1].fecha : null;
+                            console.log(fechaActual)
+                            if (fechaAnterior !== null && fechaActual !== fechaAnterior) {
+                                return (
+                                    <>
+                                        <th > </th>  
+                                    </>
+                                );
+                            } else {
+                                return (
                                 <>
-                                    <th > </th>  
-                                    
-                                </>
-                            );
-                        } else {
-                            return (
-                               <>
-                                <th  >{row.disponible}  </th> 
-                                
-                                </> 
-                           
-                            );
-                        }
-                        })}
-                        
-                        
-                        </tr> 
-                     ))}
-                   
-                </div>
-            </tbody>       
+                                    <th  >{row.disponible}  </th> 
+                                    </> 
+                                 );
+                                }
+                            })} 
+                            </tr> 
+                        ))}
+                    </div>
+                </tbody>       
             </table>
         </div>
             </ContainerGlobal>
@@ -144,17 +133,3 @@ const InformeRoomToSell =() =>{
 
 export default InformeRoomToSell
 
-
-
-function RoomAvailabilityList({ availabilityData }) {
-    return (
-      <ul>
-        {availabilityData?.map((data, index) => (
-          <li key={index}>
-            <h2>{data.Room}</h2>
-            <p>Disponible en {data.fecha}: {data.disponible} habitaciones</p>
-          </li>
-        ))}
-      </ul>
-    );
-  }

@@ -59,6 +59,7 @@ import Footer from "./component/Footer/Footer";
 import WebChecking from "./page-resesion/webChecking";
 import Checkingn4 from "./page-resesion/checking4";
 import FirmaDigital from "./page-resesion/FimaDigital";
+import UploadImageCheckingTable from "./page-resesion/UploadImageCheckingTable";
 
 function App() {
   const { jwt } = useContext(AutoProvider);
@@ -279,7 +280,12 @@ function App() {
                 path="/firmadigital/:id"
                 component={FirmaDigital}
               />
-              
+              <PrivateRoute
+                exact
+                path="/uploadImgeChecking/:id"
+                component={UploadImageCheckingTable}
+              />
+
               <Route component={NoFound} />
             </Switch>
           </BrowserRouter>
@@ -425,6 +431,11 @@ function App() {
                 exact
                 path="/firmadigital/:id"
                 component={FirmaDigital}
+              />
+               <PrivateRoute
+                exact
+                path="/uploadImgeChecking/:id"
+                component={UploadImageCheckingTable}
               />
               <Route component={NoFound} />
             </Switch>

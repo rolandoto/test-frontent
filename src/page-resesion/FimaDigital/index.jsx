@@ -160,11 +160,8 @@ const FirmaDigital =()=> {
     }
 
     useEffect(() => {
-  handleImageUpload();
+        handleImageUpload();
     }, [imageURL,setImageURL]);
-
-
-    console.log((imageURL))
 
     if(checkbox ==1) 
     return  (
@@ -246,7 +243,6 @@ const FirmaDigital =()=> {
         <Spacer x={0.5} y={0.5} />
 
         <div className="container-flex-firma" >
-              
                 <Button         
                         onClick={handBacktwo}   
                                     style={{width:"20%",height:"50px"}} 
