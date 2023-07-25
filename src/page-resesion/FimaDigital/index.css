@@ -13,3 +13,7 @@
   .container-flex-firma{
     display: flex;
   }
+
+  .img-photo{
+    background: white;
+  }

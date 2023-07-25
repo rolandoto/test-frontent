@@ -296,8 +296,6 @@ const DashboardModal = (props) => {
 
         const [loadinghabilitada,setLoadinghabilitada] =useState({loading:false,error:false})
 
-     
-
         const handClick =() =>{
             setLoadinghabilitada({loading:false})
             ServiceRoomsAviable({desde:dataAvaible.desde,hasta:dataAvaible.hasta,habitaciones:dataAvaible.habitaciones,ID_Habitaciones:dataAvaible.disponibilidad}).then(index =>{
@@ -442,9 +440,6 @@ const DashboardModal = (props) => {
 
         const total = parseInt(change.adultos) + parseInt(change.niños) +parseInt(change.infantes)
 
-
-
-
         if(total){
             
             for(let i =0;i<total.lentgh;i++){
@@ -556,7 +551,13 @@ const DashboardModal = (props) => {
                   
                 }).catch(e =>{
                     setLoadingReservation({error:false})
-                    
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'error',
+                        title: '<p>Completa todos los formularios</p>',
+                        showConfirmButton: false,
+                        timer: 2000
+                      })
                 })
             }else{
                 setLoadingReservation({error:true})
@@ -566,7 +567,7 @@ const DashboardModal = (props) => {
                     title: '<p>Completa todos los formularios</p>',
                     showConfirmButton: false,
                     timer: 2000
-                  })
+                })
             }
           };
 
@@ -617,7 +618,7 @@ const DashboardModal = (props) => {
         const tipo_forma_pago = typy_buy?.find(index => index.id == change.ID_Tipo_Forma_pago)
        
         const habitacion_asignar = disponibilidad?.query?.find(index=> index.ID == asignar)
-
+ 
         const hancPdf =() =>{
             ServePdf({codigoReserva:resultHuespe?.Num_documento,Nombre:resultHuespe?.Nombre,room:habitacion_asignar?.Numero,adults:change?.adultos,children:change?.niños,tituloReserva:findRoomOne?.nombre,abono:change?.abono,formaPago:tipo_forma_pago?.name,telefono:resultHuespe.Celular,identificacion:resultHuespe.Num_documento,correo:resultHuespe.Correo,urllogo:"https://github.com/rolandoto/image-pms/blob/main/WhatsApp%20Image%202023-02-06%20at%203.49.08%20PM.jpeg?raw=true"}).then(index => {
               const link = document.createElement('a')
@@ -634,7 +635,204 @@ const DashboardModal = (props) => {
         }
    
         const {progress} = useProgress({id:"1"})
-    
+/*
+        <div className="init" >
+        <form  className="container-flex-init" >
+        <div className="container-detail-dasboard-in" > 
+
+        <span className="desde-detail-two-title" > Adultos:</span>
+        <span className="desde-detail-two-title" >Niños:</span>
+        <span className="desde-detail-three-title-das" >Infantes:</span>    
+        <span  className="desde-detail-three-title-das">Mascotas:</span>
+        <span className="desde-detail-two-title" > Ciudad:</span>
+
+            </div>
+              <div className="container-detail-dasboard-in" > 
+                <input type="text" 
+                      className="desde-detail-two"  
+                      placeholder="Adultos" 
+                      name="Adultos"
+                      defaultValue={resultDashboard.Adultos}  
+                      onChange={(e) =>setAdultos(e.target.value)}  />
+                <input type="text" 
+                      className="desde-detail-two" 
+                      name="Fecha" 
+                   placeholder="Niños"  
+                      defaultValue={resultDashboard.Ninos}  
+                      onChange={(e) =>setNinos(e.target.value)}   />
+
+                <input  type="text" 
+                        className="desde-detail-three" 
+                        name="Infantes"
+                        placeholder="Infantes"  
+                        defaultValue={resultDashboard.Infantes}
+                        onChange={(e) =>setInfantes(e.target.value)}   />
+
+                <input  type="text" 
+                        className="desde-detail-three" 
+                        name="Mascotas" 
+                        placeholder="Mascotas"   
+                        readOnly={state}
+                        defaultValue={resultDashboard.Talla}
+                        onChange={handleChange("Mascotas")}   />
+
+                <input  type="text" 
+                        className="desde-detail-two" 
+                        name="Fecha"  
+                        placeholder="Mascotas"    
+                        readOnly={state}
+                        defaultValue={resultDashboard.Ciudad}
+                        onChange={handleChange("Fecha")}   />
+            </div>
+        </form>
+      </div>
+    */
+
+
+      /**
+       *  <label className="title-stores">Fecha desde</label>
+                        <input className="input-selecto-dasboard-n1-reservaction"   
+                        name="desde"  
+                        type="date" 
+                        onChange={handleFechaOne}  
+                        value={fechaOne} />
+
+                        <label className="title-stores">Fecha hasta</label>
+                        <input  className="input-selecto-dasboard-n1-reservaction"     
+                                    name="hasta"   
+                                    type="date" 
+                                onChange={handleFechaTwo}  
+                                value={fechaTwo} />
+                    
+                    <Selected 
+                            title="Tipo de habitacion" 
+                            state={habi} 
+                            name="habitaciones" 
+                            value={fecha}
+                            change={handleChange} />
+                
+                
+                        <label className="title-stores" >Asignar Habitacion</label>
+                        <select onChange={handAsignar}  
+                                value={asignar}
+                                name="disponibilidad"
+                                className='select-hotel-type-one'>
+                            <option></option>
+                            {disponibilidad?.query?.map(category =>(
+                                <option 
+                                value={category.ID}   
+                                key={category.ID}>
+                                {category.Numero}
+                            </option>
+                            )
+                            )}
+                        </select>
+                
+                    
+                        <Button
+                                className="button-dasboard-one-one"
+                                    onClick={handClick}  
+                                style={{width:"100%"}}  
+                                color="success" 
+                        > <span  className="text-words" >Continuar</span> </Button>
+                                                      
+                                                    
+       * 
+       * 
+       */
+
+
+    /**
+ * <div  className="container-border-gray "  >
+        
+    <ul className="flex-bedrooms paddint-let-terifa-day">
+        
+    {to ? 
+    <li>
+            <label className="title-stores">Adultos</label>
+                    <NumberFormat    className="input-stores-personality " 
+                    name="adultos" 
+                    type="number" 
+                    onChange={handleInputChange}
+                    placeholder="0" 
+                    max={countMax}
+                    defaultValue={0}
+                    min={0}
+                    isAllowed={withValueCap}  />
+        </li>
+    : null }
+
+    {to ? 
+        <li>
+            <label className="title-stores">Niños</label>
+            <NumberFormat   className="input-stores-personality"
+                    name="niños" 
+                    type="number" 
+                    onChange={handleInputChange}
+                    placeholder="0"
+                    max={totalMaximopersona}
+                    defaultValue={0}
+                    min={0} 
+                    isAllowed={withValueCap} />
+        </li>
+    :null }
+    {to ? 
+        <li>
+            <label className="title-stores">Infantes</label>
+            <input  className="input-stores-personality"
+                    name="infantes" 
+                    type="number" 
+                    onChange={handleInputChange}
+                    placeholder="0"
+                    defaultValue={0} />
+        </li>
+        : null }
+        
+        {to ? 
+            <li>
+                <label className="title-stores" >Mascota</label>
+                <select onChange={handleInputChange}  
+                        name={"talla_perro"}
+                        className='select-hotel-type-personality'
+                >
+                    <option value={3} >No</option>
+                    {pet?.query?.map(category =>(
+                        <option 
+                        value={category.ID}   
+                        key={category.ID}
+                    >
+                        {category.nombre}
+                    </option>
+                    )
+                    )}
+                </select>
+            </li>
+        : null   }
+        {to ? 
+            <li>
+                <label className="title-stores" >Canal de Reserva</label>
+                <select onChange={handleInputChange}  
+                        name={"canal_reserva"}
+                        className='select-hotel-type-personality-unica'
+                >
+                    <option >{null}</option>
+                    {chanel?.query?.map(category =>(
+                        <option 
+                        value={category.ID}   
+                        key={category.ID}
+                    >
+                        {category.Nombre}
+                    </option>
+                    )
+                    )}
+                </select>
+            </li>
+    :null}
+        </ul>
+</div>
+     * 
+     */
+
         if(!room)  return null
 
         if(createReservation) return   <LineProgress progress={progress} />  
@@ -655,142 +853,158 @@ const DashboardModal = (props) => {
                                                 <LoadingDetail  
                                                                 loading={loadinghabilitada.loading}
                                                                 titleLoading={"Habitacion disponible"}  />
-                <div className="" >
                             <div className="" >
-                                <div className="contain" >
-                                    <div className="handclose" onClick={handAll}>
-                                    </div>
-                                            <div>
-                                                <div className="contain-board " >
-                                                <div className="contain-board-one" >
-                                                <div className="title-modal-dashboard" >
-
-
+                                        <div className="" >
+                                            <div className="contain" >
+                                                <div className="handclose" onClick={handAll}>
                                                 </div>
-                                                <ul className="flex-bedrooms">
+                                                        <div>
+                                                            <div className="contain-board " >
+
+                                                            <div className="contain-board-one" >
+                                                                
+                                                            <div className="init-dasboard-modal" >
+                                                                <form  className="container-flex-init" >
+                                                                <div className="container-detail-dasboard-in" > 
+
+                                                                <span className="desde-detail-two-title" > Fecha desde:</span>
+                                                                <span className="desde-detail-two-title" >Fecha hasta:</span>
+                                                                <span className="desde-detail-three-title-das" >Tipo de habitacion:</span>    
+                                                                <span  className="desde-detail-three-title-das">Asignar Habitacion:</span>
+                                                                    </div>
+                                                                    <div className="container-detail-dasboard-in" > 
+                                                                        <input   
+                                                                            
+                                                                            name="desde"  
+                                                                            type="date" 
+                                                                            className="desde-detail-two"  
+                                                                            onChange={handleFechaOne}  
+                                                                            value={fechaOne} 
+                                                                            />
+                                                                        <input 
+                                                                            className="desde-detail-two" 
+                                                                            name="hasta"   
+                                                                            type="date" 
+                                                                        onChange={handleFechaTwo}  
+                                                                        value={fechaTwo}  
+                                                                        />
+
+                                                                        <select onChange={handleChange}  
+                                                                            name="habitaciones"
+                                                                            value={fecha}
+                                                                            className="desde-detail-two">
+                                                                            <option >Seleccionar tipo de habitacion </option>
+                                                                                                {habi?.map(category =>(
+                                                                                                    <option 
+                                                                                                    value ={category.ID}   
+                                                                                                    key={category.ID}
+                                                                                                >
+                                                                                                    {category.nombre}
+                                                                                                </option>
+                                                                                                )
+                                                                                )}
+                                                                                
+                            
+                                                                            </select>
+                                                                            <select onChange={handAsignar}  
+                                                                                value={asignar}
+                                                                                name="disponibilidad"
+                                                                                className="desde-detail-two">
+                                                                                <option></option>
+                                                                                {disponibilidad?.query?.map(category =>(
+                                                                                    <option 
+                                                                                    value={category.ID}   
+                                                                                    key={category.ID}>
+                                                                                    {category.Numero}
+                                                                                </option>
+                                                                                )
+                                                                                )}
+                                                                            </select>
+                                                                    </div>
+                                                                </form>
+
+                                                               
+                                                            </div>
+
+                                                         
+                                                        
+                                                    </div>
+
                                                   
-                                                    <li>
-                                                        <label className="title-stores">Fecha desde</label>
-                                                        <input className="input-selecto-dasboard-n1-reservaction"   name="desde"  type="date" onChange={handleFechaOne}  value={fechaOne} />
-                                                    </li>
-                                                    <li>
-                                                        <label className="title-stores">Fecha hasta</label>
-                                                        <input className="input-selecto-dasboard-n1-reservaction"      name="hasta"   type="date"  onChange={handleFechaTwo}   value={fechaTwo} />
-                                                    </li>
-                                                    <Selected 
-                                                            title="Tipo de habitacion" 
-                                                            state={habi} 
-                                                            name="habitaciones" 
-                                                            value={fecha}
-                                                            change={handleChange} />
+                                                </div>
+
+                                                <Button
+                                                    className="button-dasboard-one-one"
+                                                        onClick={handClick}  
+                                                    style={{width:"100%"}}  
+                                                    color="success" 
+                                            > <span  className="text-words" >Continuar</span> </Button>
                                                 
-                                                <li>
-                                                        <label className="title-stores" >Asignar Habitacion</label>
-                                                        <select onChange={handAsignar}  
-                                                                value={asignar}
-                                                                name="disponibilidad"
-                                                                className='select-hotel-type-one'>
-                                                            <option></option>
-                                                            {disponibilidad?.query?.map(category =>(
-                                                                <option 
-                                                                value={category.ID}   
-                                                                key={category.ID}>
-                                                                {category.Numero}
-                                                            </option>
-                                                            )
-                                                            )}
-                                                        </select>
-                                                    </li>
-                                                </ul>
+                                            {to  ? (                                            
+                                                <div className="init-dasboard-modal" >
+                                                    <form  className="container-flex-init" >
+                                                    <div className="container-detail-dasboard-in" > 
 
-                                                <ul className="container-button-dasboard" >
-                                                    <li>
-                                                        <button className="button-dasboard-one-one" >
-                                                        <Button
-                                                        className="button-dasboard-one-one"
-                                                            onClick={handClick}  
-                                                        style={{width:"100%"}}  
-                                                        color="success" 
-                                                    > <span  className="text-words" >Continuar</span> </Button>
-                                                        </button>
-                                                       
-                                                    </li> 
+                                                    <span className="desde-detail-two-title" > Adultos:</span>
+                                                    <span className="desde-detail-two-title" >Niños:</span>
+                                                    <span className="desde-detail-three-title-das" >Infantes:</span>    
+                                                    <span  className="desde-detail-three-title-das">Mascotas:</span>
+                                                    <span className="desde-detail-two-title" > Canal de Reserva:</span>
 
-                                                    <li></li>
-                                                </ul> 
-                                                    
-                                        <div  className="container-border-gray "  >
-                                                
-                                            <ul className="flex-bedrooms paddint-let-terifa-day">
-                                                   
+                                                        </div>
+                                                        <div className="container-detail-dasboard-in" > 
+                                                            <input 
+                                                                className="desde-detail-two"  
+                                                                name="adultos" 
+                                                                type="number" 
+                                                                onChange={handleInputChange}
+                                                                placeholder="0" 
+                                                                max={countMax}
+                                                                defaultValue={0}
+                                                                min={0}
+                                                                isAllowed={withValueCap}
+                                                            />
+                                                            <input 
+                                                                className="desde-detail-two" 
+                                                                name="niños" 
+                                                                type="number" 
+                                                                onChange={handleInputChange}
+                                                                placeholder="0"
+                                                                max={totalMaximopersona}
+                                                                defaultValue={0}
+                                                                min={0} 
+                                                                isAllowed={withValueCap}
+                                                                />
 
-                                            {to ? 
-                                            <li>
-                                                    <label className="title-stores">Adultos</label>
-                                                             <NumberFormat    className="input-stores-personality " 
-                                                            name="adultos" 
-                                                            type="number" 
-                                                            onChange={handleInputChange}
-                                                            placeholder="0" 
-                                                            max={countMax}
-                                                            defaultValue={0}
-                                                            min={0}
-                                                            isAllowed={withValueCap}  />
-                                                </li>
-                                             : null }
+                                                            <input 
+                                                                    className="desde-detail-three" 
+                                                                    name="infantes" 
+                                                                    type="number" 
+                                                                    onChange={handleInputChange}
+                                                                    placeholder="0"
+                                                                    defaultValue={0}
+                                                                   
+                                                                    />
 
-                                            {to ? 
-                                                <li>
-                                                    <label className="title-stores">Niños</label>
-                                                    <NumberFormat   className="input-stores-personality"
-                                                            name="niños" 
-                                                            type="number" 
-                                                            onChange={handleInputChange}
-                                                            placeholder="0"
-                                                            max={totalMaximopersona}
-                                                            defaultValue={0}
-                                                            min={0} 
-                                                            isAllowed={withValueCap} />
-                                                </li>
-                                            :null }
-                                             {to ? 
-                                                <li>
-                                                    <label className="title-stores">Infantes</label>
-                                                    <input  className="input-stores-personality"
-                                                            name="infantes" 
-                                                            type="number" 
-                                                            onChange={handleInputChange}
-                                                            placeholder="0"
-                                                            defaultValue={0} />
-                                                </li>
-                                                  : null }
-                                                
-                                                {to ? 
-                                                    <li>
-                                                        <label className="title-stores" >Mascota</label>
-                                                        <select onChange={handleInputChange}  
-                                                                name={"talla_perro"}
-                                                                className='select-hotel-type-personality'
-                                                        >
-                                                            <option value={3} >No</option>
-                                                            {pet?.query?.map(category =>(
-                                                                <option 
-                                                                value={category.ID}   
-                                                                key={category.ID}
-                                                            >
-                                                                {category.nombre}
-                                                            </option>
-                                                            )
-                                                            )}
-                                                        </select>
-                                                    </li>
-                                                 : null   }
-                                                 {to ? 
-                                                    <li>
-                                                        <label className="title-stores" >Canal de Reserva</label>
-                                                        <select onChange={handleInputChange}  
+                                                            <select onChange={handleInputChange}  
+                                                                                    name={"talla_perro"}
+                                                                                    className="desde-detail-three"
+                                                                            >
+                                                                                <option value={3} >No</option>
+                                                                                {pet?.query?.map(category =>(
+                                                                                    <option 
+                                                                                    value={category.ID}   
+                                                                                    key={category.ID}
+                                                                                >
+                                                                                    {category.nombre}
+                                                                                </option>
+                                                                                )
+                                                                                )}
+                                                                            </select>
+
+                                                             <select onChange={handleInputChange}  
                                                                 name={"canal_reserva"}
-                                                                className='select-hotel-type-personality-unica'
+                                                                className="desde-detail-two" 
                                                         >
                                                             <option >{null}</option>
                                                             {chanel?.query?.map(category =>(
@@ -803,258 +1017,281 @@ const DashboardModal = (props) => {
                                                             )
                                                             )}
                                                         </select>
-                                                    </li>
-                                              :null}
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                   
-                                 
-                                    {to ? <div>
-                                    {huespe?.map((item, index) => (
-                                            <div className="contain-board" >
-                                                <div className="contain-board-one one-contain-gray" >
-                                                <ul className="flex-bedrooms-finis-one" >
-                                                            <li  >
-                                                               
-                                                              <div  className="button-remove" onClick={(e) =>handleRemove(index)} > <CiCircleRemove  fontSize={25}   /></div>
-                                                               
-                                                           </li>
-                                                    </ul>  
-                                                <ul className="flex-bedrooms">
-                                                        <li>
-                                                            <label className="title-stores">Nombre</label>
-                                                            <input className="input-selecto-dasboard-n1-name"  required name="Nombre" type={"text"} value={item.Nombre} onChange={(event) =>  handleInpuHuespe(event, index)} />
-                                                        </li>
-                                                    <li>
-                                                        <label className="title-stores">Apellido</label>
-                                                        <input className="input-selecto-dasboard-n1-name" required  name="Apellido" type={"text"} value={item.Apellido}  onChange={(event) =>  handleInpuHuespe(event, index)}/>
-                                                    </li>
+                                                        </div>
+                                                    </form>
+                                                </div>
 
-                                                        <li>
-                                                                <label className="title-stores" >Tipo de Doc</label>
-                                                                <select  onChange={(event) =>  handleInpuHuespe(event, index)} 
-                                                                        name={"Tipo_documento"}
-                                                                        value={item.Tipo_documento}
-                                                                        required
-                                                                        className='select-hotel-type-personality-identificacion'>
-                                                                    <option >{null}</option>
-                                                                    {documnet?.map(category =>(
-                                                                        <option 
-                                                                        value={category.ID}   
-                                                                        key={category.ID}
-                                                                    >
-                                                                        {category.nombre}
-                                                                    </option>
-                                                                    )
-                                                                    )}
-                                                                </select>
-                                                        </li>
-                                                        <li>
-                                                                <label className="title-stores" >Nacionalidad</label>
-                                                                <select required  onChange={(event) =>  handleInpuHuespe(event, index)} 
-                                                                        name={"Nacionalidad"}
-                                                                        value={item.Nacionalidad}
-                                                                        className='select-hotel-type-personality-country'>
-                                                                    <option >{null}</option>
-                                                                    {country?.query?.map(category =>(
-                                                                        <option 
-                                                                        value={category.ID}   
-                                                                        key={category.ID}
-                                                                    >
-                                                                        {category.nombre}
-                                                                    </option>
-                                                                    )
-                                                                    )}
-                                                                </select>
-                                                        </li>
-                                                        
-                                                            <li>
-                                                                <label className="title-stores">No Documento</label>
-                                                                <input className="input-stores-personality-finish" required name="Num_documento" type="text" value={item.Num_documento}  onChange={(event) =>  handleInpuHuespe(event, index)} />
-                                                            </li>  
-                                                    </ul>
+                                    ) :null}
+
+{to  ? ( 
+                                                <div>
+                                                {huespe?.map((item, index) => (
+                                                        <div className="init-dasboard-modal-modal" >
+                                                            <form  className="container-flex-init" >
+                                                                <div className="container-detail-dasboard-in" > 
+
+                                                                <span className="desde-detail-two-title" > Nombre:</span>
+                                                                <span className="desde-detail-two-title" >Apellido:</span>
+                                                                <span className="desde-detail-three-title-das" >Tipo de Doc:</span>    
+                                                                <span  className="desde-detail-three-title-das">Nacionalidad:</span>
+                                                                <span className="desde-detail-two-title" > No Documento:</span>
+
+                                                                </div>
+                                                                    <div className="container-detail-dasboard-in" > 
+                                                                        <input 
+                                                                            className="desde-detail-two"  
+                                                                            required 
+                                                                            name="Nombre" 
+                                                                            type={"text"} 
+                                                                            value={item.Nombre} 
+                                                                            onChange={(event) =>  handleInpuHuespe(event, index)}  
+                                                                        />
+                                                                        <input 
+                                                                            
+                                                                        className="desde-detail-two"  
+                                                                            required  
+                                                                            name="Apellido" 
+                                                                            type={"text"} 
+                                                                            value={item.Apellido}  
+                                                                            onChange={(event) =>  handleInpuHuespe(event, index)}
+                                                                            />
+
+                                                                        <select  onChange={(event) =>  handleInpuHuespe(event, index)} 
+                                                                                                name={"Tipo_documento"}
+                                                                                                value={item.Tipo_documento}
+                                                                                                required
+                                                                                                className="desde-detail-three">
+                                                                                            <option >{null}</option>
+                                                                                            {documnet?.map(category =>(
+                                                                                                <option 
+                                                                                                value={category.ID}   
+                                                                                                key={category.ID}
+                                                                                            >
+                                                                                                {category.nombre}
+                                                                                            </option>
+                                                                                            )
+                                                                                            )}
+                                                                        </select>
+
+                                                                        <select required  onChange={(event) =>  handleInpuHuespe(event, index)} 
+                                                                                                name={"Nacionalidad"}
+                                                                                                value={item.Nacionalidad}
+                                                                                                className="desde-detail-three">
+                                                                                            <option >{null}</option>
+                                                                                            {country?.query?.map(category =>(
+                                                                                                <option 
+                                                                                                value={category.ID}   
+                                                                                                key={category.ID}
+                                                                                            >
+                                                                                                {category.nombre}
+                                                                                            </option>
+                                                                                            )
+                                                                                            )}
+                                                                        </select>
+
+                                                                        <input  className="desde-detail-two"  
+                                                                                required 
+                                                                                name="Num_documento" 
+                                                                                type="text" 
+                                                                                value={item.Num_documento}  
+                                                                                onChange={(event) =>  handleInpuHuespe(event, index)} />
+                                                                    </div>
+                                                                </form>
+
+
+                                                                <form  className="container-flex-init" >
+                                                                <div className="container-detail-dasboard-in" > 
+
+                                                                <span className="desde-detail-two-title" > Fecha nacimiento:</span>
+                                                                <span className="desde-detail-two-title" >Ciudad residencia:</span>
+                                                                <span className="desde-detail-three-title-das" >Correo:</span>    
+                                                                <span  className="desde-detail-three-title-das">prefijo:</span>
+                                                                <span className="desde-detail-two-title" > Celular/sin indicativo:</span>
+
+                                                                </div>
+                                                                    <div className="container-detail-dasboard-in" > 
+                                                                        <input 
+                                                                            className="desde-detail-two"  
+                                                                            required name="Fecha_nacimiento"  
+                                                                            type="date" 
+                                                                            value={item.Fecha_nacimiento}  
+                                                                            onChange={(event) =>  handleInpuHuespe(event, index)} 
+                                                                        />
+                                                                        <input 
+                                                                            className="desde-detail-two"    
+                                                                            required  name="Ciudad" 
+                                                                            type="text" 
+                                                                            value={item.Ciudad}  
+                                                                            onChange={(event) =>  handleInpuHuespe(event, index)} 
+                                                                            />
+
+                                                                      
+                                                                        <input 
+                                                                              className="desde-detail-three"    
+                                                                              required name="Correo"
+                                                                               type="text" 
+                                                                               value={item.Correo}  
+                                                                               onChange={(event) =>  handleInpuHuespe(event, index)}
+                                                                            />
+
+
+                                                                        <select required  onChange={(event) =>  handleInpuHuespe(event, index)} 
+                                                                                            disabled={true}
+                                                                                                name={"Nacionalidad"}
+                                                                                                value={item.Nacionalidad}
+                                                                                                className="desde-detail-three">
+                                                                                            <option >{null}</option>
+                                                                                            {country?.query?.map(category =>(
+                                                                                                <option 
+                                                                                                value={category.ID}   
+                                                                                                key={category.ID}
+                                                                                            >
+                                                                                               {category.codigo}
+                                                                                            </option>
+                                                                                            )
+                                                                                            )}
+                                                                        </select>
+
+                                                                        <input  className="desde-detail-two"  
+                                                                                required  name="Celular"     
+                                                                                type="number"  
+                                                                                value={item.Celular}  
+                                                                                onChange={(event) =>  handleInpuHuespe(event, index)}  />
+                                                                    </div>
+                                                                </form>
+                                                                
+                                                            </div>
+                                                     ))}
+
+                                            </div>
+                                         ):null}   
+                                          {to  ? (                
+                                            <div className="init-dasboard-modal-modal">
+                                                
+                                            <form  className="container-flex-init" >
+                                                                <div className="container-detail-dasboard-in" > 
+
+                                                                <span className="desde-detail-two-title-update-tafira" > Tarifa por dia:</span>
+                                                                <span className="desde-detail-two-title-update-tafira" >V. Seguro:</span>
+                                                                <span className="desde-detail-three-title-das-update-one" >V. P Adicional:</span>    
+                                                                <span  className="desde-detail-three-title-das-update">Tipo de pago:</span>
+
+                                                                </div>
+                                                                    <div className="container-detail-dasboard-in negrita-one-update " > 
+                                                                        <input 
+                                                                            className="desde-detail-two"  
+                                                                            defaultValue={default_Value}  
+                                                                            onChange={handChangeValueEditar}  
+                                                                            
+                                                                          
+                                                                        />
+                                                                        
+                                                                    <button className="desde-detail-two negrita-one-update "   disabled={true}  >
+                                                                            <span>{resultValuepeople =="COPNaN" ?"" :resultValuepeople  }</span> 
+                                                                    </button>
+
+                                                                    <button className="desde-detail-two negrita-one-update "   disabled={true}   >
+                                                                            <span>{resultValueAdicional =="COPNaN" ?"" :resultValueAdicional }</span> 
+                                                                    </button>
+
+                                                                    <select onChange={handleInputChange}  
+                                                                            required
+                                                                            name="ID_Tipo_Forma_pago"
+                                                                            className="desde-detail-three">
+                                                                        <option value={1}  >Tipo de pago</option>
+                                                                        {typy_buy?.map(category =>(
+                                                                            <option 
+                                                                            value={category.id}   
+                                                                            key={category}
+                                                                        >
+                                                                            {category.name}
+                                                                        </option>
+                                                                        )
+                                                                        )}
+                                                                    </select>
+                                                                    </div>
+                                                                </form>
+
+                                                                <form  className="container-flex-init" >
+                                                                <div className="container-detail-dasboard-in" > 
+
+                                                              
+                                                                <span className="desde-detail-two-title-update" >Descuento:</span>
+                                                                <span className="desde-detail-two-title-update" >Abono reserva:</span>
+                                                                <span className="desde-detail-two-title" >Valor total  Hospedaje:</span>
+
+                                                                </div>
+                                                                    <div className="container-detail-dasboard-in" > 
+                                                                       
+                                                                   
+                                                                        <input   className="desde-detail-three"  type="number" onChange={(e) => setDescuento(e.target.value) }    />
+                                                                       
+
+                                                                        <input  className="desde-detail-three" 
+                                                                                name="abono" type="number" onChange={handleInputChange} 
+                                                                                />
+
+                                                                        <button className="desde-detail-three values-total "  disabled={true} >
+                                                                            <span>{global =="COPNaN" ?"" :global}</span> 
+                                                                        </button>
+                                                                    </div>
+                                                                </form>
+
+                                           
+                                            
+                                            </div>
+)                                       :null}  
+
+{to  ? (
+                                                <div >   
+                                                    <textarea    rows="10" 
+                                                                
+                                                                    cols="215" 
+                                                                    placeholder="Observacion" 
+                                                                    name="observacion"
+                                                                    defaultValue={ObservationAll}  
+                                                                    onChange={handleInputChange}
+                                                                    className="obs" ></textarea>                
+                                                    </div>  
+                                                ) :null} 
+
+
+                                                {to  ? (
+                                                    <div className="row-button-created" >
+
+                                                
+                                                            {loadingReservation.loading ? <Loading type="spinner" size="lg" />:
+                                                                              
+                                                                                    <button className="button-dasboard-sevent-one"  onClick={handClickReservation} >
+                                                                                            <span>Crear Reserva</span>
+                                                                                    </button>
+                                                                              
+                                                                }
+                                                                                    <button className="button-dasboard-six-one"  onClick={handAdd}   >
+                                                                                    <CiCirclePlus fontSize={30} /> <span>  Añadir personas  </span> 
+                                                                                    </button>
+                                                                               
+                                                                                
+                                                                                    <button className="button-dasboard-sevent-two" onClick={hancPdf}  >
+                                                                                    
+                                                                                    <span   >Comprobante</span>
+                                                                                    </button>
+                                                                               
+                                                                                    <button className="button-dasboard-nine-one"  onClick={handNextCLickNoChecking}   >
+                                                                                            <span>Wolking</span> 
+                                                                                    </button>
+                                                                               
+                                                            </div>     
+                                                                  
+                                                                  ):null}
+                                                    </div>
 
                                                    
-                                                    <ul className="flex-bedrooms">
-                                                            <li>
-                                                                    <label className="title-stores">Fecha nacimiento</label>
-                                                                    <input className="input-stores-personality-thre" required name="Fecha_nacimiento"  type="date" value={item.Fecha_nacimiento}  onChange={(event) =>  handleInpuHuespe(event, index)} />
-                                                            </li>   
-                                                    
-                                                            <li>
-                                                                <label className="title-stores">Ciudad residencia</label>
-                                                                <input className="input-stores-personality-four " required  name="Ciudad"    type="text" value={item.Ciudad}  onChange={(event) =>  handleInpuHuespe(event, index)} />
-                                                            </li>   
-                                                            <li>
-                                                                <label className="title-stores">Correo electronico</label>
-                                                                <input className="input-stores-personality-five" required name="Correo" type="text" value={item.Correo}  onChange={(event) =>  handleInpuHuespe(event, index)}/>
-                                                            </li>
-                                                                    <li>
-                                                                    <label className="title-stores" >prefijo</label>
-                                                            <select  onChange={(event) =>  handleInpuHuespe(event, index)} 
-                                                                    name={"Nacionalidad"}
-                                                                    value={item.Nacionalidad}
-                                                                    disabled={true}
-                                                                    required
-                                                                    className='select-hotel-type-personality-country-fixed'>
-                                                                <option >{null}</option>
-                                                                {country?.query?.map(category =>(
-                                                                    <option 
-                                                                    value={category.ID}   
-                                                                    key={category.ID}
-                                                                >
-                                                                    {category.codigo}
-                                                                </option>
-                                                                )
-                                                                )}
-                                                            </select>
-                                                        </li>
-
-                                                    <li>
-                                                        <label className="title-stores">Celular/sin indicativo</label>
-                                                        <input className="input-stores-personality-one--fininsh-prefijo " required  name="Celular"     type="number"  value={item.Celular}  onChange={(event) =>  handleInpuHuespe(event, index)} />
-                                                    </li>   
-                                                </ul>
-                                                
-                                           </div>
-                                         
-                                      </div> 
-                                    ))}
-
-                                </div>: null }
-
-                                {to ? 
-                                <div className="contain-board  one-contain-gray-One">
-                                        <ul className="flex-bedrooms paddint-let-terifa-day">
-                                                <li>
-                                                    <label className="title-stores">Tarifa por dia</label>
-                                                        <input className="button-dasboard-thre " defaultValue={default_Value}  onChange={handChangeValueEditar}   />
-                                                </li>
-                                                <li>
-                                                    <label className="title-stores">V. Seguro</label>
-                                                        <button className="button-dasboard-thre "   >
-                                                                <span>{resultValuepeople =="COPNaN" ?"" :resultValuepeople  }</span> 
-                                                        </button>
-                                                </li>
-                                                <li>
-                                                        <label className="title-stores">V. P Adicional</label>
-                                                        <button className="button-dasboard-thre "   >
-                                                                <span>{resultValueAdicional =="COPNaN" ?"" :resultValueAdicional }</span> 
-                                                        </button>
-                                                </li>
-                                               
-
-                                                    <li>
-                                                        <label className="title-stores" >Tipo de pago</label>
-                                                        <select onChange={handleInputChange}  
-                                                                required
-                                                                name="ID_Tipo_Forma_pago"
-                                                                className='select-hotel-type-rooms-finis-dasboard'>
-                                                            <option value={1}  >Tipo de pago</option>
-                                                            {typy_buy?.map(category =>(
-                                                                <option 
-                                                                value={category.id}   
-                                                                key={category}
-                                                            >
-                                                                {category.name}
-                                                            </option>
-                                                            )
-                                                            )}
-                                                        </select>
-                                                    </li>
-
-                                                    <li>
-                                                        <label className="title-stores">Descuento</label>
-                                                        <input className="button-dasboard-thre not-number " type="number" onChange={(e) => setDescuento(e.target.value) }    />
-                                                      
-                                                     </li>
-
-                                                <li>
-                                                    <label className="title-stores">Abono reserva</label>
-                                                    <input className="input-stores-personality-one-finish-dasboard" name="abono" type="number" onChange={handleInputChange} />
-                                                </li> 
-                                                <li>
-                                                    <label className="title-stores">Valor total  Hospedaje</label>
-                                                        <button className="button-dasboard-thre-dasboard"   >
-                                                                <span>{global =="COPNaN" ?"" :global}</span> 
-                                                        </button>
-                                                </li>
-                                                
-                                            </ul>
-                                            </div>
-                                    : null}
-
-                                    {to ?  
-                                    <div className="contain-board  one-contain-gray-Two">
-                                            <ul className="flex-bedrooms">
-                                                            <li>
-                                            <textarea    rows="10" 
-                                                        
-                                                            cols="215" 
-                                                            placeholder="Observacion" 
-                                                            name="observacion"
-                                                            defaultValue={ObservationAll}  
-                                                            onChange={handleInputChange}
-                                                            className="obs" ></textarea>                
-                                        </li>
-                                        </ul>
+                                                </div>  
                                         </div>
-                                     :null}
-
-                                     {to ? 
-                                        <ul className="flex-bedrooms">
-
-                                            
-                                        <div className="container-checkbox-one" >
-                                            
-                                            
-                                        </div> 
-
-
-                                        
-                                       
-
-                                        {loadingReservation.loading ? <Loading type="spinner" size="lg" />:
-                                                            <li>
-                                                                <button className="button-dasboard-sevent-one"  onClick={handClickReservation} >
-                                                               <span>Crear Reserva</span>
-                                                                </button>
-                                                            </li>
-                                        } 
-                                                            <li>
-                                                                <button className="button-dasboard-six-one"  onClick={handAdd}   >
-                                                                <CiCirclePlus fontSize={30} /> <span>  Añadir personas  </span> 
-                                                                </button>
-                                                            </li> 
-                                                            <li>
-                                                             
-                                                                <button className="button-dasboard-sevent-two" onClick={hancPdf}  >
-                                                                
-                                                                <span   >Comprobante</span>
-                                                                </button>
-                                                            </li> 
-                                                        
-
-                                                            <li>
-                                                                <button className="button-dasboard-nine-one"  onClick={handNextCLickNoChecking}   >
-                                                                        <span>Wolking</span> 
-                                                                </button>
-                                                            </li> 
-
-                                                            
-                                                    </ul>
-                                                : null}
-                                                <ul className="container-button-dasboard-one" >               
-                                                </ul>
-
-                                         </div>
-                                    </div>  
-                            </div>
-                    </div>
-                   
-            </div>
+                                </div>
+                            
+                        </div>
         )
     }
     export  default  DashboardModal

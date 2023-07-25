@@ -157,12 +157,11 @@ const FirmaDigital =()=> {
               console.log(e);
             });
         }
-      }
+    }
 
-    
-useEffect(() => {
+    useEffect(() => {
   handleImageUpload();
-}, [imageURL]);
+    }, [imageURL,setImageURL]);
 
 
     console.log((imageURL))

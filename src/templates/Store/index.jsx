@@ -973,8 +973,7 @@ const StoreTemplate =({Store}) =>{
                                               disabled={loadingAsignar}
                                               style={{background: !loadingAsignar &&"black",color:"white"}}
                                               onClick={handSubmitInsertCart}
-                                                
-                                       > <span  className="text-words" >Crear reserva</span> </Button>
+                                       > <span  className="text-words" >Asignar habitacion</span> </Button>
                                    
                                 </div> 
                             </div>

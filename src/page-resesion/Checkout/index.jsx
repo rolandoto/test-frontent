@@ -20,7 +20,7 @@ const Checkout =() =>{
     const {postWhataapByIdCheckout} = useApiWhataapActions()
 
     const fetchDataApiWhatsapp =async({phone,languaje,name,hotel,factura}) =>{
-        await postWhataapByIdCheckout({plantilla:"checkout_v2",to:phone,languaje,name,hotel,factura})
+        await postWhataapByIdCheckout({plantilla:"check_out_v3",to:phone,languaje,name,hotel,factura})
     }
     
     const fetchData =async() =>{

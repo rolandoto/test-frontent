@@ -63,15 +63,18 @@ const InformeRoomToSell =() =>{
     const handlePrint = useReactToPrint({
         content: () => componentRef.current
     });
-    
 
+ 
     return (
             <ContainerGlobal>
                    <LoadingDetail 
                         loading={true}
                         titleLoading={"Informe  Room to sell"}  />
 
-                <div>
+                <div >
+                    <div style={{display:"flex",alignItems:"center"}} >
+
+                
                     <input type="date" className="input-selecto-dasboard-n1-reservaction"  onChange={hadChangeFecha}    />
                     <input type="date" className="input-selecto-dasboard-n1-reservaction"  onChange={hadChangeFechaOne}    />
                     <button className="button-informe-cosultar  with-button-room-to-sell " onClick={hanLookingFor} >Consultar</button>
@@ -79,7 +82,7 @@ const InformeRoomToSell =() =>{
                     {roomtosell?.length>0 &&<button className="button-informe-imprimir with-button-room-to-sell-One"  onClick={handlePrint} ><a href="#" >
                         Imprimir
                     </a></button>}
-
+                    </div>
             <table className="de  "  >   
             
             <tbody ref={componentRef}  >
@@ -89,31 +92,38 @@ const InformeRoomToSell =() =>{
                     {array.map(index => (
                         <th className=" top-room-to-sell-width" >{index.day}</th>
                     ))}
-                    
                 </tr>
 
                 <div className="template-flex" >
                 <tr className="to-tr top-pq" >
                    {room?.map(index  =>(
+                    <>
                     <td>{index.nombre}</td>
+                 
+                    </>
                    ))}
+                   
                 </tr> 
                 {roomtosell?.map((index)  => (
                     <tr  className="flex-room-to-sell top-room-to-sell-width" > 
                         {index?.map((row, i) => {
+                      
                         const fechaActual = row.fecha;
                         const fechaAnterior = i > 0 ? index[i - 1].fecha : null;
+                        console.log(fechaActual)
                         if (fechaAnterior !== null && fechaActual !== fechaAnterior) {
                             return (
-                            <>
-                                    <th  >{row.disponible} </th>  
+                                <>
+                                    <th > </th>  
                                     
                                 </>
                             );
                         } else {
                             return (
-                               
-                                <th  >{row.disponible}  </th>  
+                               <>
+                                <th  >{row.disponible}  </th> 
+                                
+                                </> 
                            
                             );
                         }
@@ -122,15 +132,10 @@ const InformeRoomToSell =() =>{
                         
                         </tr> 
                      ))}
+                   
                 </div>
-
-              
             </tbody>       
-              
-         
             </table>
-
-            
         </div>
             </ContainerGlobal>
     )

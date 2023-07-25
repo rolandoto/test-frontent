@@ -155,7 +155,7 @@ const InformeAuditoria =() =>{
              <LoadingDetail  
                         loading={true}
                         titleLoading={"Informe  auditoria"}  />
-            <div>
+            <div style={{display:"flex",alignItems:"center"}} >
                 <input type="date" className="input-selecto-dasboard-n1-reservaction"  onChange={hadChangeFecha} value={LookinforFecha}   />
                 <select className="input-selecto-dasboard-n1-reservaction"   onChange={handChangeCategory} >
                     <option value="0">Filtrar tipo forma pago</option>

@@ -17,6 +17,11 @@
   display: flex;
 }
 
+.container-detail-dasboard-in-photo{
+  display: flex;
+  justify-content: space-between;
+}
+
 .container-detail-dasboard-in-one {
   display: flex;
   align-items: center;
@@ -86,7 +91,7 @@
   cursor: pointer;
   width: 148px;
   margin-left: -20px;
-  justify-content: initial;
+  justify-content: space-between;
 }
 
 .desde-detail-three-estados-black {
@@ -101,7 +106,7 @@
   width: 148px;
   margin-left: -20px;
   color: white;
-  justify-content: initial;
+  justify-content: space-between;
 }
 
 .desde-detail-three-one {
@@ -144,6 +149,7 @@
   color: black;
   font-size: 30px;
   width: auto;
+  margin-left: 53px;
 }
 
 .cod-reserva-one {
@@ -180,6 +186,35 @@
   background: #ebebeb;
   border-radius: 10px;
   height: 122px;
+  margin-top: 5px;
+}
+
+
+.values-total{
+  background: black;
+  color: white;
+  justify-content: center;
+  align-items: center;
+}
+
+.init-dasboard-modal{
+  padding: 2px 5px 0px 5px;
+  display: block;
+  margin: auto;
+  background: #ebebeb;
+  border-radius: 10px;
+  height: 122px;
+  margin-top: 5px;
+}
+
+
+.init-dasboard-modal-modal{
+  padding: 2px 5px 0px 5px;
+  display: block;
+  margin: auto;
+  background: #ebebeb;
+  border-radius: 10px;
+  height: 212px;
   margin-top: 5px;
 }
 
@@ -239,7 +274,7 @@
   width: 148px;
   margin-left: -20px;
   color: white;
-  justify-content: initial;
+  justify-content: space-between;
 }
 
 .container-flex-init-one {
@@ -331,12 +366,32 @@
   padding: 10px;
 }
 
+.desde-detail-two-title-update {
+  height: 30px;
+  border: none;
+  border-radius: 8px;
+  margin: 4px;
+  width: 20%;
+  padding: 10px;
+}
+
+
+.desde-detail-two-title-update-tafira{
+  height: 30px;
+  border: none;
+  border-radius: 8px;
+  margin: 4px;
+  width: 27%;
+  padding: 10px;
+}
+
+
 .desde-detail-two-title-photo{
   height: 30px;
   border: none;
   border-radius: 8px;
   margin: 4px;
-  width: 24%;
+  width: 31%;
   padding: 10px;
 }
 
@@ -364,8 +419,9 @@
   border: none;
   border-radius: 8px;
   margin: 4px;
-  width: 43%;
+  width: 27%;
   padding: 10px;
+  width: 44%;
 }
 
 .desde-detail-two-title-informe-all {
@@ -410,6 +466,26 @@
   border-radius: 8px;
   margin: 4px;
   width: 20%;
+  padding: 10px;
+  display: flex;
+}
+
+.desde-detail-three-title-das-update-one{
+  height: 30px;
+  border: none;
+  border-radius: 8px;
+  margin: 4px;
+  width: 26%;
+  padding: 10px;
+  display: flex;
+}
+
+
+.desde-detail-three-title-das-update{
+  height: 30px;
+  border: none;
+  border-radius: 8px; 
+  margin: 4px;
   padding: 10px;
   display: flex;
 }
@@ -733,6 +809,7 @@
   width: 148px;
   margin-left: -20px;
   color: white;
+  justify-content: space-between;
 
  
 }
@@ -808,9 +885,11 @@
 }
 
 .button-change-type-room{
-  border: none;
+    border: none;
     padding: 0;
-
+    align-items: center;
+    background: black;
+    padding: 14px;
     border-radius: 8px;
     color: white;
     height: 53px !important;
@@ -904,4 +983,10 @@
   width: 30%;
   height: 120px;
   border-radius: 10px;
+  background: white;
+}
+
+.row-text-box{
+  display: contents;
+
 }

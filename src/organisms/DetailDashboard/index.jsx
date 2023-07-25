@@ -7,11 +7,7 @@ import {useParams} from "react-router-dom"
 import LoadingDetail from "../../Ui/LoadingDetail";
 import {useHistory} from "react-router-dom"
 import ServiceUpdateReservationpay from "../../service/ServiceUpdatereservationpay";
-import useProgress from "../../hooks/useProgress";
-import LineProgress from "../../Ui/LineProgress";
 import useDate from "../../hooks/useDate";
-import ServiceRoomsAviable from "../../service/ServiceRoomsAvaible";
-import Servicedetailespandir from "../../service/Servicedetailespandir";
 import AutoProvider from "../../privateRoute/AutoProvider";
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -20,7 +16,6 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';  
-import Container from "../../Ui/Container";
 import { CiEdit } from "react-icons/ci";
 import ServiceAddHuespedes from "../../service/ServiceAddHuespedes";
 import UseListMotels from "../../hooks/UseListMotels";
@@ -28,7 +23,6 @@ import UsePrice from "../../hooks/UsePrice";
 import { config } from "../../config";
 import ServiDelteReservation from "../../service/ServiDelecteReservation";
 import ServePdf from "../../service/PdfServe";
-import { confirmAlert } from "react-confirm-alert"; // Import
 import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
 import ServicePayReservationSore from "../../service/ServicePayReservationSore";
 import { VscSymbolEvent ,VscSignOut,VscSearch,VscAccount} from "react-icons/vsc";
@@ -42,7 +36,8 @@ import ServiceStatus from "../../service/ServiceStatus";
 import { BsBucket ,BsCalendarCheck,BsCheckCircle,BsBell} from "react-icons/bs";
 import UseModalText from "../../hooks/UseModalText";
 import { Button, Grid, Image, Spacer, Table as table,Tooltip, User } from "@nextui-org/react";
-import { CiBadgeDollar,CiDollar ,CiExport,CiUser} from "react-icons/ci";
+import { CiBadgeDollar,CiDollar ,CiExport,CiUser,CiCirclePlus} from "react-icons/ci";
+import { PiUsersLight,PiShoppingBagOpenLight,PiPaypalLogoLight } from "react-icons/pi";
 
 const DetailDasboard =(props) =>{
     const {id} = useParams()
@@ -767,7 +762,7 @@ const  handleClickEliminar =UseModalText({handlModal:hanDelete,Text:"Estas segur
               </div>
            
               <div  style={{background:`${totalPrice <=0 ? "#17c964" : "#f21361" }`,color:"white"}} className="border-detail" >
-                   {totalPrice <= 0 ?  <span className="negrita-detail-reserva" >   <BsCheckCircle  className="text-center-icon"   fontSize={25} color="white"  />Al dia con  el pago</span> : <span className="negrita-detail-reserva" >   <CiBadgeDollar  className="text-center-icon"   fontSize={45} color="white"  />  ${cobrar.toLocaleString()}</span>   }   
+                   {totalPrice <= 0 ?  <span className="negrita-detail-reserva" >   <BsCheckCircle  className="text-center-icon"   fontSize={25} color="white"  />Pagado</span> : <span className="negrita-detail-reserva" >   <CiBadgeDollar  className="text-center-icon"   fontSize={45} color="white"  />  ${cobrar.toLocaleString()}</span>   }   
               </div>
               
 
@@ -857,7 +852,7 @@ const  handleClickEliminar =UseModalText({handlModal:hanDelete,Text:"Estas segur
       <div className="init-photo top-one-detail-room" >
             <form  className="container-flex-init"  onSubmit={e =>{
               e.preventDefault()
-            }} >
+        }} >
         <div className="container-detail-dasboard-in" > 
         <span className="desde-detail-two-title-photo" >Forma pago:</span>
         <span className="desde-detail-two-title-photo-three" >Abono:</span>
@@ -865,7 +860,7 @@ const  handleClickEliminar =UseModalText({handlModal:hanDelete,Text:"Estas segur
         <span className="desde-detail-two-title-photo-four" >Doc posterior:</span>
         <span className="desde-detail-two-title-photo" >Firma:</span>
             </div>
-              <div className="container-detail-dasboard-in" > 
+              <div className="container-detail-dasboard-in-photo" > 
               <select   name="Tipo_forma_pago"
                         value={inputPayValue.Tipo_forma_pago}
                         onChange={handleInputPay}
@@ -888,13 +883,11 @@ const  handleClickEliminar =UseModalText({handlModal:hanDelete,Text:"Estas segur
                         className="desde-detail-twophoto"  />
                 <div>
                 <Tooltip content={"Agregar pago sin coma, ni punto "} style={{color:"white"}} >
-                <Button style={{background:"black"}} 
-                 className="button-change-type-room"  
-                 
-                  onClick={handModalText} 
-                 icon={(<CiDollar     className="text-center-icon"   fontSize={25} color="white"  />)}  >
-                     <span className="negrita-detail-reserva" >Agregar abono</span>
-                  </Button>
+                <button style={{background:"black"}} 
+                 className="button-change-type-room " 
+                  onClick={handModalText} >
+                     <span className="negrita-detail-reserva  row-text-box" style={{marginLeft:"10px"}}   ><CiCirclePlus  fontSize={35}  /> <span> Abono</span></span>
+                  </button>
                 </Tooltip> 
               
                 </div>  
@@ -906,10 +899,8 @@ const  handleClickEliminar =UseModalText({handlModal:hanDelete,Text:"Estas segur
                         objectFit="initial"
                         alt="Default Image"
                         className="img-photo"
-                    
+    
                       />
-                  
-                    
                   <img
                       src={`${resultDashboard.Foto_documento_atras ? resultDashboard.Foto_documento_atras : "https://github.com/rolandoto/image-pms/blob/main/pdf_Mesa%20de%20trabajo%201_Mesa%20de%20trabajo%201%20(1).png?raw=true"  }`}
                       objectFit="initial"
@@ -917,11 +908,7 @@ const  handleClickEliminar =UseModalText({handlModal:hanDelete,Text:"Estas segur
                       className="img-photo"
                  
                     />
-                  
-
-                  
                   <img
-                    
                       src={`${resultDashboard.Pasaporte ? resultDashboard.Pasaporte : "https://github.com/rolandoto/image-pms/blob/main/pdf_Mesa%20de%20trabajo%201_Mesa%20de%20trabajo%201%20(1).png?raw=true"  }`}
                       objectFit="initial"
                       alt="Default Image"
@@ -1040,9 +1027,9 @@ const  handleClickEliminar =UseModalText({handlModal:hanDelete,Text:"Estas segur
       <form  className="container-flex-init" >
         <div className="container-detail-dasboard-in in-type-button" > 
                 <ul className="flex-contain"  >
-                    <li className={`${huesped ? "desde-detail-three-estados-black-one-finish" :"desde-detail-three-estados" } `} onClick={handHuesped} >Huespedes:</li>
-                    <li className={`${consumo ? "desde-detail-three-estados-black" :"desde-detail-three-estados" } `} onClick={handConsumo} >Consumos:</li>
-                    <li className={`${pago ? "desde-detail-three-estados-black" :"desde-detail-three-estados" } `}  onClick={handPago} >Pagos:</li>
+                    <li className={`${huesped ? "desde-detail-three-estados-black-one-finish" :"desde-detail-three-estados" } `} onClick={handHuesped} >Huespedes:  <PiUsersLight fontSize={25}  /> {quyery?.length}  </li>
+                    <li className={`${consumo ? "desde-detail-three-estados-black" :"desde-detail-three-estados" } `} onClick={handConsumo} >Consumos: <PiShoppingBagOpenLight fontSize={25} /> {product?.length >0 ?product?.length : 0  }  </li>
+                    <li className={`${pago ? "desde-detail-three-estados-black" :"desde-detail-three-estados" } `}  onClick={handPago} >Pagos: <PiPaypalLogoLight  fontSize={25}   /> {product?.length >0 ?product?.length : 0 }   </li>
                     <li className={`${!pago ? "desde-detail-three-estados-black" :"desde-detail-three-estados" } `}   >Historial:</li>
                 </ul>
            { huesped && <Huesped  quyery={quyery}
@@ -1430,15 +1417,15 @@ const handleState =(event, index) =>{
                                 bordered
                                 squared
                                 color="error"
-                                size="lg"
+                                
                                
                                 style={{color:"black"}}
                                   src={row.img}
                                   name={row.Nombre_categoria}
                                   zoomed
-                                  description={row.Nombre_Producto}
                                 /> 
                                    </TableCell>
+                                   <TableCell>{row.Nombre_Producto} </TableCell>
                                    <TableCell>{row.Cantidad} </TableCell>
                               <TableCell>{row.Fecha} </TableCell>
                               <TableCell>Cop {row.Price} </TableCell>
