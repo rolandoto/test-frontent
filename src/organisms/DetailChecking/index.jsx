@@ -327,7 +327,7 @@ const DetailChekingOrganism =({id}) =>{
 
     let totalId = false;
 
-    if (jwt.result.id_hotel == 7 || jwt.result.id_hotel == 3 || jwt.result.id_hotel == 4) {
+    if (jwt.result.id_hotel == 7 || jwt.result.id_hotel == 3 || jwt.result.id_hotel == 4 || jwt.result.id_hotel == 23  ) {
         totalId = true;
     }
 
@@ -336,9 +336,6 @@ const DetailChekingOrganism =({id}) =>{
         Iva: totalId ? 2 : change.Iva
     };
 
-    console.log(dataTwo)
-    console.log(totalId)
-    
     const hanClickingn2 =() =>{
         if(change.Iva== null){
             Swal.fire({

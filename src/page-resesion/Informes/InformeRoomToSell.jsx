@@ -99,14 +99,37 @@ const InformeRoomToSell =() =>{
                                                 
                                                     </>
                                                 ))}
-                                        </tr> 
-                                        {roomtosell?.map((index)  => (
-                                            <tr  className="flex-room-to-sell top-room-to-sell-width" > 
+                                                 <td>Total por dia</td>
+                                            </tr> 
+                                        {roomtosell?.map((index)  => {
+
+                                            const totaGroup =  index.map((row, i)=>{
+                                                const fechaActual = row.fecha;
+                                                const fechaAnterior = i > 0 ? index[i - 1].fecha : null;
+                                                if (fechaAnterior !== null && fechaActual !== fechaAnterior) {
+                                                    
+                                                }else {
+                                                    return row.disponible
+                                                }
+                                            })
+
+                                            const sumWithInitial = totaGroup.reduce(
+                                                (accumulator, currentValue) => accumulator + currentValue,
+                                                0
+                                            );
+
+                                            console.log(totaGroup)
+
+
+                                            return (
+                                                <tr  className="flex-room-to-sell top-room-to-sell-width" > 
                                                 {index?.map((row, i) => {
                                                 group.push(row)
                                                 const fechaActual = row.fecha;
                                                 const fechaAnterior = i > 0 ? index[i - 1].fecha : null;
-                                                console.log(fechaActual)
+                                            
+
+                                                    
                                                 if (fechaAnterior !== null && fechaActual !== fechaAnterior) {
                                                     return (
                                                         <>
@@ -114,6 +137,7 @@ const InformeRoomToSell =() =>{
                                                         </>
                                                     );
                                                 } else {
+
                                                     return (
                                                     <>
                                                         <th  >{row.disponible}  </th> 
@@ -121,9 +145,11 @@ const InformeRoomToSell =() =>{
                                                     );
                                                     }
                                                 })} 
+                                               <th  >{sumWithInitial}</th> 
                                                 </tr> 
-                                            ))}
-
+                                            )
+                                           
+                                        })}
                                     { <tr className="flex-room-to-sell top-room-to-sell-width" >
                                         {room?.map(index  =>{
                                             const filterIndex =   group.filter((Item)=> Item.Room == index.nombre  )
@@ -135,6 +161,7 @@ const InformeRoomToSell =() =>{
                                                 <th>{sumWithInitial}</th>
                                             )
                                         })}
+                                        <th>0</th>
                                         </tr> 
                                     }
                                         </div>

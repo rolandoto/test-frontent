@@ -280,9 +280,9 @@
 .container-flex-init-one {
   display: flex;
   justify-content: space-between;
-  max-width: 1480px;
+  max-width: 100%;
   margin: auto;
-  margin-top: 3px;
+  margin-top: 5px;
   align-items: center;
 }
 
@@ -986,9 +986,8 @@
   background: white;
 }
 
-
 .img-photo-one{
-  width: 20%;
+  width: 40%;
   height: 120px;
   border-radius: 10px;
   background: white;
@@ -1003,7 +1002,7 @@
 
 .row-web-checking{
   display: flex;
-  justify-content: center;
+  justify-content: end;
   margin-top: -118px;
-  margin-left: 30%;
+  margin-left: 64%;
 }
