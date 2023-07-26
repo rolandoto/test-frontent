@@ -20,6 +20,7 @@ const Invoince =({resultDashboard=[],carts=[],dataCount,setInvoice,priceCart,cli
     let today = new Date(t)
     const day = today.toISOString().split('T')[0]
     const date = moment().set({ hour: 0, minute: 0, second: 0 }).format('YYYY-MM-DD');
+    const [preloading,setPreloading] =useState(false)
    
     const [state,setate] =useState(false)
     const [information,setInformacion] =useState()
@@ -54,6 +55,7 @@ const Invoince =({resultDashboard=[],carts=[],dataCount,setInvoice,priceCart,cli
     const totalwiTHiV =resultDashboard.Iva ==1? toOne :totalPrice.price 
 
     const handSubmit =() =>{
+        
         handlePrint()
         handLoading()
     }
@@ -63,6 +65,7 @@ const Invoince =({resultDashboard=[],carts=[],dataCount,setInvoice,priceCart,cli
     });
 
     const hadAllInvoince =() =>{
+        setPreloading(true)
         handSubmitInsertCartOne()
         handlePrint()
     }
@@ -80,6 +83,7 @@ const Invoince =({resultDashboard=[],carts=[],dataCount,setInvoice,priceCart,cli
      const [invo,setIvo] =useState(false)
 
      const handAll =() =>{
+       
         handLoading()
         setIvo(true)
         hancCheckout()
@@ -89,7 +93,6 @@ const Invoince =({resultDashboard=[],carts=[],dataCount,setInvoice,priceCart,cli
             handlePrint()
         },600)
      }
-
 
 
      useEffect(()  =>{
@@ -171,7 +174,7 @@ const Invoince =({resultDashboard=[],carts=[],dataCount,setInvoice,priceCart,cli
                         </div>            
                 </div>      
                 </div>
-                    <button id="demo" className= {` top-button-invoince checkOut  sub-total-top`} onClick={handSubmit}>
+                    <button id="demo" className= {` top-button-invoince checkOut  sub-total-top`} onClick={handSubmit}  >
                         <span className="itemNameonE">Guardar e imprimir</span>
                     </button>
         </div>
@@ -233,8 +236,8 @@ const Invoince =({resultDashboard=[],carts=[],dataCount,setInvoice,priceCart,cli
                                     </div>            
                             </div>     
                         </div>
-                        <button id="demo" className= {` top-button-invoince checkOut  sub-total-top`} onClick={hadAllInvoince}>
-                            <span className="itemNameonE">Guardar e imprimir</span>
+                        <button id="demo" className= {` top-button-invoince checkOut  sub-total-top`} onClick={hadAllInvoince} disabled={preloading}   >
+                            <span className="itemNameonE">Guardar e imprimir dsadsa</span>
                         </button>
                         </div>
                 </>

@@ -247,7 +247,7 @@ const Checkingn2Organism =({id,postDetailRoom,fetchDataApiWhatsapp,postWhataapBy
     
                 return (
                     <div className="popup-overlay"  >
-                        <h4 className="let-letra" >Comfirma pago ?</h4>
+                        <h4 className="let-letra" >Confirmar pago ?</h4>
                         <button  className="react-confirm-alert-button-group" onClick={handClick} >Si</button>
                         <button  className="react-confirm-alert-button-group" onClick={ handClose} >No</button>
                   </div>         
