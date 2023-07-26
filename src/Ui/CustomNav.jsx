@@ -33,12 +33,6 @@ const SideNavBar = () => {
     
     const val = jwt ?jwt.result.id_departamento : 2
 
-    const handClose =() =>{
-        localStorage.removeItem('jwt')
-        setJwt(null)
-        history.push("/")
-    }
-
     useEffect(() =>{
         ServiceInfomeMovimientoPost({id:jwt?.result?.id_hotel,fecha:now}).then(index => {
             setState(index.query)
@@ -266,16 +260,6 @@ const SideNavBar = () => {
                                 {isExpanded && <p>{null}</p>}
         </a>
 
-        <ReactTooltip id="SalirTip" place="right" effect="solid">
-                Salir
-        </ReactTooltip>
-
-         <Link to={`/Home`}    data-tip data-for="SalirTip" 		className={isExpanded ? "menu-item" : "menu-item menu-item-NX"} >
-                        
-         <RiLogoutBoxLine fontSize={18} color="black"  onClick={handClose}  />
-                     {isExpanded && <p>{null}</p>}
-                 
-         </Link>
 				
 				</div>
 			</div>

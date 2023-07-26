@@ -31,7 +31,8 @@ import { CiBadgeDollar } from "react-icons/ci";
 import { Button, Spacer } from '@nextui-org/react';
 import { CameraIcon, HeartIcon, LockIcon, NotificationIcon } from "./IconReservation";
 import Footer from "../../component/Footer/Footer";
-import { RiWhatsappFill } from "react-icons/ri";
+import { RiWhatsappFill ,RiLogoutBoxLine} from "react-icons/ri";
+
 
 const GroupRows =({group,color,estado,iconState,letra}) =>{
 	return (
@@ -72,7 +73,7 @@ const Dashboard = () => {
 	const [reservation,setReservas] = useState()
 	const [pruebareservas,setpruebareservas] =useState()
 	const [state,setSate] =useState()
-	const {jwt} =useContext(AutoProvider)
+	const {jwt,setJwt} =useContext(AutoProvider)
 	const history = useHistory()
 	const  now = moment().format("YYYY-MM-DD");
 	const timelineRef = useRef(null);
@@ -81,32 +82,12 @@ const Dashboard = () => {
 	const {postUpdateDetailPointerRange} = useUpdateDetailPounterRangeSliceActions()
 	const {iduser} = UseListMotels()
 
-	const [visibleTimeStart, setVisibleTimeStart] = useState(new Date());
-	const [visibleTimeEnd, setVisibleTimeEnd] = useState(new Date());
-  
-	const handleZoomIn = () => {
-		const newVisibleTimeStart = new Date(visibleTimeStart);
-		const newVisibleTimeEnd = new Date(visibleTimeEnd);
-	
-		newVisibleTimeStart.setHours(0, 0, 0, 0);
-		newVisibleTimeEnd.setHours(23, 59, 59, 999);
-	
-		const zoomFactor = 0.5; // Factor de zoom, puedes ajustarlo según tus necesidades
-	
-		const visibleTimeDuration = newVisibleTimeEnd.getTime() - newVisibleTimeStart.getTime();
-		const newDuration = visibleTimeDuration * zoomFactor;
-	
-		const center = (newVisibleTimeStart.getTime() + newVisibleTimeEnd.getTime()) / 2;
-		const newVisibleTimeStartMs = center - newDuration / 2;
-		const newVisibleTimeEndMs = center + newDuration / 2;
-	
-		setVisibleTimeStart(new Date(newVisibleTimeStartMs));
-		setVisibleTimeEnd(new Date(newVisibleTimeEndMs));
-	};
+	const handClose =() =>{
+        localStorage.removeItem('jwt')
+        setJwt(null)
+        history.push("/")
+    }
 
-	const handleZoomOut = () => {
-		// Implementa la lógica para hacer zoom out, si es necesario
-	};
 	
 	const FindIdHotel=(hotel) =>{
 		return hotel.id_hotel == jwt.result.id_hotel
@@ -773,6 +754,11 @@ const Dashboard = () => {
 												)}
 												</select>
 												<Spacer  x={0.5} y={1} />
+			<Button 
+				onClick={handClose} 
+				style={{width:"10%",background:"#e7e4e4",color:"black"}}   
+				flat 
+				icon={<RiLogoutBoxLine fill="currentColor" fontSize={25}/>} > <span  className="text-words" ONCL >salir</span></Button>
 		</div>
 			<Timeline
 				groupRenderer={renderGroup}
