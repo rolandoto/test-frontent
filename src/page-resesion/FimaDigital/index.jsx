@@ -5,6 +5,10 @@ import { BsCheck2 ,BsChevronRight} from "react-icons/bs";
 import { Button, Spacer } from "@nextui-org/react";
 import HttpClient from "../../HttpClient";
 import {useParams}  from "react-router-dom"
+import useDetailDashboardAction from "../../action/useDetailDashboardAction";
+import { useSelector } from "react-redux";
+import { PiCameraThin,PiCameraRotateThin } from "react-icons/pi";
+import Swal from "sweetalert2";
 
 const stepperDetails = [
     {
@@ -21,7 +25,12 @@ const stepperDetails = [
       count: 3,
       title: "Take truck to unloading",
       stocked:false
-    }
+    },
+    {
+        count: 4,
+        title: "Take truck to unloading",
+        stocked:false
+      }
   ];
 
   const ItemSteep =({stocked,count,FilterStrepp}) =>{
@@ -67,8 +76,48 @@ const FirmaDigital =()=> {
     const [isChecked, setIsChecked] = useState(false);
     const [isChecke, setIsChecke] = useState(false);
     const [imageURL, setImageURL] = useState(null);
+    const [imagePath, setImagePath] = useState("");
+    const [imageOne,setImageOne] =useState("")
 
-    console.log(imageURL)
+    const {getDetailReservationById} = useDetailDashboardAction()
+
+    const {loading,error,DetailDashboard
+    } = useSelector((state) => state.DetailDashboard)
+
+    const fetchData =async() =>{
+        await getDetailReservationById({id})
+    }
+
+    
+    useEffect(() =>{
+        fetchData()
+    },[id])
+
+    
+    const findIndexItem = DetailDashboard?.find((ItemDetail) => ItemDetail.ID_RESERVA ==  id)
+
+    const handNext =() =>{
+        setCheckBox(checkbox + 1)
+        changeSteep(checkbox)
+        if(checkbox != 4){
+            setProgressWidth((checkbox + checkbox) * 17)
+        }
+    }
+
+    const handleFile = async () => {
+        HttpClient.UploadImage({file1:imagePath,file2:imageOne,ID:findIndexItem.ID_RESERVA}).then(index =>{
+            handNext()
+        }).catch(e =>{
+            Swal.fire({
+                position: 'center',
+                icon: 'error',
+                title: '<p>Error Guardar imagenes </p>',
+                showConfirmButton: false,
+                timer: 1000
+              })
+        })
+};
+
 
     const changeSteep =(itemId) =>{
         const Steeper = state.findIndex((itemStepes) => itemStepes.count ==itemId)
@@ -87,18 +136,12 @@ const FirmaDigital =()=> {
     const handBack =() => {
         setCheckBox(checkbox - 1)
         changeBack(1)
-        if(checkbox != 3){
+        if(checkbox != 4){
             setProgressWidth((checkbox - checkbox))
         }
     }
 
-    const handNext =() =>{
-        setCheckBox(checkbox + 1)
-        changeSteep(checkbox)
-        if(checkbox != 3){
-            setProgressWidth((checkbox + checkbox) * 25)
-        }
-    }
+   
 
     const calculateProgressWidth = () => {
         const completedSteps = progressWidth;
@@ -134,8 +177,6 @@ const FirmaDigital =()=> {
 
     const clear = () => sigCanvas.current.clear();
 
-
-
     const handNextFirmaExit  =() =>{
         setImageURL(sigCanvas.current.getTrimmedCanvas().toDataURL("image/png"))
     }
@@ -162,6 +203,14 @@ const FirmaDigital =()=> {
     useEffect(() => {
         handleImageUpload();
     }, [imageURL,setImageURL]);
+
+    if(loading){
+        return <p>...Cargando</p>
+    }
+    if(error){
+        return <p>error</p>
+    }
+
 
     if(checkbox ==1) 
     return  (
@@ -223,9 +272,73 @@ const FirmaDigital =()=> {
                 </Button>
             </main>
         )
-    }
+    }if(checkbox == 3){
+        return (
+            <main className="container-webcking" >
+            <Steep
+               state={state}
+               changeSteep={changeSteep}
+               progressBarWidth={progressBarWidth}/>
 
-    if(checkbox ==3){
+           <div>
+               <div>
+
+                   <div className="file-input-container">
+                           <input
+                                type="file"
+                                id="fileInputone"
+                                onChange={(e) =>setImagePath(e.target.files[0])}
+                                className="file-input"
+                               />
+                               <label htmlFor="fileInputone" className={`${imagePath ? "file-input-label-One-img " : "file-input-label-One"}`}>
+                                   {imagePath ? "imagen selecionada": 'Foto frontal documento...'}
+                                   <PiCameraThin color={imagePath ? "white " :"black"} fontSize={25}  />
+                               </label>
+                       </div> 
+
+                       <div className="file-input-container">
+                               <input
+                                   type="file"
+                                   id="fileInput"
+                                   onChange={(e) =>setImageOne(e.target.files[0])}
+                                   className="file-input"
+                               />
+                               <label htmlFor="fileInput" className={`${imageOne ?  "file-input-label-One-img" : "file-input-label-One" }`}>
+                                   {imageOne ? "imagen selecionada" : 'Foto posterior documento...'}
+                                   <PiCameraRotateThin color={imageOne ? "white" :"black"}   fontSize={25}  />
+                               </label>   
+                       </div>
+
+               </div>
+                   <div className="row-web-checking" >
+                       <img
+                           src={`${findIndexItem?.Foto_documento_adelante ? findIndexItem?.Foto_documento_adelante : "https://github.com/rolandoto/image-pms/blob/main/pdf_Mesa%20de%20trabajo%201_Mesa%20de%20trabajo%201%20(1).png?raw=true"  }`}
+                           objectFit="initial"
+                           alt="Default Image"
+                           className="img-photo-one"
+
+                       />
+                           <img
+                            src={`${findIndexItem?.Foto_documento_atras ? findIndexItem?.Foto_documento_atras : "https://github.com/rolandoto/image-pms/blob/main/pdf_Mesa%20de%20trabajo%201_Mesa%20de%20trabajo%201%20(1).png?raw=true"  }`}
+                           objectFit="initial"
+                           alt="Default Image"
+                           className="img-photo-one"
+                       />
+                           </div>
+                       <div>
+                   </div>
+           </div>
+           <Spacer x={0.1} y={0.5} />
+           <Button 
+                       onClick={handleFile}
+                           style={{width:"100%",height:"50px"}} 
+                           auto color={"success"}
+                               >
+            <BsChevronRight  className="text-center-icon"   fontSize={25} color="white"  />
+            </Button>    
+       </main>
+        )
+    }if(checkbox ==4){
         return (
             <main className="container-webcking" >  
             <Steep 
@@ -267,7 +380,11 @@ const FirmaDigital =()=> {
         </div>       
         </main>
         )
-    }else{
+
+    
+    } 
+    
+    else{
         return (   <main className="container-webcking" >
 
             <Steep 

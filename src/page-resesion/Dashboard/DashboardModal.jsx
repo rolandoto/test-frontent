@@ -31,9 +31,9 @@
     import moment from "moment";
     import ServiceInfomeMovimiento from "../../service/ServiceInformeMovimiento";
     import Swal from 'sweetalert2'
-import useProgress from "../../hooks/useProgress";
-import LineProgress from "../../Ui/LineProgress";
-        
+    import useProgress from "../../hooks/useProgress";
+    import LineProgress from "../../Ui/LineProgress";
+            
     const ref = React.createRef();
 
    
@@ -62,8 +62,7 @@ const DashboardModal = (props) => {
        }else{
             countSeguro = parseInt(hotel?.valorseguro)
        }
-       
-       
+  
       
         
         const history =useHistory()

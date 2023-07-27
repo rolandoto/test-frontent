@@ -11,7 +11,6 @@ const DetailBedRoomTemplate =({id,fetchData,Room}) =>{
         <>
             <InputBedRoom id={id} fetchData={fetchData} />
             <TableBedRoom Room={Room} />
-       
         </>
     )
 

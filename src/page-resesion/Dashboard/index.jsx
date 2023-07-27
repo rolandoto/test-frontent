@@ -102,6 +102,8 @@ const Dashboard = () => {
 	}else{
 		 countSeguro = parseInt(hotel?.valorseguro)
 	}
+
+	
 	
 	useEffect(() =>{
 		ServiceAllTotalReservation({fecha:now,id:jwt.result.id_hotel}).then(index =>{

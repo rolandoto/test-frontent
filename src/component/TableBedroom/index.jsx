@@ -4,7 +4,7 @@ import { useEffect } from "react"
 const TableBedRoom =({Room}) =>{
    
     return (
-        <div className="container-table" >
+        <div className="container-table-One" >
             <table className="table" >
                 <tr>
                     <th>Tipo de habitacion</th>
@@ -14,7 +14,7 @@ const TableBedRoom =({Room}) =>{
                     <th>Precio persona adicional</th>
                     <th>Cantidad de personas</th>
                     <th>Cantidad maximos de personas</th>
-                </tr>
+                </tr>   
 
                     {Room?.ray?.map(index =>{
 
@@ -31,7 +31,7 @@ const TableBedRoom =({Room}) =>{
                         )
                     })}
             </table>
-        </div>
+            </div>
     )
 
 }
