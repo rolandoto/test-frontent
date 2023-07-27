@@ -49,6 +49,12 @@ const SideNavBar = () => {
         setUpadte(!update)
     }
 
+    const handClose =() =>{
+        localStorage.removeItem('jwt')
+        setJwt(null)
+        history.push("/")
+    }
+
 
     if(!jwt) return null
 
@@ -259,6 +265,29 @@ const SideNavBar = () => {
                                 <BiTaxi color="black" fontSize={18}/>
                                 {isExpanded && <p>{null}</p>}
         </a>
+
+        <ReactTooltip id="updateTipe" place="right" effect="solid">
+                salir
+        </ReactTooltip>
+
+        <a  className={isExpanded ? "menu-item" : "menu-item menu-item-NX"}   data-tip data-for="updateTipe" onClick={handClose}   >
+                        
+                        <RiLogoutBoxLine fontSize={18} color="black"   />
+                                    {isExpanded && <p>{null}</p>}
+                                
+        </a>
+
+
+        <a  className={isExpanded ? "menu-item" : "menu-item menu-item-NX"}   data-tip data-for="updateTip" onClick={hanChange}   >
+                        
+                        <RiLogoutBoxLine fill="currentColor" fontSize={25}/>
+                                    {isExpanded && <p>{null}</p>}
+                                
+        </a>
+
+
+       
+
 
 				
 				</div>
