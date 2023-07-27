@@ -106,10 +106,7 @@ const UploadImageCheckingTable =() =>{
         }
     }
 
-  
-
     const handleFile = async () => {
-        if(findIndexItem?.Foto_documento_adelante  ==undefined){
             HttpClient.UploadImage({file1:imagePath,file2:imageOne,ID:findIndexItem.ID_RESERVA}).then(index =>{
                 handNex()
             }).catch(e =>{
@@ -121,9 +118,7 @@ const UploadImageCheckingTable =() =>{
                     timer: 1000
                   })
             })
-        }else{
             handNex()
-        }
     };
 
     const progressBarWidth = calculateProgressWidth();
