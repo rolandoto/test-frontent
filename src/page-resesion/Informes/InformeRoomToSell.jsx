@@ -117,19 +117,12 @@ const InformeRoomToSell =() =>{
                                                 (accumulator, currentValue) => accumulator + currentValue,
                                                 0
                                             );
-
-                                            console.log(totaGroup)
-
-
                                             return (
                                                 <tr  className="flex-room-to-sell top-room-to-sell-width" > 
                                                 {index?.map((row, i) => {
                                                 group.push(row)
                                                 const fechaActual = row.fecha;
-                                                const fechaAnterior = i > 0 ? index[i - 1].fecha : null;
-                                            
-
-                                                    
+                                                const fechaAnterior = i > 0 ? index[i - 1].fecha : null;   
                                                 if (fechaAnterior !== null && fechaActual !== fechaAnterior) {
                                                     return (
                                                         <>

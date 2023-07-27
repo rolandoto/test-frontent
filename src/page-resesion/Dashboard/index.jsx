@@ -551,8 +551,6 @@ const Dashboard = () => {
 		const hasta = `${fecha2} 13:00:00`
 		const newReservation = structuredClone(pruebareservas) 
 
-
-
 		const handModalText =(e) =>{
 			confirmAlert({
 			  title: '',

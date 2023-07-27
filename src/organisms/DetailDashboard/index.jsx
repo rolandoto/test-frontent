@@ -111,7 +111,7 @@ const DetailDasboard =(props) =>{
       const [adultos,setAdultos] =useState()
       const [ninos,setNinos] = useState()
       const [infantes,setInfantes] =useState()
-      const [estadia,setStadia] =useState()
+      const [estadia,setStadia] =useState("")
       const [error,setError] =useState(false)
       const [product,setProduct] =useState()
       const [observacion,setObservacion] =useState()
@@ -416,21 +416,6 @@ const DetailDasboard =(props) =>{
 
   let count
 
-  if(quyery?.length>=resultFinish?.persona){
-      if(estadia ==2){
-        const nochesPay = day
-        const subtotal=resultFinish?.precio_persona*day
-        count=subtotal  + parseInt(resultDashboard?.valor_habitacion)
-      console.log(true)
-      }else if(estadia ==1){
-          const nochesPay = 1
-          const subtotal=resultFinish?.precio_persona*nochesPay
-          count=subtotal  + parseInt(resultDashboard?.valor_habitacion)
-      }
-    }else{
-      count= count ? count : parseInt(resultDashboard?.valor_habitacion)
-    }
-
     let dataOne ={
       Abono: parseInt(Abono) + parseInt(resultDashboard.valor_abono),
       AbonoOne: parseInt(Abono),
@@ -446,16 +431,24 @@ const DetailDasboard =(props) =>{
       Observacion:observacion
     }
 
+
+    const [loadingHuesped,setLoadingHuesped]=useState(false)
+
+
+
   const hanAdd=() =>{
-    if (huespe.Tipo_documento =="" || huespe.Num_documento =="" || huespe.Nombre ==""|| huespe.Apellido ==""|| huespe.Celular ==""|| huespe.Correo ==""|| huespe.Fecha_nacimiento =="" || huespe.Ciudad ==""|| huespe.Nacionalidad =="" ){
+    setLoadingHuesped(true)
+    if (huespe.Tipo_documento =="" || huespe.Num_documento =="" || huespe.Nombre ==""|| huespe.Apellido ==""|| huespe.Celular ==""|| huespe.Correo ==""|| huespe.Fecha_nacimiento =="" || huespe.Ciudad ==""|| huespe.Nacionalidad ==""){
       setError(true)
     }else {
       ServiceAddHuespedes({id,huespe,data:dataCountPeople,dataPay:dataOne}).then(index =>{
         console.log({"se agrego":index})
+        setLoadingHuesped(false)
         ServiceInfomeMovimiento({Nombre_recepcion:jwt.result.name,Fecha:now,Movimiento:`Se añadio huesped tipo habitacion ${resultFinish?.nombre} ${resultDashboard.Numero} nombre ${resultDashboard.Nombre} codigo reserva ${resultDashboard.id_persona}`,id:jwt.result.id_hotel}).then(index =>{
           window.location.reload()
         }).catch(e =>{
             console.log(e)
+            setLoadingHuesped(false)
         })
      
     }).catch(e =>{
@@ -1075,7 +1068,7 @@ const  handleClickEliminar =UseModalText({handlModal:hanDelete,Text:"Estas segur
       </div>
     }
       {stateButton && 
-        <form className="container-flex-init init ono" >
+        <form className="container-flex-init init ono"   >
                           <div className="container-detail-dasboard-in" > 
                               <span className="desde-detail-three-das" > Nombre</span>
                               <span className="desde-detail-three-das" >Apellido </span>
@@ -1197,7 +1190,7 @@ const  handleClickEliminar =UseModalText({handlModal:hanDelete,Text:"Estas segur
                                                                       value={estadia}
                                                                       required
                                                                       className='desde-detail-three'>
-                                                                  <option >estadia</option>
+                                                                  <option  value={2} >estadia</option>
                                             {tipos_adicional.map(category =>(
                                                 <option 
                                                 value={category.id}   
@@ -1210,7 +1203,7 @@ const  handleClickEliminar =UseModalText({handlModal:hanDelete,Text:"Estas segur
                                     </select>
                               </div>  
                               {stateButton &&<div className="container-flex-init-one" >
-                        <button className="button-dasboard-six-one-one-one" onClick={hanAdd}   >
+                        <button className="button-dasboard-six-one-one-one" onClick={hanAdd}  disabled={loadingHuesped}  >
                             <span>Añadir huesped </span> 
                         </button>
                     </div>}                            
@@ -1278,7 +1271,6 @@ const Huesped =({quyery,handEditar,handChangeSubmit ,stateButton,DetailDashboard
                           <TableCell className="editar-checking" onClick={() => handEditar(row.huespedes)} ><CiEdit fontSize={30} color="black" /></TableCell>
                       </TableRow>
                     ))}
-                 
                 </TableBody>
                
                 </Table>
