@@ -401,7 +401,7 @@ const Dashboard = () => {
 			setSate(index.query);
 			setSearch(index.query);
 		})
-	}, []);
+	}, [pruebareservas]);
   
 	if(search?.length ==0) {
 		setSearch(state)

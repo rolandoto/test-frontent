@@ -16,10 +16,20 @@ const Checkingn4 =() =>{
      const handNextFirmadegital =() =>{
         history.push(`/firmadigital/${id}`)
     }
+
+    const handNextSignature =() =>{
+        history.push(`/signatureByID/${id}`)
+    }
     
     return  (
         <main className="container-webcking" >
             <div className="flex-button-webchekcing4" >
+            <Spacer x={0.5} y={1} />
+			<Button     
+                        onClick={handNextSignature}     
+                        style={{width:"100%"}}
+                        color={"primary"}  
+					icon={<PiSignatureLight  color="white" fontSize={35}  />}  > <span>Firmar manual</span></Button>
             <Spacer x={0.5} y={1} />
 			<Button     
                         onClick={handNext}     

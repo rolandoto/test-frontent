@@ -60,6 +60,7 @@ import WebChecking from "./page-resesion/webChecking";
 import Checkingn4 from "./page-resesion/checking4";
 import FirmaDigital from "./page-resesion/FimaDigital";
 import UploadImageCheckingTable from "./page-resesion/UploadImageCheckingTable";
+import SingnatureMaual from "./page-resesion/FirmarManual";
 
 function App() {
   const { jwt } = useContext(AutoProvider);
@@ -122,7 +123,6 @@ function App() {
                 path="/checkingin3/:id"
                 component={Checkingn3}
               />
-
               <PrivateRoute
                 exact
                 path="/detailById/:id"
@@ -285,6 +285,11 @@ function App() {
                 path="/uploadImgeChecking/:id"
                 component={UploadImageCheckingTable}
               />
+               <PrivateRoute
+                exact
+                path="/signatureByID/:id"
+                component={SingnatureMaual}
+              />
 
               <Route component={NoFound} />
             </Switch>
@@ -436,6 +441,11 @@ function App() {
                 exact
                 path="/uploadImgeChecking/:id"
                 component={UploadImageCheckingTable}
+              />
+              <PrivateRoute
+                exact
+                path="/signatureByID/:id"
+                component={SingnatureMaual}
               />
               <Route component={NoFound} />
             </Switch>

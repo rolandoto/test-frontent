@@ -39,7 +39,6 @@ const Checkingn3 =() =>{
         fetchData()
     },[id])
 
-
     console.log(id)
 
     const  resulDetailDashboard = DetailDashboard[0]
