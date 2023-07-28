@@ -1006,3 +1006,47 @@
   margin-top: -118px;
   margin-left: 64%;
 }
+
+
+/* Estilos para la imagen expandida en la página */
+.image-container {
+  cursor: pointer;
+  overflow: hidden;
+  position: relative;
+}
+
+.image-container img {
+  width: 200px; /* Ajusta el tamaño inicial de la imagen */
+  height: auto;
+  transition: transform 0.2s;
+}
+
+.image-container img:hover {
+  transform: scale(1.1);
+}
+
+/* Estilos para la modal */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* background-color: rgba(0, 0, 0, 0.7); */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  backdrop-filter: blur(10px);
+  /* background: black; */
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.modal-image {
+  max-width: 90%;
+  max-height: 90%;
+  cursor: pointer;
+  background: white;
+  padding: 3px;
+  border-radius: 5px;
+}

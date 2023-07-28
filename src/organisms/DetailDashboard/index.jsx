@@ -120,8 +120,26 @@ const DetailDasboard =(props) =>{
       const [disponibilidad,setDisponibilidad] =useState()
       const [asignar,setAsignar] =useState()
       const [loadingTypeRoom,setLoadingTypeRoom] =useState({loading:false,error:false})
+
+
+      const [isModalOpen, setIsModalOpen] = useState(false);
+
+      const toggleModal = () => {
+        setIsModalOpen(!isModalOpen);
+      };
+
+      const [isModalOpenOne, setIsModalOpenOne] = useState(false);
+
+      const toggleModalOne = () => {
+        setIsModalOpenOne(!isModalOpenOne);
+      };
+
+      const [isModalOpenTwo, setIsModalOpenTwo] = useState(false);
+
+      const toggleModalTwo = () => {
+        setIsModalOpenTwo(!isModalOpenTwo);
+      };
       
- 
       const now = moment().set({ hour: 0, minute: 0, second: 0 }).format('YYYY/MM/DD HH:mm:ss');
    
       const handChangeObservation =(e) =>{
@@ -669,7 +687,7 @@ const hanClickAsear =() => {
       Swal.fire({
         position: 'center',
         icon: 'error',
-        title: '<p>habitacion todavia ocupada</p>',
+        title: '<p>Error habitacion ocupada</p>',
         showConfirmButton: false,
         timer: 2000
       })
@@ -691,7 +709,7 @@ const hanClickLimpia =async() => {
       Swal.fire({
         position: 'center',
         icon: 'error',
-        title: '<p>Error al cambiar habitacion</p>',
+        title: '<p>Error </p>',
         showConfirmButton: false,
         timer: 2000
       })
@@ -700,7 +718,7 @@ const hanClickLimpia =async() => {
     Swal.fire({
       position: 'center',
       icon: 'error',
-      title: '<p>Error habitacion todavia ocupada</p>',
+      title: '<p>Error habitacion ocupada</p>',
       showConfirmButton: false,
       timer: 2000
     })
@@ -758,7 +776,7 @@ const  handleClickEliminar =UseModalText({handlModal:hanDelete,Text:"Estas segur
               
 
                <div  style={{background:"#ebebeb"}} className="border-detail" >
-                  <span>Tipo habitacion:</span>
+                  <span>habitacion:</span>
                    <span className="negrita-detail-reserva"  >{resultFinish?.nombre} {resultDashboard.Numero}</span>
               </div>
 
@@ -886,26 +904,45 @@ const  handleClickEliminar =UseModalText({handlModal:hanDelete,Text:"Estas segur
                 <div className="row-flex-one"   >
                  
                     <img
+
                         src={`${resultDashboard.Foto_documento_adelante ? resultDashboard.Foto_documento_adelante : "https://github.com/rolandoto/image-pms/blob/main/pdf_Mesa%20de%20trabajo%201_Mesa%20de%20trabajo%201%20(1).png?raw=true"  }`}
                         objectFit="initial"
                         alt="Default Image"
-                        className="img-photo"
+                        className={`img-photo`} onClick={toggleModal}
     
                       />
+
+                      {isModalOpen && (
+                              <div className="modal" onClick={toggleModal}>
+                                <img src={`${resultDashboard.Foto_documento_adelante ? resultDashboard.Foto_documento_adelante : "https://github.com/rolandoto/image-pms/blob/main/pdf_Mesa%20de%20trabajo%201_Mesa%20de%20trabajo%201%20(1).png?raw=true"  }`} alt="Imagen" className="modal-image" />
+                              </div>
+                        )}
                   <img
                       src={`${resultDashboard.Foto_documento_atras ? resultDashboard.Foto_documento_atras : "https://github.com/rolandoto/image-pms/blob/main/pdf_Mesa%20de%20trabajo%201_Mesa%20de%20trabajo%201%20(1).png?raw=true"  }`}
                       objectFit="initial"
                       alt="Default Image"
                       className="img-photo"
-                 
+                      onClick={toggleModalOne}
                     />
+
+                  {isModalOpenOne && (
+                      <div className="modal" onClick={toggleModalOne}>
+                        <img src={`${resultDashboard.Foto_documento_atras ? resultDashboard.Foto_documento_atras : "https://github.com/rolandoto/image-pms/blob/main/pdf_Mesa%20de%20trabajo%201_Mesa%20de%20trabajo%201%20(1).png?raw=true" }`} alt="Imagen" className="modal-image" />
+                      </div>
+                          )}
                   <img
                       src={`${resultDashboard.Pasaporte ? resultDashboard.Pasaporte : "https://github.com/rolandoto/image-pms/blob/main/pdf_Mesa%20de%20trabajo%201_Mesa%20de%20trabajo%201%20(1).png?raw=true"  }`}
                       objectFit="initial"
                       alt="Default Image"
                       className="img-photo"
-                   
+                      onClick={toggleModalTwo}
                     />
+
+                  {isModalOpenTwo && (
+                      <div className="modal" onClick={toggleModalTwo}>
+                        <img src={`${resultDashboard.Pasaporte ? resultDashboard.Pasaporte : "https://github.com/rolandoto/image-pms/blob/main/pdf_Mesa%20de%20trabajo%201_Mesa%20de%20trabajo%201%20(1).png?raw=true"  }`} alt="Imagen" className="modal-image" />
+                      </div>
+                  )}
                 </div>
                 <div>
                 </div>
