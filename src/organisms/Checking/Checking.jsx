@@ -28,8 +28,6 @@ const Checking =() =>{
         history.push(`/detailchecking/${e}`)
     }
 
-    console.log(preReservas)
-
     const filtrar=(terminoBusqueda)=>{
         let resultadosBusqueda= preReservas.filter((elemento,index)=>{
             if(elemento.name.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())

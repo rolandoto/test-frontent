@@ -1,42 +1,23 @@
     import React, { useContext, useEffect, useState }  from "react";
-    import { IoMdCloseCircle } from "react-icons/io";
-    import HttpClient from "../../HttpClient";
     import  AutoProvider  from "../../privateRoute/AutoProvider";
     import ServicetypeRooms from "../../service/ServicetypeRooms";
-    import Input from "../../Ui/Input";
-    import Selected from "../../Ui/Select";
     import { Loading ,Grid, Button} from "@nextui-org/react";
     import ServiceAvaiblereservation from "../../service/ServiceAviableReception";
     import ServiceRoomsAviable from "../../service/ServiceRoomsAvaible";
-    import CurrencyInput from 'react-currency-input-field';
     import LoadingDetail from "../../Ui/LoadingDetail";
     import Box from '@mui/material/Box';
     import LinearProgress from '@mui/material/LinearProgress';
     import { useHistory } from "react-router-dom";
-    import { useFormik } from "formik";
     import { CiCirclePlus,CiCircleRemove } from "react-icons/ci";
-    import * as Yup from "yup";
-    import CircularProgress from '@mui/material/CircularProgress';
-    import NumberFormat from "react-number-format";
-    import Skeleton from "@mui/material/Skeleton";
-    import Stack from "@mui/material/Stack";
     import UseListMotels from "../../hooks/UseListMotels";
     import { config } from "../../config";
-    import jsPDF from "jspdf";
-    import {renderToString} from "react-dom/server";
-    import h2c from "html2canvas";
-    import { Document, Page, Text,Svg } from '@react-pdf/renderer'
-    import { PDFDownloadLink } from '@react-pdf/renderer';
     import ServePdf from "../../service/PdfServe";
     import moment from "moment";
     import ServiceInfomeMovimiento from "../../service/ServiceInformeMovimiento";
     import Swal from 'sweetalert2'
     import useProgress from "../../hooks/useProgress";
-    import LineProgress from "../../Ui/LineProgress";
-            
+    import LineProgress from "../../Ui/LineProgress";            
     const ref = React.createRef();
-
-   
 
 const DashboardModal = (props) => {
 

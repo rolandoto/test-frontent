@@ -327,7 +327,7 @@ const DetailChekingOrganism =({id}) =>{
 
     let totalId = false;
 
-    if (jwt.result.id_hotel == 7 || jwt.result.id_hotel == 3 || jwt.result.id_hotel == 4 || jwt.result.id_hotel == 23  ) {
+    if (jwt.result.id_hotel == 7 || jwt.result.id_hotel == 3 || jwt.result.id_hotel == 4 || jwt.result.id_hotel == 23 || jwt.result.id_hotel == 5 || jwt.result.id_hotel == 6 || jwt.result.id_hotel == 12  ) {
         totalId = true;
     }
 

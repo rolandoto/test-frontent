@@ -54,7 +54,7 @@ const DetailDasboard =(props) =>{
       return hotel.id_hotel == jwt.result.id_hotel
     }
 
-    const totalId = jwt.result.id_hotel == 7 || jwt.result.id_hotel == 3 || jwt.result.id_hotel == 4 || jwt.result.id_hotel == 23  ?  true : false
+    const totalId = jwt.result.id_hotel == 7 || jwt.result.id_hotel == 3 || jwt.result.id_hotel == 4 || jwt.result.id_hotel == 23 ||  jwt.result.id_hotel == 5 || jwt.result.id_hotel == 6 || jwt.result.id_hotel == 12   ?  true : false
  
     const resultDashboard = DetailDashboard[0]
 
