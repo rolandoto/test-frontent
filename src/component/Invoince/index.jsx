@@ -95,6 +95,13 @@ const Invoince =({resultDashboard=[],carts=[],dataCount,setInvoice,priceCart,cli
      }
 
 
+     let totalId = false;
+
+    if (jwt.result.id_hotel == 7 || jwt.result.id_hotel == 3 || jwt.result.id_hotel == 4 || jwt.result.id_hotel == 23 || jwt.result.id_hotel == 5 || jwt.result.id_hotel == 6 || jwt.result.id_hotel == 12  ) {
+        totalId = true;
+    }
+
+
      useEffect(()  =>{
         fetch(`${config.serverRoute}/api/resecion/informationByIdHotel/${jwt.result.id_hotel}`)
         .then(resp => resp.json())
@@ -263,9 +270,9 @@ const Invoince =({resultDashboard=[],carts=[],dataCount,setInvoice,priceCart,cli
                                 <h6 className="p title-invoince " >GRACIAS POR SU VISITA</h6>
                                 {jwt.result.id_hotel  == 7 ?   <span></span> :   <span className="p title-invoince-cart" >RES DIAN {searchingHotel?.Res_dian}</span>  &&  jwt.result.id_hotel  == 3  ? <span></span>  : <span className="p title-invoince-cart" >RES DIAN {searchingHotel?.Res_dian}</span>  &&  jwt.result.id_hotel  == 4  ? <span></span>  : <span className="p title-invoince-cart" >RES DIAN {searchingHotel?.Res_dian}</span>  &&  jwt.result.id_hotel  == 23 ? <span></span>  : <span className="p title-invoince-cart" >RES DIAN {searchingHotel?.Res_dian}</span> }  
                                 <span className="p title-invoince-cart  ">Fecha: {moment(searchingHotel?.fecha).utc().format('YYYY/MM/DD')}</span>
-                                <span className="p title-invoince-cart  ">{jwt.result.id_hotel  == 7 ? "Numeracion" : "Resolucion"  &&  jwt.result.id_hotel  == 3 ?  "Numeracion" : "Resolucion"  &&  jwt.result.id_hotel  == 4 ?  "Numeracion" : "Resolucion" &&  jwt.result.id_hotel  == 23 ? "Numeracion" : "Resolucion"  } {searchingHotel?.Resolucion_initial} al {searchingHotel?.Resolucion_final}</span>
+                                <span className="p title-invoince-cart  ">{  totalId ? "Numeracion" : "Resolucion"  } {searchingHotel?.Resolucion_initial} al {searchingHotel?.Resolucion_final}</span>
                                 <span className="p title-invoince-cart  ">FACTURA DE VENTA</span>
-                                <span className="p title-invoince-cart  ">{jwt.result.id_hotel  == 7 ? "FV":"FP" && jwt.result.id_hotel  == 3 ? "FV":"FP"  && jwt.result.id_hotel  == 4 ? "FV":"FP" && jwt.result.id_hotel  == 23 ? "FV":"FP"  }-{dataCount?.Resolucion}</span>
+                                <span className="p title-invoince-cart  "> { totalId ? "FV":"FP"  }-{dataCount?.Resolucion}</span>
                                 
 
 

@@ -901,10 +901,10 @@ const FacturaCompany  =({jwt,roomBusy,roomSell,efectivoTotal,otrosMedios,dolares
 
                     <table className="table-factura-One" >
                         <tr>
-                            <th> <div className="container-block-informe-conslidado"> <span  className="text-font-wei-one-informe" > Efectivo total: : </span> <span  className="text-font-wei-one-informe" >${totalEfectivooNE.toLocaleString()}</span></div> </th>
-                            <th> <div className="container-block-informe-conslidado"> <span  className="text-font-wei-one-informe" > Otros medios::</span> <span  className="text-font-wei-one-informe" >$ {OtrosMedios.toLocaleString()}</span> </div> </th>
-                            <th > <div className="container-block-informe-conslidado"> <span  className="text-font-wei-one-informe" > Dolares/Euros en pesos:</span  > <span  className="text-font-wei-one-informe" >{dolarespesos.toLocaleString()}</span> </div> </th>
-                            <th > <div className="container-block-informe-conslidado"> <span className="text-font-wei-one-informe"  > Ingreso Total:    :</span> <span  className="text-font-wei-one-informe" >${totalDefinido.toLocaleString()}</span> </div> </th>
+                            <th> <div className="container-block-informe-conslidado"> <span  className="text-font-wei-one-informe let-title-color" > Efectivo total: : </span> <span  className="text-font-wei-one-informe let-title-color" >${totalEfectivooNE.toLocaleString()}</span></div> </th>
+                            <th> <div className="container-block-informe-conslidado"> <span  className="text-font-wei-one-informe let-title-color" > Otros medios::</span> <span  className="text-font-wei-one-informe let-title-color" >$ {OtrosMedios.toLocaleString()}</span> </div> </th>
+                            <th > <div className="container-block-informe-conslidado"> <span  className="text-font-wei-one-informe" > Dolares/Euros en pesos:</span  > <span  className="text-font-wei-one-informe " >{dolarespesos.toLocaleString()}</span> </div> </th>
+                            <th > <div className="container-block-informe-conslidado"> <span className="text-font-wei-one-informe let-title-color  "  > Ingreso Total:    :</span> <span  className="text-font-wei-one-informe let-title-color" >${totalDefinido.toLocaleString()}</span> </div> </th>
                         </tr>
                     </table>
 

@@ -39,7 +39,7 @@ const SingnatureMaual =() =>{
 
     const findIndexItem = DetailDashboard?.find((ItemDetail) => ItemDetail.ID_RESERVA ==  id)
 
-    const doc = document?.find((item) => item.ID ==findIndexItem.ID_Tipo_documento )
+    const doc = document?.find((item) => item.ID ==findIndexItem?.ID_Tipo_documento )
 
     console.log({document})
 
@@ -109,13 +109,16 @@ const SingnatureMaual =() =>{
                     <div class="signature-text">Firma del Cliente</div>
                 </div>
 
+              
+            
+                </main>
+                <div className="container-button-level" >
                 <Button   
                         onClick={handNextDetailReservation}     
                         color={"success"}  
                         style={{width:"100%"}}
 					icon={<PiSignatureLight  color="white" fontSize={35}  />}  > <span>Finalizar</span></Button>  
-            
-                </main>
+                </div>
 
                
         </>
