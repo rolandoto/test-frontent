@@ -32,6 +32,7 @@ import { Button, Spacer } from '@nextui-org/react';
 import { CameraIcon, HeartIcon, LockIcon, NotificationIcon } from "./IconReservation";
 import Footer from "../../component/Footer/Footer";
 import { RiWhatsappFill ,RiLogoutBoxLine} from "react-icons/ri";
+import ContainerGlobal from "../../Ui/ContainerGlobal";
 
 
 const GroupRows =({group,color,estado,iconState,letra}) =>{
@@ -150,15 +151,9 @@ const Dashboard = () => {
 			colorWords = 'white';
 			break;
 		case 3:
-			if(abono >= total_habitacion){
 				color = '#17c964';
 				colorWords = 'white';
 				iconState = <VscSymbolEvent fontSize={15} />;
-			}else{
-				color = 'green';
-				colorWords = 'white';
-				iconState = <VscSymbolEvent fontSize={15} />;
-			}
 			break;
 		case 4:
 			color = '#0DC034';
@@ -488,14 +483,28 @@ const Dashboard = () => {
 
 		const ReservationIndex = pruebareservas.findIndex(item => item.id == itemId)
 
+		const fechaFinal = moment(newReservation[ReservationIndex].end_time).format('YYYY-MM-DD'); 
+
+		const 	fechaInit = new  Date(fechaFinal)
+		const	fechafinal = new Date(fecha)
+
+
+		var diasdif = fechafinal.getTime() - fechaInit.getTime();
+    	var contdias = Math.round(diasdif / (1000 * 60 * 60 * 24));
+
+		const totalDiaPat = parseInt(newReservation[ReservationIndex].pagos_dia) * contdias +countSeguro
+		let Total =0
+		if(totalDiaPat > 0){
+			Total=totalDiaPat
+		}
+
 		const handModalText =(e) =>{
 			confirmAlert({
 			  title: '',
 			  message: Text,
 			  
 				  customUI: ({ onClose }) => {
-	
-					const handClick =() =>{
+					const handClick = () =>{
 						if (edge === 'left') {
 							newReservation[ReservationIndex].start_time = time
 							setpruebareservas(newReservation);
@@ -508,20 +517,14 @@ const Dashboard = () => {
 							setReservas(newReservation)
 							postUpdateDetailPointer({ id: itemId, Fecha_final: fecha,countSeguro });
 						}
-						onClose() 
-					}
-		
-				   const handClose =() =>{
-					setpruebareservas(newReservation);
-					setReservas(newReservation)
-					onClose() 
-				   }
-		
+						onClose()
+				}
 					return (
 						<div className="popup-overlay"  >
-							<h4 className="let-letra" >Confirmar cambio de reserva ?</h4>
+							<h4 className="let-letra" >Confirma extencion de estadia?</h4>
+							<h4 className="let-letra" >Cobrar de inmediato <span style={{fontSize:"20px"}} >${Total.toLocaleString()}</span> SR@  {newReservation[ReservationIndex].full_name} </h4>
 							<button  className="react-confirm-alert-button-group" onClick={handClick} >Si</button>
-							<button  className="react-confirm-alert-button-group" onClick={ handClose} >No</button>
+							<button  className="react-confirm-alert-button-group" onClick={ onClose} >No</button>
 					  </div>         
 					);
 				  }
@@ -530,7 +533,6 @@ const Dashboard = () => {
 
 		handModalText()
 
-		postUpdateDetailPointer({ id: itemId, Fecha_final: fecha,countSeguro });
 	  };
 	  const handleItemMove = (itemId, dragTime, newGroupOrder) => {
 		let dragTimeOne =0
@@ -586,7 +588,7 @@ const Dashboard = () => {
 		
 					return (
 						<div className="popup-overlay"  >
-							<h4 className="let-letra" >Confirmar cambio de habitacion ?</h4>
+							<h4 className="let-letra" >Confirma extencion de estadia?</h4>
 							<button  className="react-confirm-alert-button-group" onClick={handClick} >Si</button>
 							<button  className="react-confirm-alert-button-group" onClick={ handClose} >No</button>
 					  </div>         
@@ -760,6 +762,48 @@ const Dashboard = () => {
 				flat 
 				icon={<RiLogoutBoxLine fill="currentColor" fontSize={25}/>} > <span  className="text-words" ONCL >salir</span></Button>
 		</div>
+
+	
+
+		<div className="card-two" >
+            <ul className="flex-container wrap-reverse"  >
+
+					<div className="state-type" >
+						<li  className="imbox-color-one"> </li>
+						<span className="margin-let-rig" >Reserva</span>
+					</div>
+
+					<div className="state-type" >
+						<li  className="imbox-color-one-pagada"> </li>
+						<span className="margin-let-rig" >Reserva Pagada</span>
+					</div>
+
+					<div className="state-type" >
+						<li  className="imbox-color"> </li>
+						<span className="margin-let-rig"  >Check out</span>
+					</div>
+					<div className="state-type" >
+						<li  className="imbox-color-three"> </li>
+						<span className="margin-let-rig" >Check in</span>
+					</div>
+
+					<div className="state-type" >
+						<li  className="imbox-color-four	"> </li>
+						<span className="margin-let-rig" >Asear</span>
+					</div>
+
+					<div className="state-type" >
+						<li  className="imbox-color-three-adeudada-list"> </li>
+						<span className="margin-let-rig" >Lista</span>
+					</div>
+
+					<div className="state-type" >
+						<li  className="imbox-color-five"> </li>
+						<span className="margin-let-rig" >Bloqueada</span>
+					</div>
+				</ul>
+            </div>
+
 			<Timeline
 				groupRenderer={renderGroup}
 				groups={search}

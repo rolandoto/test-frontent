@@ -392,7 +392,7 @@ hr.border {
 .imbox-color{
   width: 24px;      
   height: 24px;
-  background-color: #e9cfff;
+  background-color:#7828c8 ;
   border-radius: 8px;
   margin: 10px;
   align-items: center;
@@ -401,7 +401,16 @@ hr.border {
 .imbox-color-one{
   width: 24px;      
   height: 24px;
-  background-color: #f19e94;
+  background-color: #f31260;
+  border-radius: 8px;
+  margin-left: 1px;
+  margin: 10px;
+}
+
+.imbox-color-one-pagada{
+  width: 24px;      
+  height: 24px;
+  background-color: #ff9275;
   border-radius: 8px;
   margin-left: 1px;
   margin: 10px;
@@ -410,7 +419,26 @@ hr.border {
 .imbox-color-three{
   width: 24px;      
   height: 24px;
-  background-color: #49be36;
+  background-color: #17c964;
+  border-radius: 8px;
+  margin-left: 1px;
+  margin: 10px;
+}
+
+.imbox-color-three-adeudada{
+  width: 24px;      
+  height: 24px;
+  background-color: green;
+  border-radius: 8px;
+  margin-left: 1px;
+  margin: 10px;
+}
+
+
+.imbox-color-three-adeudada-list{
+  width: 24px;      
+  height: 24px;
+  background-color: #0072f5;
   border-radius: 8px;
   margin-left: 1px;
   margin: 10px;

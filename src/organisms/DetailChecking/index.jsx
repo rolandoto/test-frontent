@@ -722,7 +722,7 @@ const DetailChekingOrganism =({id}) =>{
                         onClick={hanClickingn2}
                         
                     className="button-checking-detail-one-das-one-fins"
-                    color="success" > <span  className="text-words" >Conitinuar</span> </button>
+                    color="success" > <span  className="text-words" >Continuar</span> </button>
                 </div>
             </div>
                 <div className="container-flex-init-one-row" >  

@@ -155,35 +155,7 @@ const RoomDetailOrganism =({room,postDetailRoom,hanchangeEstado}) =>{
                     </ul>
             </div> 
 
-            <div className="card-two" >
-            <ul className="flex-container wrap-reverse"  >
-					<div className="state-type" >
-						<li  className="imbox-color"> </li>
-						<span className="margin-let-rig"  >Check out</span>
-					</div>
-					
-					<div className="state-type" >
-						<li  className="imbox-color-one"> </li>
-						<span className="margin-let-rig" >Reserva</span>
-					</div>
-
-					<div className="state-type" >
-						<li  className="imbox-color-three"> </li>
-						<span className="margin-let-rig" >Check in</span>
-					</div>
-
-					<div className="state-type" >
-						<li  className="imbox-color-four	"> </li>
-						<span className="margin-let-rig" >Asear</span>
-					</div>
-
-					<div className="state-type" >
-						<li  className="imbox-color-five"> </li>
-						<span className="margin-let-rig" >Bloqueada</span>
-					</div>
-				</ul>
-            </div>
-
+            
         </ContainerGlobal>
 
     )

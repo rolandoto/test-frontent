@@ -39,7 +39,8 @@ const fromRervas =(event)  =>{
           last_name:last_name,
           Celular:index.Celular,
           codigo:index.codigo,
-          nacionalidad:index.nacionalidad
+          nacionalidad:index.nacionalidad,
+          pagos_dia:index.valor_dia_habitacion
         }
       })
     return to
