@@ -894,7 +894,7 @@ const FacturaCompany  =({jwt,roomBusy,roomSell,efectivoTotal,otrosMedios,dolares
                     <div className="container-flex-comorobante" >
                         <div className="text-center  " >
                                 <div className="top-flex-pdf negrita" >
-                                    <span>A continuación se presenta el consolidado de ventas y ocupación diaria correspondientes al dia  {now} de Florencia plaza: </span>
+                                    <span>A continuación se presenta el consolidado de ventas y ocupación diaria correspondientes al dia  {now} </span>
                                 </div>
                         </div>
                     </div>

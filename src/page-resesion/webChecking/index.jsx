@@ -61,7 +61,7 @@ const TitleWebChecking =() =>{
             </div>
             <div className="title-web-checking" >
                     <span><span style={{fontWeight:"400",fontSize:"25px"}} > simplificamos</span> tu check in!</span>
-            </div>
+            </div><br /><br />
         </>
 
     )
