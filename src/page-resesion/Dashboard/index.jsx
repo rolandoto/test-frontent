@@ -33,6 +33,9 @@ import { CameraIcon, HeartIcon, LockIcon, NotificationIcon } from "./IconReserva
 import Footer from "../../component/Footer/Footer";
 import { RiWhatsappFill ,RiLogoutBoxLine} from "react-icons/ri";
 import ContainerGlobal from "../../Ui/ContainerGlobal";
+import { GiRoundStar,GiAirplaneDeparture } from "react-icons/gi";
+import { FaPlane,FaGrinStars } from "react-icons/fa";
+import { IoIosGift } from "react-icons/io"
 
 
 const GroupRows =({group,color,estado,iconState,letra}) =>{
@@ -801,6 +804,31 @@ const Dashboard = () => {
 						<li  className="imbox-color-five"> </li>
 						<span className="margin-let-rig" >Bloqueada</span>
 					</div>
+					
+														
+
+				</ul>
+				
+				<ul className="flex-container wrap-reverse" style={{position:"absolute",right:"0"}} >
+						<div className="state-type" >
+							<li  className="" style={{marginRight:"6px",marginTop:"10px"}} > <FaGrinStars color="#ffca28" fontSize={28}/> </li>
+								<li  className="" style={{marginRight:"10px",marginTop:"10px"}} ></li>
+								<span className="margin-let-rig" style={{marginRight:"15px"}} >Comisiones ventas: {jwt.result.name} </span>
+							</div>
+							<div className="state-type" >
+								<li  className="" style={{marginRight:"10px",marginTop:"10px"}} > <GiRoundStar color="#ffca28" fontSize={28} /></li>
+								<span className="margin-let-rig" style={{marginRight:"15px"}} >50.0000</span>
+							</div>
+
+							<div className="state-type" >
+							<li  className=""  style={{marginRight:"10px",marginTop:"10px"}} > <FaPlane color="#0372f5" fontSize={28} /></li>
+								<span className="margin-let-rig" style={{marginRight:"15px"}} >10</span>
+							</div>
+
+							<div className="state-type" >
+							<li  className=""  style={{marginRight:"10px",marginTop:"10px"}} > <IoIosGift color="red" fontSize={28} /></li>
+								<span className="margin-let-rig" style={{marginRight:"15px"}} >10</span>
+					</div>
 				</ul>
             </div>
 
@@ -882,7 +910,9 @@ const Dashboard = () => {
 			<CursorMarker />
 			</TimelineMarkers>
 			</Timeline>
-			<Footer totalday={totalDay}   />
+			<Footer totalday={totalDay} 
+					ocupied={<VscSymbolEvent fontSize={20}/>}
+					reservas={<BsBell fontSize={20} color="white" />}   />
 			</div>
 		</>
 
