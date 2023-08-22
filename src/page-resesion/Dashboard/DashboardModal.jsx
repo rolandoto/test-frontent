@@ -358,9 +358,11 @@ const DashboardModal = (props) => {
         }
 
         const resultValuePersona = findRoom?.precio_persona * aditional *  ResultDay
-       
         const totalResultglobal =  PriceDay *countSeguro + count - change.abono -decuento
-        const valor_habiatcion =  PriceDay *countSeguro + count   -decuento
+
+        console.log(totalResultglobal)
+
+        const valor_habiatcion =  PriceDay *countSeguro + count -decuento
 
         const global  = formatter.format(totalResultglobal)
 
@@ -1159,11 +1161,10 @@ const DashboardModal = (props) => {
                                                                 </div>
                                                                     <div className="container-detail-dasboard-in negrita-one-update " > 
                                                                         <input 
+                                                                             type="number"
                                                                             className="desde-detail-two"  
                                                                             defaultValue={default_Value}  
                                                                             onChange={handChangeValueEditar}  
-                                                                            
-                                                                          
                                                                         />
                                                                         
                                                                     <button className="desde-detail-two negrita-one-update "   disabled={true}  >

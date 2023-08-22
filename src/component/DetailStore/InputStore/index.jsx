@@ -127,8 +127,8 @@ const InputStore = ({id,fetchData}) => {
                     type="text"
                     change={handleInputChange} />
 
-                    <Input  
-                    title="Precio compra" 
+                <Input  
+                    title="Precio compra unidad" 
                     name="Precio_compra" 
                     type="text"
                     change={handleInputChange} />
