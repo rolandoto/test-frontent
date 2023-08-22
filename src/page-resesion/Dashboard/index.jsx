@@ -817,17 +817,17 @@ const Dashboard = () => {
 							</div>
 							<div className="state-type" >
 								<li  className="" style={{marginRight:"10px",marginTop:"10px"}} > <GiRoundStar color="#ffca28" fontSize={28} /></li>
-								<span className="margin-let-rig" style={{marginRight:"15px"}} >50.0000</span>
+								<span className="margin-let-rig" style={{marginRight:"15px"}} >00.0000</span>
 							</div>
 
 							<div className="state-type" >
 							<li  className=""  style={{marginRight:"10px",marginTop:"10px"}} > <FaPlane color="#0372f5" fontSize={28} /></li>
-								<span className="margin-let-rig" style={{marginRight:"15px"}} >10</span>
+								<span className="margin-let-rig" style={{marginRight:"15px"}} >00</span>
 							</div>
 
 							<div className="state-type" >
 							<li  className=""  style={{marginRight:"10px",marginTop:"10px"}} > <IoIosGift color="red" fontSize={28} /></li>
-								<span className="margin-let-rig" style={{marginRight:"15px"}} >10</span>
+								<span className="margin-let-rig" style={{marginRight:"15px"}} >00</span>
 					</div>
 				</ul>
             </div>

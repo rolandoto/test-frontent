@@ -34,7 +34,7 @@ const Footer =({totalday,ocupied,reservas}) =>{
             <footer className='footer-two'  style={{width:`${200}px`}}   >
             <ul className="flex-footer icon-state-reservation">
                         <span className="text-words" >{ocupied}</span>
-                        <span className="text-words" > Habitaciones ocupadas</span>
+                        <span className="text-words" >Hab ocupadas</span>
                         <span className="text-words" style={{fontSize:"14px"}}  >{HabitacionOcupadas}</span>
                 
                     </ul>
