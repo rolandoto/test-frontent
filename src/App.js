@@ -65,7 +65,7 @@ import SingnatureMaual from "./page-resesion/FirmarManual";
 function App() {
   const { jwt } = useContext(AutoProvider);
 
-  const val = 1
+  const val = jwt ? jwt.result.id_permissions : 1;
 
   if (val == 1) {
     return (
