@@ -6,9 +6,6 @@ const TableStore =({Store}) =>{
 
     const history = useHistory()
 
-    console.log(Store)
-
-   
     return (
         <div className="container-bicta ">
             <tbody className="" >

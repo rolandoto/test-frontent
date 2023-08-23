@@ -1,8 +1,9 @@
 import React from "react"
 import { Progress, Grid } from "@nextui-org/react";
 import { HeartIcon } from "../../page-resesion/Dashboard/IconReservation";
+import { HiOutlineUsers } from "react-icons/hi";
 
-const Footer =({totalday,ocupied,reservas}) =>{
+const Footer =({totalday,ocupied,reservas,dollar}) =>{
 
     const totalWidth = totalday?.RoomReservationbyId[0]?.Num_Reservas
 
@@ -16,14 +17,14 @@ const Footer =({totalday,ocupied,reservas}) =>{
         <>
          <footer className='footer-one'  style={{width:`${200}px`}} >
          <ul className="flex-footer icon-state-reservation">
+                         <span className="text-words" ><HiOutlineUsers fontSize={20} /></span>
                         <span className="text-words" >Total huespedes</span>
                         <span className="text-words"style={{fontSize:"14px"}}  >{huesped}</span>
-                     
-
                     </ul>
             </footer>
             <footer className='footer' style={{width:`${200}px`}}   >
             <ul className="flex-footer icon-state-reservation"  >
+                         <span className="text-words" >{dollar}</span>
                         <span className="text-words" >Total venta</span>
                         <span className="text-words" style={{fontSize:"14px"}}  >${tienda}</span>
                        

@@ -912,7 +912,8 @@ const Dashboard = () => {
 			</Timeline>
 			<Footer totalday={totalDay} 
 					ocupied={<VscSymbolEvent fontSize={20}/>}
-					reservas={<BsBell fontSize={20} color="white" />}   />
+					reservas={<BsBell fontSize={20} color="white" />}
+					dollar={<CiBadgeDollar fontSize={20} />} />
 			</div>
 		</>
 

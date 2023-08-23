@@ -8,8 +8,11 @@ import ServiceInsertProductAdmin from "../../../service/ServiceInsertProductAdmi
 import ServiceTypeCategorys from "../../../service/ServiceTypeCategorys"
 import Input from "../../../Ui/Input"
 import Selected from "../../../Ui/Select"
+import Swal from 'sweetalert2'
 
-const InputStore = ({id,fetchData}) => {
+const InputStore = ({id,fetchData,Store}) => {
+
+    console.log(Store)
 
     const history = useHistory()
     const {jwt} = useContext(AutoProvider)
@@ -39,30 +42,40 @@ const InputStore = ({id,fetchData}) => {
 
     })   
 
-
-
-
     const handleInputChange = (event) => {
         setChange({
             ...change,
             [event.target.name] : event.target.value
         })
     }
-
-    console.log(change)
     
     const  now = moment().format("YYYY/MM/DD");
 
+
+    /*
+    */
+
     const handSubmitProduct =async() =>{
-        try {
-            const postStore=  await HttpClient.PostAdminStore({ID_Hoteles:change.id_hotel,ID_Tipo_categoria:change.category,Nombre:change.name,Cantidad:change.amount,Precio:change.price,Fecha_registro:now,Precio_compra:change.Precio_compra,Nombre_Recepcion:jwt.result.name}).then(index =>{
-                console.log(index)
-                fetchData()
-            }).catch(e =>{
-                console.log(e)
-            })
-        } catch (error) {
-            console.log("error")
+        if(!Store.query.some(item => item.Nombre == change.name)){
+            try {
+                const postStore=  await HttpClient.PostAdminStore({ID_Hoteles:change.id_hotel,ID_Tipo_categoria:change.category,Nombre:change.name,Cantidad:change.amount,Precio:change.price,Fecha_registro:now,Precio_compra:change.Precio_compra,Nombre_Recepcion:jwt.result.name}).then(index =>{
+                    console.log(index)
+                    fetchData()
+                }).catch(e =>{
+                    console.log(e)
+                })
+            } catch (error) {
+                console.log("error")
+            }
+        }else{
+            Swal.fire({
+                position: 'center',
+                icon: 'error',
+                title: '<p>Producto ya existe</p>',
+                showConfirmButton: false,
+                timer: 1000
+              })
+            
         }
     }   
 
@@ -72,7 +85,7 @@ const InputStore = ({id,fetchData}) => {
 
     const totlaFilter =  subCategory?.query?.filter(index =>  index.Tipo_categoria  == change.category)
 
-    console.log(totlaFilter)
+
 
     return (
         <>
