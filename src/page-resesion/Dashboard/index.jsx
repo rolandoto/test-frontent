@@ -695,6 +695,36 @@ const Dashboard = () => {
 }, 100);
 	}
 
+	const numeroDelMes = moment().month() + 1;
+
+	const anoActual = moment().year();
+
+	const [stateKpi,setStatekpi] =useState()
+
+	useEffect(() =>{
+		HttpClient.GetKpiUser({month:numeroDelMes,year:anoActual,idUser:jwt.result?.id_user,ID_hotel:jwt?.result?.id_hotel}).then(index =>{
+			setStatekpi(index)
+		}).catch(e =>{
+			console.log(e)
+		})
+	},[])
+
+	const filTours =  stateKpi?.query.filter((item) => item.ID_Categoria == 8)
+
+	const tourTotal = filTours?.reduce((acum,current) =>{
+		return acum + current.Cantidad_comision
+	},0)
+ 
+
+	const filSouvenir =  stateKpi?.query.filter((item) => item.ID_Categoria == 3)
+
+	const sourvenirTotal = filSouvenir?.reduce((acum,current) =>{
+		return acum + current.Cantidad_comision
+	},0)
+
+	const totalKpi = tourTotal +sourvenirTotal
+	
+
 	if(!search)  return null
 	if(!state)  return null
 	if(!reservation)return null
@@ -817,17 +847,17 @@ const Dashboard = () => {
 							</div>
 							<div className="state-type" >
 								<li  className="" style={{marginRight:"10px",marginTop:"10px"}} > <GiRoundStar color="#ffca28" fontSize={28} /></li>
-								<span className="margin-let-rig" style={{marginRight:"15px"}} >00.0000</span>
+								<span className="margin-let-rig" style={{marginRight:"15px"}} >{totalKpi.toLocaleString()}</span>
 							</div>
 
 							<div className="state-type" >
 							<li  className=""  style={{marginRight:"10px",marginTop:"10px"}} > <FaPlane color="#0372f5" fontSize={28} /></li>
-								<span className="margin-let-rig" style={{marginRight:"15px"}} >00</span>
+								<span className="margin-let-rig" style={{marginRight:"15px"}} >${tourTotal.toLocaleString()}</span>
 							</div>
 
 							<div className="state-type" >
 							<li  className=""  style={{marginRight:"10px",marginTop:"10px"}} > <IoIosGift color="red" fontSize={28} /></li>
-								<span className="margin-let-rig" style={{marginRight:"15px"}} >00</span>
+								<span className="margin-let-rig" style={{marginRight:"15px"}} >${sourvenirTotal.toLocaleString()}</span>
 					</div>
 				</ul>
             </div>

@@ -643,6 +643,8 @@ const FacturaCompany  =({jwt,roomBusy,roomSell,efectivoTotal,otrosMedios,dolares
 
     let docToPrint = React.createRef();
 
+    console.log(tranferencia)
+
     const [avaible,setAvaible] =useState()
     const [room,setRoom] =useState()
 
@@ -742,7 +744,6 @@ const FacturaCompany  =({jwt,roomBusy,roomSell,efectivoTotal,otrosMedios,dolares
         const totalwith = parseInt(avaible?.roomByIdIDtypeRoom[i]?.abono )
         count  += totalwith
     }
-
 
     const totalIngresosPuntos  = parseInt( aeropuerto ) + parseInt( lavenderia) +   parseInt (turismo) + parseInt( countSeguro) 
     

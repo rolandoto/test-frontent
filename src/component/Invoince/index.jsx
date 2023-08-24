@@ -13,7 +13,7 @@ import   AutoProvider  from "../../privateRoute/AutoProvider";
 import { useContext } from "react";
 import { config } from "../../config";
 
-const Invoince =({resultDashboard=[],carts=[],dataCount,setInvoice,priceCart,client,identification,raiting,handLoading,loading,handLoadingOne,sinIvaCart,tienda,handSubmitInsertCartOne,hancCheckout}) =>{
+const Invoince =({resultDashboard=[],carts=[],dataCount,setInvoice,priceCart,client,identification,raiting,handLoading,loading,handLoadingOne,sinIvaCart,tienda,handSubmitInsertCartOne,hancCheckout,lastname}) =>{
         
     const dispatch  = useDispatch()
     const t= moment().format();   
@@ -244,7 +244,7 @@ const Invoince =({resultDashboard=[],carts=[],dataCount,setInvoice,priceCart,cli
                             </div>     
                         </div>
                         <button id="demo" className= {` top-button-invoince checkOut  sub-total-top`} onClick={hadAllInvoince} disabled={preloading}   >
-                            <span className="itemNameonE">Guardar e imprimir dsadsa</span>
+                            <span className="itemNameonE">Guardar e imprimir</span>
                         </button>
                         </div>
                 </>
@@ -279,7 +279,7 @@ const Invoince =({resultDashboard=[],carts=[],dataCount,setInvoice,priceCart,cli
                                 <span className="atm title-invoince-cart" >Recepcionista: {jwt.result.name} </span>
                                 <span className="atm title-invoince-cart" >Fecha: {date}</span>
                                 <span className="title-invoince-cart" >Tipo pago: {raiting}</span>
-                                <span className="title-invoince-cart">Cliente: {client}</span>  
+                                <span className="title-invoince-cart">Cliente: {client} {lastname} </span>  
                                 <span className="title-invoince-cart">CC/NIT: {identification} </span> 
 
 
