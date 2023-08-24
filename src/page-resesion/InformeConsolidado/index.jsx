@@ -686,8 +686,6 @@ const FacturaCompany  =({jwt,roomBusy,roomSell,efectivoTotal,otrosMedios,dolares
 
     let docToPrint = React.createRef();
 
-    console.log(tranferencia)
-
     const [avaible,setAvaible] =useState()
     const [room,setRoom] =useState()
 
