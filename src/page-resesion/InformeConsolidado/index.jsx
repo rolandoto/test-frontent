@@ -320,40 +320,44 @@ const InformeConsolidado = () => {
 
     const tarjetaDebeito = countSix+countOneSix+countTwoSix 
 
-    const totalFilterFormaDebitoTwo = auditoria?.filter(index => index.Forma_pago ==7)
 
-    const totalFilterFormaStoreDebitoTwo= store?.filter(index => index.Forma_pago ==7)
 
-    const carritoReservaDebitoTwo = storeOne?.filter(index => index.Forma_pago ==7)
+    const totalFilterFormaCredito = auditoria?.filter(index => index.Forma_pago ==7)
+
+    const totalFilterFormaStoreCredito= store?.filter(index => index.Forma_pago ==7)
+
+    const carritoReservaCredito = storeOne?.filter(index => index.Forma_pago ==7)
 
     let countSixTwo =0
-    for(let i =0;i<totalFilterFormaDebitoTwo?.length;i++){
-        if((totalFilterFormaDebitoTwo[i].Tipo_persona =="empresa")){
-            const totalwith = parseInt(totalFilterFormaDebitoTwo[i]?.abono ) *19/100
-            const total = totalwith + parseInt(totalFilterFormaDebitoTwo[i]?.abono )
+    for(let i =0;i<totalFilterFormaCredito?.length;i++){
+        if((totalFilterFormaCredito[i].Tipo_persona =="empresa")){
+            const totalwith = parseInt(totalFilterFormaCredito[i]?.abono ) *19/100
+            const total = totalwith + parseInt(totalFilterFormaCredito[i]?.abono )
             countSixTwo += total
-        }else  if((totalFilterFormaDebitoTwo[i].Iva ==1)){
-            const totalwith = parseInt(totalFilterFormaDebitoTwo[i]?.abono ) *19/100
-            const total = totalwith + parseInt(totalFilterFormaDebitoTwo[i]?.abono )
+        }else  if((totalFilterFormaCredito[i].Iva ==1)){
+            const totalwith = parseInt(totalFilterFormaCredito[i]?.abono ) *19/100
+            const total = totalwith + parseInt(totalFilterFormaCredito[i]?.abono )
             countSixTwo += total
         } else{
-            countSixTwo += parseInt(totalFilterFormaDebitoTwo[i].abono)
+            countSixTwo += parseInt(totalFilterFormaCredito[i].abono)
         }
     }
 
     let countOneSixTwo =0
-    for(let i =0;i<totalFilterFormaStoreDebitoTwo?.length;i++){
-        const totalwith = parseInt(totalFilterFormaStoreDebito[i]?.total ) 
+    for(let i =0;i<totalFilterFormaStoreCredito?.length;i++){
+        const totalwith = parseInt(totalFilterFormaStoreCredito[i]?.total ) 
         countOneSixTwo += totalwith
     }
 
     let countTwoSixTwo =0
-    for(let i =0;i<carritoReservaDebitoTwo?.length;i++){
-        const totalwith = parseInt(carritoReservaDebitoTwo[i]?.total ) 
+    for(let i =0;i<carritoReservaCredito?.length;i++){
+        const totalwith = parseInt(carritoReservaCredito[i]?.total ) 
         countTwoSixTwo += totalwith
     }
 
-    const totalCredito = countSixTwo +  countOneSixTwo +countTwoSixTwo
+    const totalCredito = countSixTwo+countOneSixTwo+countTwoSixTwo 
+
+
 
     const totalFilterFormaDebitoThree = auditoria?.filter(index => index.Forma_pago ==5)
 
@@ -425,6 +429,43 @@ const InformeConsolidado = () => {
     }
 
     const totalLinkPago = countSixFour  +countOneSixFour + countTwoSixFour
+
+
+
+    const totalFilterFormaTransferencia = auditoria?.filter(index => index.Forma_pago ==2)
+    const totalFilterFormaStoreTransferencia= store?.filter(index => index.Forma_pago ==2)
+    const carritoReservaTransferencia = storeOne?.filter(index => index.Forma_pago ==2)
+
+    let countSixFive =0
+    for(let i =0;i<totalFilterFormaTransferencia?.length;i++){
+        if((totalFilterFormaTransferencia[i].Tipo_persona =="empresa")){
+            const totalwith = parseInt(totalFilterFormaTransferencia[i]?.abono ) *19/100
+            const total = totalwith + parseInt(totalFilterFormaTransferencia[i]?.abono )
+            countSixFive += total
+        }else  if((totalFilterFormaTransferencia[i].Iva ==1)){
+            const totalwith = parseInt(totalFilterFormaTransferencia[i]?.abono ) *19/100
+            const total = totalwith + parseInt(totalFilterFormaTransferencia[i]?.abono )
+            countSixFive += total
+        } else{
+            countSixFive += parseInt(totalFilterFormaTransferencia[i].abono)
+        }
+    }
+
+    let countOneSixFive =0
+    for(let i =0;i<totalFilterFormaStoreTransferencia?.length;i++){
+        const totalwith = parseInt(totalFilterFormaStoreTransferencia[i]?.total ) 
+        countOneSixFive += totalwith
+    }
+
+    let countTwoSixFive =0
+    for(let i =0;i<carritoReservaTransferencia?.length;i++){
+        const totalwith = parseInt(carritoReservaTransferencia[i]?.total ) 
+        countTwoSixFive += totalwith
+    }
+
+    const totalTranferencia = countSixFive  + countOneSixFive + countTwoSixFour
+
+
 
 
 
@@ -630,6 +671,8 @@ const InformeConsolidado = () => {
                         totalCredito={totalCredito}
                         totalPayoner={totalPayoner}
                         totalLinkPago={totalLinkPago}
+                        totalTranferencia={totalTranferencia}
+                        
                         />
         </ContainerGlobal>
     )
@@ -639,7 +682,7 @@ export default InformeConsolidado
 
 
 const FacturaCompany  =({jwt,roomBusy,roomSell,efectivoTotal,otrosMedios,dolarespesos, 
-    targetaDebito,targetaCredito,tranferencia,pagoAgil,bitcon,payoner,dolares,euros,aeropuerto,lavenderia,turismo,componentRef,totalEfectivooNE,OtrosMedios,store,storeOne,LookinforFecha,hanLookingFor,tarjetaDebeito,totalCredito,totalPayoner,totalLinkPago}) =>{
+    targetaDebito,targetaCredito,totalTranferencia,pagoAgil,bitcon,payoner,dolares,euros,aeropuerto,lavenderia,turismo,componentRef,totalEfectivooNE,OtrosMedios,store,storeOne,LookinforFecha,hanLookingFor,tarjetaDebeito,totalCredito,totalPayoner,totalLinkPago}) =>{
 
     let docToPrint = React.createRef();
 
@@ -922,7 +965,7 @@ const FacturaCompany  =({jwt,roomBusy,roomSell,efectivoTotal,otrosMedios,dolares
                         <tr>
                             <td>${tarjetaDebeito?.toLocaleString()}</td>
                             <td>${totalCredito?.toLocaleString()}</td>
-                            <td>$</td>
+                            <td>${totalTranferencia?.toLocaleString()}</td>
                             <td>{totalLinkPago.toLocaleString()}</td>
                             <td>{bitcon}</td>
                             <td>${totalPayoner.toLocaleString()}</td>
