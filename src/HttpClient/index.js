@@ -328,6 +328,20 @@ const validCheckingAll  =({ID}) => {
     })
 }
 
+const GetKpiUser = ({month,year,idUser,ID_hotel}) =>{
+  return fetch((`${config.serverRoute}/api/resecion/userIdKpi`),{
+    method:"POST",
+      body:JSON.stringify({month,year,idUser,ID_hotel}),
+      headers:{
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      }
+      }).then(resp =>{
+      if(!resp.ok) throw new Error('Response is not ok')
+      return resp.json()
+  })
+}
+
   export default {
     get,
     post,
@@ -350,6 +364,7 @@ const validCheckingAll  =({ID}) => {
     handchangeformapay,
     validCheckingAll,
     UploadImageFirma,
-    postApiWhasatappCheckout
+    postApiWhasatappCheckout,
+    GetKpiUser
   }
   

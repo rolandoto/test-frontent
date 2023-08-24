@@ -219,6 +219,41 @@ const TableStore =({Store}) =>{
                     )
                 })}
             </table>
+
+            
+            
+            </tbody>
+
+            <tbody>
+            <table className="de">
+                <tr>
+                    <th>Categoria</th>
+                    <th>Nombre</th>
+                    <th>Cantidad</th>
+                    <th>Precio</th>
+                    <th>Opciones</th>
+                </tr>
+
+                {Store?.query?.map(index =>{
+
+                const handHistory = () =>{
+                    history.push(`/detailById/${index.ID}`)
+                }
+
+                    if(index.id_categoria== 8)
+                    return (
+                        <tr>
+                            <td className="table-color-color" >{index.Nombre_categoria}</td>
+                            <td className="table-color-color" >{index.Nombre}</td>
+                            <td className="table-color-color" >{index.Cantidad}</td>
+                            <td className="table-color-color" >{index.Precio}</td>
+                            <td className="table-color-color" ><button  className="button-Border-Id"   onClick={handHistory} > <CiSquarePlus    fontSize={35} /> </button></td>
+                        </tr>
+                    )
+                })}
+            </table>
+
+            
             
             </tbody>
         </div>

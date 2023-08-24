@@ -703,7 +703,8 @@ const CheckoutOrganism =({DetailDashboard,postDetailRoom,fetchDataApiWhatsapp}) 
                                         setInvoice={handCloseInvoince} 
                                         carts={cart}
                                         priceCart={totalPrice}
-                                        client={resultDashboard?.Nombre} 
+                                        client={resultDashboard?.Nombre}
+                                        lastname={resultDashboard?.Apellido} 
                                         identification={resultDashboard?.Num_documento}
                                         raiting={pagoInvoince}
                                         loading={loading}
@@ -954,7 +955,7 @@ const Factura  =({Room,Valor_dia_habitacion,resultFinish,comprobante,setComproba
         const pdf = new jsPDF({
             orientation: "landscape",
         
-            format:  [500, 600 ]
+            format:  [600, 600 ]
         });
         pdf.addImage(imgData, "JPEG", 0, 0);
         // pdf.output("dataurlnewwindow");

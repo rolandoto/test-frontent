@@ -43,6 +43,13 @@ const StoreTemplate =({Store}) =>{
             "https://github.com/rolandoto/image-pms/blob/main/1_Mesa-06.png?raw=true",
         } ,
         {
+          id: 8,
+          itemId: "Tours",
+          name: "Tours",
+          imgSrc:
+            "https://github.com/rolandoto/image-pms/blob/main/tours1.png?raw=true",
+        } ,
+        {
           id:4,
           itemId: "Aseo p.",
           name: "Aseo p.",
@@ -734,8 +741,6 @@ const StoreTemplate =({Store}) =>{
 
     const [isMainData, setMainData] = useState(
       Store?.query?.filter((element) => element.Nombre_categoria == "Snacks"));    
-
-    console.log(isMainData)
       
     const [num,setNum] =useState()
     
@@ -851,6 +856,7 @@ const StoreTemplate =({Store}) =>{
       ID_Hoteles:jwt.result.id_hotel,
       Fecha_compra:now,
       Nombre_recepcion:jwt.result.name,
+      ID_user:jwt.result.id_user,
     } 
 
     const [loadingAsignar,setLoadingAsignar]  =useState(false)
@@ -876,9 +882,9 @@ const StoreTemplate =({Store}) =>{
       Nombre_persona:client,
       Forma_pago:raiting,
       Num_documento:identification,
-      Nombre_recepcion:jwt.result.name
+      Nombre_recepcion:jwt.result.name,
+      ID_user:jwt.result.id_user,
     }
-
 
     const handSubmitInsertCartOne =() =>{
       ServiceaInsertStore({data:dataOne}).then(index =>{
