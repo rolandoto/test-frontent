@@ -217,7 +217,7 @@ const UploadImage =({file1,file2,ID}) =>{
     formData.append('myFile', file1);
     formData.append('myFile', file2);
     formData.append("id",ID)
-    return fetch(`${config.serverRoute}/api/resecion/uploadfile`, {
+    return fetch(`https://geco-backend-production.up.railway.app/api/resecion/uploadfile`, {
       method: 'POST',
       body: formData,
     }).then(resp =>{
