@@ -28,7 +28,7 @@ import UseListMotels from "../../hooks/UseListMotels";
 import useUpdateDetailPounterRangeSliceActions from "../../action/useUpdateDetailPounterRangeSliceActions";
 import HttpClient from "../../HttpClient";
 import { CiBadgeDollar } from "react-icons/ci";
-import { Button, Spacer } from '@nextui-org/react';
+import { Button, Spacer, User } from '@nextui-org/react';
 import { CameraIcon, HeartIcon, LockIcon, NotificationIcon } from "./IconReservation";
 import Footer from "../../component/Footer/Footer";
 import { RiWhatsappFill ,RiLogoutBoxLine} from "react-icons/ri";
@@ -36,7 +36,8 @@ import ContainerGlobal from "../../Ui/ContainerGlobal";
 import { GiRoundStar,GiAirplaneDeparture } from "react-icons/gi";
 import { FaPlane,FaGrinStars } from "react-icons/fa";
 import { IoIosGift } from "react-icons/io"
-
+import { HiMiniArrowUpCircle } from "react-icons/hi2";
+import { config } from "../../config";
 
 const GroupRows =({group,color,estado,iconState,letra}) =>{
 	return (
@@ -723,7 +724,16 @@ const Dashboard = () => {
 	},0)
 
 	const totalKpi = tourTotal +sourvenirTotal
-	
+
+	const [stateTop,setStateTop] =useState()
+
+	useEffect(() =>{
+		fetch(`${config.serverRoute}/api/resecion/userKpiTop`)
+		.then(resp => resp.json())
+		.then(data => setStateTop(data.query))
+	},[])
+
+	console.log(stateTop)
 
 	if(!search)  return null
 	if(!state)  return null
@@ -840,8 +850,45 @@ const Dashboard = () => {
 				</ul>
 				
 				<ul className="flex-container wrap-reverse" style={{position:"absolute",right:"0"}} >
-						<div className="state-type" >
-							<li  className="" style={{marginRight:"6px",marginTop:"10px"}} > <FaGrinStars color="#ffca28" fontSize={28}/> </li>
+							<div className="state-type" data-tip data-for="topresecionista"  >
+								<li  className="" style={{marginRight:"2px",marginTop:"10px"}} > <HiMiniArrowUpCircle color="black" fontSize={34}/> </li>
+								<li  className="" style={{marginRight:"10px",marginTop:"10px"}} ></li>
+								<span className="margin-let-rig" style={{marginRight:"15px"}} >Top Recepcionista</span>
+								<div>
+									<ReactTooltip 	
+													id="topresecionista" 
+													place="bottom" effect="solid"  >
+										{stateTop.map(index  =>{
+											
+											const totalComision = index.Total_Cantidad_comision
+											
+											return (
+											<div key={index.ID}  > 
+												<div className="display-flex-cardOne" >
+														<div className="flex-card-One" >
+														<User bordered
+																
+																color="success"
+																squared
+																size="sm"
+																	src={index.APP}
+																	zoomed
+																/>
+															<span className="color-globito" >{index.name}</span>
+
+															
+														</div>
+														<span className="color-globito"  >${totalComision.toLocaleString()}</span>
+												</div>
+											</div>
+											)
+											
+										})}
+									</ReactTooltip>
+								</div>
+							</div>
+							<div className="state-type" >
+								<li  className="" style={{marginRight:"6px",marginTop:"10px"}} > <FaGrinStars color="#ffca28" fontSize={28}/> </li>
 								<li  className="" style={{marginRight:"10px",marginTop:"10px"}} ></li>
 								<span className="margin-let-rig" style={{marginRight:"15px"}} >Comisiones ventas: {jwt.result.name} </span>
 							</div>

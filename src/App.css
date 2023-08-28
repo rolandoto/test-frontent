@@ -201,6 +201,14 @@ input{
     padding: 10px;
 }
 
+.display-flex-cardOne{
+  display: flex;
+    justify-content: space-between;
+    padding: 1px;
+    width: 100%;
+    align-items: center;
+}
+
 .flex-card-One{
   display: flex;
   align-items: center;
@@ -282,4 +290,9 @@ input{
 
 .flex-button-webchekcing4{
   display: flex;
+}
+
+
+.row-raius-one{
+  border-radius: 50%;
 }

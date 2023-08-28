@@ -33,3 +33,8 @@
     z-index: 100;
 }
 
+
+
+.example-rounded {
+  border-radius: 50px;
+}
