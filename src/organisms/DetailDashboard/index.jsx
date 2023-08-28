@@ -645,8 +645,12 @@ var fecha_final = currOne.toISOString().substring(0,10);
 
 const PriceRoomById= room?.find(index=>index?.id_tipoHabitacion == idRoom)
 
+const documentByIdRoom =  resultDashboard?.Num_documento +""+id
+
+//console.log({"prueba console" :resultDashboard})
+
 const hancPdf =() =>{
-  ServePdf({  codigoReserva:resultDashboard?.Num_documento,Nombre:resultDashboard?.Nombre,room:resultFinish?.nombre,adults:resultDashboard?.Adultos,children:resultDashboard?.Ninos,tituloReserva:resultDashboard?.Nombre,abono:resultDashboard?.valor_abono,formaPago:resultDashboard?.forma_pago,telefono:resultDashboard.Celular,identificacion:resultDashboard.Num_documento,correo:resultDashboard.Correo,urllogo:jwt?.result?.logo,tarifa:resultDashboard.valor_habitacion,entrada:fecha_inicio,salida:fecha_final}).then(index => {
+  ServePdf({  codigoReserva:documentByIdRoom,Nombre:resultDashboard?.Nombre,habitacion:`${resultFinish?.nombre}${resultDashboard.Numero}`,adults:resultDashboard?.Adultos,children:resultDashboard?.Ninos,tituloReserva:resultDashboard?.Nombre,abono:resultDashboard?.valor_abono,formaPago:resultDashboard?.forma_pago,telefono:resultDashboard.Celular,identificacion: resultDashboard?.Num_documento,correo:resultDashboard.Correo,urllogo:jwt?.result?.logo,tarifa:resultDashboard.valor_habitacion,entrada:fecha_inicio,salida:fecha_final}).then(index => {
     const link = document.createElement('a')
     link.href =index;
     link.setAttribute('target', '_blank');
