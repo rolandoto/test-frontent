@@ -992,7 +992,7 @@ const Dashboard = () => {
                 ...styles,
                 backgroundColor: "#6ae9a175",
 				width:"5.3%",
-				marginLeft:"-3%"
+				marginLeft:"-3.3%"
               };
               return (
                 <div
