@@ -6,7 +6,8 @@ import Timeline,{
   SidebarHeader,
   DateHeader,
   TimelineMarkers,
-  CursorMarker
+  CursorMarker,
+  CustomMarker,
 } from "react-calendar-timeline";
 import { ServiceReservas } from "./dummy_data";
 import 'react-calendar-timeline/lib/Timeline.css'
@@ -983,9 +984,26 @@ const Dashboard = () => {
 						/>
 				</TimelineHeaders>
 				<TimelineMarkers>
-
-			<CursorMarker />
-			</TimelineMarkers>
+          {/* <TodayMarker /> */}
+          {/* <CustomMarker date={moment().valueOf()} /> */}
+          <CustomMarker date={moment().add("day")}>
+            {({ styles, date }) => {
+              const customStyles = {
+                ...styles,
+                backgroundColor: "#6ae9a175",
+				width:"5.3%",
+				marginLeft:"-3%"
+              };
+              return (
+                <div
+                  style={customStyles}
+                  onClick={(event) => console.log("done")}
+                />
+              );
+            }}
+          </CustomMarker>
+          <CursorMarker />
+        </TimelineMarkers>
 			</Timeline>
 			<Footer totalday={totalDay} 
 					ocupied={<VscSymbolEvent fontSize={20}/>}
