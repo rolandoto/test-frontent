@@ -853,7 +853,7 @@ const Dashboard = () => {
 							<div className="state-type" data-tip data-for="topresecionista"  >
 								<li  className="" style={{marginRight:"2px",marginTop:"10px"}} > <HiMiniArrowUpCircle color="black" fontSize={34}/> </li>
 								<li  className="" style={{marginRight:"10px",marginTop:"10px"}} ></li>
-								<span className="margin-let-rig" style={{marginRight:"15px"}} >Top Recepcionista</span>
+								<span className="margin-let-rig" style={{marginRight:"15px"}} >Top Recepcionistas</span>
 								<div>
 									<ReactTooltip 	
 													id="topresecionista" 

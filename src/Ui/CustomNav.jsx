@@ -195,8 +195,6 @@ const SideNavBar = () => {
                      {isExpanded && <p>{null}</p>}
                  
          </Link>
-
-
          <ReactTooltip id="CajaTip" place="right" effect="solid">
                 Caja menor
         </ReactTooltip>
@@ -224,16 +222,11 @@ const SideNavBar = () => {
                             <div>
                                 <span className="color-globito" >{fecha}</span>
                             </div>
-                        
                     </div>
-            
                 </div>
                  )
-                
             })}
         </ReactTooltip>
-
-
         <a  className={isExpanded ? "menu-item" : "menu-item menu-item-NX"}   data-tip data-for="informacionTip" >
                         
                         <BsChatDots fontSize={18} color="black"   />
