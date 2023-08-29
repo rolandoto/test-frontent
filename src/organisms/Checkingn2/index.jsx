@@ -175,11 +175,11 @@ const Checkingn2Organism =({id,postDetailRoom,fetchDataApiWhatsapp,postWhataapBy
         Nombre_recepcion:jwt.result.name
     }
 
-
     const [disable,setDisable] =useState(false)
 
     const handFirmar =() =>{
-            if( ( parseInt(resulDetailDashboard?.valor_abono) >0)){
+            if((parseInt(resulDetailDashboard?.valor_habitacion - resulDetailDashboard?.valor_abono ) ==0)){
+
             }else {
                 HttpClient.insertPayABono({data:inputPayValue}).then(index =>{
                     console.log(index)
