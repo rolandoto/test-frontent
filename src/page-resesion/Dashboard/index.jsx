@@ -890,7 +890,7 @@ const Dashboard = () => {
 							<div className="state-type" >
 								<li  className="" style={{marginRight:"6px",marginTop:"10px"}} > <FaGrinStars color="#ffca28" fontSize={28}/> </li>
 								<li  className="" style={{marginRight:"10px",marginTop:"10px"}} ></li>
-								<span className="margin-let-rig" style={{marginRight:"15px"}} >Comisiones ventas: {jwt.result.name} </span>
+								<span className="margin-let-rig" style={{marginRight:"15px"}} >Comisiones: {jwt.result.name} </span>
 							</div>
 							<div className="state-type" >
 								<li  className="" style={{marginRight:"10px",marginTop:"10px"}} > <GiRoundStar color="#ffca28" fontSize={28} /></li>
