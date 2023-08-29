@@ -990,9 +990,9 @@ const Dashboard = () => {
             {({ styles, date }) => {
               const customStyles = {
                 ...styles,
-                backgroundColor: "#6ae9a175",
-				width:"5.3%",
-				marginLeft:"-3.3%"
+                backgroundColor: "#6ae9a175 !important",
+				width:"5.3% !important",
+				marginLeft:"-3.3% !important"
               };
               return (
                 <div

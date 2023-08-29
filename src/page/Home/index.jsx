@@ -15,7 +15,6 @@ const Home =() =>{
     UseTitle({title:"Home"})
     //<ShowBed bed={ray}  />
 
-
     const handNextHotels =() =>{
         history.push(`/DetailBedRoom/${jwt.result.id_hotel}`)
     }
@@ -24,8 +23,6 @@ const Home =() =>{
         history.push(`/DetailStore/${jwt.result.id_hotel}`)
     }
 
-    
- 
     return (
         <div>
             <div className='container'>
@@ -40,6 +37,12 @@ const Home =() =>{
                         <RiStoreLine fontSize={24}/>
                         <span className='let-home' >Tienda</span>
                     </h3>
+                </div>
+                <div className='rowMenuCard-home '>
+                     <h3 class="itemName-home">
+                        <IoAnalyticsOutline fontSize={24}  />
+                        <span className='let-home'>Subir fotos plublicitaria</span>
+                     </h3>
                 </div>
                 <div className='rowMenuCard-home '>
                      <h3 class="itemName-home">
