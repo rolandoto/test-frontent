@@ -76,6 +76,7 @@ const InfoMessage = styled.div`
 `;
 
 const Dashboard = () => {
+
 	const currentDate = new moment();
 	const [reservation,setReservas] = useState()
 	const [pruebareservas,setpruebareservas] =useState()
@@ -89,8 +90,6 @@ const Dashboard = () => {
 	const {postUpdateDetailPointerRange} = useUpdateDetailPounterRangeSliceActions()
 	const {iduser} = UseListMotels()
 
-
-
 	const togglePopup = () => {
 		setIsOpen(!isOpen);
 	};
@@ -101,7 +100,6 @@ const Dashboard = () => {
         history.push("/")
     }
 
-	
 	const FindIdHotel=(hotel) =>{
 		return hotel.id_hotel == jwt.result.id_hotel
 	}
@@ -683,7 +681,6 @@ const Dashboard = () => {
 		})
 	},[setRoom])
 
-
 	const handCLickWhatsapp =() =>{
 		const link = document.createElement('a');
 		link.href = "https://api.whatsapp.com/send/?phone=573195550001";
@@ -737,7 +734,7 @@ const Dashboard = () => {
 		fetch(`${config.serverRoute}/api/resecion/getpublicidad`)
 		.then(resp => resp.json())
 		.then(data => setPublicidad(data.query))
-	},[])
+	},[setRoom])
 
 	const findImage =  statePublicidad?.find(item=> item.ID ==1)
 
