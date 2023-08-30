@@ -734,7 +734,7 @@ const Dashboard = () => {
 		fetch(`${config.serverRoute}/api/resecion/getpublicidad`)
 		.then(resp => resp.json())
 		.then(data => setPublicidad(data.query))
-	},[setRoom])
+	},[])
 
 	const findImage =  statePublicidad?.find(item=> item.ID ==1)
 
