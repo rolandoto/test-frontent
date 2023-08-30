@@ -730,7 +730,10 @@ const Dashboard = () => {
 		fetch(`${config.serverRoute}/api/resecion/userKpiTop`)
 		.then(resp => resp.json())
 		.then(data => setStateTop(data.query))
+	},[])
 
+
+	useEffect(() =>{
 		fetch(`${config.serverRoute}/api/resecion/getpublicidad`)
 		.then(resp => resp.json())
 		.then(data => setPublicidad(data.query))

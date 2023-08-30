@@ -1106,7 +1106,8 @@ hr {
   left: 0 !important;
   width: 100% !important;
   height: 100%  !important;
-  background-color: #00000037 !important;
+  background-color: #0000006e !important;
+  backdrop-filter: blur(15px);
   display: flex !important;
   justify-content: center !important;
   align-items: center !important;
