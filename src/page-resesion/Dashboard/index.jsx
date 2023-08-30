@@ -39,6 +39,7 @@ import { FaPlane,FaGrinStars } from "react-icons/fa";
 import { IoIosGift } from "react-icons/io"
 import { HiMiniArrowUpCircle } from "react-icons/hi2";
 import { config } from "../../config";
+import { AiFillCloseCircle } from "react-icons/ai";
 
 const GroupRows =({group,color,estado,iconState,letra}) =>{
 	return (
@@ -79,14 +80,20 @@ const Dashboard = () => {
 	const [reservation,setReservas] = useState()
 	const [pruebareservas,setpruebareservas] =useState()
 	const [state,setSate] =useState()
-	const {jwt,setJwt} =useContext(AutoProvider)
+	const {jwt,setJwt,isOpen, setIsOpen} =useContext(AutoProvider)
 	const history = useHistory()
-	const  now = moment().format("YYYY-MM-DD");
+	const now = moment().format("YYYY-MM-DD");
 	const timelineRef = useRef(null);
 	const  [totalDay ,setTotalDay] =useState()
 	const {postUpdateDetailPointer} = useUpdateDetailPointerActions()
 	const {postUpdateDetailPointerRange} = useUpdateDetailPounterRangeSliceActions()
 	const {iduser} = UseListMotels()
+
+
+
+	const togglePopup = () => {
+		setIsOpen(!isOpen);
+	};
 
 	const handClose =() =>{
         localStorage.removeItem('jwt')
@@ -109,8 +116,6 @@ const Dashboard = () => {
 		 countSeguro = parseInt(hotel?.valorseguro)
 	}
 
-	
-	
 	useEffect(() =>{
 		ServiceAllTotalReservation({fecha:now,id:jwt.result.id_hotel}).then(index =>{
 			setTotalDay(index)
@@ -456,7 +461,6 @@ const Dashboard = () => {
 		setInformes(e.target.value)	
 	}
 
-
 	useEffect(() =>{
 		if(stateInformes ==5){
 			return history.push("/informeauditoria")
@@ -492,7 +496,6 @@ const Dashboard = () => {
 
 		const 	fechaInit = new  Date(fechaFinal)
 		const	fechafinal = new Date(fecha)
-
 
 		var diasdif = fechafinal.getTime() - fechaInit.getTime();
     	var contdias = Math.round(diasdif / (1000 * 60 * 60 * 24));
@@ -606,7 +609,7 @@ const Dashboard = () => {
 	  };
 	
 	 
-	  const nowOne = new Date(2023, 4, 1, 3, 10);
+	const nowOne = new Date(2023, 4, 1, 3, 10);
 
 	const renderGroup = ({ group }) => {
 
@@ -680,12 +683,6 @@ const Dashboard = () => {
 		})
 	},[setRoom])
 
-	const [isOpen, setIsOpen] = useState(false);
-  	const [selectedOption, setSelectedOption] = useState(null);
-
-	const handleToggleDropdown = () => {
-		setIsOpen(!isOpen);
-	};
 
 	const handCLickWhatsapp =() =>{
 		const link = document.createElement('a');
@@ -727,14 +724,19 @@ const Dashboard = () => {
 	const totalKpi = tourTotal +sourvenirTotal
 
 	const [stateTop,setStateTop] =useState()
+	const [statePublicidad,setPublicidad]=useState()
 
 	useEffect(() =>{
 		fetch(`${config.serverRoute}/api/resecion/userKpiTop`)
 		.then(resp => resp.json())
 		.then(data => setStateTop(data.query))
+
+		fetch(`${config.serverRoute}/api/resecion/getpublicidad`)
+		.then(resp => resp.json())
+		.then(data => setPublicidad(data.query))
 	},[])
 
-	console.log(stateTop)
+	const findImage =  statePublicidad?.find(item=> item.ID ==1)
 
 	if(!search)  return null
 	if(!state)  return null
@@ -742,7 +744,24 @@ const Dashboard = () => {
 	if(!totalDay) return null
 	if(!pruebareservas) return null
 	return (
-		<>			
+		<>		
+		{isOpen ? 
+		<div className="popup-container">
+				<div className="popup">
+				
+					<img
+					src={findImage.Img_description}
+					alt="Anuncio"
+					className="advertisement-image"
+					/>
+					<button className="close-popup-btn" onClick={togglePopup}>
+					<AiFillCloseCircle fontSize={35}   />
+					</button>
+			
+			</div>
+		</div>
+		: (
+ 
 			<div ref={timelineRef} > 
 			<div  className="container-button">
 			<Spacer x={4} y={3} />
@@ -910,6 +929,8 @@ const Dashboard = () => {
 				</ul>
             </div>
 
+			
+
 			<Timeline
 				groupRenderer={renderGroup}
 				groups={search}
@@ -992,7 +1013,7 @@ const Dashboard = () => {
                 ...styles,
                 backgroundColor: "#6ae9a175",
 				width:"5.3%",
-				marginLeft:"-3.3%"
+				marginLeft:"-3.1%"
               };
               return (
                 <div
@@ -1010,6 +1031,9 @@ const Dashboard = () => {
 					reservas={<BsBell fontSize={20} color="white" />}
 					dollar={<CiBadgeDollar fontSize={20} />} />
 			</div>
+
+			) }
+		
 		</>
 
 	);

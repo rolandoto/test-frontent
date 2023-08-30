@@ -25,14 +25,31 @@ export const AutoProvider =({children}) =>{
 
     const [carts,setCarts] =useState(stateCart)
     const [update,setUpadte] = useState(false)
+    const [isOpen, setIsOpen] = useState(false);
 
     const [category,setCategory] =useState({
         Forma_pago:0
     })
 
+    
 
     return (
-            <Autoconext.Provider value={{jwt,setJwt,name,setName,show,setShow,carts,setCarts,qty, setQty,update,setUpadte,category,setCategory}}>
+            <Autoconext.Provider value={{jwt,
+                                        setJwt,
+                                        name,
+                                        setName,
+                                        show,
+                                        setShow,
+                                        carts,
+                                        setCarts,
+                                        qty, 
+                                        setQty,
+                                        update,
+                                        setUpadte,
+                                        category,
+                                        setCategory,
+                                        setIsOpen,
+                                        isOpen}}>
                 {children}
             </Autoconext.Provider>
     )

@@ -23,6 +23,10 @@ const Home =() =>{
         history.push(`/DetailStore/${jwt.result.id_hotel}`)
     }
 
+    const handNextStUpload =() =>{
+        history.push(`/UploadPopUp`)
+    }
+
     return (
         <div>
             <div className='container'>
@@ -38,7 +42,7 @@ const Home =() =>{
                         <span className='let-home' >Tienda</span>
                     </h3>
                 </div>
-                <div className='rowMenuCard-home '>
+                <div className='rowMenuCard-home' onClick={handNextStUpload}  >
                      <h3 class="itemName-home">
                         <IoAnalyticsOutline fontSize={24}  />
                         <span className='let-home'>Subir fotos plublicitaria</span>

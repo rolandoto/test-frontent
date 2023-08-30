@@ -228,6 +228,21 @@ const UploadImage =({file1,file2,ID}) =>{
   })
 }
 
+
+const UploadImageOne =({file1}) =>{
+  const formData = new FormData();
+  formData.append('myFile', file1);
+  return fetch(`https://geco-backend-production.up.railway.app/api/resecion/uploadPopUp`, {
+    method: 'POST',
+    body: formData,
+  }).then(resp =>{
+    if(!resp.ok) throw new Error('Response is not ok')
+    return resp.json()
+}).then(resp=>{
+    return resp
+})
+}
+
 const UploadImageFirma =({file1,ID}) =>{
     const formData = new FormData();
       formData.append('myFile', file1);
@@ -365,6 +380,7 @@ const GetKpiUser = ({month,year,idUser,ID_hotel}) =>{
     validCheckingAll,
     UploadImageFirma,
     postApiWhasatappCheckout,
-    GetKpiUser
+    GetKpiUser,
+    UploadImageOne
   }
   

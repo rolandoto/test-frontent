@@ -61,10 +61,11 @@ import Checkingn4 from "./page-resesion/checking4";
 import FirmaDigital from "./page-resesion/FimaDigital";
 import UploadImageCheckingTable from "./page-resesion/UploadImageCheckingTable";
 import SingnatureMaual from "./page-resesion/FirmarManual";
+import UploadPopUp from "./page/UploadPopUp";
 
 function App() {
   const { jwt } = useContext(AutoProvider);
-
+  
   const val = jwt ? jwt.result.id_permissions : 1;
 
   if (val == 1) {
@@ -76,6 +77,7 @@ function App() {
             <Switch>
               <Route exact path="/" component={Login} />
               <PrivateRoute exact path="/Home" component={Home} />
+              <PrivateRoute exact path="/UploadPopUp" component={UploadPopUp} />
               <PrivateRoute exact path="/Hotels" component={Hotels} />
               <PrivateRoute
                 exact

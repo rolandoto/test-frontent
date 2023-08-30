@@ -8,7 +8,6 @@ import { useParams,useHistory } from "react-router-dom/cjs/react-router-dom.min"
 import { useSelector } from "react-redux";
 import useDetailDashboardAction from "../../action/useDetailDashboardAction";
 
-
 const stepperDetails = [
     {
       count: 1,
@@ -191,8 +190,8 @@ const UploadImageCheckingTable =() =>{
                                 style={{width:"100%",height:"50px"}} 
                                 auto color={"success"}
                                     >
-                        <BsChevronRight  className="text-center-icon"   fontSize={25} color="white"  />
-                        </Button>    
+                <BsChevronRight  className="text-center-icon"   fontSize={25} color="white"  />
+                </Button>    
             </main>
         )
 

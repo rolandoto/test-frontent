@@ -22,7 +22,7 @@ function deleteCookie(name) {
 const UseUsers =() =>{
     const history = useHistory()
     const [state,setState] = useState({loading:false,error:false})
-    const {jwt,setJwt} = useContext(AutoProvider)
+    const {jwt,setJwt,isOpen, setIsOpen} = useContext(AutoProvider)
     const dispatch = useDispatch()
 
     const login = useCallback(({username,password,hotel}) =>{
@@ -30,6 +30,7 @@ const UseUsers =() =>{
         LoginService({username,password,hotel}).then(index =>{
             localStorage.setItem('jwt',JSON.stringify(index))
             createCookie("user", index);
+            setIsOpen(true)
             setJwt(index)
             dispatch(setLogin(index.result.id_user))
             setState({loading:true,error:false})
