@@ -738,6 +738,8 @@ const Dashboard = () => {
 
 	const findImage =  statePublicidad?.find(item=> item.ID ==1)
 
+	console.log(findImage)
+
 	if(!search)  return null
 	if(!state)  return null
 	if(!reservation)return null
