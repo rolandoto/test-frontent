@@ -733,12 +733,10 @@ const Dashboard = () => {
 	useEffect(() =>{
 		fetch(`${config.serverRoute}/api/resecion/getpublicidad`)
 		.then(resp => resp.json())
-		.then(data => setPublicidad(data.query))
+		.then(data => setPublicidad(data?.query))
 	},[])
 
-	const findImage =  statePublicidad?.find(item=> item.ID ==1)
-
-	console.log(findImage)
+	const findImage = statePublicidad?.find(item => item.ID == 1)
 
 	if(!search)  return null
 	if(!state)  return null
@@ -750,9 +748,9 @@ const Dashboard = () => {
 		{isOpen ? 
 		<div className="popup-container">
 				<div className="popup">
-				
+			
 					<img
-					src={findImage.Img_description}
+					src={`${findImage?.Img_description}`}
 					alt="Anuncio"
 					className="advertisement-image"
 					/>
