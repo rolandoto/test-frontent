@@ -729,7 +729,6 @@ const Dashboard = () => {
 		.then(data => setStateTop(data.query))
 	},[])
 
-
 	useEffect(() =>{
 		fetch(`${config.serverRoute}/api/resecion/getpublicidad`)
 		.then(resp => resp.json())

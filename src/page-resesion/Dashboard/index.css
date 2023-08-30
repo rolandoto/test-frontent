@@ -1125,11 +1125,11 @@ hr {
   margin-top: 10px !important;
   padding: 5px 10px !important;
   border: none !important;
-  border-radius: 5px !important ; 
+  border-radius: 5px !important;
   cursor: pointer !important;
   position: absolute !important;
-  top: 0 !important;
-  right: 0 !important;
+  top: 200px !important;
+  right: 258px !important;
 }
 
 /* ... estilos anteriores ... */
