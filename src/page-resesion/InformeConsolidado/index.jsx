@@ -436,6 +436,8 @@ const InformeConsolidado = () => {
     const totalFilterFormaStoreTransferencia= store?.filter(index => index.Forma_pago ==2)
     const carritoReservaTransferencia = storeOne?.filter(index => index.Forma_pago ==2)
 
+    console.log({"jjsdsahdjshkdja":totalFilterFormaTransferencia,totalFilterFormaStoreTransferencia,carritoReservaTransferencia})
+
     let countSixFive =0
     for(let i =0;i<totalFilterFormaTransferencia?.length;i++){
         if((totalFilterFormaTransferencia[i].Tipo_persona =="empresa")){
@@ -463,11 +465,7 @@ const InformeConsolidado = () => {
         countTwoSixFive += totalwith
     }
 
-    const totalTranferencia = countSixFive  + countOneSixFive + countTwoSixFour
-
-
-
-
+    const totalTranferencia = countSixFive  + countTwoSixFive + countOneSixFive
 
     const totalFilterFormaOne = auditoria?.filter(index => index.Forma_pago !=1)
 
@@ -686,6 +684,8 @@ const FacturaCompany  =({jwt,roomBusy,roomSell,efectivoTotal,otrosMedios,dolares
 
     let docToPrint = React.createRef();
 
+
+
     const [avaible,setAvaible] =useState()
     const [room,setRoom] =useState()
 
@@ -885,6 +885,9 @@ const FacturaCompany  =({jwt,roomBusy,roomSell,efectivoTotal,otrosMedios,dolares
     const totalCount = count +  totalTienda
 
     const totalDefinido =OtrosMedios + totalEfectivooNE
+
+
+    console.log(totalTranferencia)
 
 
     
