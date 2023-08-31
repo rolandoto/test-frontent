@@ -29,7 +29,7 @@ import UseListMotels from "../../hooks/UseListMotels";
 import useUpdateDetailPounterRangeSliceActions from "../../action/useUpdateDetailPounterRangeSliceActions";
 import HttpClient from "../../HttpClient";
 import { CiBadgeDollar } from "react-icons/ci";
-import { Button, Spacer, User } from '@nextui-org/react';
+import { Button, Checkbox, Input, Modal, Row, Spacer, Text, User } from '@nextui-org/react';
 import { CameraIcon, HeartIcon, LockIcon, NotificationIcon } from "./IconReservation";
 import Footer from "../../component/Footer/Footer";
 import { RiWhatsappFill ,RiLogoutBoxLine} from "react-icons/ri";
@@ -737,6 +737,14 @@ const Dashboard = () => {
 
 	const findImage = statePublicidad?.find(item => item.ID == 1)
 
+	const [visible, setVisible] = React.useState(false);
+	
+  const handler = () => setIsOpen(true);
+  const closeHandler = () => {
+    setIsOpen(false);
+    console.log("closed");
+  };
+
 	if(!search)  return null
 	if(!state)  return null
 	if(!reservation)return null
@@ -744,22 +752,26 @@ const Dashboard = () => {
 	if(!pruebareservas) return null
 	return (
 		<>		
-		{isOpen ? 
-		<div className="popup-container">
-				<div className="popup">
-			
-					<img
+
+
+<div>
+      <Modal
+	  	style={{background:"#ffffff00",border:"none"}}
+	  	 width="1300px"
+        closeButton
+        preventClose
+        open={isOpen}
+		blur={true}
+        onClose={closeHandler}
+      >
+       <img
 					src={`${findImage?.Img_description}`}
 					alt="Anuncio"
 					className="advertisement-image"
 					/>
-					<button className="close-popup-btn" onClick={togglePopup}>
-					<AiFillCloseCircle fontSize={35}   />
-					</button>
-			
-			</div>
-		</div>
-		: (
+      </Modal>
+    </div>
+		
  
 			<div ref={timelineRef} > 
 			<div  className="container-button">
@@ -1030,9 +1042,6 @@ const Dashboard = () => {
 					reservas={<BsBell fontSize={20} color="white" />}
 					dollar={<CiBadgeDollar fontSize={20} />} />
 			</div>
-
-			) }
-		
 		</>
 
 	);
