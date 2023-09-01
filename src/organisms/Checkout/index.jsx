@@ -36,9 +36,11 @@ const CheckoutOrganism =({DetailDashboard,postDetailRoom,fetchDataApiWhatsapp}) 
     const [filterFinish,setFilterFinish] =useState()
     const [invoince,setInvoice] =useState(false)
     const [comprobante,setComprobante] =useState(false)
-    const [isChecked, setIsChecked] = useState();
+    const [isChecked, setIsChecked] = useState(true);
     const [isChecke, setIsChecke] = useState();
     const [to,setTo] =useState()
+
+    console.log(isChecked)
 
     const handComprobante =() =>{
         setComprobante(true)
@@ -175,11 +177,13 @@ const CheckoutOrganism =({DetailDashboard,postDetailRoom,fetchDataApiWhatsapp}) 
 
 
     for(let i =0;i<data?.length;i++){
-        cart.push({
-            name:` ${data[i].Cantidad} ${data[i].Nombre_producto}`,
-            price:data[i].Precio,
-            pago_deuda:data[i].pago_deuda
-        })
+        if(isChecked){
+            cart.push({
+                name:` ${data[i].Cantidad} ${data[i].Nombre_producto}`,
+                price:data[i].Precio,
+                pago_deuda:data[i].pago_deuda
+            })
+        }
         sinIva.push({
             name:`${data[i].Cantidad} ${data[i].Nombre_producto}`,
             price:data[i].Precio,
@@ -444,6 +448,11 @@ const CheckoutOrganism =({DetailDashboard,postDetailRoom,fetchDataApiWhatsapp}) 
             ]
           });
     }
+
+
+    function handleOnChange(event) {
+        setIsChecked(!isChecked);
+      }
 
 
 
@@ -838,7 +847,15 @@ const CheckoutOrganism =({DetailDashboard,postDetailRoom,fetchDataApiWhatsapp}) 
                                         <ul>
                                         {MenuItems.map(index => (
                                             <li className="totalPricecheckout-two-finish negrita let-persona" >{index?.name}:</li>
-                                        ))}              
+                                        ))}     
+
+                                         <div className="container-checkbox" >
+                                                <input   type="checkbox" 
+                                                        className={`checkbox-round  ${isChecked && "checkbox-round-click"} `}
+                                                        onChange={handleOnChange}       
+                                                        checked={isChecked} /> Incluir tienda 
+                                                
+                                        </div>          
                                         </ul>                 
                                     </div>
                                     <div className="re-tow-definish">

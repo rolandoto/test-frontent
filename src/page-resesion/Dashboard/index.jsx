@@ -47,7 +47,6 @@ const GroupRows =({group,color,estado,iconState,letra}) =>{
 			<div>
 			<span className="font-room" >  {group} {estado}  </span> 
 			</div>
-
 			<div>
 			{iconState} 
 			</div>
@@ -771,8 +770,6 @@ const Dashboard = () => {
 					/>
       </Modal>
     </div>
-		
- 
 			<div ref={timelineRef} > 
 			<div  className="container-button">
 			<Spacer x={4} y={3} />
@@ -939,9 +936,6 @@ const Dashboard = () => {
 					</div>
 				</ul>
             </div>
-
-			
-
 			<Timeline
 				groupRenderer={renderGroup}
 				groups={search}
@@ -1016,24 +1010,22 @@ const Dashboard = () => {
 						/>
 				</TimelineHeaders>
 				<TimelineMarkers>
-          {/* <TodayMarker /> */}
-          {/* <CustomMarker date={moment().valueOf()} /> */}
-          <CustomMarker date={moment().add("day")}>
-            {({ styles, date }) => {
-              const customStyles = {
-                ...styles,
-                backgroundColor: "#6ae9a175",
-				width:"5.3%",
-				marginLeft:"-3.1%"
-              };
-              return (
-                <div
-                  style={customStyles}
-                  onClick={(event) => console.log("done")}
-                />
-              );
-            }}
-          </CustomMarker>
+				<CustomMarker date={moment().add("day")}>
+					{({ styles, date }) => {
+					const customStyles = {
+						...styles,
+						backgroundColor: "#6ae9a175",
+						width:"5.3%",
+						marginLeft:"-3.1%"
+					};
+					return (
+						<div
+						style={customStyles}
+						onClick={(event) => console.log("done")}
+						/>
+					);
+					}}
+				</CustomMarker>
           <CursorMarker />
         </TimelineMarkers>
 			</Timeline>
