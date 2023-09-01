@@ -13,7 +13,7 @@ import   AutoProvider  from "../../privateRoute/AutoProvider";
 import { useContext } from "react";
 import { config } from "../../config";
 
-const Invoince =({resultDashboard=[],carts=[],dataCount,setInvoice,priceCart,client,identification,raiting,handLoading,loading,handLoadingOne,sinIvaCart,tienda,handSubmitInsertCartOne,hancCheckout,lastname}) =>{
+const Invoince =({resultDashboard=[],carts=[],dataCount,setInvoice,priceCart,client,identification,raiting,handLoading,loading,handLoadingOne,sinIvaCart,tienda,handSubmitInsertCartOne,hancCheckout,lastname,fechaFinal}) =>{
         
     const dispatch  = useDispatch()
     const t= moment().format();   
@@ -277,7 +277,7 @@ const Invoince =({resultDashboard=[],carts=[],dataCount,setInvoice,priceCart,cli
 
 
                                 <span className="atm title-invoince-cart" >Recepcionista: {jwt.result.name} </span>
-                                <span className="atm title-invoince-cart" >Fecha: {date}</span>
+                                <span className="atm title-invoince-cart" >Fecha: {fechaFinal}</span>
                                 <span className="title-invoince-cart" >Tipo pago: {raiting}</span>
                                 <span className="title-invoince-cart">Cliente: {client} {lastname} </span>  
                                 <span className="title-invoince-cart">CC/NIT: {identification} </span> 

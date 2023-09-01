@@ -454,9 +454,7 @@ const CheckoutOrganism =({DetailDashboard,postDetailRoom,fetchDataApiWhatsapp}) 
         setIsChecked(!isChecked);
       }
 
-
-
-    console.log({"filterSearch":preSearchFilter})
+    const fechaFinal= moment(resultDashboard?.Fecha_final).utc().format('YYYY/MM/DD')
 
     if(findEmpresa)
     return (
@@ -719,7 +717,8 @@ const CheckoutOrganism =({DetailDashboard,postDetailRoom,fetchDataApiWhatsapp}) 
                                         loading={loading}
                                         handLoading={handLoading}
                                         handLoadingOne={handLoadingOne}
-                                        hancCheckout={hancCheckout} />}
+                                        hancCheckout={hancCheckout} 
+                                        fechaFinal={fechaFinal}/>}
 
         {loading ? null  :            
              <div className="container-flex-init-global" >
