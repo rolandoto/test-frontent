@@ -45,7 +45,7 @@ const Home =() =>{
                 <div className='rowMenuCard-home' onClick={handNextStUpload}  >
                      <h3 class="itemName-home">
                         <IoAnalyticsOutline fontSize={24}  />
-                        <span className='let-home'>Subir fotos plublicitaria</span>
+                        <span className='let-home'>Notificacion</span>
                      </h3>
                 </div>
                 <div className='rowMenuCard-home '>
