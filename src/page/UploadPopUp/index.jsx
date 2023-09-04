@@ -39,7 +39,7 @@ const UploadPopUp = () =>{
                         className="file-input"
                     />
                     <label htmlFor="fileInputone" className="file-input-label-two">
-                        {imagePath ? "imagen selecionada": 'Foto frontal documento...'}
+                        {imagePath ? "imagen selecionada": 'Imagen Notificacionß...'}
                         <PiCameraThin color="black"   fontSize={25}  />
                     </label>
             </div> 
