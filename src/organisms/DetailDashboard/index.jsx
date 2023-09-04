@@ -362,8 +362,6 @@ const DetailDasboard =(props) =>{
 
     const handClickInsertAbono =()  => {
       if(inputPayValue.PayAbono > 0 ){
-        
-      }
         HttpClient.insertPayABono({data:inputPayValue}).then(index=> {
           ServiceInfomeMovimiento({Nombre_recepcion:jwt.result.name,Fecha:now,Movimiento:`Abono agregado tipo habitacion ${resultFinish?.nombre} ${resultDashboard.Numero} nombre ${resultDashboard.Nombre} codigo reserva ${resultDashboard.id_persona}`,id:jwt.result.id_hotel}).then(index =>{
             Swal.fire({
@@ -387,6 +385,16 @@ const DetailDasboard =(props) =>{
             timer: 1000
           })
         })
+      }else {
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: '<p>Error de debe ser negativo </p>',
+          showConfirmButton: false,
+          timer: 1000
+        })
+      }
+       
     }
 
     const {handModalText} =UseModalText({handlModal:handClickInsertAbono,Text:"Agregar abono ?"})

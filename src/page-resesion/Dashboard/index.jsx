@@ -1,4 +1,4 @@
-import React, { useRef ,useState,useEffect,useContext} from "react";
+import React, { useRef ,useState,useEffect,useContext, useCallback} from "react";
 import moment from "moment";
 import "moment/locale/es";
 import Timeline,{
@@ -381,7 +381,17 @@ const Dashboard = () => {
         })
     },[setRoom])
 
+	const groups = []
+	for(let i =0;i<room?.length;i++){
+		groups.push({
+			title:room[i].nombre,
+			id:room[i].nombre
+		})
+	}
+
 	const [search,setSearch] =useState([])
+
+	console.log(search)
 
 	const filtrar=(terminoBusqueda)=>{
 		let resultadosBusqueda= state?.filter((elemento,index)=>{
@@ -687,7 +697,7 @@ const Dashboard = () => {
 		document.body.appendChild(link);
 		setTimeout(() => {
 		link.click();
-}, 100);
+		}, 100);
 	}
 
 	const numeroDelMes = moment().month() + 1;
@@ -957,6 +967,7 @@ const Dashboard = () => {
 				itemStyle={{ background: "black" }}
 				canMove
 				canResize={"both"}
+				
 				>
 				<TimelineHeaders className="list-booking-sticky"  >
 
