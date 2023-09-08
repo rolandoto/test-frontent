@@ -5,9 +5,13 @@ import App from './App';
 import { NextUIProvider } from '@nextui-org/react';
 import { AutoProvider } from './privateRoute/AutoProvider';
 import CustomNav from './Ui/CustomNav';
+import { Toaster } from 'react-hot-toast';
+
 ReactDOM.render(
   <React.StrictMode>
+    
     <NextUIProvider>  
+    <Toaster   position="top-right"reverseOrder={true}  />
       <AutoProvider >
       <App />
       </AutoProvider>

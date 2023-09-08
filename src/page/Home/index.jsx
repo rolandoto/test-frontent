@@ -27,6 +27,10 @@ const Home =() =>{
         history.push(`/UploadPopUp`)
     }
 
+    const handNextTarifasReservation  =() =>{
+         history.push(`/TarifasReservation/${jwt.result.id_hotel}`)
+    }
+
     return (
         <div>
             <div className='container'>
@@ -46,6 +50,12 @@ const Home =() =>{
                      <h3 class="itemName-home">
                         <IoAnalyticsOutline fontSize={24}  />
                         <span className='let-home'>Notificacion</span>
+                     </h3>
+                </div>
+                <div className='rowMenuCard-home' onClick={handNextTarifasReservation}  >
+                     <h3 class="itemName-home">
+                        <IoAnalyticsOutline fontSize={24}  />
+                        <span className='let-home'>Tarifas</span>
                      </h3>
                 </div>
                 <div className='rowMenuCard-home '>

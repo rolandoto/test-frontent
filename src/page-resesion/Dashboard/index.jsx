@@ -182,7 +182,6 @@ const Dashboard = () => {
 			const backgroundColor = itemContext.selected  ? "black" :color
 
 			const key = `${item.id}_${item.id}_schedule`;
-			
 
 			return (
 				

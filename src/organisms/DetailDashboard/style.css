@@ -55,7 +55,7 @@
   background: white;
   border-radius: 8px;
   margin: 4px;
-  width: 18%;
+  width: 20.5%;
   padding: 10px;
 }
 
@@ -1053,4 +1053,20 @@
   background: white;
   padding: 3px;
   border-radius: 5px;
+}
+
+
+.form-margintop-solicitud{
+  margin-top: -55px;
+  display: flex;
+  align-items: center;
+}
+
+.error-solicitud{
+  border: solid 2px red;
+  color:red
+}
+
+.error-solicitud::placeholder{
+  color:red
 }

@@ -67,6 +67,7 @@ const DetailChekingOrganism =({id}) =>{
         setIsChecked(false);
       }
 
+  
     const handState =() =>{
        history.push(`/checkingediatar/${id}`)
     }
@@ -315,6 +316,7 @@ const DetailChekingOrganism =({id}) =>{
             console.log(e)
         }) 
     }
+    
     
     const tota = resulDetailDashboard?.valor_habitacion
     const quitarone = tota?.slice(4)

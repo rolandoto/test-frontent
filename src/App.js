@@ -62,6 +62,7 @@ import FirmaDigital from "./page-resesion/FimaDigital";
 import UploadImageCheckingTable from "./page-resesion/UploadImageCheckingTable";
 import SingnatureMaual from "./page-resesion/FirmarManual";
 import UploadPopUp from "./page/UploadPopUp";
+import TarifasReservation from "./page/TarifasReservation";
 
 function App() {
   const { jwt } = useContext(AutoProvider);
@@ -78,7 +79,9 @@ function App() {
               <Route exact path="/" component={Login} />
               <PrivateRoute exact path="/Home" component={Home} />
               <PrivateRoute exact path="/UploadPopUp" component={UploadPopUp} />
+              <PrivateRoute exact path="/TarifasReservation/:id" component={TarifasReservation} />
               <PrivateRoute exact path="/Hotels" component={Hotels} />
+
               <PrivateRoute
                 exact
                 path="/DetailBedRoom/:id"

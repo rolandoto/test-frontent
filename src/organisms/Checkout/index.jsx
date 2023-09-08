@@ -24,7 +24,6 @@ import ServePdf from "../../service/PdfServe"
 
 const CheckoutOrganism =({DetailDashboard,postDetailRoom,fetchDataApiWhatsapp}) =>{
 
-
     const {id} = useParams()
     const {jwt} = useContext(AutoProvider)
     const [room,setRoom] =useState()
@@ -45,8 +44,6 @@ const CheckoutOrganism =({DetailDashboard,postDetailRoom,fetchDataApiWhatsapp}) 
     const handComprobante =() =>{
         setComprobante(true)
     }   
-
-
 
     const [fp,setfP] =useState()
 
@@ -113,8 +110,6 @@ const CheckoutOrganism =({DetailDashboard,postDetailRoom,fetchDataApiWhatsapp}) 
    
     const resultFinish = room?.find(index=>index?.id_tipoHabitacion == resultDashboard?.ID_Tipo_habitaciones)
 
-
-
     useEffect(() =>{
         fetch(`${config.serverRoute}/api/resecion/getcartreservaction/${id}`)
         .then(resp => resp.json())
@@ -163,9 +158,7 @@ const CheckoutOrganism =({DetailDashboard,postDetailRoom,fetchDataApiWhatsapp}) 
     const totalObject = totalStore ? totalStore.toLocaleString() :0
 
     const now = moment().format("YYYY/MM/DD")
-
-   
-                
+       
     const cart =[]
 
     const sinIva =[]
@@ -175,7 +168,6 @@ const CheckoutOrganism =({DetailDashboard,postDetailRoom,fetchDataApiWhatsapp}) 
         price:`${resultDashboard.valor_habitacion} `
     })
 
-
     for(let i =0;i<data?.length;i++){
         if(isChecked){
             cart.push({
@@ -184,11 +176,11 @@ const CheckoutOrganism =({DetailDashboard,postDetailRoom,fetchDataApiWhatsapp}) 
                 pago_deuda:data[i].pago_deuda
             })
         }
-        sinIva.push({
-            name:`${data[i].Cantidad} ${data[i].Nombre_producto}`,
-            price:data[i].Precio,
-            pago_deuda:data[i].pago_deuda
-        })
+            sinIva.push({
+                name:`${data[i].Cantidad} ${data[i].Nombre_producto}`,
+                price:data[i].Precio,
+                pago_deuda:data[i].pago_deuda
+            })
     }
     
     const [query,setQuery] = useState()
@@ -220,11 +212,9 @@ const CheckoutOrganism =({DetailDashboard,postDetailRoom,fetchDataApiWhatsapp}) 
         return      acum  + parseInt( current.price)
     },0)
 
-
     const sinIvaCart  = sinIva?.reduce((acum,current) =>{
         return      acum  + parseInt( current.price)
     },0)
-
 
     const persona  = searchFilter?.filter(index => index.type_people =="Persona Natural")
     const juridica = searchFilter?.filter(index => index.type_people =="Persona Juridica")
@@ -374,7 +364,7 @@ const CheckoutOrganism =({DetailDashboard,postDetailRoom,fetchDataApiWhatsapp}) 
 
     var formatteOne = totalStore.toLocaleString();
 
-    const [factura,setFactura] = useState(false)
+    const [factura,setFactura] = useState(false)    
 
     let timerInterval
     const handServiFormularios =() =>{

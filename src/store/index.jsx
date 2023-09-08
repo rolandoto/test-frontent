@@ -16,9 +16,7 @@ import { apiWhataapSlice } from '../reducers/apiWhatsaapReduccers'
 import { UpdateDetailPounterSlice } from '../reducers/updateDatailPounterReducer'
 import { UpdateDetailPounterRangeSlice } from '../reducers/updateDatailPounterRangeReducer'
 import { ReservationSlice } from '../reducers/ReservationReducers'
-
-
-
+import { apiTarifasReservationSlice } from '../reducers/apiPostTarifasReservation'
 
 const persistanceLocalStorageMiddleware = (store) => (next) => (action) => {
 	next(action);
@@ -44,7 +42,8 @@ const store = configureStore ({
         apiWhataap:apiWhataapSlice.reducer,
         updateDetailPounter:UpdateDetailPounterSlice.reducer,
         UpdateDetailPounterRangeSlice:UpdateDetailPounterRangeSlice.reducer,
-        ReservationSlice:ReservationSlice.reducer
+        ReservationSlice:ReservationSlice.reducer,
+        TarifasReservation:apiTarifasReservationSlice.reducer
     },
     devTools:true,
     middleware: [persistanceLocalStorageMiddleware],

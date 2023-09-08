@@ -17,6 +17,7 @@ import { confirmAlert } from "react-confirm-alert";
 import Swal from "sweetalert2";
 import { HeartIcon } from "../../page-resesion/Dashboard/IconReservation";
 import { Button } from "@nextui-org/react";
+import { toast } from "react-hot-toast";
 
 const Checkingn2Organism =({id,postDetailRoom,fetchDataApiWhatsapp,postWhataapById}) =>{
     
@@ -162,12 +163,11 @@ const Checkingn2Organism =({id,postDetailRoom,fetchDataApiWhatsapp,postWhataapBy
     const toPriceHabitacion = UsePrice({number:resulDetailDashboard?.valor_habitacion})
 
     const toPricediaHabitacion = UsePrice({number:resulDetailDashboard?.valor_dia_habitacion})
-
-    const totalAbono =   (resulDetailDashboard?.valor_habitacion) 
    
     const now = moment().set({ hour: 0, minute: 0, second: 0 }).format('YYYY/MM/DD HH:mm:ss');
-    
+         
     const inputPayValue ={
+        ID_pago:resulDetailDashboard?.ID_pago,
         ID_Reserva: id,
         PayAbono: parseInt(resulDetailDashboard?.valor_habitacion)  - parseInt(resulDetailDashboard?.valor_abono) ,
         Fecha_pago: now,
@@ -186,7 +186,7 @@ const Checkingn2Organism =({id,postDetailRoom,fetchDataApiWhatsapp,postWhataapBy
                 })
             }
     }
-    
+
     let dataTwo = {
         ID_Tipo_Forma_pago:change.ID_Tipo_Forma_pago
     }
@@ -195,8 +195,8 @@ const Checkingn2Organism =({id,postDetailRoom,fetchDataApiWhatsapp,postWhataapBy
 
     const totalNumberPhone = numberPhone.replace("+","")
 
-    console.log(resulDetailDashboard)
-
+   
+    console.log(resulDetailDashboard?.ID_pago)
     const handUpdateConfirms = async () => {
         setDisable(true);
         try {
@@ -212,15 +212,8 @@ const Checkingn2Organism =({id,postDetailRoom,fetchDataApiWhatsapp,postWhataapBy
       
           await ServiceInfomeMovimiento({ Nombre_recepcion: jwt.result.name, Fecha: now, Movimiento: movimiento, id: jwt.result.id_hotel });
           setDisable(false);
-          Swal.fire({
-            position: 'center',
-            icon: 'success',
-            title: '<p>pago exitoso</p>',
-            showConfirmButton: false,
-            timer: 2000
-          });
-      
-        
+          toast.success("pago exitoso")
+          
           history.push(`/checkingin3/${id}`);
         } catch (error) {
           console.log(error);

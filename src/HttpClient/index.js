@@ -357,6 +357,57 @@ const GetKpiUser = ({month,year,idUser,ID_hotel}) =>{
   })
 }
 
+const postUpdateTarifaReservation  = ({id,valid_buy,noches,Abono,ID_reservation,valor}) =>{
+  return fetch((`${config.serverRoute}/api/admin/posUpdateTarifasReservation/${id}`),{
+    method:"POST",
+      body:JSON.stringify({id,valid_buy,noches,Abono,ID_reservation,valor}),
+      headers:{
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      }
+      }).then(resp =>{
+        if(!resp.ok) throw new Error('Response is not ok')
+        return resp.json()
+    }).then(resp=>{
+        return resp
+    })
+}
+
+const postTarifaReservation  = ({id_user,
+                                        id_hotel,
+                                        valor,
+                                        Description,
+                                        Fecha,
+                                        ID_reservation,
+                                        name_reservation,
+                                        codigo_reserva,
+                                        noches,
+                                        Abono}) =>{
+
+return fetch((`${config.serverRoute}/api/admin/postInsetTarifaReservation`),{
+    method:"POST",
+      body:JSON.stringify({id_user,
+        id_hotel,
+        valor,
+        Description,
+        Fecha,
+        ID_reservation,
+        name_reservation,
+        codigo_reserva,
+        noches,
+        Abono}),
+      headers:{
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      }
+      }).then(resp =>{
+        if(!resp.ok) throw new Error('Response is not ok')
+        return resp.json()
+    }).then(resp=>{
+        return resp
+    })
+}
+
   export default {
     get,
     post,
@@ -381,6 +432,8 @@ const GetKpiUser = ({month,year,idUser,ID_hotel}) =>{
     UploadImageFirma,
     postApiWhasatappCheckout,
     GetKpiUser,
-    UploadImageOne
+    UploadImageOne,
+    postUpdateTarifaReservation,
+    postTarifaReservation
   }
   

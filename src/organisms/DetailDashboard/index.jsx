@@ -38,27 +38,23 @@ import UseModalText from "../../hooks/UseModalText";
 import { Button, Grid, Image, Spacer, Table as table,Tooltip, User } from "@nextui-org/react";
 import { CiBadgeDollar,CiDollar ,CiExport,CiUser,CiCirclePlus} from "react-icons/ci";
 import { PiUsersLight,PiShoppingBagOpenLight,PiPaypalLogoLight } from "react-icons/pi";
+import { toast } from "react-hot-toast";
+import HistorialDetailReservation from "../../component/HistorialDetailReservation";
 
 const DetailDasboard =(props) =>{
     const {id} = useParams()
     const [state,setState] =useState(true)
     const [room,setRoom] =useState()
     const [tipoDocumento,setTipoDocumento] =useState()
-    const {DetailDashboard,fetchData,postDetailRoom} = props
+    const {DetailDashboard,fetchData,postDetailRoom,postInsertTarifas,handClickLoading} = props
     const [loading,setLoading] =useState({loading:false,error:false})
     const history = useHistory()
     const {iduser} = UseListMotels()
     const {jwt} = useContext(AutoProvider)
 
-    const FindIdHotel=(hotel) =>{
-      return hotel.id_hotel == jwt.result.id_hotel
-    }
-
     const totalId = jwt.result.id_hotel == 7 || jwt.result.id_hotel == 3 || jwt.result.id_hotel == 4 || jwt.result.id_hotel == 23 ||  jwt.result.id_hotel == 5 || jwt.result.id_hotel == 6 || jwt.result.id_hotel == 12   ?  true : false
  
     const resultDashboard = DetailDashboard[0]
-
-    console.log({"detail":resultDashboard})
 
     const findPersona =  resultDashboard?.tipo_persona == "persona"
     const findEmpresa = resultDashboard?.tipo_persona =="empresa"
@@ -104,6 +100,7 @@ const DetailDasboard =(props) =>{
       const [huesped,setHuesped] =useState(false)
       const [consumo,setConsumo] =useState(false)
       const [pago,setPago] =useState(true)
+      const [historialReservation,setHistorialReservation] =useState(false)
       const [quyery,setQuery] =useState()
       const [documnet,setDocument] = useState()
       const [country,setCountry] =useState()
@@ -113,6 +110,7 @@ const DetailDasboard =(props) =>{
       const [infantes,setInfantes] =useState()
       const [estadia,setStadia] =useState("")
       const [error,setError] =useState(false)
+      const [errorAbono,setErrorAbono] =useState(false)
       const [product,setProduct] =useState()
       const [observacion,setObservacion] =useState()
       const [loadinConsumo,setLoadingConsumo] =useState(false)
@@ -120,7 +118,28 @@ const DetailDasboard =(props) =>{
       const [disponibilidad,setDisponibilidad] =useState()
       const [asignar,setAsignar] =useState()
       const [loadingTypeRoom,setLoadingTypeRoom] =useState({loading:false,error:false})
+      const [descripcion,setDescription] =useState(null)
+      const [valorSolicitado, setValorSolicitado] = useState('');
+ 
+      const isValidNumber = (value) => {
+        const parsedValue = parseFloat(value);
+        return !isNaN(parsedValue) && parsedValue >= 0;
+      };
 
+      const handChangeValorsolicitado = (event) => {
+        const inputValue = event.target.value;
+
+        if (isValidNumber(inputValue)) {
+          setError('');
+          setValorSolicitado(inputValue);
+        } else {
+          setError('El valor solicitado no puede ser negativo.');
+        }
+      };
+
+      const  handChangeDescription =(e) =>{
+        setDescription(e.target.value)
+      }
 
       const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -158,18 +177,28 @@ const DetailDasboard =(props) =>{
         setHuesped(true)
         setConsumo(false)
         setPago(false)
+        setHistorialReservation(false)
       }
 
       const handConsumo=() =>{
         setHuesped(false)
         setConsumo(true)
         setPago(false)
+        setHistorialReservation(false)
       }
 
       const handPago =() =>{
         setHuesped(false)
         setConsumo(false)
         setPago(true)
+        setHistorialReservation(false)
+      }
+
+      const handhistorial=() =>{
+        setHuesped(false)
+        setConsumo(false)
+        setPago(false)
+        setHistorialReservation(true)
       }
 
       function handleOnChange(event) {
@@ -221,18 +250,11 @@ const DetailDasboard =(props) =>{
 
     const handChangeSave =() =>{
       ServiceInfomeMovimiento({Nombre_recepcion:jwt.result.name,Fecha:now,Movimiento:`Se actualizo datos personales tipo habitacion ${resultFinish?.nombre} ${resultDashboard.Numero} nombre ${resultDashboard.Nombre} codigo reserva ${resultDashboard.id_persona}`,id:jwt.result.id_hotel}).then(index =>{
-        Swal.fire({
-          position: 'center',
-          icon: 'success',
-          title: '<p>Se actualizo los datos</p>',
-          showConfirmButton: false,
-          timer: 2000
-        })
-        setTimeout(() =>{
-          window.location.reload()
-        },2000)
+        toast.success("Se actualizo los datos")
+        handClickLoading()
       }).catch(e =>{
           console.log(e)
+          toast.error("Error al actualizar datos")
       })
 
       setState(!state)
@@ -343,8 +365,8 @@ const DetailDasboard =(props) =>{
           [event.target.name] : event.target.value
       })
     }
-
     const [inputPayValue, setInputPayValue] = useState({
+      ID_pago:resultDashboard?.ID_pago,
       ID_Reserva: id,
       PayAbono: 0,
       Fecha_pago: now,
@@ -354,45 +376,39 @@ const DetailDasboard =(props) =>{
 
     const handleInputPay = (event) => {
       const value = parseInt(event.target.value);
+      if(event.target.name =="PayAbono"){
+        if(isValidNumber(value)){
+          setInputPayValue({
+            ...inputPayValue,
+            [event.target.name]: value
+          });
+        }
+      }else{
         setInputPayValue({
           ...inputPayValue,
           [event.target.name]: value
         });
+      }
+      
     }
 
     const handClickInsertAbono =()  => {
       if(inputPayValue.PayAbono > 0 ){
         HttpClient.insertPayABono({data:inputPayValue}).then(index=> {
           ServiceInfomeMovimiento({Nombre_recepcion:jwt.result.name,Fecha:now,Movimiento:`Abono agregado tipo habitacion ${resultFinish?.nombre} ${resultDashboard.Numero} nombre ${resultDashboard.Nombre} codigo reserva ${resultDashboard.id_persona}`,id:jwt.result.id_hotel}).then(index =>{
-            Swal.fire({
-              position: 'center',
-              icon: 'success',
-              title: '<p>Abono exitoso</p>',
-              showConfirmButton: false,
-              timer: 1000
-            })
-              window.location.reload()
+            toast.success('Abono exitoso!')
+            handClickLoading()
           }).catch(e =>{
               console.log(e)
           })
        
         }).catch(e =>{
-          Swal.fire({
-            position: 'center',
-            icon: 'error',
-            title: '<p>Error</p>',
-            showConfirmButton: false,
-            timer: 1000
-          })
+          setErrorAbono(true)
+          toast.error('Error al guardar abono!')
         })
       }else {
-        Swal.fire({
-          position: 'center',
-          icon: 'error',
-          title: '<p>Error de debe ser negativo </p>',
-          showConfirmButton: false,
-          timer: 1000
-        })
+        toast.error('Error no debe ser negativos!')
+        setErrorAbono(true)
       }
        
     }
@@ -438,6 +454,8 @@ const DetailDasboard =(props) =>{
 
   const totalPrice =  DetailDashboard.reduce((acum,item)  =>  acum  + parseInt(item.valor_habitacion) - parseInt(item.valor_abono) - parseInt(inputPayValue.PayAbono),0) 
 
+  console.log(totalPrice)
+
   const totaCobrar  =  totalPrice  ? totalPrice : 0
 
   let count
@@ -458,9 +476,7 @@ const DetailDasboard =(props) =>{
     }
 
 
-    const [loadingHuesped,setLoadingHuesped]=useState(false)
-
-
+  const [loadingHuesped,setLoadingHuesped]=useState(false)
 
   const hanAdd=() =>{
     setLoadingHuesped(true)
@@ -564,9 +580,6 @@ const priceLenceria = Lenceria?.reduce((acum,current) => {
     return acum  + current.Cantidad * current.Precio
 },0)
 
-
-
-
   const hanDelete =() =>{
     if(parseInt(resultDashboard.valor_abono) <=0){
       ServiDelteReservation({id}).then(index =>{  
@@ -580,15 +593,26 @@ const priceLenceria = Lenceria?.reduce((acum,current) => {
         console.log("error")
     })
     }else{
-      Swal.fire({
-        position: 'center',
-        icon: 'error',
-        title: '<p>no se puede eliminar la reserva</p>',
-        showConfirmButton: false,
-        timer: 1000
-      })
+      toast.error("Error al eliminar Habitacion")
     }  
 } 
+
+const isValidNumberOne = (value) => {
+  const parsedValue = parseFloat(value);
+  return !isNaN(parsedValue) && parsedValue >= 1;
+};
+
+const handClickPostTarifasReservation =async() =>{
+  if(isValidNumberOne(valorSolicitado) && isNaN(descripcion) ){
+    await postInsertTarifas({id_user:jwt.result.id_user,id_hotel:jwt.result.id_hotel,valor:valorSolicitado,Description:descripcion,Fecha:now,ID_reservation:id,name_reservation:resultDashboard.Nombre,codigo_reserva:`${resultDashboard?.Num_documento}${id}`,noches:day,Abono:parseInt(valor)})
+    setDescription("")
+    setValorSolicitado("")
+  }else{
+    toast.error("Completa todos formulario")
+    setError(true)
+  }
+}
+
 
 const  typy_buy =  [
   {   
@@ -651,20 +675,18 @@ var currOne = new Date(resultDashboard?.Fecha_final);
 currOne.setDate(currOne.getDate());
 var fecha_final = currOne.toISOString().substring(0,10);
 
-const PriceRoomById= room?.find(index=>index?.id_tipoHabitacion == idRoom)
-
 const documentByIdRoom =  resultDashboard?.Num_documento +""+id
-
-//console.log({"prueba console" :resultDashboard})
 
 const hancPdf =() =>{
   ServePdf({  codigoReserva:documentByIdRoom,Nombre:resultDashboard?.Nombre,habitacion:`${resultFinish?.nombre}${resultDashboard.Numero}`,adults:resultDashboard?.Adultos,children:resultDashboard?.Ninos,tituloReserva:resultDashboard?.Nombre,abono:resultDashboard?.valor_abono,formaPago:resultDashboard?.forma_pago,telefono:resultDashboard.Celular,identificacion: resultDashboard?.Num_documento,correo:resultDashboard.Correo,urllogo:jwt?.result?.logo,tarifa:resultDashboard.valor_habitacion,entrada:fecha_inicio,salida:fecha_final}).then(index => {
     const link = document.createElement('a')
+    toast.success("Descargando comprobante")
     link.href =index;
     link.setAttribute('target', '_blank');
     link.download = 'Documento.pdf';
     document.body.appendChild(link);
     link.click();
+    
     document.body.removeChild(link) 
       setPdfOne(index)
       ServiceInfomeMovimiento({Nombre_recepcion:jwt.result.name,Fecha:now,Movimiento:`Descargar comprobante tipo habitacion ${resultFinish?.nombre} ${resultDashboard.Numero} nombre ${resultDashboard.Nombre},  codigo reserva ${resultDashboard.id_persona}` ,id:jwt.result.id_hotel}).then(index =>{                  
@@ -673,6 +695,7 @@ const hancPdf =() =>{
       })
   }).catch(e =>{
     console.log(e)
+    toast.error("Error al Descargar comprobante")
   })
 } 
 
@@ -875,48 +898,46 @@ const  handleClickEliminar =UseModalText({handlModal:hanDelete,Text:"Estas segur
               e.preventDefault()
         }} >
         <div className="container-detail-dasboard-in" > 
-        <span className="desde-detail-two-title-photo" >Forma pago:</span>
-        <span className="desde-detail-two-title-photo-three" >Abono:</span>
-        <span className="desde-detail-two-title-photo-four" >Doc frontal:</span>
-        <span className="desde-detail-two-title-photo-four" >Doc posterior:</span>
-        <span className="desde-detail-two-title-photo" >Firma:</span>
-            </div>
-              <div className="container-detail-dasboard-in-photo" > 
-              <select   name="Tipo_forma_pago"
-                        value={inputPayValue.Tipo_forma_pago}
-                        onChange={handleInputPay}
-                        className="desde-detail-twophoto"    >
-                    <option></option>
-                    {typy_buy?.map(category =>(
-                        <option 
-                        value={category.id}   
-                        key={category.id}>
-                        {category.name}
-                    </option>
-                    )
-                    )}
+          <span className="desde-detail-two-title-photo" >Forma pago:</span>
+          <span className="desde-detail-two-title-photo-three" >Abono:</span>
+          <span className="desde-detail-two-title-photo-four" >Doc frontal:</span>
+          <span className="desde-detail-two-title-photo-four" >Doc posterior:</span>
+          <span className="desde-detail-two-title-photo" >Firma:</span>
+        </div>
+              <div className="container-detail-dasboard-in-photo" >       
+                <select   name="Tipo_forma_pago"
+                            value={inputPayValue.Tipo_forma_pago}
+                            onChange={handleInputPay}
+                            className={`desde-detail-twophoto ${errorAbono ? "error-solicitud" : ""}  ` }   >
+                        <option></option>
+                        {typy_buy?.map(category =>(
+                            <option 
+                            value={category.id}   
+                            key={category.id}>
+                            {category.name}
+                        </option>
+                        )
+                        )}
                 </select>
-                <input   name="PayAbono"
-                          onChange={handleInputPay}
-                          type="number"
-                          value={inputPayValue.PayAbono}
-                          defaultValue={0}
-                        className="desde-detail-twophoto"  />
+              <input   name="PayAbono"
+                        onChange={handleInputPay}
+                        type="number"
+                        value={inputPayValue.PayAbono}
+                       
+                      className={`desde-detail-twophoto  ${errorAbono ? "error-solicitud" : "" } `} />        
                 <div>
-                <Tooltip content={"Agregar pago sin coma, ni punto "} style={{color:"white"}} >
-                <button style={{background:"black"}} 
-                 className="button-change-type-room " 
-                  onClick={handModalText} >
-                     <span className="negrita-detail-reserva  row-text-box" style={{marginLeft:"10px"}}   ><CiCirclePlus  fontSize={35}  /> <span> Abono</span></span>
-                  </button>
-                </Tooltip> 
-              
+                  <Tooltip content={"Agregar pago sin coma, ni punto "} style={{color:"white"}} >
+                  <button style={{background:"black"}} 
+                  className="button-change-type-room" 
+                    onClick={handModalText} >
+                      <span className="negrita-detail-reserva  row-text-box" style={{marginLeft:"10px"}}   ><CiCirclePlus  fontSize={35}  /> <span> Abono</span></span>
+                    </button>
+                  </Tooltip> 
+
+               
                 </div>  
-
                 <div className="row-flex-one"   >
-                 
                     <img
-
                         src={`${resultDashboard.Foto_documento_adelante ? resultDashboard.Foto_documento_adelante : "https://github.com/rolandoto/image-pms/blob/main/pdf_Mesa%20de%20trabajo%201_Mesa%20de%20trabajo%201%20(1).png?raw=true"  }`}
                         objectFit="initial"
                         alt="Default Image"
@@ -956,11 +977,37 @@ const  handleClickEliminar =UseModalText({handlModal:hanDelete,Text:"Estas segur
                       </div>
                   )}
                 </div>
-                <div>
-                </div>
-              
             </div>
+
+            <div className="form-margintop-solicitud" >
+
+              <input  
+                onChange={handChangeDescription}
+                value={descripcion}
+                name="PayAbono"
+                placeholder="Descripcion del envio"
+                type="text"
+                className={`desde-detail-twophoto ${error ? "error-solicitud" : "" } `}  />  
+              <input
+                name="PayAbono"
+                type="number"
+                id="valorSolicitadoInput"
+                placeholder="Valor solicitado"
+                className={`desde-detail-twophoto ${error ? "error-solicitud" : "" } `} 
+                onChange={handChangeValorsolicitado}
+                defaultValue={0}
+                value={valorSolicitado}
+              />
+                <button style={{background:"black"}} 
+                 className="button-change-type-room " 
+                  onClick={handClickPostTarifasReservation} >
+                     <span className="negrita-detail-reserva  row-text-box" style={{marginLeft:"10px"}}   ><CiCirclePlus  fontSize={35}  /> <span> Enviar</span></span>
+                  </button>
+
+            </div>
+          
         </form>
+      
       </div>
 
         <div className="container-flex-init-one-center " >
@@ -989,13 +1036,9 @@ const  handleClickEliminar =UseModalText({handlModal:hanDelete,Text:"Estas segur
               </ReactTooltip>
            
               <div className="name-pinter"  onClick={handleClickEliminar.handModalText} data-tip data-for="registerTip" >
-            
                   <div>
-                
                     <img width={33} src="https://medellin47.com/ico_pms/qcancel.svg" alt="" />
-                   
                   </div>
-                 
               </div>
               <ReactTooltip id="registerTip-1" place="top" effect="solid">
                     Actualizar reserva
@@ -1039,7 +1082,7 @@ const  handleClickEliminar =UseModalText({handlModal:hanDelete,Text:"Estas segur
             <Button
             className="button-checking-detail-one-das" 
             color={`${totalPrice <=0 ? "success" : "error" }`} 
-          > <span  className="text-words" >Total a cobro ${totaCobrar.toLocaleString()} </span> </Button>
+            > <span  className="text-words" >Total a cobro ${totaCobrar.toLocaleString()} </span> </Button>
               
             </div>
       </div>
@@ -1059,9 +1102,7 @@ const  handleClickEliminar =UseModalText({handlModal:hanDelete,Text:"Estas segur
                                                         onChange={handChangeObservation}
                                                         className="obs" ></textarea>  
       
-      </div>
-
-
+      </div>  
       {!stateButton && 
       <div className="init-one-three top-detail  " >
       <form  className="container-flex-init" >
@@ -1070,7 +1111,7 @@ const  handleClickEliminar =UseModalText({handlModal:hanDelete,Text:"Estas segur
                     <li className={`${huesped ? "desde-detail-three-estados-black-one-finish" :"desde-detail-three-estados" } `} onClick={handHuesped} >Huespedes:  <PiUsersLight fontSize={25}  /> {quyery?.length}  </li>
                     <li className={`${consumo ? "desde-detail-three-estados-black" :"desde-detail-three-estados" } `} onClick={handConsumo} >Consumos: <PiShoppingBagOpenLight fontSize={25} /> {product?.length >0 ?product?.length : 0  }  </li>
                     <li className={`${pago ? "desde-detail-three-estados-black" :"desde-detail-three-estados" } `}  onClick={handPago} >Pagos: <PiPaypalLogoLight  fontSize={25}   /> {product?.length >0 ?product?.length : 0 }   </li>
-                    <li className={`${!pago ? "desde-detail-three-estados-black" :"desde-detail-three-estados" } `}   >Historial:</li>
+                    <li className={`${historialReservation ? "desde-detail-three-estados-black" :"desde-detail-three-estados" } `}  onClick={handhistorial}  >Historial:</li>
                 </ul>
            { huesped && <Huesped  quyery={quyery}
                                   DetailDashboard={DetailDashboard}
@@ -1112,6 +1153,7 @@ const  handleClickEliminar =UseModalText({handlModal:hanDelete,Text:"Estas segur
           {pago && <Pagos   pagos={resultDashboard}  
                             idReserva={id}
                             typy_buy={typy_buy}   />}
+          {historialReservation && <HistorialDetailReservation />}
         </div>       
       </form>
       </div>
@@ -1269,7 +1311,7 @@ const Huesped =({quyery,handEditar,handChangeSubmit ,stateButton,DetailDashboard
 
   const query =[]
 
-  for(let i =0;i<quyery.length;i++){
+  for(let i =0;i<quyery?.length;i++){
     if(quyery[i+1]){
       query.push(quyery[i])
     }
@@ -1537,8 +1579,6 @@ const Pagos =(props) =>{
     .then(data=> setPatSate(data.query))
   },[loading])
 
-
-
 let count =0
 for(let i =0;i<payState?.length;i++){
     if((payState[i].Tipo_persona =="empresa")){
@@ -1589,8 +1629,6 @@ return (
      </Paper>  
 )
 }
-
-
 
 const ItemCardPago =({index,typy_buy,setloading}) => { 
 
