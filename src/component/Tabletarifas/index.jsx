@@ -55,14 +55,14 @@ const TableTarifas = (props) =>{
     return (
             <tr  >
                 <td>
-                    <User
-                    bordered
-                    squared
-                    src={foto}
-                    name={name}
-                    color={color}
-                    zoomed
-                    /></td>
+                        <User
+                        bordered
+                        squared
+                        src={foto}
+                        name={name}
+                        color={color}
+                        zoomed
+                        /></td>
                         <td>{Description}</td>
                         <td>${valor.toLocaleString()}</td>
                         <td>{fecha}</td>
