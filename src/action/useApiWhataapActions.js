@@ -45,9 +45,9 @@ const useApiWhataapActions =() =>{
             const postResponse = await  HttpClient.postApiWhasatappSolicitud({to})
             console.log(postResponse)
             if(postResponse){
-                return toast.success("Se envio solicitud")
+               
             }else{
-                return toast.error("error")
+                
             }
         } catch (error) {
             console.log("error")
