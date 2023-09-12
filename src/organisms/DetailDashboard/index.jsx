@@ -40,20 +40,27 @@ import { CiBadgeDollar,CiDollar ,CiExport,CiUser,CiCirclePlus} from "react-icons
 import { PiUsersLight,PiShoppingBagOpenLight,PiPaypalLogoLight } from "react-icons/pi";
 import { toast } from "react-hot-toast";
 import HistorialDetailReservation from "../../component/HistorialDetailReservation";
+import io from 'socket.io-client';
 
 const DetailDasboard =(props) =>{
+
+
+  
     const {id} = useParams()
     const [state,setState] =useState(true)
     const [room,setRoom] =useState()
     const [tipoDocumento,setTipoDocumento] =useState()
-    const {DetailDashboard,fetchData,postDetailRoom,postInsertTarifas,handClickLoading} = props
+    const {DetailDashboard,fetchData,postDetailRoom,postInsertTarifas,handClickLoading,fetchWhatsapp} = props
     const [loading,setLoading] =useState({loading:false,error:false})
     const history = useHistory()
     const {iduser} = UseListMotels()
     const {jwt} = useContext(AutoProvider)
 
     const totalId = jwt.result.id_hotel == 7 || jwt.result.id_hotel == 3 || jwt.result.id_hotel == 4 || jwt.result.id_hotel == 23 ||  jwt.result.id_hotel == 5 || jwt.result.id_hotel == 6 || jwt.result.id_hotel == 12   ?  true : false
- 
+
+    const numbersRecepcion = jwt.result.id_hotel == 13 &&  "573022395096"|| jwt.result.id_hotel == 7 &&  "573022395096"|| jwt.result.id_hotel == 23 &&  "573022395096" || jwt.result.id_hotel == 3 &&  "573007785193"|| jwt.result.id_hotel == 4 &&  "573007785193"|| jwt.result.id_hotel == 8 &&  "573007785193" || jwt.result.id_hotel == 5 &&  "573195550001" || jwt.result.id_hotel == 6 &&  "573195550001" || jwt.result.id_hotel == 12 &&  "573195550001"
+    console.log(numbersRecepcion)
+
     const resultDashboard = DetailDashboard[0]
 
     const findPersona =  resultDashboard?.tipo_persona == "persona"
@@ -605,6 +612,7 @@ const isValidNumberOne = (value) => {
 const handClickPostTarifasReservation =async() =>{
   if(isValidNumberOne(valorSolicitado) && isNaN(descripcion) ){
     await postInsertTarifas({id_user:jwt.result.id_user,id_hotel:jwt.result.id_hotel,valor:valorSolicitado,Description:descripcion,Fecha:now,ID_reservation:id,name_reservation:resultDashboard.Nombre,codigo_reserva:`${resultDashboard?.Num_documento}${id}`,noches:day,Abono:parseInt(valor)})
+    await fetchWhatsapp({to:numbersRecepcion})
     setDescription("")
     setValorSolicitado("")
   }else{

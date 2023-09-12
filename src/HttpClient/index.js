@@ -408,6 +408,26 @@ return fetch((`${config.serverRoute}/api/admin/postInsetTarifaReservation`),{
     })
 }
 
+const postApiWhasatappSolicitud = ({ to}) => {
+  const formData = new FormData();
+  formData.append('body', "solicitud");
+  formData.append('token', '1c38cf1f1b92656924501747a458e4a6b5ac30306d29ed668f9bd8f99f2832fc6ee451');
+  formData.append('instance', '268');
+  formData.append('to',to);
+  formData.append('language', "es");
+  formData.append('type', 'text');
+  return fetch('https://whatslight.com/manager/ajax/chat_api.ajax.php', {
+    method: 'POST',
+    body: formData,
+  })
+    .then(resp => {
+      if (resp.success) throw new Error('Response is not ok');
+      return resp.json();
+    }).catch(e =>{
+      console.log(e)
+    })
+}
+
   export default {
     get,
     post,
@@ -434,6 +454,7 @@ return fetch((`${config.serverRoute}/api/admin/postInsetTarifaReservation`),{
     GetKpiUser,
     UploadImageOne,
     postUpdateTarifaReservation,
-    postTarifaReservation
+    postTarifaReservation,
+    postApiWhasatappSolicitud
   }
   

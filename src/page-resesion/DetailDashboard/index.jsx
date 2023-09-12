@@ -9,6 +9,7 @@ import LineProgress from "../../Ui/LineProgress";
 import moment from "moment/moment";
 import useDetailRoomAction from "../../action/useDetailRoomAction";
 import useTarifasReservationActions from "../../action/useTarifasReservationActions";
+import useApiWhataapActions from "../../action/useApiWhataapActions";
 
 const DetailDashboard =() =>{
     const {id} = useParams()    
@@ -17,10 +18,15 @@ const DetailDashboard =() =>{
     const {getDetailReservationById} = useDetailDashboardAction()
     const {postDetailRoom} =  useDetailRoomAction()
     const {PostTarifasReservationById}=useTarifasReservationActions()
+    const  {postWhataapByIdSolicitud} =useApiWhataapActions()   
     const {loading,error,DetailDashboard
                 } = useSelector((state) => state.DetailDashboard)
     const fetchData =async() =>{
         await getDetailReservationById({id})
+    }
+
+    const fetchWhatsapp =async({to})=>{
+        await postWhataapByIdSolicitud({to})
     }
 
     const handClickLoading =() =>{
@@ -46,6 +52,7 @@ const DetailDashboard =() =>{
         fetchData()
     },[loadingDetail])
 
+
     const fillConten =() =>{
         if(progress <100){
             return <LineProgress progress={progress} />  
@@ -63,6 +70,8 @@ const DetailDashboard =() =>{
                     fetchData={fetchData} 
                     postInsertTarifas={postInsertTarifas}
                     handClickLoading={handClickLoading}
+                    fetchWhatsapp={fetchWhatsapp}
+                    
                     />}
 
     return (

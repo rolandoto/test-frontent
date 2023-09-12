@@ -1,6 +1,7 @@
 import { useAppDispatch } from "../hooks/redux"
 import HttpClient from "../HttpClient"
 import { setWhatsapp,setError,loading } from "../reducers/apiWhatsaapReduccers"
+import { toast } from "react-hot-toast";
 
 const useApiWhataapActions =() =>{
 
@@ -39,9 +40,24 @@ const useApiWhataapActions =() =>{
         }
     }
 
+    const postWhataapByIdSolicitud = async({to}) =>{
+        try {
+            const postResponse = await  HttpClient.postApiWhasatappSolicitud({to})
+            console.log(postResponse)
+            if(postResponse){
+                return toast.success("Se envio solicitud")
+            }else{
+                return toast.error("error")
+            }
+        } catch (error) {
+            console.log("error")
+        }
+    }
+
     return {
         postWhataapById,
-        postWhataapByIdCheckout
+        postWhataapByIdCheckout,
+        postWhataapByIdSolicitud
     }
 }
 
