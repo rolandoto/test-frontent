@@ -11,7 +11,11 @@ import  AutoProvider  from "../../privateRoute/AutoProvider";
 import { RiLogoutBoxLine } from "react-icons/ri";
 import io from 'socket.io-client';
 
+const socket = io.connect("http://localhost:3001");
+
 const HeaderRecepcion  =() =>{
+
+    const message="exit"
 
     const {setJwt} = useContext(AutoProvider)
     const {jwt} = UseUsers()
@@ -29,6 +33,7 @@ const HeaderRecepcion  =() =>{
         localStorage.removeItem('jwt')
         setJwt(null)
         history.push("/")
+        socket.emit("ExitPms",message);
     }
 
     if(!jwt) return null
