@@ -59,6 +59,30 @@
   padding: 10px;
 }
 
+.desde-detail-twophoto-two{
+  height: 50px;
+  border: none;
+  background: white;
+  border-radius: 8px;
+  margin: 4px;
+ width: 19.89%;
+  padding: 10px;
+}
+
+@media screen and (max-width: 1024px) {
+  .desde-detail-twophoto-two{
+    height: 50px;
+    border: none;
+    background: white;
+    border-radius: 8px;
+    margin: 4px;
+    width: 19.1%;
+    padding: 10px;
+  }
+}
+
+
+
 .desde-detail-two-one {
   height: 50px;
   border: none;

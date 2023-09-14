@@ -1006,13 +1006,13 @@ const  handleClickEliminar =UseModalText({handlModal:hanDelete,Text:"Estas segur
                 name="PayAbono"
                 placeholder="Descripcion del envio"
                 type="text"
-                className={`desde-detail-twophoto ${error ? "error-solicitud" : "" } `}  />  
+                className={`desde-detail-twophoto-two ${error ? "error-solicitud" : "" } `}  />  
               <input
                 name="PayAbono"
                 type="number"
                 id="valorSolicitadoInput"
                 placeholder="Valor solicitado"
-                className={`desde-detail-twophoto ${error ? "error-solicitud" : "" } `} 
+                className={`desde-detail-twophoto-two ${error ? "error-solicitud" : "" } `} 
                 onChange={handChangeValorsolicitado}
                 defaultValue={0}
                 value={valorSolicitado}

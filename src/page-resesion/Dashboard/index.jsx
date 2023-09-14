@@ -521,8 +521,6 @@ const Dashboard = () => {
 			Total=totalDiaPat
 		}
 
-		
-
 		const handModalText =(e) =>{
 			confirmAlert({
 			  title: '',
