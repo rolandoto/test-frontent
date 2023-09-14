@@ -980,7 +980,7 @@
 .row-flex-one{
   display: flex !important;
   justify-content: space-around !important;
-  width: 50%;
+  width: 51%;
 }
 
 .img-photo{
