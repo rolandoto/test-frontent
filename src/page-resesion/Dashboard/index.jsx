@@ -83,7 +83,6 @@ const InfoMessage = styled.div`
 const Dashboard = () => {
 
 
-	
 	const currentDate = new moment();
 	const [reservation,setReservas] = useState()
 	const [pruebareservas,setpruebareservas] =useState()
@@ -96,6 +95,8 @@ const Dashboard = () => {
 	const {postUpdateDetailPointer} = useUpdateDetailPointerActions()
 	const {postUpdateDetailPointerRange} = useUpdateDetailPounterRangeSliceActions()
 	const {iduser} = UseListMotels()
+
+	const message  =jwt?.result?.photo
 
 	const togglePopup = () => {
 		setIsOpen(!isOpen);
@@ -520,12 +521,11 @@ const Dashboard = () => {
 			Total=totalDiaPat
 		}
 
-		const message  =jwt?.result?.photo
+		
 
 		const handModalText =(e) =>{
 			confirmAlert({
 			  title: '',
-			  message: Text,
 			  
 				  customUI: ({ onClose }) => {
 					const handClick = () =>{
@@ -583,7 +583,6 @@ const Dashboard = () => {
 		const handModalText =(e) =>{
 			confirmAlert({
 			  title: '',
-			  message: Text,
 			  
 				  customUI: ({ onClose }) => {
 	
