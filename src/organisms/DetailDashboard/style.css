@@ -55,8 +55,20 @@
   background: white;
   border-radius: 8px;
   margin: 4px;
-  width: 20.5%;
+  width: 21.5%;
   padding: 10px;
+}
+
+@media screen and (min-width: 1024px) and (max-width: 1366px) {
+  .desde-detail-twophoto {
+    height: 50px;
+    border: none;
+    background: white;
+    border-radius: 8px;
+    margin: 4px;
+    width: 20.5%;
+    padding: 10px;
+  }
 }
 
 .desde-detail-two-one {
@@ -981,6 +993,14 @@
   display: flex !important;
   justify-content: space-around !important;
   width: 50%;
+}
+
+@media screen and (min-width: 1024px) and (max-width: 1366px) {
+  .row-flex-one{
+    display: flex !important;
+  justify-content: space-around !important;
+  width: 48%;
+  }
 }
 
 .img-photo{
