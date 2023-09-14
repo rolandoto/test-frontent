@@ -17,12 +17,16 @@
     import Swal from 'sweetalert2'
     import useProgress from "../../hooks/useProgress";
     import LineProgress from "../../Ui/LineProgress";            
-    const ref = React.createRef();
+    import io from "socket.io-client";
+
+    const socket = io.connect("http://localhost:3001");
 
 const DashboardModal = (props) => {
+        
 
         const {iduser} = UseListMotels()
         const {jwt} = useContext(AutoProvider)
+        const message  =jwt?.result?.photo
         const [valueEditar,setValueEditar] =useState()
 
 
@@ -491,6 +495,8 @@ const DashboardModal = (props) => {
             formatter.format(0)  
         }
 
+
+      
         const ray = [1,2,4]
 
         useEffect(() =>{
@@ -509,12 +515,13 @@ const DashboardModal = (props) => {
         const totalFindRoom =  disponibilidad?.query?.find(index => index.ID ==  asignar)
 
         const findRoomOne =  room?.find(index => index?.id_tipoHabitacion == fecha)
-
+       
           const handClickReservation = async () => {
             if(valid){
                 setLoadingReservation({loading:true})
                     ServiceAvaiblereservation({desde:dataAvaible.desde,hasta:dataAvaible.hasta,habitaciones:dataAvaible.habitaciones,disponibilidad:dataAvaible.disponibilidad,id_estados_habitaciones:0,ID_Canal:change.canal_reserva,Adultos:change.adultos,Ninos:change.niños,ID_Talla_mascota:change.talla_perro,Infantes:change.infantes,Noches:ResultDay,huespe,Observacion:change.observacion,valor:totalResultglobal,ID_Tipo_Forma_pago:change.ID_Tipo_Forma_pago,abono:change.abono,valor_habitacion:valor_habiatcion,Tipo_persona:"sdasdsa",valor_dia_habitacion:default_Value,resepcion:jwt.result.name,link:"https://test-frontent-wk73.vercel.app/webchecking",id_hotel:jwt.result.id_hotel,nowOne}).then(index =>{
                         setLoadingReservation({loading:false}) 
+                        socket.emit("sendNotification",message);
                         setCreateReservation(true)
                         Swal.fire({
                             position: 'center',
@@ -523,6 +530,8 @@ const DashboardModal = (props) => {
                             showConfirmButton: false,
                             timer: 500
                           })
+                        
+                      
                       ServiceInfomeMovimiento({Nombre_recepcion:jwt.result.name,Fecha:now,Movimiento:`Creación reserva tipo habitacion ${findRoomOne.nombre} ${totalFindRoom.Numero}`,id:jwt.result.id_hotel}).then(index =>{
                         setTimeout(() =>{
                             window.location.href="/Home"

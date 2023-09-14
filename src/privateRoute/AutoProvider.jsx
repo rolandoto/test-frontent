@@ -1,7 +1,13 @@
 import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import io from "socket.io-client";
+
 const Autoconext = React.createContext({})
+const socket = io.connect("http://localhost:3001");
 
 export const AutoProvider =({children}) =>{
+
+    const history = useHistory()
 
     const [name,setName] = useState(
         () => window.localStorage.getItem('name')
@@ -12,10 +18,21 @@ export const AutoProvider =({children}) =>{
     )
 
     const [show,setShow]= useState(false)
+
+
+    
     
     useEffect(() =>{
         setShow(false) 
     },[setJwt])
+
+    useEffect(()=>{
+        socket.on("ExitPms", (data) => {
+            setJwt(null)
+            console.log(data)
+            window.location.href="/"
+        })
+    },[socket])
 
     const stateCart = {
         cart:[]

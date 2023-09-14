@@ -15,7 +15,9 @@ import { CiBellOn } from "react-icons/ci";
 import ServiceInfomeMovimientoPost from "../service/ServiceInformeMovimientoPost";
 import moment from "moment";
 import { CiUser } from "react-icons/ci";
+import io from 'socket.io-client';
 
+const socket = io.connect("http://localhost:3001");
 
 const SideNavBar = () => {
 
@@ -26,6 +28,7 @@ const SideNavBar = () => {
     const [user,setUser] = useState(false)
     const [state,setState] =useState()
     const  now = moment().format("YYYY-MM-DD");
+    const message="exit"
 
     const handOpenModal =() =>{
         setUser(true)
@@ -43,8 +46,6 @@ const SideNavBar = () => {
 
     const primerosNumeros = state?.slice(0, 3);
 
-    console.log(update)
-
     const hanChange =() =>{
         setUpadte(!update)
     }
@@ -53,6 +54,7 @@ const SideNavBar = () => {
         localStorage.removeItem('jwt')
         setJwt(null)
         history.push("/")
+        socket.emit("ExitPms",message);
     }
 
 

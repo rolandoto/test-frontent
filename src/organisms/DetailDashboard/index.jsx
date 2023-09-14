@@ -40,11 +40,19 @@ import { CiBadgeDollar,CiDollar ,CiExport,CiUser,CiCirclePlus} from "react-icons
 import { PiUsersLight,PiShoppingBagOpenLight,PiPaypalLogoLight } from "react-icons/pi";
 import { toast } from "react-hot-toast";
 import HistorialDetailReservation from "../../component/HistorialDetailReservation";
-import io from 'socket.io-client';
+import io from "socket.io-client";
+
+const socket = io.connect("http://localhost:3001");
 
 const DetailDasboard =(props) =>{
+  
+  const [messageReceived, setMessageReceived] = useState("exitoso");
 
-
+  useEffect(() => {
+    socket.on("sendNotification", (data) => {
+     console.log(data)
+    });
+  }, [socket]);
   
     const {id} = useParams()
     const [state,setState] =useState(true)
@@ -55,6 +63,8 @@ const DetailDasboard =(props) =>{
     const history = useHistory()
     const {iduser} = UseListMotels()
     const {jwt} = useContext(AutoProvider)
+    
+    const message  =jwt?.result?.photo
 
     const totalId = jwt.result.id_hotel == 7 || jwt.result.id_hotel == 3 || jwt.result.id_hotel == 4 || jwt.result.id_hotel == 23 ||  jwt.result.id_hotel == 5 || jwt.result.id_hotel == 6 || jwt.result.id_hotel == 12   ?  true : false
 
@@ -592,6 +602,7 @@ const priceLenceria = Lenceria?.reduce((acum,current) => {
       ServiDelteReservation({id}).then(index =>{  
         postDetailRoom({id:resultDashboard?.ID_Habitaciones,ID_estado_habitacion:0})
         ServiceInfomeMovimiento({Nombre_recepcion:jwt.result.name,Fecha:now,Movimiento:`Reserva eliminada tipo habitacion ${resultFinish?.nombre} ${resultDashboard.Numero} nombre ${resultDashboard.Nombre} codigo reserva ${id} `,id:jwt.result.id_hotel}).then(index =>{
+          socket.emit("sendNotification",message);
           window.location.href="/Home"
         }).catch(e =>{
             console.log(e)

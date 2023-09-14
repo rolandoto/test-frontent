@@ -21,8 +21,18 @@ import { CiUser ,CiShop,CiBank } from "react-icons/ci";
 import ServiceInfomeMovimiento from "../../service/ServiceInformeMovimiento"
 import UseModalText from "../../hooks/UseModalText"
 import ServePdf from "../../service/PdfServe"
+import io from "socket.io-client";
+
+
+const socket = io.connect("http://localhost:3001");
 
 const CheckoutOrganism =({DetailDashboard,postDetailRoom,fetchDataApiWhatsapp}) =>{
+
+    useEffect(() => {
+        socket.on("receive_message", (data) => {
+          console.log(data)
+        });
+      }, [socket]);
 
     const {id} = useParams()
     const {jwt} = useContext(AutoProvider)
