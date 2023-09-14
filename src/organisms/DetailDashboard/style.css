@@ -992,14 +992,14 @@
 .row-flex-one{
   display: flex !important;
   justify-content: space-around !important;
-  width: 59%;
+  width: 50%;
 }
 
 @media screen and (min-width: 1024px) and (max-width: 1366px) {
   .row-flex-one{
     display: flex !important;
   justify-content: space-around !important;
-  width: 47%;
+  width: 50%;
   }
 }
 
