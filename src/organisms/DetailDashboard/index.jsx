@@ -42,7 +42,7 @@ import { toast } from "react-hot-toast";
 import HistorialDetailReservation from "../../component/HistorialDetailReservation";
 import io from "socket.io-client";
 
-const socket = io.connect("http://localhost:3001");
+const socket = io.connect("https://railway.grupo-hoteles.com");
 
 const DetailDasboard =(props) =>{
   
