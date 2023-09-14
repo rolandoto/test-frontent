@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import io from "socket.io-client";
 
 const Autoconext = React.createContext({})
-const socket = io.connect("http://localhost:3001");
+const socket = io.connect("https://railway.grupo-hoteles.com");
 
 export const AutoProvider =({children}) =>{
 

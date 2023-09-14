@@ -17,7 +17,7 @@ import moment from "moment";
 import { CiUser } from "react-icons/ci";
 import io from 'socket.io-client';
 
-const socket = io.connect("http://localhost:3001");
+const socket = io.connect("https://railway.grupo-hoteles.com");
 
 const SideNavBar = () => {
 
