@@ -520,6 +520,8 @@ const Dashboard = () => {
 			Total=totalDiaPat
 		}
 
+		const message  =jwt?.result?.photo
+
 		const handModalText =(e) =>{
 			confirmAlert({
 			  title: '',
@@ -532,12 +534,13 @@ const Dashboard = () => {
 							setpruebareservas(newReservation);
 							setReservas(newReservation)
 							postUpdateDetailPointer({ id: itemId, Fecha_final: fecha,countSeguro });
-							
+							socket.emit("sendNotification",message);
 						}else{
 							newReservation[ReservationIndex].end_time = time
 							setpruebareservas(newReservation);
 							setReservas(newReservation)
 							postUpdateDetailPointer({ id: itemId, Fecha_final: fecha,countSeguro });
+							socket.emit("sendNotification",message);
 						}
 						onClose()
 				}
@@ -598,6 +601,8 @@ const Dashboard = () => {
 							  postUpdateDetailPointerRange({desde,hasta,ID_Habitaciones,id:itemId,ID_estado_habiatcion})
 							  setpruebareservas(updatedItems);
 							  setReservas(updatedItems)
+							  socket.emit("sendNotification",message);
+							  
 						onClose() 
 					}
 		
