@@ -170,7 +170,7 @@ const postApiWhasatapp = ({ to, plantilla,name }) => {
   formData.append('type', 'text');
   const parametros = [
     { type: 'text', text: name },
-    { type: 'text', text: 'http://turismocity.co' },
+    { type: 'text', text: 'http://turismocity.co/gh' },
     { type: 'text', text: ' https://grupo-hoteles.com/suvenir' },
   ];
   formData.append('parameters', JSON.stringify(parametros));
