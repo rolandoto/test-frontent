@@ -160,7 +160,7 @@ const postUpdateRoomDetail = ({ID_estado_habitacion,id}) =>{
   })
 }
 
-const postApiWhasatapp = ({ to, plantilla,name }) => {
+const postApiWhasatapp = ({ to, plantilla,name,url }) => {
   const formData = new FormData();
   formData.append('body', plantilla);
   formData.append('token', '1c38cf1f1b92656924501747a458e4a6b5ac30306d29ed668f9bd8f99f2832fc6ee451');
@@ -169,9 +169,8 @@ const postApiWhasatapp = ({ to, plantilla,name }) => {
   formData.append('language', "es");
   formData.append('type', 'text');
   const parametros = [
+    { type: 'text', text: url },
     { type: 'text', text: name },
-    { type: 'text', text: 'http://turismocity.co' },
-    { type: 'text', text: ' https://grupo-hoteles.com/suvenir' },
   ];
   formData.append('parameters', JSON.stringify(parametros));
   return fetch('https://whatslight.com/manager/ajax/chat_api.ajax.php', {
@@ -428,6 +427,25 @@ const postApiWhasatappSolicitud = ({ to}) => {
     })
 }
 
+
+const PostUploadCarPresent  = ({ID_Reserva,Username}) =>{
+  return fetch((`https://geco-backend-production.up.railway.app/api/resecion/uploadCartPresent`),{
+    method:"POST",
+      body:JSON.stringify({ID_Reserva,Username}),
+      headers:{
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      }
+      }).then(resp =>{
+        if(!resp.ok) throw new Error('Response is not ok')
+        return resp.json()
+    }).then(resp=>{
+        return resp
+    })
+}
+
+
+
   export default {
     get,
     post,
@@ -455,6 +473,7 @@ const postApiWhasatappSolicitud = ({ to}) => {
     UploadImageOne,
     postUpdateTarifaReservation,
     postTarifaReservation,
-    postApiWhasatappSolicitud
+    postApiWhasatappSolicitud,
+    PostUploadCarPresent
   }
   

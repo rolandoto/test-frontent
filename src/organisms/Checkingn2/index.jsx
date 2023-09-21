@@ -191,18 +191,23 @@ const Checkingn2Organism =({id,postDetailRoom,fetchDataApiWhatsapp,postWhataapBy
         ID_Tipo_Forma_pago:change.ID_Tipo_Forma_pago
     }
 
+    const userName = resulDetailDashboard?.Nombre +" "+resulDetailDashboard?.Apellido 
+
     const numberPhone = resulDetailDashboard?.codigo +""+ resulDetailDashboard?.Celular
 
     const totalNumberPhone = numberPhone.replace("+","")
 
-   
-    console.log(resulDetailDashboard?.ID_pago)
     const handUpdateConfirms = async () => {
         setDisable(true);
         try {
 
-          await fetchDataApiWhatsapp({ phone: totalNumberPhone, name:`${resulDetailDashboard.Nombre} ${resulDetailDashboard.Apellido}`});
-        
+        HttpClient.PostUploadCarPresent({ID_Reserva:id,Username:userName}).then((item) =>{
+             fetchDataApiWhatsapp({ phone: totalNumberPhone, name:`${resulDetailDashboard.Nombre} ${resulDetailDashboard.Apellido}`,url:item.imageCarPresents});
+        }).catch(e =>{
+            console.log("error")
+        })
+
+         
           await ServiceUpdateReservationpay({ id, dataOne: dataTwo });
       
           await postDetailRoom({ id: resulDetailDashboard?.ID_Habitaciones, ID_estado_habitacion: 3 });
