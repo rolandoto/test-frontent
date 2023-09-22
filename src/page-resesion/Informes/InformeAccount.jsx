@@ -54,9 +54,11 @@ const InformeAccount = () =>  {
             <LoadingDetail 
                         loading={true}
                         titleLoading={"Informe cuenta pendiente"}  />
+            <br />
             <div>
                 <input type="date" className="input-selecto-dasboard-n1-reservaction"   onChange={hadChangeFecha}      />
-                <button className="button-informe-cosultar"  onClick={handClicAccountArring}>Consultar</button>
+                <br />
+                <button className="button-informe-cosultar-cuentas"  onClick={handClicAccountArring}>Consultar</button>
             </div>
            
             <table className="de"  ref={componentRef} >

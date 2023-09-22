@@ -9,15 +9,15 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  animation: ease ;
-  transition:background-color 0.8s ease;
+  animation: ease;
+  transition: background-color 0.8s ease;
 }
 
 .container-detail-dasboard-in {
   display: flex;
 }
 
-.container-detail-dasboard-in-photo{
+.container-detail-dasboard-in-photo {
   display: flex;
   justify-content: space-between;
 }
@@ -49,28 +49,28 @@
   padding: 10px;
 }
 
-.desde-detail-twophoto{
+.desde-detail-twophoto {
   height: 50px;
   border: none;
   background: white;
   border-radius: 8px;
   margin: 4px;
-  width: 20.5%;
+  width: 21.5%;
   padding: 10px;
 }
 
-.desde-detail-twophoto-two{
+.desde-detail-twophoto-two {
   height: 50px;
   border: none;
   background: white;
   border-radius: 8px;
   margin: 4px;
- width: 19.89%;
+  width: 20.89%;
   padding: 10px;
 }
 
 @media screen and (max-width: 1024px) {
-  .desde-detail-twophoto-two{
+  .desde-detail-twophoto-two {
     height: 50px;
     border: none;
     background: white;
@@ -80,6 +80,8 @@
     padding: 10px;
   }
 }
+
+
 
 
 
@@ -150,26 +152,26 @@
   margin: auto !important;
 }
 
-.container-flex-init-global-one{
+.container-flex-init-global-one {
   margin-top: 15;
   margin: auto !important;
 }
 
-.container-flex-init-global-carbed{
+.container-flex-init-global-carbed {
   max-width: 91%;
   margin: auto !important;
 }
 
 .container-flex-init {
   justify-content: revert;
-    margin: auto;
+  margin: auto;
 }
 
 
-.container-flex-init-One{
+.container-flex-init-One {
   justify-content: revert;
-    margin: auto;
-    max-width: 83%;
+  margin: auto;
+  max-width: 83%;
 }
 
 
@@ -219,14 +221,14 @@
 }
 
 
-.values-total{
+.values-total {
   background: black;
   color: white;
   justify-content: center;
   align-items: center;
 }
 
-.init-dasboard-modal{
+.init-dasboard-modal {
   padding: 2px 5px 0px 5px;
   display: block;
   margin: auto;
@@ -237,7 +239,7 @@
 }
 
 
-.init-dasboard-modal-modal{
+.init-dasboard-modal-modal {
   padding: 2px 5px 0px 5px;
   display: block;
   margin: auto;
@@ -258,7 +260,7 @@
   margin-top: 5px;
 }
 
-.init-informe{
+.init-informe {
   padding: 15px;
   display: block;
   margin: auto;
@@ -315,7 +317,7 @@
 }
 
 
-.container-flex-init-one-row{
+.container-flex-init-one-row {
   display: flex;
   justify-content: space-between;
   max-width: 83%;
@@ -404,7 +406,7 @@
 }
 
 
-.desde-detail-two-title-update-tafira{
+.desde-detail-two-title-update-tafira {
   height: 30px;
   border: none;
   border-radius: 8px;
@@ -414,7 +416,7 @@
 }
 
 
-.desde-detail-two-title-photo{
+.desde-detail-two-title-photo {
   height: 30px;
   border: none;
   border-radius: 8px;
@@ -423,7 +425,7 @@
   padding: 10px;
 }
 
-.desde-detail-two-title-photo-one{
+.desde-detail-two-title-photo-one {
   height: 30px;
   border: none;
   border-radius: 8px;
@@ -433,7 +435,7 @@
 }
 
 
-.desde-detail-two-title-photo-four{
+.desde-detail-two-title-photo-four {
   height: 30px;
   border: none;
   border-radius: 8px;
@@ -442,7 +444,7 @@
   padding: 10px;
 }
 
-.desde-detail-two-title-photo-three{
+.desde-detail-two-title-photo-three {
   height: 30px;
   border: none;
   border-radius: 8px;
@@ -498,7 +500,7 @@
   display: flex;
 }
 
-.desde-detail-three-title-das-update-one{
+.desde-detail-three-title-das-update-one {
   height: 30px;
   border: none;
   border-radius: 8px;
@@ -509,10 +511,10 @@
 }
 
 
-.desde-detail-three-title-das-update{
+.desde-detail-three-title-das-update {
   height: 30px;
   border: none;
-  border-radius: 8px; 
+  border-radius: 8px;
   margin: 4px;
   padding: 10px;
   display: flex;
@@ -568,7 +570,7 @@
   cursor: pointer;
 }
 
-.button-checking-detail-one-das-one-fins{
+.button-checking-detail-one-das-one-fins {
   border: none;
   padding: 20px;
   width: 100% !important;
@@ -645,7 +647,8 @@
   display: flex;
   margin-right: 10px;
 }
-.checkbox-round-three{
+
+.checkbox-round-three {
   width: 1.3em;
   height: 1.3em;
   background-color: D9D9D9;
@@ -811,7 +814,7 @@
   border: none;
   border-radius: 8px;
   margin: 4px;
-  width: 40% !important ;
+  width: 40% !important;
   padding: 10px;
   display: flex;
 }
@@ -839,7 +842,7 @@
   color: white;
   justify-content: space-between;
 
- 
+
 }
 
 .in-cehcki {
@@ -868,27 +871,27 @@
 }
 
 
-.pay_deudado{
+.pay_deudado {
   background: #f31260;
   color: white !important;
   width: 134px;
   height: 16px;
 }
 
-.pay_deudado-One-One{
+.pay_deudado-One-One {
   background: #f31260;
   color: white !important;
   height: 16px;
 }
 
 
-.pay_deudado-One-two{
+.pay_deudado-One-two {
   background: black;
   color: white !important;
   height: 16px;
 }
 
-.pay_Pagado{
+.pay_Pagado {
   background: #17c964;
   color: white;
   padding: 8px;
@@ -896,7 +899,7 @@
   cursor: pointer;
 }
 
-.pay_Pagado-deuda{
+.pay_Pagado-deuda {
   background: #17c964;
   color: white !important;
   width: 134px;
@@ -904,7 +907,7 @@
   cursor: pointer;
 }
 
-.desde-detail-two-pagos-store{
+.desde-detail-two-pagos-store {
   border: none;
   border-radius: 8px;
   margin: 4px;
@@ -912,40 +915,40 @@
 
 }
 
-.button-change-type-room{
-    border: none;
-    padding: 0;
-    align-items: center;
-    background: black;
-    padding: 14px;
-    border-radius: 8px;
-    color: white;
-    height: 53px !important;
-    align-items: center;
-    /* text-align: center; */
-    display: flex;
-    justify-content: center;
-    cursor: pointer;
-    margin-left: 11px;
+.button-change-type-room {
+  border: none;
+  padding: 0;
+  align-items: center;
+  background: black;
+  padding: 14px;
+  border-radius: 8px;
+  color: white;
+  height: 53px !important;
+  align-items: center;
+  /* text-align: center; */
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+  margin-left: 11px;
 }
 
 
-.top-table-One{
+.top-table-One {
   margin-top: 13px;
 }
 
- .top-one-detail-room{
+.top-one-detail-room {
   margin-top: 12px;
- }
-
- .row-card-One-finish{
-  display: flex;
-    justify-content: space-around;
-    align-items: center;
 }
- 
 
-.imbox-asear-one{
+.row-card-One-finish {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+
+.imbox-asear-one {
   background: #e27382;
   padding: 37px;
   border-radius: 8px;
@@ -957,19 +960,19 @@
 }
 
 
-.border-detail-one{
+.border-detail-one {
   background: #e7909c !important;
   cursor: pointer;
- 
+
 }
 
 
-.border-detail-two{
+.border-detail-two {
   background: #97e0d7 !important;
   cursor: pointer;
 }
 
-.imbox-asear-Limpiar{
+.imbox-asear-Limpiar {
   background: #82d8cd;
   padding: 37px;
   border-radius: 8px;
@@ -980,41 +983,54 @@
   cursor: pointer;
 }
 
-.bloqueada-camarera{
+.bloqueada-camarera {
   background: #747171;
   color: white;
 }
 
-.imbox-asear-Block{
+.imbox-asear-Block {
   background: #E9C9FF;
   padding: 37px;
   border-radius: 8px;
   color: black;
 }
 
-.text-center-icon{
+.text-center-icon {
   margin: auto;
 }
 
-.row-img{
+.row-img {
   background: white;
   padding: 5px;
 }
 
-.row-flex-one{
+
+
+
+
+.row-flex-one {
   display: flex !important;
   justify-content: space-around !important;
-  width: 51%;
+  width: 52%;
 }
 
-.img-photo{
+@media screen and (min-width: 1024px) and (max-width: 1366px) and (orientation: landscape) {
+  .row-flex-one {
+    display: flex !important;
+    justify-content: space-around !important;
+    width: 49%;
+  }
+}
+
+
+.img-photo {
   width: 30%;
   height: 120px;
   border-radius: 10px;
   background: white;
 }
 
-.img-photo-one{
+.img-photo-one {
   width: 40%;
   height: 120px;
   border-radius: 10px;
@@ -1023,12 +1039,12 @@
   margin-left: 10px;
 }
 
-.row-text-box{
+.row-text-box {
   display: contents;
 
 }
 
-.row-web-checking{
+.row-web-checking {
   display: flex;
   justify-content: end;
   margin-top: -118px;
@@ -1044,7 +1060,8 @@
 }
 
 .image-container img {
-  width: 200px; /* Ajusta el tamaño inicial de la imagen */
+  width: 200px;
+  /* Ajusta el tamaño inicial de la imagen */
   height: auto;
   transition: transform 0.2s;
 }
@@ -1080,17 +1097,17 @@
 }
 
 
-.form-margintop-solicitud{
+.form-margintop-solicitud {
   margin-top: -55px;
   display: flex;
   align-items: center;
 }
 
-.error-solicitud{
+.error-solicitud {
   border: solid 2px red;
-  color:red
+  color: red
 }
 
-.error-solicitud::placeholder{
-  color:red
+.error-solicitud::placeholder {
+  color: red
 }

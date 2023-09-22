@@ -13,6 +13,21 @@
   margin-left: 10px;  
 }
 
+.button-informe-cosultar-cuentas{
+  padding: 16px;
+  margin: auto;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  background: #13a722d4;
+  color: white;
+  cursor: pointer;
+  width: 100%;
+  height: auto;
+  margin-top: 10px;
+}
+
 .with-button-room-to-sell {
   width: 26% !important;
   margin: auto;
