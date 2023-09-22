@@ -1364,7 +1364,7 @@ const DetailDasboard = (props) => {
             />
             <button
               style={{ background: "black" }}
-              className="button-change-type-room "
+              className="button-change-type-room-one "
               onClick={handClickPostTarifasReservation}
             >
               <span

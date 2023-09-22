@@ -1,5 +1,4 @@
 .border-detail {
-
   padding: 10px;
   border-radius: 10px;
   margin: 5px;
@@ -55,7 +54,7 @@
   background: white;
   border-radius: 8px;
   margin: 4px;
-  width: 21.5%;
+  width: 21.3%;
   padding: 10px;
 }
 
@@ -80,10 +79,6 @@
     padding: 10px;
   }
 }
-
-
-
-
 
 .desde-detail-two-one {
   height: 50px;
@@ -167,13 +162,11 @@
   margin: auto;
 }
 
-
 .container-flex-init-One {
   justify-content: revert;
   margin: auto;
   max-width: 83%;
 }
-
 
 .cod-reserva {
   font-weight: 400;
@@ -220,6 +213,16 @@
   margin-top: 5px;
 }
 
+.  {
+  padding: 2px 5px 0px 5px;
+  display: block;
+
+  margin: auto;
+  background: #ebebeb;
+  border-radius: 10px;
+  height: 122px;
+  margin-top: 5px;
+}
 
 .values-total {
   background: black;
@@ -237,7 +240,6 @@
   height: 122px;
   margin-top: 5px;
 }
-
 
 .init-dasboard-modal-modal {
   padding: 2px 5px 0px 5px;
@@ -315,7 +317,6 @@
   margin-top: 5px;
   align-items: center;
 }
-
 
 .container-flex-init-one-row {
   display: flex;
@@ -405,7 +406,6 @@
   padding: 10px;
 }
 
-
 .desde-detail-two-title-update-tafira {
   height: 30px;
   border: none;
@@ -414,7 +414,6 @@
   width: 27%;
   padding: 10px;
 }
-
 
 .desde-detail-two-title-photo {
   height: 30px;
@@ -433,7 +432,6 @@
   width: 15%;
   padding: 10px;
 }
-
 
 .desde-detail-two-title-photo-four {
   height: 30px;
@@ -509,7 +507,6 @@
   padding: 10px;
   display: flex;
 }
-
 
 .desde-detail-three-title-das-update {
   height: 30px;
@@ -841,8 +838,6 @@
   margin-left: -20px;
   color: white;
   justify-content: space-between;
-
-
 }
 
 .in-cehcki {
@@ -870,7 +865,6 @@
   align-items: initial !important;
 }
 
-
 .pay_deudado {
   background: #f31260;
   color: white !important;
@@ -883,7 +877,6 @@
   color: white !important;
   height: 16px;
 }
-
 
 .pay_deudado-One-two {
   background: black;
@@ -912,7 +905,6 @@
   border-radius: 8px;
   margin: 4px;
   width: 98%;
-
 }
 
 .button-change-type-room {
@@ -932,6 +924,23 @@
   margin-left: 11px;
 }
 
+.button-change-type-room-one {
+  border: none;
+  padding: 0;
+  align-items: center;
+  background: black;
+  padding: 14px;
+  border-radius: 8px;
+  color: white;
+  height: 53px !important;
+  align-items: center;
+  /* text-align: center; */
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+  margin-left: 10px;
+  width: 5.9%;
+}
 
 .top-table-One {
   margin-top: 13px;
@@ -947,7 +956,6 @@
   align-items: center;
 }
 
-
 .imbox-asear-one {
   background: #e27382;
   padding: 37px;
@@ -959,13 +967,10 @@
   align-items: center;
 }
 
-
 .border-detail-one {
   background: #e7909c !important;
   cursor: pointer;
-
 }
-
 
 .border-detail-two {
   background: #97e0d7 !important;
@@ -989,7 +994,7 @@
 }
 
 .imbox-asear-Block {
-  background: #E9C9FF;
+  background: #e9c9ff;
   padding: 37px;
   border-radius: 8px;
   color: black;
@@ -1004,10 +1009,6 @@
   padding: 5px;
 }
 
-
-
-
-
 .row-flex-one {
   display: flex !important;
   justify-content: space-around !important;
@@ -1021,7 +1022,6 @@
     width: 49%;
   }
 }
-
 
 .img-photo {
   width: 30%;
@@ -1041,7 +1041,6 @@
 
 .row-text-box {
   display: contents;
-
 }
 
 .row-web-checking {
@@ -1050,7 +1049,6 @@
   margin-top: -118px;
   margin-left: 64%;
 }
-
 
 /* Estilos para la imagen expandida en la página */
 .image-container {
@@ -1096,7 +1094,6 @@
   border-radius: 5px;
 }
 
-
 .form-margintop-solicitud {
   margin-top: -55px;
   display: flex;
@@ -1105,9 +1102,9 @@
 
 .error-solicitud {
   border: solid 2px red;
-  color: red
+  color: red;
 }
 
 .error-solicitud::placeholder {
-  color: red
+  color: red;
 }

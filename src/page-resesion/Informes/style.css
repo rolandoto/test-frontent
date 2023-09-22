@@ -8,9 +8,9 @@
   background: #13a722d4;
   color: white;
   cursor: pointer;
-  width: 24%;
+  width: 32%;
   height: auto;
-  margin-left: 10px;  
+  margin-left: 0px;  
 }
 
 .button-informe-cosultar-cuentas{
@@ -49,9 +49,9 @@
   background: #eb6b7f;
   color: white;
   cursor: pointer;
-  width: 24%;
+  width: 32%;
   height: auto;
-  margin-left: 18px;
+  margin-left: 36px;
 }
 
 .button-informe-imprimir {
@@ -63,9 +63,9 @@
   background: black;
   color: white !important;
   cursor: pointer;
-  width: 24%;
+  width: 32%;
   height: auto;
-  margin-left: 18px;
+  margin-left: 32px;
   text-decoration: none;
   padding: 16px;
 }

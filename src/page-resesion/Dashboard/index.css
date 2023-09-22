@@ -15,7 +15,6 @@
   width: 30%;
   margin-right: -14px;
   margin-left: 42px;
-  
 }
 
 .content-Modal-dasboard {
@@ -258,13 +257,14 @@
   border-radius: 8px;
 }
 
-.color-day{
+.color-day {
   color: #17c964;
   font-weight: 600;
 }
 
 .contain-board-one {
-  padding: 19px;}
+  padding: 19px;
+}
 
 .input-selecto-dasboard-n1 {
   box-sizing: border-box;
@@ -282,7 +282,7 @@
   padding: 18px;
 }
 
-.input-selecto-dasboard-n1-store-admin{
+.input-selecto-dasboard-n1-store-admin {
   box-sizing: border-box;
   width: 216px;
   height: 60px;
@@ -406,16 +406,16 @@
 
 .button-reservas-type-space {
   margin-right: 7px;
-  margin-left: -3px;;
+  margin-left: -3px;
   background: black;
-    color: white;
-    border: none;
-    border-radius: 14px;
+  color: white;
+  border: none;
+  border-radius: 14px;
 }
 
-.button-reservas-type-space-One-One{
-  margin-right: 0px ;
-    margin-left: 13px ;
+.button-reservas-type-space-One-One {
+  margin-right: 0px;
+  margin-left: 13px;
 }
 
 .button-reservas-type-one span {
@@ -843,7 +843,7 @@ hr {
   border: none;
 }
 
-.negrita-one-update{
+.negrita-one-update {
   font-weight: 600;
 }
 
@@ -909,31 +909,30 @@ hr {
   margin-top: 20px;
 }
 
-.geee{
+.geee {
   display: flex;
   flex-direction: column;
   white-space: nowrap;
   justify-content: flex-start;
   align-items: flex-start;
 
-    margin-top: 3px;
-    font-size: 10px;
-    font-weight: bold;
+  margin-top: 3px;
+  font-size: 10px;
+  font-weight: bold;
   z-index: 0;
 }
 
-.color-white{
+.color-white {
   color: black !important;
   margin-top: -15px;
   font-weight: 400;
 }
 
-
-.container-toolpi{
+.container-toolpi {
   width: 10px;
 }
 
-.app-container-toolpi{
+.app-container-toolpi {
   display: flex;
   max-width: 200px;
   flex-direction: column;
@@ -942,37 +941,35 @@ hr {
   z-index: 5;
 }
 
-
-.div{
+.div {
   max-width: 10px;
   width: 10px;
   white-space: break-word;
 }
 
-.color-red-app{
+.color-red-app {
   background: gray;
 }
 
-.go{
+.go {
   z-index: 9999;
 }
 
-.container-border-gray{
+.container-border-gray {
   background: #ebebeb;
   height: 116px;
   border-radius: 10px;
   margin-top: -12px !important;
-
-} 
-
-.one-contain-gray{
-  background: #ebebeb !important;
-    border-radius: 10px !important;
-    max-width: 1501px !important;
-    margin: auto !important;
 }
 
-.one-contain-gray-One{
+.one-contain-gray {
+  background: #ebebeb !important;
+  border-radius: 10px !important;
+  max-width: 1501px !important;
+  margin: auto !important;
+}
+
+.one-contain-gray-One {
   background: #ebebeb !important;
   border-radius: 10px !important;
   max-width: 1626px !important;
@@ -982,7 +979,7 @@ hr {
   margin-top: 30px;
 }
 
-.one-contain-gray-Two{
+.one-contain-gray-Two {
   border-radius: 10px !important;
   max-width: 1626px !important;
   /* margin: auto; */
@@ -991,18 +988,19 @@ hr {
   margin-top: 15px;
 }
 
-.paddint-let-terifa-day{
+.paddint-let-terifa-day {
   padding: 13px;
 }
 
-.flex-romm-grup{
+.flex-romm-grup {
   display: flex;
   align-items: center;
   justify-content: space-between;
   transition: background-color 0.5s ease !important;
 }
 
-.flex-romm-grup , span {
+.flex-romm-grup,
+span {
   font-size: 13px;
 }
 
@@ -1015,10 +1013,10 @@ hr {
   border-radius: 5px; /* Ajusta el valor del border-radius según tus preferencias */
 }
 
-.handle-icon{
+.handle-icon {
   position: relative;
   pointer-events: none;
-  content: '';
+  content: "";
   height: 100%;
   display: block;
   width: 2px;
@@ -1028,13 +1026,13 @@ hr {
   position: absolute;
 }
 
-
 .live-indicator {
   width: 10px;
   height: 10px;
   border-radius: 50%;
   background: linear-gradient(45deg, rgb(23, 201, 100), rgb(43, 255, 152));
-  box-shadow: 0 0 10px rgba(43, 255, 152, 0.8), 0 0 20px rgba(43, 255, 152, 0.6), 0 0 30px rgba(43, 255, 152, 0.4), 0 0 40px rgba(43, 255, 152, 0.2);
+  box-shadow: 0 0 10px rgba(43, 255, 152, 0.8), 0 0 20px rgba(43, 255, 152, 0.6),
+    0 0 30px rgba(43, 255, 152, 0.4), 0 0 40px rgba(43, 255, 152, 0.2);
   animation: pulse 1.5s ease-in-out infinite, flicker 2s linear infinite;
 }
 
@@ -1080,9 +1078,9 @@ hr {
   }
 }
 
-.row-button-created{
+.row-button-created {
   display: flex;
-    gap: 10px;
+  gap: 10px;
 }
 .popup-container {
   display: flex;
@@ -1105,7 +1103,7 @@ hr {
   top: 0 !important;
   left: 0 !important;
   width: 100% !important;
-  height: 100%  !important;
+  height: 100% !important;
   background-color: #0000006e !important;
   backdrop-filter: blur(15px);
   display: flex !important;
