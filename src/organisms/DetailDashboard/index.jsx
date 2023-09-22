@@ -1021,7 +1021,7 @@ const  handleClickEliminar =UseModalText({handlModal:hanDelete,Text:"Estas segur
                  className="button-change-type-room " 
                   onClick={handClickPostTarifasReservation} >
                      <span className="negrita-detail-reserva  row-text-box" style={{marginLeft:"10px"}}   ><CiCirclePlus  fontSize={35}  /> <span> Enviar</span></span>
-                </button>
+                  </button>
 
             </div>
           

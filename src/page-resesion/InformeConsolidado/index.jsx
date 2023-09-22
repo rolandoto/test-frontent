@@ -615,7 +615,7 @@ const InformeConsolidado = () => {
       </div>
 
 
-      <div className="init top-one  " >
+      <div className="init-one-finish-test top-one  " >
         <form  className="container-flex-init" >
         <div className="container-detail-dasboard-in" > 
 
@@ -631,16 +631,7 @@ const InformeConsolidado = () => {
         </form>     
         </div>
 
-        <div className="init " >
-        <form  className="container-flex-init" onClick={generatePDF}>
-            <div className="container-detail-dasboard-in" >
-                <div className="button-checkout-one"     >
-                    <button>Guardar informe (Solo se puede guardar una vez)</button>
-                </div>
-            </div>
-        </form>
-
-      </div>
+        
       <FacturaCompany   jwt={jwt}  
                         totalEfectivooNE={totalEfectivo}
                         efectivoTotal={efectivoTotal} 

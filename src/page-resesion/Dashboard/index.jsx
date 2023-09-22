@@ -39,26 +39,13 @@ import { FaPlane,FaGrinStars } from "react-icons/fa";
 import { IoIosGift } from "react-icons/io"
 import { HiMiniArrowUpCircle } from "react-icons/hi2";
 import { config } from "../../config";
-import { AiFillCloseCircle } from "react-icons/ai";
 import io from "socket.io-client";
 import { toast } from "react-hot-toast";
+import GroupRows from "./GroupsRows";
 
 
 const socket = io.connect("https://railway.grupo-hoteles.com");
 
-
-const GroupRows =({group,color,estado,iconState,letra}) =>{
-	return (
-		<div    style={{ backgroundColor: color, color:letra}} className="flex-romm-grup" >
-			<div>
-			<span className="font-room" >  {group} {estado}  </span> 
-			</div>
-			<div>
-			{iconState} 
-			</div>
-		</div>
-	)
-}
 
 const Info = styled(ReactTooltip)`
   max-width: 500px;
@@ -95,7 +82,7 @@ const Dashboard = () => {
 	const {postUpdateDetailPointer} = useUpdateDetailPointerActions()
 	const {postUpdateDetailPointerRange} = useUpdateDetailPounterRangeSliceActions()
 	const {iduser} = UseListMotels()
-
+	const [openGroups,setopenGroups]=useState()
 	const message  =jwt?.result?.photo
 
 	const togglePopup = () => {
@@ -420,6 +407,7 @@ const Dashboard = () => {
 		HttpClient.GetRoom({url:jwt.result.id_hotel}).then(index =>{
 			setSate(index.query);
 			setSearch(index.query);
+			setopenGroups(index.query)
 		})
 	}, [pruebareservas]);
   
@@ -623,11 +611,45 @@ const Dashboard = () => {
 
 		handModalText()
 	  };
-	
+
+	  
+	  
 	 
 	const nowOne = new Date(2023, 4, 1, 3, 10);
+	
+	
+	  
+	function groupAndRemove(arr, condition) {
+		const grouped = [];
+		const filtered = arr?.filter(item => {
+		  if (condition(item)) {
+			grouped.push(item); // Agregar al grupo
+			return false; // No incluir en el array original
+		  }
+		  return true; // Incluir en el array original
+		});
+	  
+		return { original: filtered, grouped };
+	  }
+	  
+	  // Ejemplo de uso para agrupar elementos con "root" igual a false y parent igual a 1
+	  const { original, grouped } = groupAndRemove(search, item => item.root === false && item.parent === 2);
 
+	console.log(original)
 	const renderGroup = ({ group }) => {
+
+		const toggleGroup = (id) => {
+			console.log(id)
+			const filteredItems = search.filter((item) => {
+			  if (item.root === false && item.parent === id) {
+				
+				return false; // No incluir elementos con parent igual al id
+			  }
+			  return true; // Incluir todos los demás elementos
+			});
+			setSearch(filteredItems);
+		  }
+		
 
 		const rows= []
 		if(group.ID_estado_habiatcion == 6){
@@ -638,6 +660,9 @@ const Dashboard = () => {
 					key={group.id}
 					estado={"Limpia"} 
 					letra="black"
+					root={group.root}
+					parent={group.parent}
+					toggleGroup={toggleGroup}
 					iconState={<BsCheckCircle color="black"  fontSize={15} />}/>
 			)
 		}if(group.ID_estado_habiatcion == 5){
@@ -647,18 +672,23 @@ const Dashboard = () => {
 					group={`${group.title}`} 
 					key={group.id} 
 					letra="black" 
+					root={group.root}
+					parent={group.parent}
+					toggleGroup={toggleGroup}
 					iconState={< GiBroom fontSize={15} color="black"  />}
 					/>
 			)
 		}
 		if(group.ID_estado_habiatcion == 2){
 			rows.push(
-				<GroupRows 	
+				<GroupRows	
 					color="white"
 					group={`${group.title}`}
 					letra="black" 
 					key={group.id} 
-
+					root={group.root}
+					parent={group.parent}
+					toggleGroup={toggleGroup}
 					iconState={<IoBanOutline  color="black"  fontSize={15}/>}
 					/>
 			)
@@ -669,7 +699,9 @@ const Dashboard = () => {
 					group={` ${group.title}`}
 					letra="black" 
 					key={group.id} 
-
+					root={group.root}
+					parent={group.parent}
+					toggleGroup={toggleGroup}
 					iconState={	<div class="live-indicator">
 									<span class="live-text">En vivo</span>
 								</div>}
@@ -681,15 +713,16 @@ const Dashboard = () => {
 					color="white"
 					iconState={<IoBedOutline fontSize={15}  color="black" />}
 					group={group.title} 
-					key={group.id} />
+					root={group.root}
+					key={group.id} 
+					toggleGroup={toggleGroup}
+					parent={group.parent}/>
 			)
-
-		return (
-			<>
-				{rows}
-			</>
-	);
-
+			return (
+				<>
+					{rows}
+				</>
+			);
 };	
 
 	useEffect(() =>{
@@ -722,10 +755,10 @@ const Dashboard = () => {
 					  </div>
 					  <div className="ml-3 flex-1">
 						<p className="text-sm font-medium text-gray-900">
-							asdasdasdas
+							User
 						</p>
 						<p className="mt-1 text-sm text-gray-500">
-						  Sure! 8:30pm works great!
+						  
 						</p>
 					  </div>
 					</div>
@@ -735,7 +768,7 @@ const Dashboard = () => {
 					  onClick={() => toast.dismiss(t.id)}
 					  className="w-full border border-transparent rounded-none rounded-r-lg p-4 flex items-center justify-center text-sm font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500"
 					>
-					  Close
+					  Cerrar
 					</button>
 				  </div>
 				</div>
@@ -800,12 +833,15 @@ const Dashboard = () => {
 	const findImage = statePublicidad?.find(item => item.ID == 1)
 
 	const [visible, setVisible] = React.useState(false);
-	
+
   const handler = () => setIsOpen(true);
   const closeHandler = () => {
     setIsOpen(false);
     console.log("closed");
   };
+
+  
+
 
 	if(!search)  return null
 	if(!state)  return null
