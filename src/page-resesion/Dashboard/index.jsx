@@ -1,4 +1,4 @@
-import React, { useRef ,useState,useEffect,useContext, useCallback} from "react";
+import React, { useRef ,useState,useEffect,useContext, useCallback, useMemo} from "react";
 import moment from "moment";
 import "moment/locale/es";
 import Timeline,{
@@ -18,76 +18,73 @@ import { useHistory } from "react-router-dom";
 import ServicetypeRooms from "../../service/ServicetypeRooms";
 import { VscSymbolEvent } from "react-icons/vsc";
 import ReactTooltip from "react-tooltip";
-import styled from "styled-components";
 import ServiceAllTotalReservation from "../../service/ServiceAllTotalReservation";
-import { confirmAlert } from "react-confirm-alert";
-import { GiBroom } from "react-icons/gi";
-import { BsBucket ,BsCheckCircle,BsBell} from "react-icons/bs";
-import { IoBedOutline ,IoBanOutline} from "react-icons/io5";
-import useUpdateDetailPointerActions from "../../action/useUpdateDetailPointerActions";
+import {BsBell} from "react-icons/bs";
 import UseListMotels from "../../hooks/UseListMotels";
-import useUpdateDetailPounterRangeSliceActions from "../../action/useUpdateDetailPounterRangeSliceActions";
 import HttpClient from "../../HttpClient";
 import { CiBadgeDollar } from "react-icons/ci";
-import { Button, Checkbox, Input, Modal, Row, Spacer, Text, User } from '@nextui-org/react';
-import { CameraIcon, HeartIcon, LockIcon, NotificationIcon } from "./IconReservation";
+import { Button, Modal, Spacer, User } from '@nextui-org/react';
+import { CameraIcon, HeartIcon, NotificationIcon } from "./IconReservation";
 import Footer from "../../component/Footer/Footer";
 import { RiWhatsappFill ,RiLogoutBoxLine} from "react-icons/ri";
-import ContainerGlobal from "../../Ui/ContainerGlobal";
-import { GiRoundStar,GiAirplaneDeparture } from "react-icons/gi";
+import { GiRoundStar } from "react-icons/gi";
 import { FaPlane,FaGrinStars } from "react-icons/fa";
 import { IoIosGift } from "react-icons/io"
 import { HiMiniArrowUpCircle } from "react-icons/hi2";
 import { config } from "../../config";
 import io from "socket.io-client";
 import { toast } from "react-hot-toast";
-import GroupRows from "./GroupsRows";
-
+import itemRenderer from "./ItemRender";
+import IntervalRenderer from "./IntervalRender";
+import renderGroup from "./RenderGroup";
+import intervalRendererday from "./IntervalRenderDay";
+import intervalRendererdayNum from "./IntervalRendererdayNum";
+import UseUpdateRange from "../../hooks/UseUpdateRange";
+import { useDispatch, useSelector } from "react-redux";
+import useReservationActions from "../../action/useReservationActions";
+import UseFilterRooms from "../../hooks/useFilterRooms";
+import useUpdateDetailPointerActions from "../../action/useUpdateDetailPointerActions";
+import { confirmAlert } from "react-confirm-alert";
+import useUpdateDetailPounterRangeSliceActions from "../../action/useUpdateDetailPounterRangeSliceActions";
 
 const socket = io.connect("https://railway.grupo-hoteles.com");
 
-
-const Info = styled(ReactTooltip)`
-  max-width: 500px;
-  padding-top: 9px;
-  z-index: 1000 !important;
-  background: rgb(243 243 243 / 70%) !important ;
-  opacity: .95;
-  backdrop-filter: blur(8px);
-  border-radius: 12px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-  z-index: 1000 !important;
-`;
-
-const InfoMessage = styled.div`
-  font: Roboto;
-  font-size: 13px;
-  line-height: 1.4;
-  text-align: left;
-  z-index: 1000 !important;
-`;
-
 const Dashboard = () => {
-
-
 	const currentDate = new moment();
-	const [reservation,setReservas] = useState()
-	const [pruebareservas,setpruebareservas] =useState()
-	const [state,setSate] =useState()
 	const {jwt,setJwt,isOpen, setIsOpen} =useContext(AutoProvider)
 	const history = useHistory()
-	const now = moment().format("YYYY-MM-DD");
 	const timelineRef = useRef(null);
-	const  [totalDay ,setTotalDay] =useState()
-	const {postUpdateDetailPointer} = useUpdateDetailPointerActions()
-	const {postUpdateDetailPointerRange} = useUpdateDetailPounterRangeSliceActions()
+	const [raiting,setRaiting]= useState()
 	const {iduser} = UseListMotels()
-	const [openGroups,setopenGroups]=useState()
+	const [stateTop,setStateTop] =useState()
+	const [statePublicidad,setPublicidad]=useState()
 	const message  =jwt?.result?.photo
+	const dispatch = useDispatch();
 
-	const togglePopup = () => {
-		setIsOpen(!isOpen);
-	};
+	const {getPostByReservation,
+		getRoomByReservation,
+		getRoomFilterRoom,
+		setUpdateFilterReservation
+	} =useReservationActions()
+
+	const {filterRooms } =UseFilterRooms() 
+
+
+
+	const {loading,error,Items,Room,filterRoom
+	} = useSelector((state) => state.ReservationSlice)
+
+	const [Reservas,setReservas] = useState(Items)
+
+	 const fetchData =async() =>{
+        await getPostByReservation()
+		await getRoomByReservation()
+		await getRoomFilterRoom()
+    }
+
+	useEffect(() =>{
+        fetchData()
+    },[dispatch])
 
 	const handClose =() =>{
         localStorage.removeItem('jwt')
@@ -109,310 +106,25 @@ const Dashboard = () => {
 		 countSeguro = parseInt(hotel?.valorseguro)
 	}
 
-	useEffect(() =>{
-		ServiceAllTotalReservation({fecha:now,id:jwt.result.id_hotel}).then(index =>{
-			setTotalDay(index)
-		}).catch(e =>{
-			console.log(e)
-		})
-	},[])
-
-	const onItemClick = (itemId, e, time, onItemSelectParentUpdate) => {	
-		history.push(`/DetailDashboard/${itemId}`)
-	}
-
-	const itemRenderer = ({ item, itemContext, getItemProps }) => {
-		const total_habitacion = parseInt(item.valor_habitacion)
-
-		const abono = parseInt(item.abono)
-
-		let colorWords;
-		let iconState;
-		let title = itemContext.title; // Establecer título predeterminado
-
-		let color;
-
-		switch (item.state) {
-		case 0:
-			if(abono>0){
-				color = '#ff9275';
-				colorWords = 'white ';
-				iconState = <CiBadgeDollar fontSize={20} /> ;
-			}else{
-				color = '#f31260';
-				colorWords = 'white';
-				iconState = <BsBell fontSize={15} />;
-			}
-			break;
-		case 1:
-			color = '#7828c8';
-			colorWords = 'white';
-			iconState = <BsBucket fontSize={15} />;
-			break;
-		case 2:
-			color = '#747171';
-			colorWords = 'white';
-			break;
-		case 3:
-				color = '#17c964';
-				colorWords = 'white';
-				iconState = <VscSymbolEvent fontSize={15} />;
-			break;
-		case 4:
-			color = '#0DC034';
-			colorWords = 'black';
-			break;
-		case 5:
-			color = 'rgba(243, 217, 36, 0.8)';
-			colorWords = 'black';
-			title = 'Aseo';
-			break;
-		case 6:
-			color = '#0072f5';
-			colorWords = 'white';
-			iconState = <BsCheckCircle fontSize={15} />;
-			break;
-		default:
-			break;
-		}
-			const backgroundColor = itemContext.selected  ? "black" :color
-
-			const key = `${item.id}_${item.id}_schedule`;
-
-			return (
-				
-			<div 
-			
-					data-for={key} data-tip
-						{...getItemProps({
-						style: {
-							display: "flex",
-					alignItems: "center",
-					backgroundColor,
-					border: "",
-					borderRadius: "12px",
-					padding: "8px",
-					color: colorWords,
-					position: "relative",
-					visibility: "visible",
-					opacity: "100",
-					boxShadow: "0 2px 4px rgba(0, 0, 0, 0.4)",
-					transition: "background-color 0.8s ease",
-						},	  
-						})}
-					>	
-						<div
-				className="itemModal"
-				
-				></div>
-		
-				<div
-				style={{
-					position: 'sticky',
-					left: '0',
-					display: 'inline-block',
-					overflow: 'hidden',
-					padding: '0 1x',
-					textOverflow: 'ellipsis',
-					whiteSpace: 'nowrap',
-				}}
-				>
-				<div className="icon-state-reservation" >
-						<span className="margin-icon-state" >{iconState}</span>
-						<span className="text-words" >{title}</span>
-				</div>
-					<div>
-					
-							<Info  	place="top" 
-									variant="info" 
-									id={key}  >
-								<InfoMessage>
-									<div className="go" >
-										<ul >
-										<li className="color-white " >Numero Habitacion :{item.Num_Room}</li>
-										<li className="color-white " >Codigo reserva :{item.Codigo_Reserva}</li>
-										<li className="color-white " >Huesped: {item.full_name}</li>
-										<li className="color-white " >Check in :{item.Fecha_inicio}</li>
-										<li className="color-white " >Check out :{item.Fecha_final}</li>
-										<li className="color-white " >Noches :{item.Noches}</li>
-										<li className="color-white " >Adultos :{item.Adultos}</li>
-										<li className="color-white " >Niños :{item.Ninos}</li>
-										<li className="color-white " >Total hospedaje :${total_habitacion.toLocaleString()}</li>
-										<li className="color-white " >Abono :${abono.toLocaleString()}</li>
-										</ul>
-									</div>
-								</InfoMessage>
-							</Info>
-					</div>
-				</div>
-		</div>
-		);
-	  };
-
-	const intervalRendererdayNum= ({ getIntervalProps, intervalContext ,data }) => {
-
-		const label = intervalContext.intervalText;
-		const currentDate = moment().startOf("day");
-		const isToday = moment(label, "D").isSame(currentDate, "day");
-
-		return (
-			<div
-			{...getIntervalProps()}
-			className={`day-num ${isToday ? "todayOne-end-one" : "todayOne"}   rct-dateHeader ${
-			data.isMonth ? "rct-dateHeader-primary" : ""
-			}`}
-
-			onClick={() => {
-				return false;
-			}}>
-			<span
-			style={{
-				position:"absolute",
-				margin: "auto",
-				padding: "0 50rem",
-				textTransform: "capitalize",
-				color: "#b3aca7",
-    			left: "48%;",
-				fontWeight:"100",
-				fontSize:"12px",
-				zIndex:1,
-				marginLeft:"-13px"
-			}}
-			
-			>
-			 <span className={` day-num ${isToday && "color-day"}`} > {label}</span>
-			</span>
-		</div>
-		);
-			}
-			const intervalRendererday = ({ getIntervalProps, intervalContext, data }) => {
-				
-				const label = intervalContext.intervalText;
-				const currentDate = moment().startOf('day');
-				const isToday = moment(label, 'dd D').isSame(currentDate, 'day');
-				const isThursday = moment(label, 'dd D').isoWeekday() === 4; // 4 es el código ISO para el jueves
-				const isFirstThursdayOfMonth = moment(label, 'dd D').date() && isThursday;
-			  
-				const acum = [];
-			  
-				
-				if (isToday) {
-				  acum.push(0);
-				}
-			  
-				let acumlitor = 0;
-			  
-				if (acum.length === 1) {
-				  acumlitor++;
-				}
-			  
-				const dayOfWeek = moment(label, 'dd D').locale('es').format('ddd');
-		
-			  
-				return (
-				  <div
-					{...getIntervalProps()}
-					className={`day-num ${acum.length === 1 ? 'todayOne-end' : 'todayOne-Finsihs'} rct-dateHeader ${
-					  data.isMonth ? 'rct-dateHeader-primary' : ''
-					}`}
-				  >
-					<span
-					  style={{
-						position: 'relative',
-						margin: 'auto',
-						padding: '0 50rem',
-						textTransform: 'uppercase',
-						color: '#b3aca7',
-						fontWeight: '100',
-						fontSize: '13px',
-						textAlign: 'center', // Ajusta el texto al centro
-						display:"grid",
-						justifyContent:"center",
-						left:"13px",
-						top: '10px',
-						zIndex: 1,
-					  }}
-					>
-					 <span  className={` day-num ${acum.length === 1  ? "color-day " : ""} `}   > { dayOfWeek}</span>   
-					</span>
-				  </div>
-				);
-			  };
-
-	const intervalRenderer = ({ intervalContext, getIntervalProps, data }) => {
-		return (
-		<div
-			{...getIntervalProps()}
-			className={`rct-dateHeader ${
-			data.isMonth ? "rct-dateHeader-primary" : ""
-			}`}
-			onClick={() => {
-				return false;
-			}}>
-			<span
-			style={{
-				position:"absolute",
-				margin: "auto",
-				padding: "0 10rem",
-				textTransform: "capitalize",
-				color: "#b3aca7",
-    			left: "48%;",
-				fontWeight:"100",
-				zIndex:1
-			}}
-			>
-			{intervalContext.intervalText}
-			</span>
-		</div>
-		);
-	}
-	
-	const [room,setRoom] = useState()
-	const [raiting,setRaiting]= useState('')
-	
-	useEffect(() =>{
-        ServicetypeRooms({id:jwt.result.id_hotel}).then(index =>{
-            setRoom(index)
-        })
-    },[setRoom])
-
-	const groups = []
-	for(let i =0;i<room?.length;i++){
-		groups.push({
-			title:room[i].nombre,
-			id:room[i].nombre
-		})
+	const onItemClick = (itemId) => {	
+	  return history.push(`/DetailDashboard/${itemId}`)
 	}
 
 	const [search,setSearch] =useState([])
 
-	console.log(search)
-
-	const filtrar=(terminoBusqueda)=>{
-		let resultadosBusqueda= state?.filter((elemento,index)=>{
-			if(elemento?.ID_Tipo_habitaciones?.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
-			 || elemento?.name?.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())){
-				return elemento;
-			}
-		});
-		setSearch(resultadosBusqueda);
+	/*const filtrar=(terminoBusqueda)=>{
+			let resultadosBusqueda= state?.filter((elemento,index)=>{
+				if(elemento?.ID_Tipo_habitaciones?.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
+				|| elemento?.name?.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())){
+					return elemento;
+				}
+			});
+			setSearch(resultadosBusqueda);
 		}
+	*/
 		
 	const handRaiting =(e)=>{
 		setRaiting(e.target.value)
-		filtrar(e.target.value)
-	}
-
-	useEffect(() => {
-		HttpClient.GetRoom({url:jwt.result.id_hotel}).then(index =>{
-			setSate(index.query);
-			setSearch(index.query);
-			setopenGroups(index.query)
-		})
-	}, [pruebareservas]);
-  
-	if(search?.length ==0) {
-		setSearch(state)
 	}
 
 	const handClickReservaction =() =>{
@@ -461,40 +173,41 @@ const Dashboard = () => {
 	const [stateInformes,setInformes] =useState(0)
 
 	const handClickInformAuditoria =(e) =>{
-		setInformes(e.target.value)	
-	}
+		const idByHistory = e.target.value
 
-	useEffect(() =>{
-		if(stateInformes ==5){
+		if(idByHistory ==5){
 			return history.push("/informeauditoria")
 		}
-		if(stateInformes ==1){
+		if(idByHistory ==1){
 			return history.push("/informecamareria")
 		}
-		if(stateInformes ==6){
+		if(idByHistory ==6){
 			return history.push("/informeroomtosell")
 		}
-		if(stateInformes ==7){
+		if(idByHistory ==7){
 			return history.push(`/informeStore/${jwt.result.id_hotel}`)
 		}
-		if(stateInformes ==8){
+		if(idByHistory ==8){
 			return history.push(`/informeAccount`)
 		}
-		if(stateInformes ==9){
+		if(idByHistory ==9){
 			return history.push(`/informeconsolidado`)
 		}
-		if(stateInformes ==10){
+		if(idByHistory ==10){
 			return history.push(`/informeMovimiento`)
 		}
-	},[stateInformes,setInformes])
+		setInformes(e.target.value)	
+	}
+ 
+	const nowOne = new Date(2023, 4, 1, 3, 10);
 
-	  const handleItemResize = (itemId, time, edge) => {
+	const {postUpdateDetailPointer} = useUpdateDetailPointerActions()
+	const {postUpdateDetailPointerRange} = useUpdateDetailPounterRangeSliceActions()
+
+	const handleItemResize = (itemId, time, edge) => {
 		const fecha = moment(time).format('YYYY-MM-DD');
-	  
-		const newReservation = structuredClone(pruebareservas)
-
-		const ReservationIndex = pruebareservas.findIndex(item => item.id == itemId)
-
+		const newReservation = structuredClone(Items)
+		const ReservationIndex = Items.findIndex(item => item.id == itemId)
 		const fechaFinal = moment(newReservation[ReservationIndex].end_time).format('YYYY-MM-DD'); 
 
 		const 	fechaInit = new  Date(fechaFinal)
@@ -514,19 +227,17 @@ const Dashboard = () => {
 			  title: '',
 			  
 				  customUI: ({ onClose }) => {
-					const handClick = () =>{
+					const handClick = async() =>{
 						if (edge === 'left') {
 							newReservation[ReservationIndex].start_time = time
-							setpruebareservas(newReservation);
-							setReservas(newReservation)
 							postUpdateDetailPointer({ id: itemId, Fecha_final: fecha,countSeguro });
 							socket.emit("sendNotification",message);
+							setUpdateFilterReservation(newReservation)
 						}else{
 							newReservation[ReservationIndex].end_time = time
-							setpruebareservas(newReservation);
-							setReservas(newReservation)
 							postUpdateDetailPointer({ id: itemId, Fecha_final: fecha,countSeguro });
 							socket.emit("sendNotification",message);
+							setUpdateFilterReservation(newReservation)
 						}
 						onClose()
 				}
@@ -545,13 +256,17 @@ const Dashboard = () => {
 		handModalText()
 
 	  };
-	  const handleItemMove = (itemId, dragTime, newGroupOrder) => {
+
+
+	  
+
+      const handleItemMove = (itemId, dragTime, newGroupOrder) => {
 		let dragTimeOne =0
 		let ID_Habitaciones = 0
 		let ID_estado_habiatcion =0
-		const group = search[newGroupOrder];
+		const group = Room[newGroupOrder];
 
-		 reservation.map(item =>{
+		 Items.map(item =>{
 			if(item.id  ==  itemId){
 				dragTimeOne= dragTime+( item.end_time - item.start_time)
 				ID_Habitaciones =group.id
@@ -564,7 +279,7 @@ const Dashboard = () => {
 
 		const desde =  `${fecha1} 15:00:00`
 		const hasta = `${fecha2} 13:00:00`
-		const newReservation = structuredClone(pruebareservas) 
+		//const newReservation = structuredClone(pruebareservas) 
 
 		const handModalText =(e) =>{
 			confirmAlert({
@@ -572,8 +287,8 @@ const Dashboard = () => {
 			  
 				  customUI: ({ onClose }) => {
 	
-					const handClick =() =>{
-							const updatedItems = reservation.map(item =>
+					const handClick =async () =>{
+							const updatedItems = Items.map(item =>
 								item.id === itemId
 								  ? {
 									  ...item,
@@ -583,18 +298,14 @@ const Dashboard = () => {
 									}
 								  : item,
 							  );
+							
 							  postUpdateDetailPointerRange({desde,hasta,ID_Habitaciones,id:itemId,ID_estado_habiatcion})
-							  setpruebareservas(updatedItems);
-							  setReservas(updatedItems)
 							  socket.emit("sendNotification",message);
-							  
+							  setUpdateFilterReservation(updatedItems)
 						onClose() 
 					}
 		
 				   const handClose =() =>{
-					
-					setpruebareservas(newReservation);
-					setReservas(newReservation)
 					onClose() 
 				   }
 		
@@ -611,170 +322,8 @@ const Dashboard = () => {
 
 		handModalText()
 	  };
-
-	  
-	  
-	 
-	const nowOne = new Date(2023, 4, 1, 3, 10);
-	
-	
-	  
-	function groupAndRemove(arr, condition) {
-		const grouped = [];
-		const filtered = arr?.filter(item => {
-		  if (condition(item)) {
-			grouped.push(item); // Agregar al grupo
-			return false; // No incluir en el array original
-		  }
-		  return true; // Incluir en el array original
-		});
-	  
-		return { original: filtered, grouped };
-	  }
-	  
-	  // Ejemplo de uso para agrupar elementos con "root" igual a false y parent igual a 1
-	  const { original, grouped } = groupAndRemove(search, item => item.root === false && item.parent === 2);
-
-	console.log(original)
-	const renderGroup = ({ group }) => {
-
-		const toggleGroup = (id) => {
-			console.log(id)
-			const filteredItems = search.filter((item) => {
-			  if (item.root === false && item.parent === id) {
-				
-				return false; // No incluir elementos con parent igual al id
-			  }
-			  return true; // Incluir todos los demás elementos
-			});
-			setSearch(filteredItems);
-		  }
-		
-
-		const rows= []
-		if(group.ID_estado_habiatcion == 6){
-			rows.push(
-				<GroupRows 	
-					color="white"
-					group={group.title} 
-					key={group.id}
-					estado={"Limpia"} 
-					letra="black"
-					root={group.root}
-					parent={group.parent}
-					toggleGroup={toggleGroup}
-					iconState={<BsCheckCircle color="black"  fontSize={15} />}/>
-			)
-		}if(group.ID_estado_habiatcion == 5){
-			rows.push(
-				<GroupRows 	
-					color="white"
-					group={`${group.title}`} 
-					key={group.id} 
-					letra="black" 
-					root={group.root}
-					parent={group.parent}
-					toggleGroup={toggleGroup}
-					iconState={< GiBroom fontSize={15} color="black"  />}
-					/>
-			)
-		}
-		if(group.ID_estado_habiatcion == 2){
-			rows.push(
-				<GroupRows	
-					color="white"
-					group={`${group.title}`}
-					letra="black" 
-					key={group.id} 
-					root={group.root}
-					parent={group.parent}
-					toggleGroup={toggleGroup}
-					iconState={<IoBanOutline  color="black"  fontSize={15}/>}
-					/>
-			)
-		}if(group.ID_estado_habiatcion == 3){
-			rows.push(
-				<GroupRows 	
-					color="white"
-					group={` ${group.title}`}
-					letra="black" 
-					key={group.id} 
-					root={group.root}
-					parent={group.parent}
-					toggleGroup={toggleGroup}
-					iconState={	<div class="live-indicator">
-									<span class="live-text">En vivo</span>
-								</div>}
-									/>
-			)
-		}
-			rows.push(
-				<GroupRows 	
-					color="white"
-					iconState={<IoBedOutline fontSize={15}  color="black" />}
-					group={group.title} 
-					root={group.root}
-					key={group.id} 
-					toggleGroup={toggleGroup}
-					parent={group.parent}/>
-			)
-			return (
-				<>
-					{rows}
-				</>
-			);
-};	
-
-	useEffect(() =>{
-		ServiceReservas({id:jwt.result.id_hotel}).then(index=> {
-			setReservas(index)
-			setpruebareservas(index)
-		})
-	},[setRoom])
-
-	useEffect(()=>{
-		socket.on("sendNotification", (data) => {
-			ServiceReservas({id:jwt.result.id_hotel}).then(index=> {
-				setReservas(index)
-				setpruebareservas(index)
-			})
-			toast.custom((t) => (
-				<div
-				  className={`${
-					t.visible ? 'animate-enter' : 'animate-leave'
-				  } max-w-md w-full bg-white shadow-lg rounded-lg pointer-events-auto flex ring-1 ring-black ring-opacity-5`}
-				>
-				  <div className="flex-1 w-0 p-4">
-					<div className="flex items-start">
-					  <div className="flex-shrink-0 pt-0.5">
-						<img
-						  className="h-10 w-10 rounded-full"
-						  src={data}
-						  alt=""
-						/>
-					  </div>
-					  <div className="ml-3 flex-1">
-						<p className="text-sm font-medium text-gray-900">
-							User
-						</p>
-						<p className="mt-1 text-sm text-gray-500">
-						  
-						</p>
-					  </div>
-					</div>
-				  </div>
-				  <div className="flex border-l border-gray-200">
-					<button
-					  onClick={() => toast.dismiss(t.id)}
-					  className="w-full border border-transparent rounded-none rounded-r-lg p-4 flex items-center justify-center text-sm font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-					>
-					  Cerrar
-					</button>
-				  </div>
-				</div>
-			  ))
-	});
-	},[socket])
+     
+  
 	
 	const handCLickWhatsapp =() =>{
 		const link = document.createElement('a');
@@ -806,7 +355,6 @@ const Dashboard = () => {
 		return acum + current.Cantidad_comision
 	},0)
  
-
 	const filSouvenir =  stateKpi?.query.filter((item) => item.ID_Categoria == 3)
 
 	const sourvenirTotal = filSouvenir?.reduce((acum,current) =>{
@@ -814,9 +362,6 @@ const Dashboard = () => {
 	},0)
 
 	const totalKpi = tourTotal +sourvenirTotal
-
-	const [stateTop,setStateTop] =useState()
-	const [statePublicidad,setPublicidad]=useState()
 
 	useEffect(() =>{
 		fetch(`${config.serverRoute}/api/resecion/userKpiTop`)
@@ -832,43 +377,32 @@ const Dashboard = () => {
 
 	const findImage = statePublicidad?.find(item => item.ID == 1)
 
-	const [visible, setVisible] = React.useState(false);
+	const closeHandler = () => {
+		setIsOpen(false);
+		console.log("closed");
+	};
 
-  const handler = () => setIsOpen(true);
-  const closeHandler = () => {
-    setIsOpen(false);
-    console.log("closed");
-  };
-
-  
-
-
-	if(!search)  return null
-	if(!state)  return null
-	if(!reservation)return null
-	if(!totalDay) return null
-	if(!pruebareservas) return null
+	const ResutlRoom = filterRooms(Room,raiting)
+	
 	return (
 		<>		
-
-
-<div>
-      <Modal
-	  	style={{background:"#ffffff00",border:"none"}}
-	  	 width="1300px"
-        closeButton
-        preventClose
-        open={isOpen}
-		blur={true}
-        onClose={closeHandler}
-      >
-       <img
-					src={`${findImage?.Img_description}`}
-					alt="Anuncio"
-					className="advertisement-image"
-					/>
-      </Modal>
-    </div>
+		<div>
+			<Modal
+			style={{background:"#ffffff00",border:"none"}}
+			width="1300px"
+			closeButton
+			preventClose
+			open={isOpen}
+			blur={true}
+			onClose={closeHandler}
+		>
+		<img
+						src={`${findImage?.Img_description}`}
+						alt="Anuncio"
+						className="advertisement-image"
+						/>
+		</Modal>
+		</div>
 			<div ref={timelineRef} > 
 			<div  className="container-button">
 			<Spacer x={4} y={3} />
@@ -908,23 +442,23 @@ const Dashboard = () => {
 					color="success" flat 
 					icon={<RiWhatsappFill fill="currentColor" fontSize={25}
 						 />} > <span  className="text-words" ONCL >Soporte</span>  </Button>
-			<select onChange={handRaiting}  
-													value={raiting} 
-													className='button-reservas-type-one button-reservas-type-space  button-reservas-type-one-two-two button-reservas-type-space-One-One' >
-													<option  className="opo-room" >  Ver habitaciones</option>
-													<option  className="opo-room" >Todas las Habitaciones</option>
-													
-												{room?.map(category =>(
-													<option 
-													className="opo-room"
-													value={category.id_tipoHabitacion}   
-													key={category.ID}
-												>
-													{category.nombre}
-												</option>
-												)
-												)}
-												</select>
+				<select onChange={handRaiting}  
+						value={raiting} 
+						className='button-reservas-type-one button-reservas-type-space  button-reservas-type-one-two-two button-reservas-type-space-One-One' >
+						<option  className="opo-room" >  Ver habitaciones</option>
+						<option  className="opo-room" >Todas las Habitaciones</option>
+						
+					{filterRoom?.map(category =>(
+						<option 
+						className="opo-room"
+						value={category.id_tipoHabitacion}   
+						key={category.ID}
+					>
+						{category.nombre}
+					</option>
+					)
+					)}
+				</select>
 												<Spacer  x={0.5} y={1} />
 			<Button 
 				onClick={handClose} 
@@ -932,9 +466,6 @@ const Dashboard = () => {
 				flat 
 				icon={<RiLogoutBoxLine fill="currentColor" fontSize={25}/>} > <span  className="text-words" ONCL >salir</span></Button>
 		</div>
-
-	
-
 		<div className="card-two" >
             <ul className="flex-container wrap-reverse"  >
 
@@ -972,8 +503,6 @@ const Dashboard = () => {
 						<span className="margin-let-rig" >Bloqueada</span>
 					</div>
 					
-														
-
 				</ul>
 				
 				<ul className="flex-container wrap-reverse" style={{position:"absolute",right:"0"}} >
@@ -985,7 +514,7 @@ const Dashboard = () => {
 									<ReactTooltip 	
 													id="topresecionista" 
 													place="bottom" effect="solid"  >
-										{stateTop.map(index  =>{
+										{stateTop?.map(index  =>{
 											
 											const totalComision = index.Total_Cantidad_comision
 											
@@ -1005,7 +534,7 @@ const Dashboard = () => {
 
 															
 														</div>
-														<span className="color-globito"  >${totalComision.toLocaleString()}</span>
+														<span className="color-globito"  >${totalComision?.toLocaleString()}</span>
 												</div>
 											</div>
 											)
@@ -1021,24 +550,24 @@ const Dashboard = () => {
 							</div>
 							<div className="state-type" >
 								<li  className="" style={{marginRight:"10px",marginTop:"10px"}} > <GiRoundStar color="#ffca28" fontSize={28} /></li>
-								<span className="margin-let-rig" style={{marginRight:"15px"}} >{totalKpi.toLocaleString()}</span>
+								<span className="margin-let-rig" style={{marginRight:"15px"}} >{totalKpi?.toLocaleString()}</span>
 							</div>
 
 							<div className="state-type" >
 							<li  className=""  style={{marginRight:"10px",marginTop:"10px"}} > <FaPlane color="#0372f5" fontSize={28} /></li>
-								<span className="margin-let-rig" style={{marginRight:"15px"}} >${tourTotal.toLocaleString()}</span>
+								<span className="margin-let-rig" style={{marginRight:"15px"}} >${tourTotal?.toLocaleString()}</span>
 							</div>
 
 							<div className="state-type" >
 							<li  className=""  style={{marginRight:"10px",marginTop:"10px"}} > <IoIosGift color="red" fontSize={28} /></li>
-								<span className="margin-let-rig" style={{marginRight:"15px"}} >${sourvenirTotal.toLocaleString()}</span>
+								<span className="margin-let-rig" style={{marginRight:"15px"}} >${sourvenirTotal?.toLocaleString()}</span>
 					</div>
 				</ul>
             </div>
 			<Timeline
 				groupRenderer={renderGroup}
-				groups={search}
-				items={[...pruebareservas]}
+				groups={ResutlRoom}
+				items={Items}
 				onItemResize={handleItemResize}
 				defaultTimeStart={moment().startOf("day").add(-1, "day")}
 				defaultTimeEnd={moment().startOf("day").add(18, "day")}
@@ -1092,7 +621,7 @@ const Dashboard = () => {
 						headerData={{ isMonth: false}}
 						defaultTimeStart={moment().startOf("day")}
 						defaultTimeEnd={moment().startOf("day")}
-						intervalRenderer={intervalRenderer}
+						intervalRenderer={IntervalRenderer}
 					/>
 					<DateHeader
 						unit="day"
@@ -1129,7 +658,7 @@ const Dashboard = () => {
           <CursorMarker />
         </TimelineMarkers>
 			</Timeline>
-			<Footer totalday={totalDay} 
+			<Footer  
 					ocupied={<VscSymbolEvent fontSize={20}/>}
 					reservas={<BsBell fontSize={20} color="white" />}
 					dollar={<CiBadgeDollar fontSize={20} />} />

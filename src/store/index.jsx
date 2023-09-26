@@ -1,4 +1,4 @@
-import {configureStore } from '@reduxjs/toolkit'
+import {configureStore, createAsyncThunk } from '@reduxjs/toolkit'
 import listMotel from './slice/motelsSlice'
 import loginSlice from './slice/LoginSlice'
 import listBooking  from "./slice"
@@ -23,6 +23,16 @@ const persistanceLocalStorageMiddleware = (store) => (next) => (action) => {
 	localStorage.setItem("__redux__state__", JSON.stringify(store.getState()));
 };
 
+
+export const fetchDataFromApi = createAsyncThunk(
+    'data/fetchData',
+    async () => {
+      const response = await fetch('https://api.example.com/data');
+      const data = await response.json();
+      return data;
+    }
+  );
+  
 const store = configureStore ({
     reducer:{
         //los nombres donde se llaman en el hooks

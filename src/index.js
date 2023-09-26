@@ -9,7 +9,6 @@ import { Toaster } from 'react-hot-toast';
 
 ReactDOM.render(
   <React.StrictMode>
-    
     <NextUIProvider>  
     <Toaster   position="top-right"reverseOrder={true}  />
       <AutoProvider >

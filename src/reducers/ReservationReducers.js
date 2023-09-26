@@ -1,12 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = {
+const DEFAULT_STATE = {
   Items: [],
   reservationAll: [],
+  filterRoom:[],
   loading: false,
   error: null,
   Room:[]
 };
+
+const initialState = (() => {
+	const persistedState = localStorage.getItem("__redux__state__");
+	return persistedState ? JSON.parse(persistedState).ReservationSlice : DEFAULT_STATE;
+})();
 
 export const ReservationSlice = createSlice({
   name: "Formats",
@@ -18,13 +24,18 @@ export const ReservationSlice = createSlice({
     },
     setReservation: (state, action) => {
       state.Items = action.payload;
-      state.loading = false;
+      state.loading = true;
       console.log({ "---payload": state.entities });
     },
     setReservationFilter: (state, action) => {
-      state.reservationAll = action.payload;
+      state.filterRoom = action.payload;
       state.loading = false;
-      console.log({ "---payload actions": state.Items });
+      console.log({ "---payload filter room": state.filterRoom });
+    },
+    setSaveReservation:(state,action)=>{
+      state.Items = action.payload;
+      state.loading = true;
+      console.log({ "---save": state.entities });
     },
     setRoom :(state,action) =>{
       state.Room = action.payload;

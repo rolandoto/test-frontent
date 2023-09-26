@@ -48,6 +48,7 @@ const DetailDasboard =(props) =>{
   
   const [messageReceived, setMessageReceived] = useState("exitoso");
 
+
   useEffect(() => {
     socket.on("sendNotification", (data) => {
      console.log(data)
@@ -63,6 +64,7 @@ const DetailDasboard =(props) =>{
     const history = useHistory()
     const {iduser} = UseListMotels()
     const {jwt} = useContext(AutoProvider)
+    
     
     const message  =jwt?.result?.photo
 
@@ -603,7 +605,7 @@ const priceLenceria = Lenceria?.reduce((acum,current) => {
         postDetailRoom({id:resultDashboard?.ID_Habitaciones,ID_estado_habitacion:0})
         ServiceInfomeMovimiento({Nombre_recepcion:jwt.result.name,Fecha:now,Movimiento:`Reserva eliminada tipo habitacion ${resultFinish?.nombre} ${resultDashboard.Numero} nombre ${resultDashboard.Nombre} codigo reserva ${id} `,id:jwt.result.id_hotel}).then(index =>{
           socket.emit("sendNotification",message);
-          window.location.href="/Home"
+          history.push("/home")
         }).catch(e =>{
             console.log(e)
         })

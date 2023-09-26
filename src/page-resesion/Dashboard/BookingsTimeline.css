@@ -728,3 +728,58 @@ hr.border {
   display: block;
   width: 30px;
 }
+
+.notification {
+  display: flex;
+  align-items: center;
+  padding: 5px;
+  border: 2px solid #fff;
+  border-radius: 34px;
+  background-color: #252627;
+  color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+.notification-image {
+  width: 40px; /* Ancho de la imagen */
+  height: 40px; /* Altura de la imagen */
+  margin-right: 10px; /* Espacio a la derecha de la imagen */
+  border-radius: 50%; /* Hacer la imagen redonda */
+}
+
+.notification-content {
+  flex: 1; /* El contenido ocupa todo el espacio disponible */
+  text-align: left;
+}
+
+.notification h4 {
+  margin: 0;
+  font-size: 18px; /* Tamaño del título */
+}
+
+.notification p {
+  margin: 0;
+  font-size: 14px; /* Tamaño del texto */
+}
+
+/* Animación de la notificación (opcional) */
+@keyframes slideIn {
+  0% {
+    transform: translateY(100%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+/* Aplicar la animación a la notificación */
+.notification {
+  animation: slideIn 0.8s ease;
+}
+
+.footer-found {
+  width: 315px;
+  position: absolute;
+  /* left: 0; */
+  right: 32px;
+}

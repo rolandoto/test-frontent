@@ -1,11 +1,15 @@
 import {createSlice} from "@reduxjs/toolkit"
 
-export const initialState ={
+export const DEFAULT_STATE ={
     Bitacoras:[],
     loading:false,
     error:null
 }
 
+const initialState = (() => {
+	const persistedState = localStorage.getItem("__redux__state__");
+	return persistedState ? JSON.parse(persistedState).Bictacoras : DEFAULT_STATE;
+})();
 
 export const BitacorasSlice = createSlice({
     name:"Bictacoras",

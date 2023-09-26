@@ -3,11 +3,11 @@ import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import io from "socket.io-client";
 
 const Autoconext = React.createContext({})
-const socket = io.connect("https://railway.grupo-hoteles.com");
+
 
 export const AutoProvider =({children}) =>{
 
-    const history = useHistory()
+    const socket = io.connect("https://railway.grupo-hoteles.com");
 
     const [name,setName] = useState(
         () => window.localStorage.getItem('name')
@@ -49,7 +49,6 @@ export const AutoProvider =({children}) =>{
     })
 
     
-
     return (
             <Autoconext.Provider value={{jwt,
                                         setJwt,
@@ -66,7 +65,8 @@ export const AutoProvider =({children}) =>{
                                         category,
                                         setCategory,
                                         setIsOpen,
-                                        isOpen}}>
+                                        isOpen,
+                                        socket}}>
                 {children}
             </Autoconext.Provider>
     )

@@ -1,9 +1,23 @@
-import React from "react"
+import React, { useContext, useEffect, useState } from "react"
 import { Progress, Grid } from "@nextui-org/react";
 import { HeartIcon } from "../../page-resesion/Dashboard/IconReservation";
 import { HiOutlineUsers } from "react-icons/hi";
+import AutoProvider from "../../privateRoute/AutoProvider";
+import moment from "moment";
+import ServiceAllTotalReservation from "../../service/ServiceAllTotalReservation";
 
-const Footer =({totalday,ocupied,reservas,dollar}) =>{
+const Footer =({ocupied,reservas,dollar}) =>{
+    const now = moment().format("YYYY-MM-DD");
+    const  [totalday ,setTotalDay] =useState()
+    const  {jwt} = useContext(AutoProvider)
+
+    useEffect (() =>{
+		ServiceAllTotalReservation({fecha:now,id:jwt.result.id_hotel}).then(index =>{
+			setTotalDay(index)
+		}).catch(e =>{
+			console.log(e)
+		})
+	},[])
 
     const totalWidth = totalday?.RoomReservationbyId[0]?.Num_Reservas
 
@@ -12,6 +26,8 @@ const Footer =({totalday,ocupied,reservas,dollar}) =>{
     const huesped = totalday?.TotalHuespedById[0]?.Num_Reservas
 
     const tienda = (totalday?.totalDay?.totalDay.toLocaleString())
+
+    
 
     return (
         <>
