@@ -69,12 +69,8 @@ const Dashboard = () => {
 
 	const {filterRooms } =UseFilterRooms() 
 
-
-
 	const {loading,error,Items,Room,filterRoom
 	} = useSelector((state) => state.ReservationSlice)
-
-	const [Reservas,setReservas] = useState(Items)
 
 	 const fetchData =async() =>{
         await getPostByReservation()
@@ -109,8 +105,6 @@ const Dashboard = () => {
 	const onItemClick = (itemId) => {	
 	  return history.push(`/DetailDashboard/${itemId}`)
 	}
-
-	const [search,setSearch] =useState([])
 
 	/*const filtrar=(terminoBusqueda)=>{
 			let resultadosBusqueda= state?.filter((elemento,index)=>{
@@ -257,9 +251,6 @@ const Dashboard = () => {
 
 	  };
 
-
-	  
-
       const handleItemMove = (itemId, dragTime, newGroupOrder) => {
 		let dragTimeOne =0
 		let ID_Habitaciones = 0
@@ -381,6 +372,31 @@ const Dashboard = () => {
 		setIsOpen(false);
 		console.log("closed");
 	};
+
+
+	useEffect(() => {
+		socket.on("sendNotification", (data) => {
+			toast.custom((t) => (
+				<>
+				{ t.visible ?
+				<footer className="footer-found">
+				<div className="notification">
+					<img
+					src={data}
+					alt="Notificación"
+					className="notification-image"
+					/>
+					<div className="notification-content">
+					<h4>notificación</h4>
+					</div>
+				</div>
+				</footer>
+				 : null}
+				</>
+			  ))
+		});
+	  }, [socket]);
+	
 
 	const ResutlRoom = filterRooms(Room,raiting)
 	
