@@ -77,22 +77,23 @@ const InformeRoomToSell =() =>{
                     <div style={{display:"flex",alignItems:"center"}} >
                         <input type="date" className="input-selecto-dasboard-n1-reservaction"  onChange={hadChangeFecha}    />
                         <input type="date" className="input-selecto-dasboard-n1-reservaction"  onChange={hadChangeFechaOne}    />
-                        <button className="button-informe-cosultar  with-button-room-to-sell " onClick={hanLookingFor} >Consultar</button>
-                        <button className="button-informe-imprimir"  onClick={handlePrint} >
+                        <button className="button-informe-cosultar-roomtosell " onClick={hanLookingFor} >Consultar</button>
+                        <button className="button-informe-imprimir-roomtosell"  onClick={handlePrint} >
                                 Imprimir
                         </button>
                             </div>
+                            <div className="tablecontainer">
                                 <table className="de">   
                                     <tbody ref={componentRef}  >
                                         <tr>
-                                            <th  className="top-pq"  >Nombre</th>
+                                            <th  className="top-pq sticky-left"  >Nombre</th>
                                                 {array.map(index => (
                                                     <th className="top-room-to-sell-width" >{index.day}</th>
                                                 ))}
                                                 <th   className="top-room-to-sell-width"  >Total</th>
                                             </tr>
                                             <div className="template-flex" >
-                                            <tr className="to-tr top-pq" >
+                                            <tr className="to-tr top-pq top-pq sticky-left" >
                                                 {room?.map(index  =>(
                                                     <>
                                                     <td>{index.nombre}</td>
@@ -143,23 +144,24 @@ const InformeRoomToSell =() =>{
                                             )
                                            
                                         })}
-                                    { <tr className="flex-room-to-sell top-room-to-sell-width" >
-                                        {room?.map(index  =>{
-                                            const filterIndex =   group.filter((Item)=> Item.Room == index.nombre  )
-                                            const sumWithInitial = filterIndex.reduce(
-                                                (accumulator, currentValue) => accumulator + currentValue.disponible,
-                                                0
-                                            );
-                                            return (
-                                                <th>{sumWithInitial}</th>
-                                            )
-                                        })}
-                                        <th>0</th>
-                                        </tr> 
-                                    }
-                                        </div>
-                                    </tbody>       
-            </table>
+                                        { <tr className="flex-room-to-sell top-room-to-sell-width" >
+                                            {room?.map(index  =>{
+                                                const filterIndex =   group.filter((Item)=> Item.Room == index.nombre  )
+                                                const sumWithInitial = filterIndex.reduce(
+                                                    (accumulator, currentValue) => accumulator + currentValue.disponible,
+                                                    0
+                                                );
+                                                return (
+                                                    <th>{sumWithInitial}</th>
+                                                )
+                                            })}
+                                            <th>0</th>
+                                            </tr> 
+                                        }
+                                            </div>
+                                        </tbody>       
+                                </table>
+                            </div>
         </div>
             </ContainerGlobal>
     )

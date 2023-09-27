@@ -86,12 +86,12 @@ const InformeStore =() =>{
                             state={state?.query}
                             name="category"
                              />
-                <li>
+                <li style={{width:"100%"}} >
                     <button className="button-stores-admin-One"  >
                         Buscar
                     </button>
                 </li>   
-                <li>
+                <li  style={{width:"100%"}} >
                     <button className="button-stores-admin-One" onClick={handlePrint} >
                         Imprimir
                     </button>
@@ -128,7 +128,7 @@ const InformeStore =() =>{
                                             <td>${precioCompra}</td>
                                             <td>${precioVenta}</td>
                                             <td>${totalVenta}</td>
-                                            <td><li className="totalPricecheckout pay-checkout-pago-pagado-One pointer-one" onClick={(e) => handNextDetailStore(index.ID)} >Ver</li> </td>
+                                            <td><li className="button-ver-informe-tienda" onClick={(e) => handNextDetailStore(index.ID)} >Ver</li> </td>
                                         </tr>
                                         )
                                     })}

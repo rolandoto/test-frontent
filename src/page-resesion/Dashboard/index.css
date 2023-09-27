@@ -401,7 +401,8 @@
 }
 
 .button-reservas-type-one-two-two {
-  text-align: initial !important;
+    text-align: initial !important;
+    margin-top: 24px;
 }
 
 .button-reservas-type-space {

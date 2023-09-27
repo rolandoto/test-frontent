@@ -46,6 +46,8 @@ const InformeMovimiento =() =>{
                
                <div>
                 <input type="date" className="input-selecto-dasboard-n1-reservaction" onChange={hadChangeFecha} value={LookinforFecha}   />
+                <br />
+                <br />
                 <button className="button-informe-cosultar" onClick={handConsultar} >Consultar</button>
             </div>
 

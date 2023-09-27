@@ -7,29 +7,23 @@ import LoadingDetail from "../../Ui/LoadingDetail";
 import { BsCalendarX } from "react-icons/bs";
 import ServiceUpdateReservationWeb from "../../service/ServiceUpdateReservationWeb";
 import { Button } from "@nextui-org/react";
+import { useSelector } from "react-redux";
 
 const TemplateSearch =() =>{
     const {jwt} =useContext(AutoProvider)
-    const [username,setUsername] =useState()
-    const [state,setState] =useState()
-    const [searching,setSearching] =useState()
-    const [reservas,setReservation] =useState()
+    const [username,setUsername] =useState("")
     const [loading,setLoading] =useState(false)
     const history = useHistory()
+
+    const {error,Items,Room,filterRoom
+	} = useSelector((state) => state.ReservationSlice)
 
     const handCreateReservation =(e) =>{
         history.push("/Createreservaction")
     }
 
-    useEffect(() =>{
-        ServiceReservas({id:jwt.result.id_hotel}).then(index=>{
-            setState(index)
-            setSearching(index)
-        })
-    },[])
-
     const filtrarSearching =(terminoBusqueda) =>{
-        let resultadosBusqueda= state.filter((elemento,index)=>{
+        let resultadosBusqueda= Items.filter((elemento,index)=>{
             if(elemento.name?.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
             || elemento.document?.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
             || elemento.Codigo_Reserva?.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
@@ -38,24 +32,18 @@ const TemplateSearch =() =>{
             return elemento;
             }
         });
-        setSearching(resultadosBusqueda);
+       return {resultadosBusqueda}
     }
 
 
     const handChange =(e) =>{
         setUsername(e.target.value)
-        filtrarSearching(e.target.value)
     }
 
     const handHistory =(e) =>{
         history.push(`/DetailDashboard/${e}`)
     }
 
-    useEffect(() =>{
-        fetch(`https://grupo-hoteles.com/api/getListReservas?id_hotel=${jwt.result.id_hotel}`)
-        .then(resp=>resp.json())
-        .then(data=> setReservation(data))
-    },[])
 
     const handCLickUdpate =(e) => {      
         ServiceUpdateReservationWeb({id:e,cancelado:1}).then(index=>{
@@ -67,6 +55,9 @@ const TemplateSearch =() =>{
             setLoading(false)
         })
     }
+
+
+   const {resultadosBusqueda} = filtrarSearching(username)  
 
     return (
 
@@ -83,13 +74,6 @@ const TemplateSearch =() =>{
                                         onChange={handChange}   
                                         placeholder="No Documento,No reservas o Nombre" />
                             </li>   
-                            <li>
-                                <Button color={"error"}   onClick={handCreateReservation} className="button-dasboard-thre-search-finish-finish-one"   > <span  className="text-words" > Crear Reserva </span></Button>
-                            </li>
-                            <li>
-
-                            <Button color={"success"}  className="button-dasboard-thre-search-finish-finish-one"   > <span  className="text-words" > Hacer check in</span></Button>
-                    </li>
                     </ul>
                 </div>
               
@@ -108,10 +92,11 @@ const TemplateSearch =() =>{
                         <th>Prefijo</th>
                         <th>Celular</th>
                         <th>Nacionalidad</th>
+                        <th>Medio</th>
                         <th>Opciones</th>
                     </tr>
                 </thead>
-                  {searching?.map(index =>{
+                  {resultadosBusqueda?.map(index =>{
                      let todaydesde = new Date(index.start_time)
                      const desde = todaydesde.toISOString().split('T')[0]
 
@@ -122,7 +107,10 @@ const TemplateSearch =() =>{
 
                      const abono = parseInt(index.abono)
 
+                     const ID_Canal = parseInt(index.abono)
+
                     if(index.state ==0)
+                        console.log("Información de depuración para el elemento actual:", index);
                         return (
                         <tr className="" >
                             <td> </td>
@@ -136,6 +124,7 @@ const TemplateSearch =() =>{
                             <td>{index.codigo}</td>
                             <td>{index.Celular}</td>
                             <td>{index.nacionalidad}</td>
+                            <td>$prueba</td>
                             <td>
                             <button className="button-dasboard-thre-search-view"  onClick={() => handHistory(index.id)} >
                                         <span>ver</span> 

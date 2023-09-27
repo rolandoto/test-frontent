@@ -58,8 +58,10 @@ const InformeCamareria =() =>{
 
             <div>
                 <input type="date" className="input-selecto-dasboard-n1-reservaction"  onChange={hadChangeFecha}    />
-                <button className="button-informe-cosultar" onClick={hanLookingFor} >Consultar</button>
-                {camareria?.length>0 && <button className="button-informe-descargar"  onClick={handClikcDescargar} >Reporte camareras</button>}
+                <br />
+                <br />
+                <button className="button-informe-camareria-cosultar" onClick={hanLookingFor} >Consultar</button>
+                {camareria?.length>0 && <button className="button-informe-camareria-descargar"  onClick={handClikcDescargar} >Reporte camareras</button>}
                 {camareria?.length>0 &&<button className="button-informe-imprimir"  ><a href="#" onClick={printDoc}>
                     Imprimir
                 </a></button>}
