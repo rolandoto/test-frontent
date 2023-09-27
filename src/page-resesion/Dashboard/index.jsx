@@ -375,8 +375,9 @@ const Dashboard = () => {
 
 
 	useEffect(() => {
-		socket.on("sendNotification", (data) => {
-			 getRoomByReservation()
+		
+		socket.on("sendNotification", async(data) => {
+			await getPostByReservation()
 			toast.custom((t) => (
 				<>
 				{ t.visible ?
@@ -396,7 +397,7 @@ const Dashboard = () => {
 				</>
 			  ))
 		});
-	  }, [socket]);
+	  }, [dispatch,socket]);
 	
 
 	const [numberSave,setNumberSave]=useState([])
