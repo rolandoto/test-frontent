@@ -1,9 +1,13 @@
-import React from  "react"
+import React, { useState } from  "react"
 import { CiBadgeDollar } from "react-icons/ci";
 import { BsBucket ,BsCheckCircle,BsBell} from "react-icons/bs";
 import { VscSymbolEvent } from "react-icons/vsc";
 import styled from "styled-components";
 import ReactTooltip from "react-tooltip";
+import MouseOver from "../../component/MouseOver";
+import io from "socket.io-client";
+
+const socket = io.connect("https://railway.grupo-hoteles.com");
 
 const Info = styled(ReactTooltip)`
   max-width: 500px;
@@ -25,7 +29,8 @@ const InfoMessage = styled.div`
   z-index: 1000 !important;
 `;
 
-const itemRenderer = ({ item, itemContext, getItemProps }) => {
+const   itemRenderer = ({ item, itemContext, getItemProps }) => {
+
     const total_habitacion = parseInt(item.valor_habitacion)
 
     const abono = parseInt(item.abono)
@@ -35,6 +40,7 @@ const itemRenderer = ({ item, itemContext, getItemProps }) => {
     let title = itemContext.title; // Establecer título predeterminado
 
     let color;
+
 
     switch (item.state) {
     case 0:
@@ -125,6 +131,7 @@ const itemRenderer = ({ item, itemContext, getItemProps }) => {
                     <span className="margin-icon-state" >{iconState}</span>
                     <span className="text-words" >{title}</span>
             </div>
+                <MouseOver socket={socket} />
                 <div>
                 
                         <Info  	place="top" 

@@ -32,7 +32,7 @@ import { HiMiniArrowUpCircle } from "react-icons/hi2";
 import { config } from "../../config";
 import io from "socket.io-client";
 import { toast } from "react-hot-toast";
-import itemRenderer from "./ItemRender";
+import ItemRenderer from "./ItemRender";
 import IntervalRenderer from "./IntervalRender";
 import renderGroup from "./RenderGroup";
 import intervalRendererday from "./IntervalRenderDay";
@@ -601,7 +601,7 @@ const Dashboard = () => {
 				lineHeight={34}
 				sidebarWidth={225}
 				sidebarContent={<div>Above The Left</div>}
-				itemRenderer={  itemRenderer}
+				itemRenderer={  ItemRenderer}
 				onItemClick={(itemId, e, time) =>{
 					onItemClick(itemId, e, time)
 				}}
@@ -613,7 +613,7 @@ const Dashboard = () => {
 				>
 				<TimelineHeaders className="list-booking-sticky"  >
 
-				<MouseOver socket={socket} />
+				
 				<SidebarHeader>
 					{({ getRootProps }) => {
 					return( 
