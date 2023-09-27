@@ -397,7 +397,7 @@ const Dashboard = () => {
 				</>
 			  ))
 		});
-	  }, [dispatch,socket]);
+	  }, [socket]);
 	
 
 	const [numberSave,setNumberSave]=useState([])
