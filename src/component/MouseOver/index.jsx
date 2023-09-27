@@ -55,31 +55,29 @@ const MouseOver =({socket}) =>{
   }, []);
 
   return (
-    <div>
-    {Object.keys(mousePositions).map((userId) => (
-      <>
-      {userId.id_hotel == jwt.result.id_hotel  && (
-        <div
-          key={userId}
-          className={`cursor ${
-            userId === "tu_identificador_de_usuario" ? "current-user" : ""
-          }`}
-          style={{
-            left: `${mousePositions[userId].x}px`,
-            top: `${mousePositions[userId].y}px`,
-            backgroundColor: mousePositions[userId].userColor
-          }}
-        >
-          <span className="cursor-name">
-            {userId === "tu_identificador_de_usuario"
-              ? "Rolando 🇨🇴"
-              : `${mousePositions[userId].userName} 🇨🇴`}
-          </span>
-        </div>
-         )}
-      </>
-    ))}
-  </div>
+    <div className="App">
+      {Object.keys(mousePositions).map((userId) => (
+        <>
+          <div
+            key={userId}
+            className={`cursor ${
+              userId === "tu_identificador_de_usuario" ? "current-user" : ""
+            }`}
+            style={{
+              left: `${mousePositions[userId].x}px`,
+              top: `${mousePositions[userId].y}px`,
+              backgroundColor: mousePositions[userId].userColor
+            }}
+          >
+            <span className="cursor-name">
+              {userId === "tu_identificador_de_usuario"
+                ? "Rolando 🇨🇴"
+                : `${mousePositions[userId].userName} 🇨🇴`}
+            </span>
+          </div>
+        </>
+      ))}
+    </div>
   )
 
 }
