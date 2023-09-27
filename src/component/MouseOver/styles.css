@@ -1,0 +1,62 @@
+
+/* Estilo básico del cursor */
+.cursor {
+    position: absolute;
+    top: 90%;
+    margin-top: 4%;
+    margin-left: 3%;
+    padding: 5px;
+    height: 1.7%;
+    font-size: 10px;
+    color: white;
+    text-align: center;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    background-color: black; /* Color del cursor */
+    border-radius: 5px;
+    font-weight: 600;
+    pointer-events: none; /* Evita que el cursor afecte la interacción del usuario */
+    transition: background-color 0.5s, transform 0.3s; /* Transiciones para color de fondo y transform */
+  }
+  
+  /* Cambia el color de fondo al hacer hover */
+  .cursor:hover {
+    background-color: #00cc00; /* Nuevo color de fondo al hacer hover */
+    transform: scale(
+      1.1
+    ); /* Cambio de escala al hacer hover (efecto de crecimiento) */
+  }
+  
+  /* Animación de movimiento */
+  @keyframes moveCursor {
+    0% {
+      transform: translate(0, 0); /* Posición inicial */
+    }
+    50% {
+      transform: translate(5px, 5px); /* Posición intermedia */
+    }
+    100% {
+      transform: translate(
+        0,
+        0
+      ); /* Posición final (vuelve a la posición inicial) */
+    }
+  }
+  
+  /* Aplica la animación de movimiento al cursor */
+  .cursor.move-animation {
+    animation: moveCursor 2s infinite; /* Repite la animación de movimiento indefinidamente */
+  }
+  
+  .custom-element:hover {
+    background-color: red; /* Change to the desired background color */
+  }
+  .pointer {
+    position: relative;
+    top: 1px;
+    margin-top: -590px;
+    margin-right: 380px;
+    transition: background-color 0.5s, transform 0.3s; /* Transiciones para color de fondo y transform */
+  }
+  

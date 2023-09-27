@@ -2,7 +2,6 @@ import React, { useState } from  "react"
 
 const GroupRows =({group,color,estado,iconState,letra,root,parent,toggleGroup}) =>{
 
-   
     const handClickToggle  =() =>{
 		toggleGroup(parent)
 	}

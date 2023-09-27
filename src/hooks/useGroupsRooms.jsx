@@ -1,15 +1,14 @@
 
 
-const UseGroupsRooms =(arr,numElminar) =>{
+const UseGroupsRooms = ( arr, numElminar) => {
 
-    const resultado = arr.filter(item =>{
-        if(!numElminar.includes(item.parent) || item.root==true){
-          return item
-        }
-      });
+  const resultado = arr?.filter(item => {
+    if(!numElminar.includes(item.parent) || item.root == true){
+      return item
+    }
+  });
 
-    return {resultado}
+  return { resultado };
+};
 
-}
-
-export default UseGroupsRooms
+export default UseGroupsRooms;

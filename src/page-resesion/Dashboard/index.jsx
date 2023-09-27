@@ -15,10 +15,8 @@ import "./BookingsTimeline.css";
 import AutoProvider  from "../../privateRoute/AutoProvider";
 import "./index.css"
 import { useHistory } from "react-router-dom";
-import ServicetypeRooms from "../../service/ServicetypeRooms";
 import { VscSymbolEvent } from "react-icons/vsc";
 import ReactTooltip from "react-tooltip";
-import ServiceAllTotalReservation from "../../service/ServiceAllTotalReservation";
 import {BsBell} from "react-icons/bs";
 import UseListMotels from "../../hooks/UseListMotels";
 import HttpClient from "../../HttpClient";
@@ -39,13 +37,15 @@ import IntervalRenderer from "./IntervalRender";
 import renderGroup from "./RenderGroup";
 import intervalRendererday from "./IntervalRenderDay";
 import intervalRendererdayNum from "./IntervalRendererdayNum";
-import UseUpdateRange from "../../hooks/UseUpdateRange";
 import { useDispatch, useSelector } from "react-redux";
 import useReservationActions from "../../action/useReservationActions";
 import UseFilterRooms from "../../hooks/useFilterRooms";
 import useUpdateDetailPointerActions from "../../action/useUpdateDetailPointerActions";
 import { confirmAlert } from "react-confirm-alert";
 import useUpdateDetailPounterRangeSliceActions from "../../action/useUpdateDetailPounterRangeSliceActions";
+import { IconName } from "react-icons/fc";
+import UseGroupsRooms from "../../hooks/useGroupsRooms";
+import MouseOver from "../../component/MouseOver";
 
 const socket = io.connect("https://railway.grupo-hoteles.com");
 
@@ -398,8 +398,14 @@ const Dashboard = () => {
 	  }, [socket]);
 	
 
+	const [numberSave,setNumberSave]=useState([])
+
+
 	const ResutlRoom = filterRooms(Room,raiting)
+	//const totalResult = UseGroupsRooms(ResutlRoom,numberSave)
 	
+
+
 	return (
 		<>		
 		<div>
@@ -418,6 +424,8 @@ const Dashboard = () => {
 						className="advertisement-image"
 						/>
 		</Modal>
+
+		<MouseOver socket={socket} />
 		</div>
 			<div ref={timelineRef} > 
 			<div  className="container-button">
