@@ -93,7 +93,7 @@ const InformeRoomToSell =() =>{
                                                 <th   className="top-room-to-sell-width"  >Total</th>
                                             </tr>
                                             <div className="template-flex" >
-                                            <tr className="to-tr top-pq top-pq sticky-left" >
+                                            <tr className="to-tr top-pq " >
                                                 {room?.map(index  =>(
                                                     <>
                                                     <td>{index.nombre}</td>
