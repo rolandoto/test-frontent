@@ -425,7 +425,7 @@ const Dashboard = () => {
 						/>
 		</Modal>
 
-		<MouseOver socket={socket} />
+		
 		</div>
 			<div ref={timelineRef} > 
 			<div  className="container-button">
@@ -613,7 +613,7 @@ const Dashboard = () => {
 				>
 				<TimelineHeaders className="list-booking-sticky"  >
 
-				
+				<MouseOver socket={socket} />
 				<SidebarHeader>
 					{({ getRootProps }) => {
 					return( 
