@@ -375,8 +375,8 @@ const Dashboard = () => {
 
 
 	useEffect(() => {
-		socket.on("sendNotification", (data) => {
-			setUpdateFilterReservation(Items)
+		socket.on("sendNotification", async(data) => {
+			await getRoomByReservation()
 			toast.custom((t) => (
 				<>
 				{ t.visible ?
