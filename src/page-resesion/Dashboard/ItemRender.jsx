@@ -4,10 +4,7 @@ import { BsBucket ,BsCheckCircle,BsBell} from "react-icons/bs";
 import { VscSymbolEvent } from "react-icons/vsc";
 import styled from "styled-components";
 import ReactTooltip from "react-tooltip";
-import MouseOver from "../../component/MouseOver";
-import io from "socket.io-client";
 
-const socket = io.connect("https://railway.grupo-hoteles.com");
 
 const Info = styled(ReactTooltip)`
   max-width: 500px;
@@ -133,7 +130,6 @@ const   itemRenderer = ({ item, itemContext, getItemProps }) => {
             </div>
                
                 <div>
-                <MouseOver socket={socket} />
                         <Info  	place="top" 
                                 variant="info" 
                                 id={key}  >
