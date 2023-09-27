@@ -1,7 +1,7 @@
 
 /* Estilo básico del cursor */
 .cursor {
-    position: absolute !important;
+    position: relative !important;
     top: 90% !important;
     margin-top: 4% !important;
     margin-left: 3% !important;
