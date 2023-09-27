@@ -131,9 +131,9 @@ const   itemRenderer = ({ item, itemContext, getItemProps }) => {
                     <span className="margin-icon-state" >{iconState}</span>
                     <span className="text-words" >{title}</span>
             </div>
-                <MouseOver socket={socket} />
+               
                 <div>
-                
+                <MouseOver socket={socket} />
                         <Info  	place="top" 
                                 variant="info" 
                                 id={key}  >
