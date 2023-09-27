@@ -7,6 +7,7 @@ import LoadingDetail from "../../Ui/LoadingDetail";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import { useReactToPrint } from "react-to-print";
+import { useSelector } from "react-redux";
 
 const InformeRoomToSell =() =>{    
     const {jwt} =useContext(AutoProvider)
@@ -15,6 +16,8 @@ const InformeRoomToSell =() =>{
     const [LookinforFechaOne,setLokinforFechaOne] =useState()
     const [loadingInforme,setLoadingInforme] =useState(false)
     const [room,setRoom] =useState()
+    const {loading,error,Items,Room,filterRoom
+	} = useSelector((state) => state.ReservationSlice)
 
     const handClikcDescargar =() =>{
         setLoadingInforme(true)
@@ -34,6 +37,7 @@ const InformeRoomToSell =() =>{
             console.log(e)
         })
     }
+
     useEffect(() =>{
         ServicetypeRooms({id:jwt.result.id_hotel}).then(index =>{
             setRoom(index)
@@ -93,7 +97,7 @@ const InformeRoomToSell =() =>{
                                             </tr>
                                             <div className="template-flex" >
                                             <tr className="to-tr top-pq" >
-                                                {room?.map(index  =>(
+                                                {filterRoom?.map(index  =>(
                                                     <>
                                                     <td>{index.nombre}</td>
                                                 
@@ -144,7 +148,7 @@ const InformeRoomToSell =() =>{
                                            
                                         })}
                                     { <tr className="flex-room-to-sell top-room-to-sell-width" >
-                                        {room?.map(index  =>{
+                                        {filterRoom?.map(index  =>{
                                             const filterIndex =   group.filter((Item)=> Item.Room == index.nombre  )
                                             const sumWithInitial = filterIndex.reduce(
                                                 (accumulator, currentValue) => accumulator + currentValue.disponible,
