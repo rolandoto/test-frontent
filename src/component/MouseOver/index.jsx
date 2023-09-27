@@ -55,7 +55,7 @@ const MouseOver =({socket}) =>{
   }, []);
 
   return (
-    <div className="App">
+    <div >
       {Object.keys(mousePositions).map((userId) => (
         <>
           <div
