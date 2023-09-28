@@ -373,7 +373,6 @@ const Dashboard = () => {
 		console.log("closed");
 	};
 
-
 	let isFetchingData = true;
 
 	socket.on("sendNotification", async(data) => {
@@ -404,7 +403,15 @@ const Dashboard = () => {
 
 	const ResutlRoom = filterRooms(Room,raiting)
 	//const totalResult = UseGroupsRooms(ResutlRoom,numberSave)
+
+
+	console.log(Items)
+
 	
+	if(loading){
+		return <p>...Cargando</p>
+	}
+
 	return (
 		<>		
 		<div>

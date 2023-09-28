@@ -65,9 +65,7 @@ const Bictacoras  =() =>{
     if(loading){
       return <p>...Cargando</p>
     }
-    if(error){
-      return <p>{error}</p>
-    } 
+    
 
     return <>
               <InputBictacoras 
