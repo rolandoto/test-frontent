@@ -72,14 +72,14 @@ const Checkingn2Organism =({id,postDetailRoom,fetchDataApiWhatsapp,postWhataapBy
     const convertirFinishtONe = parseInt(numtOne)
  
 
-        useEffect(() =>{
-            ServicetypeRooms({id:jwt.result.id_hotel}).then(index =>{
-                setRoom(index)
-            })
-          fetch("https://grupohoteles.co/api/getTipeDocument")
-          .then(index =>index.json())
-          .then(data => setTipoDocumento(data))
-      },[])
+    useEffect(() =>{
+        ServicetypeRooms({id:jwt.result.id_hotel}).then(index =>{
+            setRoom(index)
+        })
+        fetch("https://grupohoteles.co/api/getTipeDocument")
+        .then(index =>index.json())
+        .then(data => setTipoDocumento(data))
+    },[])
 
     const hanClickinContracto =() =>{
         if(change.ID_Tipo_Forma_pago== null){
@@ -89,7 +89,6 @@ const Checkingn2Organism =({id,postDetailRoom,fetchDataApiWhatsapp,postWhataapBy
             handFirmar()
 
         }
-      
       }
 
     const handleInputChange =(event) =>{
@@ -165,28 +164,41 @@ const Checkingn2Organism =({id,postDetailRoom,fetchDataApiWhatsapp,postWhataapBy
     const toPricediaHabitacion = UsePrice({number:resulDetailDashboard?.valor_dia_habitacion})
    
     const now = moment().set({ hour: 0, minute: 0, second: 0 }).format('YYYY/MM/DD HH:mm:ss');
-         
-    const inputPayValue ={
+ 
+      const abono = parseInt(resulDetailDashboard?.valor_abono);
+      const habitacion = parseInt(resulDetailDashboard?.valor_habitacion);
+      
+      // Asegurarse de que PayAbono no sea negativo
+      const PayAbono = Math.max(habitacion - abono, 0);
+
+            
+      console.log(totalWithIva)
+      
+      const inputPayValue = {
         ID_pago:resulDetailDashboard?.ID_pago,
         ID_Reserva: id,
-        PayAbono: parseInt(resulDetailDashboard?.valor_habitacion)  - parseInt(resulDetailDashboard?.valor_abono) ,
+        PayAbono,
         Fecha_pago: now,
         Tipo_forma_pago: change.ID_Tipo_Forma_pago,
-        Nombre_recepcion:jwt.result.name
-    }
+        Nombre_recepcion: jwt.result.name
+      };
 
     const [disable,setDisable] =useState(false)
 
-    const handFirmar =() =>{
-            if((parseInt(resulDetailDashboard?.valor_habitacion - resulDetailDashboard?.valor_abono ) ==0)){
+    const handFirmar = () => {
+        if (parseInt(PayAbono) !== 0) {
+          HttpClient.insertPayABono({ data: inputPayValue })
+            .then((index) => {
+              console.log(index);
+            })
+            .catch((error) => {
+              console.error('Error al realizar el pago:', error);
+            });
+        }
+    };
 
-            }else {
-                HttpClient.insertPayABono({data:inputPayValue}).then(index =>{
-                    console.log(index)
-                })
-            }
-    }
-
+    
+     
     let dataTwo = {
         ID_Tipo_Forma_pago:change.ID_Tipo_Forma_pago
     }
@@ -254,13 +266,9 @@ const Checkingn2Organism =({id,postDetailRoom,fetchDataApiWhatsapp,postWhataapBy
         })
         }
 
-        
-
-
-    
-
 
     if(!resultFinish) return null
+  
 
     if(resulDetailDashboard.Iva==1){
         return (
@@ -374,7 +382,7 @@ const Checkingn2Organism =({id,postDetailRoom,fetchDataApiWhatsapp,postWhataapBy
                                         {typy_buy?.map(category =>(
                                             <option 
                                             value={category.id}   
-                                            key={category}
+                                            key={category.id}
                                         >
                                             {category.name}
                                         </option>

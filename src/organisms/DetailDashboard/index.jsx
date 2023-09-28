@@ -48,7 +48,6 @@ const DetailDasboard =(props) =>{
   
   const [messageReceived, setMessageReceived] = useState("exitoso");
 
-
   useEffect(() => {
     socket.on("sendNotification", (data) => {
      console.log(data)
@@ -64,7 +63,6 @@ const DetailDasboard =(props) =>{
     const history = useHistory()
     const {iduser} = UseListMotels()
     const {jwt} = useContext(AutoProvider)
-    
     
     const message  =jwt?.result?.photo
 

@@ -374,31 +374,27 @@ const Dashboard = () => {
 	};
 
 
-	useEffect(() => {
-		
-		socket.on("sendNotification", async(data) => {
-			await getPostByReservation()
-			toast.custom((t) => (
-				<>
-				{ t.visible ?
-				<footer className="footer-found">
-				<div className="notification">
-					<img
-					src={data}
-					alt="Notificación"
-					className="notification-image"
-					/>
-					<div className="notification-content">
-					<h4>notificación</h4>
-					</div>
+	socket.on("sendNotification", async(data) => {
+		await getPostByReservation()
+		toast.custom((t) => (
+			<>
+			{ t.visible ?
+			<footer className="footer-found">
+			<div className="notification">
+				<img
+				src={data}
+				alt="Notificación"
+				className="notification-image"
+				/>
+				<div className="notification-content">
+				<h4>notificación</h4>
 				</div>
-				</footer>
-				 : null}
-				</>
-			  ))
-		});
-	  }, [socket]);
-	
+			</div>
+			</footer>
+			 : null}
+			</>
+		  ))
+	});
 
 	const [numberSave,setNumberSave]=useState([])
 
