@@ -404,8 +404,6 @@ const Dashboard = () => {
 	const ResutlRoom = filterRooms(Room,raiting)
 	//const totalResult = UseGroupsRooms(ResutlRoom,numberSave)
 
-
-
 	return (
 		<>		
 		<div>
