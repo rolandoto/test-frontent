@@ -374,11 +374,10 @@ const Dashboard = () => {
 	};
 
 
-	let isFetchingData = false;
+	let isFetchingData = true;
 
 	socket.on("sendNotification", async(data) => {
-		if (!isFetchingData) {
-		  isFetchingData = true;
+		if (isFetchingData) {
 		  isFetchingData = false;
 		  toast.custom((t) => (
 			<>
