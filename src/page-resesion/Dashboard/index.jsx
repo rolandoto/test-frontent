@@ -405,12 +405,6 @@ const Dashboard = () => {
 	//const totalResult = UseGroupsRooms(ResutlRoom,numberSave)
 
 
-	console.log(Items)
-
-	
-	if(loading){
-		return <p>...Cargando</p>
-	}
 
 	return (
 		<>		
