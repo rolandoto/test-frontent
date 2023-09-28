@@ -379,28 +379,27 @@ const Dashboard = () => {
 	socket.on("sendNotification", async(data) => {
 		if (!isFetchingData) {
 		  isFetchingData = true;
-		  await getPostByReservation();
 		  isFetchingData = false;
 		  toast.custom((t) => (
 			<>
 			{ t.visible ?
 			<footer className="footer-found">
-			<div className="notification">
-				<img
-				src={data}
-				alt="Notificación"
-				className="notification-image"
-				/>
-				<div className="notification-content">
-				<h4>notificación</h4>
+				<div className="notification">
+					<img
+					src={data}
+					alt="Notificación"
+					className="notification-image"
+					/>
+					<div className="notification-content">
+					<h4>notificación</h4>
+					</div>
 				</div>
-			</div>
 			</footer>
 			 : null}
 			</>
 		  ))
 		}
-	  });
+	});
 
 	const [numberSave,setNumberSave]=useState([])
 
