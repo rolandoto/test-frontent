@@ -92,6 +92,7 @@
     ]
   },
   "devDependencies": {
-    "jest": "^27.5.1"
+    "jest": "^27.5.1",
+    "workbox-cli": "^7.0.0"
   }
 }
