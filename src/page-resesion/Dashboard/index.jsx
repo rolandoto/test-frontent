@@ -374,9 +374,14 @@ const Dashboard = () => {
 	};
 
 
+	let isFetchingData = false;
+
 	socket.on("sendNotification", async(data) => {
-		await getPostByReservation()
-		toast.custom((t) => (
+		if (!isFetchingData) {
+		  isFetchingData = true;
+		  await getPostByReservation();
+		  isFetchingData = false;
+		  toast.custom((t) => (
 			<>
 			{ t.visible ?
 			<footer className="footer-found">
@@ -394,16 +399,14 @@ const Dashboard = () => {
 			 : null}
 			</>
 		  ))
-	});
+		}
+	  });
 
 	const [numberSave,setNumberSave]=useState([])
-
 
 	const ResutlRoom = filterRooms(Room,raiting)
 	//const totalResult = UseGroupsRooms(ResutlRoom,numberSave)
 	
-
-
 	return (
 		<>		
 		<div>
