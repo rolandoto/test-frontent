@@ -11,8 +11,8 @@
   border: none;
 }
 
-.rct-header-root > div{
- margin-left: 10px;
+.rct-header-root > div {
+  margin-left: 10px;
 }
 
 .react-calendar-timeline .rct-dateHeader {
@@ -82,7 +82,6 @@
   margin-left: -4px;
   margin: auto;
   margin-top: 8px;
-  
 }
 
 .container-button-dasboard {
@@ -171,7 +170,7 @@
   background: white;
   outline: none;
   color: #726659;
- 
+
   transition: all 0.3s ease-in-out;
   -webkit-transition: all 0.3s ease-in-out;
   margin-top: 19px;
@@ -190,7 +189,7 @@
   background: white;
   outline: none;
   color: #726659;
-  
+
   transition: all 0.3s ease-in-out;
   -webkit-transition: all 0.3s ease-in-out;
   margin-top: 19px;
@@ -222,7 +221,7 @@
 
 .react-calendar-timeline .rct-sidebar .rct-sidebar-row.rct-sidebar-row-odd {
   background: #f9f9f9;
-  text-indent: 18px 
+  text-indent: 18px;
 }
 
 .react-calendar-timeline .rct-horizontal-lines .rct-hl-even,
@@ -252,8 +251,7 @@
   margin-top: 10px;
 }
 
-
-.opo-room{
+.opo-room {
   font-weight: 100;
 }
 
@@ -371,8 +369,7 @@ hr.border {
   cursor: pointer;
 }
 
-
-.pay-checkout-pago-pagado-One-two{
+.pay-checkout-pago-pagado-One-two {
   width: 49px;
   background: #f27474;
   border-radius: 5px;
@@ -389,17 +386,17 @@ hr.border {
   margin-right: -167px;
 }
 
-.imbox-color{
-  width: 24px;      
+.imbox-color {
+  width: 24px;
   height: 24px;
-  background-color:#7828c8 ;
+  background-color: #7828c8;
   border-radius: 8px;
   margin: 10px;
   align-items: center;
 }
 
-.imbox-color-one{
-  width: 24px;      
+.imbox-color-one {
+  width: 24px;
   height: 24px;
   background-color: #f31260;
   border-radius: 8px;
@@ -407,8 +404,8 @@ hr.border {
   margin: 10px;
 }
 
-.imbox-color-one-pagada{
-  width: 24px;      
+.imbox-color-one-pagada {
+  width: 24px;
   height: 24px;
   background-color: #ff9275;
   border-radius: 8px;
@@ -416,8 +413,8 @@ hr.border {
   margin: 10px;
 }
 
-.imbox-color-three{
-  width: 24px;      
+.imbox-color-three {
+  width: 24px;
   height: 24px;
   background-color: #17c964;
   border-radius: 8px;
@@ -425,8 +422,8 @@ hr.border {
   margin: 10px;
 }
 
-.imbox-color-three-adeudada{
-  width: 24px;      
+.imbox-color-three-adeudada {
+  width: 24px;
   height: 24px;
   background-color: green;
   border-radius: 8px;
@@ -434,9 +431,8 @@ hr.border {
   margin: 10px;
 }
 
-
-.imbox-color-three-adeudada-list{
-  width: 24px;      
+.imbox-color-three-adeudada-list {
+  width: 24px;
   height: 24px;
   background-color: #0072f5;
   border-radius: 8px;
@@ -444,8 +440,8 @@ hr.border {
   margin: 10px;
 }
 
-.imbox-color-four{
-  width: 24px;      
+.imbox-color-four {
+  width: 24px;
   height: 24px;
   background-color: rgba(243, 217, 36, 0.8);
   border-radius: 8px;
@@ -453,8 +449,8 @@ hr.border {
   margin: 10px;
 }
 
-.imbox-color-five{
-  width: 24px;      
+.imbox-color-five {
+  width: 24px;
   height: 24px;
   background-color: #727171;
   border-radius: 8px;
@@ -462,7 +458,7 @@ hr.border {
   margin: 10px;
 }
 
-.border-icon{
+.border-icon {
   display: flex;
   justify-content: space-around;
   width: 504px;
@@ -471,12 +467,12 @@ hr.border {
   left: -657px;
 }
 
-.state-type{
+.state-type {
   display: flex;
   align-items: center;
 }
 
-.margin-let-rig{
+.margin-let-rig {
   margin-left: -5px;
   font-size: 12px;
   display: flex;
@@ -484,53 +480,50 @@ hr.border {
   padding-top: 4px;
 }
 
-.icon-state-reservation{
+.icon-state-reservation {
   display: flex;
-    align-items: center;
-    overflow: hidden;
+  align-items: center;
+  overflow: hidden;
 }
 
-.wi-img-icon{
+.wi-img-icon {
   width: 20px;
   height: 10px;
-} 
+}
 
-.margin-icon-state{
+.margin-icon-state {
   margin-right: -14px;
 }
 
 .today {
   margin: -10px 0 0 0;
-  background-color:#bbbbbb!important;
-  border-radius:  8px 8px 0 0  ;
+  background-color: #bbbbbb !important;
+  border-radius: 8px 8px 0 0;
 }
 
 .todayOne {
   margin: 0 0 0 0;
   right: 20px;
-  box-shadow: 0px 0px  0px 0px #000000;
+  box-shadow: 0px 0px 0px 0px #000000;
   z-index: 1000 !important;
 }
 
-
-
-.todayOne-Finsihs{
-  border-top: 0.1px solid #aaaaaa!important;
-  border-left: 0.1px solid #aaaaaa!important;
+.todayOne-Finsihs {
+  border-top: 0.1px solid #aaaaaa !important;
+  border-left: 0.1px solid #aaaaaa !important;
 }
 
-.todayOne-end{
-  border-top: 0.1px solid #aaaaaa!important;
-  border-left: 4px solid  #17c964!important;
+.todayOne-end {
+  border-top: 0.1px solid #aaaaaa !important;
+  border-left: 4px solid #17c964 !important;
   color: white !important;
-
 }
 
-.todayOne-end-one{
-  border-left: 4px solid  #17c964!important;
-  border-bottom: 0.1px solid #aaaaaa!important;
+.todayOne-end-one {
+  border-left: 4px solid #17c964 !important;
+  border-bottom: 0.1px solid #aaaaaa !important;
   box-shadow: rgba(0, 0, 0, 0.25) 0px 10px 10px 0px !important ;
-  box-shadow: 0px 0px  0px 0px  rgba(0, 0, 0, 0.25);
+  box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.25);
   z-index: 1000;
 }
 
@@ -538,38 +531,36 @@ hr.border {
   position: relative;
   background-color: #f0f0f0;
   z-index: 1000 !important;
-  border-left: 0.1px solid  #aaaaaa!important;
-  border-bottom: 0.1px solid  #aaaaaa!important;
-  
+  border-left: 0.1px solid #aaaaaa !important;
+  border-bottom: 0.1px solid #aaaaaa !important;
 }
 
-.todayOne-two{
+.todayOne-two {
   position: relative;
   padding: 10px;
   border: solid;
   z-index: 1000 !important;
 }
 
-
-.top-index-home{
+.top-index-home {
   margin-top: 20px;
 }
 
-.react-calendar-timeline{
-  text-indent: 18px !important; 
+.react-calendar-timeline {
+  text-indent: 18px !important;
 }
 
-.button-rone-reserva{
+.button-rone-reserva {
   width: 100%;
 }
 
-.container-flex-init-global-Card{
+.container-flex-init-global-Card {
   max-width: 1744px;
   margin-top: 15;
   margin: auto !important;
 }
 
-.card-one-One{
+.card-one-One {
   position: relative;
   display: flex;
   flex-direction: column;
@@ -577,32 +568,31 @@ hr.border {
   word-wrap: break-word;
   background-color: #fff;
   background-clip: border-box;
-  border: 1px solid rgba(0,0,0,.125);
+  border: 1px solid rgba(0, 0, 0, 0.125);
   border-radius: 0.25rem;
-  box-shadow: 3px 5px 5px 0px #E3E3E3;
+  box-shadow: 3px 5px 5px 0px #e3e3e3;
   margin-top: 10px;
   width: 432px;
 }
-.color-detail-room{ 
+.color-detail-room {
 }
-.font-room{
+.font-room {
   font-size: 12px;
   font-weight: 400;
   width: 10px;
 }
 
-.text-words{
+.text-words {
   font-size: 13px;
   font-weight: 400;
 }
 
-.day-num{
+.day-num {
   font-weight: 500;
 }
 
-
 .arrow-left.active:before {
-  content: '';
+  content: "";
   position: absolute;
   left: -99px;
   width: 0;
@@ -632,13 +622,11 @@ hr.border {
   position: absolute;
   opacity: 0;
   transition: opacity 300ms ease;
-  
+
   .rct-item--is-resizing & {
     opacity: 1;
   }
 }
-
-
 
 .release {
   font-size: 24px;
@@ -659,10 +647,6 @@ hr.border {
   color: lightseagreen;
 }
 
-
-
-
-
 .rct-item-handler {
   cursor: col-resize !important;
   display: flex;
@@ -673,10 +657,8 @@ hr.border {
     height: 45%;
     position: relative;
     pointer-events: none;
-    
   }
 }
-
 
 .rct-item-tooltip {
   z-index: 75;
@@ -698,7 +680,7 @@ hr.border {
   position: absolute;
   opacity: 0;
   transition: opacity 300ms ease;
-  
+
   .rct-item--is-resizing & {
     opacity: 1;
   }
@@ -713,7 +695,7 @@ hr.border {
   justify-content: center;
 
   & + & {
-    margin-top: 60px
+    margin-top: 60px;
   }
 }
 
@@ -721,7 +703,6 @@ hr.border {
   display: none;
   opacity: 0;
 }
-
 
 .rtc-item-hotspot {
   position: absolute;
@@ -773,13 +754,10 @@ hr.border {
 }
 
 /* Aplicar la animación a la notificación */
-.notification {
-  animation: slideIn 0.8s ease;
-}
 
-.footer-found {
-  width: 315px;
-  position: absolute;
-  /* left: 0; */
-  right: 32px;
-}
+  .footer-found {
+    width: 315px;
+    position: absolute;
+    /* left: 0; */
+    right: 32px;
+  }

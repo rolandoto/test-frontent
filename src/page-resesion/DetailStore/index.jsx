@@ -28,9 +28,7 @@ const DetailStoreRecepcion =() =>{
         if(loading){
             return <p>...Cargando</p>
         }
-        if(error){
-            return <p>{error}</p>
-        }
+      
 
     return <StoreTemplate Store={Store} />
     

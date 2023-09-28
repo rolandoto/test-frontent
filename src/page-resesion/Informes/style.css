@@ -8,12 +8,44 @@
   background: #13a722d4;
   color: white;
   cursor: pointer;
-  width: 32%;
+  width: 100%;
   height: auto;
-  margin-left: 0px;  
+  margin-left: 0px;
 }
 
-.button-informe-cosultar-cuentas{
+
+
+.button-informe-camareria-cosultar {
+  padding: 16px;
+  margin: auto;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  background: #13a722d4;
+  color: white;
+  cursor: pointer;
+  width: 100%;
+  height: auto;
+  margin-left: 0px;
+}
+
+.button-informe-camareria- {
+  padding: 16px;
+  margin: auto;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  background: #13a722d4;
+  color: white;
+  cursor: pointer;
+  width: 30%;
+  height: auto;
+  margin-left: 0px;
+}
+
+.button-informe-cosultar-cuentas {
   padding: 16px;
   margin: auto;
   text-align: center;
@@ -26,6 +58,40 @@
   width: 100%;
   height: auto;
   margin-top: 10px;
+}
+
+.button-informe-cosultar-auditoria {
+  padding: 16px;
+  margin: auto;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  background: #13a722d4;
+  color: white;
+  cursor: pointer;
+  width: 30%;
+  height: auto;
+  margin-top: 7px;
+  margin-left: 8px;
+  height: 57px;
+}
+
+.button-informe-cosultar-roomtosell {
+  padding: 16px;
+  margin: auto;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  background: #13a722d4;
+  color: white;
+  cursor: pointer;
+  width: 30%;
+  height: auto;
+  margin-top: 7px;
+  margin-left: 8px;
+  height: 57px;
 }
 
 .with-button-room-to-sell {
@@ -54,6 +120,39 @@
   margin-left: 36px;
 }
 
+.button-informe-consolidado-descargar {
+  padding: 16px;
+  margin: auto;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  margin-top: 21px;
+  border-radius: 8px;
+  background: #eb6b7f;
+  color: white;
+  cursor: pointer;
+  width: 50%;
+  height: auto;
+  margin-left: 0px;
+}
+
+
+.button-informe-camareria-descargar {
+  padding: 16px;
+  margin: auto;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  margin-top: 21px;
+  border-radius: 8px;
+  background: #eb6b7f;
+  color: white;
+  cursor: pointer;
+  width: 50%;
+  height: auto;
+}
+
+
 .button-informe-imprimir {
   margin: auto;
   text-align: center;
@@ -68,6 +167,56 @@
   margin-left: 32px;
   text-decoration: none;
   padding: 16px;
+}
+
+.button-informe-imprimir {
+  margin: auto;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  background: black;
+  color: white !important;
+  cursor: pointer;
+  width: 48%;
+  height: auto;
+  margin-left: 32px;
+  text-decoration: none;
+  padding: 16px;
+}
+
+.button-informe-imprimir-auditoria {
+  padding: 16px;
+  margin: auto;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  background:black;
+  color: white;
+  cursor: pointer;
+  width: 30%;
+  height: auto;
+  margin-top: 7px;
+  margin-left: 8px;
+  height: 57px;
+}
+
+.button-informe-imprimir-roomtosell {
+  padding: 16px;
+  margin: auto;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  background:black;
+  color: white;
+  cursor: pointer;
+  width: 30%;
+  height: auto;
+  margin-top: 7px;
+  margin-left: 8px;
+  height: 57px;
 }
 
 .button-informe-imprimir a {
@@ -342,10 +491,25 @@ tr:nth-child(even) {
   display: flex;
 }
 
-.flex-footer{
-    display: flex;
-    justify-content: space-between;
-    color: white;
-    font-weight: 600;
-    align-items: center;
+.flex-footer {
+  display: flex;
+  justify-content: space-between;
+  color: white;
+  font-weight: 600;
+  align-items: center;
+}
+
+.input-selecto-auditoria-fechas {
+  box-sizing: border-box;
+  width: 100%;
+  height: 60px;
+  left: 300px;
+  top: 338px;
+  border: 1px solid #858585;
+  margin-top: 5px;
+  border: none;
+  background: #ebebeb;
+  border: 0.5px solid #ffffff;
+  border-radius: 8px;
+  padding: 18px;
 }

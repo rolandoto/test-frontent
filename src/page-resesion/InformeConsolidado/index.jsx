@@ -560,10 +560,12 @@ const InformeConsolidado = () => {
                         titleLoading={"Informe consolidado"}  />
        
 
-<div>
+            <div>
                 <input type="date" className="input-selecto-dasboard-n1-reservaction"  onChange={hadChangeFecha} value={LookinforFecha}   />
+                <br />
+                <br />
                 <button className="button-informe-cosultar" onClick={hanLookingFor}>Consultar</button>
-                <button className="button-informe-descargar" >Descargar Informe</button>
+                <button className="button-informe-consolidado-descargar" >Descargar Informe</button>
                <button className="button-informe-imprimir"  onClick={handClikcDescargar} >Imprimir</button>
             </div>
           

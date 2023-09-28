@@ -7,7 +7,6 @@ import LoadingDetail from "../../Ui/LoadingDetail";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import { useReactToPrint } from "react-to-print";
-import { useSelector } from "react-redux";
 
 const InformeRoomToSell =() =>{    
     const {jwt} =useContext(AutoProvider)
@@ -16,8 +15,6 @@ const InformeRoomToSell =() =>{
     const [LookinforFechaOne,setLokinforFechaOne] =useState()
     const [loadingInforme,setLoadingInforme] =useState(false)
     const [room,setRoom] =useState()
-    const {loading,error,Items,Room,filterRoom
-	} = useSelector((state) => state.ReservationSlice)
 
     const handClikcDescargar =() =>{
         setLoadingInforme(true)
@@ -37,7 +34,6 @@ const InformeRoomToSell =() =>{
             console.log(e)
         })
     }
-
     useEffect(() =>{
         ServicetypeRooms({id:jwt.result.id_hotel}).then(index =>{
             setRoom(index)
@@ -81,23 +77,24 @@ const InformeRoomToSell =() =>{
                     <div style={{display:"flex",alignItems:"center"}} >
                         <input type="date" className="input-selecto-dasboard-n1-reservaction"  onChange={hadChangeFecha}    />
                         <input type="date" className="input-selecto-dasboard-n1-reservaction"  onChange={hadChangeFechaOne}    />
-                        <button className="button-informe-cosultar  with-button-room-to-sell " onClick={hanLookingFor} >Consultar</button>
-                        <button className="button-informe-imprimir"  onClick={handlePrint} >
+                        <button className="button-informe-cosultar-roomtosell " onClick={hanLookingFor} >Consultar</button>
+                        <button className="button-informe-imprimir-roomtosell"  onClick={handlePrint} >
                                 Imprimir
                         </button>
                             </div>
+                            <div className="tablecontainer">
                                 <table className="de">   
                                     <tbody ref={componentRef}  >
                                         <tr>
-                                            <th  className="top-pq"  >Nombre</th>
+                                            <th  className="top-pq sticky-left"  >Nombre</th>
                                                 {array.map(index => (
                                                     <th className="top-room-to-sell-width" >{index.day}</th>
                                                 ))}
                                                 <th   className="top-room-to-sell-width"  >Total</th>
                                             </tr>
                                             <div className="template-flex" >
-                                            <tr className="to-tr top-pq" >
-                                                {filterRoom?.map(index  =>(
+                                            <tr className="to-tr top-pq " >
+                                                {room?.map(index  =>(
                                                     <>
                                                     <td>{index.nombre}</td>
                                                 
@@ -147,23 +144,24 @@ const InformeRoomToSell =() =>{
                                             )
                                            
                                         })}
-                                    { <tr className="flex-room-to-sell top-room-to-sell-width" >
-                                        {filterRoom?.map(index  =>{
-                                            const filterIndex =   group.filter((Item)=> Item.Room == index.nombre  )
-                                            const sumWithInitial = filterIndex.reduce(
-                                                (accumulator, currentValue) => accumulator + currentValue.disponible,
-                                                0
-                                            );
-                                            return (
-                                                <th>{sumWithInitial}</th>
-                                            )
-                                        })}
-                                        <th>0</th>
-                                        </tr> 
-                                    }
-                                        </div>
-                                    </tbody>       
-            </table>
+                                        { <tr className="flex-room-to-sell top-room-to-sell-width" >
+                                            {room?.map(index  =>{
+                                                const filterIndex =   group.filter((Item)=> Item.Room == index.nombre  )
+                                                const sumWithInitial = filterIndex.reduce(
+                                                    (accumulator, currentValue) => accumulator + currentValue.disponible,
+                                                    0
+                                                );
+                                                return (
+                                                    <th>{sumWithInitial}</th>
+                                                )
+                                            })}
+                                            <th>0</th>
+                                            </tr> 
+                                        }
+                                            </div>
+                                        </tbody>       
+                                </table>
+                            </div>
         </div>
             </ContainerGlobal>
     )

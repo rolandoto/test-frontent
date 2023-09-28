@@ -1097,6 +1097,7 @@
   margin-top: -55px;
   display: flex;
   align-items: center;
+  max-width: 99.7%;
 }
 
 .error-solicitud {

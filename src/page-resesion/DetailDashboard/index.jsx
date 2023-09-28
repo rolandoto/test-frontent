@@ -60,9 +60,7 @@ const DetailDashboard =() =>{
         if(loading){
             return <p>...Cargando</p>
         }
-        if(error){
-            return <h1 style={{textAlign:"center"}}>...{error}</h1>
-        }
+        
  
     return    <DetailDasboard  
                     postDetailRoom={postDetailRoom}                

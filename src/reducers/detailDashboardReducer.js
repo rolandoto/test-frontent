@@ -1,11 +1,17 @@
 import {createSlice} from "@reduxjs/toolkit"
 
 
-export const initialState = {
+export const DEFAULT_STATE = {
     DetailDashboard:[],
     loading:false,
     error:null
 }
+
+const initialState = (() => {
+	const persistedState = localStorage.getItem("__redux__state__");
+	return persistedState ? JSON.parse(persistedState).DetailDashboard : DEFAULT_STATE;
+})();
+
 
 export const DetailDasboardSlice = createSlice({
     name:"DetailDashboard",

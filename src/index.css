@@ -529,6 +529,18 @@ tbody {
   transition: background-color 0.8s ease !important;
 }
 
+.tablecontainer{
+  overflow-x:auto;
+  overflow-y: hidden;
+}
+
+.sticky-left {
+  position: sticky;
+  left: 0;
+  background-color: white; /* Opcional: Agrega un fondo blanco para asegurar que sea visible */
+  z-index: 2; /* Opcional: Agrega un índice z mayor para que esté por encima del contenido desplazable */
+}
+
 .pe {
   width: 48%;
   margin: auto;
@@ -738,7 +750,7 @@ tr {
   margin-top: 17px;
   border-radius: 11px;
   border: none;
-  background: black;
+  background: black !important;
   color: white;
   cursor: pointer;
   width: 100%;
@@ -1126,7 +1138,7 @@ tr:nth-child(4) {
 }
 
 .button-stores-admin-One {
-  width: 311px;
+  width: 100%;
   height: 58px;
   background: #070707;
   border-radius: 8px;
@@ -1286,4 +1298,15 @@ tr:nth-child(4) {
   flex-direction: column;
   margin: auto;
   margin-top: -48px;
+}
+
+.button-ver-informe-tienda {
+  width: 100px;
+  background: black;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  color: white;
+  margin-right: 5px;
+  margin-top: 2px;
 }

@@ -37,9 +37,7 @@ const Checkout =() =>{
         }if(loading){
             return <p>...Cargando</p>
         }
-        if(error){
-            return <p>...{error}</p>
-        }
+       
 
         return  <CheckoutOrganism 
             DetailDashboard={DetailDashboard}

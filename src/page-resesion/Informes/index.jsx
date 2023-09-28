@@ -156,7 +156,7 @@ const InformeAuditoria =() =>{
                         loading={true}
                         titleLoading={"Informe  auditoria"}  />
             <div style={{display:"flex",alignItems:"center"}} >
-                <input type="date" className="input-selecto-dasboard-n1-reservaction"  onChange={hadChangeFecha} value={LookinforFecha}   />
+                <input type="date" className="input-selecto-auditoria-fechas"  onChange={hadChangeFecha} value={LookinforFecha}   />
                 <select className="input-selecto-dasboard-n1-reservaction"   onChange={handChangeCategory} >
                     <option value="0">Filtrar tipo forma pago</option>
                     {tipo_forma_pago.map(index =>(
@@ -165,8 +165,8 @@ const InformeAuditoria =() =>{
                         </option>
                     ))}
                 </select>
-                <button className="button-informe-cosultar" onClick={hanLookingFor}>Consultar</button>
-                <button className="button-informe-imprimir" onClick={handClikcDescargar} >Imprimir</button>
+                <button className="button-informe-cosultar-auditoria" onClick={hanLookingFor}>Consultar</button>
+                <button className="button-informe-imprimir-auditoria" onClick={handClikcDescargar} >Imprimir</button>
             </div>
            
             <table className="de"  ref={componentRef} >

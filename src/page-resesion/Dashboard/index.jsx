@@ -373,15 +373,15 @@ const Dashboard = () => {
 		console.log("closed");
 	};
 
+	let isFetchingData = true;
 
-	useEffect(() => {
-		
-		socket.on("sendNotification", async(data) => {
-			await getPostByReservation()
-			toast.custom((t) => (
-				<>
-				{ t.visible ?
-				<footer className="footer-found">
+	socket.on("sendNotification", async(data) => {
+		if (isFetchingData) {
+		  isFetchingData = false;
+		  toast.custom((t) => (
+			<>
+			{ t.visible ?
+			<footer className="footer-found">
 				<div className="notification">
 					<img
 					src={data}
@@ -392,21 +392,17 @@ const Dashboard = () => {
 					<h4>notificación</h4>
 					</div>
 				</div>
-				</footer>
-				 : null}
-				</>
-			  ))
-		});
-	  }, [socket]);
-	
+			</footer>
+			 : null}
+			</>
+		  ))
+		}
+	});
 
 	const [numberSave,setNumberSave]=useState([])
 
-
 	const ResutlRoom = filterRooms(Room,raiting)
 	//const totalResult = UseGroupsRooms(ResutlRoom,numberSave)
-	
-
 
 	return (
 		<>		
