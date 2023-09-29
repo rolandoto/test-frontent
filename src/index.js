@@ -6,7 +6,7 @@ import { NextUIProvider } from '@nextui-org/react';
 import { AutoProvider } from './privateRoute/AutoProvider';
 import CustomNav from './Ui/CustomNav';
 import { Toaster } from 'react-hot-toast';
-import * as serviceWorkerRegistration from './workbox-config'; // Importa el archivo de registro de Service Worker
+import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 
 
 ReactDOM.render(
@@ -22,6 +22,8 @@ ReactDOM.render(
 );
 
 serviceWorkerRegistration.register();
+
+
 
 
 // If you want to start measuring performance in your app, pass a function
