@@ -54,7 +54,7 @@ const Dashboard = () => {
 	const {jwt,setJwt,isOpen, setIsOpen} =useContext(AutoProvider)
 	const history = useHistory()
 	const timelineRef = useRef(null);
-	const [raiting,setRaiting]= useState()
+	const [raiting,setRaiting]= useState(0)
 	const {iduser} = UseListMotels()
 	const [stateTop,setStateTop] =useState()
 	const [statePublicidad,setPublicidad]=useState()
@@ -401,6 +401,8 @@ const Dashboard = () => {
 
 	const [numberSave,setNumberSave]=useState([])
 
+	console.log(raiting)
+
 	const ResutlRoom = filterRooms(Room,raiting)
 	//const totalResult = UseGroupsRooms(ResutlRoom,numberSave)
 
@@ -468,7 +470,7 @@ const Dashboard = () => {
 						value={raiting} 
 						className='button-reservas-type-one button-reservas-type-space  button-reservas-type-one-two-two button-reservas-type-space-One-One' >
 						<option  className="opo-room" >  Ver habitaciones</option>
-						<option  className="opo-room" >Todas las Habitaciones</option>
+						<option  className="opo-room" value={0}  >Todas las Habitaciones</option>
 						
 					{filterRoom?.map(category =>(
 						<option 

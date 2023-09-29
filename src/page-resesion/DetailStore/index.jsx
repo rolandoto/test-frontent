@@ -29,7 +29,6 @@ const DetailStoreRecepcion =() =>{
             return <p>...Cargando</p>
         }
       
-
     return <StoreTemplate Store={Store} />
     
     }

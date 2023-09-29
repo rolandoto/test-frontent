@@ -2,7 +2,7 @@
 const UseFilterRooms =() =>{
 
     const filterRooms  =(Rooms,ItemInput)=>{
-        if(!ItemInput){
+        if(ItemInput==0){
             return Rooms
         }
         return Rooms.filter(itemRoom  =>{
@@ -11,8 +11,5 @@ const UseFilterRooms =() =>{
       } 
 
       return { filterRooms}
-    
-
 }
-
 export default UseFilterRooms
