@@ -1425,7 +1425,11 @@ const Consumo =(props) =>{
             {   
               id:2,
               name:"Consignaciones",
-          }
+          },
+              {   
+                id:11,
+                name:"Link de pago"
+            }
           ]
 
   const cart =[]
