@@ -63,6 +63,8 @@ import UploadImageCheckingTable from "./page-resesion/UploadImageCheckingTable";
 import SingnatureMaual from "./page-resesion/FirmarManual";
 import UploadPopUp from "./page/UploadPopUp";
 import TarifasReservation from "./page/TarifasReservation";
+import SearchBYID from "./page-resesion/Dashboard/SearchByID";
+import MainCreateRerva from "./page-resesion/Dashboard/MainCreateReservas";
 
 function App() {
   const { jwt } = useContext(AutoProvider);
@@ -87,7 +89,7 @@ function App() {
                 path="/DetailBedRoom/:id"
                 component={DetailBedRoom}
               />
-              <PrivateRoute
+              <PrivateRoute 
                 exact
                 path="/Detail/:id"
                 component={DetailCheckin}
@@ -159,6 +161,7 @@ function App() {
             <CustomNav />
             <Switch>
               <Route exact path="/" component={Login} />
+              <PrivateRoute exact path="/SearchbyID" component={SearchBYID}    />
               <PrivateRoute exact path="/Home" component={MainDasboard} />
               <PrivateRoute
                 exact
@@ -195,8 +198,8 @@ function App() {
               <PrivateRoute exact path="/checking" component={Checking} />
               <PrivateRoute
                 exact
-                path="/Createreservaction"
-                component={CreateReservaction}
+                path="/Createreservaction/:id"
+                component={MainCreateRerva}
               />
               <PrivateRoute
                 exact
@@ -310,6 +313,7 @@ function App() {
             <CustomNav />
             <Switch>
               <Route exact path="/" component={Login} />
+              <PrivateRoute exact path="/SearchbyID" component={SearchBYID}    />
               <PrivateRoute exact path="/Home" component={MainDasboard} />
               <PrivateRoute
                 exact
@@ -346,8 +350,8 @@ function App() {
               <PrivateRoute exact path="/checking" component={Checking} />
               <PrivateRoute
                 exact
-                path="/Createreservaction"
-                component={CreateReservaction}
+                path="/Createreservaction/:id"
+                component={MainCreateRerva}
               />
               <PrivateRoute
                 exact

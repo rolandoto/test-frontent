@@ -427,7 +427,6 @@ const postApiWhasatappSolicitud = ({ to}) => {
     })
 }
 
-
 const PostUploadCarPresent  = ({ID_Reserva,Username}) =>{
   return fetch((`https://geco-backend-production.up.railway.app/api/resecion/uploadCartPresent`),{
     method:"POST",
@@ -444,6 +443,22 @@ const PostUploadCarPresent  = ({ID_Reserva,Username}) =>{
     })
 }
 
+const PostSearchValue = ({serchvalue,type}) =>{
+  console.log(serchvalue)
+  return fetch((`${config.serverRoute}/api/resecion/searchUsersaved`),{
+    method:"POST",
+      body:JSON.stringify({serchvalue,type}),
+      headers:{
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      }
+      }).then(resp =>{
+        if(!resp.ok) throw new Error('Response is not ok')
+        return resp.json()
+    }).then(resp=>{
+        return resp.results
+    })
+}
 
 
   export default {
@@ -474,6 +489,7 @@ const PostUploadCarPresent  = ({ID_Reserva,Username}) =>{
     postUpdateTarifaReservation,
     postTarifaReservation,
     postApiWhasatappSolicitud,
-    PostUploadCarPresent
+    PostUploadCarPresent,
+    PostSearchValue
   }
   

@@ -3,7 +3,7 @@ import httpClient from "../HttpClient"
 import { setRoom,setError, loading } from "../reducers/roomsReducers"
 
 
-const useRoomAction =() =>{
+const useSeachUsers =() =>{
 
     const dispatch = useAppDispatch()
     
@@ -27,4 +27,4 @@ const useRoomAction =() =>{
     }
 }
 
-export default useRoomAction
+export default useSeachUsers

@@ -17,12 +17,12 @@ import { UpdateDetailPounterSlice } from '../reducers/updateDatailPounterReducer
 import { UpdateDetailPounterRangeSlice } from '../reducers/updateDatailPounterRangeReducer'
 import { ReservationSlice } from '../reducers/ReservationReducers'
 import { apiTarifasReservationSlice } from '../reducers/apiPostTarifasReservation'
+import { searchSlice } from '../reducers/searchUsersReducers'
 
 const persistanceLocalStorageMiddleware = (store) => (next) => (action) => {
 	next(action);
 	localStorage.setItem("__redux__state__", JSON.stringify(store.getState()));
 };
-
 
 export const fetchDataFromApi = createAsyncThunk(
     'data/fetchData',
@@ -53,7 +53,8 @@ const store = configureStore ({
         updateDetailPounter:UpdateDetailPounterSlice.reducer,
         UpdateDetailPounterRangeSlice:UpdateDetailPounterRangeSlice.reducer,
         ReservationSlice:ReservationSlice.reducer,
-        TarifasReservation:apiTarifasReservationSlice.reducer
+        TarifasReservation:apiTarifasReservationSlice.reducer,
+        SearchUsers:searchSlice.reducer
     },
     devTools:true,
     middleware: [persistanceLocalStorageMiddleware],

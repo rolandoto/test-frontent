@@ -73,9 +73,16 @@ const Dashboard = () => {
 	} = useSelector((state) => state.ReservationSlice)
 
 	 const fetchData =async() =>{
-        await getPostByReservation()
-		await getRoomByReservation()
-		await getRoomFilterRoom()
+		try {
+
+			await getPostByReservation()
+			await getRoomByReservation()
+			await getRoomFilterRoom()
+			
+			} catch (error) {
+				console.error("Error fetching data:", error);
+			}
+        
     }
 
 	useEffect(() =>{
@@ -102,7 +109,7 @@ const Dashboard = () => {
 		 countSeguro = parseInt(hotel?.valorseguro)
 	}
 
-	const onItemClick = (itemId) => {	
+	const onItemClick = (itemId, e, time) => {	
 	  return history.push(`/DetailDashboard/${itemId}`)
 	}
 
@@ -122,7 +129,7 @@ const Dashboard = () => {
 	}
 
 	const handClickReservaction =() =>{
-		history.push("/Createreservaction")
+		history.push("/SearchbyID")
 	}
 
 	const hanclickReservation =() =>{
@@ -215,7 +222,7 @@ const Dashboard = () => {
 		if(totalDiaPat > 0){
 			Total=totalDiaPat
 		}
-
+ 
 		const handModalText =(e) =>{
 			confirmAlert({
 			  title: '',
@@ -400,6 +407,19 @@ const Dashboard = () => {
 	});
 
 	const [numberSave,setNumberSave]=useState([])
+
+	const [selectedRange, setSelectedRange] = useState({ start: null, end: null });
+
+  const handleItemSelect = (itemId, e, time) => {
+	console.log(time)
+    if (!selectedRange.start) {
+      // Si no hay una fecha de inicio seleccionada, establece la fecha de inicio
+      setSelectedRange({ start: time, end: null });
+    } else {
+      // Si ya hay una fecha de inicio seleccionada, establece la fecha de fin
+      setSelectedRange({ start: selectedRange.start, end: time });
+    }
+  };
 
 	console.log(raiting)
 
@@ -609,7 +629,7 @@ const Dashboard = () => {
 				itemStyle={{ background: "black" }}
 				canMove
 				canResize={"both"}
-				
+				onItemSelect={handleItemSelect}
 				>
 				<TimelineHeaders className="list-booking-sticky"  >
 

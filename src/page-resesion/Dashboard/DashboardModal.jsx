@@ -22,12 +22,14 @@
     const socket = io.connect("https://railway.grupo-hoteles.com");
 
 const DashboardModal = (props) => {
-        
-
+      
+        const {loading,toggleCloseDashboard,toggleOpenDashboardChecking,search} = props
+        const [information,setinformation] =useState()
         const {iduser} = UseListMotels()
         const {jwt} = useContext(AutoProvider)
         const message  =jwt?.result?.photo
         const [valueEditar,setValueEditar] =useState()
+        const firstSearchResult = search.length > 0 ? search[0] : null;
 
 
         const handChangeValueEditar =(e) =>{
@@ -47,11 +49,10 @@ const DashboardModal = (props) => {
        }else{
             countSeguro = parseInt(hotel?.valorseguro)
        }
-  
-      
-        
+
+
         const history =useHistory()
-        const {loading,toggleCloseDashboard,toggleOpenDashboardChecking} = props
+       
 
         const [room,setRoom] = useState()
         const [cost, setCost] = useState(0);
@@ -61,7 +62,6 @@ const DashboardModal = (props) => {
         const [bedRoom,setBedroom] =useState()
         const [preloading,setPreloading] = useState(false)
         const [chanel,setchanel] =useState()
-        const [avaible,setAvaible] =useState(null)
         const [loadingAvaible,setLoadingAvaible] =useState({loading:false,error:true})
         const [loadingReservation,setLoadingReservation] =useState({loading:false,error:false})
         const [loadingPersona,setLoadingPersona] =useState({error:false,habitacion:false})
@@ -78,9 +78,7 @@ const DashboardModal = (props) => {
         const [fechaOne,setFechaOne] =useState()
         const [fechaTwo,setFechaTwo] =useState()
         const [asignar,setAsignar] =useState()
-        const [loadingSkeleto,setLoadingSkeleto] =useState(true)
         const [decuento,setDescuento] =useState(0)
-        const [observacion,setObservacion] =useState()
         const [createReservation,setCreateReservation] = useState(false)
 
         const now = moment().format("YYYY/MM/DD h:mm:ss")
@@ -112,8 +110,6 @@ const DashboardModal = (props) => {
             toggleCloseDashboard()
         }
 
-
-
         const totalId = jwt.result.id_hotel == 7 ? true : false
 	
         const [change,setChange] =useState({
@@ -142,6 +138,7 @@ const DashboardModal = (props) => {
             valor:null,
         })
 
+
         const fechaInicio = new  Date(fechaOne).getTime()
 
         const fechaFin = new Date(fechaTwo).getTime()
@@ -168,49 +165,90 @@ const DashboardModal = (props) => {
             minimumFractionDigits: 0
         })
 
-        const valuesEditar = formatter.format(valueEditar)
-
         const [disponibilidad,setDisponibilidad] =useState()
-      
-        
-        const resultPay = formatter.format(count)
-
-        const resultDescuento = formatter.format(cost)
-    
-    /*  ID_Reserva:parseInt(result.toString()),
-        ID_Tipo_genero:1,
-        ID_Tipo_documento:5,
-        Num_documento:"1043668080",
-        Nombre:"rolando",
-        Apellido:"guerrro",
-        Celular:"3202720874",
-        Correo:"rolando22_@outlook.co   m",
-        Fecha_nacimiento:"2020-09-16",
-        Ciudad:"Medellin"
-    */
-        
+  
+        const fechaNacimiento =moment(firstSearchResult ? firstSearchResult.Fecha_nacimiento:"prueba").utc().format('YYYY-MM-DD')
+     
         const [huespe,setHuespe] =useState(
             [{
-                Tipo_documento:"",
-                Num_documento:"",
-                Nombre:"",
-                Apellido:"",
-                Celular:"",
-                Correo:"",
-                Fecha_nacimiento:"",
-                Ciudad:"",
-                Nacionalidad:""
+                Tipo_documento:firstSearchResult ? `${firstSearchResult.ID_Tipo_documento}`:"",
+                Num_documento:firstSearchResult ? firstSearchResult.Num_documento:"",
+                Nombre: firstSearchResult ? firstSearchResult.Nombre:"",
+                Apellido: firstSearchResult ? firstSearchResult.Apellido:"",
+                Celular:firstSearchResult ? firstSearchResult.Celular:"",
+                Correo:firstSearchResult ? firstSearchResult.Correo:"",
+                Fecha_nacimiento:fechaNacimiento,
+                Ciudad:firstSearchResult ? firstSearchResult.Ciudad:"",
+                Nacionalidad:firstSearchResult ? `${firstSearchResult.id_nacionalidad}`:""
             }]
         )
-        const handleInpuHuespe =(event, index) =>{
-            const values = [...huespe]
-           
-            values[index][event.target.name] = event.target.value
-            setHuespe(values)
+        
+        const [validationErrors, setValidationErrors] = useState([]);
+
+        const isValidGuest = (guest, index) => {
+ 
+            const isInvalid =
+                guest.Tipo_documento.trim() === "" ||
+                guest.Num_documento.trim() === "" ||
+                guest.Nombre.trim() === ""||
+                guest.Apellido.trim() === ""||
+                guest.Celular.trim() === ""||
+                guest.Correo.trim() === ""||
+                guest.Fecha_nacimiento.trim() === ""||
+                guest.Ciudad.trim() === ""||
+                guest.Nacionalidad.trim() === ""
+        
+        
+            if (isInvalid) {
+              setValidationErrors((prevErrors) => [
+                ...prevErrors,
+                `Tipo_documento_${index}`,
+                `Num_documento_${index}`,
+                `Nombre_${index}`,
+                `Apellido_${index}`,
+                `Correo_${index}`,
+                `Fecha_nacimiento_${index}`,
+                `Ciudad_${index}`,
+                `Nacionalidad_${index}`,
+                `Celular_${index}`,
+                
+              ]);
+            }
+        
+            return !isInvalid;
+          };
+
+        const handleInpuHuespe =async(e, guestIndex, field) =>{
+         
+            const newGuests = [...huespe];
+            newGuests[guestIndex][field] = e.target.value;
+            setHuespe(newGuests)
+
+            setValidationErrors((prevErrors) =>
+            prevErrors.filter((error) => error !== `${field}_${guestIndex}`)
+            );
         }
 
-        const handleInputChange =(event) =>{
+        const handAdd =() =>{
+            setHuespe([...huespe, { Tipo_documento: "", Num_documento: "", Nombre: "",Apellido: "", Celular: "", Correo: "", Fecha_nacimiento: "", Ciudad: "" ,Nacionalidad:""}])
+        }
 
+        const handleBlur = async(e, guestIndex, field) => {
+            // Check for missing entries when the field loses focus
+            if (e.target.value.trim() === "") {
+              setValidationErrors((prevErrors) => [
+                ...prevErrors,
+                `${field}_${guestIndex}_missing`
+              ]);
+            } else {
+              // Clear the missing entry error for the field
+              setValidationErrors((prevErrors) =>
+                prevErrors.filter((error) => error !== `${field}_${guestIndex}_missing`)
+              );
+            }
+          };
+
+        const handleInputChange =(event) =>{
             setChange({
                 ...change,
                 [event.target.name]:event.target.value
@@ -237,7 +275,6 @@ const DashboardModal = (props) => {
             return {nombre,ID}
         })
 
-   
 
         useEffect(() =>{
          
@@ -314,8 +351,6 @@ const DashboardModal = (props) => {
         
         const ObservationAll = " Canal de Reserva: "+ findCanalReserva?.Nombre +" ,Tipo de Habitacion:  "+findRoom?.nombre?.nombre+" ,Numero de  Ocupantes: "+ countPeople +" ,Valor por noche: " + resultFindRoom +" ,Noches: "+ResultDay+ " ,Suma alojamiento: "+resultsPricePeople
 
-        let prueba
-
         let acum
 
         const num  =change.adultos 
@@ -372,57 +407,13 @@ const DashboardModal = (props) => {
 
         const value_habitacion = formatter.format(valor_habiatcion)
 
-    //const concatenar = change.canal_reserva+"" +change.habitaciones+ ""+change.
+        
 
-        const Loader =() =>{
-
-            if(loadingAvaible.loading){
-                return (
-                    <div>
-                        <Box  spacing={2} sx={{ flex: 1 }}   size="lg"   >
-                            <LinearProgress  color="inherit"   />
-                        </Box>
-                    </div>
-                )
-            }
+        const handleRemove = (guestIndex) => {
+            const newGuests = [...huespe];
+            newGuests.splice(guestIndex, 1);
+            setHuespe(newGuests);
         }
-
-        const handAdd =() =>{
-
-            const people = parseInt(findRoom?.max_persona)
-
-        if(huespe.length == people ){
-                setLoadingPersona({error:true})
-        }else if(!fecha){
-                setLoadingPersona({habitacion:true})
-        }
-        else{
-            setLoadingPersona({habitacion:false})
-            setLoadingPersona({error:false})
-            setHuespe([
-                ...huespe,
-                {
-                    Tipo_documento:"",
-                    Num_documento:"",
-                    Nombre:"",
-                    Apellido:"",
-                    Celular:"",
-                    Correo:"",
-                    Fecha_nacimiento:"",
-                    Ciudad:"",
-                    Nacionalidad:""
-                }
-            ])    
-        }
-        }
-
-
-        const handleRemove = (index) => {
-            if (huespe.length !== 1) {
-              const values = [...huespe.filter((e,i) => i !==index)]
-              setHuespe(values)
-            }
-          }
 
         const total = parseInt(change.adultos) + parseInt(change.niños) +parseInt(change.infantes)
 
@@ -437,7 +428,6 @@ const DashboardModal = (props) => {
         }else{
            
         }
-
         const  typy_buy =  [
             {   
                 id:1,
@@ -495,61 +485,46 @@ const DashboardModal = (props) => {
             formatter.format(0)  
         }
 
-
-      
-        const ray = [1,2,4]
-
-        useEffect(() =>{
-          for (let i = 0; i < huespe?.length; i++) {
-            if (huespe[i]?.Tipo_documento =="" || huespe[i]?.Num_documento =="" || huespe[i]?.Nombre ==""|| huespe[i]?.Apellido ==""|| huespe[i]?.Celular ==""|| huespe[i]?.Correo ==""|| huespe[i]?.Fecha_nacimiento =="" || huespe[i]?.Ciudad ==""|| huespe[i]?.Nacionalidad =="" ) {
-                setLoadingReservation({error:true})
-                setLoadingPersona({habitacion:false})
-                setLoadingPersona({error:false})
-            }else{
-                setValid(true)
-            }
-        }
-
-        },[setHuespe,huespe])
-
         const totalFindRoom =  disponibilidad?.query?.find(index => index.ID ==  asignar)
 
         const findRoomOne =  room?.find(index => index?.id_tipoHabitacion == fecha)
        
+      
           const handClickReservation = async () => {
-            if(valid){
+            console.log(huespe)
+            if(huespe.every(isValidGuest)){
                 setLoadingReservation({loading:true})
-                    ServiceAvaiblereservation({desde:dataAvaible.desde,hasta:dataAvaible.hasta,habitaciones:dataAvaible.habitaciones,disponibilidad:dataAvaible.disponibilidad,id_estados_habitaciones:0,ID_Canal:change.canal_reserva,Adultos:change.adultos,Ninos:change.niños,ID_Talla_mascota:change.talla_perro,Infantes:change.infantes,Noches:ResultDay,huespe,Observacion:change.observacion,valor:totalResultglobal,ID_Tipo_Forma_pago:change.ID_Tipo_Forma_pago,abono:change.abono,valor_habitacion:valor_habiatcion,Tipo_persona:"sdasdsa",valor_dia_habitacion:default_Value,resepcion:jwt.result.name,link:"https://test-frontent-n9ec.vercel.app/webchecking",id_hotel:jwt.result.id_hotel,nowOne}).then(index =>{
-                        setLoadingReservation({loading:false}) 
-                        socket.emit("sendNotification",message);
-                        setCreateReservation(true)
-                        Swal.fire({
-                            position: 'center',
-                            icon: 'success',
-                            title: '<p>Reserva creada</p>',
-                            showConfirmButton: false,
-                            timer: 500
-                          })
-                        
-                      
-                      ServiceInfomeMovimiento({Nombre_recepcion:jwt.result.name,Fecha:now,Movimiento:`Creación reserva tipo habitacion ${findRoomOne.nombre} ${totalFindRoom.Numero}`,id:jwt.result.id_hotel}).then(index =>{
-                        setTimeout(() =>{
-                           history.push("/home")
-                        },1000)
-                      }).catch(e =>{
-                          console.log(e)
-                      })
-                  
-                }).catch(e =>{
-                    setLoadingReservation({error:false})
+                ServiceAvaiblereservation({desde:dataAvaible.desde,hasta:dataAvaible.hasta,habitaciones:dataAvaible.habitaciones,disponibilidad:dataAvaible.disponibilidad,id_estados_habitaciones:0,ID_Canal:change.canal_reserva,Adultos:change.adultos,Ninos:change.niños,ID_Talla_mascota:change.talla_perro,Infantes:change.infantes,Noches:ResultDay,huespe,Observacion:change.observacion,valor:totalResultglobal,ID_Tipo_Forma_pago:change.ID_Tipo_Forma_pago,abono:change.abono,valor_habitacion:valor_habiatcion,Tipo_persona:"sdasdsa",valor_dia_habitacion:default_Value,resepcion:jwt.result.name,link:"https://test-frontent-n9ec.vercel.app/webchecking",id_hotel:jwt.result.id_hotel,nowOne}).then(index =>{
+                    setLoadingReservation({loading:false}) 
+                    socket.emit("sendNotification",message);
+                    setCreateReservation(true)
                     Swal.fire({
                         position: 'center',
-                        icon: 'error',
-                        title: '<p>Completa todos los formularios</p>',
+                        icon: 'success',
+                        title: '<p>Reserva creada</p>',
                         showConfirmButton: false,
-                        timer: 2000
+                        timer: 500
                       })
-                })
+                    
+                  
+                  ServiceInfomeMovimiento({Nombre_recepcion:jwt.result.name,Fecha:now,Movimiento:`Creación reserva tipo habitacion ${findRoomOne.nombre} ${totalFindRoom.Numero}`,id:jwt.result.id_hotel}).then(index =>{
+                    setTimeout(() =>{
+                       history.push("/home")
+                    },1000)
+                  }).catch(e =>{
+                      console.log(e)
+                  })
+              
+            }).catch(e =>{
+                setLoadingReservation({error:false})
+                Swal.fire({
+                    position: 'center',
+                    icon: 'error',
+                    title: '<p>Completa todos los formularios</p>',
+                    showConfirmButton: false,
+                    timer: 2000
+                  })
+            })
             }else{
                 setLoadingReservation({error:true})
                 Swal.fire({
@@ -558,35 +533,17 @@ const DashboardModal = (props) => {
                     title: '<p>Completa todos los formularios</p>',
                     showConfirmButton: false,
                     timer: 2000
-                })
+                })  
             }
           };
 
-        function handleOnChange(event) {
-            setTipoPersona("persona")
-            setIsChecked(!isChecked);
-            setIsChecke(false);
-        }
-
-        function handleOnChanger(event) {
-            setTipoPersona("empresa")
-            setIsChecke(!isChecke);
-            setIsChecked(false);
-        }
-
+        
         const handNextCLickNoChecking=() =>{
             history.push("/nochecking")
         }
 
-        const [statePdf,setStatePdf] =useState(false)
-
-        const handClickPdf =() =>{
-            setStatePdf(true)
-        }
-
         const resultHuespe= huespe[0]
 
-     
         const totalPersonas= parseInt( change?.adultos) + parseInt( change.niños)
 
         let countMax=0
@@ -602,10 +559,8 @@ const DashboardModal = (props) => {
           return false;
         };
     
-        const  [pdf,setPdf] =useState(false)
         const [pdfOne,setPdfOne] =useState()
-        const PdfGenerate =[]
-
+ 
         const tipo_forma_pago = typy_buy?.find(index => index.id == change.ID_Tipo_Forma_pago)
        
         const habitacion_asignar = disponibilidad?.query?.find(index=> index.ID == asignar)
@@ -626,203 +581,6 @@ const DashboardModal = (props) => {
         }
    
         const {progress} = useProgress({id:"1"})
-/*
-        <div className="init" >
-        <form  className="container-flex-init" >
-        <div className="container-detail-dasboard-in" > 
-
-        <span className="desde-detail-two-title" > Adultos:</span>
-        <span className="desde-detail-two-title" >Niños:</span>
-        <span className="desde-detail-three-title-das" >Infantes:</span>    
-        <span  className="desde-detail-three-title-das">Mascotas:</span>
-        <span className="desde-detail-two-title" > Ciudad:</span>
-
-            </div>
-              <div className="container-detail-dasboard-in" > 
-                <input type="text" 
-                      className="desde-detail-two"  
-                      placeholder="Adultos" 
-                      name="Adultos"
-                      defaultValue={resultDashboard.Adultos}  
-                      onChange={(e) =>setAdultos(e.target.value)}  />
-                <input type="text" 
-                      className="desde-detail-two" 
-                      name="Fecha" 
-                   placeholder="Niños"  
-                      defaultValue={resultDashboard.Ninos}  
-                      onChange={(e) =>setNinos(e.target.value)}   />
-
-                <input  type="text" 
-                        className="desde-detail-three" 
-                        name="Infantes"
-                        placeholder="Infantes"  
-                        defaultValue={resultDashboard.Infantes}
-                        onChange={(e) =>setInfantes(e.target.value)}   />
-
-                <input  type="text" 
-                        className="desde-detail-three" 
-                        name="Mascotas" 
-                        placeholder="Mascotas"   
-                        readOnly={state}
-                        defaultValue={resultDashboard.Talla}
-                        onChange={handleChange("Mascotas")}   />
-
-                <input  type="text" 
-                        className="desde-detail-two" 
-                        name="Fecha"  
-                        placeholder="Mascotas"    
-                        readOnly={state}
-                        defaultValue={resultDashboard.Ciudad}
-                        onChange={handleChange("Fecha")}   />
-            </div>
-        </form>
-      </div>
-    */
-
-
-      /**
-       *  <label className="title-stores">Fecha desde</label>
-                        <input className="input-selecto-dasboard-n1-reservaction"   
-                        name="desde"  
-                        type="date" 
-                        onChange={handleFechaOne}  
-                        value={fechaOne} />
-
-                        <label className="title-stores">Fecha hasta</label>
-                        <input  className="input-selecto-dasboard-n1-reservaction"     
-                                    name="hasta"   
-                                    type="date" 
-                                onChange={handleFechaTwo}  
-                                value={fechaTwo} />
-                    
-                    <Selected 
-                            title="Tipo de habitacion" 
-                            state={habi} 
-                            name="habitaciones" 
-                            value={fecha}
-                            change={handleChange} />
-                
-                
-                        <label className="title-stores" >Asignar Habitacion</label>
-                        <select onChange={handAsignar}  
-                                value={asignar}
-                                name="disponibilidad"
-                                className='select-hotel-type-one'>
-                            <option></option>
-                            {disponibilidad?.query?.map(category =>(
-                                <option 
-                                value={category.ID}   
-                                key={category.ID}>
-                                {category.Numero}
-                            </option>
-                            )
-                            )}
-                        </select>
-                
-                    
-                        <Button
-                                className="button-dasboard-one-one"
-                                    onClick={handClick}  
-                                style={{width:"100%"}}  
-                                color="success" 
-                        > <span  className="text-words" >Continuar</span> </Button>
-                                                      
-                                                    
-       * 
-       * 
-       */
-
-
-    /**
- * <div  className="container-border-gray "  >
-        
-    <ul className="flex-bedrooms paddint-let-terifa-day">
-        
-    {to ? 
-    <li>
-            <label className="title-stores">Adultos</label>
-                    <NumberFormat    className="input-stores-personality " 
-                    name="adultos" 
-                    type="number" 
-                    onChange={handleInputChange}
-                    placeholder="0" 
-                    max={countMax}
-                    defaultValue={0}
-                    min={0}
-                    isAllowed={withValueCap}  />
-        </li>
-    : null }
-
-    {to ? 
-        <li>
-            <label className="title-stores">Niños</label>
-            <NumberFormat   className="input-stores-personality"
-                    name="niños" 
-                    type="number" 
-                    onChange={handleInputChange}
-                    placeholder="0"
-                    max={totalMaximopersona}
-                    defaultValue={0}
-                    min={0} 
-                    isAllowed={withValueCap} />
-        </li>
-    :null }
-    {to ? 
-        <li>
-            <label className="title-stores">Infantes</label>
-            <input  className="input-stores-personality"
-                    name="infantes" 
-                    type="number" 
-                    onChange={handleInputChange}
-                    placeholder="0"
-                    defaultValue={0} />
-        </li>
-        : null }
-        
-        {to ? 
-            <li>
-                <label className="title-stores" >Mascota</label>
-                <select onChange={handleInputChange}  
-                        name={"talla_perro"}
-                        className='select-hotel-type-personality'
-                >
-                    <option value={3} >No</option>
-                    {pet?.query?.map(category =>(
-                        <option 
-                        value={category.ID}   
-                        key={category.ID}
-                    >
-                        {category.nombre}
-                    </option>
-                    )
-                    )}
-                </select>
-            </li>
-        : null   }
-        {to ? 
-            <li>
-                <label className="title-stores" >Canal de Reserva</label>
-                <select onChange={handleInputChange}  
-                        name={"canal_reserva"}
-                        className='select-hotel-type-personality-unica'
-                >
-                    <option >{null}</option>
-                    {chanel?.query?.map(category =>(
-                        <option 
-                        value={category.ID}   
-                        key={category.ID}
-                    >
-                        {category.Nombre}
-                    </option>
-                    )
-                    )}
-                </select>
-            </li>
-    :null}
-        </ul>
-</div>
-     * 
-     */
 
         if(!room)  return null
 
@@ -1014,7 +772,7 @@ const DashboardModal = (props) => {
 
                                     ) :null}
 
-{to  ? ( 
+                                             {to  ? ( 
                                                 <div>
                                                 {huespe?.map((item, index) => (
                                                         <div className="init-dasboard-modal-modal" >
@@ -1030,28 +788,47 @@ const DashboardModal = (props) => {
                                                                 </div>
                                                                     <div className="container-detail-dasboard-in" > 
                                                                         <input 
-                                                                            className="desde-detail-two"  
+                                                                            className={`desde-detail-two ${validationErrors.includes(`Nombre_${index}`)
+                                                                            ? "invalid"
+                                                                            : validationErrors.includes(
+                                                                                `Nombre_${index}invalid`
+                                                                              )
+                                                                            ? "invalid"
+                                                                            : ""}`} 
                                                                             required 
                                                                             name="Nombre" 
                                                                             type={"text"} 
                                                                             value={item.Nombre} 
-                                                                            onChange={(event) =>  handleInpuHuespe(event, index)}  
+                                                                            defaultValue={"sdjasdhsajdsha"}
+                                                                            onChange={(event) =>  handleInpuHuespe(event, index, "Nombre")}  
                                                                         />
                                                                         <input 
                                                                             
-                                                                        className="desde-detail-two"  
+                                                                            className={`desde-detail-two ${validationErrors.includes(`Apellido_${index}`)
+                                                                            ? "invalid"
+                                                                            : validationErrors.includes(
+                                                                                `Apellido_${index}invalid`
+                                                                              )
+                                                                            ? "invalid"
+                                                                            : ""}`} 
                                                                             required  
                                                                             name="Apellido" 
                                                                             type={"text"} 
                                                                             value={item.Apellido}  
-                                                                            onChange={(event) =>  handleInpuHuespe(event, index)}
+                                                                            onChange={(event) =>  handleInpuHuespe(event, index, "Apellido")}  
                                                                             />
 
-                                                                        <select  onChange={(event) =>  handleInpuHuespe(event, index)} 
+                                                                        <select onChange={(event) =>  handleInpuHuespe(event, index, "Tipo_documento")}  
                                                                                                 name={"Tipo_documento"}
                                                                                                 value={item.Tipo_documento}
                                                                                                 required
-                                                                                                className="desde-detail-three">
+                                                                                                className={`desde-detail-three  ${validationErrors.includes(`Tipo_documento_${index}`)
+                                                                            ? "invalid"
+                                                                            : validationErrors.includes(
+                                                                                `Tipo_documento_${index}invalid`
+                                                                              )
+                                                                            ? "invalid"
+                                                                            : ""}  `}>
                                                                                             <option >{null}</option>
                                                                                             {documnet?.map(category =>(
                                                                                                 <option 
@@ -1064,10 +841,16 @@ const DashboardModal = (props) => {
                                                                                             )}
                                                                         </select>
 
-                                                                        <select required  onChange={(event) =>  handleInpuHuespe(event, index)} 
+                                                                        <select required   onChange={(event) =>  handleInpuHuespe(event, index, "Nacionalidad")}  
                                                                                                 name={"Nacionalidad"}
                                                                                                 value={item.Nacionalidad}
-                                                                                                className="desde-detail-three">
+                                                                                                className={`desde-detail-three ${validationErrors.includes(`Nacionalidad_${index}`)
+                                                                                                ? "invalid"
+                                                                                                : validationErrors.includes(
+                                                                                                    `Nacionalidad_${index}invalid`
+                                                                                                  )
+                                                                                                ? "invalid"
+                                                                                                : ""}   `}>
                                                                                             <option >{null}</option>
                                                                                             {country?.query?.map(category =>(
                                                                                                 <option 
@@ -1080,12 +863,20 @@ const DashboardModal = (props) => {
                                                                                             )}
                                                                         </select>
 
-                                                                        <input  className="desde-detail-two"  
+                                                                        <input  
+                                                                        onBlur={(e) => handleBlur(e, index, "Num_documento")}
+                                                                         className={`desde-detail-two ${validationErrors.includes(`Num_documento_${index}`)
+                                                                         ? "invalid"
+                                                                         : validationErrors.includes(
+                                                                             `Num_documento_${index}invalid`
+                                                                           )
+                                                                         ? "invalid"
+                                                                         : ""}   `}
                                                                                 required 
                                                                                 name="Num_documento" 
                                                                                 type="text" 
                                                                                 value={item.Num_documento}  
-                                                                                onChange={(event) =>  handleInpuHuespe(event, index)} />
+                                                                                onChange={(event) =>  handleInpuHuespe(event, index, "Num_documento")} />
                                                                     </div>
                                                                 </form>
 
@@ -1102,35 +893,62 @@ const DashboardModal = (props) => {
                                                                 </div>
                                                                     <div className="container-detail-dasboard-in" > 
                                                                         <input 
-                                                                            className="desde-detail-two"  
+                                                                            className={`desde-detail-two ${validationErrors.includes(`Fecha_nacimiento_${index}`)
+                                                                            ? "invalid"
+                                                                            : validationErrors.includes(
+                                                                                `Fecha_nacimiento_${index}invalid`
+                                                                              )
+                                                                            ? "invalid"
+                                                                            : ""}   `}
                                                                             required name="Fecha_nacimiento"  
                                                                             type="date" 
                                                                             value={item.Fecha_nacimiento}  
-                                                                            onChange={(event) =>  handleInpuHuespe(event, index)} 
+                                                                            onChange={(event) =>  handleInpuHuespe(event, index, "Fecha_nacimiento")}
                                                                         />
                                                                         <input 
-                                                                            className="desde-detail-two"    
-                                                                            required  name="Ciudad" 
+                                                                           
+                                                                            className={`desde-detail-two ${validationErrors.includes(`Ciudad_${index}`)
+                                                                            ? "invalid"
+                                                                            : validationErrors.includes(
+                                                                                `Ciudad_${index}invalid`
+                                                                              )
+                                                                            ? "invalid"
+                                                                            : ""}   `}
+                                                                            required 
+                                                                             name="Ciudad" 
                                                                             type="text" 
                                                                             value={item.Ciudad}  
-                                                                            onChange={(event) =>  handleInpuHuespe(event, index)} 
+                                                                            onChange={(event) =>  handleInpuHuespe(event, index, "Ciudad")}
                                                                             />
 
                                                                       
                                                                         <input 
-                                                                              className="desde-detail-three"    
+                                                                              className={`desde-detail-three ${validationErrors.includes(`Correo_${index}`)
+                                                                              ? "invalid"
+                                                                              : validationErrors.includes(
+                                                                                  `Correo_${index}invalid`
+                                                                                )
+                                                                              ? "invalid"
+                                                                              : ""}   `} 
                                                                               required name="Correo"
                                                                                type="text" 
                                                                                value={item.Correo}  
-                                                                               onChange={(event) =>  handleInpuHuespe(event, index)}
+                                                                               onChange={(event) =>  handleInpuHuespe(event, index, "Correo")}
                                                                             />
 
 
-                                                                        <select required  onChange={(event) =>  handleInpuHuespe(event, index)} 
+                                                                        <select required   onChange={(event) =>  handleInpuHuespe(event, index, "Nacionalidad")} 
                                                                                             disabled={true}
                                                                                                 name={"Nacionalidad"}
                                                                                                 value={item.Nacionalidad}
-                                                                                                className="desde-detail-three">
+                                                                                                className={`desde-detail-three ${validationErrors.includes(`Nacionalidad_${index}`)
+                                                                                                ? "invalid"
+                                                                                                : validationErrors.includes(
+                                                                                                    `Nacionalidad_${index}invalid`
+                                                                                                  )
+                                                                                                ? "invalid"
+                                                                                                : ""}   `} 
+                                                                                               >
                                                                                             <option >{null}</option>
                                                                                             {country?.query?.map(category =>(
                                                                                                 <option 
@@ -1143,14 +961,28 @@ const DashboardModal = (props) => {
                                                                                             )}
                                                                         </select>
 
-                                                                        <input  className="desde-detail-two"  
+                                                                        <input   
+                                                                                className={`desde-detail-two ${validationErrors.includes(`Celular_${index}`)
+                                                                                ? "invalid"
+                                                                                : validationErrors.includes(
+                                                                                    `Celular_${index}invalid`
+                                                                                )
+                                                                                ? "invalid"
+                                                                                : ""}   `} 
                                                                                 required  name="Celular"     
                                                                                 type="number"  
                                                                                 value={item.Celular}  
-                                                                                onChange={(event) =>  handleInpuHuespe(event, index)}  />
+                                                                                onChange={(event) =>  handleInpuHuespe(event, index, "Celular")}  />
                                                                     </div>
-                                                                </form>
-                                                                
+
+                                                                    {index > 0 && (
+                                                            <div className="container-button-remove" >
+                                                            <button type="button" className="button-dasboard-six-one" onClick={() => handleRemove(index)} >
+                                                                eliminar persona
+                                                            </button>
+                                                            </div>
+                                                            )}
+                                                    </form>
                                                             </div>
                                                      ))}
 

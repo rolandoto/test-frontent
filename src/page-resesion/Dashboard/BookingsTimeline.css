@@ -761,3 +761,21 @@ hr.border {
     /* left: 0; */
     right: 32px;
   }
+
+
+  input.invalid {
+    border: solid 2px red;
+  }
+  
+   select.invalid {
+    border: solid 2px red;
+  }
+  
+  .container-button-remove{
+    display: flex;
+    justify-content: center;
+  }
+  
+  input.missing {
+    border: solid 2px orange;
+  }
