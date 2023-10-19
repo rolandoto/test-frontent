@@ -17,15 +17,15 @@ const useSearchUser = () => {
         try {
           const postResponse = await HttpClient.PostSearchValue({serchvalue, type});
           if (postResponse) {
-            toast.success("Cliente encontrado")
+            toast.success("Huesped encontrado")
             dispatch(setSearch(postResponse));
           } else {
             dispatch(setError("post with wans found"));
-            toast.error("Cliente encontrado")
+            toast.error("Huesped no encontrado")
           }
         } catch (error) {
           dispatch(setError("Post with wasn found"));
-          toast.error("Cliente encontrado")
+          toast.error("Huesped no encontrado")
         }
       };
 

@@ -69,9 +69,9 @@ const TableTarifas = (props) =>{
                         <td>{codigo_reserva}</td>
                         <td>{name_reservation}</td>
                         {valid &&  (<>  <td>   
-                        <Checkbox color="success" labelColor="success" defaultSelected onChange={handChangeCheckBox} checked={checkBox} >Aprobar</Checkbox> 
+                        <Checkbox color="success"    labelColor="success" defaultSelected onChange={handChangeCheckBox} checked={checkBox} > <Text  size="$xs" color={"success"}>Aprobar</Text> </Checkbox> 
                     
-                        <Checkbox color="error" labelColor="error" defaultSelected onChange={handChangeCheckBoxOne} checked={checkBoxOne} >No aprobar</Checkbox>
+                        <Checkbox color="error"  labelColor="error" defaultSelected onChange={handChangeCheckBoxOne} checked={checkBoxOne} ><Text  size="$xs" color={"error"}> No aprobar </Text> </Checkbox>
                     </td>
                     <td>
                     <Button color="primary" auto onClick={handSubmitClick} >
@@ -81,9 +81,9 @@ const TableTarifas = (props) =>{
                     </>
                     )
                 }
-                {!valid ?  approved ? <td>  <Text size="$md" color={color}>
+                {!valid ?  approved ? <td>  <Text size="$xs" color={color}>
                 Aprobado
-                </Text> </td> : <td>   <Text size="$md" color={color}>
+                </Text> </td> : <td>   <Text size="$xs" color={color}>
                     No aprobado
                 </Text>  </td> : null }
         </tr>

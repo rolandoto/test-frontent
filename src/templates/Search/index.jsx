@@ -8,6 +8,7 @@ import { BsCalendarX } from "react-icons/bs";
 import ServiceUpdateReservationWeb from "../../service/ServiceUpdateReservationWeb";
 import { Button } from "@nextui-org/react";
 import { useSelector } from "react-redux";
+import moment from "moment";
 
 const TemplateSearch =() =>{
     const {jwt} =useContext(AutoProvider)
@@ -23,7 +24,7 @@ const TemplateSearch =() =>{
     }
 
     const filtrarSearching =(terminoBusqueda) =>{
-        let resultadosBusqueda= Items.filter((elemento,index)=>{
+        let resultadosBusqueda= Items?.filter((elemento,index)=>{
             if(elemento.name?.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
             || elemento.document?.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
             || elemento.Codigo_Reserva?.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
@@ -58,6 +59,9 @@ const TemplateSearch =() =>{
 
 
    const {resultadosBusqueda} = filtrarSearching(username)  
+
+
+   if(!resultadosBusqueda) return null
 
     return (
 
@@ -98,16 +102,16 @@ const TemplateSearch =() =>{
                 </thead>
                   {resultadosBusqueda?.map(index =>{
                      let todaydesde = new Date(index.start_time)
-                     const desde = todaydesde.toISOString().split('T')[0]
+                     const desde = moment(todaydesde).utc().format('YYYY/MM/DD')
 
                      let todayhasta = new Date(index.end_time)
-                     const hasta = todayhasta.toISOString().split('T')[0]
+                     const hasta = moment(todayhasta).utc().format('YYYY/MM/DD')
 
-                     const valor_habitacion =  parseInt(index.valor_habitacion)
+                     const valor_habitacion =  parseInt(index?.valor_habitacion)
 
-                     const abono = parseInt(index.abono)
+                     const abono = parseInt(index?.abono)
 
-                     const ID_Canal = parseInt(index.abono)
+                     const ID_Canal = parseInt(index?.abono)
 
                     if(index.state ==0)
                         console.log("Información de depuración para el elemento actual:", index);

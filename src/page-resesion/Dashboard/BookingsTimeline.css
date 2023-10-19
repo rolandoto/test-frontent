@@ -762,7 +762,6 @@ hr.border {
     right: 32px;
   }
 
-
   input.invalid {
     border: solid 2px red;
   }
@@ -779,3 +778,10 @@ hr.border {
   input.missing {
     border: solid 2px orange;
   }
+
+
+  .button,[type="submit"] {
+    appearance: button;
+    margin-top: 29px;
+    color: white;
+}
