@@ -22,10 +22,12 @@ const useSearchUser = () => {
           } else {
             dispatch(setError("post with wans found"));
             toast.error("Huesped no encontrado")
+            dispatch(setSearch([]));
           }
         } catch (error) {
           dispatch(setError("Post with wasn found"));
           toast.error("Huesped no encontrado")
+     
         }
       };
 
