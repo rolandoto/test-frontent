@@ -65,6 +65,8 @@ import UploadPopUp from "./page/UploadPopUp";
 import TarifasReservation from "./page/TarifasReservation";
 import SearchBYID from "./page-resesion/Dashboard/SearchByID";
 import MainCreateRerva from "./page-resesion/Dashboard/MainCreateReservas";
+import HomeTypehospedaje from "./page-resesion/Dashboard/HomeTypeHospedaje";
+import Ocacionales from "./page-resesion/Dashboard/Ocacional";
 
 function App() {
   const { jwt } = useContext(AutoProvider);
@@ -162,6 +164,9 @@ function App() {
             <Switch>
               <Route exact path="/" component={Login} />
               <PrivateRoute exact path="/SearchbyID" component={SearchBYID}    />
+              <PrivateRoute exact path="/Ocacionales" component={Ocacionales}    />
+              <PrivateRoute exact path="/HomeTypehospedaje" component={HomeTypehospedaje}    />
+
               <PrivateRoute exact path="/Home" component={MainDasboard} />
               <PrivateRoute
                 exact
@@ -314,6 +319,8 @@ function App() {
             <Switch>
               <Route exact path="/" component={Login} />
               <PrivateRoute exact path="/SearchbyID" component={SearchBYID}    />
+              <PrivateRoute exact path="/Ocacionales" component={Ocacionales}    />
+              <PrivateRoute exact path="/HomeTypehospedaje" component={HomeTypehospedaje}    />
               <PrivateRoute exact path="/Home" component={MainDasboard} />
               <PrivateRoute
                 exact

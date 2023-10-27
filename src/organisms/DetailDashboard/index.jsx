@@ -77,6 +77,8 @@ const DetailDasboard =(props) =>{
     const findEmpresa = resultDashboard?.tipo_persona =="empresa"
     const findFirma = resultDashboard?.Estado =="3" ||  resultDashboard?.Estado =="1"||resultDashboard?.Estado =="5" || resultDashboard?.Estado =="6"
 
+    const avaiableRoom =   resultDashboard?.ID_estado_habitacion =="7" ||  resultDashboard?.ID_estado_habitacion =="3" 
+
     const formatter = new Intl.NumberFormat('en-US', {
       style: 'currency',  
       currency: 'COP',
@@ -335,18 +337,21 @@ const DetailDasboard =(props) =>{
 
     const handChecking =() =>{
       if(!findFirma){
-        HttpClient.validCheckingAll({ID:resultDashboard.ID_Habitaciones}).then(itemValid =>{
-          history.push(`/detailchecking/${id}`)
-        }).catch(e =>{
-          Swal.fire({
-            position: 'center',
-            icon: 'error',
-            title: '<p>todavia hay una habitacion con check in</p>',
-            showConfirmButton: false,
-            timer: 1000
+        if(!avaiableRoom){
+          HttpClient.validCheckingAll({ID:resultDashboard.ID_Habitaciones}).then(itemValid =>{
+            history.push(`/detailchecking/${id}`)
+          }).catch(e =>{
+            Swal.fire({
+              position: 'center',
+              icon: 'error',
+              title: '<p>todavia hay una habitacion con check in</p>',
+              showConfirmButton: false,
+              timer: 1000
+            })
           })
-        })
-      
+        }else{
+          toast.error("habitacion esta ocupada")
+        }
       }
     }
     

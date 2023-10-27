@@ -780,8 +780,22 @@ hr.border {
   }
 
 
-  .button,[type="submit"] {
-    appearance: button;
-    margin-top: 29px;
-    color: white;
+  
+
+.container-flex-homeType{
+  text-align: center;
+  border: solid 1px;
+  width: 50%;
+  margin: auto;
+  padding: 52px;
+  border-radius: 19px;
+}
+
+.flex-checkbox{
+  display: flex;
+  justify-content: space-around;
+}
+
+.margin-right-rig{
+  margin-right:4px
 }

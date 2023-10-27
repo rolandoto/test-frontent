@@ -28,7 +28,7 @@ const SearchBYID =() =>{
                             placeholder="Ingrese numero de documento" 
                             className="input-selecto-dasboard-n1-reservaction"  />
                     <br />
-                    <Spacer x={0.1} y={0.5} />
+                    <Spacer x={0.1} y={0.1} />
                     <Button    
                             type="submit"
                             style={{width:"100%",height:"50px"}} 

@@ -1037,6 +1037,12 @@ span {
   animation: pulse 1.5s ease-in-out infinite, flicker 2s linear infinite;
 }
 
+.live-indicator-heart{
+ 
+  filter: drop-shadow(0 2px 5px rgba(255, 0, 0, 0.7));
+  animation: pulse 1.5s ease-in-out infinite, flicker 2s linear infinite;
+}
+
 .live-text {
   position: absolute;
   transform: translateY(-50%);

@@ -19,8 +19,17 @@ export const AutoProvider =({children}) =>{
 
     const [show,setShow]= useState(false)
 
+    const [ocacion,setOcacion] =useState("")
+    const [finish,setFinish] =useState("")
 
-    
+    /*const momentoSalida = moment(finish, "HH:mm:ss");
+       
+        const diferencia = momentoSalida.diff(tiempoActual);
+       
+        const horas = Math.floor(diferencia / (60 * 60 * 1000));
+        const minutos = Math.floor((diferencia % (60 * 60 * 1000)) / (60 * 1000));
+        const segundos = Math.floor((diferencia % (60 * 1000)) / 1000);
+*/
     
     useEffect(() =>{
         setShow(false) 
@@ -66,7 +75,11 @@ export const AutoProvider =({children}) =>{
                                         setCategory,
                                         setIsOpen,
                                         isOpen,
-                                        socket}}>
+                                        socket,
+                                        setOcacion,
+                                        ocacion,
+                                        finish,
+                                        setFinish}}>
                 {children}
             </Autoconext.Provider>
     )

@@ -6,6 +6,7 @@ const UseFilterAuditoria  =() =>{
    const {category,setCategory}  = useContext(AutoProvider)
 
     const filterAuditoriaRoom =(audit) =>{
+      
         if(audit){
             return audit.filter(item  => {
               return (

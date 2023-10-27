@@ -129,7 +129,7 @@ const Dashboard = () => {
 	}
 
 	const handClickReservaction =() =>{
-		history.push("/SearchbyID")
+		history.push("/HomeTypehospedaje")
 	}
 
 	const hanclickReservation =() =>{
@@ -231,12 +231,12 @@ const Dashboard = () => {
 					const handClick = async() =>{
 						if (edge === 'left') {
 							newReservation[ReservationIndex].start_time = time
-							postUpdateDetailPointer({ id: itemId, Fecha_final: fecha,countSeguro });
+							postUpdateDetailPointer({ id: itemId, Fecha_final: fecha,countSeguro ,type:"subir"});
 							socket.emit("sendNotification",message);
 							setUpdateFilterReservation(newReservation)
 						}else{
 							newReservation[ReservationIndex].end_time = time
-							postUpdateDetailPointer({ id: itemId, Fecha_final: fecha,countSeguro });
+							postUpdateDetailPointer({ id: itemId, Fecha_final: fecha,countSeguro ,type:"bajar"});
 							socket.emit("sendNotification",message);
 							setUpdateFilterReservation(newReservation)
 						}
@@ -444,8 +444,6 @@ const Dashboard = () => {
 						className="advertisement-image"
 						/>
 		</Modal>
-
-		
 		</div>
 			<div ref={timelineRef} > 
 			<div  className="container-button">

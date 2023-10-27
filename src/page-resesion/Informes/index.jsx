@@ -16,6 +16,7 @@ import UseFilterAuditoria from "../../hooks/UseFilterAuditoria"
 const InformeAuditoria =() =>{
 
     const [auditoria,setAuditoria] =useState()
+    const [ocasional,setOcasional] =useState()
     const [store,setStore] =useState()
     const [storeOne,setStoreOne] =useState()
     const [LookinforFecha,setLokinforFecha] =useState()
@@ -32,6 +33,7 @@ const InformeAuditoria =() =>{
         ServiceAuditoria({id:jwt.result.id_hotel,fecha:LookinforFecha}).then(index =>{
             setAuditoria(index.result)
             setStore(index.queryTwo)
+            setOcasional(index.groupedOcasional)
             setStoreOne(index.queryOne)
             setLoading({loading:true})
         }).catch(e =>{
@@ -57,6 +59,8 @@ const InformeAuditoria =() =>{
 
     const  audiFiltrar =  filterAuditoriaRoom(auditoria)
 
+    const  audOcasional=  filterAuditoriaRoom(ocasional)
+
     const storeFilter = filterAuditoriaRoom(store)
 
     const storeOneFiltrar =  filterAuditoriaRoom(storeOne)
@@ -76,6 +80,12 @@ const InformeAuditoria =() =>{
         return acum  +   parseInt(current.total) 
     },0)
 
+
+    const priceInformeOcasional = ocasional?.reduce((acum,current) => {
+        return acum  +   parseInt(current.Abono) 
+    },0)
+
+    
     let count =0
     if(storeOneFiltrar){
         for(let i =0;i<audiFiltrar?.length;i++){
@@ -146,129 +156,150 @@ const InformeAuditoria =() =>{
       ]
       
     
-    const totalPriceInforme = count +priceInformeStore+priceInformeStoreOne
+    const totalPriceInforme = count +priceInformeStore+priceInformeStoreOne+priceInformeOcasional
 
     const totalDefinisInforme = totalPriceInforme.toLocaleString();
 
     return (
         <ContainerGlobal>
-             <LoadingDetail  
-                        loading={true}
-                        titleLoading={"Informe  auditoria"}  />
-            <div style={{display:"flex",alignItems:"center"}} >
-                <input type="date" className="input-selecto-auditoria-fechas"  onChange={hadChangeFecha} value={LookinforFecha}   />
-                <select className="input-selecto-dasboard-n1-reservaction"   onChange={handChangeCategory} >
-                    <option value="0">Filtrar tipo forma pago</option>
-                    {tipo_forma_pago.map(index =>(
-                        <option value={index.id} key={index.id} >
-                                {index.name}
-                        </option>
-                    ))}
-                </select>
-                <button className="button-informe-cosultar-auditoria" onClick={hanLookingFor}>Consultar</button>
-                <button className="button-informe-imprimir-auditoria" onClick={handClikcDescargar} >Imprimir</button>
-            </div>
-           
-            <table className="de"  ref={componentRef} >
-                <tbody>
-                    <tr>    
-                        <th>Codigo reserva</th>
-                        <th>Factura</th>
-                        <th>Habitacion</th>
-                        <th>Concepto</th>
-                        <th>Descripción</th>
-                        <th>Fecha</th>
-                        <th>Pago</th>
-                        <th>Identificacion</th>
-                        <th>Cliente</th>
-                        <th>Exento</th>
-                        <th>Total</th>
-                    </tr>
-                    {audiFiltrar?.map(index =>{
-                            const fecha =  moment(index.Fecha_pago).utc().format('YYYY/MM/DD')
-
-                            const PriceWithienda =  parseInt(index.abono)
- 
-                            const totalIva =  parseInt(index.abono) *19/100 
-
-                            const total = totalIva+ PriceWithienda
-
-                            const totalDefinid = index.Iva ==1? total : parseInt(index.abono)
-
-                            const totalDefinttion = index.Tipo_persona =="empresa" ?total:totalDefinid
-
-                            const totalWith = totalDefinttion.toLocaleString()
-
-                            const totalDefinit = totalWith  =="NaN" ?  parseInt(index.abono).toLocaleString()  : totalWith
-
-                        return (
-                        <tr>
-                            <td className="width-informe" >X14A-{index.Num_documento}{index.ID_reserva}</td>
-                            <td className="width-informe" >0</td>
-                            <td className="width-informe" >{index.Numero}</td>
-                            <td className="width-informe" >Estadia</td>
-                            <td className="width-informe" >{index.Habitacion} </td>
-                            <td className="width-informe" >{fecha}</td>
-                            <td className="width-informe" >{index.Nombre}</td>
-                            <td className="width-informe" >{index.Num_documento}</td>
-                            <td className="width-informe" >{index.Nombre_Person} {index.Apellido}</td>
-                            <td className="width-informe" >${totalDefinit}</td>
-                            <td className="width-informe" >${totalDefinit}</td>
-                        </tr>  
-                       )})}
-
-                        {storeFilter?.map(index =>{
-                             const fecha =  moment(index.Fecha_compra).utc().format('YYYY/MM/DD')
-                             const PriceWithienda =  parseInt(index.total)
-                             const totalWith = PriceWithienda.toLocaleString()
-                            return (
-                        <tr>
-                            <td className="width-informe" >X14A-{index.Num_documento}{index.ID_Reserva}</td>
-                            <td className="width-informe" >0</td>
-                            <td className="width-informe" >Tienda</td>
-                            <td className="width-informe" >Tienda</td>
-                            <td className="width-informe" >{index.Cantidad}  {index.Nombre} </td>
-                            <td className="width-informe" >{fecha}</td>
-                            <td className="width-informe" >{index.Tipo_pago}</td>
-                            <td className="width-informe" >{index.Num_documento}</td>
-                            <td className="width-informe" >{index.Nombre_persona}</td>
-                            <td className="width-informe" >${totalWith}</td>
-                            <td className="width-informe" >${totalWith}</td>
-                        </tr>  
-                       )})}
-
-                       
-                    {storeOneFiltrar?.map(index =>{
-                             const fecha =  moment(index.Fecha_compra).utc().format('YYYY/MM/DD')
-                             const PriceWithienda =  parseInt(index.total)
-                             const totalWith = PriceWithienda.toLocaleString()
-                            
-                            return (
-                        <tr>
-                            <td className="width-informe" >X14A-{index.Num_documento}{index.ID_Reserva}</td>
-                            <td className="width-informe" >0</td>
-                            <td className="width-informe" >{index.Numero}</td>
-                            <td className="width-informe" >Minibar</td>
-                            <td className="width-informe" >{index.Cantidad}  {index.Nombre_producto} </td>
-                            <td className="width-informe" >{fecha}</td>
-                            <td className="width-informe" >{index.Tipo_pago}</td>
-                            <td className="width-informe" >{index.Num_documento}</td>
-                            <td className="width-informe" >{index.Nombre_Person} {index.Apellido}</td>
-                            <td className="width-informe" >${totalWith}</td>
-                            <td className="width-informe" >${totalWith}</td>
-                        </tr>  
-                       )})}
-                        <div>   
-                            <th className="width-informe" >Total ${totalDefinisInforme}</th>
-                           
-                        </div>       
-                </tbody>   
-            </table>
-                    
-               
-        {loadingInforme &&  <DescargarInforme auditoria={auditoria} setLoadingInforme={setLoadingInforme}  totalPriceInforme={totalPriceInforme} />   }
+        <LoadingDetail  
+                   loading={true}
+                   titleLoading={"Informe  auditoria"}  />
+       <div style={{display:"flex",alignItems:"center"}} >
+           <input type="date" className="input-selecto-auditoria-fechas"  onChange={hadChangeFecha} value={LookinforFecha}   />
+           <select className="input-selecto-dasboard-n1-reservaction"   onChange={handChangeCategory} >
+               <option value="0">Filtrar tipo forma pago</option>
+               {tipo_forma_pago.map(index =>(
+                   <option value={index.id} key={index.id} >
+                           {index.name}
+                   </option>
+               ))}
+           </select>
+           <button className="button-informe-cosultar-auditoria" onClick={hanLookingFor}>Consultar</button>
+           <button className="button-informe-imprimir-auditoria" onClick={handClikcDescargar} >Imprimir</button>
+       </div>
       
-        </ContainerGlobal>
+       <table className="de"  ref={componentRef} >
+           <tbody>
+               <tr>    
+                   <th>Codigo reserva</th>
+                   <th>Factura</th>
+                   <th>Habitacion</th>
+                   <th>Concepto</th>
+                   <th>Descripción</th>
+                   <th>Fecha</th>
+                   <th>Pago</th>
+                   <th>Identificacion</th>
+                   <th>Cliente</th>
+                   <th>Exento</th>
+                   <th>Total</th>
+               </tr>
+               {audiFiltrar?.map(index =>{
+                       const fecha =  moment(index.Fecha_pago).utc().format('YYYY/MM/DD')
+
+                       const PriceWithienda =  parseInt(index.abono)
+
+                       const totalIva =  parseInt(index.abono) *19/100 
+
+                       const total = totalIva+ PriceWithienda
+
+                       const totalDefinid = index.Iva ==1? total : parseInt(index.abono)
+
+                       const totalDefinttion = index.Tipo_persona =="empresa" ?total:totalDefinid
+
+                       const totalWith = totalDefinttion.toLocaleString()
+
+                       const totalDefinit = totalWith  =="NaN" ?  parseInt(index.abono).toLocaleString()  : totalWith
+
+                   return (
+                   <tr>
+                       <td className="width-informe" >X14A-{index.Num_documento}{index.ID_reserva}</td>
+                       <td className="width-informe" >0</td>
+                       <td className="width-informe" >{index.Numero}</td>
+                       <td className="width-informe" >Estadia</td>
+                       <td className="width-informe" >{index.Habitacion} </td>
+                       <td className="width-informe" >{fecha}</td>
+                       <td className="width-informe" >{index.Nombre}</td>
+                       <td className="width-informe" >{index.Num_documento}</td>
+                       <td className="width-informe" >{index.Nombre_Person} {index.Apellido}</td>
+                       <td className="width-informe" >${totalDefinit}</td>
+                       <td className="width-informe" >${totalDefinit}</td>
+                   </tr>  
+                  )})}
+
+                   {storeFilter?.map(index =>{
+                        const fecha =  moment(index.Fecha_compra).utc().format('YYYY/MM/DD')
+                        const PriceWithienda =  parseInt(index.total)
+                        const totalWith = PriceWithienda.toLocaleString()
+                       return (
+                   <tr>
+                       <td className="width-informe" >X14A-{index.Num_documento}{index.ID_Reserva}</td>
+                       <td className="width-informe" >0</td>
+                       <td className="width-informe" >Tienda</td>
+                       <td className="width-informe" >Tienda</td>
+                       <td className="width-informe" >{index.Cantidad}  {index.Nombre} </td>
+                       <td className="width-informe" >{fecha}</td>
+                       <td className="width-informe" >{index.Tipo_pago}</td>
+                       <td className="width-informe" >{index.Num_documento}</td>
+                       <td className="width-informe" >{index.Nombre_persona}</td>
+                       <td className="width-informe" >${totalWith}</td>
+                       <td className="width-informe" >${totalWith}</td>
+                   </tr>  
+                  )})}
+
+                {audOcasional?.map(index =>{
+                        const fecha =  moment(index.Fecha).utc().format('YYYY/MM/DD')
+                        const PriceWithienda =  parseInt(index.Abono)
+                        const totalWith = PriceWithienda.toLocaleString()
+                       return (
+                   <tr>
+                       <td className="width-informe" >X14A-</td>
+                       <td className="width-informe" >0</td>
+                       <td className="width-informe" >{index.Numero}</td>
+                       <td className="width-informe" >Ocasional</td>
+                       <td className="width-informe" >{index.Habitacion} </td>
+                       <td className="width-informe" >{fecha}</td>
+                       <td className="width-informe" >{index.Tipo_forma_pago}</td>
+                       <td className="width-informe" >00000</td>
+                       <td className="width-informe" >00000</td>
+                       <td className="width-informe" >${totalWith}</td>
+                       <td className="width-informe" >${totalWith}</td>
+                   </tr>  
+                  )})}
+
+
+                  
+               {storeOneFiltrar?.map(index =>{
+                        const fecha =  moment(index.Fecha_compra).utc().format('YYYY/MM/DD')
+                        const PriceWithienda =  parseInt(index.total)
+                        const totalWith = PriceWithienda.toLocaleString()
+                       
+                       return (
+                   <tr>
+                       <td className="width-informe" >X14A-{index.Num_documento}{index.ID_Reserva}</td>
+                       <td className="width-informe" >0</td>
+                       <td className="width-informe" >{index.Numero}</td>
+                       <td className="width-informe" >Minibar</td>
+                       <td className="width-informe" >{index.Cantidad}  {index.Nombre_producto} </td>
+                       <td className="width-informe" >{fecha}</td>
+                       <td className="width-informe" >{index.Tipo_pago}</td>
+                       <td className="width-informe" >{index.Num_documento}</td>
+                       <td className="width-informe" >{index.Nombre_Person} {index.Apellido}</td>
+                       <td className="width-informe" >${totalWith}</td>
+                       <td className="width-informe" >${totalWith}</td>
+                   </tr>  
+                  )})}
+                   <div>   
+                       <th className="width-informe" >Total ${totalDefinisInforme}</th>
+                      
+                   </div>       
+           </tbody>   
+       </table>
+               
+          
+   {loadingInforme &&  <DescargarInforme auditoria={auditoria} setLoadingInforme={setLoadingInforme}  totalPriceInforme={totalPriceInforme} />   }
+ 
+   </ContainerGlobal>
     )
 
 }

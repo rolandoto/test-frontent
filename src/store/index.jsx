@@ -18,6 +18,7 @@ import { UpdateDetailPounterRangeSlice } from '../reducers/updateDatailPounterRa
 import { ReservationSlice } from '../reducers/ReservationReducers'
 import { apiTarifasReservationSlice } from '../reducers/apiPostTarifasReservation'
 import { searchSlice } from '../reducers/searchUsersReducers'
+import { apiRoomsOcasional } from '../reducers/apiRoomsOcasionalReducers'
 
 const persistanceLocalStorageMiddleware = (store) => (next) => (action) => {
 	next(action);
@@ -54,7 +55,8 @@ const store = configureStore ({
         UpdateDetailPounterRangeSlice:UpdateDetailPounterRangeSlice.reducer,
         ReservationSlice:ReservationSlice.reducer,
         TarifasReservation:apiTarifasReservationSlice.reducer,
-        SearchUsers:searchSlice.reducer
+        SearchUsers:searchSlice.reducer,
+        Ocasioanal:apiRoomsOcasional.reducer
     },
     devTools:true,
     middleware: [persistanceLocalStorageMiddleware],

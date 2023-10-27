@@ -2,11 +2,9 @@ import GroupRows from "./GroupsRows";
 import { IoBedOutline ,IoBanOutline} from "react-icons/io5";
 import { GiBroom } from "react-icons/gi";
 import { BsCheckCircle,BsBell} from "react-icons/bs";
-
+import { AiFillHeart } from "react-icons/ai";
 
 const renderGroup = ({ group }) => {
-
-    
 
     const toggleGroup = (itemId) => {
     
@@ -23,7 +21,9 @@ const renderGroup = ({ group }) => {
                 root={group.root}
                 parent={group.parent}
                 toggleGroup={toggleGroup}
-                iconState={<BsCheckCircle color="black"  fontSize={15} />}/>
+               
+                Fecha={group.Fecha}
+                iconState={<BsCheckCircle color="black"  className="margin-right-rig"  fontSize={15} />}/>
         )
     }if(group.ID_estado_habiatcion == 5){
         rows.push(
@@ -35,7 +35,9 @@ const renderGroup = ({ group }) => {
                 root={group.root}
                 parent={group.parent}
                 toggleGroup={toggleGroup}
-                iconState={< GiBroom fontSize={15} color="black"  />}
+               
+                Fecha={group.Fecha}
+                iconState={< GiBroom fontSize={15} color="black"  className="margin-right-rig" />}
                 />
         )
     }
@@ -49,7 +51,9 @@ const renderGroup = ({ group }) => {
                 root={group.root}
                 parent={group.parent}
                 toggleGroup={toggleGroup}
-                iconState={<IoBanOutline  color="black"  fontSize={15}/>}
+               
+                Fecha={group.Fecha}
+                iconState={<IoBanOutline  color="black" className="margin-right-rig"  fontSize={15}/>}
                 />
         )
     }if(group.ID_estado_habiatcion == 3){
@@ -62,20 +66,45 @@ const renderGroup = ({ group }) => {
                 root={group.root}
                 parent={group.parent}
                 toggleGroup={toggleGroup}
-                iconState={	<div class="live-indicator">
+               
+                Fecha={group.Fecha}
+                iconState={	<div className="live-indicator margin-right-rig ">
                                 <span class="live-text">En vivo</span>
                             </div>}
                                 />
         )
     }
+    if(group.ID_estado_habiatcion == 7){
         rows.push(
             <GroupRows 	
                 color="white"
-                iconState={<IoBedOutline fontSize={15}  color="black" />}
+                group={` ${group.title}`}
+                letra="black" 
+                key={group.id} 
+                id={group.id} 
+                ID_estado_habitacion={group.ID_estado_habitacion}
+                root={group.root}
+                parent={group.parent}
+                toggleGroup={toggleGroup}
+                 Time_ingreso={group.Time_ingreso}
+                Time_salida={group.Time_salida}
+                isValid={true}
+                Fecha={group.Fecha}
+                iconState={	<AiFillHeart className="live-indicator-heart margin-right-rig " color="red"  fontSize={15}/>}
+                                />
+        )
+    }
+
+    
+        rows.push(
+            <GroupRows 	
+                color="white"
+                iconState={<IoBedOutline fontSize={15}  className="margin-right-rig" color="black" />}
                 group={group.title} 
                 root={group.root}
                 key={group.id} 
                 toggleGroup={toggleGroup}
+                Fecha={group.Fecha}
                 parent={group.parent}/>
         )
         return (
