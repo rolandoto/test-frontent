@@ -645,6 +645,10 @@ const handClickPostTarifasReservation =async() =>{
 
 const  typy_buy =  [
   {   
+    id:null,
+    name:"",
+},
+  {   
       id:1,
       name:"Efectivo",
   },
@@ -1553,6 +1557,7 @@ const handleState =(event, index) =>{
                                     required
                                     className="desde-detail-two-pagos-store" >
                                   <option >Selecionar tipo pago</option>
+                                  <option ></option>
                                   {typy_buy?.map(category =>(
                                       <option 
                                       value={category.id}   
@@ -1699,6 +1704,7 @@ const ItemCardPago =({index,typy_buy,setloading}) => {
                 onChange={(e) =>setPay(e.target.value)} 
                 >
               {typy_buy.map(itemTybuy => (
+                
                 <option value={itemTybuy.id} >{itemTybuy.name}</option>
               ))}
           </select>

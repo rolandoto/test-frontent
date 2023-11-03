@@ -223,6 +223,7 @@ const Dashboard = () => {
 		if(totalDiaPat > 0){
 			Total=totalDiaPat
 		}
+
  
 		const handModalText =(e) =>{
 			confirmAlert({
