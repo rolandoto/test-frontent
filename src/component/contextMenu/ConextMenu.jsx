@@ -1,9 +1,9 @@
 // ContextMenu.jsx
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import styled, { keyframes } from "styled-components"; // Make sure to install styled-components
-
+import  "./index.css"
 
 
 const fadeIn = keyframes`
@@ -63,13 +63,17 @@ align-items: center
 
 
 
-const ContextMenu = ({ top, left, options, onClose,ocacion ,handChangeTypeRoomOne,finish}) => {
+const ContextMenu = ({ top, left, options, onClose,ocacion ,handChangeTypeRoomOne,finish,openModal}) => {
 
   const handleItemClick = (action) => {
     if(action =="asignar"){
       handChangeTypeRoomOne(ocacion,finish)
       onClose()
-    }else{
+    }else if(action =="Facturar"){
+      openModal(ocacion)
+      onClose()
+    }
+    else{
       onClose()
     }
   };
@@ -79,8 +83,7 @@ const ContextMenu = ({ top, left, options, onClose,ocacion ,handChangeTypeRoomOn
       {options.map((option, index) => (
         <StyledMenuItem
           key={index}
-          onClick={() => handleItemClick(option.action)}
-        >
+          onClick={() => handleItemClick(option.action)}>
         <StyleSpanIcons   >  {option.icon} </StyleSpanIcons> 
         <StyleSpan>{option.label} </StyleSpan>
         </StyledMenuItem>

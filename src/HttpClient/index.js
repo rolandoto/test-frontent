@@ -593,6 +593,62 @@ const PostRoomsOcasional = ({
     });
 };
 
+
+const occasionalCartRoomInsertion = ({data }) => {
+  return fetch(`${config.serverRoute}/api/resecion/occasionalCartRoomInsertion`, {
+    method: "POST",
+    body: JSON.stringify(data),
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+  })
+    .then((resp) => {
+      if (!resp.ok) throw new Error("Response is not ok");
+      return resp.json();
+    })
+    .then((resp) => {
+      return resp.results;
+    });
+};
+
+
+const occasionalRoomDetails = ({id}) => {
+  return fetch(`${config.serverRoute}/api/resecion/occasionalRoomDetails`, {
+    method: "POST",
+    body: JSON.stringify({id}),
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+  })
+    .then((resp) => {
+      if (!resp.ok) throw new Error("Response is not ok");
+      return resp.json();
+    })
+    .then((resp) => {
+      return resp;
+    });
+};
+
+const occasionalUpdateProductData =({data}) =>{
+  return fetch(`${config.serverRoute}/api/resecion/occasionalUpdateProductData`, {
+    method: "POST",
+    body: JSON.stringify(data),
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+  })
+    .then((resp) => {
+      if (!resp.ok) throw new Error("Response is not ok");
+      return resp.json();
+    })
+    .then((resp) => {
+      return resp;
+    });
+}
+
 export default {
   get,
   post,
@@ -624,4 +680,7 @@ export default {
   PostUploadCarPresent,
   PostSearchValue,
   PostRoomsOcasional,
+  occasionalCartRoomInsertion,
+  occasionalRoomDetails,
+  occasionalUpdateProductData
 };

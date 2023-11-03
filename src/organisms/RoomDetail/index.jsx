@@ -9,6 +9,7 @@ import { confirmAlert } from "react-confirm-alert";
 import Swal from 'sweetalert2'
 import { BsBucket ,BsCalendarCheck,BsCheckCircle,BsBell} from "react-icons/bs";
 import CardRowsRoom from "../../component/CardRowsRoom/CardRowsRoom";
+import CardColorReservation from "../../page-resesion/Dashboard/CardColorsReservation";
 
 
 
@@ -17,6 +18,7 @@ const RoomDetailOrganism =({room,postDetailRoom,hanchangeEstado}) =>{
 
     return (
         <ContainerGlobal>    
+            <CardColorReservation />
              <div className="card-two" >   
                 <ul class="flex-container wrap-reverse">
                     {room?.map(index => (

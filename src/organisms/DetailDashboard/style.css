@@ -54,7 +54,7 @@
   background: white;
   border-radius: 8px;
   margin: 4px;
-  width: 21.3%;
+  width: 21.3% !important;
   padding: 10px;
 }
 

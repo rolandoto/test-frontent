@@ -12,7 +12,6 @@ import { AiFillHeart } from "react-icons/ai";
 const CardRowsRoomOcacional =({title,id,ID_estado_habitacion,postDetailRoom,hanchangeEstado,handleContextMenu,textAreaRef,
     setOcacion,setContextMenuVisible,Time_ingreso,Time_salida,Fecha,postDetailRoomById,ValidRoom}) =>{
 
-
     const [currentTime, setCurrentTime] = useState(
         moment().format("MMMM Do YYYY, h:mm:ss a")
       );

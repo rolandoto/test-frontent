@@ -330,6 +330,10 @@
   transform: translateX(0%);
 }
 
+.rightMenu-one.active {
+  transform: translateX(0%);
+}
+
 @media screen and (min-width: 950px) {
   .mainContainer {
     overflow-y: none;

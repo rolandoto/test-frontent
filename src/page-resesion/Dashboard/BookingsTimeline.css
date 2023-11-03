@@ -799,3 +799,24 @@ hr.border {
 .margin-right-rig{
   margin-right:4px
 }
+
+.rightMenu-one {
+  transform: translateX(105%);
+  top: unset;
+  padding: 20px 15px;
+  width: 47%;
+  height: calc(100% - 0px);
+  background: #fff;
+  position: fixed;
+  right: 0;
+  top: 0px;
+  z-index: 105;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 10px;
+  transform: translateX(200%);
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0px 3px 20px rgba(0, 0, 0, 0.1);
+  transform: translateX(99%);
+  z-index: 1000;
+}

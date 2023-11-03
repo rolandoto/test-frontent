@@ -5,6 +5,8 @@ import { IoBedOutline ,IoBanOutline} from "react-icons/io5";
 import { VscSymbolEvent } from "react-icons/vsc";
 import { BsBucket ,BsCalendarCheck,BsCheckCircle,BsBell} from "react-icons/bs";
 import { confirmAlert } from "react-confirm-alert";
+import { AiFillHeart } from "react-icons/ai";
+import { toast } from "react-hot-toast";
 
 const CardRowsRoom =({title,id,ID_estado_habitacion,postDetailRoom,hanchangeEstado}) =>{
     
@@ -22,13 +24,9 @@ const CardRowsRoom =({title,id,ID_estado_habitacion,postDetailRoom,hanchangeEsta
 
             const handSubmitRoomDetailAsear =() =>{
                 if(ID_estado_habitacion ==3){
-                    Swal.fire({
-                        position: 'center',
-                        icon: 'error',
-                        title: '<p>Habitacion ocupada</p>',
-                        showConfirmButton: false,
-                        timer: 2000
-                      })
+                    toast.error("Habitacion ocupada")
+                }else if  (ID_estado_habitacion == 7){
+                    toast.error("Habitacion ocupada ocasional")
                 }else {
                     postDetailRoom({id,ID_estado_habitacion:5}).then(index=>{
                         onClose()
@@ -38,15 +36,11 @@ const CardRowsRoom =({title,id,ID_estado_habitacion,postDetailRoom,hanchangeEsta
             }
         
             const handSubmitRoomDetailBloquear =() =>{
-                if(ID_estado_habitacion ==3){
-                    Swal.fire({
-                        position: 'center',
-                        icon: 'error',
-                        title: '<p>Habitacion ocupada</p>',
-                        showConfirmButton: false,
-                        timer: 2000
-                      })
-                }else {
+                if(ID_estado_habitacion ==3  ){
+                    toast.error("Habitacion ocupada")
+                }else if  (ID_estado_habitacion == 7){
+                    toast.error("Habitacion ocupada ocasional")
+                } else {
                     postDetailRoom({id,ID_estado_habitacion:2}).then(index=>{
                         onClose()
                     })
@@ -55,14 +49,10 @@ const CardRowsRoom =({title,id,ID_estado_habitacion,postDetailRoom,hanchangeEsta
             }
         
             const handSubmitRoomDetailDisponible =() =>{
-                if(ID_estado_habitacion ==3){
-                    Swal.fire({
-                        position: 'center',
-                        icon: 'error',
-                        title: '<p>Habitacion ocupada</p>',
-                        showConfirmButton: false,
-                        timer: 2000
-                      })
+                if(ID_estado_habitacion ==3 ){
+                    toast.error("Habitacion ocupada")
+                }else if  (ID_estado_habitacion == 7){
+                    toast.error("Habitacion ocupada ocasional")
                 }else{
                     postDetailRoom({id,ID_estado_habitacion:0}).then(index=>{
                         onClose()
@@ -115,6 +105,18 @@ const CardRowsRoom =({title,id,ID_estado_habitacion,postDetailRoom,hanchangeEsta
             <li class="flex-item" style={{backgroundColor:color }} onClick={handChangeTypeRoomOne} >
                 <div>
                         <li>  <IoBanOutline fontSize={30} style={{"margin":"auto","fontWeight":1}} color="white" /></li>
+                        <li><h4 className="let-letra" style={{color:letra}}   >  {title}   </h4></li>
+                </div>
+            </li>
+        )
+    }
+    if(ID_estado_habitacion == 7){
+        color = "#f31260"
+        letra ="white"
+        return (
+            <li className={`flex-item`} style={{backgroundColor:color }}    onClick={handChangeTypeRoomOne} >
+                <div>
+                        <li>  <AiFillHeart fontSize={30} style={{"margin":"auto","fontWeight":1}} color="white" /></li>
                         <li><h4 className="let-letra" style={{color:letra}}   >  {title}   </h4></li>
                 </div>
             </li>

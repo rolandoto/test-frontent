@@ -46,7 +46,8 @@ import useUpdateDetailPounterRangeSliceActions from "../../action/useUpdateDetai
 import { IconName } from "react-icons/fc";
 import UseGroupsRooms from "../../hooks/useGroupsRooms";
 import MouseOver from "../../component/MouseOver";
-
+import DebitCard from "../../component/DebitCard/DebitCard";
+import { AiOutlineCaretLeft } from "react-icons/ai";
 const socket = io.connect("https://railway.grupo-hoteles.com");
 
 const Dashboard = () => {
@@ -319,9 +320,7 @@ const Dashboard = () => {
 		}
 
 		handModalText()
-	  };
-     
-  
+	  }
 	
 	const handCLickWhatsapp =() =>{
 		const link = document.createElement('a');
@@ -421,15 +420,10 @@ const Dashboard = () => {
     }
   };
 
-	console.log(raiting)
-
 	const ResutlRoom = filterRooms(Room,raiting)
 	//const totalResult = UseGroupsRooms(ResutlRoom,numberSave)
-
-	return (
-		<>		
-		<div>
-			<Modal
+/**
+ * <Modal
 			style={{background:"#ffffff00",border:"none"}}
 			width="1300px"
 			closeButton
@@ -444,6 +438,25 @@ const Dashboard = () => {
 						className="advertisement-image"
 						/>
 		</Modal>
+ */
+
+		useEffect(() => {
+			const toggleIcon = document.querySelector(".toggleMenu");
+			console.log(toggleIcon)
+			toggleIcon.addEventListener("click", () => {
+			  document.querySelector(".rightMenu-one").classList.toggle("active");
+			  console.log(true)
+			});
+	  
+			toggleIcon.addEventListener("click", () => {
+			  document.querySelector(".ocultar").classList.toggle("active");
+			  console.log(true)
+			});
+		  }, []);
+	return (
+		<>		
+		<div>
+			
 		</div>
 			<div ref={timelineRef} > 
 			<div  className="container-button">
@@ -704,6 +717,12 @@ const Dashboard = () => {
 					ocupied={<VscSymbolEvent fontSize={20}/>}
 					reservas={<BsBell fontSize={20} color="white" />}
 					dollar={<CiBadgeDollar fontSize={20} />} />
+
+						<div className="rightMenu-one">
+						<button className=" toggleMenu   ocultar" > <AiOutlineCaretLeft fontSize={50} color="black" /></button>
+							<h1>Detalle reserva</h1>
+                            
+                            </div> 
 			</div>
 		</>
 

@@ -1,0 +1,226 @@
+.Modal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: #00000063;
+  }
+  
+  /* Style the modal content */
+  .modal-content {
+    overflow: auto;
+    background-color: #f0efe9;
+    padding: 20px;
+    width: 22%;
+    max-width: 600px;
+    max-height: 80vh;
+    border-radius: 40px;
+    box-shadow: 17px 20px 40px rgba(0, 0, 0, .21);
+  }
+  
+  /* Style the close button */
+  .close {
+    color: black;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+  }
+  
+  /* Style additional details in the modal */
+  .modal-content h2 {
+    color: #333;
+    margin-bottom: -1px;
+    font-size: 17px;
+  }
+  
+  .modal-content p {
+    margin: -3px 0;
+  }
+  
+
+  .border-card-invoince{
+    background: white;
+    border-radius: 29px;
+    padding: 13px;
+    margin-top: 10px;
+  }
+
+
+  .product-card {
+    /* width: 300px; */
+    height: 100px;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.3s ease-in-out;
+    background-color: #fff;
+    margin: 10px;
+    margin: auto;
+    display: flex;
+    margin-top: 10px;
+    box-shadow: 17px 20px 40px rgba(0, 0, 0, .21);
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+}
+
+.product-image {
+  width: 21%;
+  align-items: center;
+  display: flex;
+}
+
+.product-details {
+  padding: 16px;
+}
+
+.product-title {
+  font-size: 1.5rem;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+.product-description {
+  color: #555;
+}
+
+.product-rating {
+  color: #070707;
+  font-size: 1rem;
+}
+
+.product-rating span {
+  margin-right: 4px;
+}
+
+.pay-button {
+  background-color: #1cc662;
+  color: #fff;
+  border: none;
+  padding: 10px 16px;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+  width: 100%;
+  /* Agregar estilos adicionales cuando se pasa el ratón sobre el botón */
+  &:hover {
+    background-color: #219653;
+  }
+}
+
+.pay-button-deuda {
+  background-color: #f31260;
+  color: #fff;
+  border: none;
+  padding: 10px 16px;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+  width: 100%;
+  /* Agregar estilos adicionales cuando se pasa el ratón sobre el botón */
+  &:hover {
+    background-color: #f31260;
+  }
+}
+
+
+.pay-button-all{
+  background-color: #1cc662;
+  color: #fff;
+  border: none;
+  padding: 10px 16px;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+  width: 100%;
+  margin-top: 10px;
+  /* Agregar estilos adicionales cuando se pasa el ratón sobre el botón */
+  &:hover {
+    background-color: #219653;
+  }
+  
+}
+
+/* Agregar estilos adicionales cuando el botón está enfocado */
+.pay-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.4);
+}
+
+
+.row-container-flex-detail-invoince {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.product-detail-container{
+  display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.container-button-pay{
+  margin-right: 10px;
+}
+
+.selected {
+  background-color: #e3f2fd; /* Light blue background for selected items */
+  height: 100px;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.3s ease-in-out;
+  margin: 10px;
+  margin: auto;
+  display: flex;
+  margin-top: 10px;
+  box-shadow: 17px 20px 40px rgba(0, 0, 0, .21);
+}
+
+.checkbox-product{
+  margin: 8px;
+    width: 23px;
+}
+
+.desde-detail-product-datail{
+  height: 50px;
+  border: none;
+  background: white;
+  border-radius: 8px;
+  margin: 4px;
+  width: 100%;
+  padding: 10px;
+}
+
+.disable-pay {
+  background-color: #b4bab7;
+  color: #fff;
+  border: none;
+  padding: 10px 16px;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+  width: 100%;
+  margin-top: 10px;
+  /* Agregar estilos adicionales cuando se pasa el ratón sobre el botón */
+  &:hover {
+    background-color:  #b4bab7;
+  }
+}

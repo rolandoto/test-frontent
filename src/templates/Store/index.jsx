@@ -17,6 +17,7 @@ import moment from "moment";
 import "moment/locale/es";
 import ServiceaInsertStore from "../../service/ServiceInsertCart";
 import { Button } from "@nextui-org/react";
+import HttpClient from "../../HttpClient";
 
 const StoreTemplate =({Store}) =>{
 
@@ -735,8 +736,6 @@ const StoreTemplate =({Store}) =>{
         },
       ]
 
-    
-
     const [state,setState] = useState(false)
 
     const [isMainData, setMainData] = useState(
@@ -803,18 +802,25 @@ const StoreTemplate =({Store}) =>{
     }
 
     const [stateOne,setStateOne] = useState(false)
+    const [organize,setOrganize] =useState(false)
+    const [organizeOcasional,setOrganizeOcasional] =useState(false)
 
     const handSubmit =() =>{
       setState(false)
       setStateOne(true)
     }
 
-    const [organize,setOrganize] =useState(false)
-
     const handOrganize =() =>{
       setOrganize(true)
       setState(false)
     }
+
+    const handOrganizeOcasional =  () =>{
+        setOrganizeOcasional(true)
+        setOrganize(false)
+      setState(false)
+    }
+
     const [raiting,setRaiting]= useState(0)
 
     const handRaiting =(e)=>{
@@ -826,6 +832,12 @@ const StoreTemplate =({Store}) =>{
     const [identification,setIndentification] =useState("")
     const [peopleReservation,setPeopleReservation] =useState()
     const [peopleId,setPeopleId] =useState()
+    const [IdHabitacion,setIdhbatacion] =useState()
+    const [roomReservation,setRoomReservation] =useState()
+
+    const handChangeidHabitacion =(e) =>{
+      setIdhbatacion(e.target.value)
+    }
 
     const handChange =(e) =>{
       setPeopleId(e.target.value)
@@ -836,29 +848,33 @@ const StoreTemplate =({Store}) =>{
       setInvoice(true)
     }
 
-
     useEffect(() =>{
       ServiceReservationCheckin({id:jwt.result.id_hotel}).then(index =>{
-        setPeopleReservation(index)
-
+        setPeopleReservation(index.query)
+        setRoomReservation(index.queryHabitaciones)
       })
     },[setPeopleReservation])
-
  
-  // `getDate()` devuelve el día del mes (del 1 al 31)
- 
-// obtener la fecha de hoy en formato `MM/DD/YYYY`
+ //get  date today
   const  now = moment().format("YYYY/MM/DD");
   
-    const data ={
-      ID_Reserva:peopleId,
-      Cart:carts.cart,
-      ID_Hoteles:jwt.result.id_hotel,
-      Fecha_compra:now,
-      Nombre_recepcion:jwt.result.name,
-      ID_user:jwt.result.id_user,
-    } 
+  const data ={
+    ID_Reserva:peopleId,
+    Cart:carts.cart,
+    ID_Hoteles:jwt.result.id_hotel,
+    Fecha_compra:now,
+    Nombre_recepcion:jwt.result.name,
+    ID_user:jwt.result.id_user,
+  } 
 
+  const dataRoom = {
+    ID_habitacion:IdHabitacion,
+    Cart:carts.cart,
+    ID_Hoteles:jwt.result.id_hotel,
+    Fecha_compra:now,
+    ID_user:jwt.result.id_user
+  }
+  
     const [loadingAsignar,setLoadingAsignar]  =useState(false)
     
     const handSubmitInsertCart =() =>{
@@ -868,6 +884,16 @@ const StoreTemplate =({Store}) =>{
        }).catch(e=> {
           console.log(e)
        })
+    }
+
+    const handSuminCartRoomOcasional =() =>{
+      setLoadingAsignar(true) 
+        HttpClient.occasionalCartRoomInsertion({data:dataRoom}).then(item =>{
+          window.location.reload()
+        }).catch(e =>{
+          setLoadingAsignar(false) 
+          console.log("error")
+        })
     }
     
     var n1 = 2000;
@@ -892,7 +918,7 @@ const StoreTemplate =({Store}) =>{
       }).catch(e=> {
          console.log(e)
       })
-   }
+    }
 
     const {cart} = carts
     const currenCart =[]
@@ -927,9 +953,8 @@ const StoreTemplate =({Store}) =>{
         console.log(true)
       });
     }, []);
-    
 
-    console.log(dataOne)
+
         return (    
             <div className="mainContainer">
                 <div className="rowContainer" >
@@ -950,7 +975,8 @@ const StoreTemplate =({Store}) =>{
                     <ModalStore state={state} 
                                 setState={setState} 
                                 handSubmit={handSubmit}  
-                                handOrganize={handOrganize} />
+                                handOrganize={handOrganize}
+                                handOrganizeOcasional={handOrganizeOcasional} />
 
                     {stateOne && <div className="border-ri" >
                             <div className="content-Modal" >
@@ -965,7 +991,7 @@ const StoreTemplate =({Store}) =>{
                                                         name="disponibilidad"
                                                         className='select-hotel-type-rooms'>
                                                     <option></option>
-                                                    {peopleReservation?.query?.map(category =>(
+                                                    {peopleReservation?.map(category =>(
                                                         <option 
                                                         value={category.id}   
                                                         key={category.id}>
@@ -985,6 +1011,39 @@ const StoreTemplate =({Store}) =>{
                             </div>
                     </div>
                     }
+
+              {organizeOcasional && <div className="border-ri" >
+                            <div className="content-Modal" >
+                                    <div className="handclose" onClick={() => setOrganizeOcasional(false)}>
+                                        <IoMdCloseCircle   fontSize={30} color="black" />
+                                    </div>
+                                <div  className="form-login">
+                                      <li>
+                                                <label className="title-stores" >Asignar Ocasional</label>
+                                                <select onChange={handChangeidHabitacion}
+                                                        value={IdHabitacion}
+                                                        name="disponibilidad"
+                                                        className='select-hotel-type-rooms'>
+                                                    <option></option>
+                                                    {roomReservation?.map(category =>(
+                                                        <option 
+                                                        value={category.ID}   
+                                                        key={category.ID}>
+                                                            {category.title}
+                                                    </option>
+                                                    )
+                                                    )}
+                                                </select>
+                                      </li>
+                                      <Button   
+                                              disabled={loadingAsignar}
+                                              style={{background: !loadingAsignar &&"black",color:"white"}}
+                                              onClick={handSuminCartRoomOcasional}
+                                       > <span  className="text-words" >Asignar Ocasioanl</span> </Button>
+                                   
+                                </div> 
+                            </div>
+                    </div>}
 
                     {organize &&  <Organize 
                                         setOrganize={setOrganize} 

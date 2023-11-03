@@ -77,7 +77,8 @@ const DetailDasboard =(props) =>{
     const findEmpresa = resultDashboard?.tipo_persona =="empresa"
     const findFirma = resultDashboard?.Estado =="3" ||  resultDashboard?.Estado =="1"||resultDashboard?.Estado =="5" || resultDashboard?.Estado =="6"
 
-    const avaiableRoom =   resultDashboard?.ID_estado_habitacion =="7" ||  resultDashboard?.ID_estado_habitacion =="3" 
+    const avaiableRoom =     resultDashboard?.ID_estado_habitacion =="3" 
+    const avainleOcacisonal = resultDashboard?.ID_estado_habitacion =="7"
 
     const formatter = new Intl.NumberFormat('en-US', {
       style: 'currency',  
@@ -338,17 +339,21 @@ const DetailDasboard =(props) =>{
     const handChecking =() =>{
       if(!findFirma){
         if(!avaiableRoom){
-          HttpClient.validCheckingAll({ID:resultDashboard.ID_Habitaciones}).then(itemValid =>{
-            history.push(`/detailchecking/${id}`)
-          }).catch(e =>{
-            Swal.fire({
-              position: 'center',
-              icon: 'error',
-              title: '<p>todavia hay una habitacion con check in</p>',
-              showConfirmButton: false,
-              timer: 1000
+          if(avainleOcacisonal){
+            history.push(`/Ocacionales`)
+          }else{
+            HttpClient.validCheckingAll({ID:resultDashboard.ID_Habitaciones}).then(itemValid =>{
+              history.push(`/detailchecking/${id}`)
+            }).catch(e =>{
+              Swal.fire({
+                position: 'center',
+                icon: 'error',
+                title: '<p>todavia hay una habitacion con check in</p>',
+                showConfirmButton: false,
+                timer: 1000
+              })
             })
-          })
+          }
         }else{
           toast.error("habitacion esta ocupada")
         }
@@ -431,7 +436,7 @@ const DetailDasboard =(props) =>{
       }else {
         toast.error('Error no debe ser negativos!')
         setErrorAbono(true)
-      }
+      } 
        
     }
 
