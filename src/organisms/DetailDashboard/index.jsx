@@ -77,8 +77,11 @@ const DetailDasboard =(props) =>{
     const findEmpresa = resultDashboard?.tipo_persona =="empresa"
     const findFirma = resultDashboard?.Estado =="3" ||  resultDashboard?.Estado =="1"||resultDashboard?.Estado =="5" || resultDashboard?.Estado =="6"
 
-    const avaiableRoom =     resultDashboard?.ID_estado_habitacion =="3" 
+    const avaiableRoom =     resultDashboard?.ID_estado_habitacion =="3"  ||resultDashboard?.ID_estado_habitacion =="2" 
+    
     const avainleOcacisonal = resultDashboard?.ID_estado_habitacion =="7"
+
+    console.log(resultDashboard?.ID_estado_habitacion)
 
     const formatter = new Intl.NumberFormat('en-US', {
       style: 'currency',  
@@ -765,7 +768,7 @@ const hanClickAsear =() => {
 }
 
 const hanClickLimpia =async() => {
-  if(resultDashboard?.Estado !="3"){
+  if(resultDashboard?.Estado !="3" ){
     await postDetailRoom({ id: resultDashboard?.ID_Habitaciones, ID_estado_habitacion: 0 });
     ServiceStatus({id,ID_Tipo_Estados_Habitaciones:6}).then(index => {
       Swal.fire({
