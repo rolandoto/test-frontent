@@ -46,8 +46,20 @@ const fromRervas =(event)  =>{
     return to
 }
 
-export const ServiceReservas =({id}) =>{
-  return fetch(`${config.serverRoute}/api/resecion/getreservarecepcion/${id}`)
-  .then(resp  => resp.json())
-  .then(data=> fromRervas(data))
-}
+export const ServiceReservas = ({id,type}) => {
+  return fetch(`${config.serverRoute}/api/resecion/getreservarecepcion/${id}`,{
+    method: "POST",
+    body: JSON.stringify({ id,type }),
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+  })
+    .then((resp) => {
+      if (!resp.ok) throw new Error("Response is not ok");
+      return resp.json();
+    })
+    .then((resp) => {
+      return fromRervas(resp);
+    });
+};

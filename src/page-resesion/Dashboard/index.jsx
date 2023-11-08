@@ -21,7 +21,7 @@ import {BsBell} from "react-icons/bs";
 import UseListMotels from "../../hooks/UseListMotels";
 import HttpClient from "../../HttpClient";
 import { CiBadgeDollar } from "react-icons/ci";
-import { Button, Modal, Spacer, User } from '@nextui-org/react';
+import { Button, Modal, Spacer, User ,Switch} from '@nextui-org/react';
 import { CameraIcon, HeartIcon, NotificationIcon } from "./IconReservation";
 import Footer from "../../component/Footer/Footer";
 import { RiWhatsappFill ,RiLogoutBoxLine} from "react-icons/ri";
@@ -61,6 +61,11 @@ const Dashboard = () => {
 	const [statePublicidad,setPublicidad]=useState()
 	const message  =jwt?.result?.photo
 	const dispatch = useDispatch();
+	const [isChecked, setIsChecked] = useState(false);
+
+  const handleChange = () => {
+    setIsChecked((prevChecked) => !prevChecked);
+  };
 
 	const {getPostByReservation,
 		getRoomByReservation,
@@ -76,7 +81,7 @@ const Dashboard = () => {
 	 const fetchData =async() =>{
 		try {
 
-			await getPostByReservation()
+			await getPostByReservation({type:isChecked})
 			await getRoomByReservation()
 			await getRoomFilterRoom()
 			
@@ -88,7 +93,7 @@ const Dashboard = () => {
 
 	useEffect(() =>{
         fetchData()
-    },[dispatch])
+    },[dispatch,isChecked])
 
 	const handClose =() =>{
         localStorage.removeItem('jwt')
@@ -515,11 +520,16 @@ const Dashboard = () => {
 					)}
 				</select>
 												<Spacer  x={0.5} y={1} />
-			<Button 
-				onClick={handClose} 
-				style={{width:"10%",background:"#e7e4e4",color:"black"}}   
-				flat 
-				icon={<RiLogoutBoxLine fill="currentColor" fontSize={25}/>} > <span  className="text-words" ONCL >salir</span></Button>
+
+		<Switch
+          checked={isChecked}
+		  size="xl"
+		  style={{ marginTop: '25px' }}
+		  icon={<NotificationIcon />}
+		  onChange={handleChange}
+        />
+
+
 		</div>
 		<div className="card-two" >
             <ul className="flex-container wrap-reverse"  >
@@ -722,7 +732,7 @@ const Dashboard = () => {
 						<button className=" toggleMenu   ocultar" > <AiOutlineCaretLeft fontSize={50} color="black" /></button>
 							<h1>Detalle reserva</h1>
                             
-                            </div> 
+                        </div> 
 			</div>
 		</>
 

@@ -14,10 +14,11 @@ const useReservationActions  =() =>{
     const { loading,Items,error} = useAppSelector((state) => state.ReservationSlice)
 
 
-    const getPostByReservation =  async() =>{
+    const getPostByReservation =  async({type}) =>{
+        console.log(type)
         dispatch(ReservationSlice.actions.loading())
         try {
-            const postResponse = await  ServiceReservas({id:jwt.result.id_hotel})
+            const postResponse = await  ServiceReservas({id:jwt.result.id_hotel,type})
             dispatch(ReservationSlice.actions.setReservation(postResponse))
         } catch (error) {
                 dispatch(ReservationSlice.actions.setError("no found"))
