@@ -71,6 +71,7 @@ const Invoince =({resultDashboard=[],carts=[],dataCount,setInvoice,priceCart,cli
     const handSubmitOne =() =>{
         handLEpront()
         handLoading()
+        hancCheckout()
     }
 
     const hadAllInvoince =() =>{
@@ -273,7 +274,7 @@ const Invoince =({resultDashboard=[],carts=[],dataCount,setInvoice,priceCart,cli
         <>   
             <div className="border-ri"   >
                     <div>
-                        <div className="content-Modal-store-one-two" ref={componetRefSinDian}    >
+                        <div className= "content-Modal-store-one-two" ref={componetRefSinDian}    >
                                 <div className="handclose" onClick={() => handStInvoince()}>
                                     <IoMdCloseCircle   fontSize={30} color="black" />
                                 </div>
