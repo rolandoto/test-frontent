@@ -328,7 +328,7 @@ const CheckoutOrganism =({DetailDashboard,postDetailRoom,fetchDataApiWhatsapp}) 
             fetchDataApiWhatsapp({phone:totalNumberPhone,name:fullName,hotel:jwt.result.hotel,factura:index[0]})
         })
         
-        if(resultDashboard.ID_estado_habitacion ==3){
+        if(resultDashboard.Estado ==3){
             postDetailRoom({id:resultDashboard.ID_Habitaciones,ID_estado_habitacion:5})
             ServiceStatus({id,ID_Tipo_Estados_Habitaciones:1}).then(index=>{
                 ServiceResolution({Resolucion:dataCount.Resolucion+1,ID:dataCount.ID}).then(index=>{
