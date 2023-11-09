@@ -27,6 +27,7 @@ const Invoince =({resultDashboard=[],carts=[],dataCount,setInvoice,priceCart,cli
     
     const {jwt} = useContext(AutoProvider)
     let componentRef = useRef();
+    let componetRefSinDian = useRef()
 
     const totalResultPrice = priceCart  *19/100
 
@@ -55,7 +56,6 @@ const Invoince =({resultDashboard=[],carts=[],dataCount,setInvoice,priceCart,cli
     const totalwiTHiV =resultDashboard.Iva ==1? toOne :totalPrice.price 
 
     const handSubmit =() =>{
-        
         handlePrint()
         handLoading()
     }
@@ -63,6 +63,15 @@ const Invoince =({resultDashboard=[],carts=[],dataCount,setInvoice,priceCart,cli
     const handlePrint = useReactToPrint({
         content: () => componentRef.current
     });
+
+    const handLEpront = useReactToPrint({
+        content: () => componetRefSinDian.current
+    });
+
+    const handSubmitOne =() =>{
+        handLEpront()
+        handLoading()
+    }
 
     const hadAllInvoince =() =>{
         setPreloading(true)
@@ -83,16 +92,25 @@ const Invoince =({resultDashboard=[],carts=[],dataCount,setInvoice,priceCart,cli
      const [invo,setIvo] =useState(false)
 
      const handAll =() =>{
-       
         handLoading()
         setIvo(true)
         hancCheckout()
-       
-
         setTimeout(()  =>{
             handlePrint()
         },600)
      }
+
+
+     const handAllOne =() =>{
+        handLoading()
+        setIvo(true)
+        hancCheckout()
+        setTimeout(()  =>{
+            handLEpront()
+        },600)
+     }
+
+
 
 
      let totalId = false;
@@ -255,8 +273,8 @@ const Invoince =({resultDashboard=[],carts=[],dataCount,setInvoice,priceCart,cli
         <>   
             <div className="border-ri"   >
                     <div>
-                        <div className="content-Modal-store-one"   >
-                                <div className="handclose" onClick={() => setInvoice(false)}>
+                        <div className="content-Modal-store-one-two" ref={componetRefSinDian}    >
+                                <div className="handclose" onClick={() => handStInvoince()}>
                                     <IoMdCloseCircle   fontSize={30} color="black" />
                                 </div>
                                         <div  className="form-login container-invoince-to "> 
@@ -323,7 +341,7 @@ const Invoince =({resultDashboard=[],carts=[],dataCount,setInvoice,priceCart,cli
                                 </div>            
                         </div>      
                         </div>
-                            <button id="demo" className= {` top-button-invoince checkOut  sub-total-top`} onClick={handAll}>
+                            <button id="demo" className= {` top-button-invoince checkOut  sub-total-top`} onClick={handSubmitOne}>
                                 <span className="itemNameonE">Guardar e imprimir</span>
                             </button>
                 </div>

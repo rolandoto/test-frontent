@@ -1625,12 +1625,10 @@ const Pagos =(props) =>{
 let count =0
 for(let i =0;i<payState?.length;i++){
     if((payState[i].Tipo_persona =="empresa")){
-        const totalwith = parseInt(payState[i].Abono  * 19 / 100) 
-        const total = totalwith + parseInt(payState[i].Abono)
+        const total =  parseInt(payState[i].Abono)
         count += total
     }else  if((payState[i].Iva ==1)){
-        const totalwith = parseInt(payState[i].Abono  * 19 / 100) 
-        const total = totalwith + parseInt(payState[i].Abono)
+        const total =  parseInt(payState[i].Abono)
         count += total
     } else{
         count += parseInt(payState[i].Abono)
@@ -1677,8 +1675,8 @@ const ItemCardPago =({index,typy_buy,setloading}) => {
 
   const fecha =moment(index.Fecha_pago).utc().format('YYYY/MM/DD')
   const abonoWithIva  = index.Abono * 19/100 
-  const totalIva  = index.Abono + abonoWithIva
-  const totalDefinid = index.Iva ==1? totalIva : parseInt(index.Abono)
+  const totalIva  = index.Abono 
+  const totalDefinid = parseInt(index.Abono)
   const totalDefinttion = index.Tipo_persona =="empresa" ?totalIva:totalDefinid
   const total = totalDefinttion.toLocaleString()
 

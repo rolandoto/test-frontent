@@ -292,12 +292,12 @@ const InformeConsolidado = () => {
     let countSix =0
     for(let i =0;i<totalFilterFormaDebito?.length;i++){
         if((totalFilterFormaDebito[i].Tipo_persona =="empresa")){
-            const totalwith = parseInt(totalFilterFormaDebito[i]?.abono ) *19/100
-            const total = totalwith + parseInt(totalFilterFormaDebito[i]?.abono )
+            //const totalwith = parseInt(totalFilterFormaDebito[i]?.abono ) *19/100
+            const total =parseInt(totalFilterFormaDebito[i]?.abono )
             countSix += total
         }else  if((totalFilterFormaDebito[i].Iva ==1)){
-            const totalwith = parseInt(totalFilterFormaDebito[i].abono ) *19/100
-            const total = totalwith + parseInt(totalFilterFormaDebito[i]?.abono )
+            //const totalwith = parseInt(totalFilterFormaDebito[i].abono ) *19/100
+            const total =  parseInt(totalFilterFormaDebito[i]?.abono )
             countSix += total
         } else{
             countSix += parseInt(totalFilterFormaDebito[i].abono)
@@ -331,12 +331,12 @@ const InformeConsolidado = () => {
     let countSixTwo =0
     for(let i =0;i<totalFilterFormaCredito?.length;i++){
         if((totalFilterFormaCredito[i].Tipo_persona =="empresa")){
-            const totalwith = parseInt(totalFilterFormaCredito[i]?.abono ) *19/100
-            const total = totalwith + parseInt(totalFilterFormaCredito[i]?.abono )
+            //const totalwith = parseInt(totalFilterFormaCredito[i]?.abono ) *19/100
+            const total =   parseInt(totalFilterFormaCredito[i]?.abono )
             countSixTwo += total
         }else  if((totalFilterFormaCredito[i].Iva ==1)){
-            const totalwith = parseInt(totalFilterFormaCredito[i]?.abono ) *19/100
-            const total = totalwith + parseInt(totalFilterFormaCredito[i]?.abono )
+            //const totalwith = parseInt(totalFilterFormaCredito[i]?.abono ) *19/100
+            const total =  parseInt(totalFilterFormaCredito[i]?.abono )
             countSixTwo += total
         } else{
             countSixTwo += parseInt(totalFilterFormaCredito[i].abono)
@@ -368,12 +368,12 @@ const InformeConsolidado = () => {
     let countSixThree =0
     for(let i =0;i<totalFilterFormaDebitoThree?.length;i++){
         if((totalFilterFormaDebitoThree[i].Tipo_persona =="empresa")){
-            const totalwith = parseInt(totalFilterFormaDebitoThree[i]?.abono ) *19/100
-            const total = totalwith + parseInt(totalFilterFormaDebitoThree[i].abono )
+            //const totalwith = parseInt(totalFilterFormaDebitoThree[i]?.abono ) *19/100
+            const total =  parseInt(totalFilterFormaDebitoThree[i].abono )
             countSixThree += total
         }else  if((totalFilterFormaDebitoThree[i].Iva ==1)){
-            const totalwith = parseInt(totalFilterFormaDebitoThree[i]?.abono ) *19/100
-            const total = totalwith + parseInt(totalFilterFormaDebitoThree[i]?.abono )
+           // const totalwith = parseInt(totalFilterFormaDebitoThree[i]?.abono ) *19/100
+            const total =  parseInt(totalFilterFormaDebitoThree[i]?.abono )
             countSixThree += total
         } else{
             countSixThree += parseInt(totalFilterFormaDebitoThree[i]?.abono)
@@ -404,12 +404,12 @@ const InformeConsolidado = () => {
     let countSixFour =0
     for(let i =0;i<totalFilterFormaDebitoThreeFour?.length;i++){
         if((totalFilterFormaDebitoThreeFour[i].Tipo_persona =="empresa")){
-            const totalwith = parseInt(totalFilterFormaDebitoThreeFour[i]?.abono ) *19/100
-            const total = totalwith + parseInt(totalFilterFormaDebitoThreeFour[i].abono )
+            //const totalwith = parseInt(totalFilterFormaDebitoThreeFour[i]?.abono ) *19/100
+            const total =  parseInt(totalFilterFormaDebitoThreeFour[i].abono )
             countSixFour += total
         }else  if((totalFilterFormaDebitoThreeFour[i].Iva ==1)){
-            const totalwith = parseInt(totalFilterFormaDebitoThreeFour[i]?.abono ) *19/100
-            const total = totalwith + parseInt(totalFilterFormaDebitoThreeFour[i]?.abono )
+           // const totalwith = parseInt(totalFilterFormaDebitoThreeFour[i]?.abono ) *19/100
+            const total =  parseInt(totalFilterFormaDebitoThreeFour[i]?.abono )
             countSixFour += total
         } else{
             countSixFour += parseInt(totalFilterFormaDebitoThreeFour[i]?.abono)
@@ -436,17 +436,16 @@ const InformeConsolidado = () => {
     const totalFilterFormaStoreTransferencia= store?.filter(index => index.Forma_pago ==2)
     const carritoReservaTransferencia = storeOne?.filter(index => index.Forma_pago ==2)
 
-    console.log({"jjsdsahdjshkdja":totalFilterFormaTransferencia,totalFilterFormaStoreTransferencia,carritoReservaTransferencia})
 
     let countSixFive =0
     for(let i =0;i<totalFilterFormaTransferencia?.length;i++){
         if((totalFilterFormaTransferencia[i].Tipo_persona =="empresa")){
-            const totalwith = parseInt(totalFilterFormaTransferencia[i]?.abono ) *19/100
-            const total = totalwith + parseInt(totalFilterFormaTransferencia[i]?.abono )
+            //const totalwith = parseInt(totalFilterFormaTransferencia[i]?.abono ) *19/100
+            const total =   parseInt(totalFilterFormaTransferencia[i]?.abono )
             countSixFive += total
         }else  if((totalFilterFormaTransferencia[i].Iva ==1)){
-            const totalwith = parseInt(totalFilterFormaTransferencia[i]?.abono ) *19/100
-            const total = totalwith + parseInt(totalFilterFormaTransferencia[i]?.abono )
+           // const totalwith = parseInt(totalFilterFormaTransferencia[i]?.abono ) *19/100
+            const total = parseInt(totalFilterFormaTransferencia[i]?.abono )
             countSixFive += total
         } else{
             countSixFive += parseInt(totalFilterFormaTransferencia[i].abono)
@@ -477,12 +476,12 @@ const InformeConsolidado = () => {
     let countThree =0
     for(let i =0;i<totalFilterFormaOne?.length;i++){
         if((totalFilterFormaOne[i].Tipo_persona =="empresa")){
-            const totalwith = parseInt(totalFilterFormaOne[i]?.abono ) *19/100
-            const total = totalwith + parseInt(totalFilterFormaOne[i].abono )
+           // const totalwith = parseInt(totalFilterFormaOne[i]?.abono ) *19/100
+            const total =   parseInt(totalFilterFormaOne[i].abono )
             countThree += total
         }else  if((totalFilterFormaOne[i].Iva ==1)){
-            const totalwith = parseInt(totalFilterFormaOne[i]?.abono ) *19/100
-            const total = totalwith + parseInt(totalFilterFormaOne[i]?.abono )
+           // const totalwith = parseInt(totalFilterFormaOne[i]?.abono ) *19/100
+            const total =  parseInt(totalFilterFormaOne[i]?.abono )
             countThree += total
         } else{
             countThree += parseInt(totalFilterFormaOne[i]?.abono)
@@ -496,12 +495,12 @@ const InformeConsolidado = () => {
     let count =0
     for(let i =0;i<totalFilterForma?.length;i++){
         if((totalFilterForma[i].Tipo_persona =="empresa")){
-            const totalwith = parseInt(totalFilterForma[i]?.abono ) *19/100
-            const total = totalwith + parseInt(totalFilterForma[i]?.abono )
+            //const totalwith = parseInt(totalFilterForma[i]?.abono ) *19/100
+            const total =  parseInt(totalFilterForma[i]?.abono )
             count += total
         }else  if((totalFilterForma[i].Iva ==1)){
-            const totalwith = parseInt(totalFilterForma[i]?.abono ) *19/100
-            const total = totalwith + parseInt(totalFilterForma[i]?.abono )
+            //const totalwith = parseInt(totalFilterForma[i]?.abono ) *19/100
+            const total = parseInt(totalFilterForma[i]?.abono )
             count += total
         } else{
             count += parseInt(totalFilterForma[i]?.abono)

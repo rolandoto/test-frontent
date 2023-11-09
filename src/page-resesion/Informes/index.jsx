@@ -90,12 +90,10 @@ const InformeAuditoria =() =>{
     if(storeOneFiltrar){
         for(let i =0;i<audiFiltrar?.length;i++){
             if((audiFiltrar[i].Tipo_persona =="empresa")){
-                const totalwith = parseInt(audiFiltrar[i]?.abono ) *19/100
-                const total = totalwith + parseInt(audiFiltrar[i].abono )
+                const total =  parseInt(audiFiltrar[i].abono )
                 count += total
             }else  if((audiFiltrar[i].Iva ==1)){
-                const totalwith = parseInt(audiFiltrar[i]?.abono ) *19/100
-                const total = totalwith + parseInt(audiFiltrar[i]?.abono )
+                const total = parseInt(audiFiltrar[i]?.abono )
                 count += total
             } else{
                 count += parseInt(audiFiltrar[i]?.abono)
@@ -199,9 +197,7 @@ const InformeAuditoria =() =>{
 
                        const PriceWithienda =  parseInt(index.abono)
 
-                       const totalIva =  parseInt(index.abono) *19/100 
-
-                       const total = totalIva+ PriceWithienda
+                       const total =  PriceWithienda
 
                        const totalDefinid = index.Iva ==1? total : parseInt(index.abono)
 

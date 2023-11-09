@@ -360,7 +360,15 @@ const CheckoutOrganism =({DetailDashboard,postDetailRoom,fetchDataApiWhatsapp}) 
 
     const numOne = parseInt(resultDashboard?.valor_habitacion)
 
-    var formattedNum =numOne.toLocaleString(); 
+    const porcentajeIVA = 0.19; // 19%
+
+    const ivaOne = numOne * porcentajeIVA;
+
+    var totalIvaPerson =numOne - ivaOne;
+
+    const totalNum = resultDashboard.Iva == 1 ? totalIvaPerson : numOne;
+
+    const formattedNum = resultDashboard.tipo_persona === "empresa" ? totalIvaPerson : totalNum;
 
     const Iva  = numOne*19/100
 
@@ -370,9 +378,9 @@ const CheckoutOrganism =({DetailDashboard,postDetailRoom,fetchDataApiWhatsapp}) 
     
     const validFilterSearch =  filterSearch?.id ==5 ? numOne  +resultNum : totalIva
 
-    const valorTotalIva = totalIva.toLocaleString();
+    const valorTotalIva = totalIvaPerson +ivaOne ;
 
-    const formatoIva = Iva.toLocaleString();
+    const formatoIva = ivaOne.toLocaleString();
 
     var formatteOne = totalStore.toLocaleString();
 
@@ -589,12 +597,12 @@ const CheckoutOrganism =({DetailDashboard,postDetailRoom,fetchDataApiWhatsapp}) 
                                                 <span  >Hospedaje hotel</span>
                                             </div>
                                           
-                                            <span className="no-price" >$</span>        <span className="price-store" >{formattedNum} <span className="no-price" > COP</span>  </span> 
+                                            <span className="no-price" >$</span>        <span className="price-store" >{formattedNum.toLocaleString()} <span className="no-price" > COP</span>  </span> 
 
                                             <CiBank className="ri-icon-user-One"  fontSize={70}   color="black"  />   
                                             {filterSearch?.id !=5  ? 
                                             <div className="to-hospedaje-one" >
-                                                <span className="negrita"  >Sub total: </span> <span> {formattedNum}</span> 
+                                                <span className="negrita"  >Sub total: </span> <span> {formattedNum.toLocaleString()}</span> 
                                             </div>
                                            : null}
 
@@ -607,7 +615,7 @@ const CheckoutOrganism =({DetailDashboard,postDetailRoom,fetchDataApiWhatsapp}) 
 
                                                 {filterSearch?.id !=5  ? 
                                             <div className="to-hospedaje-one" >
-                                                <span className="negrita"  >Valor total:</span> <span>{valorTotalIva} </span>
+                                                <span className="negrita"  >Valor total:</span> <span>{valorTotalIva.toLocaleString()} </span>
                                             </div>
                                               : null}
                                             
@@ -815,14 +823,14 @@ const CheckoutOrganism =({DetailDashboard,postDetailRoom,fetchDataApiWhatsapp}) 
                                                 <span >Hospedaje hotel</span>
                                             </div>
                                           
-                                            <span className="no-price" >$</span>  <span className="price-store" >{formattedNum} <span className="no-price" >COP</span>  </span>
+                                            <span className="no-price" >$</span>  <span className="price-store" >{formattedNum.toLocaleString()} <span className="no-price" >COP</span>  </span>
                                           </li>
 
                                          
                                           <CiBank className="ri-icon-user-One"  fontSize={70}   color="black"  />    
                                         {resultDashboard.Iva ==1 && <div>                                          
                                           <div className="to-hospedaje-one" >
-                                                <span className="negrita"  >Sub total: </span> <span> {formattedNum}</span> 
+                                                <span className="negrita"  >Sub total: </span> <span> {formattedNum.toLocaleString()}</span> 
                                             </div>
                                           
                                             <div className="to-hospedaje-one" >
@@ -830,7 +838,7 @@ const CheckoutOrganism =({DetailDashboard,postDetailRoom,fetchDataApiWhatsapp}) 
                                             </div>
                                           
                                             <div className="to-hospedaje-one" >
-                                                <span className="negrita"  >Valor total:</span> <span>{valorTotalIva} </span>
+                                                <span className="negrita"  >Valor total:</span> <span>{valorTotalIva.toLocaleString()} </span>
                                             </div>
                                         </div> }
 
@@ -1402,9 +1410,9 @@ const FacturaCompany  =({validFilterSearch,valorTotalIva,formatoIva,formattedNum
                         <div className="op">
                         {filterSearch?.id !=5  ? 
                             <ul>
-                                <li className="totalPricecheckout-two-finish-one " >Cop {formattedNum}</li>   
+                                <li className="totalPricecheckout-two-finish-one " >Cop {formattedNum.toLocaleString()}</li>   
                                 <li className="totalPricecheckout-two-finish-one  " >Cop {formatoIva}</li>   
-                                <li className="totalPricecheckout-two-finish-one  " >Cop {valorTotalIva}</li>   
+                                <li className="totalPricecheckout-two-finish-one  " >Cop {valorTotalIva.toLocaleString()}</li>   
                             </ul>   
                         : <ul>
                                 <li className="totalPricecheckout-two-finish-one " >Cop {valorNetuno}</li>    
