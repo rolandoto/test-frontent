@@ -299,3 +299,19 @@ input{
 .row-raius-one{
   border-radius: 50%;
 }
+
+.content-Modal-store-one-two-finish-tomo{
+  background-color: whitesmoke;
+  width: 300px;
+  padding: 10px 20px;
+  margin: 10vh auto;
+  position: relative;
+  border-radius: 6px;
+  animation: pulse 0.1s ease;
+  /* margin-top: 12%; */
+  /* min-height: 280px; */
+  /* max-height: 686px; */
+  margin-top: 10px;
+  overflow-x: hidden;
+  height: auto;
+}

@@ -68,16 +68,22 @@ const Invoince =({resultDashboard=[],carts=[],dataCount,setInvoice,priceCart,cli
         content: () => componetRefSinDian.current
     });
 
+    const [validState,setValidSatte] =useState(false)
+
     const handSubmitOne =() =>{
-        handLEpront()
+        setValidSatte(true) 
         handLoading()
         hancCheckout()
+        setTimeout(()  =>{
+            handLEpront()
+        },600)
     }
 
     const hadAllInvoince =() =>{
         setPreloading(true)
         handSubmitInsertCartOne()
         handlePrint()
+        
     }
 
      const handStInvoince =() =>{
@@ -111,14 +117,17 @@ const Invoince =({resultDashboard=[],carts=[],dataCount,setInvoice,priceCart,cli
         },600)
      }
 
-
-
-
      let totalId = false;
 
     if (jwt.result.id_hotel == 7 || jwt.result.id_hotel == 3 || jwt.result.id_hotel == 4 || jwt.result.id_hotel == 23 || jwt.result.id_hotel == 5 || jwt.result.id_hotel == 6 || jwt.result.id_hotel == 12  ) {
         totalId = true;
     }
+
+    let hotelId 
+    if (jwt.result.id_hotel == 6 ) {
+        hotelId = true;
+    }
+
 
 
      useEffect(()  =>{
@@ -131,6 +140,89 @@ const Invoince =({resultDashboard=[],carts=[],dataCount,setInvoice,priceCart,cli
      },[setInformacion])
 
     const searchingHotel =  information?.query?.find(index =>index.id_hotel  == jwt.result.id_hotel )
+
+    if(validState){
+        return (
+            <>     
+            <div className="border-ri"   >
+                    <div  >
+                        <div className={`content-Modal-store-one-two-finish-tomo`}  ref={componetRefSinDian}    >
+                                <div className="handclose" onClick={() => handStInvoince()}>
+                                    <IoMdCloseCircle   fontSize={30} color="black" />
+                                </div>
+                                        <div  className="form-login container-invoince-to "> 
+                                        <span className="invoince title-invoince-cart" >{jwt.result.hotel}</span>
+                                {jwt.result.id_hotel  == 7 && <span className="invoince title-invoince-cart" >Rolando Guerrero</span>   ||  jwt.result.id_hotel  == 3 && <span className="invoince title-invoince-cart" >Efraín Giraldo </span>||  jwt.result.id_hotel  == 4 && <span className="invoince title-invoince-cart" >Efraín Giraldo </span> ||  jwt.result.id_hotel  == 23 && <span className="invoince title-invoince-cart" >Carlos Ramirez </span> ||  jwt.result.id_hotel  == 6 && <span className="invoince title-invoince-cart" >Jose Bejumea </span> ||  jwt.result.id_hotel  == 12 && <span className="invoince title-invoince-cart" >Jairo enrique </span>||  jwt.result.id_hotel  == 5 && <span className="invoince title-invoince-cart" >Jose dominguez</span> } 
+                                <span className="invoince title-invoince-cart" >Nit: {searchingHotel?.Nit}</span>
+                                <span className="invoince title-invoince-cart" >{searchingHotel?.Direcion}</span>
+                                <span className="invoince title-invoince-cart" >{searchingHotel?.Telefono}</span>
+                                { totalId && <span className="invoince title-invoince-cart" >No responsable</span> }
+                                { hotelId && <span className="invoince title-invoince-cart" >Regimen ordinario</span> }
+
+                                <h6 className="p title-invoince " >GRACIAS POR SU VISITA </h6>
+                                {totalId ?   <span></span> :   <span className="p title-invoince-cart" >RES DIAN {searchingHotel?.Res_dian}</span>}  
+                                <span className="p title-invoince-cart  ">Fecha: {moment(searchingHotel?.fecha).utc().format('YYYY/MM/DD')}</span>
+                                <span className="p title-invoince-cart  ">{  totalId ? "Numeracion" : "Resolucion"  } {searchingHotel?.Resolucion_initial} al {searchingHotel?.Resolucion_final}</span>
+                                <span className="p title-invoince-cart  ">FACTURA DE VENTA</span>
+                                <span className="p title-invoince-cart  "> { totalId ? "FV":"FP"  }-{dataCount?.Resolucion}</span>
+                                
+
+
+                                <span className="atm title-invoince-cart" >Recepcionista: {jwt.result.name} </span>
+                                <span className="atm title-invoince-cart" >Fecha: {fechaFinal}</span>
+                                <span className="title-invoince-cart" >Tipo pago: {raiting}</span>
+                                <span className="title-invoince-cart">Cliente: {client} {lastname} </span>  
+                                <span className="title-invoince-cart">CC/NIT: {identification} </span> 
+
+
+                                        <div className="details-invoince atm" >
+                                                <span className="title-invoince-cart" >Detalles </span>
+                                                <span className="value title-invoince-cart" >Valor</span>
+                                            
+                                        </div>
+
+                                    {carts && <div className="container-invoince" >
+                                        {carts?.map(index =>{
+                                            const toPrice = UsePrice({number:index.price})
+                                            return (
+                                            <div className="carts-invoince">
+                                                <span className="title-invoince-cart">{index.name}</span>   
+                                                <span className="valo title-invoince-cart ">{toPrice.price}</span> 
+                                                <span className="title-invoince-cart" ></span>              
+                                            </div>
+                                            )
+                                        })}
+                                    </div>}
+                                    <div className="sub-total title-invoince-cart sub-total-top ">
+                                        <span>Sub Total</span>
+                                        <span className="valo" > {totalPrice.price} </span>
+                                    </div>
+                                    <div className="sub-total title-invoince-cart" >
+                                        <span>IVA</span>
+                                        <span className="valo" >{totalIva}</span>
+                                    </div>
+                                    <div className="sub-total title-invoince-cart">
+                                        <span>Total</span>
+                                        <span className="valo" >{totalwiTHiV}</span>
+                                    </div>
+                                    
+                                    <div className="container-invoince line-invoince"></div>
+
+                                    <h6 className="p title-invoince " >Califica nuestro servicio</h6>
+                                    <img className="image-qr" src="https://github.com/rolandoto/image-pms/blob/main/qr.jpeg?raw=true" alt="" />
+                                
+                                    <span className="invoince grupo title-invoince-cart to-cart-grupo" >WWW.GRUPO-HOTLELES.COM</span>
+                                </div>            
+                        </div>      
+                        </div>
+                            <button id="demo" className= {` top-button-invoince checkOut  sub-total-top`} onClick={handSubmitOne}>
+                                <span className="itemNameonE">Guardar e imprimir</span>
+                            </button>
+                </div>
+         </>
+         
+        )
+    }
 
     if(invo){
         return (
@@ -273,8 +365,8 @@ const Invoince =({resultDashboard=[],carts=[],dataCount,setInvoice,priceCart,cli
     return (
         <>   
             <div className="border-ri"   >
-                    <div>
-                        <div className= "content-Modal-store-one-two" ref={componetRefSinDian}    >
+                    <div  >
+                        <div className={`content-Modal-store-one`}      >
                                 <div className="handclose" onClick={() => handStInvoince()}>
                                     <IoMdCloseCircle   fontSize={30} color="black" />
                                 </div>
