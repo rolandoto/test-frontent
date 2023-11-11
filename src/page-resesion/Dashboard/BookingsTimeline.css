@@ -820,3 +820,25 @@ hr.border {
   transform: translateX(105%);
   z-index: 1000;
 }
+
+
+/* Definición de animación */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 6; /* Corregido el valor de opacidad */
+    transform: translateY(0);
+  }
+}
+
+/* Aplicar animación a la clase 'reservation-rows' */
+.reservation-rows {
+  animation: fadeIn 0.9s ease-out;
+  /* Agregar prefijos de proveedores de animación para mayor compatibilidad */
+  -webkit-animation: fadeIn 0.9s ease-out;
+  -moz-animation: fadeIn 0.9s ease-out;
+  animation: fadeIn 0.9s ease-out;
+}

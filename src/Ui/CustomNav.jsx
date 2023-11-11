@@ -117,7 +117,7 @@ const SideNavBar = () => {
            
                 <Link to={`/Home`} 	className={isExpanded ? "menu-item" : "  menu-item menu-item-NX  "}   data-tip data-for="inicioTip" >					
                     
-							 <RiHome2Line color="black" fontSize={18}/>
+							 <RiHome2Line color="black" fontSize={20}/>
 							{isExpanded && <p>{null}</p>}
 						
                 </Link>
@@ -128,7 +128,7 @@ const SideNavBar = () => {
                 
                 <Link to={`/Bictacoras`} 	className={isExpanded ? "menu-item" : "  menu-item menu-item-NX"} data-tip data-for="BictacorasTip"  >
                         
-							   <AiOutlineSafetyCertificate color="black"  fontSize={18}  />
+							   <AiOutlineSafetyCertificate color="black"  fontSize={20}  />
 							{isExpanded && <p>{null}</p>}
 						
                 </Link>
@@ -139,7 +139,7 @@ const SideNavBar = () => {
                 
 
                 <Link to={`/DetailStorerecepcion/${jwt.result.id_hotel}`}  data-tip data-for="TiendaTip"	className={isExpanded ? "menu-item" : "menu-item menu-item-NX"} >
-                    <AiOutlineShoppingCart color="black"  fontSize= {18}  /> 
+                    <AiOutlineShoppingCart color="black"  fontSize= {20}  /> 
                                 {isExpanded && <p>{null}</p>}		
                 </Link>
 
@@ -150,7 +150,7 @@ const SideNavBar = () => {
                 
 
                 <Link to={`/search`}  data-tip data-for="ReservasTip" 	className={isExpanded ? "menu-item" : "menu-item menu-item-NX"} >
-                    <BsBell fontSize={18}  color="black" />
+                    <BsBell fontSize={20}  color="black" />
                         {isExpanded && <p>{null}</p>}
                  </Link>
 
@@ -160,7 +160,7 @@ const SideNavBar = () => {
                 </ReactTooltip>
 
                 <Link to={`/mantenimiento`}  data-tip data-for="MantenimientoTip" 	className={isExpanded ? "menu-item" : "menu-item menu-item-NX"} >     
-                    <VscSymbolProperty  color="black" fontSize={18}/> 
+                    <VscSymbolProperty  color="black" fontSize={20}/> 
                             {isExpanded && <p>{null}</p>}      
                 </Link>
 
@@ -172,7 +172,7 @@ const SideNavBar = () => {
 
                     <Link to={`/Formatos`}   data-tip data-for="FormatosTip"  	className={isExpanded ? "menu-item" : "menu-item menu-item-NX"} >
                                     
-                    <BsFileEarmarkCheck color="black" fontSize={18}/>
+                    <BsFileEarmarkCheck color="black" fontSize={20}/>
                                 {isExpanded && <p>{null}</p>}
                             
                     </Link>
@@ -183,7 +183,7 @@ const SideNavBar = () => {
 
 
                 <Link to={`/Forgetfulnes`}  data-tip data-for="OlvidosTip"  	className={isExpanded ? "menu-item" : "menu-item menu-item-NX"} >
-                    <BsHandbag  color="black" fontSize={18}  />
+                    <BsHandbag  color="black" fontSize={20}  />
                                 {isExpanded && <p>{null}</p>} 
                 </Link>
 
@@ -193,7 +193,7 @@ const SideNavBar = () => {
 
          <Link to={`/Contact`}   data-tip data-for="ContactosTip"  	 	className={isExpanded ? "menu-item" : "menu-item menu-item-NX"} >
                         
-         <BsPerson color="black" fontSize={18}/>
+         <BsPerson color="black" fontSize={25}/>
                      {isExpanded && <p>{null}</p>}
                  
          </Link>
@@ -202,7 +202,7 @@ const SideNavBar = () => {
         </ReactTooltip>
 
         <Link to={`/imbox`}   data-tip data-for="CajaTip" 	className={isExpanded ? "menu-item" : "menu-item menu-item-NX"} >
-        <CiStopSign1 color="black" fontSize={18}/>
+        <CiStopSign1 color="black" fontSize={20}/>
                     {isExpanded && <p>{null}</p>} 
         </Link>
 
@@ -231,7 +231,7 @@ const SideNavBar = () => {
         </ReactTooltip>
         <a  className={isExpanded ? "menu-item" : "menu-item menu-item-NX"}   data-tip data-for="informacionTip" >
                         
-                        <BsChatDots fontSize={18} color="black"   />
+                        <BsChatDots fontSize={20} color="black"   />
                                     {isExpanded && <p>{null}</p>}
                                 
         </a>
@@ -243,7 +243,7 @@ const SideNavBar = () => {
 
         <a  className={isExpanded ? "menu-item" : "menu-item menu-item-NX"}   data-tip data-for="updateTip" onClick={hanChange}   >
                         
-                        <BsArrowRepeat fontSize={18} color="black"   />
+                        <BsArrowRepeat fontSize={20} color="black"   />
                                     {isExpanded && <p>{null}</p>}
                                 
         </a>
@@ -257,7 +257,7 @@ const SideNavBar = () => {
 
 
         <a  href={`https://taxi.webcoopebombas.com:8087/Account/LogIn?ReturnUrl=%2F`}   data-tip data-for="TaxiTip" 	  className={isExpanded ? "menu-item" : "menu-item menu-item-NX"} target="_blank">
-                                <BiTaxi color="black" fontSize={18}/>
+                                <BiTaxi color="black" fontSize={20}/>
                                 {isExpanded && <p>{null}</p>}
         </a>
 
@@ -267,7 +267,7 @@ const SideNavBar = () => {
 
         <a  className={isExpanded ? "menu-item" : "menu-item menu-item-NX"}   data-tip data-for="updateTipe" onClick={handClose}   >
                         
-                        <RiLogoutBoxLine fontSize={18} color="black"   />
+                        <RiLogoutBoxLine fontSize={20} color="black"   />
                                     {isExpanded && <p>{null}</p>}
                                 
         </a>
@@ -275,7 +275,7 @@ const SideNavBar = () => {
 
         <a  className={isExpanded ? "menu-item" : "menu-item menu-item-NX"}   data-tip data-for="updateTip" onClick={hanChange}   >
                         
-                        <RiLogoutBoxLine fill="currentColor" fontSize={25}/>
+                        <RiLogoutBoxLine fill="currentColor" fontSize={20}/>
                                     {isExpanded && <p>{null}</p>}
                                 
         </a>

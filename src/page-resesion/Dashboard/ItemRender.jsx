@@ -89,6 +89,7 @@ const   itemRenderer = ({ item, itemContext, getItemProps }) => {
         return (
             
         <div 
+        className="reservation-rows"
         
                 data-for={key} data-tip
                     {...getItemProps({
@@ -109,8 +110,7 @@ const   itemRenderer = ({ item, itemContext, getItemProps }) => {
                     })}
                 >	
                     <div
-            className="itemModal"
-            
+           
             ></div>
     
             <div
@@ -122,9 +122,11 @@ const   itemRenderer = ({ item, itemContext, getItemProps }) => {
                 padding: '0 1x',
                 textOverflow: 'ellipsis',
                 whiteSpace: 'nowrap',
+                transition: "background-color 0.8s ease",
             }}
+          className="reservation-rows"
             >
-            <div className="icon-state-reservation" >
+            <div className="icon-state-reservation " >
                     <span className="margin-icon-state" >{iconState}</span>
                     <span className="text-words" >{title}</span>
             </div>

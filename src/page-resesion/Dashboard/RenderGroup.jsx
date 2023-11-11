@@ -53,7 +53,7 @@ const renderGroup = ({ group }) => {
                 toggleGroup={toggleGroup}
                
                 Fecha={group.Fecha}
-                iconState={<IoBanOutline  color="black" className="margin-right-rig"  fontSize={15}/>}
+                iconState={<IoBanOutline  color="red" className="margin-right-rig"  fontSize={15}/>}
                 />
         )
     }if(group.ID_estado_habiatcion == 3){
