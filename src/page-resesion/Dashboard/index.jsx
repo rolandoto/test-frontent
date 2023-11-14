@@ -48,6 +48,7 @@ import UseGroupsRooms from "../../hooks/useGroupsRooms";
 import MouseOver from "../../component/MouseOver";
 import DebitCard from "../../component/DebitCard/DebitCard";
 import { AiOutlineCaretLeft } from "react-icons/ai";
+import FooterNotifacation from "../../component/FooterNotication/FooterNotification";
 const socket = io.connect("https://railway.grupo-hoteles.com");
 
 const Dashboard = () => {
@@ -733,6 +734,7 @@ const Dashboard = () => {
 							<h1>Detalle reserva</h1>
                             
                         </div> 
+						{isOpen &&	<FooterNotifacation closeHandler={closeHandler} />}
 			</div>
 		</>
 
