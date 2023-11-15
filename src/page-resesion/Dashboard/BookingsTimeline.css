@@ -836,7 +836,7 @@ hr.border {
 
 /* Aplicar animación a la clase 'reservation-rows' */
 .reservation-rows {
-  animation: fadeIn 0.9s ease-out;
+  animation:fadeIn  2s ease 0s 1 normal none running eqyXIS;
   /* Agregar prefijos de proveedores de animación para mayor compatibilidad */
   -webkit-animation: fadeIn 0.9s ease-out;
   -moz-animation: fadeIn 0.9s ease-out;

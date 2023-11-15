@@ -315,3 +315,18 @@ input{
   overflow-x: hidden;
   height: auto;
 }
+
+.active-pathname{
+  background: #e9e9e9;
+    width: 10;
+    width: 71%;
+    justify-content: center;
+    transition: background-color 0.8s ease;
+    height: 57px;
+    display: flex;
+    text-decoration: none;
+    text-transform: uppercase;
+    margin: auto 20px;
+    border-radius: 10px;
+    margin: auto;
+}

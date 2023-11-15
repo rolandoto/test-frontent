@@ -13,7 +13,7 @@
     right: 0px;
     width: 100%;
     z-index: 10000;
-    animation: Notification 0.9s ease-out;
+    animation: Notification 5s ease-out;
 }
 .page-icon{
     -webkit-box-align: center;

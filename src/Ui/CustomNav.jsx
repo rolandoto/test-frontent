@@ -16,10 +16,14 @@ import ServiceInfomeMovimientoPost from "../service/ServiceInformeMovimientoPost
 import moment from "moment";
 import { CiUser } from "react-icons/ci";
 import io from 'socket.io-client';
+import { useLocation } from "react-router-dom/cjs/react-router-dom.min";
 
 const socket = io.connect("https://railway.grupo-hoteles.com");
 
 const SideNavBar = () => {
+
+    const {pathname} = useLocation()
+    console.log(pathname)
 
     const {jwt,update,setUpadte} =useContext(AutoProvider)
 	const [isExpanded, setExpendState] = useState(false);
@@ -115,7 +119,7 @@ const SideNavBar = () => {
                     Inicio
               </ReactTooltip>
            
-                <Link to={`/Home`} 	className={isExpanded ? "menu-item" : "  menu-item menu-item-NX  "}   data-tip data-for="inicioTip" >					
+                <Link to={`/Home`} 	className={ `${pathname == "/Home" ? "active-pathname" : "menu-item menu-item-NX" }`}   data-tip data-for="inicioTip" >					
                     
 							 <RiHome2Line color="black" fontSize={20}/>
 							{isExpanded && <p>{null}</p>}
@@ -126,7 +130,7 @@ const SideNavBar = () => {
                 Bictacoras
               </ReactTooltip>
                 
-                <Link to={`/Bictacoras`} 	className={isExpanded ? "menu-item" : "  menu-item menu-item-NX"} data-tip data-for="BictacorasTip"  >
+                <Link to={`/Bictacoras`} 	className={ `${pathname == "/Bictacoras" ? "active-pathname" : "menu-item menu-item-NX" }`} data-tip data-for="BictacorasTip"  >
                         
 							   <AiOutlineSafetyCertificate color="black"  fontSize={20}  />
 							{isExpanded && <p>{null}</p>}
@@ -138,7 +142,7 @@ const SideNavBar = () => {
               </ReactTooltip>
                 
 
-                <Link to={`/DetailStorerecepcion/${jwt.result.id_hotel}`}  data-tip data-for="TiendaTip"	className={isExpanded ? "menu-item" : "menu-item menu-item-NX"} >
+                <Link to={`/DetailStorerecepcion/${jwt.result.id_hotel}`}  data-tip data-for="TiendaTip"	className={ `${pathname == `/DetailStorerecepcion/${jwt.result.id_hotel}` ? "active-pathname" : "menu-item menu-item-NX" }`} >
                     <AiOutlineShoppingCart color="black"  fontSize= {20}  /> 
                                 {isExpanded && <p>{null}</p>}		
                 </Link>
@@ -149,7 +153,7 @@ const SideNavBar = () => {
                 </ReactTooltip>
                 
 
-                <Link to={`/search`}  data-tip data-for="ReservasTip" 	className={isExpanded ? "menu-item" : "menu-item menu-item-NX"} >
+                <Link to={`/search`}  data-tip data-for="ReservasTip" 	className={ `${pathname == "/search" ? "active-pathname" : "menu-item menu-item-NX" }`} >
                     <BsBell fontSize={20}  color="black" />
                         {isExpanded && <p>{null}</p>}
                  </Link>
@@ -159,7 +163,7 @@ const SideNavBar = () => {
                     Mantenimiento
                 </ReactTooltip>
 
-                <Link to={`/mantenimiento`}  data-tip data-for="MantenimientoTip" 	className={isExpanded ? "menu-item" : "menu-item menu-item-NX"} >     
+                <Link to={`/mantenimiento`}  data-tip data-for="MantenimientoTip" 	className={ `${pathname == "/mantenimiento" ? "active-pathname" : "menu-item menu-item-NX" }`} >     
                     <VscSymbolProperty  color="black" fontSize={20}/> 
                             {isExpanded && <p>{null}</p>}      
                 </Link>
@@ -170,7 +174,7 @@ const SideNavBar = () => {
                 </ReactTooltip>
 
 
-                    <Link to={`/Formatos`}   data-tip data-for="FormatosTip"  	className={isExpanded ? "menu-item" : "menu-item menu-item-NX"} >
+                    <Link to={`/Formatos`}   data-tip data-for="FormatosTip"  	className={ `${pathname == "/Formatos" ? "active-pathname" : "menu-item menu-item-NX" }`} >
                                     
                     <BsFileEarmarkCheck color="black" fontSize={20}/>
                                 {isExpanded && <p>{null}</p>}
@@ -182,7 +186,7 @@ const SideNavBar = () => {
                 </ReactTooltip>
 
 
-                <Link to={`/Forgetfulnes`}  data-tip data-for="OlvidosTip"  	className={isExpanded ? "menu-item" : "menu-item menu-item-NX"} >
+                <Link to={`/Forgetfulnes`}  data-tip data-for="OlvidosTip"  	className={ `${pathname == "/Forgetfulnes" ? "active-pathname" : "menu-item menu-item-NX" }`} >
                     <BsHandbag  color="black" fontSize={20}  />
                                 {isExpanded && <p>{null}</p>} 
                 </Link>
@@ -191,7 +195,7 @@ const SideNavBar = () => {
                 Contactos
                 </ReactTooltip>
 
-         <Link to={`/Contact`}   data-tip data-for="ContactosTip"  	 	className={isExpanded ? "menu-item" : "menu-item menu-item-NX"} >
+         <Link to={`/Contact`}   data-tip data-for="ContactosTip"  	 	className={ `${pathname == "/Contact" ? "active-pathname" : "menu-item menu-item-NX" }`}  >
                         
          <BsPerson color="black" fontSize={25}/>
                      {isExpanded && <p>{null}</p>}
@@ -201,7 +205,7 @@ const SideNavBar = () => {
                 Caja menor
         </ReactTooltip>
 
-        <Link to={`/imbox`}   data-tip data-for="CajaTip" 	className={isExpanded ? "menu-item" : "menu-item menu-item-NX"} >
+        <Link to={`/imbox`}   data-tip data-for="CajaTip" 	className={ `${pathname == "/imbox" ? "active-pathname" : "menu-item menu-item-NX" }`} >
         <CiStopSign1 color="black" fontSize={20}/>
                     {isExpanded && <p>{null}</p>} 
         </Link>
@@ -235,21 +239,6 @@ const SideNavBar = () => {
                                     {isExpanded && <p>{null}</p>}
                                 
         </a>
-
-
-        <ReactTooltip id="updateTip" place="right" effect="solid">
-                Actualizar
-        </ReactTooltip>
-
-        <a  className={isExpanded ? "menu-item" : "menu-item menu-item-NX"}   data-tip data-for="updateTip" onClick={hanChange}   >
-                        
-                        <BsArrowRepeat fontSize={20} color="black"   />
-                                    {isExpanded && <p>{null}</p>}
-                                
-        </a>
-
-
-
 
         <ReactTooltip id="TaxiTip" place="right" effect="solid">
                 Taxi

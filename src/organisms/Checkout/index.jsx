@@ -363,14 +363,18 @@ const CheckoutOrganism =({DetailDashboard,postDetailRoom,fetchDataApiWhatsapp}) 
 
     const porcentajeIVA = 0.19; // 19%
 
-    const ivaOne = numOne * porcentajeIVA;
+    
 
-    var totalIvaPerson =numOne - ivaOne;
+    var totalIvaPerson =numOne /1.19;
+
+    const ivaOne = totalIvaPerson * 19/100;
+    
 
     const totalNum = resultDashboard.Iva == 1 ? totalIvaPerson : numOne;
 
     const formattedNum = resultDashboard.tipo_persona === "empresa" ? totalIvaPerson : totalNum;
 
+    
     const Iva  = numOne*19/100
 
     const resultNum = totalStore  ? totalStore : 0 
@@ -382,6 +386,8 @@ const CheckoutOrganism =({DetailDashboard,postDetailRoom,fetchDataApiWhatsapp}) 
     const valorTotalIva = totalIvaPerson +ivaOne ;
 
     const formatoIva = ivaOne.toLocaleString();
+    console.log({ivaOne})
+    console.log({numOne})
 
     var formatteOne = totalStore.toLocaleString();
 
