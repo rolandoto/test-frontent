@@ -95,7 +95,7 @@ const SideNavBar = () => {
                     </div>
                 </ReactTooltip>
 
-                <Link to={`/Home`} className={isExpanded ? "menu-item" : "menu-item-NX Hover-icon   "}  data-tip data-for="IconTip"    >
+                <Link to={`/home`} className={isExpanded ? "menu-item" : "menu-item-NX Hover-icon   "}  data-tip data-for="IconTip"    >
              
                         <Grid.Container>
                             <Grid >
@@ -119,7 +119,7 @@ const SideNavBar = () => {
                     Inicio
               </ReactTooltip>
            
-                <Link to={`/Home`} 	className={ `${pathname == "/Home" ? "active-pathname" : "menu-item menu-item-NX" }`}   data-tip data-for="inicioTip" >					
+                <Link to={`/home`} 	className={ `${pathname == "/home" ? "active-pathname" : "menu-item menu-item-NX" }`}   data-tip data-for="inicioTip" >					
                     
 							 <RiHome2Line color="black" fontSize={20}/>
 							{isExpanded && <p>{null}</p>}

@@ -14,6 +14,7 @@
 
 .container-detail-dasboard-in {
   display: flex;
+  animation: fault 0.5s ease-out;
 }
 
 .container-detail-dasboard-in-photo {
@@ -26,6 +27,7 @@
   align-items: center;
   margin-top: 5px;
   justify-content: space-between;
+  animation: fault 0.5s ease-out;
 }
 
 .desde-detail {
@@ -157,9 +159,23 @@
   margin: auto !important;
 }
 
+
+@keyframes detail {
+  from {
+    opacity: 0;
+    filter: blur(10px);
+  }
+  to {
+    opacity: 6; /* Corregido el valor de opacidad */
+    filter: blur(0px);
+  }
+}
+
+
 .container-flex-init {
   justify-content: revert;
   margin: auto;
+  animation: detail  0.5s ease 0s 1 normal none running eqyXIS;
 }
 
 .container-flex-init-One {
@@ -213,6 +229,17 @@
   margin-top: 5px;
 }
 
+@keyframes fault {
+  from {
+    opacity: 0;
+    filter: blur(10px);
+  }
+  to {
+    opacity: 6; /* Corregido el valor de opacidad */
+    filter: blur(0px);
+  }
+}
+
 .init{
   padding: 2px 5px 0px 5px;
   display: block;
@@ -221,6 +248,7 @@
   border-radius: 10px;
   height: 122px;
   margin-top: 5px;
+  animation: fault 0.5s ease-out;
 }
 
 .values-total {
@@ -259,6 +287,7 @@
   border-radius: 10px;
   height: 174px;
   margin-top: 5px;
+  animation: fault 0.5s ease-out;
 }
 
 .init-informe {
@@ -333,6 +362,7 @@
   margin: auto;
   margin-top: 8px;
   align-items: center;
+  animation: fault 0.5s ease-out;
 }
 
 .button-checking-detail {
@@ -793,10 +823,12 @@
   max-width: 83%;
   margin: auto;
   margin-top: 11px;
+  animation: fault 0.5s ease-out;
 }
 
 .top-detail {
   margin-top: 10px;
+  animation: fault 0.5s ease-out;
 }
 
 .container-estado {

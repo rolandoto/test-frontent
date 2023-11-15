@@ -1,11 +1,13 @@
 import { HeartIcon } from "../../page-resesion/Dashboard/IconReservation"
 import "./FooterNotificaction.css"
 import { IoCloseSharp } from "react-icons/io5";
+import { Progress, Grid } from "@nextui-org/react";
 
 const FooterNotifacation =({closeHandler}) =>{
 
     return (
         <nav className="container-footer-notification" >
+
                 <div className="close-notificacion" onClick={closeHandler}  >
                     <IoCloseSharp  color="white" />
                 </div>

@@ -13,7 +13,7 @@
     right: 0px;
     width: 100%;
     z-index: 10000;
-    animation: Notification 5s ease-out;
+    animation: Notification 3s ease-out;
 }
 .page-icon{
     -webkit-box-align: center;
@@ -53,8 +53,10 @@
 }
 
 .video-iframe, iframe{
-    width: 100%;
+    width: 90%;
+    max-width: 100%;
     height: 25vh;
+    max-height: 80%;
     border: none;
     border-radius: 15px;
     transform: scale(1.1);
@@ -74,10 +76,10 @@
   /* Definición de animación */
 @keyframes Notification {
     from {
-      transform: translatey(50px);
+      filter: blur(7px);
     }
     to {
-      transform: translateY(0);
+      filter: blur(0px);
     }
   }
   
