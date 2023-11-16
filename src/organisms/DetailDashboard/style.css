@@ -14,7 +14,7 @@
 
 .container-detail-dasboard-in {
   display: flex;
-  animation: fault 0.5s ease-out;
+
 }
 
 .container-detail-dasboard-in-photo {
@@ -27,7 +27,7 @@
   align-items: center;
   margin-top: 5px;
   justify-content: space-between;
-  animation: fault 0.5s ease-out;
+
 }
 
 .desde-detail {
@@ -248,7 +248,7 @@
   border-radius: 10px;
   height: 122px;
   margin-top: 5px;
-  animation: fault 0.5s ease-out;
+
 }
 
 .values-total {
@@ -287,7 +287,7 @@
   border-radius: 10px;
   height: 174px;
   margin-top: 5px;
-  animation: fault 0.5s ease-out;
+ 
 }
 
 .init-informe {
@@ -362,7 +362,7 @@
   margin: auto;
   margin-top: 8px;
   align-items: center;
-  animation: fault 0.5s ease-out;
+
 }
 
 .button-checking-detail {
@@ -823,12 +823,11 @@
   max-width: 83%;
   margin: auto;
   margin-top: 11px;
-  animation: fault 0.5s ease-out;
 }
 
 .top-detail {
   margin-top: 10px;
-  animation: fault 0.5s ease-out;
+
 }
 
 .container-estado {

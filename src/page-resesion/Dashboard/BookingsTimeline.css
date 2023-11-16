@@ -842,3 +842,14 @@ hr.border {
   -moz-animation: fadeIn 0.9s ease-out;
   animation: fadeIn 0.9s ease-out;
 }
+
+
+.rct-sidebar-row .highlight,
+.react-calendar-timeline .rct-horizontal-lines .highlight {
+  background-color: rgb(116, 113, 113);
+  z-index: 10000;
+}
+
+.react-calendar-timeline .rct-day.rct-day-weekend {
+  background-color: black !important;
+}

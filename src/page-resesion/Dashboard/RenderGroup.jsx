@@ -44,16 +44,16 @@ const renderGroup = ({ group }) => {
     if(group.ID_estado_habiatcion == 2){
         rows.push(
             <GroupRows	
-                color="white"
+                color="rgb(116, 113, 113)"
                 group={`${group.title}`}
-                letra="black" 
+                letra="white" 
                 key={group.id} 
                 root={group.root}
                 parent={group.parent}
                 toggleGroup={toggleGroup}
                
                 Fecha={group.Fecha}
-                iconState={<IoBanOutline  color="red" className="margin-right-rig"  fontSize={15}/>}
+                iconState={<IoBanOutline  color="white" className="margin-right-rig"  fontSize={15}/>}
                 />
         )
     }if(group.ID_estado_habiatcion == 3){

@@ -426,6 +426,12 @@ const Dashboard = () => {
     }
   };
 
+  
+
+  const horizontalLine = (group) => {
+  return group?.ID_estado_habiatcion ==2 ? ["highlight"] : "";
+};
+
 	const ResutlRoom = filterRooms(Room,raiting)
 	//const totalResult = UseGroupsRooms(ResutlRoom,numberSave)
 /**
@@ -633,7 +639,15 @@ const Dashboard = () => {
 			<Timeline
 				groupRenderer={renderGroup}
 				groups={ResutlRoom}
+				dayBackground={(day, isSelected) =>
+					isSelected
+					  ? "black" // color de fondo para días seleccionados
+					  : day.getDay() === 0 || day.getDay() === 6
+					  ? "transparent" // fondo transparente para fines de semana
+					  : "#000000" // color de fondo predeterminado para días de la semana
+				  }
 				items={Items}
+				horizontalLineClassNamesForGroup={horizontalLine}
 				onItemResize={handleItemResize}
 				defaultTimeStart={moment().startOf("day").add(-1, "day")}
 				defaultTimeEnd={moment().startOf("day").add(18, "day")}
@@ -705,14 +719,18 @@ const Dashboard = () => {
 						/>
 				</TimelineHeaders>
 				<TimelineMarkers>
-				<CustomMarker date={moment().add("day")}>
+				<CustomMarker >
 					{({ styles, date }) => {
-					const customStyles = {
-						...styles,
-						backgroundColor: "#6ae9a175",
-						width:"5.3%",
-						marginLeft:"-3.1%"
-					};
+						 const isWeekend = date.day() === 0 || date.day() === 6;
+
+						 // Aplica el estilo condicionalmente
+						 const customStyles = {
+						   ...styles,
+						   backgroundColor: isWeekend ? 'transparent' : '#6ae9a175',
+						   width: '5.3%',
+						   marginLeft: '-3.1%',
+						 };
+			
 					return (
 						<div
 						style={customStyles}
