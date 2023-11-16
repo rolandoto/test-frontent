@@ -10,6 +10,7 @@ import Timeline,{
   CustomMarker,
   TodayMarker,
 } from "react-calendar-timeline";
+import containerResizeDetector from 'react-calendar-timeline/lib/resize-detector/container'
 import { ServiceReservas } from "./dummy_data";
 import 'react-calendar-timeline/lib/Timeline.css'
 import "./BookingsTimeline.css";
@@ -386,14 +387,12 @@ const Dashboard = () => {
 		console.log("closed");
 	};
 
-
 	const verticalLineClassNamesForTime = (timeStart, timeEnd) => {
-		const currentTimeStart = moment(timeStart)
-		const currentTimeEnd = moment(timeEnd)
-	  
-		return ['holiday']
-		 
-	  }
+		const today = moment().format('YYYY-MM-DD');
+		const fecha = moment(timeStart).format('YYYY-MM-DD');
+	
+		return fecha === today ? ["today"] : ['holiday'];
+	}
 
 	let isFetchingData = true;
 
@@ -476,7 +475,7 @@ const Dashboard = () => {
 			});
 		  }, []);
 
-		  const today = Date.now()
+		
 	return (
 		<>		
 		<div>
@@ -658,7 +657,8 @@ const Dashboard = () => {
 				defaultTimeStart={moment().startOf("day").add(-1, "day")}
 				defaultTimeEnd={moment().startOf("day").add(18, "day")}
 				stackItems
-				onItemMove={handleItemMove}									
+				onItemMove={handleItemMove}	
+				resizeDetector={containerResizeDetector}								
 				itemHeightRatio={0.9}                                                             
 				lineHeight={34}
 				sidebarWidth={225}
@@ -726,26 +726,6 @@ const Dashboard = () => {
 				</TimelineHeaders>
 				<TimelineMarkers>
 				
-
-				<CustomMarker date={today}>
-					{({ styles, date }) => {
-		
-
-					// Aplica el estilo condicionalmente
-					const customStyles = {
-						...styles,
-						backgroundColor:  '#6ae9a175',
-						width: '5%',
-					};
-
-					return (
-						<div
-						style={customStyles}
-						onClick={(event) => console.log("done")}
-						/>
-					);
-					}}
-				</CustomMarker>
   <CursorMarker />
 </TimelineMarkers>
 			</Timeline>

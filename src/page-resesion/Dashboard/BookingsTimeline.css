@@ -857,3 +857,7 @@ hr.border {
 .holiday{
   background-color: transparent !important;
 }
+
+.today{
+  background-color: #6ae9a175 !important;
+}
