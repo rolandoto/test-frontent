@@ -8,6 +8,7 @@ import Timeline,{
   TimelineMarkers,
   CursorMarker,
   CustomMarker,
+  TodayMarker,
 } from "react-calendar-timeline";
 import { ServiceReservas } from "./dummy_data";
 import 'react-calendar-timeline/lib/Timeline.css'
@@ -385,6 +386,15 @@ const Dashboard = () => {
 		console.log("closed");
 	};
 
+
+	const verticalLineClassNamesForTime = (timeStart, timeEnd) => {
+		const currentTimeStart = moment(timeStart)
+		const currentTimeEnd = moment(timeEnd)
+	  
+		return ['holiday']
+		 
+	  }
+
 	let isFetchingData = true;
 
 	socket.on("sendNotification", async(data) => {
@@ -465,6 +475,8 @@ const Dashboard = () => {
 			  console.log(true)
 			});
 		  }, []);
+
+		  const today = Date.now()
 	return (
 		<>		
 		<div>
@@ -639,15 +651,9 @@ const Dashboard = () => {
 			<Timeline
 				groupRenderer={renderGroup}
 				groups={ResutlRoom}
-				dayBackground={(day, isSelected) =>
-					isSelected
-					  ? "black" // color de fondo para días seleccionados
-					  : day.getDay() === 0 || day.getDay() === 6
-					  ? "transparent" // fondo transparente para fines de semana
-					  : "#000000" // color de fondo predeterminado para días de la semana
-				  }
 				items={Items}
 				horizontalLineClassNamesForGroup={horizontalLine}
+				verticalLineClassNamesForTime={verticalLineClassNamesForTime}
 				onItemResize={handleItemResize}
 				defaultTimeStart={moment().startOf("day").add(-1, "day")}
 				defaultTimeEnd={moment().startOf("day").add(18, "day")}
@@ -719,18 +725,19 @@ const Dashboard = () => {
 						/>
 				</TimelineHeaders>
 				<TimelineMarkers>
-				<CustomMarker >
-					{({ styles, date }) => {
-						 const isWeekend = date.day() === 0 || date.day() === 6;
+				
 
-						 // Aplica el estilo condicionalmente
-						 const customStyles = {
-						   ...styles,
-						   backgroundColor: isWeekend ? 'transparent' : '#6ae9a175',
-						   width: '5.3%',
-						   marginLeft: '-3.1%',
-						 };
-			
+				<CustomMarker date={today}>
+					{({ styles, date }) => {
+		
+
+					// Aplica el estilo condicionalmente
+					const customStyles = {
+						...styles,
+						backgroundColor:  '#6ae9a175',
+						width: '5%',
+					};
+
 					return (
 						<div
 						style={customStyles}
@@ -739,8 +746,8 @@ const Dashboard = () => {
 					);
 					}}
 				</CustomMarker>
-          <CursorMarker />
-        </TimelineMarkers>
+  <CursorMarker />
+</TimelineMarkers>
 			</Timeline>
 			<Footer  
 					ocupied={<VscSymbolEvent fontSize={20}/>}

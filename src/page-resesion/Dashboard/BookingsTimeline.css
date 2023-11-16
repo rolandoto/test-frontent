@@ -853,3 +853,7 @@ hr.border {
 .react-calendar-timeline .rct-day.rct-day-weekend {
   background-color: black !important;
 }
+
+.holiday{
+  background-color: transparent !important;
+}
