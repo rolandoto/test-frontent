@@ -861,15 +861,6 @@ const  handleClickEliminar =UseModalText({handlModal:hanDelete,Text:"Estas segur
                   <span>Abono:</span>
                    <span className="negrita-detail-reserva" >{valor_abono}</span>
               </div>
-
-              <button  onClick={hanClickAsear} style={{background: "#f5a623",color:"white"}} className="border-detail" >
-                     <span className="negrita-detail-reserva" >   <GiBroom   className="text-center-icon"   fontSize={25} color="white"  />Asear habitacion</span>
-              </button>
-
-              
-               <button   onClick={hanClickLimpia}  style={{background: "#0070f3",color:"white"}} className="border-detail" >          
-                     <span className="negrita-detail-reserva" >   <BsCheckCircle     className="text-center-icon"   fontSize={25} color="white"  />Habitacion limpia</span>
-                </button>
              
           </div>
       </div>

@@ -12,8 +12,6 @@ const CardRowsRoom =({title,id,ID_estado_habitacion,postDetailRoom,hanchangeEsta
     
     let color 
     let letra
-
-    console.log({"sdasds":id,ID_estado_habitacion})
     
     const handChangeTypeRoomOne =(e) =>{
 		confirmAlert({
