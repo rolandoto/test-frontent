@@ -769,7 +769,6 @@ const hanClickAsear =() => {
 
 const hanClickLimpia =async() => {
   if(resultDashboard?.Estado !="3" ){
-    await postDetailRoom({ id: resultDashboard?.ID_Habitaciones, ID_estado_habitacion: 0 });
     ServiceStatus({id,ID_Tipo_Estados_Habitaciones:6}).then(index => {
       Swal.fire({
         position: 'center',
