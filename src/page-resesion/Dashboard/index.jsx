@@ -388,8 +388,8 @@ const Dashboard = () => {
 	};
 
 	const verticalLineClassNamesForTime = (timeStart, timeEnd) => {
-		const today = moment().format('YYYY-MM-DD');
-		const fecha = moment(timeStart).format('YYYY-MM-DD');
+		const today = moment().format('YYYY-MM-DD');//day today
+		const fecha = moment(timeStart).format('YYYY-MM-DD');//day range of calendario
 	
 		return fecha === today ? ["today"] : ['holiday'];
 	}

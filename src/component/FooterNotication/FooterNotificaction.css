@@ -25,6 +25,15 @@
     text-decoration: none;
 }
 
+.page-icon-one{
+  -webkit-box-align: center;
+  align-items: center;
+  display: inline-flex;
+  height: 100%;
+  justify-self: center;
+  text-decoration: none;
+}
+
 .page-icon-title{
     -webkit-box-align: center;
     align-items: center;
@@ -53,13 +62,13 @@
 }
 
 .video-iframe, iframe{
-    width: 90%;
-    max-width: 100%;
-    height: 25vh;
-    max-height: 80%;
+    width: 93%;
+    max-width: 88.4%;
+    max-height: 88%;
     border: none;
     border-radius: 15px;
-    transform: scale(1.1);
+    transform: scale(1.4);
+    box-shadow:4px 11px 35px 9px rgba(255, 212, 212, 0.831);
   }
 
   .video-iframe {
