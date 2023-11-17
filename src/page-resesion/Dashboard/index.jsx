@@ -438,7 +438,16 @@ const Dashboard = () => {
   
 
   const horizontalLine = (group) => {
-  return group?.ID_estado_habiatcion ==2 ? ["highlight"] : "";
+	switch (group?.ID_estado_habiatcion) {
+		case 2:
+			return ["highlight"]
+		case 5:
+			return ["highlightCheckout"]
+	default:
+		break;
+	}
+	
+ 
 };
 
 	const ResutlRoom = filterRooms(Room,raiting)

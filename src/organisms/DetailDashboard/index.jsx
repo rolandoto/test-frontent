@@ -937,7 +937,6 @@ const  handleClickEliminar =UseModalText({handlModal:hanDelete,Text:"Estas segur
                             value={inputPayValue.Tipo_forma_pago}
                             onChange={handleInputPay}
                             className={`desde-detail-twophoto ${errorAbono ? "error-solicitud" : ""}  ` }   >
-                        <option></option>
                         {typy_buy?.map(category =>(
                             <option 
                             value={category.id}   
@@ -1453,7 +1452,6 @@ const handleState =(event, index) =>{
 }
 
   for(let i = 0;i<product?.length;i++){
-    console.log({"pago":product[i]})
     cart.push({ 
       ID:product[i].ID,
       Nombre_categoria:product[i].Nombre,
@@ -1490,6 +1488,14 @@ const handleState =(event, index) =>{
     }
   }
 
+  const rows = cart.map((value) => parseFloat(value.Price.replace(/,/g, '')));
+
+  const sumWithInitial = rows.reduce(
+    (accumulator, currentValue) => {
+      return accumulator + currentValue
+    },
+    0
+  );
 
   if(!habitacion) return null
 
@@ -1591,6 +1597,9 @@ const handleState =(event, index) =>{
                            </TableRow>
                         )}
                         })}
+                 <TableRow>
+                 <TableCell>Total:Cop {sumWithInitial.toLocaleString()} </TableCell>
+                 </TableRow>
                   </TableBody>
                   </Table>
             </TableContainer> 

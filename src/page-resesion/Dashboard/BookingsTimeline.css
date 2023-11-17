@@ -850,6 +850,12 @@ hr.border {
   z-index: 10000;
 }
 
+.rct-sidebar-row .highlightCheckout,
+.react-calendar-timeline .rct-horizontal-lines .highlightCheckout{
+  background-color: rgba(243, 217, 36, 0.8);
+  z-index: 10000;
+}
+
 .react-calendar-timeline .rct-day.rct-day-weekend {
   background-color: black !important;
 }

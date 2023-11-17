@@ -28,7 +28,7 @@ const renderGroup = ({ group }) => {
     }if(group.ID_estado_habiatcion == 5){
         rows.push(
             <GroupRows 	
-                color="white"
+                color="rgba(243, 217, 36, 0.8)"
                 group={`${group.title}`} 
                 key={group.id} 
                 letra="black" 
