@@ -54,6 +54,10 @@ const DetailDashboard =() =>{
 
 
     const fillConten =() =>{
+
+    if(loading){
+        return <span>cargando</span>
+    }
        
  
     return    <DetailDasboard  
