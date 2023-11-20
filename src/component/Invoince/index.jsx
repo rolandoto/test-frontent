@@ -13,7 +13,7 @@ import   AutoProvider  from "../../privateRoute/AutoProvider";
 import { useContext } from "react";
 import { config } from "../../config";
 
-const Invoince =({resultDashboard=[],carts=[],dataCount,setInvoice,priceCart,client,identification,raiting,handLoading,loading,handLoadingOne,sinIvaCart,tienda,handSubmitInsertCartOne,hancCheckout,lastname,fechaFinal}) =>{
+const Invoince =({resultDashboard=[],carts=[],dataCount,setInvoice,priceCart,client,identification,raiting,handLoading,loading,handLoadingOne,sinIvaCart,tienda,handSubmitInsertCartOne,hancCheckout,lastname,fechaFinal,formattedNum,formatoIva,valorTotalIva}) =>{
         
     const dispatch  = useDispatch()
     const t= moment().format();   
@@ -195,15 +195,15 @@ const Invoince =({resultDashboard=[],carts=[],dataCount,setInvoice,priceCart,cli
                                     </div>}
                                     <div className="sub-total title-invoince-cart sub-total-top ">
                                         <span>Sub Total</span>
-                                        <span className="valo" > {totalPrice.price} </span>
+                                        <span className="valo" >COP {formattedNum.toLocaleString()} </span>
                                     </div>
                                     <div className="sub-total title-invoince-cart" >
                                         <span>IVA</span>
-                                        <span className="valo" >{totalIva}</span>
+                                        <span className="valo" >COP {formatoIva}</span>
                                     </div>
                                     <div className="sub-total title-invoince-cart">
                                         <span>Total</span>
-                                        <span className="valo" >{totalwiTHiV}</span>
+                                        <span className="valo" >COP {valorTotalIva.toLocaleString()}</span>
                                     </div>
                                     
                                     <div className="container-invoince line-invoince"></div>
@@ -414,15 +414,15 @@ const Invoince =({resultDashboard=[],carts=[],dataCount,setInvoice,priceCart,cli
                                     </div>}
                                     <div className="sub-total title-invoince-cart sub-total-top ">
                                         <span>Sub Total</span>
-                                        <span className="valo" > {totalPrice.price} </span>
+                                        <span className="valo" >COP {formattedNum.toLocaleString()} </span>
                                     </div>
                                     <div className="sub-total title-invoince-cart" >
                                         <span>IVA</span>
-                                        <span className="valo" >{totalIva}</span>
+                                        <span className="valo" >COP {formatoIva}</span>
                                     </div>
                                     <div className="sub-total title-invoince-cart">
                                         <span>Total</span>
-                                        <span className="valo" >{totalwiTHiV}</span>
+                                        <span className="valo" >COP {valorTotalIva.toLocaleString()}</span>
                                     </div>
                                     
                                     <div className="container-invoince line-invoince"></div>

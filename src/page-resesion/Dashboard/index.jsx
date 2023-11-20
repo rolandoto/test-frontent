@@ -487,19 +487,19 @@ const Dashboard = () => {
 		
 	return (
 		<>		
-		<div>
-			
-		</div>
+		
 			<div ref={timelineRef} > 
 			<div  className="container-button">
-			<Spacer x={4} y={3} />
+			<Spacer x={4} y={0} />
 			<Button  
+			size="sm"
 					onClick={handClickReservaction}
-					style={{width:"20%"}}  
+					style={{width:"20%",padding:"0%"}}  
 					color="error" 
 					icon={<HeartIcon fill="currentColor" filled   />} > <span  className="text-words" >Crear reserva</span> </Button>
 			<Spacer x={0.5} y={1} />
 			<Button 
+			size="sm"
 					onClick={handRoomDetail}
 					style={{width:"20%"}}  
 					icon={<CameraIcon fill="currentColor" />}  > <span  className="text-words" > Ver habitaciones</span></Button>
@@ -518,12 +518,14 @@ const Dashboard = () => {
 																	))}
 						</select>
 			<Button 	
+			size="sm"
 					onClick={hanclickReservation}
 					style={{width:"20%"}}  
 					icon={<NotificationIcon fill="currentColor" />} 
 					color="secondary">  <span  className="text-words" > Reservas </span> </Button>
 			<Spacer  x={0.5} y={1} />
 			<Button 
+			size="sm"
 					onClick={handCLickWhatsapp} 
 					style={{width:"20%"}}   
 					color="success" flat 
@@ -669,7 +671,7 @@ const Dashboard = () => {
 				onItemMove={handleItemMove}	
 				resizeDetector={containerResizeDetector}								
 				itemHeightRatio={0.9}                                                             
-				lineHeight={34}
+				lineHeight={28.4}
 				sidebarWidth={225}
 				sidebarContent={<div>Above The Left</div>}
 				itemRenderer={  ItemRenderer}

@@ -46,6 +46,7 @@ const intervalRendererday = ({ getIntervalProps, intervalContext, data }) => {
             left:"13px",
             top: '10px',
             zIndex: 1,
+            fontSize:"10px"
           }}
         >
          <span  className={` day-num ${acum.length === 1  ? "color-day " : ""} `}   > { dayOfWeek}</span>   

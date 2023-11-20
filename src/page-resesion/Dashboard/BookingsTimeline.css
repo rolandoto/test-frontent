@@ -240,12 +240,14 @@
   color: inherit;
   margin: 0px;
   border: green;
-  border: solid 1px #c5c5c5;
+
   border-radius: 8px;
   height: 100px;
   width: 100%;
   padding: 11px;
   margin-top: 6px;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 6px 16px;
+  border-color: #DDDDDD;
 }
 .pr {
   margin-top: 10px;
@@ -315,7 +317,7 @@ hr.border {
 }
 
 .two {
-  margin-top: 10px !important;
+  margin-top: 29px !important;
 }
 
 .codigo-reservation {
@@ -577,13 +579,13 @@ hr.border {
 .color-detail-room {
 }
 .font-room {
-  font-size: 12px;
+  font-size: 10px;
   font-weight: 400;
   width: 10px;
 }
 
 .text-words {
-  font-size: 13px;
+  font-size: 10px;
   font-weight: 400;
 }
 

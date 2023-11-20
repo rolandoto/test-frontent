@@ -830,14 +830,14 @@ const  handleClickEliminar =UseModalText({handlModal:hanDelete,Text:"Estas segur
                       title="Completa todos los campos por favor" />
 
           <div className="container-detail-dasboard-in-one" >
-              <div  style={{background:"#ebebeb"}}  className="border-detail " > 
+              <div    className="border-detail " > 
                    <span className="negrita-detail-reserva" >{day} noches</span>
 
                    <span>Valor noche:</span>
                    <span className="negrita-detail-reserva"> {toPriceNigth.price}</span>
               </div>
 
-              <div  style={{background:"#ebebeb"}} className="border-detail"   >
+              <div  className="border-detail"   >
                    <span>Total hospedaje:</span>
                    <span className="negrita-detail-reserva" >{valor_habitacion}</span>
               </div>
@@ -847,7 +847,7 @@ const  handleClickEliminar =UseModalText({handlModal:hanDelete,Text:"Estas segur
               </div>
               
 
-               <div  style={{background:"#ebebeb"}} className="border-detail" >
+               <div className="border-detail" >
                   <span>habitacion:</span>
                    <span className="negrita-detail-reserva"  >{resultFinish?.nombre} {resultDashboard.Numero}</span>
               </div>
@@ -857,7 +857,7 @@ const  handleClickEliminar =UseModalText({handlModal:hanDelete,Text:"Estas segur
                   <span className="negrita-detail-reserva" >   <VscVerified     className="text-center-icon"   fontSize={30} color="white"  />web check in realizado</span>
               </div>) :  null  } 
 
-              <div  style={{background:"#ebebeb"}} className="border-detail" >
+              <div   className="border-detail" >
                   <span>Abono:</span>
                    <span className="negrita-detail-reserva" >{valor_abono}</span>
               </div>

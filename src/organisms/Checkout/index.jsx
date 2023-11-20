@@ -385,11 +385,9 @@ const CheckoutOrganism =({DetailDashboard,postDetailRoom,fetchDataApiWhatsapp}) 
 
     const valorTotalIva = totalIvaPerson +ivaOne ;
 
-    const formatoIva = ivaOne.toLocaleString();
-    console.log({ivaOne})
-    console.log({numOne})
+    const formatoIva = resultDashboard.Iva === 1 ? ivaOne.toLocaleString() : 0;
 
-    var formatteOne = totalStore.toLocaleString();
+    var formatteOne =   totalStore.toLocaleString();
 
     const [factura,setFactura] = useState(false)    
 
@@ -618,13 +616,13 @@ const CheckoutOrganism =({DetailDashboard,postDetailRoom,fetchDataApiWhatsapp}) 
                                            
                                             {filterSearch?.id !=5  ? 
                                             <div className="to-hospedaje-one" >
-                                                <span className="negrita"  >Iva: </span><span>{formatoIva}</span>
+                                                <span className="negrita"  >Iva: </span><span>{ivaOne.toLocaleString()}</span>
                                             </div>
                                             : null}
 
                                                 {filterSearch?.id !=5  ? 
                                             <div className="to-hospedaje-one" >
-                                                <span className="negrita"  >Valor total:</span> <span>{valorTotalIva.toLocaleString()} </span>
+                                                <span className="negrita"  >Valor total:</span> <span>{valorTotalIva?.toLocaleString()} </span>
                                             </div>
                                               : null}
                                             
@@ -698,7 +696,7 @@ const CheckoutOrganism =({DetailDashboard,postDetailRoom,fetchDataApiWhatsapp}) 
                     {comprobante && <FacturaCompany Room={resultFinish}
                         validFilterSearch={validFilterSearch}
                         formattedNum={formattedNum}
-                        formatoIva={formatoIva}
+                        formatoIva={ivaOne.toLocaleString()}
                         valorTotalIva={valorTotalIva}
                         Valor_dia_habitacion={resultDashboard}
                         resultFinish={resultFinish}
@@ -724,6 +722,9 @@ const CheckoutOrganism =({DetailDashboard,postDetailRoom,fetchDataApiWhatsapp}) 
               {invoince  && <Invoince           
                                         resultDashboard={resultDashboard}
                                         tienda={false}
+                                        formatoIva={formatoIva}
+                                        formattedNum={formattedNum}
+                                        valorTotalIva={valorTotalIva}
                                         sinIvaCart={sinIvaCart}
                                         dataCount={dataCount}
                                         setInvoice={handCloseInvoince} 
@@ -847,7 +848,7 @@ const CheckoutOrganism =({DetailDashboard,postDetailRoom,fetchDataApiWhatsapp}) 
                                             </div>
                                           
                                             <div className="to-hospedaje-one" >
-                                                <span className="negrita"  >Valor total:</span> <span>{valorTotalIva.toLocaleString()} </span>
+                                                <span className="negrita"  >Valor total:</span> <span>{valorTotalIva?.toLocaleString()} </span>
                                             </div>
                                         </div> }
 
