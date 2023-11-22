@@ -13,6 +13,8 @@ import moment from "moment";
 const TemplateSearch =() =>{
     const {jwt} =useContext(AutoProvider)
     const [username,setUsername] =useState("")
+    const [fechaDesdeFiltro,setfechaDesdeFiltro] =useState("")
+    const [fechaHastaFiltro,setfechaHastaFiltro] =useState("")
     const [loading,setLoading] =useState(false)
     const history = useHistory()
 
@@ -23,22 +25,44 @@ const TemplateSearch =() =>{
         history.push("/Createreservaction")
     }
 
-    const filtrarSearching =(terminoBusqueda) =>{
-        let resultadosBusqueda= Items?.filter((elemento,index)=>{
-            if(elemento.name?.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
-            || elemento.document?.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
-            || elemento.Codigo_Reserva?.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
-            || elemento.full_name?.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
-            ){
-            return elemento;
+    const filtrarSearching = (terminoBusqueda, fechaDesde, fechaHasta) => {
+        let resultadosBusqueda = Items?.filter((elemento, index) => {
+            // Filtrar por término de búsqueda
+            const condicionBusqueda = elemento.name?.toString().toLowerCase().includes(terminoBusqueda.toLowerCase()) ||
+                                      elemento.document?.toString().toLowerCase().includes(terminoBusqueda.toLowerCase()) ||
+                                      elemento.Codigo_Reserva?.toString().toLowerCase().includes(terminoBusqueda.toLowerCase()) ||
+                                      elemento.full_name?.toString().toLowerCase().includes(terminoBusqueda.toLowerCase());
+    
+            // Filtrar por rango de fechas
+            let condicionFechas = true;
+            if (fechaDesde && fechaHasta) {
+                const fechaInicio = moment(elemento.start_time).utc().format('YYYY/MM/DD');
+                const fechaFin = moment(elemento.start_time).utc().format('YYYY/MM/DD');
+                condicionFechas = moment(fechaInicio).isBetween(moment(fechaDesde), moment(fechaHasta), null, '[]') ||
+                                  moment(fechaFin).isBetween(moment(fechaDesde), moment(fechaHasta), null, '[]');
             }
+    
+            // Retornar elemento si cumple con ambas condiciones
+            return condicionBusqueda && condicionFechas;
         });
-       return {resultadosBusqueda}
-    }
+    
+        return { resultadosBusqueda };
+    };
+    
+
+    
 
 
     const handChange =(e) =>{
         setUsername(e.target.value)
+    }
+
+    const handChangeDesde  =(e) =>{
+        setfechaDesdeFiltro(e.target.value)
+    }
+
+    const handChangeHasta  =(e) =>{
+        setfechaHastaFiltro(e.target.value)
     }
 
     const handHistory =(e) =>{
@@ -58,8 +82,7 @@ const TemplateSearch =() =>{
     }
 
 
-   const {resultadosBusqueda} = filtrarSearching(username)  
-
+const {resultadosBusqueda} = filtrarSearching(username, fechaDesdeFiltro, fechaHastaFiltro);
 
    if(!resultadosBusqueda) return null
 
@@ -78,6 +101,24 @@ const TemplateSearch =() =>{
                                         onChange={handChange}   
                                         placeholder="No Documento,No reservas o Nombre" />
                             </li>   
+                            <li>
+                                <label className="title-stores">Desde:</label>
+                                <input  className="input-stores-personality-nine-search-One"  
+                                        name="Ciudad"
+                                        type="date"
+                                        value={fechaDesdeFiltro}
+                                        onChange={handChangeDesde}   
+                                        placeholder="No Documento,No reservas o Nombre" />
+                            </li>   
+                            <li>
+                                <label className="title-stores">Hasta</label>
+                                <input  className="input-stores-personality-nine-search-One"  
+                                        name="Ciudad"
+                                        type="date"
+                                        value={fechaHastaFiltro}
+                                        onChange={handChangeHasta}   
+                                        placeholder="No Documento,No reservas o Nombre" />
+                            </li>   
                     </ul>
                 </div>
               
@@ -85,7 +126,6 @@ const TemplateSearch =() =>{
                     <tbody class="tbody"  > 
                 <thead >
                 <tr>
-                        <th></th>
                         <th>Nombre</th>
                         <th>Apellido</th>
                         <th>Fecha entrada</th>
@@ -96,7 +136,6 @@ const TemplateSearch =() =>{
                         <th>Prefijo</th>
                         <th>Celular</th>
                         <th>Nacionalidad</th>
-                        <th>Medio</th>
                         <th>Opciones</th>
                     </tr>
                 </thead>
@@ -111,31 +150,49 @@ const TemplateSearch =() =>{
 
                      const abono = parseInt(index?.abono)
 
-                     const ID_Canal = parseInt(index?.abono)
-
                     if(index.state ==0)
-                        console.log("Información de depuración para el elemento actual:", index);
+                       if(index.abono > 0){
                         return (
-                        <tr className="" >
-                            <td> </td>
-                            <td>{index.name}</td>
-                            <td>{index.last_name}</td>
-                            <td> Desde {desde}</td>
-                            <td> Hasta {hasta}</td>
-                            <td>{index.Codigo_Reserva}</td>
-                            <td>${abono.toLocaleString()}</td>
-                            <td>${valor_habitacion.toLocaleString()}</td>
-                            <td>{index.codigo}</td>
-                            <td>{index.Celular}</td>
-                            <td>{index.nacionalidad}</td>
-                            <td>$prueba</td>
-                            <td>
-                            <button className="button-dasboard-thre-search-view"  onClick={() => handHistory(index.id)} >
-                                        <span>ver</span> 
-                                </button>
-                            </td>
-                     </tr>
-                    )} 
+                            <tr className="pay-reservation-search"   >
+                                <td  >{index.name}</td>
+                                <td >{index.last_name}</td>
+                                <td> Desde {desde}</td>
+                                <td> Hasta {hasta}</td>
+                                <td>{index.Codigo_Reserva}</td>
+                                <td>${abono.toLocaleString()}</td>
+                                <td>${valor_habitacion.toLocaleString()}</td>
+                                <td>{index.codigo}</td>
+                                <td>{index.Celular}</td>
+                                <td>{index.nacionalidad}</td>
+                                <td>
+                                <button className="button-dasboard-thre-search-view"  onClick={() => handHistory(index.id)} >
+                                            <span>ver</span> 
+                                    </button>
+                                </td>
+                         </tr>
+                        )
+                       }else{
+                        return (
+                            <tr className=""  >
+                                <td  >{index.name}</td>
+                                <td>{index.last_name}</td>
+                                <td> Desde {desde}</td>
+                                <td> Hasta {hasta}</td>
+                                <td>{index.Codigo_Reserva}</td>
+                                <td>${abono.toLocaleString()}</td>
+                                <td>${valor_habitacion.toLocaleString()}</td>
+                                <td>{index.codigo}</td>
+                                <td>{index.Celular}</td>
+                                <td>{index.nacionalidad}</td>
+                                <td>
+                                <button className="button-dasboard-thre-search-view"  onClick={() => handHistory(index.id)} >
+                                            <span>ver</span> 
+                                    </button>
+                                </td>
+                         </tr>
+                        )
+                       }
+                       } 
                   )}
                   </tbody>
             </table>

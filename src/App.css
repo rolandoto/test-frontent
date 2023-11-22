@@ -333,3 +333,8 @@ input{
 .react-calendar-timeline .rct-day.rct-day-weekend {
   background-color: transparent !important;
 }
+
+.pay-reservation-search >td{
+  background:#17c964 ;
+  color: white;
+}
