@@ -398,7 +398,7 @@ const DetailDasboard =(props) =>{
     const [inputPayValue, setInputPayValue] = useState({
       ID_pago:resultDashboard?.ID_pago,
       ID_Reserva: id,
-      PayAbono: 0,
+      PayAbono: "",
       Fecha_pago: now,
       Tipo_forma_pago: null,
       Nombre_recepcion:jwt.result.name
@@ -613,7 +613,6 @@ const priceLenceria = Lenceria?.reduce((acum,current) => {
   const hanDelete =() =>{
     if(parseInt(resultDashboard.valor_abono) <=0){
       ServiDelteReservation({id}).then(index =>{  
-        postDetailRoom({id:resultDashboard?.ID_Habitaciones,ID_estado_habitacion:0})
         ServiceInfomeMovimiento({Nombre_recepcion:jwt.result.name,Fecha:now,Movimiento:`Reserva eliminada tipo habitacion ${resultFinish?.nombre} ${resultDashboard.Numero} nombre ${resultDashboard.Nombre} codigo reserva ${id} `,id:jwt.result.id_hotel}).then(index =>{
           socket.emit("sendNotification",message);
           history.push("/home")
@@ -950,7 +949,7 @@ const  handleClickEliminar =UseModalText({handlModal:hanDelete,Text:"Estas segur
                         onChange={handleInputPay}
                         type="number"
                         value={inputPayValue.PayAbono}
-                       
+                          placeholder="abono"
                       className={`desde-detail-twophoto  ${errorAbono ? "error-solicitud" : "" } `} />        
                 <div>
                   <Tooltip content={"Agregar pago sin coma, ni punto "} style={{color:"white"}} >

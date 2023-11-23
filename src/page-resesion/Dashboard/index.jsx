@@ -267,6 +267,8 @@ const Dashboard = () => {
 
 	  };
 
+	  
+
       const handleItemMove = (itemId, dragTime, newGroupOrder) => {
 		let dragTimeOne =0
 		let ID_Habitaciones = 0
@@ -451,6 +453,7 @@ const Dashboard = () => {
 };
 
 	const ResutlRoom = filterRooms(Room,raiting)
+	console.log(ResutlRoom)
 	//const totalResult = UseGroupsRooms(ResutlRoom,numberSave)
 /**
  * <Modal

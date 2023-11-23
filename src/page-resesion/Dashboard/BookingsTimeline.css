@@ -880,3 +880,20 @@ hr.border {
     border-color: #DDDDDD !important;
     box-shadow: rgb(0 0 0 / 33%) 0px 6px 16px !important;
 }
+
+.custom-axis-class {
+  background-color: #f0f0f0; /* Cambia el color de fondo según tus preferencias */
+  /* Otros estilos personalizados para el eje vertical */
+}
+
+/* Estilos personalizados para la línea vertical */
+.custom-line-class {
+  border-left: 2px solid #007bff; /* Cambia el color y el grosor de la línea según tus preferencias */
+  /* Otros estilos personalizados para la línea vertical */
+}
+
+/* Estilos personalizados para el marcador vertical */
+.custom-marker-class {
+  background-color: #007bff; /* Cambia el color del marcador según tus preferencias */
+  /* Otros estilos personalizados para el marcador vertical */
+}
