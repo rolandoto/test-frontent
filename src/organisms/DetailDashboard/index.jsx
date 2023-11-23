@@ -482,8 +482,13 @@ const DetailDasboard =(props) =>{
   const total_Cobrar = resultDashboard?.valor_habitacion - resultDashboard?.valor_abono
   const cobrar =  parseInt( resultDashboard?.valor_habitacion) - parseInt(resultDashboard?.valor_abono)
 
-  const totalPrice =  DetailDashboard.reduce((acum,item)  =>  acum  + parseInt(item.valor_habitacion) - parseInt(item.valor_abono) - parseInt(inputPayValue.PayAbono),0) 
-
+  const totalPrice = DetailDashboard.reduce((acum, item) => {
+    const valorHabitacion = parseInt(item.valor_habitacion) || 0;
+    const valorAbono = parseInt(item.valor_abono) || 0;
+    const payAbono = parseInt(inputPayValue.PayAbono) || 0;
+  
+    return acum + valorHabitacion - valorAbono - payAbono;
+  }, 0);
   console.log(totalPrice)
 
   const totaCobrar  =  totalPrice  ? totalPrice : 0
@@ -796,6 +801,9 @@ const hanClickLimpia =async() => {
   }
 }
 
+
+console.log(totalPrice)
+
 const  handComprobante =UseModalText({handlModal:hancPdf,Text:"Descargar comprobante reserva?"})
 const  hanclickEditar =UseModalText({handlModal:state ?handChangeSave :handChangeEdit,Text:"Editar la informacion de la reserva?"})
 const  handleClickEliminar =UseModalText({handlModal:hanDelete,Text:"Estas seguro de eliminar la reserva ?"})
@@ -841,8 +849,8 @@ const  handleClickEliminar =UseModalText({handlModal:hanDelete,Text:"Estas segur
                    <span className="negrita-detail-reserva" >{valor_habitacion}</span>
               </div>
            
-              <div  style={{background:`${totalPrice <=0 ? "#17c964" : "#f21361" }`,color:"white"}} className="border-detail" >
-                   {totalPrice <= 0 ?  <span className="negrita-detail-reserva" >   <BsCheckCircle  className="text-center-icon"   fontSize={25} color="white"  />Pagado</span> : <span className="negrita-detail-reserva" >   <CiBadgeDollar  className="text-center-icon"   fontSize={45} color="white"  />  ${cobrar.toLocaleString()}</span>   }   
+              <div  style={{background:`${totalPrice ==0 ? "#17c964" : "#f21361" }`,color:"white"}} className="border-detail" >
+                   {totalPrice == 0 ?  <span className="negrita-detail-reserva" >   <BsCheckCircle  className="text-center-icon"   fontSize={25} color="white"  />Pagado</span> : <span className="negrita-detail-reserva" >   <CiBadgeDollar  className="text-center-icon"   fontSize={45} color="white"  />  ${cobrar.toLocaleString()}</span>   }   
               </div>
               
 
@@ -947,7 +955,7 @@ const  handleClickEliminar =UseModalText({handlModal:hanDelete,Text:"Estas segur
                 </select>
               <input   name="PayAbono"
                         onChange={handleInputPay}
-                        type="number"
+                        type="text"
                         value={inputPayValue.PayAbono}
                           placeholder="abono"
                       className={`desde-detail-twophoto  ${errorAbono ? "error-solicitud" : "" } `} />        
