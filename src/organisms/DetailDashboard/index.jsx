@@ -955,7 +955,7 @@ const  handleClickEliminar =UseModalText({handlModal:hanDelete,Text:"Estas segur
                 </select>
               <input   name="PayAbono"
                         onChange={handleInputPay}
-                        type="text"
+                        type="number"
                         value={inputPayValue.PayAbono}
                           placeholder="abono"
                       className={`desde-detail-twophoto  ${errorAbono ? "error-solicitud" : "" } `} />        
