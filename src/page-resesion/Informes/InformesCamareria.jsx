@@ -48,8 +48,22 @@ const InformeCamareria =() =>{
         handlePrint()
       }
 
-      
-      console.log(camareria)
+      const initialValue = 0;
+       
+        const countNino = camareria?.reduce((accumulator, currentValue) => {
+            if (currentValue.ID_Tipo_Estados_Habitaciones === 3) {
+                return accumulator + currentValue.Ninos;
+            }
+            return accumulator;  // Asegúrate de devolver el acumulador en todos los casos
+        }, initialValue);
+
+        const countAdultos = camareria?.reduce((accumulator, currentValue) => {
+            if (currentValue.ID_Tipo_Estados_Habitaciones === 3) {
+                return accumulator + currentValue.Adultos;
+            }
+            return accumulator;  // Asegúrate de devolver el acumulador en todos los casos
+        }, initialValue);
+     
     return (
         <ContainerGlobal>
                <LoadingDetail  
@@ -128,7 +142,9 @@ const InformeCamareria =() =>{
                         }
                        
                     })}
-                        
+                <td>Total Adultos : {countNino} </td>   
+                <td>Total Niño : {countAdultos} </td>    
+                <td>Total total : {countAdultos +countNino} </td>    
                      
                 </tbody>
 

@@ -81,8 +81,11 @@ const TemplateSearch =() =>{
         })
     }
 
-
+   
 const {resultadosBusqueda} = filtrarSearching(username, fechaDesdeFiltro, fechaHastaFiltro);
+
+console.log(resultadosBusqueda)
+
 
    if(!resultadosBusqueda) return null
 
@@ -125,7 +128,8 @@ const {resultadosBusqueda} = filtrarSearching(username, fechaDesdeFiltro, fechaH
                  <table  className="de"  >
                     <tbody class="tbody"  > 
                 <thead >
-                <tr>
+                <tr>    
+                        <th>Habitacion</th>
                         <th>Nombre</th>
                         <th>Apellido</th>
                         <th>Fecha entrada</th>
@@ -154,6 +158,7 @@ const {resultadosBusqueda} = filtrarSearching(username, fechaDesdeFiltro, fechaH
                        if(index.abono > 0){
                         return (
                             <tr className="pay-reservation-search"   >
+                                <td>{index.Num_Room}</td>
                                 <td  >{index.name}</td>
                                 <td >{index.last_name}</td>
                                 <td> Desde {desde}</td>
