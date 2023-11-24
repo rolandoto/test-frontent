@@ -57,17 +57,15 @@ const InformeCamareria =() =>{
                         titleLoading={"Informe  Camareria"}  />
 
             <div>
-                <input type="date" className="input-selecto-dasboard-n1-reservaction"  onChange={hadChangeFecha}    />
-                <br />
-                <br />
                 <button className="button-informe-camareria-cosultar" onClick={hanLookingFor} >Consultar</button>
-                {camareria?.length>0 && <button className="button-informe-camareria-descargar"  onClick={handClikcDescargar} >Reporte camareras</button>}
-                {camareria?.length>0 &&<button className="button-informe-imprimir"  ><a href="#" onClick={printDoc}>
+                <br />
+                <br />
+                {camareria?.length>0 &&<button className="button-informe-camareria-cosultarBlck" onClick={printDoc}>
                     Imprimir
-                </a></button>}
+                </button>}
             </div>
             {camareria?.length>0 &&
-            <table className="de"  ref={componentRef} >
+            <table  ref={componentRef} >
                 <tbody>
                     <tr>    
                         <th>Habitacion</th>
@@ -76,108 +74,61 @@ const InformeCamareria =() =>{
                         <th>Estado</th>
                         <th>Salida prevista</th>
                         <th>Huesped</th> 
-                        <th>Observaciones</th>
                     </tr>
-                        {camareria?.map(index =>{
-                          let startDateOne = new Date(index.Fecha_final);
-                          let monthOne = startDateOne.toLocaleString("default", { month: "long" });
-                          let mesOne = startDateOne.getDate()
-                          let yearOne = startDateOne.getFullYear()
+                    {camareria?.map((index) =>{
 
-                          if(index.ID_Tipo_Estados_Habitaciones==0){
+                        const validOcupied =index.ID_Tipo_Estados_Habitaciones
+
+                        const fechaEnd =moment(index.Fecha_final).utc().format('YYYY/MM/DD')
+                        console.log(index)
+                   
+                        if(validOcupied ==3){
                             return (
-                                
-                                <tr >
-                                    <td className="width-informe Reservada-camareria" >{index.Numero}</td  >
-                                    <td className="width-informe Reservada-camareria " >{index.Adultos}</td>
-                                    <td className="width-informe  Reservada-camareria" >{index.Ninos}</td>
-                                    <td className="width-informe  Reservada-camareria" >Reservada</td>
-                                    <td className="width-informe Reservada-camareria" >{mesOne}-{monthOne}</td>
-                                    <td className="width-informe Reservada-camareria" >{index.nombre} {index.Apellido}</td>
-                                    <td className="width-informe Reservada-camareria" ></td>
-                                </tr>  
-                               )
-                            } if(index.ID_Tipo_Estados_Habitaciones==2){
-                                return (
-                                    <tr>
-                                        <td className="width-informe bloqueada-camarera" >{index.Numero}</td  >
-                                        <td className="width-informe bloqueada-camarera" >{index.Adultos}</td>
-                                        <td className="width-informe bloqueada-camarera" >{index.Ninos}</td>
-                                        <td className="width-informe bloqueada-camarera" >Bloqueada</td>
-                                        <td className="width-informe bloqueada-camarera" >{mesOne}-{monthOne}</td>
-                                        <td className="width-informe bloqueada-camarera" >{index.nombre} {index.Apellido}</td>
-                                        <td className="width-informe bloqueada-camarera" ></td>
-                                    </tr>  
-                                   )
-                                }if(index.ID_Tipo_Estados_Habitaciones==3){
-                                return (
-                                    <tr>
-                                        <td className="width-informe Ocupada-camareria" >{index.Numero}</td  >
-                                        <td className="width-informe Ocupada-camareria" >{index.Adultos}</td>
-                                        <td className="width-informe Ocupada-camareria" >{index.Ninos}</td>
-                                        <td className="width-informe Ocupada-camareria" >Ocupada</td>
-                                        <td className="width-informe Ocupada-camareria" >{mesOne}-{monthOne}</td>
-                                        <td className="width-informe Ocupada-camareria" >{index.nombre} {index.Apellido}</td>
-                                        <td className="width-informe Ocupada-camareria" ></td>
-                                    </tr>  
-                                   )
-                                }
-
-                                if(index.ID_Tipo_Estados_Habitaciones==1){
-                                    return (
-                                        <tr>
-                                            <td className="width-informe Aseo-camareria " >{index.Numero}</td  >
-                                            <td className="width-informe Aseo-camareria  " >{index.Adultos}</td>
-                                            <td className="width-informe Aseo-camareria  " >{index.Ninos}</td>
-                                            <td className="width-informe Aseo-camareria  " >Check out</td>
-                                            <td className="width-informe Aseo-camareria " >{mesOne}-{monthOne}</td>
-                                            <td className="width-informe Aseo-camareria " >{index.nombre} {index.Apellido}</td>
-                                            <td className="width-informe Aseo-camareria " > </td>
-                                        </tr>  
-                                       )
-                                }
-                                if(index.ID_Tipo_Estados_Habitaciones==5){
-                                    return (
-                                        <tr>
-                                            <td className="width-informe Aseo-camareriaONe " >{index.Numero}</td  >
-                                            <td className="width-informe Aseo-camareriaONe  " >{index.Adultos}</td>
-                                            <td className="width-informe Aseo-camareriaONe  " >{index.Ninos}</td>
-                                            <td className="width-informe Aseo-camareriaONe  " >Aseo</td>
-                                            <td className="width-informe Aseo-camareriaONe " >{mesOne}-{monthOne}</td>
-                                            <td className="width-informe Aseo-camareriaONe " >{index.nombre} {index.Apellido}</td>
-                                            <td className="width-informe Aseo-camareriaONe " > </td>
-                                        </tr>  
-                                       )
-                                }
-                                if(index.ID_Tipo_Estados_Habitaciones==6){
-                                    return (
-                                        <tr>
-                                            <td className="width-informe limpia-camarerar " >{index.Numero}</td  >
-                                            <td className="width-informe limpia-camarerar  " >{index.Adultos}</td>
-                                            <td className="width-informe limpia-camarerar  " >{index.Ninos}</td>
-                                            <td className="width-informe limpia-camarerar  " >Limpia</td>
-                                            <td className="width-informe limpia-camarerar " >{mesOne}-{monthOne}</td>
-                                            <td className="width-informe limpia-camarerar " >{index.nombre} {index.Apellido}</td>
-                                            <td className="width-informe limpia-camarerar " > </td>
-                                        </tr>  
-                                       )
-                                }
-                            else{
-                                return  (
-                                    <tr>
-                                        <td className="width-informe" >{index.Numero}</td  >
-                                        <td className="width-informe" >0</td>
-                                        <td className="width-informe" >0</td>
-                                        <td className="width-informe" >Disponible</td>
-                                        <td className="width-informe" > </td>
-                                        <td className="width-informe" ></td>
-                                        <td className="width-informe" ></td>
-                                    </tr>  
-                                   )
-                            }
-                          
-                           
-                        })}
+                                <tr  >
+                                    <td className="ocupieds span-parrafo" >{index.Numero}</td>
+                                    <td  className="ocupieds span-parrafo"  >{index.Adultos}</td>
+                                    <td  className="ocupieds span-parrafo" >{index.Ninos}</td>
+                                    <td  className="ocupieds span-parrafo" >{index.Estado_Habitacio}</td>
+                                    <td  className="ocupieds span-parrafo" >{fechaEnd}</td>
+                                    <td  className="ocupieds span-parrafo" >{index.nombre}</td>
+                                </tr>
+                            )
+                        }else if(validOcupied ==0){
+                            return (
+                                <tr  >
+                                    <td className="span-parrafo" >{index.Numero}</td>
+                                    <td  className=" span-parrafo"  > </td>
+                                    <td  className=" span-parrafo" ></td>
+                                    <td  className=" span-parrafo" >{index.Estado_Habitacio}</td>
+                                </tr>
+                            )
+                        }
+                        else if(validOcupied ==5){
+                            return (
+                                <tr  >
+                                    <td className="aseo-camarera span-parrafo" >{index.Numero}</td>
+                                    <td  className="aseo-camarera span-parrafo"  > </td>
+                                    <td  className="aseo-camarera span-parrafo" ></td>
+                                    <td  className="aseo-camarera span-parrafo" >{index.Estado_Habitacio}</td>
+                                    <td  className="aseo-camarera span-parrafo" ></td>
+                                    <td  className="aseo-camarera span-parrafo" ></td>
+                                </tr>
+                            )
+                        }else if(validOcupied ==2){
+                            return (
+                                <tr  >
+                                    <td className="block-room span-parrafo" >{index.Numero}</td>
+                                    <td  className="block-room span-parrafo"  > </td>
+                                    <td  className="block-room span-parrafo" ></td>
+                                    <td  className="block-room span-parrafo" >{index.Estado_Habitacio}</td>
+                                    <td  className="block-room span-parrafo" ></td>
+                                    <td  className="block-room span-parrafo" ></td>
+                                </tr>
+                            )
+                        }
+                       
+                    })}
+                        
                      
                 </tbody>
 

@@ -30,6 +30,22 @@
   margin-left: 0px;
 }
 
+.button-informe-camareria-cosultarBlck{
+  padding: 16px;
+  margin: auto;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  background: black;
+  color: white;
+  cursor: pointer;
+  width: 100%;
+  height: auto;
+  margin-left: 0px;
+  text-decoration: none;
+}
+
 .button-informe-camareria- {
   padding: 16px;
   margin: auto;
@@ -238,10 +254,12 @@
 
 .Reservada-camareria {
   background: #ff9990 !important;
+  height: 10px;
 }
 
 .Ocupada-camareria {
   background: rgb(103 183 90);
+  height: 10px;
   color: white;
 }
 
@@ -512,4 +530,26 @@ tr:nth-child(even) {
   border: 0.5px solid #ffffff;
   border-radius: 8px;
   padding: 18px;
+}
+
+
+.span-parrafo{
+  font-size: 10px;
+}
+
+.ocupieds{
+  background: #17c964;
+  color: white;
+  border-radius: 12px;
+}
+
+.aseo-camarera{
+  background: rgba(243, 217, 36, 0.8);
+  color: black;
+  border-radius: 12px;
+}
+
+.block-room{
+  background: #747171;
+  color: white;
 }
