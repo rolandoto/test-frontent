@@ -66,6 +66,12 @@ const Dashboard = () => {
 	const dispatch = useDispatch();
 	const [isChecked, setIsChecked] = useState(false);
 
+	//const resultIdhotel =  jwt.result.id_hotel ="23"
+
+	//localStorage.setItem('jwt', resultIdhotel);
+
+
+
   const handleChange = () => {
     setIsChecked((prevChecked) => !prevChecked);
   };
@@ -73,7 +79,8 @@ const Dashboard = () => {
 	const {getPostByReservation,
 		getRoomByReservation,
 		getRoomFilterRoom,
-		setUpdateFilterReservation
+		setUpdateFilterReservation,
+		setPostInformContabilidad
 	} =useReservationActions()
 
 	const {filterRooms } =UseFilterRooms() 
@@ -87,6 +94,7 @@ const Dashboard = () => {
 			await getPostByReservation({type:isChecked})
 			await getRoomByReservation()
 			await getRoomFilterRoom()
+			await setPostInformContabilidad()
 			
 			} catch (error) {
 				console.error("Error fetching data:", error);
@@ -177,6 +185,10 @@ const Dashboard = () => {
 		{
 			id: 10,
 			name:"Informe movimiento"
+		},
+		{
+			id: 11,
+			name:"Informe contabilidad"
 		}
 	];
 
@@ -205,6 +217,9 @@ const Dashboard = () => {
 		}
 		if(idByHistory ==10){
 			return history.push(`/informeMovimiento`)
+		}
+		if(idByHistory ==11){
+			return history.push(`/InformeContabilidad`)
 		}
 		setInformes(e.target.value)	
 	}

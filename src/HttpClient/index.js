@@ -649,6 +649,26 @@ const occasionalUpdateProductData =({data}) =>{
     });
 }
 
+
+const postInformContabilidad=({id}) =>{
+  return fetch(`${config.serverRoute}/api/resecion/postReservationContabilidad/${id}`, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+  })
+    .then((resp) => {
+      if (!resp.ok) throw new Error("Response is not ok");
+      return resp.json();
+    })
+    .then((resp) => {
+      return resp;
+    });
+}
+
+
+
 export default {
   get,
   post,
@@ -682,5 +702,6 @@ export default {
   PostRoomsOcasional,
   occasionalCartRoomInsertion,
   occasionalRoomDetails,
-  occasionalUpdateProductData
+  occasionalUpdateProductData,
+  postInformContabilidad
 };

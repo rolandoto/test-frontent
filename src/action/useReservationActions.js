@@ -65,8 +65,21 @@ const useReservationActions  =() =>{
         }
     }
 
+    const setPostInformContabilidad =async(id) =>{
+        try {
 
-    
+            const postInformationReservation= await HttpClient.postInformContabilidad({id:jwt.result.id_hotel})
+
+            if(postInformationReservation){
+                dispatch(ReservationSlice.actions.setReservationContabilidad(postInformationReservation?.query))
+            }else{
+                dispatch(ReservationSlice.actions.setError("no found"))
+            }
+
+        } catch (error) {
+            dispatch(ReservationSlice.actions.setError("no found"))
+        }
+    }
 
        
     return  {getPostByReservation,
@@ -74,7 +87,8 @@ const useReservationActions  =() =>{
                 getRoomByReservation,
                 ReservationSlice,
                 getRoomFilterRoom,
-                setUpdateFilterReservation
+                setUpdateFilterReservation,
+                setPostInformContabilidad
             
                         
     }

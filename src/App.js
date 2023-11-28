@@ -67,6 +67,7 @@ import SearchBYID from "./page-resesion/Dashboard/SearchByID";
 import MainCreateRerva from "./page-resesion/Dashboard/MainCreateReservas";
 import HomeTypehospedaje from "./page-resesion/Dashboard/HomeTypeHospedaje";
 import Ocacionales from "./page-resesion/Dashboard/Ocacional";
+import InformeContabilidad from "./page-resesion/Informes/InformeContabilidad";
 
 function App() {
   const { jwt } = useContext(AutoProvider);
@@ -462,6 +463,11 @@ function App() {
                 exact
                 path="/signatureByID/:id"
                 component={SingnatureMaual}
+              />
+               <PrivateRoute
+                exact
+                path="/InformeContabilidad"
+                component={InformeContabilidad}
               />
               <Route component={NoFound} />
             </Switch>

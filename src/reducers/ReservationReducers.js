@@ -6,7 +6,8 @@ const DEFAULT_STATE = {
   filterRoom:[],
   loading: false,
   error: null,
-  Room:[]
+  Room:[],
+  ReservationContabilidad:[]
 };
 
 const initialState = (() => {
@@ -41,6 +42,11 @@ export const ReservationSlice = createSlice({
       state.Room = action.payload;
       state.loading = false;
       console.log({ "---payload actions": state.Room });
+    },
+    setReservationContabilidad:(state,action)=>{
+      state.ReservationContabilidad = action.payload
+      state.loading = false;
+      console.log({ "---payload actions": state.ReservationContabilidad });
     },
     setError: (state, action) => {
       state.loading = false;
