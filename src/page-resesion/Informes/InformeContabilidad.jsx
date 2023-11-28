@@ -4,6 +4,7 @@ import * as XLSX from 'xlsx';
 import { useSelector } from "react-redux";
 import moment from "moment";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import UseDocument from "../../hooks/useDocument";
 
 
 const ExportButton = ({ data, filename }) => {
@@ -39,7 +40,10 @@ const InformeContabilidad = () =>{
         ReservationContabilidad
 	} = useSelector((state) => state.ReservationSlice)
 
+  const  documentUse = UseDocument()
+
     const filterReservation = ReservationContabilidad.map((reservation) => {
+      const tipo_documento = documentUse.document?.find(index =>  index?.ID == reservation?.ID_Tipo_documento)
 
                       const valorRoom = parseInt(reservation.valor_habitacion)
 
@@ -68,16 +72,11 @@ const InformeContabilidad = () =>{
                         const subtotal = formattedNum.toLocaleString()
                         const total =valorTotalIva.toLocaleString()
                         const iva =totalIvaEmpresa
-
-
-
-
-
-          const { Nombre ,Apellido,Num_documento} = reservation;
-          return { Nombre,Apellido,Num_documento,dateStarn ,dateEnd,subtotal,iva,total,Empresa,Persona};
+          const { Nombre ,Apellido,Num_documento,Adultos,Ninos,forma_pago} = reservation;
+          return { Nombre,Apellido,tipo_documento:tipo_documento?.nombre,Num_documento,Adultos,Ninos,dateStarn ,dateEnd,subtotal,forma_pago,iva,total,Empresa,Persona};
         });
 
-    console.log(filterReservation)
+    console.log(ReservationContabilidad)
 
     return(
         <ContainerGlobal>
@@ -90,20 +89,25 @@ const InformeContabilidad = () =>{
                     <tr>    
                         <th>Nombre</th>
                         <th>Apellido</th>
+                        <th>Tipo documento</th>
                         <th>Nit</th>
+                        <th>Adutlos</th>
+                        <th>menores</th>
                         <th>Salida prevista</th>
                         <th>Salida prevista</th>
+                        <th>Forma de pago</th>
                         <th>Sub total</th> 
                         <th>Iva</th>
                         <th>Valor total</th>
                         <th>opciones</th>
                     </tr>
 
-                    {ReservationContabilidad.map((index) =>{
+                    {ReservationContabilidad?.map((index) =>{
 
                         const handClick = () =>{
-                            history.push(`/Checkout/${index.ID_RESERVA}`)
+                            history.push(`/DetailDashboard/${index.ID_RESERVA}`)
                         }
+                        const tipo_documento = documentUse.document?.find(item =>  item?.ID == index?.ID_Tipo_documento)
 
                         const valorRoom = parseInt(index.valor_habitacion)
 
@@ -130,9 +134,13 @@ const InformeContabilidad = () =>{
                             <tr >
                                 <td>{index.Nombre}</td>
                                 <td>{index.Apellido}</td>
+                                <td>{tipo_documento?.nombre}</td>
                                 <td>{index.Num_documento}</td>
+                                <td>{index.Adultos}</td>
+                                <td>{index.Ninos}</td>
                                 <td>{dateStarn}</td>
                                 <td>{dateEnd}</td> 
+                                <td>{index.forma_pago}</td>
                                 <td>{formattedNum.toLocaleString()}</td> 
                                 <td>{totalIvaEmpresa}</td>
                                 <td>{valorTotalIva.toLocaleString()}</td>
