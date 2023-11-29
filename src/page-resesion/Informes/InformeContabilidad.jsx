@@ -1,10 +1,12 @@
-import React, { useState } from "react"
+import React, { useContext, useEffect, useState } from "react"
 import ContainerGlobal from "../../Ui/ContainerGlobal"
 import * as XLSX from 'xlsx';
 import { useSelector } from "react-redux";
 import moment from "moment";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import UseDocument from "../../hooks/useDocument";
+import AutoProvider  from "../../privateRoute/AutoProvider";
+import HttpClient from "../../HttpClient";
 
 
 const ExportButton = ({ data, filename }) => {
@@ -24,6 +26,17 @@ const ExportButton = ({ data, filename }) => {
 
 const InformeContabilidad = () =>{
 
+  const  {jwt} = useContext(AutoProvider)
+  const [ReservationContabilidad,setReservationContabilidad] =useState()
+
+  useEffect(() =>{
+    HttpClient.postInformContabilidad({id:jwt.result.id_hotel}).then(index =>{
+      setReservationContabilidad(index.query)
+    }).catch(e =>{
+      console.log(e)
+    })
+  },[])
+
     const data = [
         {
           "residualsArray": 0,
@@ -36,13 +49,11 @@ const InformeContabilidad = () =>{
 
     const history = useHistory()
 
-    const {loading,error,Items,Room,filterRoom,
-        ReservationContabilidad
-	} = useSelector((state) => state.ReservationSlice)
+
 
   const  documentUse = UseDocument()
 
-    const filterReservation = ReservationContabilidad.map((reservation) => {
+    const filterReservation = ReservationContabilidad?.map((reservation) => {
       const tipo_documento = documentUse.document?.find(index =>  index?.ID == reservation?.ID_Tipo_documento)
 
                       const valorRoom = parseInt(reservation.valor_habitacion)
@@ -72,11 +83,13 @@ const InformeContabilidad = () =>{
                         const subtotal = formattedNum.toLocaleString()
                         const total =valorTotalIva.toLocaleString()
                         const iva =totalIvaEmpresa
-          const { Nombre ,Apellido,Num_documento,Adultos,Ninos,forma_pago} = reservation;
-          return { Nombre,Apellido,tipo_documento:tipo_documento?.nombre,Num_documento,Adultos,Ninos,dateStarn ,dateEnd,subtotal,forma_pago,iva,total,Empresa,Persona};
+          const { Nombre ,Apellido,Num_documento,Ninos,Adultos,forma_pago} = reservation;
+          return { Nombre,Apellido,tipo_documento,Num_documento,Adultos,Ninos,dateStarn ,dateEnd,subtotal,forma_pago,iva,total,Empresa,Persona};
         });
 
     console.log(ReservationContabilidad)
+
+    if(!ReservationContabilidad) return null
 
     return(
         <ContainerGlobal>

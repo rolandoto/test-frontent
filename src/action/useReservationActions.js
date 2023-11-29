@@ -25,7 +25,6 @@ const useReservationActions  =() =>{
         }
     }   
 
-
     const getRoomByReservation  = async() =>{
 
         try {   
@@ -65,7 +64,7 @@ const useReservationActions  =() =>{
         }
     }
 
-    const setPostInformContabilidad =async(id) =>{
+    const setPostInformContabilidad =async() =>{
         try {
 
             const postInformationReservation= await HttpClient.postInformContabilidad({id:jwt.result.id_hotel})

@@ -658,13 +658,13 @@ const postInformContabilidad=({id}) =>{
       "Content-Type": "application/json",
     },
   })
-    .then((resp) => {
-      if (!resp.ok) throw new Error("Response is not ok");
-      return resp.json();
-    })
-    .then((resp) => {
-      return resp;
-    });
+  .then((resp) => {
+    if (!resp.ok) throw new Error("Response is not ok");
+    return resp.json();
+  })
+  .then((resp) => {
+    return resp;
+  });
 }
 
 
