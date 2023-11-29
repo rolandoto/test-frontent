@@ -668,6 +668,25 @@ const postInformContabilidad=({id}) =>{
 }
 
 
+const PostResdianByIdReserva=({id,resdian}) =>{
+  return fetch(`${config.serverRoute}/api/resecion/postChangeResdian`, {
+    method: "POST",
+    body: JSON.stringify({id,resdian}),
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+  })
+  .then((resp) => {
+    if (!resp.ok) throw new Error("Response is not ok");
+    return resp.json();
+  })
+  .then((resp) => {
+    return resp;
+  });
+}
+
+
 
 export default {
   get,
@@ -703,5 +722,6 @@ export default {
   occasionalCartRoomInsertion,
   occasionalRoomDetails,
   occasionalUpdateProductData,
-  postInformContabilidad
+  postInformContabilidad,
+  PostResdianByIdReserva
 };

@@ -136,6 +136,16 @@
     margin: 0;
     }
 
+    .button-dasboard-thre-search-view-ButtonResdian{
+        width: 120px;
+        height: 35px;
+        background: #17c964;
+        border-radius: 8px;
+        color: white;
+        cursor: pointer;
+        margin: 0;
+        }
+
 .imbox-search{
     display: flex;
     align-items: #D9D9D8;

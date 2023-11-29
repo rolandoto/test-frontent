@@ -7,7 +7,7 @@ import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import UseDocument from "../../hooks/useDocument";
 import AutoProvider  from "../../privateRoute/AutoProvider";
 import HttpClient from "../../HttpClient";
-
+import { toast } from "react-hot-toast";
 
 const ExportButton = ({ data, filename }) => {
     const exportToExcel = () => {
@@ -28,14 +28,19 @@ const InformeContabilidad = () =>{
 
   const  {jwt} = useContext(AutoProvider)
   const [ReservationContabilidad,setReservationContabilidad] =useState()
+  const [loading,setloading] =useState(false)
 
   useEffect(() =>{
     HttpClient.postInformContabilidad({id:jwt.result.id_hotel}).then(index =>{
       setReservationContabilidad(index.query)
+
     }).catch(e =>{
       console.log(e)
     })
-  },[])
+  },[loading])
+
+
+ 
 
     const data = [
         {
@@ -120,6 +125,23 @@ const InformeContabilidad = () =>{
                         const handClick = () =>{
                             history.push(`/DetailDashboard/${index.ID_RESERVA}`)
                         }
+
+                        const idReserva =index.ID_RESERVA
+                        const Resdian = 1
+
+                        const handCLickByResdian =() =>{
+                          HttpClient.PostResdianByIdReserva({id:idReserva,resdian:Resdian}).then(index =>{
+                            setloading(!loading)
+                            toast.success("tu solicutd fue enviado exitosamente")
+                          }).catch((e) =>{
+                            toast.error("Error al enviar")
+                            console.log("error")
+                            console.log(e)
+                          })
+                        }
+
+                        console.log(idReserva)
+
                         const tipo_documento = documentUse.document?.find(item =>  item?.ID == index?.ID_Tipo_documento)
 
                         const valorRoom = parseInt(index.valor_habitacion)
@@ -132,7 +154,6 @@ const InformeContabilidad = () =>{
                         const findEmpresa = index?.tipo_persona =="empresa"
 
                         const formatoIva = index.Iva === 1 ? ivaOne.toLocaleString() : 0;
-
 
                         const totalNum = index.Iva == 1 ? totalIvaPerson : valorRoom;
 
@@ -173,12 +194,9 @@ const InformeContabilidad = () =>{
                                           
                                             readOnly={true}
                                             checked={findEmpresa}/> Empresa
-                               
-                                
-                                
-
                                  </td>
                                  <td><button className="button-dasboard-thre-search-view"  onClick={handClick} >Ver reservas</button></td>
+                                 <td><button className="button-dasboard-thre-search-view-ButtonResdian" onClick={() => handCLickByResdian(idReserva,Resdian)} >Enviar factura</button> </td>
                             </tr>
                         )
                     })}
