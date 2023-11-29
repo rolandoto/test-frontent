@@ -79,8 +79,7 @@ const Dashboard = () => {
 	const {getPostByReservation,
 		getRoomByReservation,
 		getRoomFilterRoom,
-		setUpdateFilterReservation,
-		setPostInformContabilidad
+		setUpdateFilterReservation
 	} =useReservationActions()
 
 	const {filterRooms } =UseFilterRooms() 
@@ -94,7 +93,7 @@ const Dashboard = () => {
 			await getPostByReservation({type:isChecked})
 			await getRoomByReservation()
 			await getRoomFilterRoom()
-			await setPostInformContabilidad()
+			
 			
 			} catch (error) {
 				console.error("Error fetching data:", error);
