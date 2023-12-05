@@ -28,11 +28,19 @@ const InformeContabilidad = () =>{
 
   const  {jwt} = useContext(AutoProvider)
   const [ReservationContabilidad,setReservationContabilidad] =useState()
+  const [ReservationContabilidadSeding,setReservationContabilidadSeding] =useState()
   const [loading,setloading] =useState(false)
 
   useEffect(() =>{
     HttpClient.postInformContabilidad({id:jwt.result.id_hotel}).then(index =>{
       setReservationContabilidad(index.query)
+
+    }).catch(e =>{
+      console.log(e)
+    })
+
+    HttpClient.getReservaSendingContabilidad({id:jwt.result.id_hotel}).then(index =>{
+      setReservationContabilidadSeding(index.query)
 
     }).catch(e =>{
       console.log(e)
@@ -98,7 +106,7 @@ const InformeContabilidad = () =>{
 
     return(
         <ContainerGlobal>
-            <h1>contabilidad</h1>
+            <h1>Pendientes</h1>
 
             <ExportButton data={filterReservation} filename="output.xlsx" />
 
@@ -121,6 +129,111 @@ const InformeContabilidad = () =>{
                     </tr>
 
                     {ReservationContabilidad?.map((index) =>{
+
+                        const handClick = () =>{
+                            history.push(`/DetailDashboard/${index.ID_RESERVA}`)
+                        }
+
+                        const idReserva =index.ID_RESERVA
+                        const Resdian = 1
+
+                        const handCLickByResdian =() =>{
+                          HttpClient.PostResdianByIdReserva({id:idReserva,resdian:Resdian}).then(index =>{
+                            setloading(!loading)
+                            toast.success("tu solicutd fue enviado exitosamente")
+                          }).catch((e) =>{
+                            toast.error("Error al enviar")
+                            console.log("error")
+                            console.log(e)
+                          })
+                        }
+
+                        console.log(idReserva)
+
+                        const tipo_documento = documentUse.document?.find(item =>  item?.ID == index?.ID_Tipo_documento)
+
+                        const valorRoom = parseInt(index.valor_habitacion)
+
+                        var totalIvaPerson =valorRoom /1.19;
+                        const ivaOne = totalIvaPerson * 19/100;
+                        const valorTotalIva = totalIvaPerson +ivaOne ;
+
+                        const findPersona =  index?.tipo_persona == "persona"
+                        const findEmpresa = index?.tipo_persona =="empresa"
+
+                        const formatoIva = index.Iva === 1 ? ivaOne.toLocaleString() : 0;
+
+                        const totalNum = index.Iva == 1 ? totalIvaPerson : valorRoom;
+
+                         const formattedNum = index.tipo_persona === "empresa" ? totalIvaPerson : totalNum;
+
+                        const dateStarn =moment(index.Fecha_inicio).utc().format('YYYY/MM/DD')
+                        const dateEnd =moment(index.Fecha_final).utc().format('YYYY/MM/DD')
+
+                        const totalIvaEmpresa = findEmpresa ? ivaOne.toLocaleString() :  formatoIva.toLocaleString()
+
+                        return (
+                            <tr >
+                                <td>{index.Nombre}</td>
+                                <td>{index.Apellido}</td>
+                                <td>{tipo_documento?.nombre}</td>
+                                <td>{index.Num_documento}</td>
+                                <td>{index.Adultos}</td>
+                                <td>{index.Ninos}</td>
+                                <td>{dateStarn}</td>
+                                <td>{dateEnd}</td> 
+                                <td>{index.forma_pago}</td>
+                                <td>{formattedNum.toLocaleString()}</td> 
+                                <td>{totalIvaEmpresa}</td>
+                                <td>{valorTotalIva.toLocaleString()}</td>
+                               
+                                <td> 
+                                <input   type="checkbox" 
+                                        className={`checkbox-round  ${findPersona && "checkbox-round-click"} `}
+                                       
+                                        defaultValue={(e) =>findPersona && (true)}       
+                                        checked={findPersona} /> Persona
+                    
+                                </td>
+                                <td> 
+                              
+                                    <input   type="checkbox" 
+                                            className={`checkbox-round  ${findEmpresa && "checkbox-round-click"} `}
+                                          
+                                            readOnly={true}
+                                            checked={findEmpresa}/> Empresa
+                                 </td>
+                                 <td><button className="button-dasboard-thre-search-view"  onClick={handClick} >Ver reservas</button></td>
+                                 <td><button className="button-dasboard-thre-search-view-ButtonResdian" onClick={() => handCLickByResdian(idReserva,Resdian)} >Enviar factura</button> </td>
+                            </tr>
+                        )
+                    })}
+                   
+                </tbody>
+
+        </table>
+
+        <h1>enviadas</h1>
+
+        <table  className="de" >
+                <tbody>
+                    <tr>    
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>Tipo documento</th>
+                        <th>Nit</th>
+                        <th>Adutlos</th>
+                        <th>menores</th>
+                        <th>Salida prevista</th>
+                        <th>Salida prevista</th>
+                        <th>Forma de pago</th>
+                        <th>Sub total</th> 
+                        <th>Iva</th>
+                        <th>Valor total</th>
+                        <th>opciones</th>
+                    </tr>
+
+                    {ReservationContabilidadSeding?.map((index) =>{
 
                         const handClick = () =>{
                             history.push(`/DetailDashboard/${index.ID_RESERVA}`)

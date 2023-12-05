@@ -667,11 +667,47 @@ const postInformContabilidad=({id}) =>{
   });
 }
 
+const getReservaSendingContabilidad=({id}) =>{
+  return fetch(`${config.serverRoute}/api/resecion/getReservaSendingContabilidad/${id}`, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+  })
+  .then((resp) => {
+    if (!resp.ok) throw new Error("Response is not ok");
+    return resp.json();
+  })
+  .then((resp) => {
+    return resp;
+  });
+}
+
 
 const PostResdianByIdReserva=({id,resdian}) =>{
   return fetch(`${config.serverRoute}/api/resecion/postChangeResdian`, {
     method: "POST",
     body: JSON.stringify({id,resdian}),
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+  })
+  .then((resp) => {
+    if (!resp.ok) throw new Error("Response is not ok");
+    return resp.json();
+  })
+  .then((resp) => {
+    return resp;
+  });
+}
+
+
+const PostSeacrhHotelsByIdHotel=({id,desde,hasta}) =>{
+  return fetch(`${config.serverRoute}/api/hotels//SeacrhHotelsById`, {
+    method: "POST",
+    body: JSON.stringify({id,desde,hasta}),
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
@@ -723,5 +759,7 @@ export default {
   occasionalRoomDetails,
   occasionalUpdateProductData,
   postInformContabilidad,
-  PostResdianByIdReserva
+  PostResdianByIdReserva,
+  PostSeacrhHotelsByIdHotel,
+  getReservaSendingContabilidad
 };
