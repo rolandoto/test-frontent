@@ -41,7 +41,8 @@ const DetailChekingOrganism =({id}) =>{
 
     const [change,setChange] =useState({
         ID_Tipo_Forma_pago:null,
-        Iva:null
+        Iva:null,
+        ID_facturacion:null
     })
 
     const  resulDetailDashboard = DetailDashboard[0]
@@ -54,6 +55,7 @@ const DetailChekingOrganism =({id}) =>{
     const [ninos,setNinos] = useState()
     const [infantes,setInfantes] =useState()
     const [valid,setValid] =useState(true)
+    const [DateEmpresa, setDateEmpresa] = useState();
     
     function handleOnChange(event) {
         setTipoPersona("persona")
@@ -67,10 +69,6 @@ const DetailChekingOrganism =({id}) =>{
         setIsChecked(false);
       }
 
-  
-    const handState =() =>{
-       history.push(`/checkingediatar/${id}`)
-    }
 
     const init  =   moment(resulDetailDashboard?.Fecha_inicio).utc().format('MM/DD/YYYY')
     const fin = moment(resulDetailDashboard?.Fecha_final).utc().format('MM/DD/YYYY')
@@ -114,87 +112,7 @@ const DetailChekingOrganism =({id}) =>{
       const resultFinish = room?.find(index=>index?.id_tipoHabitacion == resulDetailDashboard?.ID_Tipo_habitaciones)
 
       const people = parseInt(resultFinish?.max_persona)
-      const handAdd =() =>{
-        if(quyery.length == people){
-                setStateButton(false)
-        
-        }else if( huespe.length+1 == people){
-            handClickButton()
-        }
-        else{
-            setHuespe([
-                ...huespe,
-                {
-                    Tipo_documento:"",
-                    Num_documento:"",
-                    Nombre:"",
-                    Apellido:"",
-                    Celular:"",
-                    Correo:"",
-                    Fecha_nacimiento:"",
-                    Ciudad:"",
-                    Nacionalidad:""
-                }
-                ])    
-            }
-    }
-
-    const handClickButton =() =>{
-        setStateButton(true)
-    }
-
-    const item  = state ? <span>Editar huespedes</span> : <span>guardar</span>
-
-      const  typy_buy =  [
-        {   
-            id:1,
-            name:"Efectivo",
-        },
-        {
-            id:2,
-            name:"Consignaciones",
-        },
-        {   
-            id:4,
-            name:"Sitio Web",
-        },
-        {   
-            id:5,
-            name:"Payoneer",
-        },
-        {   
-            id:6,
-            name:"T.Debito",
-        },
-        {   
-            id:7,
-            name:"T.Credito",
-        },
-        {   
-            id:8,
-            name:"Hotel Beds",
-        },
-        {   
-            id:9,
-            name:"Despegar",
-        },
-        {   
-            id:10,
-            name:"Price Travel",
-        },
-        {   
-            id:11,
-            name:"Link de pago",
-        },
-        {   
-            id:12,
-            name:"Expedia",
-        },
-        {   
-            id:13,
-            name:"Mixto",
-        },
-        ]
+     
 
         const  tarifa =  [
             {   
@@ -213,7 +131,7 @@ const DetailChekingOrganism =({id}) =>{
                 [event.target.name]:event.target.value
             })
         }
-    
+        
    
     let data ={
         Adultos:adultos,
@@ -253,6 +171,11 @@ const DetailChekingOrganism =({id}) =>{
         fetch( `${config.serverRoute}/api/resecion/getcountry`)
         .then(resp => resp.json())
         .then(data=> setCountry(data))
+
+         
+       fetch(`${config.serverRoute}/api/resecion/getFacturacion`)
+      .then(index=> index.json())
+      .then(data =>setDateEmpresa(data.query))
     },[])
 
     const e = parseInt(resulDetailDashboard?.Adultos) +  parseInt(resulDetailDashboard?.Infantes)+ parseInt(resulDetailDashboard?.Ninos)
@@ -335,8 +258,11 @@ const DetailChekingOrganism =({id}) =>{
 
     let dataTwo = {
         Tipo_persona: tipoPersonas,
-        Iva: totalId ? 2 : change.Iva
+        Iva: totalId ? 2 : change.Iva,
+        ID_facturacion:change.ID_facturacion ? change.ID_facturacion :resulDetailDashboard.ID_facturacion
     };
+
+    console.log({tipoPersonas})
 
     const hanClickingn2 =() =>{
         if(change.Iva== null){
@@ -463,9 +389,7 @@ const DetailChekingOrganism =({id}) =>{
                                     />
                         </div>
                     </form>
-
                     {quyery?.map(index => {
-
                         const find  = tipoDocumento?.find(item=> parseInt(item?.ID) == index?.ID_Tipo_documento )
                         const nacimiento = moment(index?.Fecha_nacimiento).utc().format('YYYY/MM/DD')
                         return (
@@ -699,6 +623,25 @@ const DetailChekingOrganism =({id}) =>{
                         </div>
                         }
 
+                    {tipoPersonas =="empresa"  && ( <div className="container-checkbox" >
+                        <select onChange={handleInputChange}  
+                                            required
+                                            name="ID_facturacion"
+                                            className='select-hotel-type-rooms-finis-dasboard-finish-one ote'>
+                            <option>Selecione empresa</option>
+                            {DateEmpresa?.map(category =>(
+                                <option 
+                                value={category.id}   
+                                key={category}
+                            >
+                                {category.name_people }
+                            </option>
+                            )
+                            )}  
+                        </select>  
+                    </div>  
+                    )}
+
                         <div className="container-checkbox" >
                         <select onChange={handleInputChange}  
                                             required
@@ -719,12 +662,10 @@ const DetailChekingOrganism =({id}) =>{
 
             
             <div className="container-checkbox"  style={{width:"37%",height:"20%"}}   >
-                        <button
-                       
-                        onClick={hanClickingn2}
-                        
-                    className="button-checking-detail-one-das-one-fins"
-                    color="success" > <span  className="text-words" >Continuar</span> </button>
+                <button
+                onClick={hanClickingn2}
+                className="button-checking-detail-one-das-one-fins"
+                color="success" > <span  className="text-words" >Continuar</span> </button>
                 </div>
             </div>
                 <div className="container-flex-init-one-row" >  

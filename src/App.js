@@ -86,7 +86,6 @@ function App() {
               <PrivateRoute exact path="/UploadPopUp" component={UploadPopUp} />
               <PrivateRoute exact path="/TarifasReservation/:id" component={TarifasReservation} />
               <PrivateRoute exact path="/Hotels" component={Hotels} />
-
               <PrivateRoute
                 exact
                 path="/DetailBedRoom/:id"

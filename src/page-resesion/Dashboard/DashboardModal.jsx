@@ -18,6 +18,7 @@
     import useProgress from "../../hooks/useProgress";
     import LineProgress from "../../Ui/LineProgress";            
     import io from "socket.io-client";
+import HttpClient from "../../HttpClient";
 
     const socket = io.connect("https://railway.grupo-hoteles.com");
 
@@ -80,6 +81,9 @@ const DashboardModal = (props) => {
         const [asignar,setAsignar] =useState()
         const [decuento,setDescuento] =useState(0)
         const [createReservation,setCreateReservation] = useState(false)
+        const [idEmpresa,setIdEmpresa] =useState()
+
+        
 
         const now = moment().format("YYYY/MM/DD h:mm:ss")
 
@@ -110,8 +114,13 @@ const DashboardModal = (props) => {
             toggleCloseDashboard()
         }
 
-        const totalId = jwt.result.id_hotel == 7 ? true : false
-	
+        
+        let totalId = false;
+
+        if (jwt.result.id_hotel == 7 || jwt.result.id_hotel == 3 || jwt.result.id_hotel == 4 || jwt.result.id_hotel == 23 || jwt.result.id_hotel == 5 || jwt.result.id_hotel == 6 || jwt.result.id_hotel == 12 ) {
+            totalId = true;
+        }
+        
         const [change,setChange] =useState({
             desde:fechaOne,
             hasta:fechaTwo,
@@ -136,8 +145,8 @@ const DashboardModal = (props) => {
             abono:0,
             descuento:null,
             valor:null,
+            factutacion:0
         })
-
 
         const fechaInicio = new  Date(fechaOne).getTime()
 
@@ -302,9 +311,15 @@ const DashboardModal = (props) => {
             .then(index=> index.json())
             .then(data =>setDisponibilidad(data))
 
+            fetch(`${config.serverRoute}/api/resecion/getFacturacion`)
+            .then(index=> index.json())
+            .then(data =>setIdEmpresa(data.query))   
+
             ServicetypeRooms({id:jwt.result.id_hotel}).then(index =>{
               setRoom(index)
           })
+
+        
           
         },[fecha,setRoom])
 
@@ -399,8 +414,6 @@ const DashboardModal = (props) => {
         const resultValuePersona = findRoom?.precio_persona * aditional *  ResultDay
         const totalResultglobal =  PriceDay *countSeguro + count - change.abono -decuento
 
-        console.log(totalResultglobal)
-
         const valor_habiatcion =  PriceDay *countSeguro + count -decuento
 
         const global  = formatter.format(totalResultglobal)
@@ -491,10 +504,9 @@ const DashboardModal = (props) => {
        
       
           const handClickReservation = async () => {
-            console.log(huespe)
             if(huespe.every(isValidGuest)){
                 setLoadingReservation({loading:true})
-                ServiceAvaiblereservation({desde:dataAvaible.desde,hasta:dataAvaible.hasta,habitaciones:dataAvaible.habitaciones,disponibilidad:dataAvaible.disponibilidad,id_estados_habitaciones:0,ID_Canal:change.canal_reserva,Adultos:change.adultos,Ninos:change.niños,ID_Talla_mascota:change.talla_perro,Infantes:change.infantes,Noches:ResultDay,huespe,Observacion:change.observacion,valor:totalResultglobal,ID_Tipo_Forma_pago:change.ID_Tipo_Forma_pago,abono:change.abono,valor_habitacion:valor_habiatcion,Tipo_persona:"sdasdsa",valor_dia_habitacion:default_Value,resepcion:jwt.result.name,link:"https://test-frontent-n9ec.vercel.app/webchecking",id_hotel:jwt.result.id_hotel,nowOne}).then(index =>{
+                ServiceAvaiblereservation({desde:dataAvaible.desde,hasta:dataAvaible.hasta,habitaciones:dataAvaible.habitaciones,disponibilidad:dataAvaible.disponibilidad,id_estados_habitaciones:0,ID_Canal:change.canal_reserva,Adultos:change.adultos,Ninos:change.niños,ID_Talla_mascota:change.talla_perro,Infantes:change.infantes,Noches:ResultDay,huespe,Observacion:change.observacion,valor:totalResultglobal,ID_Tipo_Forma_pago:change.ID_Tipo_Forma_pago,abono:change.abono,valor_habitacion:valor_habiatcion,Tipo_persona:tipoPersonas,valor_dia_habitacion:default_Value,resepcion:jwt.result.name,link:"https://test-frontent-n9ec.vercel.app/webchecking",id_hotel:jwt.result.id_hotel,nowOne,ID_facturacion:change.factutacion}).then(index =>{
                     setLoadingReservation({loading:false}) 
                     socket.emit("sendNotification",message);
                     setCreateReservation(true)
@@ -512,7 +524,7 @@ const DashboardModal = (props) => {
                        history.push("/home")
                     },1000)
                   }).catch(e =>{
-                      console.log(e)
+                     
                   })
               
             }).catch(e =>{
@@ -580,6 +592,21 @@ const DashboardModal = (props) => {
             })
         }
    
+
+        
+      function handleOnChange(event) {
+        setTipoPersona("persona")
+        setIsChecked(!isChecked);
+        setIsChecke(false);
+      }
+
+      function handleOnChanger(event) {
+        setTipoPersona("empresa")
+        setIsChecke(!isChecke);
+        setIsChecked(false);
+      }
+        
+
         const {progress} = useProgress({id:"1"})
 
         if(!room)  return null
@@ -1056,6 +1083,47 @@ const DashboardModal = (props) => {
                                                                         <button className="desde-detail-three values-total "  disabled={true} >
                                                                             <span>{global =="COPNaN" ?"" :global}</span> 
                                                                         </button>
+
+                                                                        <div className="container-checkbox" >
+                                                                            <input   type="checkbox" 
+                                                                                    className={`checkbox-round  ${isChecked && "checkbox-round-click"} `}
+                                                                                    onChange={handleOnChange}
+                                                                                         
+                                                                                    checked={isChecked} /> Persona
+                                                                            
+                                                                        </div> 
+
+                                                                        
+
+
+                                                                        { totalId  ? null : <>
+                                                                    <div className="container-checkbox" >
+                                                                            <input   type="checkbox" 
+                                                                                    className={`checkbox-round  ${isChecke && "checkbox-round-click"} `}
+                                                                                    onChange={handleOnChanger}
+                                                                                    readOnly={true}
+                                                                                    checked={isChecked}/> Empresa
+                                                                    </div> 
+                                                                    
+                                                                    </>
+                                                                    }
+
+                                                                    
+                                                                     {tipoPersonas =="empresa"&& (   <select onChange={handleInputChange}  
+                                                                            required
+                                                                            name="factutacion"
+                                                                            className="desde-detail-three">
+                                                                        <option value={1}  >Empresa</option>
+                                                                        {idEmpresa?.map(category =>(
+                                                                            <option 
+                                                                            value={category.id}   
+                                                                            key={category}
+                                                                        >
+                                                                            {category.name_people }
+                                                                        </option>
+                                                                        )
+                                                                        )}
+                                                                    </select>)}
                                                                     </div>
                                                                 </form>
 

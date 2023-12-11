@@ -48,13 +48,13 @@ const CheckoutOrganism =({DetailDashboard,postDetailRoom,fetchDataApiWhatsapp}) 
     const [isChecked, setIsChecked] = useState(true);
     const [isChecke, setIsChecke] = useState();
     const [to,setTo] =useState()
-
+    const [DateEmpresa, setDateEmpresa] = useState();
 
     const handComprobante =() =>{
         setComprobante(true)
     }   
 
-    const [fp,setfP] =useState()
+    console.log(DateEmpresa)
 
     const MenuItems = [
         {
@@ -299,6 +299,10 @@ const CheckoutOrganism =({DetailDashboard,postDetailRoom,fetchDataApiWhatsapp}) 
         fetch(`${config.serverRoute}/api/resecion/resolucion`)
         .then(res => res.json())
         .then(data => setTo(data?.query))
+
+        fetch(`${config.serverRoute}/api/resecion/PostFacturacion/${resultDashboard.ID_facturacion}`)
+        .then(index=> index.json())
+        .then(data =>setDateEmpresa(data.query[0]))
     },[])
 
     const handUpdateStatus =() =>{
@@ -344,12 +348,8 @@ const CheckoutOrganism =({DetailDashboard,postDetailRoom,fetchDataApiWhatsapp}) 
                 console.log(e)
             })
         }
-           
-       
     }
 
-    const totalHabitacion =UsePrice({number:resultDashboard.valor_habitacion})
-    
     let count =0
     for(let i =0;i<query?.length;i++){
         if(query[i] >parseInt(resultFinish?.persona)){
@@ -388,51 +388,47 @@ const CheckoutOrganism =({DetailDashboard,postDetailRoom,fetchDataApiWhatsapp}) 
     const [factura,setFactura] = useState(false)    
 
     let timerInterval
+   
     const handServiFormularios =() =>{
-        if(filterSearch) {
-            ServiceFormulariosCheckout({id:filterSearch.id,status:"2",fecha_ingreso:fechaInicio,fecha_salida:FechaFinal,valortotal:validFilterSearch}).then(index =>{
-                setFactura(true)
-                setComprobante(true)
-               setTimeout(() =>{
-                Swal.fire({
-                    title: 'Se hara Check out',
-                    html: 'Cargando Check out',
-                    timer: 3000,
-                    timerProgressBar: true,
-                    didOpen: () => {
-                      Swal.showLoading()
-                      const b = Swal.getHtmlContainer().querySelector('b')
-                      timerInterval = setInterval(() => {
-                        b.textContent = Swal.getTimerLeft()
-                      }, 100)
-                    },
-                    willClose: () => {
-                      clearInterval(timerInterval)
-                    }
-                  }).then((result) => {
-                    /* Read more about handling dismissals below */
-                    if (result.dismiss === Swal.DismissReason.timer) {
-                      console.log('I was closed by the timer')
-                      hancCheckout()
-                    
-                    }
-                  })
-               
-               },2000)
-                console.log(index)
-            }).catch(e => {
-                setFactura(false)
-                console.log(e)
-            }) 
+        if(DateEmpresa){
+            setFactura(true)
+            setComprobante(true)
+           setTimeout(() =>{
+            Swal.fire({
+                title: 'Se hara Check out',
+                html: 'Cargando Check out',
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: () => {
+                  Swal.showLoading()
+                  const b = Swal.getHtmlContainer().querySelector('b')
+                  timerInterval = setInterval(() => {
+                    b.textContent = Swal.getTimerLeft()
+                  }, 100)
+                },
+                willClose: () => {
+                  clearInterval(timerInterval)
+                }
+              }).then((result) => {
+                /* Read more about handling dismissals below */
+                if (result.dismiss === Swal.DismissReason.timer) {
+                  console.log('I was closed by the timer')
+                  hancCheckout()
+                
+                }
+              })
+           
+           },2000)
+     
         }else{
             Swal.fire({
                 position: 'center',
                 icon: 'error',
-                title: '<p>Selecione empresa para continuar</p>',
+                title: '<p>no selecionaste ninguna empresa</p>',
                 showConfirmButton: false,
                 timer: 2000
               })
-        }
+        }   
     }
     
     const pagoInvoince =resultDashboard.forma_pago
@@ -467,8 +463,6 @@ const CheckoutOrganism =({DetailDashboard,postDetailRoom,fetchDataApiWhatsapp}) 
 
     const fechaFinal= moment(resultDashboard?.Fecha_final).utc().format('YYYY/MM/DD')
 
-    
-
     if(findEmpresa)
     return (
         <>     
@@ -493,34 +487,8 @@ const CheckoutOrganism =({DetailDashboard,postDetailRoom,fetchDataApiWhatsapp}) 
             <LoadingDetail
                 loading={factura}
                 titleLoading={"Factura electronica enviada"}  />
-            <ul className="flex-bedrooms-checking-modal-checkout  ">      
-                <li  > 
-                    <div className="contan-seacrh" >
-                        <VscSearch color="greys" />  
-                    </div>
-                    <input className="input-searching-input-checkout dow"  placeholder="Busquedad de Empresa" name="Buscar" type="text"  onChange={handChange} />
-                </li>
-            </ul>
-
                 <div className="container-search-filter" >
-                                {preSearchFilter?.map((index,e) =>( 
-                                    <section className='section-Search' key={`section-${e}`} onClick={() => handClickSearc(index.id)}  >
-                                            <ul className='border-search' >
-                                                    <li>
-                                                        <div >
-                                                            <div className='flex-Autocomplete'>
-                                                                <a className='hover:bg-blue-300 flex gap-4 p-4'>
-                                        
-                                                                <div className='flex-'>
-                                                                    <h3 className='text-sm font-semibold'>{index.name_people}</h3>
-                                                                </div>
-                                                                </a>
-                                                            </div>   
-                                                        </div>
-                                                    </li>  
-                                            </ul>
-                                    </section>
-                                ))}
+                                
                                 
                                 </div>
                                 <div className="container-store-checkout" >
@@ -534,9 +502,9 @@ const CheckoutOrganism =({DetailDashboard,postDetailRoom,fetchDataApiWhatsapp}) 
                                 </div>
                                 <div className="ri-one" >
                                     <ul>
-                                        <li className="totalPricecheckout-two" >{filterSearch?.name_people}</li>           
-                                        <li className="totalPricecheckout-two" >{filterSearch?.num_id}</li>           
-                                        <li className="totalPricecheckout-two" >{filterSearch?.email_people}</li>           
+                                        <li className="totalPricecheckout-two" >{DateEmpresa?.name_people}</li>           
+                                        <li className="totalPricecheckout-two" >{DateEmpresa?.num_id}</li>           
+                                        <li className="totalPricecheckout-two" >{DateEmpresa?.email_people}</li>           
                                     </ul>  
                                 </div>
                                 <div>
@@ -549,8 +517,8 @@ const CheckoutOrganism =({DetailDashboard,postDetailRoom,fetchDataApiWhatsapp}) 
                                 <CiUser  className="ri-icon-user-One-two-two "  fontSize={70}   color="black"  />    
                                 <div>
                                     <ul>
-                                        <li className="totalPricecheckout-two" >{filterSearch?.direccion_people}</li>   
-                                        <li className="totalPricecheckout-two" >{filterSearch?.number_people}</li>                      
+                                        <li className="totalPricecheckout-two" >{DateEmpresa?.direccion_people}</li>   
+                                        <li className="totalPricecheckout-two" >{DateEmpresa?.number_people}</li>                      
                                     </ul>  
                                                 
                                 </div>
@@ -696,7 +664,7 @@ const CheckoutOrganism =({DetailDashboard,postDetailRoom,fetchDataApiWhatsapp}) 
                         valorTotalIva={valorTotalIva}
                         Valor_dia_habitacion={resultDashboard}
                         resultFinish={resultFinish}
-                        filterSearch={filterSearch}
+                        filterSearch={DateEmpresa}
                         resultDashboard={resultDashboard}
                         comprobante={comprobante}
                         setComprobante={setComprobante} 

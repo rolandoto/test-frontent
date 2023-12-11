@@ -307,7 +307,28 @@
   margin: auto;
   height: 122px;
   margin-top: 5px;
+}
 
+.init-detail{
+  padding: 2px 5px 0px 5px;
+  display: block;
+  margin: auto;
+  height: 132px;
+  margin-top: 5px;
+  padding: 2px 5px 0px 5px;
+  display: block;
+  margin: auto;
+  border-radius: 10px;
+  height: 132px;
+  margin-top: 5px;
+  border-radius: 12px;
+  border-width: 1px;
+  border-style: solid;
+  padding-left: 16px;
+  padding-right: 16px;
+  border-color: #DDDDDD;
+max-width: 83%;
+box-shadow: rgba(0, 0, 0, 0.12) 0px 6px 16px;
 }
 
 .values-total {
@@ -919,6 +940,15 @@
 .negrita-detail-reserva {
   font-weight: 600;
   margin-top: -10px;
+}
+
+.negrita-detail-reserva-reservation{
+  font-weight: 500;
+  margin-top: -10px;
+  background: #f31260;
+  padding: 10px;
+  border-radius: 12px;
+  color: white;
 }
 
 .material-symbols-outlined {

@@ -50,7 +50,7 @@ const DetailDasboard =(props) =>{
 
   useEffect(() => {
     socket.on("sendNotification", (data) => {
-     console.log(data)
+     console.error(data)
     });
   }, [socket]);
   
@@ -69,7 +69,6 @@ const DetailDasboard =(props) =>{
     const totalId = jwt.result.id_hotel == 7 || jwt.result.id_hotel == 3 || jwt.result.id_hotel == 4 || jwt.result.id_hotel == 23 ||  jwt.result.id_hotel == 5 || jwt.result.id_hotel == 6 || jwt.result.id_hotel == 12   ?  true : false
 
     const numbersRecepcion = jwt.result.id_hotel == 13 &&  "573022395096"|| jwt.result.id_hotel == 7 &&  "573022395096"|| jwt.result.id_hotel == 23 &&  "573022395096" || jwt.result.id_hotel == 3 &&  "573007785193"|| jwt.result.id_hotel == 4 &&  "573007785193"|| jwt.result.id_hotel == 8 &&  "573007785193" || jwt.result.id_hotel == 5 &&  "573195550001" || jwt.result.id_hotel == 6 &&  "573195550001" || jwt.result.id_hotel == 12 &&  "573195550001"
-    console.log(numbersRecepcion)
 
     const resultDashboard = DetailDashboard[0]
 
@@ -80,8 +79,6 @@ const DetailDasboard =(props) =>{
     const avaiableRoom =     resultDashboard?.ID_estado_habitacion =="3"  ||resultDashboard?.ID_estado_habitacion =="2" 
     
     const avainleOcacisonal = resultDashboard?.ID_estado_habitacion =="7"
-
-    console.log(resultDashboard?.ID_estado_habitacion)
 
     const formatter = new Intl.NumberFormat('en-US', {
       style: 'currency',  
@@ -112,8 +109,6 @@ const DetailDasboard =(props) =>{
       const [Nacimiento,setNacimiento] =useState()
       const [Correo,setCorreo] =useState()
       const [Abono,setAbono]  =useState()
-      const [persona,setPersona] =useState(false)
-      const [empresa,setEmpresa] =useState(false)
       const [tipoPersonas,setTipoPersona] =useState()
       const [isChecked, setIsChecked] = useState(findPersona);
       const [isChecke, setIsChecke] = useState(findEmpresa);
@@ -143,6 +138,7 @@ const DetailDasboard =(props) =>{
       const [loadingTypeRoom,setLoadingTypeRoom] =useState({loading:false,error:false})
       const [descripcion,setDescription] =useState(null)
       const [valorSolicitado, setValorSolicitado] = useState('');
+      const [DateEmpresa, setDateEmpresa] = useState();
  
       const isValidNumber = (value) => {
         const parsedValue = parseFloat(value);
@@ -276,7 +272,6 @@ const DetailDasboard =(props) =>{
         toast.success("Se actualizo los datos")
         handClickLoading()
       }).catch(e =>{
-          console.log(e)
           toast.error("Error al actualizar datos")
       })
 
@@ -429,7 +424,7 @@ const DetailDasboard =(props) =>{
             toast.success('Abono exitoso!')
             handClickLoading()
           }).catch(e =>{
-              console.log(e)
+              console.error(e)
           })
        
         }).catch(e =>{
@@ -472,6 +467,18 @@ const DetailDasboard =(props) =>{
       fetch(`${config.serverRoute}/api/resecion/getroomdetalle/${idRoom}`)
             .then(index=> index.json())
             .then(data =>setDisponibilidad(data))
+      fetch(`${config.serverRoute}/api/resecion/getroomdetalle/${idRoom}`)
+      .then(index=> index.json())
+      .then(data =>setDisponibilidad(data))
+
+      fetch(`${config.serverRoute}/api/resecion/getroomdetalle/${idRoom}`)
+      .then(index=> index.json())
+      .then(data =>setDisponibilidad(data))
+
+      
+      fetch(`${config.serverRoute}/api/resecion/PostFacturacion/${resultDashboard.ID_facturacion}`)
+      .then(index=> index.json())
+      .then(data =>setDateEmpresa(data.query))
   },[loadinConsumo,idRoom])
 
   var numDefinish =  parseInt(resultDashboard?.valor_habitacion);
@@ -489,7 +496,7 @@ const DetailDasboard =(props) =>{
   
     return acum + valorHabitacion - valorAbono - payAbono;
   }, 0);
-  console.log(totalPrice)
+
 
   const totaCobrar  =  totalPrice  ? totalPrice : 0
 
@@ -519,42 +526,36 @@ const DetailDasboard =(props) =>{
       setError(true)
     }else {
       ServiceAddHuespedes({id,huespe,data:dataCountPeople,dataPay:dataOne}).then(index =>{
-        console.log({"se agrego":index})
         setLoadingHuesped(false)
         ServiceInfomeMovimiento({Nombre_recepcion:jwt.result.name,Fecha:now,Movimiento:`Se añadio huesped tipo habitacion ${resultFinish?.nombre} ${resultDashboard.Numero} nombre ${resultDashboard.Nombre} codigo reserva ${resultDashboard.id_persona}`,id:jwt.result.id_hotel}).then(index =>{
           window.location.reload()
         }).catch(e =>{
-            console.log(e)
+            console.error(e)
             setLoadingHuesped(false)
         })
      
     }).catch(e =>{
-        console.log("error al aregar uan")
+        console.error("error al aregar uan")
     })
     }
   }
 
   const handSubmit =() =>{
         ServiceAddHuespedes({id,huespe,data:dataCountPeople,dataPay:dataOne}).then(index =>{
-          console.log(index)
+
           window.location.reload()
       }).catch(e =>{
-          console.log("error")  
+          console.error("error")  
       })
         ServiceUpdateReservation({id:resultDashboard.id_persona,data}).then(index =>{
-          console.log(index)
           setLoading({loading:true})
       }).catch(e =>{
-        console.log(e)
         setLoading({error:false})
       })
-
       if(dataOne.Abono !=="COPNaN"){
         ServiceUpdateReservationpay({id,dataOne}).then(index =>{
-          console.log(index)
-          
       }).catch(e =>{
-        console.log(e)
+        console.error(e)
       })
       }
 }   
@@ -622,10 +623,10 @@ const priceLenceria = Lenceria?.reduce((acum,current) => {
           socket.emit("sendNotification",message);
           history.push("/home")
         }).catch(e =>{
-            console.log(e)
+            console.error(e)
         })
     }).catch(e =>{
-        console.log("error")
+        console.error("error")
     })
     }else{
       toast.error("Error al eliminar Habitacion")
@@ -717,8 +718,6 @@ var fecha_final = currOne.toISOString().substring(0,10);
 
 const documentByIdRoom =  resultDashboard?.Num_documento +""+id
 
-console.log(resultDashboard)
-
 const hancPdf =() =>{
   ServePdf({  codigoReserva:documentByIdRoom,Nombre:`${resultDashboard?.Nombre} ${resultDashboard?.Apellido}`,habitacion:`${resultFinish?.nombre}${resultDashboard.Numero}`,adults:resultDashboard?.Adultos,children:resultDashboard?.Ninos,tituloReserva:resultDashboard?.Nombre,abono:resultDashboard?.valor_abono,formaPago:resultDashboard?.forma_pago,telefono:resultDashboard.Celular,identificacion: resultDashboard?.Num_documento,correo:resultDashboard.Correo,urllogo:jwt?.result?.logo,tarifa:resultDashboard.valor_habitacion,entrada:fecha_inicio,salida:fecha_final}).then(index => {
     const link = document.createElement('a')
@@ -801,9 +800,6 @@ const hanClickLimpia =async() => {
   }
 }
 
-
-console.log(totalPrice)
-
 const  handComprobante =UseModalText({handlModal:hancPdf,Text:"Descargar comprobante reserva?"})
 const  hanclickEditar =UseModalText({handlModal:state ?handChangeSave :handChangeEdit,Text:"Editar la informacion de la reserva?"})
 const  handleClickEliminar =UseModalText({handlModal:hanDelete,Text:"Estas seguro de eliminar la reserva ?"})
@@ -855,7 +851,7 @@ const  handleClickEliminar =UseModalText({handlModal:hanDelete,Text:"Estas segur
               
 
                <div className="border-detail" >
-                  <span>habitacion:</span>
+                  <span>Habitacion:</span>
                    <span className="negrita-detail-reserva"  >{resultFinish?.nombre} {resultDashboard.Numero}</span>
               </div>
 
@@ -928,6 +924,62 @@ const  handleClickEliminar =UseModalText({handlModal:hanDelete,Text:"Estas segur
             </div>
         </form>
       </div>
+      
+      {findEmpresa &&  DateEmpresa?.map((index) =>  (
+        <div className="init-detail" >
+        <form  className="container-flex-init" >
+        <span className="negrita-detail-reserva-reservation">Datos de la empresa donde se estaran enviando la factura electronica</span>
+        <div  className="container-detail-dasboard-in" > 
+              
+        <span className="desde-detail-two-title" > Nombre empresa:</span>
+        <span className="desde-detail-two-title" >Nit:</span>
+        <span className="desde-detail-three-title-das" >Correo:</span>    
+        <span  className="desde-detail-three-title-das">Direccion:</span>
+        <span className="desde-detail-two-title" > Telefono:</span>
+
+            </div>
+              <div className="container-detail-dasboard-in" > 
+                <input type="text" 
+                      className="desde-detail-two"  
+                      placeholder="Adultos" 
+                      name="Adultos"
+                    
+                      defaultValue={`${index?.name_people} ${index?.apellido_people} `}  
+                      onChange={(e) =>setAdultos(e.target.value)}  />
+                <input type="text" 
+                      className="desde-detail-two" 
+                      name="Fecha" 
+                    placeholder="Niños"  
+                    defaultValue={index?.num_id}   
+                      onChange={(e) =>setNinos(e.target.value)}   />
+
+                <input  type="text" 
+                        className="desde-detail-three" 
+                        name="Infantes"
+                        placeholder="Infantes"  
+                        defaultValue={index?.email_people}  
+                        onChange={(e) =>setInfantes(e.target.value)}   />
+
+                <input  type="text" 
+                        className="desde-detail-three" 
+                        name="Mascotas" 
+                        placeholder="Mascotas"   
+                        readOnly={state}
+                        defaultValue={index?.direccion_people}  
+                        onChange={handleChange("Mascotas")}   />
+
+                <input  type="text" 
+                        className="desde-detail-two" 
+                        name="Fecha"  
+                        placeholder="Mascotas"    
+                        readOnly={state}
+                        defaultValue={index?.number_people}  
+                        onChange={handleChange("Fecha")}   />
+            </div>
+        </form>
+        </div>
+      ))}
+     
       <div className="init-photo top-one-detail-room" >
             <form  className="container-flex-init"  onSubmit={e =>{
               e.preventDefault()
@@ -1490,7 +1542,7 @@ const handleState =(event, index) =>{
       ServicePayReservationSore({id, data}).then(index=> {
         setLoadingConsumo(!loadinConsumo)
       }).catch(e =>{
-        console.log(e)
+        console.error(e)
       })
     }
   }
@@ -1532,7 +1584,6 @@ const handleState =(event, index) =>{
                   <TableBody>
                         
                         {  cart?.map((row,e) =>{
-                            console.log(row.ID)
                           
                           if(row.Pago_deuda ==0){
                           return(
@@ -1699,7 +1750,7 @@ const ItemCardPago =({index,typy_buy,setloading}) => {
         Isval: !evenItem
       }))
     }).catch(e =>{
-      console.log("error")
+      console.error("error")
     })
   }
 
