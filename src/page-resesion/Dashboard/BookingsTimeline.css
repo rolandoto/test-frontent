@@ -858,6 +858,12 @@ hr.border {
   z-index: 10000;
 }
 
+.rct-sidebar-row .highlightchecking,
+.react-calendar-timeline .rct-horizontal-lines .highlightchecking{
+  background-color: rgba(36, 243, 105, 0.8);
+  z-index: 10000;
+}
+
 .react-calendar-timeline .rct-day.rct-day-weekend {
   background-color: black !important;
 }

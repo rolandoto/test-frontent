@@ -343,7 +343,7 @@ const CheckoutOrganism =({DetailDashboard,postDetailRoom,fetchDataApiWhatsapp}) 
         if(resultDashboard.Estado==3){
             postDetailRoom({id:resultDashboard.ID_Habitaciones,ID_estado_habitacion:5})
             ServiceStatus({id,ID_Tipo_Estados_Habitaciones:1}).then(index=>{
-               
+                
             }).catch(e =>{
                 console.log(e)
             })
