@@ -60,6 +60,7 @@
     border-right: 1px solid rgba(0,0,0,.125);
     transition: width 0.05s;
     background-color: #fff;
+	box-shadow: 17px 20px 40px rgba(0,0,0,.21)!important;
 }
 .side-nav-container-NX {
 	width: 56px;

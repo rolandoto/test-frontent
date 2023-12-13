@@ -94,7 +94,7 @@ const SideNavBar = () => {
                         </div>
                     </div>
                 </ReactTooltip>
-
+                
                 <Link to={`/home`} className={isExpanded ? "menu-item" : "menu-item-NX Hover-icon   "}  data-tip data-for="IconTip"    >
              
                         <Grid.Container>
