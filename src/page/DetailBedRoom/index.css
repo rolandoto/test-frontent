@@ -69,8 +69,8 @@ cursor: pointer;
 }
 
 
-td, th {
-  border: 1px solid #dddddd !important;
+td, th, tr {
+    border: none !important;
   text-align: left !important;
   padding: 8px !important;
   background: white;

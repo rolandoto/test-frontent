@@ -32,6 +32,8 @@ const   itemRenderer = ({ item, itemContext, getItemProps }) => {
 
     const abono = parseInt(item.abono)
 
+    console.log(total_habitacion>=abono)
+
     let colorWords;
     let iconState;
     let title = itemContext.title; // Establecer título predeterminado
@@ -61,9 +63,17 @@ const   itemRenderer = ({ item, itemContext, getItemProps }) => {
         colorWords = 'white';
         break;
     case 3:
+        if(abono>=total_habitacion){
             color = '#17c964';
             colorWords = 'white';
             iconState = <VscSymbolEvent fontSize={15} />;
+          
+        }else{
+            color = '#13a722';
+            colorWords = 'white ';
+            iconState =<CiBadgeDollar fontSize={20} /> ;
+        }
+           
         break;
     case 4:
         color = '#0DC034';

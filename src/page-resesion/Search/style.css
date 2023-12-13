@@ -25,24 +25,29 @@
     align-items: center;
     margin: 0;
     padding: 5px;
+    flex-direction: column;
 }
 
 .flex-bedrooms-search li{
-    padding: 5px;
-    text-align: center;
+    padding: 5px;   
+    text-align: center; 
 }
 
 .input-stores-personality-nine-search{
     box-sizing: border-box;
-    width: 438px;
+    width: 884px;
     height: 55px;
     left: 300px;
     top: 338px;
     background: #FFFFFF;
     border: 1px solid #847F7F;
-    border-radius: 8px;
+    border-radius: 21px;
     margin-top: 5px;
     padding: 10px;
+    border: 1px solid transparent;
+    border-color: white;
+    box-shadow: 17px 20px 40px rgba(0,0,0,.21) !important;
+    background-color: #FFFFFF;
 }
 
 .input-stores-personality-nine-search-One{
@@ -156,3 +161,20 @@
 .table-color,td{
     border: none !important;
 }
+
+
+@media screen and (max-width: 1024px) {
+    tbody {
+        border: 1px solid gray;
+        display: block;
+        margin-top: 18px;
+        padding: 17px;
+        border-radius: 8px;
+        transition: background-color 0.8s ease !important;
+        max-width: 65%;
+        overflow: x;
+        overflow: x;
+        overflow-y: scroll;
+        max-height: 300px;
+    }
+  }

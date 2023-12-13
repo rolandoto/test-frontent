@@ -338,3 +338,14 @@ input{
   background:#17c964 ;
   color: white;
 }
+
+.rdrMonth{
+  width: 100% !;
+}
+
+.rdrCalendarWrapper{
+  font-size: 16px !important;
+ 
+  box-shadow: 17px 20px 40px rgba(0,0,0,.21) !important;
+  border-radius: 1.25rem;
+}

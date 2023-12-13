@@ -8,6 +8,17 @@ import { BsCalendarX } from "react-icons/bs";
 import ServiceUpdateReservationWeb from "../../service/ServiceUpdateReservationWeb";
 import { Button } from "@nextui-org/react";
 import { useSelector } from "react-redux";
+import 'react-date-range/dist/styles.css';
+import 'react-date-range/dist/theme/default.css';
+import 'moment/locale/es';
+import esLocale from 'date-fns/locale/es';
+
+import { 
+    DateRange , 
+    Range, 
+    RangeKeyDict
+  } from 'react-date-range';
+  
 import moment from "moment";
 
 const TemplateSearch =() =>{
@@ -24,6 +35,21 @@ const TemplateSearch =() =>{
     const handCreateReservation =(e) =>{
         history.push("/Createreservaction")
     }
+
+    const [state, setState] = useState([
+        {
+          startDate: new Date(),
+          endDate: new Date(),
+          key: "selection",
+        },
+      ]);
+    
+      const formattedStartDate = moment(state[0].startDate).format('YYYY/MM/DD');
+      const formattedEndDate = moment(state[0].endDate).format('YYYY/MM/DD');
+    
+    
+
+    console.log(formattedStartDate)
 
     const filtrarSearching = (terminoBusqueda, fechaDesde, fechaHasta) => {
         let resultadosBusqueda = Items?.filter((elemento, index) => {
@@ -48,10 +74,6 @@ const TemplateSearch =() =>{
     
         return { resultadosBusqueda };
     };
-    
-
-    
-
 
     const handChange =(e) =>{
         setUsername(e.target.value)
@@ -82,7 +104,7 @@ const TemplateSearch =() =>{
     }
 
    
-const {resultadosBusqueda} = filtrarSearching(username, fechaDesdeFiltro, fechaHastaFiltro);
+const {resultadosBusqueda} = filtrarSearching(username, formattedStartDate, formattedEndDate);
 
 console.log(resultadosBusqueda)
 
@@ -93,39 +115,33 @@ console.log(resultadosBusqueda)
 
         <>
         <div className="container-bicta" >
-
                 <div className="contain-search">
                     <ul className="flex-bedrooms-search">   
                             <li>
-                                <label className="title-stores">Busquedas de Reservas:</label>
+                               
                                 <input  className="input-stores-personality-nine-search"  
                                         name="Ciudad"
                                         value={username}
                                         onChange={handChange}   
-                                        placeholder="No Documento,No reservas o Nombre" />
+                                        placeholder="Buscar tu reserva" />
                             </li>   
-                            <li>
-                                <label className="title-stores">Desde:</label>
-                                <input  className="input-stores-personality-nine-search-One"  
-                                        name="Ciudad"
-                                        type="date"
-                                        value={fechaDesdeFiltro}
-                                        onChange={handChangeDesde}   
-                                        placeholder="No Documento,No reservas o Nombre" />
-                            </li>   
-                            <li>
-                                <label className="title-stores">Hasta</label>
-                                <input  className="input-stores-personality-nine-search-One"  
-                                        name="Ciudad"
-                                        type="date"
-                                        value={fechaHastaFiltro}
-                                        onChange={handChangeHasta}   
-                                        placeholder="No Documento,No reservas o Nombre" />
-                            </li>   
-                    </ul>
-                </div>
-              
-                 <table  className="de"  >
+                            
+                                    <DateRange 
+                                    color="black"
+                                    minDate={new Date()}
+                                    rangeColors={['#262626']}
+                                    onChange={(item) => setState([item.selection])}
+                                    showSelectionPreview={false}
+                                    moveRangeOnFirstSelection={true}
+                                    months={2}
+                                    showDateDisplay={false}
+                                    ranges={state}
+                                    disabledDates={[]}
+                                    direction="horizontal"
+                                    locale={esLocale}
+                                />
+
+            <table  className="de"  >
                     <tbody class="tbody"  > 
                 <thead >
                 <tr>    
@@ -179,6 +195,7 @@ console.log(resultadosBusqueda)
                        }else{
                         return (
                             <tr className=""  >
+                                <td>{index.Num_Room}</td>
                                 <td  >{index.name}</td>
                                 <td>{index.last_name}</td>
                                 <td> Desde {desde}</td>
@@ -201,6 +218,10 @@ console.log(resultadosBusqueda)
                   )}
                   </tbody>
             </table>
+                    </ul>
+                </div>
+              
+                
         </div>
         </>
     )
