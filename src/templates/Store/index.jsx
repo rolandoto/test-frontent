@@ -834,6 +834,7 @@ const StoreTemplate =({Store}) =>{
     const [peopleId,setPeopleId] =useState()
     const [IdHabitacion,setIdhbatacion] =useState()
     const [roomReservation,setRoomReservation] =useState()
+    const [username,setUsername] =useState("")
 
     const handChangeidHabitacion =(e) =>{
       setIdhbatacion(e.target.value)
@@ -954,6 +955,22 @@ const StoreTemplate =({Store}) =>{
       });
     }, []);
 
+    const filtrarSearching = (terminoBusqueda) => {
+      let resultadosBusqueda = isMainData?.filter((elemento, index) => {
+          // Filtrar por término de búsqueda
+          const condicionBusqueda = elemento.Nombre?.toString().toLowerCase().includes(terminoBusqueda.toLowerCase()) 
+          return condicionBusqueda
+      });
+  
+      return { resultadosBusqueda };
+  };
+
+
+  const handChangeSeaching =(e) =>{
+    setUsername(e.target.value)
+  }
+
+  const {resultadosBusqueda} = filtrarSearching(username);
 
         return (    
             <div className="mainContainer">
@@ -965,13 +982,20 @@ const StoreTemplate =({Store}) =>{
                                     setData={setData}    />
                         ))}
                 </div>
+                <input  className="input-stores-personality-nine-search"  
+                                        name="Ciudad"
+                                        value={username}
+                                        onChange={handChangeSeaching}
+                                        placeholder="Buscar tu producto" />
                 <div className="grid-container" >
-                        {isMainData.map((index,e)  =>  (
+                        {resultadosBusqueda.map((index,e)  =>  (
                             <ItemCard
                                 key={e} 
                                 index={index}  
                                 handCart={handCart}  /> 
                         ))}
+
+                        
                     <ModalStore state={state} 
                                 setState={setState} 
                                 handSubmit={handSubmit}  

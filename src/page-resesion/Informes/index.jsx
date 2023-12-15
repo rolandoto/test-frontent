@@ -177,7 +177,7 @@ const InformeAuditoria =() =>{
            <button className="button-informe-imprimir-auditoria" onClick={handClikcDescargar} >Imprimir</button>
        </div>
       
-       <table className="de"  ref={componentRef} >
+       <table className="de table"  ref={componentRef} >
            <tbody>
                <tr>    
                    <th>Codigo reserva</th>
@@ -336,7 +336,7 @@ const DescargarInforme =({auditoria,setLoadingInforme,totalPriceInforme}) =>{
 
     return (
         <ContainerGlobal>
-            <table ref={docToPrint}  >
+            <table  className="table" ref={docToPrint}  >
               
                     <tr>
                         <th>Factura</th>
