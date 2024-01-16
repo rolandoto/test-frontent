@@ -197,8 +197,7 @@ const Checkingn2Organism =({id,postDetailRoom,fetchDataApiWhatsapp,postWhataapBy
         }
     };
 
-    
-     
+
     let dataTwo = {
         ID_Tipo_Forma_pago:change.ID_Tipo_Forma_pago
     }
@@ -218,10 +217,7 @@ const Checkingn2Organism =({id,postDetailRoom,fetchDataApiWhatsapp,postWhataapBy
         }).catch(e =>{
             console.log("error")
         })
-
-         
           await ServiceUpdateReservationpay({ id, dataOne: dataTwo });
-      
           await postDetailRoom({ id: resulDetailDashboard?.ID_Habitaciones, ID_estado_habitacion: 3 });
           await ServiceStatus({ id, ID_Tipo_Estados_Habitaciones: 3 });
       
@@ -236,7 +232,6 @@ const Checkingn2Organism =({id,postDetailRoom,fetchDataApiWhatsapp,postWhataapBy
           console.log(error);
         }
       };
-
 
     const handModalText =(e) =>{
         confirmAlert({

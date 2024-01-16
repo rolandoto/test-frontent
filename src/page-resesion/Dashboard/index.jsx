@@ -275,12 +275,8 @@ const Dashboard = () => {
 				  }
 			})
 		}
-
 		handModalText()
-
 	  };
-
-	  
 
       const handleItemMove = (itemId, dragTime, newGroupOrder) => {
 		let dragTimeOne =0

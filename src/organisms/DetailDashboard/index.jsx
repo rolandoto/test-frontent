@@ -41,6 +41,8 @@ import { PiUsersLight,PiShoppingBagOpenLight,PiPaypalLogoLight } from "react-ico
 import { toast } from "react-hot-toast";
 import HistorialDetailReservation from "../../component/HistorialDetailReservation";
 import io from "socket.io-client";
+import { RiDeleteBin5Line } from "react-icons/ri";
+
 
 const socket = io.connect("https://railway.grupo-hoteles.com");
 
@@ -66,7 +68,7 @@ const DetailDasboard =(props) =>{
     
     const message  =jwt?.result?.photo
 
-    const totalId = jwt.result.id_hotel == 7 || jwt.result.id_hotel == 3 || jwt.result.id_hotel == 4 || jwt.result.id_hotel == 23 ||  jwt.result.id_hotel == 5 || jwt.result.id_hotel == 6 || jwt.result.id_hotel == 12   ?  true : false
+    const totalId = jwt.result.id_hotel == 7 || jwt.result.id_hotel == 3 || jwt.result.id_hotel == 4 || jwt.result.id_hotel == 23 ||  jwt.result.id_hotel == 5 || jwt.result.id_hotel == 6 || jwt.result.id_hotel == 12  || jwt.result.id_hotel == 10 || jwt.result.id_hotel == 2  ?  true : false
 
     const numbersRecepcion = jwt.result.id_hotel == 13 &&  "573022395096"|| jwt.result.id_hotel == 7 &&  "573022395096"|| jwt.result.id_hotel == 23 &&  "573022395096" || jwt.result.id_hotel == 3 &&  "573007785193"|| jwt.result.id_hotel == 4 &&  "573007785193"|| jwt.result.id_hotel == 8 &&  "573007785193" || jwt.result.id_hotel == 5 &&  "573195550001" || jwt.result.id_hotel == 6 &&  "573195550001" || jwt.result.id_hotel == 12 &&  "573195550001"
 
@@ -1774,7 +1776,8 @@ const ItemCardPago =({index,typy_buy,setloading}) => {
       taskContent =(
         <>                         
           <TableCell align="right">{index.Nombre}</TableCell>
-          <TableCell className="editar-checking" onClick={() => setIsEditing(true) }  ><CiEdit fontSize={30} color="black" /></TableCell>
+          <TableCell className="editar-checking"  ><CiEdit fontSize={30} color="black" onClick={() => setIsEditing(true) }  /> 
+ </TableCell>
         </>
 
       )
@@ -1784,7 +1787,7 @@ const ItemCardPago =({index,typy_buy,setloading}) => {
       <TableRow>
         <TableCell align="right">{fecha}</TableCell>
         <TableCell align="right">${total}</TableCell>
-        <TableCell align="right">{index.Nombre_recepcion}</TableCell>
+        <TableCell align="right" >{index.Nombre_recepcion}</TableCell>
         {taskContent}
       </TableRow>
     )
