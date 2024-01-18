@@ -140,7 +140,7 @@ const Ocacionales =() =>{
                     <h4 className="let-letra" >Desea cambiar el estado de bebe:</h4>
                     <button  className="react-confirm-alert-button-group" onClick={handSubmitRoomOcasionalOne}  >3 horas</button>
                     <button  className="react-confirm-alert-button-group"  onClick={handSubmitRoomOcasionalTwo} >6 horas</button>
-                    <button  className="react-confirm-alert-button-group"    >Disponible</button>
+                    <button  className="react-confirm-alert-button-group"    >Ocasioanles</button>
               </div>         
             );
           }

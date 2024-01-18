@@ -22,57 +22,89 @@ const CardRowsRoomOcacional =({title,id,ID_estado_habitacion,postDetailRoom,hanc
       const Time_ingresonow = Time_ingreso;
       const Time_salidanow = Time_salida;
       const fecha_today = Fecha;
+
+      console.log(Time_salida)
+
+      const COUNTDOWN_TARGETO = moment(Time_ingreso, "YYYY-MM-DDTHH:mm:ss");
+      console.log( COUNTDOWN_TARGETO.diff(moment()))
+      
+
+      const COUNTDOWN_TARGET = new Date("2024-01-18T11:00:00");
     
       useEffect(() => {
-        // Update the current time every second
         const interval = setInterval(() => {
           const tiempoActual = moment();
           setCurrentTime(tiempoActual.format("MMMM Do YYYY, h:mm:ss a"));
-    
-          const momentoIngreso = moment(Time_ingresonow, "HH:mm:ss");
-          const momentoSalida = moment(Time_salidanow, "HH:mm:ss");
-    
-          // Check if the date is today
+      
+          const momentoIngreso = moment(Time_ingreso, "HH:mm:ss");
+          const momentoSalida = moment(Time_salida, "HH:mm:ss");
+      
           const isToday = momentoIngreso.isSame(fecha_today, "day");
-    
+      
           if (!isToday) {
             clearInterval(interval);
-            // Date is not today, perform necessary actions
+            // Perform necessary actions for a different day
             return;
           }
-    
-          const diferencia = momentoSalida.diff(tiempoActual);
-    
-          // Verifica si ya es hora de salida
-          if (diferencia <= 0) {
+      
+          const tiempoHastaInicio = momentoIngreso.diff(tiempoActual);
+      
+          if (tiempoHastaInicio <= 0) {
             clearInterval(interval);
-            // Puedes realizar otras acciones aquí si es necesario
+            // Perform necessary actions when it's time to start
             return;
           }
-    
-          const horas = Math.floor(diferencia / (60 * 60 * 1000));
-          const minutos = Math.floor((diferencia % (60 * 60 * 1000)) / (60 * 1000));
-          const segundos = Math.floor((diferencia % (60 * 1000)) / 1000);
-    
+      
+          const horas = Math.floor(tiempoHastaInicio / (60 * 60 * 1000));
+          const minutos = Math.floor((tiempoHastaInicio % (60 * 60 * 1000)) / (60 * 1000));
+          const segundos = Math.floor((tiempoHastaInicio % (60 * 1000)) / 1000);
+      
           setDiferenciaHoras(horas);
           setDiferenciaMinutos(minutos);
           setDiferenciaSegundos(segundos);
-    
-          // Check if class is finished and show alert
-          if (minutos == 0 && segundos == 0) {
+      
+          if (horas === 2 && minutos === 0 && segundos === 0) {
             setTimeout(() => {
-              alert("Tu clase ha terminado.");
-            }, 1000); // Delay for 1 second to ensure the interval is cleared before the alert
+              alert("Tu clase comenzará en 2 horas.");
+            }, 1000);
           }
         }, 1000);
-    
-        // Clean up the interval when the component unmounts
+      
         return () => clearInterval(interval);
-      }, [Time_ingreso, Time_salida, fecha_today]);
+      }, [Time_ingreso, fecha_today]);
+        
+    
+
+
+    const getTimeLeft = () => {
+        const totalTimeLeft = COUNTDOWN_TARGET - new Date();
+        const days = Math.floor(totalTimeLeft / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((totalTimeLeft / (1000 * 60 * 60)) % 24);
+        const minutes = Math.floor((totalTimeLeft / (1000 * 60)) % 60);
+        const seconds = Math.floor((totalTimeLeft / 1000) % 60);
+        return { days, hours, minutes, seconds };
+    };
+
+const [timeLeft, setTimeLeft] = useState(() => getTimeLeft());
+
+useEffect(() => {
+    const timer = setInterval(() => {
+        setTimeLeft(getTimeLeft());
+    }, 1000);
+
+    return () => {
+        clearInterval(timer);
+    };
+}, []);
+
+console.log(timeLeft)
         
     let color 
     let letra
+
+    console.log(diferenciaSegundos)
     
+
     const handChangeTypeRoomOne =(e) =>{
         setContextMenuVisible(false)
 		confirmAlert({
@@ -201,9 +233,18 @@ const CardRowsRoomOcacional =({title,id,ID_estado_habitacion,postDetailRoom,hanc
         <>
                <li className={`flex-item ${ValidRoom && "flex-item-option"} `}   style={{backgroundColor:"white" }}  ref={textAreaRef} onContextMenu={(e) => handleContextMenu(e,id,Time_salida)}   onClick={handChangeTypeRoomOne}  >
                     <div>
+                        
                             <li>  <IoBedOutline fontSize={30} style={{"margin":"auto"}} color="black"  /></li>
                             <li><h4 className="let-letra" >  {title}   </h4></li>
-                            <li><h4 className="let-letra" > {diferenciaHoras}:{diferenciaMinutos}:{" "} {diferenciaSegundos}  </h4></li>
+                            <li><h4 className="let-letra" > {Object.entries(timeLeft).map((el) =>{
+                                const label = el[0];
+                                console.log(label)
+                                const value = el[1];
+                                console.log(value)
+                                return (
+                                <span> {value} {":"} </span>
+                                )
+                            } )}  </h4></li>
                     </div>
                </li>
         </>
