@@ -20,7 +20,7 @@ const CardRowsRoomOcacional =({title,id,ID_estado_habitacion,postDetailRoom,hanc
     console.log(hours)
 
     const Time_ingresoa = '10:00:00'; // Replace with your specific time for start
-  const Time_salidaa = '14:00:00'; // Replace with your specific time for end
+  const Time_salidaa = '15:00:00'; // Replace with your specific time for end
 
   const [occasions, setOccasions] = useState([
     {
@@ -35,22 +35,20 @@ const CardRowsRoomOcacional =({title,id,ID_estado_habitacion,postDetailRoom,hanc
     const intervalId = setInterval(() => {
       const now = moment();
 
-      // Check if any occasion is currently active
-      const activeOccasion = occasions.find((occasion) =>
-        now.isBetween(occasion.startTime, occasion.endTime)
+      setOccasions((prevOccasions) =>
+        prevOccasions.map((occasion) => ({
+          ...occasion,
+          remainingMinutes: Math.max(occasion.endTime.diff(now, 'minutes'), 0),
+        }))
       );
-
-      if (activeOccasion) {
-        const tiempoTranscurrido = moment.duration(now.diff(activeOccasion.startTime));
-        console.log(`Tiempo transcurrido desde el inicio: ${tiempoTranscurrido.humanize()}`);
-      }
-    }, 60000); // Check every 60 seconds
+    }, 60000); // Update every minute (60,000 milliseconds)
 
     return () => {
-      clearInterval(intervalId);
+      clearInterval(intervalId); // Clear the interval when the component unmounts
     };
-  }, [occasions]);
- 
+  }, []); //
+
+  console.log(occasions)
 
     const handChangeTypeRoomOne =(e) =>{
         setContextMenuVisible(false)
@@ -176,11 +174,11 @@ const CardRowsRoomOcacional =({title,id,ID_estado_habitacion,postDetailRoom,hanc
                         console.log({"sdklnasldas":occasion.startTime})
 
                         const minutes   = (occasion.endTime.diff(occasion.startTime, 'minutes')) // 44700
-                        console.log(occasion.endTime.diff(occasion.startTime, 'hours')) // 44700
+                        const hours  = (occasion.endTime.diff(occasion.startTime, 'hours')) // 44700
 
                             return (
                                     <li key={index}>
-                                    {minutes} 
+                                      time {occasion.remainingMinutes}
                                     </li>
                             )
                         })}
