@@ -12,60 +12,38 @@ import { AiFillHeart } from "react-icons/ai";
 const CardRowsRoomOcacional =({title,id,ID_estado_habitacion,postDetailRoom,hanchangeEstado,handleContextMenu,textAreaRef,
     setOcacion,setContextMenuVisible,Time_ingreso,Time_salida,Fecha,postDetailRoomById,ValidRoom,Fecha_today}) =>{
 
-    const [currentTime, setCurrentTime] = useState(
-        moment().format("MMMM Do YYYY, h:mm:ss a")
-      );
-      const [diferenciaHoras, setDiferenciaHoras] = useState(0);
-      const [diferenciaMinutos, setDiferenciaMinutos] = useState(0);
-      const [diferenciaSegundos, setDiferenciaSegundos] = useState(0);
-    
-      const Time_ingresonow = Time_ingreso;
-      const Time_salidanow = Time_salida;
-      const fecha_today = Fecha;
-
-
-       const now = moment().format("YYYY-MM-DDTHH:mm:ss");
-
-      const COUNTDOWN_TARGETO = moment(Time_ingreso, "YYYY-MM-DDTHH:mm:ss");
-      console.log({"sdasdsa":Fecha_today})
-      
-      const COUNTDOWN_TARGET = new Date(`${Fecha_today}`);
-
-    const getTimeLeft = () => {
-        const totalTimeLeft = COUNTDOWN_TARGET - new Date();
-        const days = Math.floor(totalTimeLeft / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((totalTimeLeft / (1000 * 60 * 60)) % 24);
-        const minutes = Math.floor((totalTimeLeft / (1000 * 60)) % 60);
-        const seconds = Math.floor((totalTimeLeft / 1000) % 60);
-        return { days, hours, minutes, seconds };
-    };
-
-    const [timeLeft, setTimeLeft] = useState(() => getTimeLeft());
-    useEffect(() => {
-        const timer = setInterval(() => {
-            const { days, hours, minutes, seconds } = timeLeft;
-            console.log({"kshallkdashkdlashkjlidh":minutes});
-
-            if (days < 0 && hours< 0 && minutes< 0) {
-              
-            }else{
-                setTimeLeft(getTimeLeft());
-            }
-            
-        }, 1000);
-    
-        return () => {
-            clearInterval(timer);
-        };
-    }, []);
-    
-
-
+   
     let color 
     let letra
 
-    console.log(diferenciaSegundos)
+
+    const [occasions, setOccasions] = useState([
+        { description: "a", durationInMinutes: "60", remainingMinutes:60},
+      ]);
+    const [newOccasion, setNewOccasion] = useState({
+      description: "",
+      durationInMinutes: 50,
+    });
+
     
+
+    const decrementOccasions = () => {
+        setOccasions((prevOccasions) =>
+          prevOccasions.map((occasion) => ({
+            ...occasion,
+            remainingMinutes: Math.max(occasion.remainingMinutes - 1, 0),
+          }))
+        );
+      };
+
+    useEffect(() => {
+        const intervalId = setInterval(decrementOccasions, 60000); // Update every minute (60,000 milliseconds)
+    
+        return () => {
+          clearInterval(intervalId); // Clear the interval when the component unmounts
+        };
+      }, []);
+
 
     const handChangeTypeRoomOne =(e) =>{
         setContextMenuVisible(false)
@@ -184,16 +162,13 @@ const CardRowsRoomOcacional =({title,id,ID_estado_habitacion,postDetailRoom,hanc
                 <div>
                         <li>  <AiFillHeart fontSize={30} style={{"margin":"auto","fontWeight":1}} color="white" /></li>
                         <li><h4 className="let-letra" style={{color:letra}}   >  {title}   </h4></li>
-                        <li><h4 className="let-letra" style={{color:letra}}   > {Object.entries(timeLeft).map((el) =>{
-                                const label = el[0];
-                                
-                                const value = el[1];
-                                console.log(value)
-                               
-                                return (
-                                <span> {value} {":"} </span>
-                                )
-                            } )} </h4></li>
+                        <li><h4 className="let-letra" style={{color:letra}}   > 
+                        {occasions.map((occasion, index) => (
+                            <li key={index}>
+                            {occasion.description} - {occasion.remainingMinutes} minutes remaining
+                            </li>
+                        ))}
+                             </h4></li>
                 </div>
             </li>
         )
