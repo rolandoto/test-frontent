@@ -26,6 +26,9 @@ const Ocacionales =() =>{
     const {loading,error,Items,Room,filterRoom
 	} = useSelector((state) => state.ReservationSlice)
 
+  console.log({Room})
+  console.log("sdklansdkjashdju")
+
   const [selectedItems, setSelectedItems] = useState([]);
 
   const toggleSelect = (itemId) => {
@@ -53,15 +56,16 @@ const Ocacionales =() =>{
     const horaactualOne =currentTimeOne.format('HH:mm:ss')
     const horaFutureOne=  futureTimeOne.format('HH:mm:ss')
 
-    const fecha = moment().set({ hour: 0, minute: 0, second: 0 }).format('YYYY-MM-DD');
-
+    const fecha = moment().format("YYYY-MM-DDTHH:mm:ss");
+    const fechaone = moment().add(3, 'hours').format("YYYY-MM-DDTHH:mm:ss");
+   
     const [estado, setEstado] = useState(false);
 
-	const hanchangeEstado =() =>{
-		setEstado(!estado)
-	}
+    const hanchangeEstado =() =>{
+      setEstado(!estado)
+    }
 
-   
+
     const [contextMenuPosition, setContextMenuPosition] = useState({ top: 0, left: 0 });
     const [isContextMenuVisible, setContextMenuVisible] = useState(false);
     const textAreaRef = useRef(null);
@@ -97,21 +101,21 @@ const Ocacionales =() =>{
         const segundos = Math.floor((diferencia % (60 * 1000)) / 1000);
     
         setContextMenuVisible(false);
-		confirmAlert({
-		  title: '',
-		  message: 'Desea cambiar el estado de la habitacion a:',
+        confirmAlert({
+          title: '',
+          message: 'Desea cambiar el estado de la habitacion a:',
 		  
           customUI: ({ onClose }) => {
 
             const handSubmitRoomOcasionalOne =async() =>{
                 if(horas  <=0 && minutos  <=0 && segundos  <=0){
                     postDetailRoom({id:idByRoom,ID_estado_habitacion:7})
-                    postRoomOcasionalByID({ID_habitacion:idByRoom,Fecha:fecha,Time_ingreso:horaactual,Time_salida:horaFuture,id_user:idUser,Hora_adicional:0,Persona_adicional:0,Tipo_forma_pago:7,Abono:2000,ID_hotel:idHotel})
+                    postRoomOcasionalByID({ID_habitacion:idByRoom,Fecha:fecha,Time_ingreso:horaactual,Time_salida:horaFuture,id_user:idUser,Hora_adicional:0,Persona_adicional:0,Tipo_forma_pago:7,Abono:2000,ID_hotel:idHotel,Fecha_today:fechaone})
                     onClose()
                 }else{
                     if(!Boolean(horas)){
                         postDetailRoom({id:idByRoom,ID_estado_habitacion:7})
-                        postRoomOcasionalByID({ID_habitacion:idByRoom,Fecha:fecha,Time_ingreso:horaactual,Time_salida:horaFuture,id_user:idUser,Hora_adicional:0,Persona_adicional:0,Tipo_forma_pago:7,Abono:2000,ID_hotel:idHotel})
+                        postRoomOcasionalByID({ID_habitacion:idByRoom,Fecha:fecha,Time_ingreso:horaactual,Time_salida:horaFuture,id_user:idUser,Hora_adicional:0,Persona_adicional:0,Tipo_forma_pago:7,Abono:2000,ID_hotel:idHotel,Fecha_today:fechaone})
                         onClose()
                     }else{
                         toast.error("NO puedes agregar mas horas hasta que termine")
@@ -122,12 +126,12 @@ const Ocacionales =() =>{
             const handSubmitRoomOcasionalTwo =async() =>{
                 if(horas  <=0 && minutos  <=0 && segundos  <=0){
                     postDetailRoom({id:idByRoom,ID_estado_habitacion:7})
-                    postRoomOcasionalByID({ID_habitacion:idByRoom,Fecha:fecha,Time_ingreso:horaactualOne,Time_salida:horaFutureOne,id_user:idUser,Hora_adicional:0,Persona_adicional:0,Tipo_forma_pago:7,Abono:2000,ID_hotel:idHotel})
+                    postRoomOcasionalByID({ID_habitacion:idByRoom,Fecha:fecha,Time_ingreso:horaactualOne,Time_salida:horaFutureOne,id_user:idUser,Hora_adicional:0,Persona_adicional:0,Tipo_forma_pago:7,Abono:2000,ID_hotel:idHotel,Fecha_today:fechaone})
                     onClose()
                 }else{
                     if(!Boolean(horas)){
                         postDetailRoom({id:idByRoom,ID_estado_habitacion:7})
-                        postRoomOcasionalByID({ID_habitacion:idByRoom,Fecha:fecha,Time_ingreso:horaactualOne,Time_salida:horaFutureOne,id_user:idUser,Hora_adicional:0,Persona_adicional:0,Tipo_forma_pago:7,Abono:2000,ID_hotel:idHotel})
+                        postRoomOcasionalByID({ID_habitacion:idByRoom,Fecha:fecha,Time_ingreso:horaactualOne,Time_salida:horaFutureOne,id_user:idUser,Hora_adicional:0,Persona_adicional:0,Tipo_forma_pago:7,Abono:2000,ID_hotel:idHotel,Fecha_today:fechaone})
                         onClose()
                     }else{
                         toast.error("NO puedes agregar mas horas hasta que termine")
@@ -284,6 +288,8 @@ const  typy_buy =  [
 const checkboxProductPayment = () => {
   return productDetails.some(item => item.Pago_deuda ==0 )
 }
+
+console.log(Room)
 
 const paymentValid = checkboxProductPayment()
 

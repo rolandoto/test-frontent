@@ -1,6 +1,6 @@
 import Swal from "sweetalert2"
 import { BiBed } from "react-icons/bi";
-import { GiBroom } from "react-icons/gi";
+import { GiBroom, GiConsoleController } from "react-icons/gi";
 import { IoBedOutline ,IoBanOutline} from "react-icons/io5";
 import { VscSymbolEvent } from "react-icons/vsc";
 import { BsBucket ,BsCalendarCheck,BsCheckCircle,BsBell} from "react-icons/bs";
@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 import { AiFillHeart } from "react-icons/ai";
 
 const CardRowsRoomOcacional =({title,id,ID_estado_habitacion,postDetailRoom,hanchangeEstado,handleContextMenu,textAreaRef,
-    setOcacion,setContextMenuVisible,Time_ingreso,Time_salida,Fecha,postDetailRoomById,ValidRoom}) =>{
+    setOcacion,setContextMenuVisible,Time_ingreso,Time_salida,Fecha,postDetailRoomById,ValidRoom,Fecha_today}) =>{
 
     const [currentTime, setCurrentTime] = useState(
         moment().format("MMMM Do YYYY, h:mm:ss a")
@@ -23,58 +23,13 @@ const CardRowsRoomOcacional =({title,id,ID_estado_habitacion,postDetailRoom,hanc
       const Time_salidanow = Time_salida;
       const fecha_today = Fecha;
 
-      console.log(Time_salida)
+
+       const now = moment().format("YYYY-MM-DDTHH:mm:ss");
 
       const COUNTDOWN_TARGETO = moment(Time_ingreso, "YYYY-MM-DDTHH:mm:ss");
-      console.log( COUNTDOWN_TARGETO.diff(moment()))
+      console.log({"sdasdsa":Fecha_today})
       
-
-      const COUNTDOWN_TARGET = new Date("2024-01-18T11:00:00");
-    
-      useEffect(() => {
-        const interval = setInterval(() => {
-          const tiempoActual = moment();
-          setCurrentTime(tiempoActual.format("MMMM Do YYYY, h:mm:ss a"));
-      
-          const momentoIngreso = moment(Time_ingreso, "HH:mm:ss");
-          const momentoSalida = moment(Time_salida, "HH:mm:ss");
-      
-          const isToday = momentoIngreso.isSame(fecha_today, "day");
-      
-          if (!isToday) {
-            clearInterval(interval);
-            // Perform necessary actions for a different day
-            return;
-          }
-      
-          const tiempoHastaInicio = momentoIngreso.diff(tiempoActual);
-      
-          if (tiempoHastaInicio <= 0) {
-            clearInterval(interval);
-            // Perform necessary actions when it's time to start
-            return;
-          }
-      
-          const horas = Math.floor(tiempoHastaInicio / (60 * 60 * 1000));
-          const minutos = Math.floor((tiempoHastaInicio % (60 * 60 * 1000)) / (60 * 1000));
-          const segundos = Math.floor((tiempoHastaInicio % (60 * 1000)) / 1000);
-      
-          setDiferenciaHoras(horas);
-          setDiferenciaMinutos(minutos);
-          setDiferenciaSegundos(segundos);
-      
-          if (horas === 2 && minutos === 0 && segundos === 0) {
-            setTimeout(() => {
-              alert("Tu clase comenzará en 2 horas.");
-            }, 1000);
-          }
-        }, 1000);
-      
-        return () => clearInterval(interval);
-      }, [Time_ingreso, fecha_today]);
-        
-    
-
+      const COUNTDOWN_TARGET = new Date(`${Fecha_today}`);
 
     const getTimeLeft = () => {
         const totalTimeLeft = COUNTDOWN_TARGET - new Date();
@@ -85,20 +40,27 @@ const CardRowsRoomOcacional =({title,id,ID_estado_habitacion,postDetailRoom,hanc
         return { days, hours, minutes, seconds };
     };
 
-const [timeLeft, setTimeLeft] = useState(() => getTimeLeft());
+    const [timeLeft, setTimeLeft] = useState(() => getTimeLeft());
+    useEffect(() => {
+        const timer = setInterval(() => {
+            const { days, hours, minutes, seconds } = timeLeft;
+            console.log({"kshallkdashkdlashkjlidh":minutes});
 
-useEffect(() => {
-    const timer = setInterval(() => {
-        setTimeLeft(getTimeLeft());
-    }, 1000);
+            if (days < 0 && hours< 0 && minutes< 0) {
+              
+            }else{
+                setTimeLeft(getTimeLeft());
+            }
+            
+        }, 1000);
+    
+        return () => {
+            clearInterval(timer);
+        };
+    }, []);
+    
 
-    return () => {
-        clearInterval(timer);
-    };
-}, []);
 
-console.log(timeLeft)
-        
     let color 
     let letra
 
@@ -222,7 +184,16 @@ console.log(timeLeft)
                 <div>
                         <li>  <AiFillHeart fontSize={30} style={{"margin":"auto","fontWeight":1}} color="white" /></li>
                         <li><h4 className="let-letra" style={{color:letra}}   >  {title}   </h4></li>
-                        <li><h4 className="let-letra" style={{color:letra}}   > {diferenciaHoras}:{diferenciaMinutos}:{" "} {diferenciaSegundos}  </h4></li>
+                        <li><h4 className="let-letra" style={{color:letra}}   > {Object.entries(timeLeft).map((el) =>{
+                                const label = el[0];
+                                
+                                const value = el[1];
+                                console.log(value)
+                               
+                                return (
+                                <span> {value} {":"} </span>
+                                )
+                            } )} </h4></li>
                 </div>
             </li>
         )
@@ -236,15 +207,7 @@ console.log(timeLeft)
                         
                             <li>  <IoBedOutline fontSize={30} style={{"margin":"auto"}} color="black"  /></li>
                             <li><h4 className="let-letra" >  {title}   </h4></li>
-                            <li><h4 className="let-letra" > {Object.entries(timeLeft).map((el) =>{
-                                const label = el[0];
-                                console.log(label)
-                                const value = el[1];
-                                console.log(value)
-                                return (
-                                <span> {value} {":"} </span>
-                                )
-                            } )}  </h4></li>
+                            <li><h4 className="let-letra" >   </h4></li>
                     </div>
                </li>
         </>

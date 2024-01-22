@@ -556,6 +556,7 @@ const PostSearchValue = ({ serchvalue, type }) => {
 const PostRoomsOcasional = ({
   ID_habitacion,
   Fecha,
+  Fecha_today,
   Time_ingreso,
   Time_salida,
   id_user,
@@ -570,6 +571,7 @@ const PostRoomsOcasional = ({
     body: JSON.stringify({
       ID_habitacion,
       Fecha,
+      Fecha_today,
       Time_ingreso,
       Time_salida,
       id_user,
