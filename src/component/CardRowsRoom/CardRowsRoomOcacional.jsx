@@ -26,7 +26,7 @@ const CardRowsRoomOcacional =({title,id,ID_estado_habitacion,postDetailRoom,hanc
     {
       description: "Occasion 1",
       startTime: moment(hours,'HH:mm:ss'), // Start time
-      endTime: moment(Time_salidaa, 'HH:mm:ss').add('hours'), // End time, 2 hours from start
+      endTime: moment(Time_salida, 'HH:mm:ss').add('hours'), // End time, 2 hours from start
     },
     // Add more occasions as needed
   ]);
@@ -41,7 +41,7 @@ const CardRowsRoomOcacional =({title,id,ID_estado_habitacion,postDetailRoom,hanc
           remainingMinutes: Math.max(occasion.endTime.diff(now, 'minutes'), 0),
         }))
       );
-    }, 60000); // Update every minute (60,000 milliseconds)
+    }, 1000); // Update every minute (60,000 milliseconds)
 
     return () => {
       clearInterval(intervalId); // Clear the interval when the component unmounts
@@ -178,7 +178,7 @@ const CardRowsRoomOcacional =({title,id,ID_estado_habitacion,postDetailRoom,hanc
 
                             return (
                                     <li key={index}>
-                                      time {occasion.remainingMinutes}
+                                       {occasion.remainingMinutes} minutos
                                     </li>
                             )
                         })}
