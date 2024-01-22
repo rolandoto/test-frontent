@@ -16,6 +16,7 @@ import HttpClient from "../../HttpClient"
 import { AiOutlineAlignLeft ,AiOutlineCloseCircle} from "react-icons/ai";
 import CardColorReservation from "./CardColorsReservation"
 import ProductCard from "../../component/ProducCardOcasional/ProductCardOcasional"
+import ProductCardWaypay from "../../component/ProducCardOcasional/ProductCardWaypay"
 
 const Ocacionales =() =>{
   const tiempoActual = moment();
@@ -91,14 +92,76 @@ const Ocacionales =() =>{
         { label: 'Actualizar', action: 'delete' ,icon:<AiOutlineIssuesClose fontSize={20} style={{marginRight:"8px"}} /> },
     ];
 
+
+
+    
+  const handSubmitRoomOcasionalOne =async(idByRoom,finish) =>{
+
+    const momentoSalida = moment(finish, "HH:mm:ss");
+       
+    const diferencia = momentoSalida.diff(tiempoActual);
+   
+    const horas = Math.floor(diferencia / (60 * 60 * 1000));
+    const minutos = Math.floor((diferencia % (60 * 60 * 1000)) / (60 * 1000));
+    const segundos = Math.floor((diferencia % (60 * 1000)) / 1000);
+
+    if(horas  <=0 && minutos  <=0 && segundos  <=0){
+        postDetailRoom({id:idByRoom,ID_estado_habitacion:7})
+        postRoomOcasionalByID({ID_habitacion:idByRoom,Fecha:fecha,Time_ingreso:horaactual,Time_salida:horaFuture,id_user:idUser,Hora_adicional:0,Persona_adicional:0,Tipo_forma_pago:2,Abono:2000,ID_hotel:idHotel,Fecha_today:fechaone})
+      
+    }else{
+        if(!Boolean(horas)){
+            postDetailRoom({id:idByRoom,ID_estado_habitacion:7})
+            postRoomOcasionalByID({ID_habitacion:idByRoom,Fecha:fecha,Time_ingreso:horaactual,Time_salida:horaFuture,id_user:idUser,Hora_adicional:0,Persona_adicional:0,Tipo_forma_pago:2,Abono:2000,ID_hotel:idHotel,Fecha_today:fechaone})
+            
+        }else{
+            toast.error("NO puedes agregar mas horas hasta que termine")
+        }   
+    }
+}
+
+
+const OpenModalTwo =() =>{
+  setModalOpenTwo(true)
+}
+
+const OpenModalCloseModal =() =>{
+  setModalOpenTwo(false)
+}
+
+
+const handSubmitRoomOcasionalTwo =async(idByRoom,finish) =>{
+
+  const momentoSalida = moment(finish, "HH:mm:ss");
+       
+  const diferencia = momentoSalida.diff(tiempoActual);
+ 
+  const horas = Math.floor(diferencia / (60 * 60 * 1000));
+  const minutos = Math.floor((diferencia % (60 * 60 * 1000)) / (60 * 1000));
+  const segundos = Math.floor((diferencia % (60 * 1000)) / 1000);
+
+  if(horas  <=0 && minutos  <=0 && segundos  <=0){
+      postDetailRoom({id:idByRoom,ID_estado_habitacion:7})
+      postRoomOcasionalByID({ID_habitacion:idByRoom,Fecha:fecha,Time_ingreso:horaactualOne,Time_salida:horaFutureOne,id_user:idUser,Hora_adicional:0,Persona_adicional:0,Tipo_forma_pago:1,Abono:2000,ID_hotel:idHotel,Fecha_today:fechaone})
+    
+  }else{
+      if(!Boolean(horas)){
+          postDetailRoom({id:idByRoom,ID_estado_habitacion:7})
+          postRoomOcasionalByID({ID_habitacion:idByRoom,Fecha:fecha,Time_ingreso:horaactualOne,Time_salida:horaFutureOne,id_user:idUser,Hora_adicional:0,Persona_adicional:0,Tipo_forma_pago:1,Abono:2000,ID_hotel:idHotel,Fecha_today:fechaone})
+     
+      }else{
+          toast.error("NO puedes agregar mas horas hasta que termine")
+      }
+  }
+}
+
+
     const handChangeTypeRoomOne =(idByRoom,finish) =>{
-        const momentoSalida = moment(finish, "HH:mm:ss");
-       
+        /* const momentoSalida = moment(finish, "HH:mm:ss");
         const diferencia = momentoSalida.diff(tiempoActual);
-       
         const horas = Math.floor(diferencia / (60 * 60 * 1000));
         const minutos = Math.floor((diferencia % (60 * 60 * 1000)) / (60 * 1000));
-        const segundos = Math.floor((diferencia % (60 * 1000)) / 1000);
+        const segundos = Math.floor((diferencia % (60 * 1000)) / 1000); */
     
         setContextMenuVisible(false);
         confirmAlert({
@@ -107,44 +170,16 @@ const Ocacionales =() =>{
 		  
           customUI: ({ onClose }) => {
 
-            const handSubmitRoomOcasionalOne =async() =>{
-                if(horas  <=0 && minutos  <=0 && segundos  <=0){
-                    postDetailRoom({id:idByRoom,ID_estado_habitacion:7})
-                    postRoomOcasionalByID({ID_habitacion:idByRoom,Fecha:fecha,Time_ingreso:horaactual,Time_salida:horaFuture,id_user:idUser,Hora_adicional:0,Persona_adicional:0,Tipo_forma_pago:7,Abono:2000,ID_hotel:idHotel,Fecha_today:fechaone})
-                    onClose()
-                }else{
-                    if(!Boolean(horas)){
-                        postDetailRoom({id:idByRoom,ID_estado_habitacion:7})
-                        postRoomOcasionalByID({ID_habitacion:idByRoom,Fecha:fecha,Time_ingreso:horaactual,Time_salida:horaFuture,id_user:idUser,Hora_adicional:0,Persona_adicional:0,Tipo_forma_pago:7,Abono:2000,ID_hotel:idHotel,Fecha_today:fechaone})
-                        onClose()
-                    }else{
-                        toast.error("NO puedes agregar mas horas hasta que termine")
-                    }   
-                }
+            const handSubmitOpen =() =>{
+              OpenModalTwo()
+              onClose()
             }
 
-            const handSubmitRoomOcasionalTwo =async() =>{
-                if(horas  <=0 && minutos  <=0 && segundos  <=0){
-                    postDetailRoom({id:idByRoom,ID_estado_habitacion:7})
-                    postRoomOcasionalByID({ID_habitacion:idByRoom,Fecha:fecha,Time_ingreso:horaactualOne,Time_salida:horaFutureOne,id_user:idUser,Hora_adicional:0,Persona_adicional:0,Tipo_forma_pago:7,Abono:2000,ID_hotel:idHotel,Fecha_today:fechaone})
-                    onClose()
-                }else{
-                    if(!Boolean(horas)){
-                        postDetailRoom({id:idByRoom,ID_estado_habitacion:7})
-                        postRoomOcasionalByID({ID_habitacion:idByRoom,Fecha:fecha,Time_ingreso:horaactualOne,Time_salida:horaFutureOne,id_user:idUser,Hora_adicional:0,Persona_adicional:0,Tipo_forma_pago:7,Abono:2000,ID_hotel:idHotel,Fecha_today:fechaone})
-                        onClose()
-                    }else{
-                        toast.error("NO puedes agregar mas horas hasta que termine")
-                    }
-                }
-            }
-              
             return (
                 <div className="popup-overlay"  >
-                    <h4 className="let-letra" >Desea cambiar el estado de bebe:</h4>
-                    <button  className="react-confirm-alert-button-group" onClick={handSubmitRoomOcasionalOne}  >3 horas</button>
-                    <button  className="react-confirm-alert-button-group"  onClick={handSubmitRoomOcasionalTwo} >6 horas</button>
-                    <button  className="react-confirm-alert-button-group"    >Ocasioanles</button>
+                    <h4 className="let-letra" >Seleciones unas de las opciones:</h4>
+                    <button  className="react-confirm-alert-button-group"  onClick={handSubmitOpen} >3 horas</button>
+                    <button  className="react-confirm-alert-button-group"   >6 horas</button>
               </div>         
             );
           }
@@ -157,6 +192,7 @@ const Ocacionales =() =>{
 
   const [modalOpen, setModalOpen] = useState(false);
   const [modalOpenOne, setModalOpenOne] = useState(false);
+  const [modalOpenTwo, setModalOpenTwo] = useState(false);
   const [productDetails, setProductDetails] = useState([]);
   
   const openModal = (byIdRoom) => {
@@ -172,11 +208,14 @@ const Ocacionales =() =>{
     setModalOpen(true);
   };
 
+
+
+  //store billing
   const OpenModalOne =() =>{
     setModalOpenOne(true)
     setModalOpen(false);
   }
-
+  //store billing
   const CloseModalOne =() =>{
     setModalOpenOne(false)
     setModalOpen(false);
@@ -186,6 +225,9 @@ const Ocacionales =() =>{
     setModalOpen(false);
   };
 
+  
+ 
+  
   const checkboxProduct = (pay) => {
     return typeof pay === 'number' && pay === 0;
   };
@@ -356,10 +398,31 @@ const paymentValid = checkboxProductPayment()
                 </div>
 
                 <div>
+                  {modalOpenTwo && (
+                     <div className="Modal">
+                     <div className="modal-content">
+                       <div className="row-container-flex-detail-invoince" ><AiOutlineAlignLeft fontSize={30} />  Detalle Factura <span className="close" onClick={OpenModalCloseModal}>
+                         <AiOutlineCloseCircle fontSize={30}  />
+                       </span> </div>
+                       
+                         <ProductCardWaypay
+                         
+                         />
+                        <button   className={`pay-button-all`}   >
+                           Pagar ocasional
+                       </button>
+                     </div>
+                    
+                   </div>
+                  )} 
+                </div>
+
+
+                <div>
                   {modalOpenOne && (
                     <div className="Modal">
                       <div className="modal-content">
-                        <div className="row-container-flex-detail-invoince" ><AiOutlineAlignLeft fontSize={30} />  Detalle Pago <span className="close" onClick={CloseModalOne}>
+                        <div className="row-container-flex-detail-invoince" ><AiOutlineAlignLeft fontSize={30} />  Detalle pagos <span className="close" onClick={CloseModalOne}>
                           <AiOutlineCloseCircle fontSize={30}  />
                         </span> </div>
                         <select   name="Tipo_forma_pago"
@@ -394,6 +457,8 @@ const paymentValid = checkboxProductPayment()
                     openModal={openModal}
                     onClose={handleCloseContextMenu}
                     handChangeTypeRoomOne={handChangeTypeRoomOne}
+                    handSubmitRoomOcasionalOne={handSubmitRoomOcasionalOne}
+                    handSubmitRoomOcasionalTwo={handSubmitRoomOcasionalTwo}
                     />
             )}
             </ContainerGlobal>

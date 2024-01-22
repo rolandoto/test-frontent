@@ -10,13 +10,6 @@ const GroupRows =({group,color,estado,iconState,letra,root,parent,toggleGroup,Ti
 
     const hours =  moment().format('HH:mm:ss');
 	  const  {postDetailRoom} =  useDetailRoomAction()
-      const [diferenciaHoras, setDiferenciaHoras] = useState(0);
-      const [diferenciaMinutos, setDiferenciaMinutos] = useState(0);
-      const [diferenciaSegundos, setDiferenciaSegundos] = useState(0);
-    
-      const Time_ingresonow = Time_ingreso;
-      const Time_salidanow = Time_salida;
-      const fecha_today = Fecha;
     
     
       const [occasions, setOccasions] = useState([

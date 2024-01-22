@@ -63,11 +63,13 @@ align-items: center
 
 
 
-const ContextMenu = ({ top, left, options, onClose,ocacion ,handChangeTypeRoomOne,finish,openModal}) => {
+const ContextMenu = ({ top, left, options, onClose,ocacion ,handChangeTypeRoomOne,finish,openModal,handSubmitRoomOcasionalOne,handSubmitRoomOcasionalTwo}) => {
 
   const handleItemClick = (action) => {
     if(action =="asignar"){
       handChangeTypeRoomOne(ocacion,finish)
+      handSubmitRoomOcasionalOne(ocacion,finish)
+      handSubmitRoomOcasionalTwo={ocacion,finish}
       onClose()
     }else if(action =="Facturar"){
       openModal(ocacion)

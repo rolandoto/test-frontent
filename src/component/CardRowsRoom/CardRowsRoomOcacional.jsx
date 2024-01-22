@@ -17,11 +17,6 @@ const CardRowsRoomOcacional =({title,id,ID_estado_habitacion,postDetailRoom,hanc
 
     const hours =  moment().format('HH:mm:ss');
 
-    console.log(hours)
-
-    const Time_ingresoa = '10:00:00'; // Replace with your specific time for start
-  const Time_salidaa = '15:00:00'; // Replace with your specific time for end
-
   const [occasions, setOccasions] = useState([
     {
       description: "Occasion 1",
@@ -47,8 +42,6 @@ const CardRowsRoomOcacional =({title,id,ID_estado_habitacion,postDetailRoom,hanc
       clearInterval(intervalId); // Clear the interval when the component unmounts
     };
   }, []); //
-
-  console.log(occasions)
 
     const handChangeTypeRoomOne =(e) =>{
         setContextMenuVisible(false)
@@ -177,10 +170,10 @@ const CardRowsRoomOcacional =({title,id,ID_estado_habitacion,postDetailRoom,hanc
                         const hours  = (occasion.endTime.diff(occasion.startTime, 'hours')) // 44700
 
                             return (
-                                    <li key={index}>
-                                       {occasion.remainingMinutes} minutos
+                                    <li className="let-letra" style={{color:letra}} key={index}>
+                                      {hours}:{occasion.remainingMinutes} min
                                     </li>
-                            )
+                             )
                         })}
                             </ul>
                         </h4></li>
