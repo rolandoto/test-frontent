@@ -68,8 +68,6 @@ const ContextMenu = ({ top, left, options, onClose,ocacion ,handChangeTypeRoomOn
   const handleItemClick = (action) => {
     if(action =="asignar"){
       handChangeTypeRoomOne(ocacion,finish)
-      handSubmitRoomOcasionalOne(ocacion,finish)
-      handSubmitRoomOcasionalTwo={ocacion,finish}
       onClose()
     }else if(action =="Facturar"){
       openModal(ocacion)

@@ -208,6 +208,17 @@
   padding: 10px;
 }
 
+.desde-detail-product-datail-debe{
+  height: 50px;
+  border: none;
+  color: white;
+  background: #f31260;
+  border-radius: 8px;
+  margin: 4px;
+  width: 100%;
+  padding: 10px;
+}
+
 .disable-pay {
   background-color: #b4bab7;
   color: #fff;

@@ -12,11 +12,14 @@ import { useContext } from "react"
 import AutoProvider  from "../../privateRoute/AutoProvider"
 import { useReactToPrint } from "react-to-print";
 import UseFilterAuditoria from "../../hooks/UseFilterAuditoria"
+import "moment/locale/es";
 
 const InformeAuditoria =() =>{
 
+
     const [auditoria,setAuditoria] =useState()
     const [ocasional,setOcasional] =useState()
+    const [carritoOcasinal,setcarritoOcasional] =useState()
     const [store,setStore] =useState()
     const [storeOne,setStoreOne] =useState()
     const [LookinforFecha,setLokinforFecha] =useState()
@@ -35,6 +38,7 @@ const InformeAuditoria =() =>{
             setStore(index.queryTwo)
             setOcasional(index.groupedOcasional)
             setStoreOne(index.queryOne)
+            setcarritoOcasional(index.queryThree)
             setLoading({loading:true})
         }).catch(e =>{
             setLoading({loading:false})
@@ -53,6 +57,8 @@ const InformeAuditoria =() =>{
         handlePrint()
     }
 
+
+
     // <button className="button-informe-descargar">Descargar Informe</button>
 
     const {filterAuditoriaRoom,setCategory} =  UseFilterAuditoria()
@@ -64,6 +70,10 @@ const InformeAuditoria =() =>{
     const storeFilter = filterAuditoriaRoom(store)
 
     const storeOneFiltrar =  filterAuditoriaRoom(storeOne)
+
+    const CarritoOcasional =  filterAuditoriaRoom(carritoOcasinal)
+
+   
 
     const handChangeCategory =(event) =>{
         setCategory(prevent  =>({
@@ -81,8 +91,13 @@ const InformeAuditoria =() =>{
     },0)
 
 
-    const priceInformeOcasional = ocasional?.reduce((acum,current) => {
+    const priceInformeOcasional = audOcasional?.reduce((acum,current) => {
         return acum  +   parseInt(current.Abono) 
+    },0)
+
+
+    const priceInformeCarritoOcasinal = CarritoOcasional?.reduce((acum,current) => {
+        return acum  +   parseInt(current.total) 
     },0)
 
     
@@ -154,7 +169,7 @@ const InformeAuditoria =() =>{
       ]
       
     
-    const totalPriceInforme = count +priceInformeStore+priceInformeStoreOne+priceInformeOcasional
+    const totalPriceInforme = count +priceInformeStore+priceInformeStoreOne+priceInformeOcasional+priceInformeCarritoOcasinal
 
     const totalDefinisInforme = totalPriceInforme.toLocaleString();
 
@@ -183,6 +198,7 @@ const InformeAuditoria =() =>{
                    <th>Codigo reserva</th>
                    <th>Factura</th>
                    <th>Habitacion</th>
+                   <th>Recepcion</th>
                    <th>Concepto</th>
                    <th>Descripción</th>
                    <th>Fecha</th>
@@ -194,7 +210,7 @@ const InformeAuditoria =() =>{
                </tr>
                {audiFiltrar?.map(index =>{
                        const fecha =  moment(index.Fecha_pago).utc().format('YYYY/MM/DD')
-
+                       console.log({index})
                        const PriceWithienda =  parseInt(index.abono)
 
                        const total =  PriceWithienda
@@ -212,6 +228,7 @@ const InformeAuditoria =() =>{
                        <td className="width-informe" >X14A-{index.Num_documento}{index.ID_reserva}</td>
                        <td className="width-informe" >0</td>
                        <td className="width-informe" >{index.Numero}</td>
+                       <td className="width-informe" >Recepcion</td>
                        <td className="width-informe" >Estadia</td>
                        <td className="width-informe" >{index.Habitacion} </td>
                        <td className="width-informe" >{fecha}</td>
@@ -226,12 +243,14 @@ const InformeAuditoria =() =>{
                    {storeFilter?.map(index =>{
                         const fecha =  moment(index.Fecha_compra).utc().format('YYYY/MM/DD')
                         const PriceWithienda =  parseInt(index.total)
+                      
                         const totalWith = PriceWithienda.toLocaleString()
                        return (
                    <tr>
                        <td className="width-informe" >X14A-{index.Num_documento}{index.ID_Reserva}</td>
                        <td className="width-informe" >0</td>
                        <td className="width-informe" >Tienda</td>
+                       <td className="width-informe" >Recepcion</td>
                        <td className="width-informe" >Tienda</td>
                        <td className="width-informe" >{index.Cantidad}  {index.Nombre} </td>
                        <td className="width-informe" >{fecha}</td>
@@ -245,6 +264,7 @@ const InformeAuditoria =() =>{
 
                 {audOcasional?.map(index =>{
                         const fecha =  moment(index.Fecha).utc().format('YYYY/MM/DD')
+
                         const PriceWithienda =  parseInt(index.Abono)
                         const totalWith = PriceWithienda.toLocaleString()
                        return (
@@ -252,7 +272,8 @@ const InformeAuditoria =() =>{
                        <td className="width-informe" >X14A-</td>
                        <td className="width-informe" >0</td>
                        <td className="width-informe" >{index.Numero}</td>
-                       <td className="width-informe" >Ocasional</td>
+                       <td className="width-informe" >{index.username}</td>
+                       <td className="width-informe" >Ocasional  fecha ingreso {index.Time_ingreso}, fecha salida {index.Time_salida} </td>
                        <td className="width-informe" >{index.Habitacion} </td>
                        <td className="width-informe" >{fecha}</td>
                        <td className="width-informe" >{index.Tipo_forma_pago}</td>
@@ -263,6 +284,28 @@ const InformeAuditoria =() =>{
                    </tr>  
                   )})}
 
+
+                    {CarritoOcasional?.map(index =>{
+                        const fecha =  moment(index.Fecha_compra).utc().format('YYYY/MM/DD')
+                        const PriceWithienda =  parseInt(index.total)
+                        const totalWith = PriceWithienda.toLocaleString()
+                       
+                       return (
+                   <tr>
+                       <td className="width-informe" >X14A-0000</td>
+                       <td className="width-informe" >0</td>
+                       <td className="width-informe" >000000</td>
+                       <td className="width-informe" >{index.name}</td>
+                       <td className="width-informe" >Minibar Ocasional</td>
+                       <td className="width-informe" >{index.Cantidad}  {index.Nombre} </td>
+                       <td className="width-informe" >{fecha}</td>
+                       <td className="width-informe" >{index.Tipo_pago}</td>
+                       <td className="width-informe" >000000</td>
+                       <td className="width-informe" >0000000 00000</td>
+                       <td className="width-informe" >${totalWith}</td>
+                       <td className="width-informe" >${totalWith}</td>
+                   </tr>  
+                  )})}
 
                   
                {storeOneFiltrar?.map(index =>{
@@ -275,6 +318,7 @@ const InformeAuditoria =() =>{
                        <td className="width-informe" >X14A-{index.Num_documento}{index.ID_Reserva}</td>
                        <td className="width-informe" >0</td>
                        <td className="width-informe" >{index.Numero}</td>
+                       <td className="width-informe" >Recepcion</td>
                        <td className="width-informe" >Minibar</td>
                        <td className="width-informe" >{index.Cantidad}  {index.Nombre_producto} </td>
                        <td className="width-informe" >{fecha}</td>

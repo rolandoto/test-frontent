@@ -903,3 +903,8 @@ hr.border {
   background-color: #007bff; /* Cambia el color del marcador según tus preferencias */
   /* Otros estilos personalizados para el marcador vertical */
 }
+
+
+.flex-ocasioanles{
+  display: flex;
+}

@@ -614,7 +614,6 @@ const occasionalCartRoomInsertion = ({data }) => {
     });
 };
 
-
 const occasionalRoomDetails = ({id}) => {
   return fetch(`${config.serverRoute}/api/resecion/occasionalRoomDetails`, {
     method: "POST",

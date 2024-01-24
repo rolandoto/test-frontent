@@ -69,9 +69,6 @@ const Dashboard = () => {
 	//const resultIdhotel =  jwt.result.id_hotel ="23"
 
 	//localStorage.setItem('jwt', resultIdhotel);
-
-
-
   const handleChange = () => {
     setIsChecked((prevChecked) => !prevChecked);
   };
@@ -138,7 +135,7 @@ const Dashboard = () => {
 			setSearch(resultadosBusqueda);
 		}
 	*/
-		
+
 	const handRaiting =(e)=>{
 		setRaiting(e.target.value)
 	}

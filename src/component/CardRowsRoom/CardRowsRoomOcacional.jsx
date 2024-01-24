@@ -10,10 +10,12 @@ import { useEffect, useState } from "react";
 import { AiFillHeart } from "react-icons/ai";
 
 const CardRowsRoomOcacional =({title,id,ID_estado_habitacion,postDetailRoom,hanchangeEstado,handleContextMenu,textAreaRef,
-    setOcacion,setContextMenuVisible,Time_ingreso,Time_salida,Fecha,postDetailRoomById,ValidRoom,Fecha_today}) =>{
+    setOcacion,setContextMenuVisible,Time_ingreso,Time_salida,Fecha,postDetailRoomById,ValidRoom,Fecha_today,tarifaOcasioanal,HoraAdicional}) =>{
    
     let color 
     let letra
+
+    const totalOcasional =  tarifaOcasioanal.toLocaleString()
 
     const hours =  moment().format('HH:mm:ss');
 
@@ -117,10 +119,11 @@ const CardRowsRoomOcacional =({title,id,ID_estado_habitacion,postDetailRoom,hanc
         color = "#17c964"
         letra ="white"
         return (
-            <li className={`flex-item ${ValidRoom && "flex-item-option"} `} style={{backgroundColor:color }}  ref={textAreaRef}  onContextMenu={(e) => handleContextMenu(e,id,Time_salida)} onClick={handChangeTypeRoomOne}   >
+            <li className={`flex-item ${ValidRoom && "flex-item-option"} `} style={{backgroundColor:color }}  ref={textAreaRef}  onContextMenu={(e) => handleContextMenu(e,id,Time_salida,tarifaOcasioanal,HoraAdicional)} onClick={handChangeTypeRoomOne}   >
                 <div>
                     <li><VscSymbolEvent fontSize={30} style={{"margin":"auto","fontWeight":1}} color="white" /></li>
                     <li><h4 className="let-letra" style={{color:letra}}   >  {title}   </h4></li>
+                    <li><h4 className="let-letra" style={{color:letra}}   >  ${totalOcasional}   </h4></li>
                 </div>
             </li>
         )
@@ -130,10 +133,11 @@ const CardRowsRoomOcacional =({title,id,ID_estado_habitacion,postDetailRoom,hanc
         color = "#f3d924cc"
         letra ="black"
         return (
-            <li className={`flex-item ${ValidRoom && "flex-item-option"} `} style={{backgroundColor:color }}   ref={textAreaRef}  onContextMenu={(e) => handleContextMenu(e,id,Time_salida)} onClick={handChangeTypeRoomOne}   >
+            <li className={`flex-item ${ValidRoom && "flex-item-option"} `} style={{backgroundColor:color }}   ref={textAreaRef}  onContextMenu={(e) => handleContextMenu(e,id,Time_salida,tarifaOcasioanal,HoraAdicional)} onClick={handChangeTypeRoomOne}   >
                 <div>
                         <li>  <GiBroom fontSize={30} style={{"margin":"auto","fontWeight":1}} color="black" /></li>
                         <li><h4 className="let-letra" style={{color:letra}}   >  {title}   </h4></li>
+                        <li><h4 className="let-letra" style={{color:letra}}   >  ${totalOcasional}   </h4></li>
                 </div>
             </li>
         )
@@ -143,10 +147,11 @@ const CardRowsRoomOcacional =({title,id,ID_estado_habitacion,postDetailRoom,hanc
         color = "#747171"
         letra ="white"
         return (
-            <li className={`flex-item ${ValidRoom && "flex-item-option"} `} style={{backgroundColor:color }}   ref={textAreaRef}  onContextMenu={(e) => handleContextMenu(e,id,Time_salida)}  onClick={handChangeTypeRoomOne}  >
+            <li className={`flex-item ${ValidRoom && "flex-item-option"} `} style={{backgroundColor:color }}   ref={textAreaRef}  onContextMenu={(e) => handleContextMenu(e,id,Time_salida,tarifaOcasioanal,HoraAdicional)}  onClick={handChangeTypeRoomOne}  >
                 <div>
                         <li>  <IoBanOutline fontSize={30} style={{"margin":"auto","fontWeight":1}} color="white" /></li>
                         <li><h4 className="let-letra" style={{color:letra}}   >  {title}   </h4></li>
+                        <li><h4 className="let-letra" style={{color:letra}}   >  ${totalOcasional}   </h4></li>
                 </div>
             </li>
         )
@@ -156,7 +161,7 @@ const CardRowsRoomOcacional =({title,id,ID_estado_habitacion,postDetailRoom,hanc
         color = "#f31260"
         letra ="white"
         return (
-            <li className={`flex-item ${ValidRoom && "flex-item-option"} `} style={{backgroundColor:color }}   ref={textAreaRef}  onContextMenu={(e) => handleContextMenu(e,id,Time_salida)}  onClick={handChangeTypeRoomOne}  >
+            <li className={`flex-item ${ValidRoom && "flex-item-option"} `} style={{backgroundColor:color }}   ref={textAreaRef}  onContextMenu={(e) => handleContextMenu(e,id,Time_salida,tarifaOcasioanal,HoraAdicional)}  onClick={handChangeTypeRoomOne}  >
                 <div>
                         <li>  <AiFillHeart fontSize={30} style={{"margin":"auto","fontWeight":1}} color="white" /></li>
                         <li><h4 className="let-letra" style={{color:letra}}   >  {title}   </h4></li>
@@ -185,12 +190,13 @@ const CardRowsRoomOcacional =({title,id,ID_estado_habitacion,postDetailRoom,hanc
     return (
 
         <>
-               <li className={`flex-item ${ValidRoom && "flex-item-option"} `}   style={{backgroundColor:"white" }}  ref={textAreaRef} onContextMenu={(e) => handleContextMenu(e,id,Time_salida)}   onClick={handChangeTypeRoomOne}  >
+               <li className={`flex-item ${ValidRoom && "flex-item-option"} `}   style={{backgroundColor:"white" }}  ref={textAreaRef} onContextMenu={(e) => handleContextMenu(e,id,Time_salida,tarifaOcasioanal,HoraAdicional)}   onClick={handChangeTypeRoomOne}  >
                     <div>
-                        
                             <li>  <IoBedOutline fontSize={30} style={{"margin":"auto"}} color="black"  /></li>
                             <li><h4 className="let-letra" >  {title}   </h4></li>
                             <li><h4 className="let-letra" >   </h4></li>
+                            <li><h4 className="let-letra" style={{color:letra}}   >  ${totalOcasional}   </h4></li>
+                            
                     </div>
                </li>
         </>
