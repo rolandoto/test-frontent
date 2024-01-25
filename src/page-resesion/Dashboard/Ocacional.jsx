@@ -37,12 +37,11 @@ const Ocacionales =() =>{
   const [modalOpenTwo, setModalOpenTwo] = useState(false);
   const [modalOpenThree, setModalOpenThree] = useState(false);
   const [productDetails, setProductDetails] = useState([]);
+  const [ByIdRoom,setByIdRoom] =useState()
   const [block,setBlock] =useState(false)
 
   const [price, setPrice] = useState(0);
   const [amountPaid, setAmountPaid] = useState({tarifa:0,hora:0});
-
-  console.log(amountPaid)
 
   const [inputPayValueOcasioanal, setInputPayValueOcasioanal] = useState({
     Tipo_forma_pago: null,
@@ -129,8 +128,9 @@ const handleInputPayOcasioanal = (event) => {
     const [isContextMenuVisible, setContextMenuVisible] = useState(false);
     const textAreaRef = useRef(null);
 
-    const handleContextMenu = (e,id,time_fin,tarifaOcasioanal,HoraAdicional) => {
+    const handleContextMenu = (e,id,time_fin,tarifaOcasioanal,HoraAdicional,ID_estado_habiatcion) => {
         setAmountPaid({tarifa:tarifaOcasioanal,hora:HoraAdicional})
+        setByIdRoom(ID_estado_habiatcion)
         setOcacion(id)
         setFinish(time_fin)
         e.preventDefault();
@@ -218,7 +218,8 @@ const handleInputPayOcasioanal = (event) => {
         const horas = Math.floor(diferencia / (60 * 60 * 1000));
         const minutos = Math.floor((diferencia % (60 * 60 * 1000)) / (60 * 1000));
         const segundos = Math.floor((diferencia % (60 * 1000)) / 1000); */
-    
+
+        alert("Por favor, confirma que los clientes sean  mayor de edad. Queremos garantizar un entorno seguro para todos. ¡Gracias!")
         setContextMenuVisible(false);
         confirmAlert({
           title: '',
@@ -411,10 +412,17 @@ const checkboxProductPayment = () => {
 
 
   const handClickCheckout =() =>{
-    postDetailRoom({id:ocacion,ID_estado_habitacion:5})
-    toast.success("exitoso")
-    fetchData()
+    if(ByIdRoom ==7){
+      postDetailRoom({id:ocacion,ID_estado_habitacion:5})
+      toast.success("exitoso")
+      fetchData()
+    }else{
+      toast.error("error al facturar")
+    }
   }
+
+
+console.log(Room)
 
 const paymentValid = checkboxProductPayment()
 

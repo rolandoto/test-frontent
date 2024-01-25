@@ -461,6 +461,8 @@ const CheckoutOrganism =({DetailDashboard,postDetailRoom,fetchDataApiWhatsapp}) 
         setIsChecked(!isChecked);
       }
 
+    console.log(resultDashboard)
+
     const fechaFinal= moment(resultDashboard?.Fecha_final).utc().format('YYYY/MM/DD')
 
     if(findEmpresa)
@@ -697,6 +699,8 @@ const CheckoutOrganism =({DetailDashboard,postDetailRoom,fetchDataApiWhatsapp}) 
                                         client={resultDashboard?.Nombre}
                                         lastname={resultDashboard?.Apellido} 
                                         identification={resultDashboard?.Num_documento}
+                                        nacionalidad={resultDashboard?.nacionalidad}
+                                        correo={resultDashboard?.Correo}
                                         raiting={pagoInvoince}
                                         loading={loading}
                                         handLoading={handLoading}
