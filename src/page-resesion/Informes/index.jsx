@@ -26,6 +26,7 @@ const InformeAuditoria =() =>{
     const [loading,setLoading] =useState({loading:false,error:false})
     const [loadingInforme,setLoadingInforme] =useState(false)
     const {jwt} = useContext(AutoProvider)
+    const [tipoDocumento,setTipoDocumento] =useState()
 
     const hadChangeFecha =(e) =>{
         setLokinforFecha(e.target.value)
@@ -167,6 +168,14 @@ const InformeAuditoria =() =>{
             name:"Expedia",
         },
       ]
+
+
+      useEffect(() =>{
+        
+      fetch("https://grupohoteles.co/api/getTipeDocument")
+      .then(index =>index.json())
+      .then(data => setTipoDocumento(data))
+  },[])
       
     
     const totalPriceInforme = count +priceInformeStore+priceInformeStoreOne+priceInformeOcasional+priceInformeCarritoOcasinal
@@ -203,14 +212,19 @@ const InformeAuditoria =() =>{
                    <th>Descripción</th>
                    <th>Fecha</th>
                    <th>Pago</th>
+                   <th>Tipo documento</th>
                    <th>Identificacion</th>
                    <th>Cliente</th>
                    <th>Exento</th>
                    <th>Total</th>
                </tr>
                {audiFiltrar?.map(index =>{
+
+                   
+                        const find  = tipoDocumento?.find(item=> parseInt(item?.ID) == index?.ID_Tipo_documento )
+                      
                        const fecha =  moment(index.Fecha_pago).utc().format('YYYY/MM/DD')
-                       console.log({index})
+                  
                        const PriceWithienda =  parseInt(index.abono)
 
                        const total =  PriceWithienda
@@ -233,6 +247,7 @@ const InformeAuditoria =() =>{
                        <td className="width-informe" >{index.Habitacion} </td>
                        <td className="width-informe" >{fecha}</td>
                        <td className="width-informe" >{index.Nombre}</td>
+                       <td className="width-informe" >{find.nombre}</td>
                        <td className="width-informe" >{index.Num_documento}</td>
                        <td className="width-informe" >{index.Nombre_Person} {index.Apellido}</td>
                        <td className="width-informe" >${totalDefinit}</td>
@@ -309,6 +324,9 @@ const InformeAuditoria =() =>{
 
                   
                {storeOneFiltrar?.map(index =>{
+                       
+                        const find  = tipoDocumento?.find(item=> parseInt(item?.ID) == index?.ID_Tipo_documento )
+                      
                         const fecha =  moment(index.Fecha_compra).utc().format('YYYY/MM/DD')
                         const PriceWithienda =  parseInt(index.total)
                         const totalWith = PriceWithienda.toLocaleString()
@@ -323,6 +341,7 @@ const InformeAuditoria =() =>{
                        <td className="width-informe" >{index.Cantidad}  {index.Nombre_producto} </td>
                        <td className="width-informe" >{fecha}</td>
                        <td className="width-informe" >{index.Tipo_pago}</td>
+                       <td className="width-informe" >{find.nombre}</td>
                        <td className="width-informe" >{index.Num_documento}</td>
                        <td className="width-informe" >{index.Nombre_Person} {index.Apellido}</td>
                        <td className="width-informe" >${totalWith}</td>

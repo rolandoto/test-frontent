@@ -262,7 +262,6 @@ const DetailChekingOrganism =({id}) =>{
         ID_facturacion:change.ID_facturacion ? change.ID_facturacion :resulDetailDashboard.ID_facturacion
     };
 
-    console.log({tipoPersonas})
 
     const hanClickingn2 =() =>{
         if(change.Iva== null){
