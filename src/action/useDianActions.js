@@ -1,6 +1,6 @@
 import HttpClient from "../HttpClient"
 import { useAppDispatch } from "../hooks/redux"
-import { setClient,loading, setError } from "../reducers/DianReducer"
+import { setClient,loading, setTypeDian,setError,setTSeller ,setProducts} from "../reducers/DianReducer"
 
 const useDianActions =() =>{
 
@@ -22,9 +22,55 @@ const useDianActions =() =>{
         }
     }
 
-    
+    const GetTypeDian =async({token}) =>{
+        dispatch(loading())
+        try {
+            const response =  await  HttpClient.GetTypeDocuments({token})
 
-    return {GetCLientDian}
+            if(response){
+                dispatch(setTypeDian(response))
+            }else{
+                dispatch(setError("no found"))
+            }
+        } catch (error) {
+            
+        }
+    }
+
+    const GetTSeller =async({token}) =>{
+        dispatch(loading())
+        try {
+            const response =  await  HttpClient.GetSellerDian({token})
+          
+            if(response){
+                dispatch(setTSeller(response))
+            }else{
+                dispatch(setError("no found"))
+            }
+        } catch (error) {
+            
+        }
+    }
+
+    const GetTProductsDian =async({token}) =>{
+        dispatch(loading())
+        try {
+            const response =  await  HttpClient.GetProducts({token})
+           
+            if(response){
+                dispatch(setProducts(response))
+            }else{
+                dispatch(setError("no found"))
+            }
+        } catch (error) {
+            
+        }
+    }
+
+    return {GetCLientDian,
+            GetTypeDian,
+            GetTSeller,
+            GetTProductsDian}
 }
 
 export default  useDianActions

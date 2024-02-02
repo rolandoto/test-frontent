@@ -3,7 +3,10 @@ import {createSlice}  from "@reduxjs/toolkit"
 export  const DEFAULT_STATE = {
     ListClient:[],
     Loanding:false,
-    error:null
+    error:null,
+    typeDocumentDian:[],
+    seller:[],
+    products:[]
 }
 
 const initialState = (() => {
@@ -23,6 +26,18 @@ export const DianSlice = createSlice({
             state.ListClient = action.payload
             state.loading = false
         },
+        setTypeDian:(state,action) =>{
+            state.typeDocumentDian = action.payload
+            state.loading = false
+        },
+        setTSeller:(state,action) =>{
+            state.seller = action.payload
+            state.loading = false
+        },
+        setProducts:(state,action) =>{
+            state.products = action.payload
+            state.loading = false
+        },
         setError:(state,action) =>{
             state.loading = false
             state.error = action.payload
@@ -30,6 +45,6 @@ export const DianSlice = createSlice({
     }
 })
 
-export const {loading,setClient,setError} = DianSlice.actions
+export const {loading,setClient,setTSeller,setError,setTypeDian,setProducts} = DianSlice.actions
 
 export default DianSlice.reducer

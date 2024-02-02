@@ -761,6 +761,74 @@ const GetLisClienteDian = ({token}) => {
 };
 
 
+
+const PostCreatebill = ({body,token}) => {
+  return fetch(`https://private-anon-23cfe71b6f-siigoapi.apiary-mock.com/v1/invoices`, {
+    method: "POST",
+    body: JSON.stringify(body),
+    headers: {
+      "Authorization":token,
+      'Content-Type': 'application/json',
+      'Partner-Id': 'officegroup'
+    },
+  })
+    .then((resp) => {
+      return resp.json();
+    })
+    .then((data) => {
+      return data
+    })
+}
+
+
+const GetTypeDocuments= ({token}) => {
+  return fetch(`https://private-anon-23cfe71b6f-siigoapi.apiary-mock.com/v1/document-types?type=FV`, {
+    method: "GET",
+    headers: {
+      "Authorization":token,
+      'Content-Type': 'application/json',
+      'Partner-Id': 'officegroup'
+    },
+  }).then((resp) => {
+    return resp.json();
+  })
+  .then((data) => {
+    return data
+  })
+};
+
+const GetSellerDian= ({token}) => {
+  return fetch(`https://private-anon-23cfe71b6f-siigoapi.apiary-mock.com/v1/users`, {
+    method: "GET",
+    headers: {
+      "Authorization":token,
+      'Content-Type': 'application/json',
+      'Partner-Id': 'officegroup'
+    },
+  }).then((resp) => {
+    return resp.json();
+  })
+  .then((data) => {
+    return data
+  })
+};
+
+const GetProducts= ({token}) => {
+  return fetch(`https://private-anon-23cfe71b6f-siigoapi.apiary-mock.com/v1/products`, {
+    method: "GET",
+    headers: {
+      "Authorization":token,
+      'Content-Type': 'application/json',
+      'Partner-Id': 'officegroup'
+    },
+  }).then((resp) => {
+    return resp.json();
+  })
+  .then((data) => {
+    return data
+  })
+};
+
 export default {
   get,
   post,
@@ -800,5 +868,8 @@ export default {
   PostSeacrhHotelsByIdHotel,
   getReservaSendingContabilidad,
   PostAutenticationDian,
-  GetLisClienteDian
+  GetLisClienteDian,
+  GetTypeDocuments,
+  GetSellerDian,
+  GetProducts
 };
