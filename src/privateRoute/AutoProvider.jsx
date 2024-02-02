@@ -4,7 +4,6 @@ import io from "socket.io-client";
 
 const Autoconext = React.createContext({})
 
-
 export const AutoProvider =({children}) =>{
 
     const socket = io.connect("https://railway.grupo-hoteles.com");
@@ -16,6 +15,11 @@ export const AutoProvider =({children}) =>{
     const [jwt,setJwt] =useState( 
             () =>  JSON.parse(localStorage.getItem('jwt')) 
     )
+
+
+    const [Dian,setDian] =useState( 
+        () =>  JSON.parse(localStorage.getItem('tokenDian')) 
+)
 
     const [show,setShow]= useState(false)
 
@@ -35,13 +39,7 @@ export const AutoProvider =({children}) =>{
         setShow(false) 
     },[setJwt])
 
-    useEffect(()=>{
-        socket.on("ExitPms", (data) => {
-            setJwt(null)
-            console.log(data)
-            window.location.href="/"
-        })
-    },[socket])
+   
 
     const stateCart = {
         cart:[]
@@ -79,7 +77,9 @@ export const AutoProvider =({children}) =>{
                                         setOcacion,
                                         ocacion,
                                         finish,
-                                        setFinish}}>
+                                        setFinish,
+                                        setDian,
+                                        Dian}}>
                 {children}
             </Autoconext.Provider>
     )

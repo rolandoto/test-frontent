@@ -339,6 +339,12 @@ input{
   color: white;
 }
 
+.search-Client >td{
+  background:#70b8e9 ;
+  color: white;
+  cursor: pointer;
+}
+
 .rdrMonth{
   width: 100% !;
 }
@@ -348,4 +354,14 @@ input{
  
   box-shadow: 17px 20px 40px rgba(0,0,0,.21) !important;
   border-radius: 1.25rem;
+}
+
+
+::-webkit-scrollbar {
+  width: 12px; /* Ancho del indicador de desplazamiento */
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #3498db; /* Color del indicador de desplazamiento */
+  border-radius: 6px; /* Radio de las esquinas del indicador */
 }

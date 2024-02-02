@@ -16,7 +16,6 @@ import "moment/locale/es";
 
 const InformeAuditoria =() =>{
 
-
     const [auditoria,setAuditoria] =useState()
     const [ocasional,setOcasional] =useState()
     const [carritoOcasinal,setcarritoOcasional] =useState()
@@ -362,9 +361,6 @@ const InformeAuditoria =() =>{
     )
 
 }
-
-
-
 
 export default InformeAuditoria
 

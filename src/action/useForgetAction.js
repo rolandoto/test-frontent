@@ -2,8 +2,6 @@ import { useDispatch } from "react-redux"
 import { setForget,loading,setError } from "../reducers/forgetReducer"
 import HttpClient from "../HttpClient"
 
-
-
 const useForgetAction =() =>{
 
     const dispatch = useDispatch()
@@ -21,6 +19,8 @@ const useForgetAction =() =>{
             dispatch(setError("get no was no found"))
         }
     }
+
+
     return {
         getForgetById
     }

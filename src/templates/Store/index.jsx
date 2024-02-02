@@ -943,7 +943,7 @@ const StoreTemplate =({Store}) =>{
 
     useEffect(() => {
       const toggleIcon = document.querySelector(".toggleMenu");
-      console.log(toggleIcon)
+   
       toggleIcon.addEventListener("click", () => {
         document.querySelector(".rightMenu").classList.toggle("active");
         console.log(true)

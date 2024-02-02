@@ -32,8 +32,6 @@ const   itemRenderer = ({ item, itemContext, getItemProps }) => {
 
     const abono = parseInt(item.abono)
 
-    console.log(total_habitacion>=abono)
-
     let colorWords;
     let iconState;
     let title = itemContext.title; // Establecer título predeterminado

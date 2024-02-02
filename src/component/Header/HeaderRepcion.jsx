@@ -9,9 +9,6 @@ import { RiHome2Line } from "react-icons/ri";
 import { Avatar, Grid } from "@nextui-org/react";
 import  AutoProvider  from "../../privateRoute/AutoProvider";
 import { RiLogoutBoxLine } from "react-icons/ri";
-import io from 'socket.io-client';
-
-const socket = io.connect("http://localhost:3001");
 
 const HeaderRecepcion  =() =>{
 
@@ -33,7 +30,7 @@ const HeaderRecepcion  =() =>{
         localStorage.removeItem('jwt')
         setJwt(null)
         history.push("/")
-        socket.emit("ExitPms",message);
+      
     }
 
     if(!jwt) return null

@@ -527,6 +527,23 @@ tbody {
     border-radius: 1.25rem;
 }
 
+.body-cliente{
+  width: 80%;
+
+}
+
+tbody {
+  
+  display: block;
+  margin-top: 18px;
+  padding: 17px;
+  border-radius: 8px;
+  transition: background-color 0.8s ease !important;
+  font-size: 16px !important;
+    box-shadow: 17px 20px 40px rgba(0,0,0,.21) !important;
+    border-radius: 1.25rem;
+}
+
 .de {
   margin: auto;
   border: none;

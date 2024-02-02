@@ -596,7 +596,7 @@ const PostRoomsOcasional = ({
 };
 
 
-const occasionalCartRoomInsertion = ({data }) => {
+const occasionalCartRoomInsertion = ({ data }) => {
   return fetch(`${config.serverRoute}/api/resecion/occasionalCartRoomInsertion`, {
     method: "POST",
     body: JSON.stringify(data),
@@ -614,10 +614,10 @@ const occasionalCartRoomInsertion = ({data }) => {
     });
 };
 
-const occasionalRoomDetails = ({id}) => {
+const occasionalRoomDetails = ({ id }) => {
   return fetch(`${config.serverRoute}/api/resecion/occasionalRoomDetails`, {
     method: "POST",
-    body: JSON.stringify({id}),
+    body: JSON.stringify({ id }),
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
@@ -632,7 +632,7 @@ const occasionalRoomDetails = ({id}) => {
     });
 };
 
-const occasionalUpdateProductData =({data}) =>{
+const occasionalUpdateProductData = ({ data }) => {
   return fetch(`${config.serverRoute}/api/resecion/occasionalUpdateProductData`, {
     method: "POST",
     body: JSON.stringify(data),
@@ -651,7 +651,7 @@ const occasionalUpdateProductData =({data}) =>{
 }
 
 
-const postInformContabilidad=({id}) =>{
+const postInformContabilidad = ({ id }) => {
   return fetch(`${config.serverRoute}/api/resecion/postReservationContabilidad/${id}`, {
     method: "POST",
     headers: {
@@ -659,16 +659,16 @@ const postInformContabilidad=({id}) =>{
       "Content-Type": "application/json",
     },
   })
-  .then((resp) => {
-    if (!resp.ok) throw new Error("Response is not ok");
-    return resp.json();
-  })
-  .then((resp) => {
-    return resp;
-  });
+    .then((resp) => {
+      if (!resp.ok) throw new Error("Response is not ok");
+      return resp.json();
+    })
+    .then((resp) => {
+      return resp;
+    });
 }
 
-const getReservaSendingContabilidad=({id}) =>{
+const getReservaSendingContabilidad = ({ id }) => {
   return fetch(`${config.serverRoute}/api/resecion/getReservaSendingContabilidad/${id}`, {
     method: "POST",
     headers: {
@@ -676,53 +676,89 @@ const getReservaSendingContabilidad=({id}) =>{
       "Content-Type": "application/json",
     },
   })
-  .then((resp) => {
-    if (!resp.ok) throw new Error("Response is not ok");
-    return resp.json();
-  })
-  .then((resp) => {
-    return resp;
-  });
+    .then((resp) => {
+      if (!resp.ok) throw new Error("Response is not ok");
+      return resp.json();
+    })
+    .then((resp) => {
+      return resp;
+    });
 }
 
 
-const PostResdianByIdReserva=({id,resdian}) =>{
+const PostResdianByIdReserva = ({ id, resdian }) => {
   return fetch(`${config.serverRoute}/api/resecion/postChangeResdian`, {
     method: "POST",
-    body: JSON.stringify({id,resdian}),
+    body: JSON.stringify({ id, resdian }),
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
     },
   })
-  .then((resp) => {
-    if (!resp.ok) throw new Error("Response is not ok");
-    return resp.json();
-  })
-  .then((resp) => {
-    return resp;
-  });
+    .then((resp) => {
+      if (!resp.ok) throw new Error("Response is not ok");
+      return resp.json();
+    })
+    .then((resp) => {
+      return resp;
+    });
 }
 
 
-const PostSeacrhHotelsByIdHotel=({id,desde,hasta}) =>{
+const PostSeacrhHotelsByIdHotel = ({ id, desde, hasta }) => {
   return fetch(`${config.serverRoute}/api/hotels//SeacrhHotelsById`, {
     method: "POST",
-    body: JSON.stringify({id,desde,hasta}),
+    body: JSON.stringify({ id, desde, hasta }),
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
     },
   })
-  .then((resp) => {
-    if (!resp.ok) throw new Error("Response is not ok");
-    return resp.json();
+    .then((resp) => {
+      if (!resp.ok) throw new Error("Response is not ok");
+      return resp.json();
+    })
+    .then((resp) => {
+      return resp;
+    });
+}
+const PostAutenticationDian = () => {
+  const body = {
+    username: 'sandbox@siigoapi.com',
+    access_key: "NDllMzI0NmEtNjExZC00NGM3LWE3OTQtMWUyNTNlZWU0ZTM0OkosU2MwLD4xQ08="
+  };
+  return fetch(`https://private-anon-1be4d3c754-siigoapi.apiary-proxy.com/auth`, {
+    method: "POST",
+    body: JSON.stringify(body),
+    headers: {
+      'Content-Type': 'application/json',
+      'Partner-Id': 'officegroup'
+    },
   })
-  .then((resp) => {
-    return resp;
-  });
+    .then((resp) => {
+      return resp.json();
+    })
+    .then((data) => {
+      return data
+    })
 }
 
+
+const GetLisClienteDian = ({token}) => {
+  return fetch(`https://private-anon-1be4d3c754-siigoapi.apiary-proxy.com/v1/customers`, {
+    method: "GET",
+    headers: {
+      "Authorization":token,
+      'Content-Type': 'application/json',
+      'Partner-Id': 'officegroup'
+    },
+  }).then((resp) => {
+    return resp.json();
+  })
+  .then((data) => {
+    return data
+  })
+};
 
 
 export default {
@@ -756,11 +792,13 @@ export default {
   PostUploadCarPresent,
   PostSearchValue,
   PostRoomsOcasional,
-  occasionalCartRoomInsertion,
+  occasionalCartRoomInsertion, 
   occasionalRoomDetails,
   occasionalUpdateProductData,
   postInformContabilidad,
   PostResdianByIdReserva,
   PostSeacrhHotelsByIdHotel,
-  getReservaSendingContabilidad
+  getReservaSendingContabilidad,
+  PostAutenticationDian,
+  GetLisClienteDian
 };

@@ -6,6 +6,7 @@ import cookie from "react-cookies";
 
 import { setLogin } from "../store/slice";
 import { useDispatch } from "react-redux";
+import HttpClient from "../HttpClient";
 
 function createCookie(name, value) {
     cookie.save(name, value, { path: "/" });
@@ -22,11 +23,16 @@ function deleteCookie(name) {
 const UseUsers =() =>{
     const history = useHistory()
     const [state,setState] = useState({loading:false,error:false})
-    const {jwt,setJwt,isOpen, setIsOpen} = useContext(AutoProvider)
+    const {jwt,setJwt,isOpen, setIsOpen,setDian} = useContext(AutoProvider)
     const dispatch = useDispatch()
 
     const login = useCallback(({username,password,hotel}) =>{
         setState({loading:true,error:false})
+        HttpClient.PostAutenticationDian().then(e =>{
+            setDian(e)
+            localStorage.setItem('tokenDian',JSON.stringify(e))
+        })
+
         LoginService({username,password,hotel}).then(index =>{
             localStorage.setItem('jwt',JSON.stringify(index))
             createCookie("user", index);

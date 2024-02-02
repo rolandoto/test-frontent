@@ -18,7 +18,7 @@
     import useProgress from "../../hooks/useProgress";
     import LineProgress from "../../Ui/LineProgress";            
     import io from "socket.io-client";
-import HttpClient from "../../HttpClient";
+    import HttpClient from "../../HttpClient";
 
     const socket = io.connect("https://railway.grupo-hoteles.com");
 
@@ -658,6 +658,7 @@ const DashboardModal = (props) => {
                                                                             value={fechaOne} 
                                                                             />
                                                                         <input 
+                                                                              
                                                                             className="desde-detail-two" 
                                                                             name="hasta"   
                                                                             type="date" 

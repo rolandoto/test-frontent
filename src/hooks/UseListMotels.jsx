@@ -11,8 +11,10 @@ const UseListMotels =() =>{
     useEffect(() =>{
         ServiceMotel().then(index =>{
             dispath(setList(index))
+          
         }).catch((e) =>{
             console.error(e)
+            
         })
     },[setList])
 

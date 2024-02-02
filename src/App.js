@@ -68,6 +68,7 @@ import MainCreateRerva from "./page-resesion/Dashboard/MainCreateReservas";
 import HomeTypehospedaje from "./page-resesion/Dashboard/HomeTypeHospedaje";
 import Ocacionales from "./page-resesion/Dashboard/Ocacional";
 import InformeContabilidad from "./page-resesion/Informes/InformeContabilidad";
+import Dian from "./page-resesion/Dian";
 
 function App() {
   const { jwt } = useContext(AutoProvider);
@@ -304,6 +305,7 @@ function App() {
                 component={SingnatureMaual}
               />
 
+             
               <Route component={NoFound} />
             </Switch>
           </BrowserRouter>
@@ -468,6 +470,12 @@ function App() {
                 path="/InformeContabilidad"
                 component={InformeContabilidad}
               />
+               <PrivateRoute
+                exact
+                path="/Dian"
+                component={Dian}
+              />
+
               <Route component={NoFound} />
             </Switch>
           </BrowserRouter>

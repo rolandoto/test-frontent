@@ -26,27 +26,27 @@ export const ReservationSlice = createSlice({
     setReservation: (state, action) => {
       state.Items = action.payload;
       state.loading = true;
-      console.log({ "---payload": state.entities });
+     
     },
     setReservationFilter: (state, action) => {
       state.filterRoom = action.payload;
       state.loading = false;
-      console.log({ "---payload filter room": state.filterRoom });
+    
     },
     setSaveReservation:(state,action)=>{
       state.Items = action.payload;
       state.loading = true;
-      console.log({ "---save": state.entities });
+    
     },
     setRoom :(state,action) =>{
       state.Room = action.payload;
       state.loading = false;
-      console.log({ "---payload actions": state.Room });
+      
     },
     setReservationContabilidad:(state,action)=>{
       state.ReservationContabilidad = action.payload
       state.loading = false;
-      console.log({ "---payload actions": state.ReservationContabilidad });
+      
     },
     setError: (state, action) => {
       state.loading = false;

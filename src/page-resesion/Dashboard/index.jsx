@@ -51,9 +51,11 @@ import MouseOver from "../../component/MouseOver";
 import DebitCard from "../../component/DebitCard/DebitCard";
 import { AiOutlineCaretLeft } from "react-icons/ai";
 import FooterNotifacation from "../../component/FooterNotication/FooterNotification";
+
 const socket = io.connect("https://railway.grupo-hoteles.com");
 
 const Dashboard = () => {
+	
 	const currentDate = new moment();
 	const {jwt,setJwt,isOpen, setIsOpen} =useContext(AutoProvider)
 	const history = useHistory()
@@ -475,7 +477,7 @@ const Dashboard = () => {
 };
 
 	const ResutlRoom = filterRooms(Room,raiting)
-	console.log(ResutlRoom)
+	
 	//const totalResult = UseGroupsRooms(ResutlRoom,numberSave)
 /**
  * <Modal
@@ -497,7 +499,7 @@ const Dashboard = () => {
 
 		useEffect(() => {
 			const toggleIcon = document.querySelector(".toggleMenu");
-			console.log(toggleIcon)
+			
 			toggleIcon.addEventListener("click", () => {
 			  document.querySelector(".rightMenu-one").classList.toggle("active");
 			  console.log(true)
@@ -508,7 +510,66 @@ const Dashboard = () => {
 			  console.log(true)
 			});
 		  }, []);
+/**
+ * <ul className="flex-container wrap-reverse" style={{position:"absolute",right:"0"}} >
+							<div className="state-type" data-tip data-for="topresecionista"  >
+								<li  className="" style={{marginRight:"2px",marginTop:"10px"}} > <HiMiniArrowUpCircle color="black" fontSize={34}/> </li>
+								<li  className="" style={{marginRight:"10px",marginTop:"10px"}} ></li>
+								<span className="margin-let-rig" style={{marginRight:"15px"}} >Top Recepcionistas</span>
+								<div>
+									<ReactTooltip 	
+													id="topresecionista" 
+													place="bottom" effect="solid"  >
+										{stateTop?.map(index  =>{
+											
+											const totalComision = index.Total_Cantidad_comision
+											
+											return (
+											<div key={index.ID}  > 
+												<div className="display-flex-cardOne" >
+														<div className="flex-card-One" >
+														<User bordered
+																
+																color="success"
+																squared
+																size="sm"
+																	src={index.APP}
+																	zoomed
+																/>
+															<span className="color-globito" >{index.name}</span>
 
+															
+														</div>
+														<span className="color-globito"  >${totalComision?.toLocaleString()}</span>
+												</div>
+											</div>
+											)
+											
+										})}
+									</ReactTooltip>
+								</div>
+							</div>
+							<div className="state-type" >
+								<li  className="" style={{marginRight:"6px",marginTop:"10px"}} > <FaGrinStars color="#ffca28" fontSize={28}/> </li>
+								<li  className="" style={{marginRight:"10px",marginTop:"10px"}} ></li>
+								<span className="margin-let-rig" style={{marginRight:"15px"}} >Comisiones: {jwt.result.name} </span>
+							</div>
+							<div className="state-type" >
+								<li  className="" style={{marginRight:"10px",marginTop:"10px"}} > <GiRoundStar color="#ffca28" fontSize={28} /></li>
+								<span className="margin-let-rig" style={{marginRight:"15px"}} >{totalKpi?.toLocaleString()}</span>
+							</div>
+
+							<div className="state-type" >
+							<li  className=""  style={{marginRight:"10px",marginTop:"10px"}} > <FaPlane color="#0372f5" fontSize={28} /></li>
+								<span className="margin-let-rig" style={{marginRight:"15px"}} >${tourTotal?.toLocaleString()}</span>
+							</div>
+
+							<div className="state-type" >
+							<li  className=""  style={{marginRight:"10px",marginTop:"10px"}} > <IoIosGift color="red" fontSize={28} /></li>
+								<span className="margin-let-rig" style={{marginRight:"15px"}} >${sourvenirTotal?.toLocaleString()}</span>
+					</div>
+				</ul>
+ */
 		
 	return (
 		<>		
@@ -624,64 +685,7 @@ const Dashboard = () => {
 					
 				</ul>
 				
-				<ul className="flex-container wrap-reverse" style={{position:"absolute",right:"0"}} >
-							<div className="state-type" data-tip data-for="topresecionista"  >
-								<li  className="" style={{marginRight:"2px",marginTop:"10px"}} > <HiMiniArrowUpCircle color="black" fontSize={34}/> </li>
-								<li  className="" style={{marginRight:"10px",marginTop:"10px"}} ></li>
-								<span className="margin-let-rig" style={{marginRight:"15px"}} >Top Recepcionistas</span>
-								<div>
-									<ReactTooltip 	
-													id="topresecionista" 
-													place="bottom" effect="solid"  >
-										{stateTop?.map(index  =>{
-											
-											const totalComision = index.Total_Cantidad_comision
-											
-											return (
-											<div key={index.ID}  > 
-												<div className="display-flex-cardOne" >
-														<div className="flex-card-One" >
-														<User bordered
-																
-																color="success"
-																squared
-																size="sm"
-																	src={index.APP}
-																	zoomed
-																/>
-															<span className="color-globito" >{index.name}</span>
-
-															
-														</div>
-														<span className="color-globito"  >${totalComision?.toLocaleString()}</span>
-												</div>
-											</div>
-											)
-											
-										})}
-									</ReactTooltip>
-								</div>
-							</div>
-							<div className="state-type" >
-								<li  className="" style={{marginRight:"6px",marginTop:"10px"}} > <FaGrinStars color="#ffca28" fontSize={28}/> </li>
-								<li  className="" style={{marginRight:"10px",marginTop:"10px"}} ></li>
-								<span className="margin-let-rig" style={{marginRight:"15px"}} >Comisiones: {jwt.result.name} </span>
-							</div>
-							<div className="state-type" >
-								<li  className="" style={{marginRight:"10px",marginTop:"10px"}} > <GiRoundStar color="#ffca28" fontSize={28} /></li>
-								<span className="margin-let-rig" style={{marginRight:"15px"}} >{totalKpi?.toLocaleString()}</span>
-							</div>
-
-							<div className="state-type" >
-							<li  className=""  style={{marginRight:"10px",marginTop:"10px"}} > <FaPlane color="#0372f5" fontSize={28} /></li>
-								<span className="margin-let-rig" style={{marginRight:"15px"}} >${tourTotal?.toLocaleString()}</span>
-							</div>
-
-							<div className="state-type" >
-							<li  className=""  style={{marginRight:"10px",marginTop:"10px"}} > <IoIosGift color="red" fontSize={28} /></li>
-								<span className="margin-let-rig" style={{marginRight:"15px"}} >${sourvenirTotal?.toLocaleString()}</span>
-					</div>
-				</ul>
+				
             </div>
 			<Timeline
 				groupRenderer={renderGroup}

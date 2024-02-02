@@ -24,7 +24,7 @@ import ServePdf from "../../service/PdfServe"
 import io from "socket.io-client";
 
 
-const socket = io.connect("http://localhost:3001");
+const socket = io.connect("https://railway.grupo-hoteles.com");
 
 const CheckoutOrganism =({DetailDashboard,postDetailRoom,fetchDataApiWhatsapp}) =>{
 

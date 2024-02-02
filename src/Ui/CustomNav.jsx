@@ -40,6 +40,8 @@ const SideNavBar = () => {
     
     const val = jwt ?jwt.result.id_departamento : 2
 
+
+
     useEffect(() =>{
         ServiceInfomeMovimientoPost({id:jwt?.result?.id_hotel,fecha:now}).then(index => {
             setState(index.query)
@@ -56,11 +58,11 @@ const SideNavBar = () => {
 
     const handClose =() =>{
         localStorage.removeItem('jwt')
+        localStorage.removeItem('tokenDian')
         setJwt(null)
         history.push("/")
         socket.emit("ExitPms",message);
     }
-
 
     if(!jwt) return null
 
