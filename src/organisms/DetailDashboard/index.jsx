@@ -78,7 +78,7 @@ const DetailDasboard =(props) =>{
     const numbersRecepcion = jwt.result.id_hotel == 13 &&  "573022395096"|| jwt.result.id_hotel == 7 &&  "573022395096"|| jwt.result.id_hotel == 23 &&  "573022395096" || jwt.result.id_hotel == 3 &&  "573007785193"|| jwt.result.id_hotel == 4 &&  "573007785193"|| jwt.result.id_hotel == 8 &&  "573007785193" || jwt.result.id_hotel == 5 &&  "573195550001" || jwt.result.id_hotel == 6 &&  "573195550001" || jwt.result.id_hotel == 12 &&  "573195550001"
 
     const resultDashboard = DetailDashboard[0]
-
+    console.log(resultDashboard)
     const findPersona =  resultDashboard?.tipo_persona == "persona"
     const findEmpresa = resultDashboard?.tipo_persona =="empresa"
     const findFirma = resultDashboard?.Estado =="3" ||  resultDashboard?.Estado =="1"||resultDashboard?.Estado =="5" || resultDashboard?.Estado =="6"
@@ -272,7 +272,7 @@ const DetailDasboard =(props) =>{
     }
 
     const handChangeSave =() =>{
-      ServiceInfomeMovimiento({Nombre_recepcion:jwt.result.name,Fecha:now,Movimiento:`Se actualizo datos personales tipo habitacion ${resultFinish?.nombre} ${resultDashboard.Numero} nombre ${resultDashboard.Nombre} codigo reserva ${resultDashboard.id_persona}`,id:jwt.result.id_hotel}).then(index =>{
+      ServiceInfomeMovimiento({Nombre_recepcion:jwt.result.name,Fecha:now,Movimiento:`Se actualizo datos personales tipo habitacion ${resultDashboard?.nombre_habitacion} ${resultDashboard.Numero} nombre ${resultDashboard.Nombre} codigo reserva ${resultDashboard.id_persona}`,id:jwt.result.id_hotel}).then(index =>{
         toast.success("Se actualizo los datos")
         handClickLoading()
       }).catch(e =>{
@@ -419,7 +419,7 @@ const DetailDasboard =(props) =>{
     const handClickInsertAbono =()  => {
       if(inputPayValue.PayAbono > 0 ){
         HttpClient.insertPayABono({data:inputPayValue}).then(index=> {
-          ServiceInfomeMovimiento({Nombre_recepcion:jwt.result.name,Fecha:now,Movimiento:`Abono agregado tipo habitacion ${resultFinish?.nombre} ${resultDashboard.Numero} nombre ${resultDashboard.Nombre} codigo reserva ${resultDashboard.id_persona}`,id:jwt.result.id_hotel}).then(index =>{
+          ServiceInfomeMovimiento({Nombre_recepcion:jwt.result.name,Fecha:now,Movimiento:`Abono agregado tipo habitacion ${resultDashboard?.nombre_habitacion} ${resultDashboard.Numero} nombre ${resultDashboard.Nombre} codigo reserva ${resultDashboard.id_persona}`,id:jwt.result.id_hotel}).then(index =>{
             toast.success('Abono exitoso!')
             handClickLoading()
           }).catch(e =>{
@@ -507,7 +507,7 @@ const DetailDasboard =(props) =>{
     }else {
       ServiceAddHuespedes({id,huespe,data:dataCountPeople,dataPay:dataOne}).then(index =>{
         setLoadingHuesped(false)
-        ServiceInfomeMovimiento({Nombre_recepcion:jwt.result.name,Fecha:now,Movimiento:`Se añadio huesped tipo habitacion ${resultFinish?.nombre} ${resultDashboard.Numero} nombre ${resultDashboard.Nombre} codigo reserva ${resultDashboard.id_persona}`,id:jwt.result.id_hotel}).then(index =>{
+        ServiceInfomeMovimiento({Nombre_recepcion:jwt.result.name,Fecha:now,Movimiento:`Se añadio huesped tipo habitacion ${resultDashboard?.nombre_habitacion} ${resultDashboard.Numero} nombre ${resultDashboard.Nombre} codigo reserva ${resultDashboard.id_persona}`,id:jwt.result.id_hotel}).then(index =>{
           window.location.reload()
         }).catch(e =>{
             console.error(e)
@@ -599,7 +599,7 @@ const priceLenceria = Lenceria?.reduce((acum,current) => {
   const hanDelete =() =>{
     if(parseInt(resultDashboard.valor_abono) <=0){
       ServiDelteReservation({id}).then(index =>{  
-        ServiceInfomeMovimiento({Nombre_recepcion:jwt.result.name,Fecha:now,Movimiento:`Reserva eliminada tipo habitacion ${resultFinish?.nombre} ${resultDashboard.Numero} nombre ${resultDashboard.Nombre} codigo reserva ${id} `,id:jwt.result.id_hotel}).then(index =>{
+        ServiceInfomeMovimiento({Nombre_recepcion:jwt.result.name,Fecha:now,Movimiento:`Reserva eliminada tipo habitacion ${resultDashboard?.nombre_habitacion} ${resultDashboard.Numero} nombre ${resultDashboard.Nombre} codigo reserva ${id} `,id:jwt.result.id_hotel}).then(index =>{
           socket.emit("sendNotification",message);
           history.push("/home")
         }).catch(e =>{
@@ -699,7 +699,7 @@ var fecha_final = currOne.toISOString().substring(0,10);
 const documentByIdRoom =  resultDashboard?.Num_documento +""+id
 
 const hancPdf =() =>{
-  ServePdf({  codigoReserva:documentByIdRoom,Nombre:`${resultDashboard?.Nombre} ${resultDashboard?.Apellido}`,habitacion:`${resultFinish?.nombre}${resultDashboard.Numero}`,adults:resultDashboard?.Adultos,children:resultDashboard?.Ninos,tituloReserva:resultDashboard?.Nombre,abono:resultDashboard?.valor_abono,formaPago:resultDashboard?.forma_pago,telefono:resultDashboard.Celular,identificacion: resultDashboard?.Num_documento,correo:resultDashboard.Correo,urllogo:jwt?.result?.logo,tarifa:resultDashboard.valor_habitacion,entrada:fecha_inicio,salida:fecha_final}).then(index => {
+  ServePdf({  codigoReserva:documentByIdRoom,Nombre:`${resultDashboard?.Nombre} ${resultDashboard?.Apellido}`,habitacion:`${resultDashboard?.nombre_habitacion}${resultDashboard.Numero}`,adults:resultDashboard?.Adultos,children:resultDashboard?.Ninos,tituloReserva:resultDashboard?.Nombre,abono:resultDashboard?.valor_abono,formaPago:resultDashboard?.forma_pago,telefono:resultDashboard.Celular,identificacion: resultDashboard?.Num_documento,correo:resultDashboard.Correo,urllogo:jwt?.result?.logo,tarifa:resultDashboard.valor_habitacion,entrada:fecha_inicio,salida:fecha_final}).then(index => {
     const link = document.createElement('a')
     toast.success("Descargando comprobante")
     link.href =index;
@@ -710,7 +710,7 @@ const hancPdf =() =>{
     
     document.body.removeChild(link) 
       setPdfOne(index)
-      ServiceInfomeMovimiento({Nombre_recepcion:jwt.result.name,Fecha:now,Movimiento:`Descargar comprobante tipo habitacion ${resultFinish?.nombre} ${resultDashboard.Numero} nombre ${resultDashboard.Nombre},  codigo reserva ${resultDashboard.id_persona}` ,id:jwt.result.id_hotel}).then(index =>{                  
+      ServiceInfomeMovimiento({Nombre_recepcion:jwt.result.name,Fecha:now,Movimiento:`Descargar comprobante tipo habitacion ${resultDashboard?.nombre_habitacion} ${resultDashboard.Numero} nombre ${resultDashboard.Nombre},  codigo reserva ${resultDashboard.id_persona}` ,id:jwt.result.id_hotel}).then(index =>{                  
       }).catch(e =>{
           console.log(e)
       })
@@ -1107,7 +1107,7 @@ const  handleClickEliminar =UseModalText({handlModal:hanDelete,Text:"Estas segur
                                   handEditarReservas={handEditarReservas}/>} 
           {consumo && <Consumo  day={day} 
                                 jwt={jwt}
-                                habitacion={resultFinish?.nombre}
+                                habitacion={resultDashboard?.nombre_habitacion}
                                 totalAlojamiento={totalAlojamiento}
                                 product={product}
                                 totalBebidas={totalBebidas}
