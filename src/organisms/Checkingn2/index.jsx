@@ -22,8 +22,6 @@ import { toast } from "react-hot-toast";
 const Checkingn2Organism =({id,postDetailRoom,fetchDataApiWhatsapp,postWhataapById}) =>{
     
     const history = useHistory()
-    const [tipoDocumento,setTipoDocumento] =useState()
-    const [room,setRoom] =useState()
     const {getDetailReservationById} = useDetailDashboardAction()
     const {loading,error,DetailDashboard} = useSelector((state) => state.DetailDashboard)
     const {jwt} =useContext(AutoProvider)
@@ -51,8 +49,7 @@ const Checkingn2Organism =({id,postDetailRoom,fetchDataApiWhatsapp,postWhataapBy
     
     const day =diff/(1000*60*60*24)
 
-    const resultFinish = room?.find(index=>index?.id_tipoHabitacion == resulDetailDashboard?.ID_Tipo_habitaciones)
-
+   
     const i = moment(resulDetailDashboard?.Fecha_inicio).utc().format('YYYY/MM/DD')
     const f = moment(resulDetailDashboard?.Fecha_final).utc().format('YYYY/MM/DD')
     const n = moment(resulDetailDashboard?.Fecha_nacimiento).utc().format('YYYY/MM/DD') 
@@ -71,15 +68,6 @@ const Checkingn2Organism =({id,postDetailRoom,fetchDataApiWhatsapp,postWhataapBy
     const numtOne  = numEnterotOne + addtOne
     const convertirFinishtONe = parseInt(numtOne)
  
-
-    useEffect(() =>{
-        ServicetypeRooms({id:jwt.result.id_hotel}).then(index =>{
-            setRoom(index)
-        })
-        fetch("https://grupohoteles.co/api/getTipeDocument")
-        .then(index =>index.json())
-        .then(data => setTipoDocumento(data))
-    },[])
 
     const hanClickinContracto =() =>{
         if(change.ID_Tipo_Forma_pago== null){
@@ -171,8 +159,7 @@ const Checkingn2Organism =({id,postDetailRoom,fetchDataApiWhatsapp,postWhataapBy
       // Asegurarse de que PayAbono no sea negativo
       const PayAbono = Math.max(habitacion - abono, 0);
 
-            
-      console.log(totalWithIva)
+
       
       const inputPayValue = {
         ID_pago:resulDetailDashboard?.ID_pago,
@@ -221,7 +208,7 @@ const Checkingn2Organism =({id,postDetailRoom,fetchDataApiWhatsapp,postWhataapBy
           await postDetailRoom({ id: resulDetailDashboard?.ID_Habitaciones, ID_estado_habitacion: 3 });
           await ServiceStatus({ id, ID_Tipo_Estados_Habitaciones: 3 });
       
-          const movimiento = `Check in realizado tipo habitacion ${resultFinish?.nombre} ${resulDetailDashboard.Numero} nombre ${resulDetailDashboard.Nombre} codigo reserva ${resulDetailDashboard.id_persona}`;
+          const movimiento = `Check in realizado tipo habitacion ${resulDetailDashboard?.nombre_habitacion} ${resulDetailDashboard.Numero} nombre ${resulDetailDashboard.Nombre} codigo reserva ${resulDetailDashboard.id_persona}`;
       
           await ServiceInfomeMovimiento({ Nombre_recepcion: jwt.result.name, Fecha: now, Movimiento: movimiento, id: jwt.result.id_hotel });
           setDisable(false);
@@ -261,94 +248,8 @@ const Checkingn2Organism =({id,postDetailRoom,fetchDataApiWhatsapp,postWhataapBy
         })
         }
 
-
-    if(!resultFinish) return null
-  
-
-    if(resulDetailDashboard.Iva==1){
-        return (
-            <>
-                <div className="container-flex-init-global" >
-                <LoadingDetail
-                                loading={true}
-                                titleLoading={"Checking"}  />
-    
-                <div  className="init-checkingn2" >
-                    <div className="container-detail-dasboard-in" >
-                        <input type="text" className="desde-detail" defaultValue={i}   />
-                        <input type="text" className="desde-detail" name="Fecha" defaultValue={f}   />
-                        <h2 className="cod-reserva" ><span className="title-code" >COD:</span> X14A-{resulDetailDashboard?.Num_documento}</h2>
-                    </div>
-    
-                    </div>
-                    
-                        <h2 className="cod-reserva-one to-checkin" >
-                                <span className="title-code" >
-                                </span> 
-                                <span className="close-negrita"  >  Debes cobrar a:</span>  {resulDetailDashboard?.Nombre} {resulDetailDashboard?.Apellido} <span className="close-negrita"  > un valor de:</span>  {totalWithIva} <span className="close-negrita"  > con el siguiente medio de pago:  <select onChange={handleInputChange}  
-                                            required
-                                            name="ID_Tipo_Forma_pago"
-                                            className='select-hotel-type-rooms-finis-dasboard-finish-one ote posicion'>
-                                        <option>Tipo pago</option>
-                                        {typy_buy?.map(category =>(
-                                            <option 
-                                            value={category.id}   
-                                            key={category}
-                                        >
-                                            {category.name}
-                                        </option>
-                                        )
-                                        )}
-                                    </select> </span>   
-                                 
-                         </h2>
-                       
-                         <div className="top-title-re" >
-                            <span className="close-negritaOne">Recuerda que la emision de la factura electronica o pos es en el check out</span>
-                        </div>
-                 
-
-                    <div className="container-detail-dasboard-in-one container-detail-dasboard-in-one-tw" >
-                    <div style={{background: "#ebebeb"}} className="border-detail" >
-                        <span>Cantidad noches</span>
-                        <span className="negrita-detail-reserva" >{day} noches</span>
-                    </div>
-
-                    <div style={{background: "#ebebeb"}} className="border-detail" >
-                        <span>Valor noche</span>
-                        <span className="negrita-detail-reserva">  {toPricediaHabitacion.price}</span>
-                    </div>
-
-                    <div style={{background: "#ebebeb"}} className="border-detail" >
-                        <span>Total hospedaje</span>
-                        <span className="negrita-detail-reserva" > {totalWithIva}</span>
-                    </div>
-                    
-                    <div style={{background: "#ebebeb"}} className="border-detail" >
-                        <span>Tipo pago </span>
-                        <span className="negrita-detail-reserva"  >{resulDetailDashboard?.forma_pago}</span>
-                    </div>
-
-                    <div style={{background: "#ebebeb"}} className="border-detail" >
-                            <span>Abono</span>
-                        <span className="negrita-detail-reserva" >{toPriceAbono.price}</span>
-                    </div> 
-
-                    </div>
-                    </div>
-                        <div className="  one-button-checking"  >
-                        <Button 
-					disabled={disable}
-                    onClick={handModalText}
-					style={{width:"100%"}}  
-					color="success" 
-				 > <span  className="text-words" >Continuar</span> </Button>
-                </div> 
-              
-            </>
-        )
-    
-    }else{
+    console.log(resulDetailDashboard)
+ 
         return (
             <>
                 <div className="container-flex-init-global" >
@@ -409,7 +310,7 @@ const Checkingn2Organism =({id,postDetailRoom,fetchDataApiWhatsapp,postWhataapBy
                             
                             <div style={{background: "#ebebeb"}} className="border-detail" >
                                 <span>Tipo habitacion</span>
-                                <span className="negrita-detail-reserva"  >{resultFinish?.nombre}</span>
+                                <span className="negrita-detail-reserva"  >{resulDetailDashboard?.nombre_habitacion}</span>
                             </div>
 
                             <div style={{background: "#ebebeb"}} className="border-detail">
@@ -429,8 +330,6 @@ const Checkingn2Organism =({id,postDetailRoom,fetchDataApiWhatsapp,postWhataapBy
            
             </>
         )
-    }
-   
 
 }
 

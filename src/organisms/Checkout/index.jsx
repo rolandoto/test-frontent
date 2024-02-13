@@ -456,16 +456,14 @@ const CheckoutOrganism =({DetailDashboard,postDetailRoom,fetchDataApiWhatsapp}) 
           });
     }
 
-
     function handleOnChange(event) {
         setIsChecked(!isChecked);
-      }
-
-    console.log(resultDashboard)
-
+    }
+    
     const fechaFinal= moment(resultDashboard?.Fecha_final).utc().format('YYYY/MM/DD')
 
     if(findEmpresa)
+    
     return (
         <>     
             {invoince  && <Invoince                 

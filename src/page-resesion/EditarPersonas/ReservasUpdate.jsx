@@ -15,8 +15,7 @@ import UseDocument from "../../hooks/useDocument";
 const ReservasUpdate =(props) =>{
     const {DetailDashboard,fetchData} = props
     const {id} =useParams()
-    const [state,setSatate] =useState()
-    const [room,setRoom] =useState()
+
     const [nombre,setNombre] =useState()
     const [apellido,setApellido] =useState()
     const [document,setDocumento] =useState()
@@ -44,16 +43,12 @@ const ReservasUpdate =(props) =>{
 
     const docu = documentUse.document?.find(index =>  index?.ID == resultDasboard?.ID_Tipo_documento)
 
-    const resultFinish = room?.find(index=>index?.id_tipoHabitacion == state?.ID_Tipo_habitaciones)
-
+  
     const i = moment(resultDasboard?.Fecha_inicio).utc().format('YYYY/MM/DD')
     const f = moment(resultDasboard?.Fecha_final).utc().format('YYYY/MM/DD')
     const n = moment(resultDasboard?.Fecha_nacimiento).utc().format('YYYY/MM/DD')
     
     useEffect(() =>{
-        ServicetypeRooms({id:jwt.result.id_hotel}).then(index =>{
-            setRoom(index)
-        })
       fetch(`${config.serverRoute}/api/resecion/getcountry`)
             .then(resp => resp.json())
             .then(data=> setCountry(data))
@@ -70,7 +65,7 @@ const ReservasUpdate =(props) =>{
             ID_Tipo_documento:typeDocument
     }
 
-    console.log(typeDocument)
+   
 
   const handClick =() =>{
     ServiceUpdateReservation({id,data}).then(index =>{
@@ -81,37 +76,16 @@ const ReservasUpdate =(props) =>{
     })
   }
 
-  const habitacion = room?.find(index=>index?.id_tipoHabitacion == resultDasboard?.ID_Tipo_habitaciones)
 
     return (
         <>
             <div className="container-flex-init-global"  >
-
             <LoadingDetail loading={loading}  titleLoading="guardado correctame"/>
             <LoadingDetail loading={true}  titleLoading="Editar personas"/>
-
             <div className="container-detail-dasboard-in-one" >
-              <div className="border-detail" >
-                   <span>{day} noches</span>
-              </div>
-
-              <div className="border-detail" >
-                   <span>{resultDasboard?.valor_dia_habitacion}</span>
-              </div>
-
-              <div className="border-detail" >
-                   <span>{habitacion?.nombre}</span>
-              </div>
-
-              <div className="border-detail" >
-                   <span>{resultDasboard?.forma_pago}</span>
-              </div>
-              <div className="border-detail" >
-                   <span>Abono {resultDasboard?.valor_abono} </span>
-              </div>
           </div>
 
-            <div  className="container-flex-init-global" >
+            <div  className="" >
                 <div className="container-detail-dasboard-in" >
                 <input type="text" className="desde-detail" readOnly={true} defaultValue={i} />
                 <input type="text" className="desde-detail" readOnly={true} name="Fecha"  defaultValue={f}  />
@@ -119,7 +93,7 @@ const ReservasUpdate =(props) =>{
             </div>
             </div>
 
-                        <div className="init one-detail" >
+                        <div className=" one-detail" >
                     
                             <form className="container-flex-init" >
 

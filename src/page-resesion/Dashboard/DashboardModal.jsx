@@ -60,7 +60,6 @@ const DashboardModal = (props) => {
         const [state,setState] = useState()
         const [pet,setPet] = useState()
         const [documnet,setDocument] = useState()
-        const [bedRoom,setBedroom] =useState()
         const [preloading,setPreloading] = useState(false)
         const [chanel,setchanel] =useState()
         const [loadingAvaible,setLoadingAvaible] =useState({loading:false,error:true})
@@ -82,8 +81,6 @@ const DashboardModal = (props) => {
         const [decuento,setDescuento] =useState(0)
         const [createReservation,setCreateReservation] = useState(false)
         const [idEmpresa,setIdEmpresa] =useState()
-
-        
 
         const now = moment().format("YYYY/MM/DD h:mm:ss")
 
@@ -274,7 +271,7 @@ const DashboardModal = (props) => {
 
         useEffect(() =>{
             ServicetypeRooms({id:jwt.result.id_hotel}).then(index =>{
-                setState(index)
+                setState(index.query)
             })
         },[setState])
 
@@ -284,6 +281,7 @@ const DashboardModal = (props) => {
             return {nombre,ID}
         })
 
+        console.log({"aqui esta":habi})
 
         useEffect(() =>{
          
@@ -295,17 +293,15 @@ const DashboardModal = (props) => {
             .then(resp => resp.json())
             .then(data=> setCountry(data))
 
-            fetch("https://grupohoteles.co/api/getTipeDocument")
+            fetch(`${config.serverRoute}/api/resecion/getTipeDocument`)
             .then(res => res.json())
-            .then(data => setDocument(data))
+            .then(data => setDocument(data?.query))
 
             fetch(`${config.serverRoute}/api/resecion/gettypepet`)
             .then(res => res.json())
             .then(data  => setPet(data))
 
-            fetch(`https://grupo-hoteles.co/api/getTypeRoomByID?id_tipo_habitacion=${change.habitaciones}`)
-            .then(index =>index.json())
-            .then(data => setBedroom(data))
+          
 
             fetch(`${config.serverRoute}/api/resecion/getroomdetalle/${fecha}`)
             .then(index=> index.json())
@@ -316,7 +312,7 @@ const DashboardModal = (props) => {
             .then(data =>setIdEmpresa(data.query))   
 
             ServicetypeRooms({id:jwt.result.id_hotel}).then(index =>{
-              setRoom(index)
+              setRoom(index.query)
           })
 
         
@@ -609,7 +605,6 @@ const DashboardModal = (props) => {
 
         const {progress} = useProgress({id:"1"})
 
-        if(!room)  return null
 
         if(createReservation) return   <LineProgress progress={progress} />  
         return (

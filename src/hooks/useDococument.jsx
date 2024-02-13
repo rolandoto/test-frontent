@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import { config } from "../config"
 
 
 
@@ -10,14 +11,14 @@ const UseDocument =({itemId="1"}) =>{
     const [state,setState] =useState()
 
     useEffect(() =>{
-        fetch("https://grupohoteles.co/api/getTipeDocument")
+      fetch(`${config.serverRoute}/api/resecion/getTipeDocument`)
       .then(response  =>{
         if(!response.ok){
             throw new Error("ERROR HTP"+ response.status)
         }
         return response.json()
       })
-     .then(data => setState(data))
+     .then(data => setState(data?.query))
     .catch((error) => console.error(error))
     },[])
 

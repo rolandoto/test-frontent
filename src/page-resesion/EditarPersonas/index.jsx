@@ -13,8 +13,6 @@ const EditarPersonas =() =>{
     const history =useHistory()
     const {id} =useParams()
     const [state,setSatate] =useState()
-    const [room,setRoom] =useState()
-    const [tipoDocumento,setTipoDocumento] =useState()
     const [nombre,setNombre] =useState()
     const [apellido,setApellido] =useState()
     const [document,setDocumento] =useState()
@@ -30,6 +28,8 @@ const EditarPersonas =() =>{
 
     const resulrEditar = state?.find(index => index.huespedes ==id)
 
+
+
     const init  =   moment(resulrEditar?.Fecha_inicio).utc().format('MM/DD/YYYY')
     const fin = moment(resulrEditar?.Fecha_final).utc().format('MM/DD/YYYY')
 
@@ -42,8 +42,7 @@ const EditarPersonas =() =>{
 
     const docu = documentUse.document?.find(index =>  index?.ID == resulrEditar?.ID_Tipo_documento)
 
-    const resultFinish = room?.find(index=>index?.id_tipoHabitacion == state?.ID_Tipo_habitaciones)
-
+   
     const i = moment(resulrEditar?.Fecha_inicio).utc().format('YYYY/MM/DD')
     const f = moment(resulrEditar?.Fecha_final).utc().format('YYYY/MM/DD')
     const n = moment(resulrEditar?.Fecha_nacimiento).utc().format('YYYY/MM/DD')
@@ -54,16 +53,10 @@ const EditarPersonas =() =>{
         .then(data  => setSatate(data.link))
     },[])
     
-    const fetchData =async() =>{
-        fetch("https://grupohoteles.co/api/getTipeDocument")
-        .then(index =>index.json())
-        .then(data => setTipoDocumento(data))
-    }
+  
     
     useEffect(() =>{
-        ServicetypeRooms({id:jwt.result.id_hotel}).then(index =>{
-            setRoom(index)
-        })
+      
       fetch(`${config.serverRoute}/api/resecion/getcountry`)
             .then(resp => resp.json())
             .then(data=> setCountry(data))
@@ -89,7 +82,6 @@ const EditarPersonas =() =>{
     })
   }
 
-  const habitacion = room?.find(index=>index?.id_tipoHabitacion == resulrEditar?.ID_Tipo_habitaciones)
 
   if(!docu) return null
 
@@ -97,32 +89,12 @@ const EditarPersonas =() =>{
     return (
         <>
                 <div className="container-flex-init-global"  >
-
                 <LoadingDetail loading={loading}  titleLoading="guardado correctame"/>
                 <LoadingDetail loading={true}  titleLoading="Editar personas"/>
-
                 <div className="container-detail-dasboard-in-one" >
-                <div className="border-detail" >
-                    <span>{day} noches</span>
-                </div>
-
-                <div className="border-detail" >
-                    <span>{resulrEditar?.Valor_habitacion}</span>
-                </div>
-
-                <div className="border-detail" >
-                    <span>{habitacion?.nombre}</span>
-                </div>
-
-                <div className="border-detail" >
-                    <span>{resulrEditar?.nombre_pago}</span>
-                </div>
-                <div className="border-detail" >
-                    <span>Abono {resulrEditar?.Abono} </span>
-                </div>
             </div>
 
-                <div  className="container-flex-init-global" >
+                <div  className="" >
                     <div className="container-detail-dasboard-in" >
                     <input type="text" className="desde-detail" readOnly={true} defaultValue={i} />
                     <input type="text" className="desde-detail" readOnly={true} name="Fecha"  defaultValue={f}  />
@@ -130,7 +102,7 @@ const EditarPersonas =() =>{
                 </div>
                 </div>
 
-                            <div className="init one-detail" >
+                            <div className=" one-detail" >
                         
                                 <form className="container-flex-init" >
 

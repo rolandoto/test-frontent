@@ -103,7 +103,7 @@ const SideNavBar = () => {
                             <Grid >
                             <Avatar
                                     size="lg"
-                                    src={jwt.result.photo}
+                                   
                                     color="success"
                                     bordered
                                     width={8}

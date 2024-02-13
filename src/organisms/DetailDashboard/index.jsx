@@ -42,6 +42,7 @@ import { toast } from "react-hot-toast";
 import HistorialDetailReservation from "../../component/HistorialDetailReservation";
 import io from "socket.io-client";
 import { RiDeleteBin5Line } from "react-icons/ri";
+import { useSelector } from "react-redux";
 
 
 const socket = io.connect("https://railway.grupo-hoteles.com");
@@ -59,13 +60,17 @@ const DetailDasboard =(props) =>{
     const {id} = useParams()
     const [state,setState] =useState(true)
     const [room,setRoom] =useState()
-    const [tipoDocumento,setTipoDocumento] =useState()
+  
     const {DetailDashboard,fetchData,postDetailRoom,postInsertTarifas,handClickLoading,fetchWhatsapp} = props
     const [loading,setLoading] =useState({loading:false,error:false})
     const history = useHistory()
     const {iduser} = UseListMotels()
     const {jwt} = useContext(AutoProvider)
+
     
+	const {Room,filterRoom
+	} = useSelector((state) => state.ReservationSlice)
+
     const message  =jwt?.result?.photo
 
     const totalId =  jwt.result.id_hotel == 3 || jwt.result.id_hotel == 4 || jwt.result.id_hotel == 23 ||  jwt.result.id_hotel == 5 || jwt.result.id_hotel == 6 || jwt.result.id_hotel == 12  || jwt.result.id_hotel == 10 || jwt.result.id_hotel == 2  ?  true : false
@@ -135,9 +140,6 @@ const DetailDasboard =(props) =>{
       const [observacion,setObservacion] =useState()
       const [loadinConsumo,setLoadingConsumo] =useState(false)
       const [idRoom,setIdRoom] =useState()
-      const [disponibilidad,setDisponibilidad] =useState()
-      const [asignar,setAsignar] =useState()
-      const [loadingTypeRoom,setLoadingTypeRoom] =useState({loading:false,error:false})
       const [descripcion,setDescription] =useState(null)
       const [valorSolicitado, setValorSolicitado] = useState('');
       const [DateEmpresa, setDateEmpresa] = useState();
@@ -312,13 +314,6 @@ const DetailDasboard =(props) =>{
       Tipo_persona:tipoPersonas
     } 
 
-    const dataAvaible ={
-      hasta:`${espan} 13:00:00`,
-      desde:`${fechaOne.defaultValueone} 15:00:00`,
-      desdeOne:`${fecha.defaultValueone} 15:00:00`,
-      hastaOne:`${espanOne} 15:00:00`,
-  }   
-   
     const tipos_adicional = [
       {
         id: 1,
@@ -332,7 +327,11 @@ const DetailDasboard =(props) =>{
 
     const hanClickDetailCheckout =() =>{
       if(findFirma){
-        history.push(`/Checkout/${id}`)
+        if(isChecke){
+          history.push(`/Dian/${id}`)
+        }else{
+          history.push(`/Checkout/${id}`)
+        }
       } 
     }
 
@@ -359,11 +358,9 @@ const DetailDasboard =(props) =>{
         }
       }
     }
-    
-    const docu = tipoDocumento?.find(index =>  index?.ID == resultDashboard?.ID_Tipo_documento)
-
-    const resultFinish = room?.find(index=>index?.id_tipoHabitacion == resultDashboard?.ID_Tipo_habitaciones)
  
+    const resultFinish = Room?.find(index=>index?.ID_Tipo_habitaciones == resultDashboard?.ID_Tipo_habitaciones)
+    console.log({resultDashboard})
     const item = state  ? <span>Editar</span> : <span>Guardar</span>
     
     const handEditar =(e) =>{
@@ -441,11 +438,11 @@ const DetailDasboard =(props) =>{
     }
 
     const {handModalText} =UseModalText({handlModal:handClickInsertAbono,Text:"Agregar abono ?"})
-
+    console.log(documnet)
     useEffect(() =>{
-      fetch("https://grupohoteles.co/api/getTipeDocument")
+      fetch(`${config.serverRoute}/api/resecion/getTipeDocument`)
       .then(res => res.json())
-      .then(data => setDocument(data))
+      .then(data => setDocument(data.query))
 
       fetch(`${config.serverRoute}/api/resecion/getcartreservaction/${id}`)
       .then(resp => resp.json())
@@ -455,27 +452,9 @@ const DetailDasboard =(props) =>{
       .then(resp => resp.json())
       .then(data=> setCountry(data))
 
-      ServicetypeRooms({id:jwt.result.id_hotel}).then(index =>{
-        setRoom(index)
-    })
-      fetch("https://grupohoteles.co/api/getTipeDocument")
-      .then(index =>index.json())
-      .then(data => setTipoDocumento(data))
-
       fetch(`${config.serverRoute}/api/resecion/getdetailchecking/${id}`)
       .then(resp => resp.json())
       .then(data=> setQuery(data?.query))
-
-      fetch(`${config.serverRoute}/api/resecion/getroomdetalle/${idRoom}`)
-            .then(index=> index.json())
-            .then(data =>setDisponibilidad(data))
-      fetch(`${config.serverRoute}/api/resecion/getroomdetalle/${idRoom}`)
-      .then(index=> index.json())
-      .then(data =>setDisponibilidad(data))
-
-      fetch(`${config.serverRoute}/api/resecion/getroomdetalle/${idRoom}`)
-      .then(index=> index.json())
-      .then(data =>setDisponibilidad(data))
 
       
       fetch(`${config.serverRoute}/api/resecion/PostFacturacion/${resultDashboard.ID_facturacion}`)
@@ -498,7 +477,6 @@ const DetailDasboard =(props) =>{
   
     return acum + valorHabitacion - valorAbono - payAbono;
   }, 0);
-
 
   const totaCobrar  =  totalPrice  ? totalPrice : 0
 
@@ -742,65 +720,6 @@ const hancPdf =() =>{
   })
 } 
 
-const hanClickAsear =() => {
-    if(resultDashboard?.Estado !="3"){
-      ServiceStatus({id,ID_Tipo_Estados_Habitaciones:5}).then(index => {
-        Swal.fire({
-          position: 'center',
-          icon: 'success',
-          title: '<p>Exitoso</p>',
-          showConfirmButton: false,
-          timer: 2000
-        })
-      }).catch(e =>{
-        Swal.fire({
-          position: 'center',
-          icon: 'error',
-          title: '<p>Error al cambiar habitacion</p>',
-          showConfirmButton: false,
-          timer: 2000
-        })
-      })
-    }else{
-      Swal.fire({
-        position: 'center',
-        icon: 'error',
-        title: '<p>Error habitacion ocupada</p>',
-        showConfirmButton: false,
-        timer: 2000
-      })
-    }
-}
-
-const hanClickLimpia =async() => {
-  if(resultDashboard?.Estado !="3" ){
-    ServiceStatus({id,ID_Tipo_Estados_Habitaciones:6}).then(index => {
-      Swal.fire({
-        position: 'center',
-        icon: 'success',
-        title: '<p>Exitoso</p>',
-        showConfirmButton: false,
-        timer: 2000
-      })
-    }).catch(e =>{
-      Swal.fire({
-        position: 'center',
-        icon: 'error',
-        title: '<p>Error </p>',
-        showConfirmButton: false,
-        timer: 2000
-      })
-    })
-  }else {
-    Swal.fire({
-      position: 'center',
-      icon: 'error',
-      title: '<p>Error habitacion ocupada</p>',
-      showConfirmButton: false,
-      timer: 2000
-    })
-  }
-}
 
 const  handComprobante =UseModalText({handlModal:hancPdf,Text:"Descargar comprobante reserva?"})
 const  hanclickEditar =UseModalText({handlModal:state ?handChangeSave :handChangeEdit,Text:"Editar la informacion de la reserva?"})
@@ -811,28 +730,7 @@ const  handleClickEliminar =UseModalText({handlModal:hanDelete,Text:"Estas segur
     return (
       <>
         <div className="container-flex-init-global" >
-          <LoadingDetail   titleLoading={"Datos actualizados"} 
-                        loading={loading.loading}
-                        error={loading.error}  />
-
-          <LoadingDetail  
-                        loading={true}
-                        titleLoading={"Detalle reserva"}  />
-          <LoadingDetail  
-                        error={loadingFecha.error}
-                        title={"NO se puede reservar"}  />
-          <LoadingDetail  
-                        error={loadingTypeRoom.error}
-                        title={"No se puede cambiar tipo de habitacion"}  />
-           <LoadingDetail  
-                        loading={loadingFecha.loading}
-                        titleLoading={"Fecha Actualizada"}  />
-
-          <LoadingDetail  
-                        loading={loadingTypeRoom.loading}
-                        titleLoading={"Se cambio correctamente la habitacion"}  />
-           <LoadingDetail      error={error}  
-                      title="Completa todos los campos por favor" />
+        
 
           <div className="container-detail-dasboard-in-one" >
               <div    className="border-detail " > 
@@ -854,7 +752,7 @@ const  handleClickEliminar =UseModalText({handlModal:hanDelete,Text:"Estas segur
 
                <div className="border-detail" >
                   <span>Habitacion:</span>
-                   <span className="negrita-detail-reserva"  >{resultFinish?.nombre} {resultDashboard.Numero}</span>
+                   <span className="negrita-detail-reserva"  >{resultDashboard.Numero} {resultDashboard?.nombre_habitacion}</span>
               </div>
 
               {resultDashboard.Foto_documento_adelante ?  (
@@ -1387,9 +1285,7 @@ const  handleClickEliminar =UseModalText({handlModal:hanDelete,Text:"Estas segur
                         </button>
                     </div>}                            
                       </form>
-}
-
-         
+        }   
       </>
     )
 }
@@ -1466,8 +1362,6 @@ const Huesped =({quyery,handEditar,handChangeSubmit ,stateButton,DetailDashboard
 }
 
 const Consumo =(props) =>{
-
-  
 
   const  {
           habitacion,

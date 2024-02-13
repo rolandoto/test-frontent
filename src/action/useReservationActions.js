@@ -45,7 +45,7 @@ const useReservationActions  =() =>{
             const getRoomFilter= await ServicetypeRooms({id:jwt.result.id_hotel})
             
             if(getRoomFilter){
-                dispatch(ReservationSlice.actions.setReservationFilter(getRoomFilter))
+                dispatch(ReservationSlice.actions.setReservationFilter(getRoomFilter?.query))
             }
         } catch (error) {
             dispatch(ReservationSlice.actions.setError("no found"))

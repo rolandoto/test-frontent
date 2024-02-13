@@ -1,6 +1,5 @@
 import {createSlice} from "@reduxjs/toolkit"
 
-
 export const DEFAULT_STATE = {
     DetailDashboard:[],
     loading:false,
@@ -24,7 +23,7 @@ export const DetailDasboardSlice = createSlice({
         setDetailDashboard:(state,action) =>{
             state.DetailDashboard= action.payload
             state.loading = false
-            console.log({"----payload":state.DetailDashboard})
+          
          },
          setError:(state,action) =>{
             state.loading= false

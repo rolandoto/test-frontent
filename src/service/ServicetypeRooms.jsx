@@ -1,7 +1,9 @@
-const ENDPOINT ='https://grupo-hoteles.com/api/getTypeRoomsByIDHotel?id_hotel='
+import { config } from "../config"
+
+const ENDPOINT =`${config.serverRoute}/api/resecion/getTypeRoomsByIDHotelid_hotel`
 
 const ServicetypeRooms =({id})=>{
-    return fetch(`${ENDPOINT}${id}`,{
+    return fetch(`${ENDPOINT}/${id}`,{
         method:'POST',
         headers:{
             'Content-type':'application/json'

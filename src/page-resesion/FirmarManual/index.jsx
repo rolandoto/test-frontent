@@ -11,6 +11,7 @@ import { useHistory, useParams } from "react-router-dom/cjs/react-router-dom.min
 import moment from "moment";
 import { PiSignatureLight } from "react-icons/pi";
 import { Button } from "@nextui-org/react";
+import { config } from "../../config";
 
 const SingnatureMaual =() =>{
 
@@ -30,9 +31,9 @@ const SingnatureMaual =() =>{
     }
 
     useEffect(() =>{
-        fetch("https://grupohoteles.co/api/getTipeDocument")
+        fetch(`${config.serverRoute}/api/resecion/getTipeDocument`)
         .then(res => res.json())
-        .then(data => setDocument(data))
+        .then(data => setDocument(data?.query))
         fetchData()
     },[id])
 

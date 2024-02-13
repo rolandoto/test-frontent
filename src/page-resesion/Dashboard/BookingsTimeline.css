@@ -908,3 +908,28 @@ hr.border {
 .flex-ocasioanles{
   display: flex;
 }
+
+.nav-notifiacation{
+  position: fixed;
+    left: 89px;
+    text-align: left;
+    background: #f31260 ;
+    padding: 6px 15px;
+    border-radius: 32px;
+    opacity: .95;
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    z-index: 1000;
+    /* right: 0; */
+    color: white;
+    right: 0;
+    width:  211px;
+    margin: auto;
+    text-align: center;
+    top: 120px;
+}
+
+.row-notification{
+  display: flex;
+  align-items: center;
+}

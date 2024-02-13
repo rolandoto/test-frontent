@@ -12,7 +12,6 @@ import 'react-date-range/dist/styles.css';
 import 'react-date-range/dist/theme/default.css';
 import 'moment/locale/es';
 import esLocale from 'date-fns/locale/es';
-
 import { 
     DateRange , 
     Range, 
@@ -46,10 +45,7 @@ const TemplateSearch =() =>{
     
       const formattedStartDate = moment(state[0].startDate).format('YYYY/MM/DD');
       const formattedEndDate = moment(state[0].endDate).format('YYYY/MM/DD');
-    
-    
 
-    console.log(formattedStartDate)
 
     const filtrarSearching = (terminoBusqueda, fechaDesde, fechaHasta) => {
         let resultadosBusqueda = Items?.filter((elemento, index) => {
