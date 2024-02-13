@@ -55,8 +55,6 @@ const Checkingn3 =() =>{
     
     const day =diff/(1000*60*60*24)
 
-    const resultFinish = room?.find(index=>index?.id_tipoHabitacion == resulDetailDashboard?.ID_Tipo_habitaciones)
-
     const i = moment(resulDetailDashboard?.Fecha_inicio).utc().format('YYYY/MM/DD')
     const f = moment(resulDetailDashboard?.Fecha_final).utc().format('YYYY/MM/DD')
     const n = moment(resulDetailDashboard?.Fecha_nacimiento).utc().format('YYYY/MM/DD') 
@@ -211,7 +209,7 @@ const Checkingn3 =() =>{
         setIsChecked(!isChecked);
       }  
    
-    if(!resultFinish) return null
+
 
     if(resulDetailDashboard.Iva==1){
         return (
@@ -337,7 +335,7 @@ const Checkingn3 =() =>{
                             
                             <div style={{background: "#ebebeb"}} className="border-detail"  >
                                 <span>Tipo habitacion</span>
-                                <span className="negrita-detail-reserva"  >{resultFinish?.nombre}</span>
+                                <span className="negrita-detail-reserva"  >{resulDetailDashboard?.nombre_habitacion}</span>
                             </div>
 
                             <div style={{background: "#ebebeb"}} className="border-detail"  >

@@ -760,7 +760,7 @@ const Dashboard = () => {
 							<h1>Detalle reserva</h1>
                             
                         </div> 
-						{isOpen &&	<FooterNotifacation closeHandler={closeHandler} />}
+						
 			</div>
 		</>
 
