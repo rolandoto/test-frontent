@@ -54,6 +54,8 @@ const CheckoutOrganism =({DetailDashboard,postDetailRoom,fetchDataApiWhatsapp}) 
         setComprobante(true)
     }   
 
+    console.log(resultDashboard)
+
     console.log(DateEmpresa)
 
     const MenuItems = [
@@ -116,9 +118,8 @@ const CheckoutOrganism =({DetailDashboard,postDetailRoom,fetchDataApiWhatsapp}) 
             setRoom(index)
         })
     },[])
-   
-    const resultFinish = room?.find(index=>index?.id_tipoHabitacion == resultDashboard?.ID_Tipo_habitaciones)
-
+   //
+    
     useEffect(() =>{
         fetch(`${config.serverRoute}/api/resecion/getcartreservaction/${id}`)
         .then(resp => resp.json())
@@ -326,13 +327,13 @@ const CheckoutOrganism =({DetailDashboard,postDetailRoom,fetchDataApiWhatsapp}) 
     const totalNumberPhone = numberPhone.replace("+","")
 
     const fullName =   resultDashboard.Nombre +" "+ resultDashboard.Apellido
-
+  
     const hancCheckout =async() => {
-        ServePdf({ codigoReserva:resultDashboard?.Num_documento,Nombre:resultDashboard?.Nombre,room:resultFinish?.nombre,adults:resultDashboard?.Adultos,children:resultDashboard?.Ninos,tituloReserva:resultDashboard?.Nombre,abono:resultDashboard?.valor_abono,formaPago:resultDashboard?.forma_pago,telefono:resultDashboard.Celular,identificacion:resultDashboard.Num_documento,correo:resultDashboard.Correo,urllogo:jwt?.result?.logo,tarifa:resultDashboard.valor_habitacion,entrada:fecha_inicio,salida:fecha_final}).then(index=>{
+        ServePdf({ codigoReserva:resultDashboard?.Num_documento,Nombre:resultDashboard?.Nombre,room:resultDashboard?.nombre_habitacion,adults:resultDashboard?.Adultos,children:resultDashboard?.Ninos,tituloReserva:resultDashboard?.Nombre,abono:resultDashboard?.valor_abono,formaPago:resultDashboard?.forma_pago,telefono:resultDashboard.Celular,identificacion:resultDashboard.Num_documento,correo:resultDashboard.Correo,urllogo:jwt?.result?.logo,tarifa:resultDashboard.valor_habitacion,entrada:fecha_inicio,salida:fecha_final}).then(index=>{
             fetchDataApiWhatsapp({phone:totalNumberPhone,name:fullName,hotel:jwt.result.hotel,factura:index[0]})
         })
         ServiceResolution({Resolucion:dataCount.Resolucion+1,ID:dataCount.ID}).then(index=>{
-            ServiceInfomeMovimiento({Nombre_recepcion:jwt.result.name,Fecha:now,Movimiento:`Check out realizado tipo habitacion ${resultFinish?.nombre} ${resultDashboard.Numero}`,id:jwt.result.id_hotel}).then(index =>{
+            ServiceInfomeMovimiento({Nombre_recepcion:jwt.result.name,Fecha:now,Movimiento:`Check out realizado tipo habitacion ${resultDashboard?.nombre_habitacion} ${resultDashboard.Numero}`,id:jwt.result.id_hotel}).then(index =>{
             }).catch(e =>{
                 console.log(e)
             })
@@ -352,9 +353,7 @@ const CheckoutOrganism =({DetailDashboard,postDetailRoom,fetchDataApiWhatsapp}) 
 
     let count =0
     for(let i =0;i<query?.length;i++){
-        if(query[i] >parseInt(resultFinish?.persona)){
-            count++
-        }
+       
     }
 
     const toPriceNoche = UsePrice({number:resultDashboard.valor_dia_habitacion})
@@ -545,9 +544,10 @@ const CheckoutOrganism =({DetailDashboard,postDetailRoom,fetchDataApiWhatsapp}) 
                                     </div>
                                     <div className="ri-two">
                                         <ul>
+                                      
                                             <li>{resultDashboard?.Adultos + resultDashboard?.Ninos }</li>           
                                             <li className="totalPricecheckout-two" >{resultDashboard?.Noches } Noches</li>           
-                                            <li className="totalPricecheckout-two" >{resultFinish?.nombre}</li>           
+                                            <li className="totalPricecheckout-two" >{resultDashboard?.nombre_habitacion}</li>           
                                             <li className="totalPricecheckout-two" >{toPriceNoche?.price}</li>   
                                             <li className="totalPricecheckout-two" >{count}</li>   
                                             <li className="totalPricecheckout-two" >{0}</li>     
@@ -657,25 +657,7 @@ const CheckoutOrganism =({DetailDashboard,postDetailRoom,fetchDataApiWhatsapp}) 
                             </div>
                         </div>
                     </div>
-                    {comprobante && <FacturaCompany Room={resultFinish}
-                        validFilterSearch={validFilterSearch}
-                        formattedNum={formattedNum}
-                        formatoIva={ivaOne.toLocaleString()}
-                        valorTotalIva={valorTotalIva}
-                        Valor_dia_habitacion={resultDashboard}
-                        resultFinish={resultFinish}
-                        filterSearch={DateEmpresa}
-                        resultDashboard={resultDashboard}
-                        comprobante={comprobante}
-                        setComprobante={setComprobante} 
-                        priceBebidas={priceBebidas}
-                        priceSnacks={priceSnacks}
-                        priceSouvenir={priceSouvenir}
-                        priceDrogueria={priceDrogueria}
-                        priceAdultos={priceAdultos}
-                        priceLenceria={priceLenceria}
-                        totalStore={totalStore}
-                        jwt={jwt}/>}
+                   
             </div>
          }
         </>
@@ -780,9 +762,10 @@ const CheckoutOrganism =({DetailDashboard,postDetailRoom,fetchDataApiWhatsapp}) 
                                     </div>
                                     <div className="ri-two">
                                         <ul>
+                                    
                                             <li>{resultDashboard?.Adultos + resultDashboard?.Ninos }</li>           
                                             <li className="totalPricecheckout-two" >{resultDashboard?.Noches } Noches</li>           
-                                            <li className="totalPricecheckout-two" >{resultFinish?.nombre}</li>           
+                                            <li className="totalPricecheckout-two" >{resultDashboard?.nombre_habitacion}</li>           
                                             <li className="totalPricecheckout-two" >{toPriceNoche?.price}</li>   
                                             <li className="totalPricecheckout-two" >{count}</li>   
                                             <li className="totalPricecheckout-two" >COP {totalAobonoDecimal}</li>               
@@ -914,9 +897,9 @@ const CheckoutOrganism =({DetailDashboard,postDetailRoom,fetchDataApiWhatsapp}) 
                 </div>
             </div>
 
-        {comprobante &&  <Factura Room={resultFinish}
+        {comprobante &&  <Factura 
                     Valor_dia_habitacion={resultDashboard}
-                    resultFinish={resultFinish}
+                 
                     comprobante={comprobante}
                     setComprobante={setComprobante} />
         }                           
@@ -930,7 +913,7 @@ const CheckoutOrganism =({DetailDashboard,postDetailRoom,fetchDataApiWhatsapp}) 
 
 export default CheckoutOrganism
 
-const Factura  =({Room,Valor_dia_habitacion,resultFinish,comprobante,setComprobante}) =>{
+const Factura  =({Room,Valor_dia_habitacion,comprobante,setComprobante}) =>{
     let docToPrint = React.createRef();
     let startDate = new Date(Valor_dia_habitacion.Fecha_inicio);
     let startDateOne = new Date(Valor_dia_habitacion.Fecha_inicio);
@@ -1073,7 +1056,8 @@ const Factura  =({Room,Valor_dia_habitacion,resultFinish,comprobante,setComproba
                 <th className="tarifa-val" >0 </th>
                 <th className="fecha-entrada-val" >{fecha} </th>
                 <th className="fecha-sal" >{fechaOne}</th>
-                <th className="room-detail" >{resultFinish?.nombre} {Valor_dia_habitacion?.Numero}</th>
+              
+                <th className="room-detail" > {Valor_dia_habitacion?.Numero}</th>
               </tr>
             </table>
             <table className="table-factura-one">
@@ -1104,7 +1088,7 @@ const Factura  =({Room,Valor_dia_habitacion,resultFinish,comprobante,setComproba
       </div>)
 }
 
-const FacturaCompany  =({validFilterSearch,valorTotalIva,formatoIva,formattedNum,jwt,totalStore,Room,Valor_dia_habitacion,resultFinish,comprobante,setComprobante,filterSearch,priceBebidas,priceSnacks,priceSouvenir,priceDrogueria,priceAdultos,priceLenceria}) =>{
+const FacturaCompany  =({validFilterSearch,valorTotalIva,formatoIva,formattedNum,jwt,totalStore,Room,Valor_dia_habitacion,comprobante,setComprobante,filterSearch,priceBebidas,priceSnacks,priceSouvenir,priceDrogueria,priceAdultos,priceLenceria}) =>{
     let docToPrint = React.createRef();
     let startDate = new Date(Valor_dia_habitacion.Fecha_inicio);
     let startDateOne = new Date(Valor_dia_habitacion.Fecha_inicio);
@@ -1331,7 +1315,7 @@ const FacturaCompany  =({validFilterSearch,valorTotalIva,formatoIva,formattedNum
                                                 <li className="totalPricecheckout-two-finish-one  let-persona" >{Valor_dia_habitacion?.Noches}</li>   
                                                 <li className="totalPricecheckout-two-finish-one  let-persona" >{Valor_dia_habitacion?.valor_dia_habitacion}</li>   
                                                 <li className="totalPricecheckout-two-finish-one  let-persona" >{Valor_dia_habitacion?.forma_pago}</li>   
-                                                <li className="totalPricecheckout-two-finish-one  let-persona" >{resultFinish?.nombre}</li>   
+                                                <li className="totalPricecheckout-two-finish-one  let-persona" ></li>   
                                                 <li className="totalPricecheckout-two-finish-one  let-persona" >0</li>   
                                                 <li className="totalPricecheckout-two-finish-one  let-persona" >0</li>   
                                                 <li className="totalPricecheckout-two-finish-one  let-persona" >0</li>   
