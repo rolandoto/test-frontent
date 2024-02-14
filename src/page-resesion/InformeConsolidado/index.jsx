@@ -64,7 +64,7 @@ const InformeConsolidado = () => {
 
     useEffect(() =>{
         ServicetypeRooms({id:jwt.result.id_hotel}).then(index =>{
-            setRoom(index)
+            setRoom(index?.query)
         })
     },[setRoom])
 
@@ -701,7 +701,7 @@ const FacturaCompany  =({jwt,roomBusy,roomSell,efectivoTotal,otrosMedios,dolares
 
     useEffect(() =>{
         ServicetypeRooms({id:jwt.result.id_hotel}).then(index =>{
-            setRoom(index)
+            setRoom(index.query)
         })
     },[setRoom])
 
