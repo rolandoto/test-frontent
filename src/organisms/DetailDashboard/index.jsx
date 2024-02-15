@@ -114,6 +114,17 @@ const DetailDasboard =(props) =>{
     const init  =   moment(resultDashboard?.Fecha_inicio).utc().format('DD/MM/YYYY')
     const fin = moment(resultDashboard?.Fecha_final).utc().format('DD/MM/YYYY')
 
+
+    const initOne = moment(resultDashboard?.Fecha_inicio).utc();
+    const finOne = moment(resultDashboard?.Fecha_final).utc();
+    
+    // Calcula la diferencia en días entre las fechas
+    const diffInDays = finOne.diff(initOne, 'days');
+    
+    // Resta uno para excluir el día de llegada
+    const day = diffInDays + 1;
+    
+
     const print = () => {
       const input = document.getElementById("printThis");
      
@@ -382,12 +393,7 @@ const DetailDasboard =(props) =>{
     const  fecha = useDate({fecha:i})
     const  fechaOne = useDate({fecha:f})
 
-    var fechaInicio =  new Date(init).getTime() 
-    var fechaFin    = new Date(fin).getTime() 
-
-    var diff = fechaFin - fechaInicio  
     
-    const day =diff/(1000*60*60*24)
 
     const pruebaOne  =   moment(fecha.defaultValueone).utc().format('MM/DD/YYYY')
     const pruebaTwo = moment(espan).utc().format('MM/DD/YYYY')
