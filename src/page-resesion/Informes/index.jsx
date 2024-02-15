@@ -13,6 +13,7 @@ import AutoProvider  from "../../privateRoute/AutoProvider"
 import { useReactToPrint } from "react-to-print";
 import UseFilterAuditoria from "../../hooks/UseFilterAuditoria"
 import "moment/locale/es";
+import { config } from "../../config"
 
 const InformeAuditoria =() =>{
 
@@ -170,10 +171,9 @@ const InformeAuditoria =() =>{
 
 
       useEffect(() =>{
-        
-      fetch("https://grupohoteles.co/api/getTipeDocument")
+        fetch(`${config.serverRoute}/api/resecion/getTipeDocument`)
       .then(index =>index.json())
-      .then(data => setTipoDocumento(data))
+      .then(data => setTipoDocumento(data?.query))
   },[])
       
     

@@ -43,6 +43,47 @@ import HistorialDetailReservation from "../../component/HistorialDetailReservati
 import io from "socket.io-client";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import { useSelector } from "react-redux";
+import jsPDF from "jspdf"; // check the docs for this: https://parall.ax/products/jspdf
+import html2canvas from "html2canvas";
+
+
+const styles = {
+  fontFamily: "arial",
+  textAlign: "center",
+  padding: "50px",
+};
+
+const btnStyle = {
+  cursor: "pointer",
+  padding: "10px 20px",
+  borderRadius: "5px",
+  outline: "none",
+  fontSize: "20px",
+};
+
+// Estilo para el título
+const titleStyle = {
+  fontSize: 20,
+  fontStyle: 'normal',
+  textColor: 'Black',
+  fontWeight:"lighter"
+};
+
+// Estilo para el subtítulo
+const subtitleStyle = {
+  fontSize: 12,
+  fontStyle: 'normal',
+  textColor: 'black',
+  fontWeight: '500'
+};
+
+// Estilo para el cuerpo del texto
+const bodyStyle = {
+  fontSize: 12,
+  fontStyle: 'normal',
+  textColor: 'black'
+};
+
 
 
 const socket = io.connect("https://railway.grupo-hoteles.com");
@@ -67,6 +108,99 @@ const DetailDasboard =(props) =>{
     const {iduser} = UseListMotels()
     const {jwt} = useContext(AutoProvider)
 
+    const resultDashboard = DetailDashboard[0]
+
+    const documentByIdRoom =  resultDashboard?.Num_documento +""+id
+    const init  =   moment(resultDashboard?.Fecha_inicio).utc().format('DD/MM/YYYY')
+    const fin = moment(resultDashboard?.Fecha_final).utc().format('DD/MM/YYYY')
+
+    const print = () => {
+      const input = document.getElementById("printThis");
+     
+      const pdf = new jsPDF({
+        format: [500, 1100] // Custom size: width = 500, height = 1100 (in units, default is mm)
+      });
+
+      pdf.setFont('helvetica');
+      html2canvas(input, {scale:0.1}).then((canvas) => {
+        
+        const imgData = canvas.toDataURL("image/jpeg", 1.0);
+        const pdf = new jsPDF({
+          orientation: "landscape",
+        
+          format: [800, 800]
+      });
+      
+      pdf.setFont('helvetica');
+    
+      // Título
+      pdf.setTextColor(titleStyle.textColor);
+      pdf.setFontSize(titleStyle.fontSize);
+      pdf.setFontStyle(titleStyle.fontStyle);
+      pdf.text(10, 10, "Comprobante de reserva");
+      pdf.text(180, 10, jwt?.result?.hotel);
+      
+      // Subtítulo
+      pdf.setTextColor(subtitleStyle.textColor);
+      pdf.setFontSize(subtitleStyle.fontSize);
+      pdf.setFontStyle(subtitleStyle.fontStyle);
+      pdf.text(10, 30, "Tu codigo de Reservas:");
+      
+      // Cuerpo del texto
+      pdf.setTextColor(bodyStyle.textColor);
+      pdf.setFontSize(bodyStyle.fontSize);
+      pdf.setFontStyle(bodyStyle.fontStyle);
+      pdf.text(10, 37, `X14A-${documentByIdRoom}`);
+      
+      pdf.setTextColor(bodyStyle.textColor);
+      pdf.setFontSize(bodyStyle.fontSize);
+      pdf.setFontStyle(bodyStyle.fontStyle);
+      pdf.text(10, 45, `Realiza:  ${resultDashboard?.Nombre} ${resultDashboard?.Apellido}`);
+
+
+      pdf.setTextColor(bodyStyle.textColor);
+      pdf.setFontSize(bodyStyle.fontSize);
+      pdf.setFontStyle(bodyStyle.fontStyle);
+      pdf.text(10, 62, `Habitacion: ${resultDashboard.Numero} ${resultDashboard?.nombre_habitacion}`);
+
+      pdf.setTextColor(bodyStyle.textColor);
+      pdf.setFontSize(bodyStyle.fontSize);
+      pdf.setFontStyle(bodyStyle.fontStyle);
+      pdf.text(10, 70, `Titular Reserva: ${resultDashboard?.Nombre} ${resultDashboard?.Apellido}`);
+
+
+      pdf.text(10, 79, `Abono Reservas: $${parseInt(resultDashboard.valor_abono).toLocaleString()}`);
+      pdf.text(10, 88, `Tarifa: $${parseInt(resultDashboard.valor_habitacion).toLocaleString()}`);
+
+      pdf.text(10, 110, `Telefono: ${parseInt(resultDashboard.Celular)}`);
+      pdf.text(10, 119, `Identificaion: ${(resultDashboard.Num_documento)}`);
+      pdf.text(10, 128, `Correo: ${resultDashboard.Correo}`);
+      pdf.text(10, 135, `_____________________________________________________________________________________________________`);
+
+      //10 rigth side  150 is the top 
+      pdf.text(10, 145, `Entrada:`);
+      pdf.text(10, 153, `${init}`);
+      pdf.text(150, 148, `Salida:`);
+      pdf.text(150, 154, `${fin}:`);
+
+      pdf.text(10, 170, `Check in:`);
+      pdf.text(10, 176, `3:00 PM`);
+      pdf.text(150, 171, `Check out:`);
+      pdf.text(150, 177, `1:00 PM:`);
+
+      pdf.text(10, 180, `_____________________________________________________________________________________________________`);
+        // Add text or other content to the PDF
+      pdf.text(10, 190, `Habitacion:`);
+      pdf.text(10, 198, `${resultDashboard.Numero} ${resultDashboard?.nombre_habitacion}`);
+      pdf.text(80, 190, `adultos:`);
+      pdf.text(80, 198, `${resultDashboard.Adultos}`);
+      pdf.text(160, 190, `Niños:`);
+      pdf.text(160, 198, `${resultDashboard.Ninos}`);
+
+   
+      pdf.save("download.pdf"); // Guarda el PDF
+      });
+    };
     
 	const {Room,filterRoom
 	} = useSelector((state) => state.ReservationSlice)
@@ -77,7 +211,7 @@ const DetailDasboard =(props) =>{
 
     const numbersRecepcion = jwt.result.id_hotel == 13 &&  "573022395096"|| jwt.result.id_hotel == 7 &&  "573022395096"|| jwt.result.id_hotel == 23 &&  "573022395096" || jwt.result.id_hotel == 3 &&  "573007785193"|| jwt.result.id_hotel == 4 &&  "573007785193"|| jwt.result.id_hotel == 8 &&  "573007785193" || jwt.result.id_hotel == 5 &&  "573195550001" || jwt.result.id_hotel == 6 &&  "573195550001" || jwt.result.id_hotel == 12 &&  "573195550001"
 
-    const resultDashboard = DetailDashboard[0]
+
     console.log(resultDashboard)
     const findPersona =  resultDashboard?.tipo_persona == "persona"
     const findEmpresa = resultDashboard?.tipo_persona =="empresa"
@@ -121,7 +255,6 @@ const DetailDasboard =(props) =>{
       const [isChecke, setIsChecke] = useState(findEmpresa);
       const [espan,setspand] =useState()
       const [espanOne,setspandOne] =useState()
-      const [loadingFecha,setLoadingFecha] =useState({loading:false,error:false})
       const [huesped,setHuesped] =useState(false)
       const [consumo,setConsumo] =useState(false)
       const [pago,setPago] =useState(true)
@@ -240,8 +373,7 @@ const DetailDasboard =(props) =>{
         setValues({ ...values, [prop]: event.target.value });
       };
 
-    const init  =   moment(resultDashboard?.Fecha_inicio).utc().format('MM/DD/YYYY')
-    const fin = moment(resultDashboard?.Fecha_final).utc().format('MM/DD/YYYY')
+   
 
     const i = moment(resultDashboard?.Fecha_inicio).utc().format('YYYY/MM/DD')
     const f = moment(resultDashboard?.Fecha_final).utc().format('YYYY/MM/DD')
@@ -696,8 +828,6 @@ var currOne = new Date(resultDashboard?.Fecha_final);
 currOne.setDate(currOne.getDate());
 var fecha_final = currOne.toISOString().substring(0,10);
 
-const documentByIdRoom =  resultDashboard?.Num_documento +""+id
-
 const hancPdf =() =>{
   ServePdf({  codigoReserva:documentByIdRoom,Nombre:`${resultDashboard?.Nombre} ${resultDashboard?.Apellido}`,habitacion:`${resultDashboard?.nombre_habitacion}${resultDashboard.Numero}`,adults:resultDashboard?.Adultos,children:resultDashboard?.Ninos,tituloReserva:resultDashboard?.Nombre,abono:resultDashboard?.valor_abono,formaPago:resultDashboard?.forma_pago,telefono:resultDashboard.Celular,identificacion: resultDashboard?.Num_documento,correo:resultDashboard.Correo,urllogo:jwt?.result?.logo,tarifa:resultDashboard.valor_habitacion,entrada:fecha_inicio,salida:fecha_final}).then(index => {
     const link = document.createElement('a')
@@ -719,7 +849,6 @@ const hancPdf =() =>{
     toast.error("Error al Descargar comprobante")
   })
 } 
-
 
 const  handComprobante =UseModalText({handlModal:hancPdf,Text:"Descargar comprobante reserva?"})
 const  hanclickEditar =UseModalText({handlModal:state ?handChangeSave :handChangeEdit,Text:"Editar la informacion de la reserva?"})
@@ -1039,6 +1168,20 @@ const  handleClickEliminar =UseModalText({handlModal:hanDelete,Text:"Estas segur
               <ReactTooltip id="registerTip-2" place="top" effect="solid">
                     Descargar comprobante
               </ReactTooltip>
+
+
+              <div style={styles}>
+              <button style={btnStyle} onClick={print}>
+                Download PDF
+              </button>
+            </div>
+
+              <div style={{ position: 'absolute', left: 50, top: -500 }}>
+                <div id="printThis">
+                
+                </div>
+              </div>
+
               <div  className="name-pinter"  data-tip data-for="registerTip-2" >
                   <div onClick={ handComprobante.handModalText } >
                      <img width={33}  src="https://medellin47.com/ico_pms/qdoc.svg" alt="" />

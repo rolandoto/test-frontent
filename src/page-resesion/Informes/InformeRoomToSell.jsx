@@ -7,52 +7,66 @@ import LoadingDetail from "../../Ui/LoadingDetail";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import { useReactToPrint } from "react-to-print";
+import esLocale from 'date-fns/locale/es';
+import { 
+    DateRange , 
+    Range, 
+    RangeKeyDict
+  } from 'react-date-range';
+  import moment from "moment";
+import useDetailRoomAction from "../../action/useDetailRoomAction";
+import { useSelector } from "react-redux";
+import toast from "react-hot-toast";
 
 const InformeRoomToSell =() =>{    
     const {jwt} =useContext(AutoProvider)
-    const [roomtosell,setRoomTosell]=useState()
-    const [LookinforFecha,setLokinforFecha] =useState()
-    const [LookinforFechaOne,setLokinforFechaOne] =useState()
-    const [loadingInforme,setLoadingInforme] =useState(false)
-    const [room,setRoom] =useState()
-
-    const handClikcDescargar =() =>{
-        setLoadingInforme(true)
-    }
-
-    const hadChangeFecha =(e) =>{
-        setLokinforFecha(e.target.value)
-    }
-    const hadChangeFechaOne =(e) =>{
-        setLokinforFechaOne(e.target.value)
-    }
-
-    const hanLookingFor =() =>{
-        ServiceInfomeRoomtoSell({id:jwt.result.id_hotel,fechaInicio:LookinforFecha ,fechaFinal:LookinforFechaOne}).then(index =>{
-            setRoomTosell(index.groupedDataWithoutDates)
-        }).catch(e =>{
-            console.log(e)
-        })
-    }
-    useEffect(() =>{
-        ServicetypeRooms({id:jwt.result.id_hotel}).then(index =>{
-            setRoom(index.query)
-        })
-    },[setRoom])
-
-
-    const flattened = roomtosell?.flatMap(num => num);
-
     
+    const [state, setState] = useState([
+        {
+          startDate: new Date(),
+          endDate: new Date(),
+          key: "selection",
+        },
+      ]);
 
-    var fechaInicio = new Date(LookinforFecha);
-    var fechaFin    = new Date(LookinforFechaOne);
+    const formattedStartDate = moment(state[0].startDate).format('YYYY/MM/DD');
+    const formattedEndDate = moment(state[0].endDate).format('YYYY/MM/DD');
+
+    const {roomType,RoomTosell
+} = useSelector((state) => state.RoomDetail)
+
+    console.log(RoomTosell)
+
+    const {postTypeRoom,
+        postTypeRoomtosell} = useDetailRoomAction()
+
+    const fetchDate =async() =>{
+        try {
+         await postTypeRoom({id:jwt.result.id_hotel})
+      
+        } catch (error) {
+            console.log("Error fetching data:", error);
+        }
+    }
+
+    const handSubmit =async() =>{
+        try {   
+            toast.success("encontrado")
+
+            const to = await postTypeRoomtosell({id:jwt.result.id_hotel,fechaInicio:formattedStartDate ,fechaFinal:formattedEndDate})
+            console.log({"to":to})
+        } catch (error) {
+            toast.error("Error no encontrado")
+        }
+    }
+
+    var fechaInicio = new Date(formattedStartDate);
+    var fechaFin    = new Date(formattedEndDate);
 
     const array =[]
 
     while(fechaFin.getTime() >= fechaInicio.getTime()){
         fechaInicio.setDate(fechaInicio.getDate() + 1);
-
         array.push({
             day:fechaInicio.getFullYear() + '/' + (fechaInicio.getMonth() + 1) + '/' + fechaInicio.getDate()
         }) 
@@ -66,7 +80,10 @@ const InformeRoomToSell =() =>{
 
     const group = []
 
- 
+    useEffect(() =>{
+         fetchDate()
+    },[])
+
     return (
             <ContainerGlobal>
                    <LoadingDetail 
@@ -75,9 +92,23 @@ const InformeRoomToSell =() =>{
 
                 <div >
                     <div style={{display:"flex",alignItems:"center"}} >
-                        <input type="date" className="input-selecto-dasboard-n1-reservaction"  onChange={hadChangeFecha}    />
-                        <input type="date" className="input-selecto-dasboard-n1-reservaction"  onChange={hadChangeFechaOne}    />
-                        <button className="button-informe-cosultar-roomtosell " onClick={hanLookingFor} >Consultar</button>
+
+                    <DateRange
+                                    color="black"
+                                    minDate={new Date()}
+                                    rangeColors={['#262626']}
+                                    onChange={(item) => setState([item.selection])}
+                                    showSelectionPreview={false}
+                                    moveRangeOnFirstSelection={true}
+                                    months={2}
+                                    showDateDisplay={false}
+                                    ranges={state}
+                                    disabledDates={[]}
+                                    direction="horizontal"
+                                    locale={esLocale}
+                                />
+                       
+                        <button className="button-informe-cosultar-roomtosell " onClick={handSubmit} >Consultar</button>
                         <button className="button-informe-imprimir-roomtosell"  onClick={handlePrint} >
                                 Imprimir
                         </button>
@@ -94,7 +125,7 @@ const InformeRoomToSell =() =>{
                                             </tr>
                                             <div className="template-flex" >
                                             <tr className="to-tr top-pq " >
-                                                {room?.map(index  =>(
+                                                {roomType?.map(index  =>(
                                                     <>
                                                     <td>{index.nombre}</td>
                                                 
@@ -102,7 +133,7 @@ const InformeRoomToSell =() =>{
                                                 ))}
                                                  <td>Total por dia</td>
                                             </tr> 
-                                        {roomtosell?.map((index)  => {
+                                        {RoomTosell?.map((index)  => {
 
                                             const totaGroup =  index.map((row, i)=>{
                                                 const fechaActual = row.fecha;
@@ -145,7 +176,7 @@ const InformeRoomToSell =() =>{
                                            
                                         })}
                                         { <tr className="flex-room-to-sell top-room-to-sell-width" >
-                                            {room?.map(index  =>{
+                                            {roomType?.map(index  =>{
                                                 const filterIndex =   group.filter((Item)=> Item.Room == index.nombre  )
                                                 const sumWithInitial = filterIndex.reduce(
                                                     (accumulator, currentValue) => accumulator + currentValue.disponible,

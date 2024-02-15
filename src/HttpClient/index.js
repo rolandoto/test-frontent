@@ -535,7 +535,7 @@ const PostUploadCarPresent = ({ ID_Reserva, Username }) => {
 };
 
 const PostSearchValue = ({ serchvalue, type }) => {
-  console.log(serchvalue);
+  
   return fetch(`${config.serverRoute}/api/resecion/searchUsersaved`, {
     method: "POST",
     body: JSON.stringify({ serchvalue, type }),
@@ -685,7 +685,6 @@ const getReservaSendingContabilidad = ({ id }) => {
     });
 }
 
-
 const PostResdianByIdReserva = ({ id, resdian }) => {
   return fetch(`${config.serverRoute}/api/resecion/postChangeResdian`, {
     method: "POST",
@@ -743,9 +742,8 @@ const PostAutenticationDian = () => {
     })
 }
 
-
 const GetLisClienteDian = ({token}) => {
-  return fetch(`https://private-anon-1be4d3c754-siigoapi.apiary-proxy.com/v1/customers`, {
+  return fetch(`https://private-anon-1be4d3c754-siigoapi.apiary-proxy.com/v1/customers?page=2&page_size=30`, {
     method: "GET",
     headers: {
       "Authorization":token,
@@ -760,10 +758,8 @@ const GetLisClienteDian = ({token}) => {
   })
 };
 
-
-
 const PostCreatebill = ({body,token}) => {
-  return fetch(`https://private-anon-23cfe71b6f-siigoapi.apiary-mock.com/v1/invoices`, {
+  return fetch(`https://private-anon-407a01d67e-siigoapi.apiary-proxy.com/v1/invoices`, {
     method: "POST",
     body: JSON.stringify(body),
     headers: {
@@ -777,12 +773,13 @@ const PostCreatebill = ({body,token}) => {
     })
     .then((data) => {
       return data
+    }).catch((e) =>{
+      console.log(e)
     })
 }
 
-
 const GetTypeDocuments= ({token}) => {
-  return fetch(`https://private-anon-23cfe71b6f-siigoapi.apiary-mock.com/v1/document-types?type=FV`, {
+  return fetch(`https://private-anon-407a01d67e-siigoapi.apiary-proxy.com/v1/document-types?type=FV`, {
     method: "GET",
     headers: {
       "Authorization":token,
@@ -798,7 +795,7 @@ const GetTypeDocuments= ({token}) => {
 };
 
 const GetSellerDian= ({token}) => {
-  return fetch(`https://private-anon-23cfe71b6f-siigoapi.apiary-mock.com/v1/users`, {
+  return fetch(`https://private-anon-407a01d67e-siigoapi.apiary-proxy.com/v1/users`, {
     method: "GET",
     headers: {
       "Authorization":token,
@@ -814,7 +811,7 @@ const GetSellerDian= ({token}) => {
 };
 
 const GetProducts= ({token}) => {
-  return fetch(`https://private-anon-23cfe71b6f-siigoapi.apiary-mock.com/v1/products`, {
+  return fetch(`https://private-anon-407a01d67e-siigoapi.apiary-proxy.com/v1/products?created_start=2024-02-06`, {
     method: "GET",
     headers: {
       "Authorization":token,
@@ -828,6 +825,88 @@ const GetProducts= ({token}) => {
     return data
   })
 };
+
+const GetCostCenter= ({token}) => {
+  return fetch(`https://private-anon-407a01d67e-siigoapi.apiary-proxy.com/v1/cost-centers`, {
+    method: "GET",
+    headers: {
+      "Authorization":token,
+      'Content-Type': 'application/json',
+      'Partner-Id': 'officegroup'
+    },
+  }).then((resp) => {
+    return resp.json();
+  })
+  .then((data) => {
+    return data
+  })
+};
+
+
+
+const GetTypePayment= ({token}) => {
+  return fetch(`https://private-anon-407a01d67e-siigoapi.apiary-proxy.com/v1/payment-types?document_type=FV`, {
+    method: "GET",
+    headers: {
+      "Authorization":token,
+      'Content-Type': 'application/json',
+      'Partner-Id': 'officegroup'
+    },
+  }).then((resp) => {
+    return resp.json();
+  })
+  .then((data) => {
+    return data
+  })
+};
+
+
+const GetSalesInvoice= ({token,id}) => {
+  return fetch(`https://private-anon-1faab24ca7-siigoapi.apiary-proxy.com/v1/invoices/${id}/pdf`, {
+    method: "GET",
+    headers: {
+      "Authorization":token,
+      'Content-Type': 'application/json',
+      'Partner-Id': 'officegroup'
+    },
+  }).then((resp) => {
+    return resp.json();
+  })
+  .then((data) => {
+    return data
+  })
+};
+
+
+
+const GetTypeRoom = ({id}) => {
+  return fetch(`${config.serverRoute}/api/resecion/getTypeRoomsByIDHotelid_hotel/${id}`, {
+    method: "POST",
+    headers:{
+      'Content-type':'application/json'
+  },
+  }).then(resp =>{
+    return resp.json()
+  }).then(resp=>{
+    return resp
+  })
+};
+
+
+const GetServiceInfomeRoomtoSell =({id,fechaInicio,fechaFinal})=>{
+  return fetch(`${config.serverRoute}/api/resecion/informeroomtosell/${id}`,{
+      method:'POST',
+      headers:{
+          'Content-type':'application/json'
+      },  
+      body: JSON.stringify({fechaInicio,fechaFinal})
+  }).then(resp =>{
+      if(!resp.ok) throw new Error('Response is not ok')
+      return resp.json()
+  }).then(resp=>{
+      return resp
+  })
+}
 
 export default {
   get,
@@ -871,5 +950,11 @@ export default {
   GetLisClienteDian,
   GetTypeDocuments,
   GetSellerDian,
-  GetProducts
+  GetProducts,
+  PostCreatebill,
+  GetCostCenter,
+  GetTypePayment,
+  GetSalesInvoice,
+  GetTypeRoom,
+  GetServiceInfomeRoomtoSell
 };
