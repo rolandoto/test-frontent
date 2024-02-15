@@ -850,7 +850,7 @@ const hancPdf =() =>{
   })
 } 
 
-const  handComprobante =UseModalText({handlModal:hancPdf,Text:"Descargar comprobante reserva?"})
+const  handComprobante =UseModalText({handlModal:print,Text:"Descargar comprobante reserva?"})
 const  hanclickEditar =UseModalText({handlModal:state ?handChangeSave :handChangeEdit,Text:"Editar la informacion de la reserva?"})
 const  handleClickEliminar =UseModalText({handlModal:hanDelete,Text:"Estas seguro de eliminar la reserva ?"})
 
@@ -1170,11 +1170,7 @@ const  handleClickEliminar =UseModalText({handlModal:hanDelete,Text:"Estas segur
               </ReactTooltip>
 
 
-              <div style={styles}>
-              <button style={btnStyle} onClick={print}>
-                Download PDF
-              </button>
-            </div>
+          
 
               <div style={{ position: 'absolute', left: 50, top: -500 }}>
                 <div id="printThis">
