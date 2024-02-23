@@ -287,13 +287,8 @@ const DetailDasboard =(props) =>{
 
       const handChangeValorsolicitado = (event) => {
         const inputValue = event.target.value;
-
-        if (isValidNumber(inputValue)) {
           setError('');
           setValorSolicitado(inputValue);
-        } else {
-          setError('El valor solicitado no puede ser negativo.');
-        }
       };
 
       const  handChangeDescription =(e) =>{
@@ -1112,7 +1107,7 @@ const  handleClickEliminar =UseModalText({handlModal:hanDelete,Text:"Estas segur
                 placeholder="Valor solicitado"
                 className={`desde-detail-twophoto-two ${error ? "error-solicitud" : "" } `} 
                 onChange={handChangeValorsolicitado}
-                defaultValue={0}
+               
                 value={valorSolicitado !== '' ? numberWithCommas(valorSolicitado) : ''}
               />
                 <button style={{background:"black"}} 
