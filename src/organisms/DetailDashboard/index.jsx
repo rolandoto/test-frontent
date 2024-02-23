@@ -20,7 +20,7 @@ import { CiEdit } from "react-icons/ci";
 import ServiceAddHuespedes from "../../service/ServiceAddHuespedes";
 import UseListMotels from "../../hooks/UseListMotels";
 import UsePrice from "../../hooks/UsePrice";
-import { config } from "../../config";
+import { SocketRoute, config } from "../../config";
 import ServiDelteReservation from "../../service/ServiDelecteReservation";
 import ServePdf from "../../service/PdfServe";
 import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
@@ -84,14 +84,10 @@ const bodyStyle = {
   textColor: 'black'
 };
 
-
-
-const socket = io.connect("https://railway.grupo-hoteles.com");
+const socket = io.connect(`${SocketRoute.serverRoute}`);
 
 const DetailDasboard =(props) =>{
   
-  const [messageReceived, setMessageReceived] = useState("exitoso");
-
   useEffect(() => {
     socket.on("sendNotification", (data) => {
      console.error(data)
@@ -100,7 +96,6 @@ const DetailDasboard =(props) =>{
   
     const {id} = useParams()
     const [state,setState] =useState(true)
-    const [room,setRoom] =useState()
   
     const {DetailDashboard,fetchData,postDetailRoom,postInsertTarifas,handClickLoading,fetchWhatsapp} = props
     const [loading,setLoading] =useState({loading:false,error:false})
@@ -205,10 +200,8 @@ const DetailDasboard =(props) =>{
       pdf.text(10, 198, `${resultDashboard.Numero} ${resultDashboard?.nombre_habitacion}`);
       pdf.text(80, 190, `adultos:`);
       pdf.text(80, 198, `${resultDashboard.Adultos}`);
-      pdf.text(160, 190, `Niños:`);
-      pdf.text(160, 198, `${resultDashboard.Ninos}`);
-
-   
+      pdf.text(150, 190, `Niños:`);
+      pdf.text(150, 198, `${resultDashboard.Ninos}`);
       pdf.save("download.pdf"); // Guarda el PDF
       });
     };
@@ -223,7 +216,6 @@ const DetailDasboard =(props) =>{
     const numbersRecepcion = jwt.result.id_hotel == 13 &&  "573022395096"|| jwt.result.id_hotel == 7 &&  "573022395096"|| jwt.result.id_hotel == 23 &&  "573022395096" || jwt.result.id_hotel == 3 &&  "573007785193"|| jwt.result.id_hotel == 4 &&  "573007785193"|| jwt.result.id_hotel == 8 &&  "573007785193" || jwt.result.id_hotel == 5 &&  "573195550001" || jwt.result.id_hotel == 6 &&  "573195550001" || jwt.result.id_hotel == 12 &&  "573195550001"
 
 
-    console.log(resultDashboard)
     const findPersona =  resultDashboard?.tipo_persona == "persona"
     const findEmpresa = resultDashboard?.tipo_persona =="empresa"
     const findFirma = resultDashboard?.Estado =="3" ||  resultDashboard?.Estado =="1"||resultDashboard?.Estado =="5" || resultDashboard?.Estado =="6"
@@ -464,13 +456,10 @@ const DetailDasboard =(props) =>{
     ];
 
     const hanClickDetailCheckout =() =>{
-      if(findFirma){
-        if(isChecke){
-          history.push(`/Dian/${id}`)
-        }else{
+
+         
           history.push(`/Checkout/${id}`)
-        }
-      } 
+      
     }
 
     const handChecking =() =>{
@@ -527,36 +516,48 @@ const DetailDasboard =(props) =>{
           [event.target.name] : event.target.value
       })
     }
+
+    const [price, setPrice] = useState("");
+
+    const cleanedPrice = price.replace(/\./g, '');
+
     const [inputPayValue, setInputPayValue] = useState({
       ID_pago:resultDashboard?.ID_pago,
       ID_Reserva: id,
-      PayAbono: "",
+      PayAbono:cleanedPrice,
       Fecha_pago: now,
       Tipo_forma_pago: null,
       Nombre_recepcion:jwt.result.name
     });
 
+    const dataPayAbono ={
+      ID_pago:resultDashboard?.ID_pago,
+      ID_Reserva: id,
+      PayAbono:cleanedPrice,
+      Fecha_pago: now,
+      Tipo_forma_pago: inputPayValue.Tipo_forma_pago,
+      Nombre_recepcion:jwt.result.name
+    }
+ 
     const handleInputPay = (event) => {
-      const value = parseInt(event.target.value);
-      if(event.target.name =="PayAbono"){
-        if(isValidNumber(value)){
-          setInputPayValue({
-            ...inputPayValue,
-            [event.target.name]: value
-          });
-        }
-      }else{
+      const value = (event.target.value);
+
         setInputPayValue({
           ...inputPayValue,
           [event.target.name]: value
-        });
-      }
-      
+        }); 
     }
 
+
+    const requiredValidator = (value) => {
+      // Verificar si el valor está vacío o es null/undefined
+      return !(value === '' || value === null || value === undefined);
+    };
+
+    console.log(inputPayValue.PayAbono)
     const handClickInsertAbono =()  => {
-      if(inputPayValue.PayAbono > 0 ){
-        HttpClient.insertPayABono({data:inputPayValue}).then(index=> {
+      if(requiredValidator(dataPayAbono.PayAbono)){
+        HttpClient.insertPayABono({data:dataPayAbono}).then(index=> {
           ServiceInfomeMovimiento({Nombre_recepcion:jwt.result.name,Fecha:now,Movimiento:`Abono agregado tipo habitacion ${resultDashboard?.nombre_habitacion} ${resultDashboard.Numero} nombre ${resultDashboard.Nombre} codigo reserva ${resultDashboard.id_persona}`,id:jwt.result.id_hotel}).then(index =>{
             toast.success('Abono exitoso!')
             handClickLoading()
@@ -757,8 +758,10 @@ const isValidNumberOne = (value) => {
 };
 
 const handClickPostTarifasReservation =async() =>{
-  if(isValidNumberOne(valorSolicitado) && isNaN(descripcion) ){
-    await postInsertTarifas({id_user:jwt.result.id_user,id_hotel:jwt.result.id_hotel,valor:valorSolicitado,Description:descripcion,Fecha:now,ID_reservation:id,name_reservation:resultDashboard.Nombre,codigo_reserva:`${resultDashboard?.Num_documento}${id}`,noches:day,Abono:parseInt(valor)})
+  const cleanedValorsolicitado = valorSolicitado.replace(/\./g, '');
+
+  if(isValidNumberOne(cleanedValorsolicitado) && isNaN(descripcion) ){
+    await postInsertTarifas({id_user:jwt.result.id_user,id_hotel:jwt.result.id_hotel,valor:cleanedValorsolicitado,Description:descripcion,Fecha:now,ID_reservation:id,name_reservation:resultDashboard.Nombre,codigo_reserva:`${resultDashboard?.Num_documento}${id}`,noches:day,Abono:parseInt(valor)})
     await fetchWhatsapp({to:numbersRecepcion})
     setDescription("")
     setValorSolicitado("")
@@ -824,8 +827,6 @@ const  typy_buy =  [
   },
 ]
 
-const [pdfOne,setPdfOne] =useState()
-
 var curr = new Date(resultDashboard?.Fecha_inicio);
 curr.setDate(curr.getDate());
 var fecha_inicio = curr.toISOString().substring(0,10);
@@ -834,27 +835,22 @@ var currOne = new Date(resultDashboard?.Fecha_final);
 currOne.setDate(currOne.getDate());
 var fecha_final = currOne.toISOString().substring(0,10);
 
-const hancPdf =() =>{
-  ServePdf({  codigoReserva:documentByIdRoom,Nombre:`${resultDashboard?.Nombre} ${resultDashboard?.Apellido}`,habitacion:`${resultDashboard?.nombre_habitacion}${resultDashboard.Numero}`,adults:resultDashboard?.Adultos,children:resultDashboard?.Ninos,tituloReserva:resultDashboard?.Nombre,abono:resultDashboard?.valor_abono,formaPago:resultDashboard?.forma_pago,telefono:resultDashboard.Celular,identificacion: resultDashboard?.Num_documento,correo:resultDashboard.Correo,urllogo:jwt?.result?.logo,tarifa:resultDashboard.valor_habitacion,entrada:fecha_inicio,salida:fecha_final}).then(index => {
-    const link = document.createElement('a')
-    toast.success("Descargando comprobante")
-    link.href =index;
-    link.setAttribute('target', '_blank');
-    link.download = 'Documento.pdf';
-    document.body.appendChild(link);
-    link.click();
-    
-    document.body.removeChild(link) 
-      setPdfOne(index)
-      ServiceInfomeMovimiento({Nombre_recepcion:jwt.result.name,Fecha:now,Movimiento:`Descargar comprobante tipo habitacion ${resultDashboard?.nombre_habitacion} ${resultDashboard.Numero} nombre ${resultDashboard.Nombre},  codigo reserva ${resultDashboard.id_persona}` ,id:jwt.result.id_hotel}).then(index =>{                  
-      }).catch(e =>{
-          console.log(e)
-      })
-  }).catch(e =>{
-    console.log(e)
-    toast.error("Error al Descargar comprobante")
-  })
-} 
+const numberWithCommas = (event) => {
+  // Verificar si el evento no es un número o es negativo
+  if (isNaN(event) || event < 0) {
+    // Si es así, devolver una cadena vacía o un mensaje de error, según tu preferencia
+    return '';
+  }
+
+  // Convertir el valor a una cadena de texto
+  const stringValue = event.toString();
+  // Eliminar todos los caracteres que no sean dígitos
+  const intValue = parseInt(stringValue.replace(/[^\d]/g, ''), 10);
+  // Formatear el número con separadores de miles
+  const formattedValue = intValue.toLocaleString('es-CO');
+  return formattedValue;
+};
+
 
 const  handComprobante =UseModalText({handlModal:print,Text:"Descargar comprobante reserva?"})
 const  hanclickEditar =UseModalText({handlModal:state ?handChangeSave :handChangeEdit,Text:"Editar la informacion de la reserva?"})
@@ -1040,10 +1036,10 @@ const  handleClickEliminar =UseModalText({handlModal:hanDelete,Text:"Estas segur
                         )
                         )}
                 </select>
-              <input   name="PayAbono"
-                        onChange={handleInputPay}
-                        type="number"
-                        value={inputPayValue.PayAbono}
+              <input 
+                        onChange={(e) =>setPrice(e.target.value)}
+                        type="text"
+                        value={price !== '' ? numberWithCommas(price) : ''}
                           placeholder="abono"
                       className={`desde-detail-twophoto  ${errorAbono ? "error-solicitud" : "" } `} />        
                 <div>
@@ -1111,13 +1107,13 @@ const  handleClickEliminar =UseModalText({handlModal:hanDelete,Text:"Estas segur
                 className={`desde-detail-twophoto-two ${error ? "error-solicitud" : "" } `}  />  
               <input
                 name="PayAbono"
-                type="number"
+                type="text"
                 id="valorSolicitadoInput"
                 placeholder="Valor solicitado"
                 className={`desde-detail-twophoto-two ${error ? "error-solicitud" : "" } `} 
                 onChange={handChangeValorsolicitado}
                 defaultValue={0}
-                value={valorSolicitado}
+                value={valorSolicitado !== '' ? numberWithCommas(valorSolicitado) : ''}
               />
                 <button style={{background:"black"}} 
                  className="button-change-type-room " 
@@ -1170,7 +1166,6 @@ const  handleClickEliminar =UseModalText({handlModal:hanDelete,Text:"Estas segur
                   </div>
 
               </div>
-
               <ReactTooltip id="registerTip-2" place="top" effect="solid">
                     Descargar comprobante
               </ReactTooltip>
