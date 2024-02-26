@@ -595,7 +595,6 @@ const PostRoomsOcasional = ({
     });
 };
 
-
 const occasionalCartRoomInsertion = ({ data }) => {
   return fetch(`${config.serverRoute}/api/resecion/occasionalCartRoomInsertion`, {
     method: "POST",
@@ -723,8 +722,8 @@ const PostSeacrhHotelsByIdHotel = ({ id, desde, hasta }) => {
 }
 const PostAutenticationDian = () => {
   const body = {
-    username: 'sandbox@siigoapi.com',
-    access_key: "NDllMzI0NmEtNjExZC00NGM3LWE3OTQtMWUyNTNlZWU0ZTM0OkosU2MwLD4xQ08="
+    username: '10elementossas@gmail.com',
+    access_key: "YzFmOTA0MjktNmVmYi00YzMzLWJmOTItN2QyNDk1NGE1YzIzOmlkVioxSDIjalE="
   };
   return fetch(`https://private-anon-1be4d3c754-siigoapi.apiary-proxy.com/auth`, {
     method: "POST",
@@ -743,7 +742,7 @@ const PostAutenticationDian = () => {
 }
 
 const GetLisClienteDian = ({token}) => {
-  return fetch(`https://private-anon-1be4d3c754-siigoapi.apiary-proxy.com/v1/customers?page=2&page_size=30`, {
+  return fetch(`https://private-anon-1be4d3c754-siigoapi.apiary-proxy.com/v1/customers?created_start=2024-02-19`, {
     method: "GET",
     headers: {
       "Authorization":token,
@@ -879,6 +878,7 @@ const GetSalesInvoice= ({token,id}) => {
 
 
 
+
 const GetTypeRoom = ({id}) => {
   return fetch(`${config.serverRoute}/api/resecion/getTypeRoomsByIDHotelid_hotel/${id}`, {
     method: "POST",
@@ -906,6 +906,27 @@ const GetServiceInfomeRoomtoSell =({id,fechaInicio,fechaFinal})=>{
   }).then(resp=>{
       return resp
   })
+}
+
+
+const PostRegisterTRA = ({body,totoken}) => {
+  return fetch(`https://pms.mincit.gov.co/one/`, {
+    method: "POST",
+    body: JSON.stringify(body),
+    headers: {
+      "Authorization":`token ${totoken}`,
+    },
+  })
+    .then((resp) => {
+      console.log(resp)
+      return resp.json();
+    })
+    .then((data) => {
+      console.log(data)
+      return data
+    }).catch((e) =>{
+      console.log(e)
+    })
 }
 
 export default {
@@ -956,5 +977,6 @@ export default {
   GetTypePayment,
   GetSalesInvoice,
   GetTypeRoom,
-  GetServiceInfomeRoomtoSell
+  GetServiceInfomeRoomtoSell,
+  PostRegisterTRA
 };
