@@ -11,21 +11,16 @@ import Swal from 'sweetalert2'
 
 import esLocale from 'date-fns/locale/es';
 import { DateRange } from "react-date-range";
+import HttpClient from "../../HttpClient";
 
 const DetailChekingOrganism =({id}) =>{
     const history = useHistory()
     const [state,setState] =useState(true)
     const {getDetailReservationById} = useDetailDashboardAction()
     const {loading,error,DetailDashboard} = useSelector((state) => state.DetailDashboard)
-    const [tipoDocumento,setTipoDocumento] =useState()
-    const [room,setRoom] =useState()
     const [loadingUpdate,setLoadingUpdate] =useState(false)
     const  {jwt} = useContext(AutoProvider)
-    const [stateButton,setStateButton] =useState(false)
-    const [documnet,setDocument] = useState()
-    const [country,setCountry] =useState()
-
-
+    
     const [change,setChange] =useState({
         ID_Tipo_Forma_pago:null,
         Iva:null,
@@ -38,11 +33,46 @@ const DetailChekingOrganism =({id}) =>{
     const [tipoPersonas,setTipoPersona] =useState()
     const [isChecked, setIsChecked] = useState(findPersona);
     const [isChecke, setIsChecke] = useState(findEmpresa);
-    const [adultos,setAdultos] =useState()
-    const [ninos,setNinos] = useState()
-    const [infantes,setInfantes] =useState()
-    const [valid,setValid] =useState(true)
     const [DateEmpresa, setDateEmpresa] = useState();
+    const [quyery,setQuery] =useState()
+
+    const query =[]
+
+    for(let i =0;i<quyery?.length;i++){
+        if(quyery[i+1]){
+        query.push(quyery[i])
+        }
+    }   
+
+    const body ={
+        tipo_identificacion:"C.C",
+        numero_identificacion:"00000000",
+        nombres:"Test ",
+        apellidos:"Prueba",
+        cuidad_residencia:"Bogota",
+        cuidad_procedencia:"Mexico",
+        numero_habitacion:"1-04G",
+        motivo:"Trabajo",
+        numero_acompanantes:"3",
+        check_in:"2022-11-01",
+        check_out:"2022-11-01",
+        tipo_acomodacion:"Casa",
+        costo:"1212",
+        nombre_establecimiento:"hotel prueba 12",
+        rnt_establecimiento:"00000000"
+        }
+
+
+
+    const handClickTra =() => {
+        HttpClient.PostRegisterTRA({body, totoken:"bH46iyd42bkcREK596b1KP3qcP03zJ4Lrm10TnPM"}).then((itemtra) =>{
+            console.log(itemtra)
+        }).catch((e) =>{
+            console.log(e)
+        })
+    }
+
+    handClickTra()
     
     function handleOnChange(event) {
         setTipoPersona("persona")
@@ -88,11 +118,10 @@ const DetailChekingOrganism =({id}) =>{
 
     useEffect(() =>{
 
-        fetch( `${config.serverRoute}/api/resecion/getcountry`)
-        .then(resp => resp.json())
-        .then(data=> setCountry(data))
+        fetch(`${config.serverRoute}/api/resecion/getdetailchecking/${id}`)
+      .then(resp => resp.json())
+      .then(data=> setQuery(data?.query))
 
-         
        fetch(`${config.serverRoute}/api/resecion/getFacturacion`)
       .then(index=> index.json())
       .then(data =>setDateEmpresa(data.query))
