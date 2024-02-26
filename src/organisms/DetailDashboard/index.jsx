@@ -1436,6 +1436,8 @@ const Huesped =({quyery,handEditar,handChangeSubmit ,stateButton,DetailDashboard
     }
 }
 
+console.log({query})
+
   return (
     <Paper sx={{ width: '100%',margin:"10px" }}>
             <TableContainer   onSubmit={(e) =>{

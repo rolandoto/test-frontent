@@ -6,7 +6,11 @@ export  const DEFAULT_STATE = {
     error:null,
     typeDocumentDian:[],
     seller:[],
-    products:[]
+    products:[],
+    Dian:[],
+    Payment:[],
+    loadingInvoinces:false,
+    Pdf:[]
 }
 
 const initialState = (() => {
@@ -21,6 +25,14 @@ export const DianSlice = createSlice({
         loading:(state) =>{
             state.loading=true
             state.error=null
+        },
+        setLoadingInvonces:(state,action)=>{
+            state.loadingInvoinces = true
+            state.error=null
+        },
+        setErrorInvoinces:(state,action)=>{
+            state.loadingInvoinces = false
+            state.error= action.payload
         },
         setClient:(state,action) =>{
             state.ListClient = action.payload
@@ -38,13 +50,36 @@ export const DianSlice = createSlice({
             state.products = action.payload
             state.loading = false
         },
+        setPdf:(state,action) =>{
+            state.Pdf = action.payload
+            state.loading = false
+        },
+        setDian:(state,action) =>{
+            state.Dian = action.payload
+            state.loadingInvoinces = false
+        },
+        setPayment:(state,action) =>{
+            state.Payment = action.payload
+            state.loading = false
+        },
         setError:(state,action) =>{
             state.loading = false
             state.error = action.payload
-        }
+        },
+        
     }
 })
 
-export const {loading,setClient,setTSeller,setError,setTypeDian,setProducts} = DianSlice.actions
+export const {loading,
+                setClient,
+                setTSeller,
+                setError,
+                setTypeDian,
+                setProducts,
+                setDian,
+                setPayment,
+                setLoadingInvonces,
+                setErrorInvoinces,
+                setPdf} = DianSlice.actions
 
 export default DianSlice.reducer

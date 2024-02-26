@@ -11,7 +11,6 @@ import { config } from "../../config";
 import ServiceUpdateReservation from "../../service/ServiceUpdatereservation";
 import UseDocument from "../../hooks/useDocument";
 
-
 const ReservasUpdate =(props) =>{
     const {DetailDashboard,fetchData} = props
     const {id} =useParams()
@@ -31,7 +30,7 @@ const ReservasUpdate =(props) =>{
 
     const resultDasboard =  DetailDashboard[0]
 
-    const init  =   moment(resultDasboard?.Fecha_inicio).utc().format('MM/DD/YYYY')
+    const init  =moment(resultDasboard?.Fecha_inicio).utc().format('MM/DD/YYYY')
     const fin = moment(resultDasboard?.Fecha_final).utc().format('MM/DD/YYYY')
 
     var fechaInicio =  new Date(init).getTime() 
@@ -42,13 +41,17 @@ const ReservasUpdate =(props) =>{
     const day =diff/(1000*60*60*24)
 
     const docu = documentUse.document?.find(index =>  index?.ID == resultDasboard?.ID_Tipo_documento)
+    
+   
 
+    console.log(docu)
   
     const i = moment(resultDasboard?.Fecha_inicio).utc().format('YYYY/MM/DD')
     const f = moment(resultDasboard?.Fecha_final).utc().format('YYYY/MM/DD')
     const n = moment(resultDasboard?.Fecha_nacimiento).utc().format('YYYY/MM/DD')
     
     useEffect(() =>{
+        
       fetch(`${config.serverRoute}/api/resecion/getcountry`)
             .then(resp => resp.json())
             .then(data=> setCountry(data))

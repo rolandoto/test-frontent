@@ -24,7 +24,7 @@ const UseDocument =({itemId="1"}) =>{
 
     const  finDocument = state?.find((itemDocument) => itemDocument.ID ==itemId)
 
-    return [finDocument]
+    return {finDocument}
 
 
 

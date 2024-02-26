@@ -20,6 +20,7 @@ import { apiTarifasReservationSlice } from '../reducers/apiPostTarifasReservatio
 import { searchSlice } from '../reducers/searchUsersReducers'
 import { apiRoomsOcasional } from '../reducers/apiRoomsOcasionalReducers'
 import { DianSlice } from '../reducers/DianReducer'
+import { PmstraSlice } from '../reducers/pmstraReduccers'
 
 const persistanceLocalStorageMiddleware = (store) => (next) => (action) => {
 	next(action);
@@ -58,7 +59,8 @@ const store = configureStore ({
         TarifasReservation:apiTarifasReservationSlice.reducer,
         SearchUsers:searchSlice.reducer,
         Ocasioanal:apiRoomsOcasional.reducer,
-        Dian:DianSlice.reducer
+        Dian:DianSlice.reducer,
+        Trapms:PmstraSlice.reducer
     },
     devTools:true,
     middleware: [persistanceLocalStorageMiddleware],

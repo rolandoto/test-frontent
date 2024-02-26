@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import { config } from "../config"
 
 
 const UseDocument =() =>{
@@ -6,14 +7,14 @@ const UseDocument =() =>{
     const [document,setDocument] =useState()
 
     useEffect(() =>{
-        fetch("https://grupohoteles.co/api/getTipeDocument")
+        fetch(`${config.serverRoute}/api/resecion/getTipeDocument`)
         .then((response) =>{
             if(!response.ok){
                 throw new Error('Network response was not ok',response.status);
             }
 
             return response.json()
-        }).then((data) =>setDocument(data))
+        }).then((data) =>setDocument(data?.query))
         .catch((error) =>  console.error(error))
     },[setDocument])
 

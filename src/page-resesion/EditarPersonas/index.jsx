@@ -28,8 +28,6 @@ const EditarPersonas =() =>{
 
     const resulrEditar = state?.find(index => index.huespedes ==id)
 
-
-
     const init  =   moment(resulrEditar?.Fecha_inicio).utc().format('MM/DD/YYYY')
     const fin = moment(resulrEditar?.Fecha_final).utc().format('MM/DD/YYYY')
 
@@ -41,7 +39,7 @@ const EditarPersonas =() =>{
     const day =diff/(1000*60*60*24)
 
     const docu = documentUse.document?.find(index =>  index?.ID == resulrEditar?.ID_Tipo_documento)
-
+    
    
     const i = moment(resulrEditar?.Fecha_inicio).utc().format('YYYY/MM/DD')
     const f = moment(resulrEditar?.Fecha_final).utc().format('YYYY/MM/DD')

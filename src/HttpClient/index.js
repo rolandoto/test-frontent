@@ -841,8 +841,6 @@ const GetCostCenter= ({token}) => {
   })
 };
 
-
-
 const GetTypePayment= ({token}) => {
   return fetch(`https://private-anon-407a01d67e-siigoapi.apiary-proxy.com/v1/payment-types?document_type=FV`, {
     method: "GET",
@@ -909,25 +907,43 @@ const GetServiceInfomeRoomtoSell =({id,fechaInicio,fechaFinal})=>{
 }
 
 
-const PostRegisterTRA = ({body,totoken}) => {
-  return fetch(`https://pms.mincit.gov.co/one/`, {
+const PostRegisterTRA = ({ body, token }) => {
+ 
+  return fetch(`${config.serverRoute}/api/resecion/pmstraone`, {
     method: "POST",
-    body: JSON.stringify(body),
-    headers: {
-      "Authorization":`token ${totoken}`,
-    },
+    headers:{
+      'Content-type':'application/json'
+  },
+    body:JSON.stringify({body,token})
   })
-    .then((resp) => {
-      console.log(resp)
-      return resp.json();
-    })
-    .then((data) => {
-      console.log(data)
-      return data
-    }).catch((e) =>{
-      console.log(e)
-    })
-}
+  .then((resp) => {
+    if(!resp.ok) throw new Error('Response is not ok')
+    return resp.json();
+  })
+  .then((data) => {
+  
+   return data
+  })
+};
+
+
+const PostRegisterTRATwo = ({ body, token }) => {
+
+  return fetch(`${config.serverRoute}/api/resecion/pmstratwo`, {
+    method: "POST",
+    headers:{
+      'Content-type':'application/json'
+  },
+    body:JSON.stringify({body,token})
+  })
+  .then((resp) => {
+    if(!resp.ok) throw new Error('Response is not ok')
+    return resp.json();
+  })
+  .then((data) => {
+   return data
+  })
+};
 
 export default {
   get,
@@ -978,5 +994,6 @@ export default {
   GetSalesInvoice,
   GetTypeRoom,
   GetServiceInfomeRoomtoSell,
-  PostRegisterTRA
+  PostRegisterTRA,
+  PostRegisterTRATwo
 };
