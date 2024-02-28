@@ -1,23 +1,21 @@
 import React from "react"
 import ContainerGlobal from "../../Ui/ContainerGlobal"
-import { BiBed } from "react-icons/bi";
-import { GiBroom } from "react-icons/gi";
-import { IoBedOutline ,IoBanOutline} from "react-icons/io5";
-import { VscSymbolEvent } from "react-icons/vsc";
 import "./style.css"
-import { confirmAlert } from "react-confirm-alert";
-import Swal from 'sweetalert2'
-import { BsBucket ,BsCalendarCheck,BsCheckCircle,BsBell} from "react-icons/bs";
 import CardRowsRoom from "../../component/CardRowsRoom/CardRowsRoom";
 import CardColorReservation from "../../page-resesion/Dashboard/CardColorsReservation";
-
+import { StyledContextBack, StyledMenuItemLoading } from "../../stylecomponent/StyleMenu";
+import { BsArrowLeftCircleFill } from "react-icons/bs";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import ButtonBack from "../../component/ButtonBack";
 
 
 const RoomDetailOrganism =({room,postDetailRoom,hanchangeEstado}) =>{ 
     
+   
 
     return (
         <ContainerGlobal>    
+           <ButtonBack/>
             <CardColorReservation />
              <div className="card-two" >   
                 <ul class="flex-container wrap-reverse">

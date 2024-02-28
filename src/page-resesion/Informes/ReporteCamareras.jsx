@@ -10,7 +10,7 @@ const ReporteCamarera  =() =>{
                             loading={true}
                             titleLoading={"Reporte Camareria"}  />
             <h1>reporte camarera</h1>
-
+        
         </ContainerGlobal>
     )
 }

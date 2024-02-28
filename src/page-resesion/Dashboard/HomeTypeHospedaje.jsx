@@ -5,6 +5,7 @@ import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { LiaHotelSolid } from "react-icons/lia";
 import { HeartIcon } from "./IconReservation";
 import { useSelector } from "react-redux";
+import ButtonBack from "../../component/ButtonBack";
 
 const HomeTypehospedaje = () => {
     const history = useHistory()
@@ -20,6 +21,7 @@ const HomeTypehospedaje = () => {
 
     return (
         <main className="container-webcking" >
+          <ButtonBack/>
             <div className="flex-button-webchekcing4" >
                 <Spacer x={0.5} y={1} />
                 <Button    

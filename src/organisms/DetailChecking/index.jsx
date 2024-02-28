@@ -13,6 +13,7 @@ import { DateRange } from "react-date-range";
 import HttpClient from "../../HttpClient";
 import useTrapmsActions from "../../action/useTrapmsActions";
 import UseDocument from "../../hooks/useDocument";
+import ButtonBack from "../../component/ButtonBack";
 
 const DetailChekingOrganism =({id}) =>{
     const history = useHistory()
@@ -89,7 +90,6 @@ const DetailChekingOrganism =({id}) =>{
     const handClick = async () => {
         if(jwt.result.id_hotel ==7){
         try {
-         
                 await PostTrapmsone({ token: "bH46iyd42bkcREK596b1KP3qcP03zJ4Lrm10TnPM", body }).then((itemcode) =>{
                     console.log(itemcode.responseData.code)
                 if (cantidadPersonas > 1) {
@@ -227,8 +227,7 @@ const DetailChekingOrganism =({id}) =>{
         return (
             <>
             <div className="container-flex-init-global" >
-
-             <button onClick={handClick}>clcikc</button>
+            <ButtonBack />
                             <LoadingDetail
                                         loading={true}
                                         titleLoading={"Check In"}  />

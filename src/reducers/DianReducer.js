@@ -10,7 +10,8 @@ export  const DEFAULT_STATE = {
     Dian:[],
     Payment:[],
     loadingInvoinces:false,
-    Pdf:[]
+    Pdf:[],
+    sigoBYIDpdf:[]
 }
 
 const initialState = (() => {
@@ -62,6 +63,10 @@ export const DianSlice = createSlice({
             state.Payment = action.payload
             state.loading = false
         },
+        setDianSigoPdf:(state,action) =>{
+            state.sigoBYIDpdf = action.payload
+            state.loading = false
+        },
         setError:(state,action) =>{
             state.loading = false
             state.error = action.payload
@@ -80,6 +85,7 @@ export const {loading,
                 setPayment,
                 setLoadingInvonces,
                 setErrorInvoinces,
+                setDianSigoPdf,
                 setPdf} = DianSlice.actions
 
 export default DianSlice.reducer

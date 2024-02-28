@@ -191,6 +191,7 @@
   display: flex;
   margin-top: 10px;
   box-shadow: 17px 20px 40px rgba(0, 0, 0, .21);
+  overflow: scroll !important;
 }
 
 .checkbox-product{

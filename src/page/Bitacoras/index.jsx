@@ -9,6 +9,8 @@ import LineProgress from "../../Ui/LineProgress";
 import InputBictacoras from "../../component/InputBictacoras";
 import ServiceBictacoras from "../../service/ServiceBictacoras";
 import moment from "moment";
+import ButtonBack from "../../component/ButtonBack";
+import ButtonHome from "../../component/ButtonHome";
 
 const Bictacoras  =() =>{
   UseTitle({title:"Bictacoras"})
@@ -74,6 +76,8 @@ const Bictacoras  =() =>{
                   ubicacione={ubicacione}
                   setDescription={setDescription}
                   descriptione={descriptione} />
+                            <ButtonBack />
+                            <ButtonHome/>
              <BictacorasTemplate Bitacoras={Bitacoras} />
          </>
 

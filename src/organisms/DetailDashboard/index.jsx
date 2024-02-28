@@ -31,8 +31,6 @@ import HttpClient from "../../HttpClient"
 import Swal from 'sweetalert2'
 import ReactTooltip from "react-tooltip";
 import ServiceInfomeMovimiento from "../../service/ServiceInformeMovimiento";
-import { GiBroom } from "react-icons/gi";
-import ServiceStatus from "../../service/ServiceStatus";
 import { BsBucket ,BsCalendarCheck,BsCheckCircle,BsBell} from "react-icons/bs";
 import UseModalText from "../../hooks/UseModalText";
 import { Button, Grid, Image, Spacer, Table as table,Tooltip, User } from "@nextui-org/react";
@@ -41,11 +39,15 @@ import { PiUsersLight,PiShoppingBagOpenLight,PiPaypalLogoLight } from "react-ico
 import { toast } from "react-hot-toast";
 import HistorialDetailReservation from "../../component/HistorialDetailReservation";
 import io from "socket.io-client";
-import { RiDeleteBin5Line } from "react-icons/ri";
 import { useSelector } from "react-redux";
 import jsPDF from "jspdf"; // check the docs for this: https://parall.ax/products/jspdf
 import html2canvas from "html2canvas";
+import { FaFileInvoice } from "react-icons/fa";
+import { FaFilePdf } from "react-icons/fa";
+import UseDianActions from "../../action/useDianActions";
 
+import ButtonBack from "../../component/ButtonBack";
+import ButtonHome from "../../component/ButtonHome";
 
 const styles = {
   fontFamily: "arial",
@@ -100,8 +102,7 @@ const DetailDasboard =(props) =>{
     const {DetailDashboard,fetchData,postDetailRoom,postInsertTarifas,handClickLoading,fetchWhatsapp} = props
     const [loading,setLoading] =useState({loading:false,error:false})
     const history = useHistory()
-    const {iduser} = UseListMotels()
-    const {jwt} = useContext(AutoProvider)
+    const {jwt,Dian} = useContext(AutoProvider)
 
     const resultDashboard = DetailDashboard[0]
 
@@ -280,6 +281,9 @@ const DetailDasboard =(props) =>{
       const [valorSolicitado, setValorSolicitado] = useState('');
       const [DateEmpresa, setDateEmpresa] = useState();
  
+
+      const  {getPdfSigo} =UseDianActions()
+
       const isValidNumber = (value) => {
         const parsedValue = parseFloat(value);
         return !isNaN(parsedValue) && parsedValue >= 0;
@@ -451,11 +455,28 @@ const DetailDasboard =(props) =>{
     ];
 
     const hanClickDetailCheckout =() =>{
-
-         
-          history.push(`/Checkout/${id}`)
-      
+       history.push(`/Checkout/${id}`)
     }
+
+    const hanClickFacturasElectronica =() =>{
+      history.push(`/Dian/${id}`)
+   }
+
+  const  GnerarPdf =async() => {
+      await getPdfSigo({id:resultDashboard.ID_facturacion,token:Dian.access_token}).then(itemPdf =>{
+        if (itemPdf.Status !== 500) {
+          toast.success("descargardo factura");
+          const linkSource = `data:application/pdf;base64,${itemPdf?.base64}`;
+          const downloadLink = document.createElement("a");
+          const fileName = "file.pdf";
+          downloadLink.href = linkSource;
+          downloadLink.download = fileName;
+          downloadLink.click();
+        } else {
+          toast.error("Error al descargar");
+        }
+      })
+  }
 
     const handChecking =() =>{
       if(!findFirma){
@@ -480,9 +501,7 @@ const DetailDasboard =(props) =>{
         }
       }
     }
- 
-    const resultFinish = Room?.find(index=>index?.ID_Tipo_habitaciones == resultDashboard?.ID_Tipo_habitaciones)
-    console.log({resultDashboard})
+   
     const item = state  ? <span>Editar</span> : <span>Guardar</span>
     
     const handEditar =(e) =>{
@@ -549,7 +568,7 @@ const DetailDasboard =(props) =>{
       return !(value === '' || value === null || value === undefined);
     };
 
-    console.log(inputPayValue.PayAbono)
+    
     const handClickInsertAbono =()  => {
       if(requiredValidator(dataPayAbono.PayAbono)){
         HttpClient.insertPayABono({data:dataPayAbono}).then(index=> {
@@ -567,12 +586,11 @@ const DetailDasboard =(props) =>{
       }else {
         toast.error('Error no debe ser negativos!')
         setErrorAbono(true)
-      } 
-       
+      }   
     }
 
     const {handModalText} =UseModalText({handlModal:handClickInsertAbono,Text:"Agregar abono ?"})
-    console.log(documnet)
+    
     useEffect(() =>{
       fetch(`${config.serverRoute}/api/resecion/getTipeDocument`)
       .then(res => res.json())
@@ -766,7 +784,6 @@ const handClickPostTarifasReservation =async() =>{
   }
 }
 
-
 const  typy_buy =  [
   {   
     id:null,
@@ -837,6 +854,7 @@ const numberWithCommas = (event) => {
     return '';
   }
 
+
   // Convertir el valor a una cadena de texto
   const stringValue = event.toString();
   // Eliminar todos los caracteres que no sean dígitos
@@ -845,6 +863,34 @@ const numberWithCommas = (event) => {
   const formattedValue = intValue.toLocaleString('es-CO');
   return formattedValue;
 };
+
+
+const ButtonValidSigo = Boolean(resultDashboard.ID_facturacion.trim()) ? (
+              // Botón para enviar facturas electrónicas
+              <Button
+              icon={<FaFilePdf className="flex-contan" color="white" fontSize={20} />}
+              onClick={GnerarPdf}
+              disabled={!findFirma}
+              className="button-checking-detail-one-das"
+              color="error"
+            >
+              <span className="text-words">Descargar factura Sigo</span>
+            </Button>
+              
+            ) : (
+              <Button
+              icon={<FaFileInvoice className="flex-contan" color="white" fontSize={20} />}
+              onClick={hanClickFacturasElectronica}
+              disabled={!findFirma}
+              className="button-checking-detail-one-das"
+              color="success"
+            >
+              <span className="text-words">Enviar facturas electrónicas</span>
+            </Button>
+            
+);
+
+
 
 
 const  handComprobante =UseModalText({handlModal:print,Text:"Descargar comprobante reserva?"})
@@ -856,8 +902,8 @@ const  handleClickEliminar =UseModalText({handlModal:hanDelete,Text:"Estas segur
     return (
       <>
         <div className="container-flex-init-global" >
-        
-
+          <ButtonBack />
+          <ButtonHome/>
           <div className="container-detail-dasboard-in-one" >
               <div    className="border-detail " > 
                    <span className="negrita-detail-reserva" >{day} noches</span>
@@ -1133,16 +1179,23 @@ const  handleClickEliminar =UseModalText({handlModal:hanDelete,Text:"Estas segur
                     icon={( <VscSymbolEvent fontSize={18} className="flex-contan"  color="white" />)}
                      > <span  className="text-words" >Check in</span> </Button>
               </div>
+
               <div>
-              <Button
-              icon={(<VscSignOut className="flex-contan"  color="white" fontSize={18}  /> )}
-              onClick={hanClickDetailCheckout} 
-                     disabled={!findFirma}
-                    className="button-checking-detail-one-das"
-                  
-                    color="success" 
-                     > <span  className="text-words" >Check out</span> </Button>
-              </div>
+                  <Button
+                    icon={(<VscSignOut className="flex-contan"  color="white" fontSize={18}  /> )}
+                    onClick={hanClickDetailCheckout} 
+                          disabled={!findFirma}
+                          className="button-checking-detail-one-das"
+                          color="success" 
+                          >
+                          <span  className="text-words" >Check out</span> 
+                  </Button>
+                </div>
+              
+                    <div>
+                          {ButtonValidSigo}
+                    </div>
+
               <ReactTooltip id="registerTip" place="top" effect="solid">
                     Eliminar reserva
               </ReactTooltip>
@@ -1165,8 +1218,7 @@ const  handleClickEliminar =UseModalText({handlModal:hanDelete,Text:"Estas segur
                     Descargar comprobante
               </ReactTooltip>
 
-
-          
+              
 
               <div style={{ position: 'absolute', left: 50, top: -500 }}>
                 <div id="printThis">
@@ -1198,6 +1250,8 @@ const  handleClickEliminar =UseModalText({handlModal:hanDelete,Text:"Estas segur
                               checked={isChecked}/> Empresa
               </div> 
             }
+
+            
         
             <div>
             <Button
@@ -1436,7 +1490,6 @@ const Huesped =({quyery,handEditar,handChangeSubmit ,stateButton,DetailDashboard
     }
 }
 
-console.log({query})
 
   return (
     <Paper sx={{ width: '100%',margin:"10px" }}>

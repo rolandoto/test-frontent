@@ -7,6 +7,7 @@ import Swal from "sweetalert2";
 import { useParams,useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { useSelector } from "react-redux";
 import useDetailDashboardAction from "../../action/useDetailDashboardAction";
+import ButtonBack from "../../component/ButtonBack";
 
 const stepperDetails = [
     {
@@ -131,6 +132,7 @@ const UploadImageCheckingTable =() =>{
     if(checkbox == 1){
         return  (
             <main className="container-webcking" >
+                <ButtonBack/>
                  <Steep
                     state={state}
                     changeSteep={changeSteep}
@@ -198,6 +200,7 @@ const UploadImageCheckingTable =() =>{
     }else  if(checkbox ==2){
             return (
                     <main className="container-webcking" >
+                         <ButtonBack/>
                     <Steep
                         state={state}
                         changeSteep={changeSteep}

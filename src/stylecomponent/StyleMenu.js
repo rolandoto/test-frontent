@@ -59,9 +59,11 @@ export const StyledContextMenuTypeRoom = styled.div`
 export const StyledContextMenuSearch = styled.div`
   position: absolute;
   top: ${(props) => `${props.top}px`};
-  left: ${(props) => `${props.left}%`};
+  left: 0%;
+  right:0%;
+  margin: auto;
   background: #fff;
-  width: 28%;
+  width: 29%;
   box-shadow: 17px 20px 40px rgba(0, 0, 0, .21);
   padding: 8px;
   z-index: 1000;
@@ -78,9 +80,8 @@ export const StyledContextMenuSearch = styled.div`
 
 
 export const StyledContextLoading = styled.div`
-display: flex;
-    justify-content: center;
-
+  display: flex;
+  justify-content: center;
   position: absolute;
   top: ${(props) => `${props.top}px`};
   left: ${(props) => `${props.left}%`};
@@ -100,8 +101,34 @@ display: flex;
   }
 `;
 
-
-
+export const StyledContextBack = styled.div`
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  top: ${(props) => `${props.top}px`};
+  left: 0;
+  right: 0;
+  background: #fff;
+  width: 4%;
+  height: 5%;
+  box-shadow: 17px 20px 40px rgba(0, 0, 0, 0.21);
+  padding: 8px;
+  z-index: 1000;
+  opacity: 0;
+  border-radius: 9px;
+  transition: background 0.3s, transform 0.3s;
+  transform: translateY(-10px);
+  animation: ${fadeIn} 0.8s ease forwards; // Apply the fadeIn animation
+  &.fade-in {
+    animation: ${fadeIn} 0.3s ease forwards; // Apply the fadeIn animation
+  }
+  :hover {
+    background: #f0f0f0;
+    border-radius: 5px;
+    transform: scale(3);
+    animation: ${fadeIn} 0.3s ease forwards; // Apply the fadeIn animation
+  }
+`;
 
 export const StyledMenuItem = styled.div`
   cursor: pointer;
@@ -146,10 +173,7 @@ export const StyledMenuItemLoading = styled.div`
   transition: background 0.3s;
   display: flex;
   align-items: center;
-  &:hover {
-    background: #f0f0f0;
-    border-radius: 5px;
-  }
+  z-index:1000;
 `;
 
 

@@ -17,8 +17,9 @@ import moment from "moment";
 import { CiUser } from "react-icons/ci";
 import io from 'socket.io-client';
 import { useLocation } from "react-router-dom/cjs/react-router-dom.min";
+import { SocketRoute } from "../config";
 
-const socket = io.connect("https://railway.grupo-hoteles.com");
+const socket = io.connect(`${SocketRoute.serverRoute}`);
 
 const SideNavBar = () => {
 
@@ -271,11 +272,6 @@ const SideNavBar = () => {
                                 
         </a>
 
-
-       
-
-
-				
 				</div>
 			</div>
 			<div className="nav-footer">

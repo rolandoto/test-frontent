@@ -74,13 +74,13 @@ function App() {
   const { jwt } = useContext(AutoProvider);
   
   const val = jwt ? jwt.result.id_permissions : 1;
-
+/**<CustomNav />    <CustomNav /> */
   if (val == 1) {
     return (
       <div>
         <Provider store={store}>
           <BrowserRouter>
-            <CustomNav />
+          <CustomNav />
             <Switch>
               <Route exact path="/" component={Login} />
               <PrivateRoute exact path="/Home" component={Home} />
@@ -161,7 +161,7 @@ function App() {
       <div>
         <Provider store={store}>
           <BrowserRouter>
-            <CustomNav />
+        
             <Switch>
               <Route exact path="/" component={Login} />
               <PrivateRoute exact path="/SearchbyID" component={SearchBYID}    />
@@ -317,7 +317,7 @@ function App() {
       <div>
         <Provider store={store}>
           <BrowserRouter>
-            <CustomNav />
+            
             <Switch>
               <Route exact path="/" component={Login} />
               <PrivateRoute exact path="/SearchbyID" component={SearchBYID}    />
@@ -472,7 +472,7 @@ function App() {
               />
                <PrivateRoute
                 exact
-                path="/Dian"
+                path="/Dian/:id"
                 component={Dian}
               />
 

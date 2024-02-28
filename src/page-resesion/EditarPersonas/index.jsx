@@ -8,6 +8,7 @@ import LoadingDetail from "../../Ui/LoadingDetail";
 import  AutoProvider  from "../../privateRoute/AutoProvider";
 import { config } from "../../config";
 import UseDocument from "../../hooks/useDocument";
+import ButtonBack from "../../component/ButtonBack";
 
 const EditarPersonas =() =>{
     const history =useHistory()
@@ -91,7 +92,7 @@ const EditarPersonas =() =>{
                 <LoadingDetail loading={true}  titleLoading="Editar personas"/>
                 <div className="container-detail-dasboard-in-one" >
             </div>
-
+            <ButtonBack />
                 <div  className="" >
                     <div className="container-detail-dasboard-in" >
                     <input type="text" className="desde-detail" readOnly={true} defaultValue={i} />

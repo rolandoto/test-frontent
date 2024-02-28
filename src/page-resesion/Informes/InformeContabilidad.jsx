@@ -8,6 +8,8 @@ import UseDocument from "../../hooks/useDocument";
 import AutoProvider  from "../../privateRoute/AutoProvider";
 import HttpClient from "../../HttpClient";
 import { toast } from "react-hot-toast";
+import ButtonBack from "../../component/ButtonBack";
+import ButtonHome from "../../component/ButtonHome";
 
 const ExportButton = ({ data, filename }) => {
     const exportToExcel = () => {
@@ -107,7 +109,8 @@ const InformeContabilidad = () =>{
     return(
         <ContainerGlobal>
             <h1>Pendientes</h1>
-
+            <ButtonBack/>
+            <ButtonHome/>
             <ExportButton data={filterReservation} filename="output.xlsx" />
 
             <table  className="de" >

@@ -27,12 +27,15 @@ const intervalRendererdayNum= ({ getIntervalProps, intervalContext ,data }) => {
             fontWeight:"100",
             fontSize:"12px",
             zIndex:1,
+            top:"1px",
             marginLeft:"-13px"
         }}
         
         >
          <span className={` day-num ${isToday && "color-day"}`} > {label}</span>
+       
         </span>
+       
     </div>
     );
 }

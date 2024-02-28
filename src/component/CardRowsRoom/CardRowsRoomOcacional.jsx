@@ -119,7 +119,7 @@ const CardRowsRoomOcacional =({title,id,ID_estado_habitacion,postDetailRoom,hanc
         color = "#17c964"
         letra ="white"
         return (
-            <li className={`flex-item ${ValidRoom && "flex-item-option"} `} style={{backgroundColor:color }}  ref={textAreaRef}  onContextMenu={(e) => handleContextMenu(e,id,Time_salida,tarifaOcasioanal,HoraAdicional,ID_estado_habiatcion)} onClick={handChangeTypeRoomOne}   >
+            <li className={`flex-item ${ValidRoom && "flex-item-option"} `} style={{backgroundColor:color }}  ref={textAreaRef}   onContextMenu={(e) => handleContextMenu(e,id,Time_salida,tarifaOcasioanal,HoraAdicional,ID_estado_habiatcion)} onClick={handChangeTypeRoomOne}   >
                 <div>
                     <li><VscSymbolEvent fontSize={30} style={{"margin":"auto","fontWeight":1}} color="white" /></li>
                     <li><h4 className="let-letra" style={{color:letra}}   >  {title}   </h4></li>

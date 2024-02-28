@@ -6,7 +6,7 @@ import ServicetypeRooms from "../../service/ServicetypeRooms"
 import  AutoProvider  from "../../privateRoute/AutoProvider"
 import { useParams } from "react-router-dom"
 import Invoince from "../../component/Invoince"
-import { config } from "../../config"
+import { SocketRoute, config } from "../../config"
 import ServiceFormulariosCheckout from "../../service/ServiceFormulariosCheckout"
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
@@ -22,9 +22,11 @@ import ServiceInfomeMovimiento from "../../service/ServiceInformeMovimiento"
 import UseModalText from "../../hooks/UseModalText"
 import ServePdf from "../../service/PdfServe"
 import io from "socket.io-client";
+import ButtonBack from "../../component/ButtonBack"
+import ButtonHome from "../../component/ButtonHome"
 
 
-const socket = io.connect("https://railway.grupo-hoteles.com");
+const socket = io.connect(`${SocketRoute.serverRoute}`);
 
 const CheckoutOrganism =({DetailDashboard,postDetailRoom,fetchDataApiWhatsapp}) =>{
 
@@ -480,6 +482,8 @@ const CheckoutOrganism =({DetailDashboard,postDetailRoom,fetchDataApiWhatsapp}) 
                 }
         {loading ? null  :
         <div className="container-flex-init-global" >
+             <ButtonBack/>
+        <ButtonHome/>
             <LoadingDetail
                 loading={true}
                 titleLoading={"Check Out Empresa"}  />
@@ -690,6 +694,8 @@ const CheckoutOrganism =({DetailDashboard,postDetailRoom,fetchDataApiWhatsapp}) 
 
         {loading ? null  :            
              <div className="container-flex-init-global" >
+                  <ButtonBack/>
+        <ButtonHome/>
             <LoadingDetail
                 loading={true}
                 titleLoading={"Check Out persona natural"}  />

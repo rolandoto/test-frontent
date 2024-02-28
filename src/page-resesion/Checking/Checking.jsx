@@ -3,6 +3,8 @@ import TemplateChecking from "../../templates/Checking/Checking"
 
 const  Checking=() =>{
 
+    
+
     return (
 
         <TemplateChecking />

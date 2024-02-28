@@ -945,6 +945,25 @@ const PostRegisterTRATwo = ({ body, token }) => {
   })
 };
 
+
+const PostInsertSigOpdfbyid = ({ id, id_sigo }) => {
+  return fetch(`${config.serverRoute}/api/resecion/insertpdfsigo`, {
+    method: "POST",
+    headers:{
+      'Content-type':'application/json'
+  },
+    body:JSON.stringify({ id, id_sigo})
+  })
+  .then((resp) => {
+    if(!resp.ok) throw new Error('Response is not ok')
+    return resp.json();
+  })
+  .then((data) => {
+   return data
+  })
+};
+
+
 export default {
   get,
   post,
@@ -995,5 +1014,6 @@ export default {
   GetTypeRoom,
   GetServiceInfomeRoomtoSell,
   PostRegisterTRA,
-  PostRegisterTRATwo
+  PostRegisterTRATwo,
+  PostInsertSigOpdfbyid
 };

@@ -1,23 +1,28 @@
+import moment from "moment";
+
 const IntervalRenderer = ({ intervalContext, getIntervalProps, data }) => {
+    const label = intervalContext.intervalText;
+    
+
     return (
     <div
         {...getIntervalProps()}
-        className={`rct-dateHeader ${
-        data.isMonth ? "rct-dateHeader-primary" : ""
+        className={`rct-dateHeader bg-gray ${
+        data.isMonth ? "" : ""
         }`}
         onClick={() => {
             return false;
         }}>
         <span
         style={{
-            position:"absolute",
-            margin: "auto",
+            position:"relative",
+            
             padding: "0 10rem",
             textTransform: "capitalize",
             color: "#b3aca7",
-            left: "48%;",
-            fontWeight:"100",
-            zIndex:1
+            left: "20%;",
+            fontWeight:"700",
+            zIndex:1,
         }}
         >
         {intervalContext.intervalText}

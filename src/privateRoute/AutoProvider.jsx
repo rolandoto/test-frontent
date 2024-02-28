@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import io from "socket.io-client";
+import { SocketRoute } from "../config";
 
 const Autoconext = React.createContext({})
 
 export const AutoProvider =({children}) =>{
 
-    const socket = io.connect("https://railway.grupo-hoteles.com");
+ //   https://railway.grupo-hoteles.com
+    const socket = io.connect(`${SocketRoute.serverRoute}`);
 
     const [name,setName] = useState(
         () => window.localStorage.getItem('name')

@@ -5,6 +5,7 @@ const BictacorasTemplate =({Bitacoras}) =>{
 
     return (
         <>
+
             <TableBictacoras bicta={Bitacoras} />
         </>
     )

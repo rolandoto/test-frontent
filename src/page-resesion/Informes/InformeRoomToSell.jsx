@@ -17,6 +17,8 @@ import {
 import useDetailRoomAction from "../../action/useDetailRoomAction";
 import { useSelector } from "react-redux";
 import toast from "react-hot-toast";
+import ButtonBack from "../../component/ButtonBack";
+import ButtonHome from "../../component/ButtonHome";
 
 const InformeRoomToSell =() =>{    
     const {jwt} =useContext(AutoProvider)
@@ -91,6 +93,8 @@ const InformeRoomToSell =() =>{
                    <LoadingDetail 
                         loading={true}
                         titleLoading={"Informe  Room to sell"}  />
+            <ButtonBack/>
+            <ButtonHome/>
 
                 <div >
                     <div style={{display:"flex",alignItems:"center"}} >

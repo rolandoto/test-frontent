@@ -1,7 +1,19 @@
 import { useHistory } from "react-router-dom/cjs/react-router-dom";
 import HttpClient from "../HttpClient"
 import { useAppDispatch } from "../hooks/redux"
-import { setClient,loading, setTypeDian,setError,setTSeller ,setProducts,setDian,setPayment,setLoadingInvonces,setErrorInvoinces,setPdf} from "../reducers/DianReducer"
+import { setClient,
+        loading, 
+        setTypeDian,
+        setError,
+        setTSeller ,
+        setProducts,
+        setDian,
+        setPayment,
+        setLoadingInvonces,
+        setErrorInvoinces,
+        setPdf,
+        setDianSigoPdf
+        } from "../reducers/DianReducer"
 import { toast } from "react-hot-toast";
 
 const UseDianActions =() =>{
@@ -71,17 +83,25 @@ const UseDianActions =() =>{
         }
     }
 
-    const PostSendInvoinces =async({token,body}) =>{
+    const PostSendInvoinces =async({token,body,id_Reserva}) =>{
         dispatch(setLoadingInvonces())
         try {
             const response =  await  HttpClient.PostCreatebill({token,body})
-            console.log(response)
+        
             if(response.Status !==400){
-                const pdf =  await  HttpClient.GetSalesInvoice({token,id:response.id})
+                const pdf = await HttpClient.GetSalesInvoice({token,id:response.id})
                 dispatch(setPdf(pdf))
+                dispatch(setPayment(response))
                 toast.success("envio exitoso")
                 dispatch(setDian(response))
-                history.push("/checkout/110571")
+                const sigobyId = await HttpClient.PostInsertSigOpdfbyid({id:id_Reserva,id_sigo:response.id})
+                if(sigobyId){
+                    toast.success("Se guarado correctamente la facturacion")
+                    history.push(`/DetailDashboard/${id_Reserva}`)
+                }else{
+                    toast.error("Se produjo un error")
+                }
+             
             }else{
                 dispatch(setErrorInvoinces("no found"))
                 toast.error("envio error")
@@ -97,9 +117,8 @@ const UseDianActions =() =>{
         dispatch(loading())
         try {
             const response =  await  HttpClient.GetTypePayment({token})
-        
+           
             if(response){
-                
                 dispatch(setPayment(response))
             }else{
                 dispatch(setError("no found"))
@@ -111,6 +130,38 @@ const UseDianActions =() =>{
     }
 
 
+
+    const saveSettings = async (settings) => {
+        // Simula una promesa de guardado
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            if (settings) {
+              resolve();
+            } else {
+              reject();
+            }
+          }, 2000);
+        });
+      };
+
+
+    const getPdfSigo =async({token,id}) =>{
+        dispatch(loading())
+        try {
+            const response =  await  HttpClient.GetSalesInvoice({token,id})
+        
+            if(response.Status !==500){
+                return response
+            }else{
+                toast.error("envio error")
+            }
+        } catch (error) {
+            toast.error("envio error")
+        }
+    }
+
+   
+
    
 
     return {GetCLientDian,
@@ -119,6 +170,7 @@ const UseDianActions =() =>{
             GetTProductsDian,
             PostSendInvoinces,
             GetPayment,
+            getPdfSigo
            }
 }
 

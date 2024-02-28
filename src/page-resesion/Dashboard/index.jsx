@@ -7,31 +7,20 @@ import Timeline,{
   DateHeader,
   TimelineMarkers,
   CursorMarker,
-  CustomMarker,
-  TodayMarker,
+
 } from "react-calendar-timeline";
 import containerResizeDetector from 'react-calendar-timeline/lib/resize-detector/container'
-import { ServiceReservas } from "./dummy_data";
 import 'react-calendar-timeline/lib/Timeline.css'
 import "./BookingsTimeline.css";
 import AutoProvider  from "../../privateRoute/AutoProvider";
 import "./index.css"
 import { useHistory } from "react-router-dom";
 import { VscSymbolEvent } from "react-icons/vsc";
-import ReactTooltip from "react-tooltip";
 import {BsBell} from "react-icons/bs";
 import UseListMotels from "../../hooks/UseListMotels";
-import HttpClient from "../../HttpClient";
 import { CiBadgeDollar } from "react-icons/ci";
-import { Button, Modal, Spacer, User ,Switch} from '@nextui-org/react';
-import { CameraIcon, HeartIcon, NotificationIcon } from "./IconReservation";
+import {  Spacer, Switch} from '@nextui-org/react';
 import Footer from "../../component/Footer/Footer";
-import { RiWhatsappFill ,RiLogoutBoxLine} from "react-icons/ri";
-import { GiRoundStar } from "react-icons/gi";
-import { FaPlane,FaGrinStars } from "react-icons/fa";
-import { IoIosGift } from "react-icons/io"
-import { HiMiniArrowUpCircle } from "react-icons/hi2";
-import { config } from "../../config";
 import io from "socket.io-client";
 import { toast } from "react-hot-toast";
 import ItemRenderer from "./ItemRender";
@@ -45,16 +34,26 @@ import UseFilterRooms from "../../hooks/useFilterRooms";
 import useUpdateDetailPointerActions from "../../action/useUpdateDetailPointerActions";
 import { confirmAlert } from "react-confirm-alert";
 import useUpdateDetailPounterRangeSliceActions from "../../action/useUpdateDetailPounterRangeSliceActions";
-import { IconName } from "react-icons/fc";
-import UseGroupsRooms from "../../hooks/useGroupsRooms";
-import MouseOver from "../../component/MouseOver";
-import DebitCard from "../../component/DebitCard/DebitCard";
 import { AiOutlineCaretLeft } from "react-icons/ai";
-import FooterNotifacation from "../../component/FooterNotication/FooterNotification";
-import { CiSquareChevUp } from "react-icons/ci";
+import { IoSearchOutline } from "react-icons/io5";
+import { GoPlus } from "react-icons/go";
+import { IoCalendarOutline } from "react-icons/io5";
+import { VscMenu } from "react-icons/vsc";
+import { HiArrowLeft,HiArrowSmallRight,HiArrowUturnLeft   } from "react-icons/hi2";
+import {contextMenuOptionsHeader, contextMenuOptionsInform, contextMenuOptionsReservation } from "../../stylecomponent/Icons";
+import { StyleSpan, StyleSpanIcons, StyleTitle, StyledContextMenu, StyledContextMenuSearch, StyledContextMenuTypeRoom, StyledMenuItem, StyledMenuItemSelectedRoom } from "../../stylecomponent/StyleMenu";
+import { CiSearch } from "react-icons/ci";
+import { BsMenuButtonWide } from "react-icons/bs";
+import { SocketRoute } from "../../config";
+import { RxDropdownMenu } from "react-icons/rx";
+import { IoNotificationsOutline } from "react-icons/io5";
+import { RxSwitch } from "react-icons/rx";
 
 
-const socket = io.connect("https://railway.grupo-hoteles.com");
+
+//https://railway.grupo-hoteles.com
+const socket = io.connect(`${SocketRoute.serverRoute}`);
+
 
 const Dashboard = () => {
 	
@@ -62,13 +61,144 @@ const Dashboard = () => {
 	const {jwt,setJwt,isOpen, setIsOpen} =useContext(AutoProvider)
 	const history = useHistory()
 	const timelineRef = useRef(null);
-	const [raiting,setRaiting]= useState(0)
+	const [raiting,setRaiting]= useState("")
 	const {iduser} = UseListMotels()
-	const [stateTop,setStateTop] =useState()
-	const [statePublicidad,setPublicidad]=useState()
 	const message  =jwt?.result?.photo
 	const dispatch = useDispatch();
 	const [isChecked, setIsChecked] = useState(false);
+	const [OpenMenu,setOpenMenu] =useState(false)
+	const [OpenMenuInforme,setOpenMenuInforme] =useState(false)
+	const [OpenTypeRoom,setTypeRoom] =useState(false)
+	const [OpenMenuReservation,setOpenReservation] =useState(false)
+	const [numberDay,setNumberDay] =useState(15)
+	const [numMineDay,setNumMineDay] =useState(-5)
+	const [selectedDay, setSelectedDay] = useState(moment()); // Inicializar con la fecha actual
+	const [avaibleDay,setAvaibleDay] =useState(false)
+	const [showContextMenu, setShowContextMenu] = useState(false);
+	const [username,setUsername] =useState("")
+    const [contextMenuPosition, setContextMenuPosition] = useState({ top: 0, left: 0 });
+
+ 	/*const updateLocalStorage =(state) =>{
+		window.localStorage.setItem("jwt",JSON.stringify(state))
+	}*/
+
+	console.log(selectedDay)
+
+	const handClickOpentypeRoom =() =>{
+		setContextMenuPosition({top:125, left: 168})
+		setTypeRoom(!OpenTypeRoom)
+		setOpenMenu(false)
+		setOpenMenuInforme(false)
+		setOpenReservation(false)
+	}
+
+
+	const handClickOpenMenu =() =>{
+		setContextMenuPosition({top:125, left: 28})
+		setOpenMenu(!OpenMenu)
+		setOpenMenuInforme(false)
+		setOpenReservation(false)
+		setTypeRoom(false)
+	}
+
+	const handClickOpenMenuInforme =() =>{
+		setOpenMenuInforme(!OpenMenuInforme)
+		setOpenMenu(false)
+		setOpenReservation(false)
+		setTypeRoom(false)
+		setContextMenuPosition({top:125, left: 130})
+	}
+
+	const handClickOpenMenuReservation =() =>{
+		setOpenReservation(!OpenMenuReservation)
+		setOpenMenu(false)
+		setOpenMenuInforme(false)
+		setTypeRoom(false)
+		setContextMenuPosition({top:125, left: 205})
+	}
+
+	const handExit =() =>{
+        localStorage.removeItem('jwt')
+        localStorage.removeItem('tokenDian')
+        setJwt(null)
+        history.push("/")  
+    }
+
+
+	const handSubmitSearch =(option) =>{
+		setNumberDay(15);
+		setNumMineDay(-5);
+		console.log({"top gun":option?.group?.toString() })
+		setRaiting(option?.group?.toString())
+		setSelectedDay(moment(option?.start_time));
+		setShowContextMenu(false)
+	}
+
+	const handleItemClick = (action) => {
+		if(action =="Salir"){
+			handExit()
+			setOpenMenu(false)
+		}else if(action =="Bictacoras"){
+			history.push("/Bictacoras")
+			setOpenMenu(false)
+		}else if(action =="Tienda"){
+			history.push(`/DetailStorerecepcion/${jwt.result.id_hotel}`)
+			setOpenMenu(false)
+		}
+	  };
+	
+	  
+	const handleItemClickInform = (action) => {
+		
+		if(action =="Camareria"){
+			history.push("informecamareria")
+			setOpenMenuInforme(false)
+		}else if(action =="auditoría"){
+			history.push("informeauditoria")
+			setOpenMenuInforme(false)
+		}else if(action =="sell"){
+			history.push("informeroomtosell")
+			setOpenMenuInforme(false)
+		}else if(action =="tienda"){
+			history.push(`/informeStore/${jwt.result.id_hotel}`)
+			setOpenMenuInforme(false)
+		}else if(action =="pendientes"){
+			history.push(`/informeAccount`)
+			setOpenMenuInforme(false)
+		}else if(action =="consolidado"){
+			history.push(`/informeconsolidado`)
+			setOpenMenuInforme(false)
+		}
+		else if(action =="movimiento"){
+			history.push(`/informeMovimiento`)
+			setOpenMenuInforme(false)
+		}
+		else if(action =="contabilidadad"){
+			history.push(`/InformeContabilidad`)
+			setOpenMenuInforme(false)
+		}
+	  };
+	
+	  const handleItemClickReservation = (action) => {
+		if(action =="Reservation"){
+			history.push("/HomeTypehospedaje")
+			setOpenReservation(false)
+		}else if(action =="Room"){
+			history.push("/RoomDetail")
+			setOpenReservation(false)
+		}else if(action =="Ocasional"){
+			history.push(`/Ocacionales`)
+			setOpenReservation(false)
+		}
+	  };
+
+	 
+	  const handleItemClickTypeRoom = (action) => {
+			setRaiting(action?.toString())
+			setTypeRoom(false)
+	  };
+	
+	
 
 	//const resultIdhotel =  jwt.result.id_hotel ="23"
 
@@ -83,16 +213,42 @@ const Dashboard = () => {
 		setUpdateFilterReservation
 	} =useReservationActions()
 
-	const {filterRooms } =UseFilterRooms() 
+	//const {filterRooms } =UseFilterRooms() 
 
-	const {loading,error,Items,Room,filterRoom
+	const {Items,Room,filterRoom
 	} = useSelector((state) => state.ReservationSlice)
 
-	console.log(filterRoom)
+
+	const filtrarSearchingRoom = (terminoBusqueda) => {
+		let resultadosBusquedaRoom = Room?.filter((elemento, index) => {
+			// Filtrar por término de búsqueda
+			const condicionBusqueda = elemento.id?.toString().toLowerCase().includes(terminoBusqueda.toLowerCase()) ||
+										elemento.title?.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
+			
+			return condicionBusqueda ;
+		});
+	
+		return { resultadosBusquedaRoom };
+	};
+
+	
+	const filtrarSearching = (terminoBusqueda) => {
+		let resultadosBusqueda = Items?.filter((elemento, index) => {
+			// Filtrar por término de búsqueda
+			const condicionBusqueda = elemento.name?.toString().toLowerCase().includes(terminoBusqueda.toLowerCase()) ||
+										elemento.document?.toString().toLowerCase().includes(terminoBusqueda.toLowerCase()) ||
+										elemento.Codigo_Reserva?.toString().toLowerCase().includes(terminoBusqueda.toLowerCase()) ||
+										elemento.full_name?.toString().toLowerCase().includes(terminoBusqueda.toLowerCase());
+			return condicionBusqueda ;
+		});
+	
+		resultadosBusqueda = resultadosBusqueda.slice(0, 10);
+		return { resultadosBusqueda };
+	};
+
 
 	 const fetchData =async() =>{
 		try {
-
 			await getPostByReservation({type:isChecked})
 			await getRoomByReservation()
 			await getRoomFilterRoom()
@@ -107,12 +263,7 @@ const Dashboard = () => {
         fetchData()
     },[dispatch,isChecked])
 
-	const handClose =() =>{
-        localStorage.removeItem('jwt')
-        setJwt(null)
-        history.push("/")
-    }
-
+	
 	const FindIdHotel=(hotel) =>{
 		return hotel.id_hotel == jwt.result.id_hotel
 	}
@@ -142,94 +293,20 @@ const Dashboard = () => {
 		}
 	*/
 
-	const handRaiting =(e)=>{
-		setRaiting(e.target.value)
-	}
-
-	const handClickReservaction =() =>{
-		history.push("/HomeTypehospedaje")
-	}
-
 	const hanclickReservation =() =>{
 		history.push("/search")
 	}
 	
-	const handRoomDetail =() =>{
-		history.push("/RoomDetail")
-	}
-
-	const Informes = [
-		{
-			id: 1,
-			name:"Informe Camareria"
-		},
-		{
-			id: 5,
-			name:"Informe auditoría"
-		},
-		{
-			id: 6,
-			name:"Informe room to sell"
-		},
-		{
-			id: 7,
-			name:"Informe tienda"
-		},
-		{
-			id: 8,
-			name:"Informe cuentas pendientes"
-		},
-		{
-			id: 9,
-			name:"Informe consolidado"
-		},
-		{
-			id: 10,
-			name:"Informe movimiento"
-		},
-		{
-			id: 11,
-			name:"Informe contabilidad"
-		}
-	];
-
-	const [stateInformes,setInformes] =useState(0)
-
-	const handClickInformAuditoria =(e) =>{
-		const idByHistory = e.target.value
-
-		if(idByHistory ==5){
-			return history.push("/informeauditoria")
-		}
-		if(idByHistory ==1){
-			return history.push("/informecamareria")
-		}
-		if(idByHistory ==6){
-			return history.push("/informeroomtosell")
-		}
-		if(idByHistory ==7){
-			return history.push(`/informeStore/${jwt.result.id_hotel}`)
-		}
-		if(idByHistory ==8){
-			return history.push(`/informeAccount`)
-		}
-		if(idByHistory ==9){
-			return history.push(`/informeconsolidado`)
-		}
-		if(idByHistory ==10){
-			return history.push(`/informeMovimiento`)
-		}
-		if(idByHistory ==11){
-			return history.push(`/InformeContabilidad`)
-		}
-		setInformes(e.target.value)	
-	}
- 
 	const nowOne = new Date(2023, 4, 1, 3, 10);
 
 	const {postUpdateDetailPointer} = useUpdateDetailPointerActions()
 	const {postUpdateDetailPointerRange} = useUpdateDetailPounterRangeSliceActions()
 
+
+					
+	const {resultadosBusqueda} = filtrarSearching(username);
+	const {resultadosBusquedaRoom} = filtrarSearchingRoom(raiting) 
+	
 	const handleItemResize = (itemId, time, edge) => {
 		const fecha = moment(time).format('YYYY-MM-DD');
 		const newReservation = structuredClone(Items)
@@ -285,8 +362,8 @@ const Dashboard = () => {
 		let dragTimeOne =0
 		let ID_Habitaciones = 0
 		let ID_estado_habiatcion =0
-		const group = Room[newGroupOrder];
-
+		const group = resultadosBusquedaRoom[newGroupOrder];
+		console.log(group)
 		 Items.map(item =>{
 			if(item.id  ==  itemId){
 				dragTimeOne= dragTime+( item.end_time - item.start_time)
@@ -332,7 +409,7 @@ const Dashboard = () => {
 		
 					return (
 						<div className="popup-overlay"  >
-							<h4 className="let-letra" >Confirma extencion de estadia?</h4>
+							<h4 className="let-letra" >Confirma cambio de habitacion?</h4>
 							<button  className="react-confirm-alert-button-group" onClick={handClick} >Si</button>
 							<button  className="react-confirm-alert-button-group" onClick={ handClose} >No</button>
 					  </div>         
@@ -344,7 +421,7 @@ const Dashboard = () => {
 		handModalText()
 	  }
 	
-	const handCLickWhatsapp =() =>{
+	/*const handCLickWhatsapp =() =>{
 		const link = document.createElement('a');
 		link.href = "https://api.whatsapp.com/send/?phone=573195550001";
 		link.setAttribute('target', '_blank');
@@ -353,58 +430,10 @@ const Dashboard = () => {
 		link.click();
 		}, 100);
 	}
-
-	const numeroDelMes = moment().month() + 1;
-
-	const anoActual = moment().year();
-
-	const [stateKpi,setStatekpi] =useState()
-
-	useEffect(() =>{
-		HttpClient.GetKpiUser({month:numeroDelMes,year:anoActual,idUser:jwt.result?.id_user,ID_hotel:jwt?.result?.id_hotel}).then(index =>{
-			setStatekpi(index)
-		}).catch(e =>{
-			console.log(e)
-		})
-	},[])
-
-	const filTours =  stateKpi?.query.filter((item) => item.ID_Categoria == 8)
-
-	const tourTotal = filTours?.reduce((acum,current) =>{
-		return acum + current.Cantidad_comision
-	},0)
- 
-	const filSouvenir =  stateKpi?.query.filter((item) => item.ID_Categoria == 3)
-
-	const sourvenirTotal = filSouvenir?.reduce((acum,current) =>{
-		return acum + current.Cantidad_comision
-	},0)
-
-	const totalKpi = tourTotal +sourvenirTotal
-
-	useEffect(() =>{
-		fetch(`${config.serverRoute}/api/resecion/userKpiTop`)
-		.then(resp => resp.json())
-		.then(data => setStateTop(data.query))
-	},[])
-
-	useEffect(() =>{
-		fetch(`${config.serverRoute}/api/resecion/getpublicidad`)
-		.then(resp => resp.json())
-		.then(data => setPublicidad(data?.query))
-	},[])
-
-	const findImage = statePublicidad?.find(item => item.ID == 1)
-
-	const closeHandler = () => {
-		setIsOpen(false);
-		console.log("closed");
-	};
-
+*/
 	const verticalLineClassNamesForTime = (timeStart, timeEnd) => {
 		const today = moment().format('YYYY-MM-DD');//day today
 		const fecha = moment(timeStart).format('YYYY-MM-DD');//day range of calendario
-	
 		return fecha === today ? ["today"] : ['holiday'];
 	}
 
@@ -417,324 +446,334 @@ const Dashboard = () => {
 			<>
 				<footer class="nav-notifiacation">
 							<div className="row-notification">
-								<CiSquareChevUp  fontSize={35}/>
 								<h5>Nuevas Reservas</h5>
 							</div>
-							
 				</footer>
 			</>
 		  ))
 		}
 	});
 
-	const [numberSave,setNumberSave]=useState([])
-
 	const [selectedRange, setSelectedRange] = useState({ start: null, end: null });
 
-  const handleItemSelect = (itemId, e, time) => {
-	console.log(time)
-    if (!selectedRange.start) {
-      // Si no hay una fecha de inicio seleccionada, establece la fecha de inicio
-      setSelectedRange({ start: time, end: null });
-    } else {
-      // Si ya hay una fecha de inicio seleccionada, establece la fecha de fin
-      setSelectedRange({ start: selectedRange.start, end: time });
-    }
-  };
+  	const handleItemSelect = (itemId, e, time) => {
 
-  
+		if (!selectedRange.start) {
+		// Si no hay una fecha de inicio seleccionada, establece la fecha de inicio
+		setSelectedRange({ start: time, end: null });
+		} else {
+		// Si ya hay una fecha de inicio seleccionada, establece la fecha de fin
+		setSelectedRange({ start: selectedRange.start, end: time });
+		}
+  	};
 
-  const horizontalLine = (group) => {
-	switch (group?.ID_estado_habiatcion) {
-		case 2:
-			return ["highlight"]
-		case 5:
-			return ["highlightCheckout"]
-	default:
-		break;
+	const horizontalLine = (group) => {
+		switch (group?.ID_estado_habiatcion) {
+			case 2:
+				return ["highlight"]
+			case 5:
+				return ["highlightCheckout"]
+		default:
+			break;
+		}
+	};
+
+	//const ResutlRoom = filterRooms(Room,raiting)
+
+
+	const handClickAviableDay =() =>{
+		setAvaibleDay(!avaibleDay)
+		setOpenMenu(false)
+		setOpenReservation(false)
+		setOpenMenuInforme(false)
 	}
 
-};
+	// Define las variables timeStart y timeEnd usando Moment.js
+	const timeStart = moment(selectedDay).add(numMineDay, 'days').endOf('day');
+	const timeEnd = moment(selectedDay).add(numberDay, 'days').endOf('day');
 
-	const ResutlRoom = filterRooms(Room,raiting)
-	
-	//const totalResult = UseGroupsRooms(ResutlRoom,numberSave)
-/**
- * <Modal
-			style={{background:"#ffffff00",border:"none"}}
-			width="1300px"
-			closeButton
-			preventClose
-			open={isOpen}
-			blur={true}
-			onClose={closeHandler}
-		>
-		<img
-						src={`${findImage?.Img_description}`}
-						alt="Anuncio"
-						className="advertisement-image"
-						/>
-		</Modal>
- */
+	const handSubmitNext =() =>{
+		setNumberDay(numberDay + 1)
+		setNumMineDay(numMineDay +1)
+		setOpenMenu(false)
+		setOpenReservation(false)
+		setOpenMenuInforme(false)
+	}
 
-		useEffect(() => {
-			const toggleIcon = document.querySelector(".toggleMenu");
-			
-			toggleIcon.addEventListener("click", () => {
-			  document.querySelector(".rightMenu-one").classList.toggle("active");
-			  console.log(true)
-			});
-	  
-			toggleIcon.addEventListener("click", () => {
-			  document.querySelector(".ocultar").classList.toggle("active");
-			  console.log(true)
-			});
-		  }, []);
-/**
- * <ul className="flex-container wrap-reverse" style={{position:"absolute",right:"0"}} >
-							<div className="state-type" data-tip data-for="topresecionista"  >
-								<li  className="" style={{marginRight:"2px",marginTop:"10px"}} > <HiMiniArrowUpCircle color="black" fontSize={34}/> </li>
-								<li  className="" style={{marginRight:"10px",marginTop:"10px"}} ></li>
-								<span className="margin-let-rig" style={{marginRight:"15px"}} >Top Recepcionistas</span>
-								<div>
-									<ReactTooltip 	
-													id="topresecionista" 
-													place="bottom" effect="solid"  >
-										{stateTop?.map(index  =>{
-											
-											const totalComision = index.Total_Cantidad_comision
-											
-											return (
-											<div key={index.ID}  > 
-												<div className="display-flex-cardOne" >
-														<div className="flex-card-One" >
-														<User bordered
-																
-																color="success"
-																squared
-																size="sm"
-																	src={index.APP}
-																	zoomed
-																/>
-															<span className="color-globito" >{index.name}</span>
+	const handSubmitBack =() =>{
+		setNumberDay(numberDay - 1)
+		setNumMineDay(numMineDay -1)
+		setOpenMenu(false)
+		setOpenReservation(false)
+		setOpenMenuInforme(false)
+	}
 
-															
-														</div>
-														<span className="color-globito"  >${totalComision?.toLocaleString()}</span>
-												</div>
-											</div>
-											)
-											
-										})}
-									</ReactTooltip>
-								</div>
-							</div>
-							<div className="state-type" >
-								<li  className="" style={{marginRight:"6px",marginTop:"10px"}} > <FaGrinStars color="#ffca28" fontSize={28}/> </li>
-								<li  className="" style={{marginRight:"10px",marginTop:"10px"}} ></li>
-								<span className="margin-let-rig" style={{marginRight:"15px"}} >Comisiones: {jwt.result.name} </span>
-							</div>
-							<div className="state-type" >
-								<li  className="" style={{marginRight:"10px",marginTop:"10px"}} > <GiRoundStar color="#ffca28" fontSize={28} /></li>
-								<span className="margin-let-rig" style={{marginRight:"15px"}} >{totalKpi?.toLocaleString()}</span>
-							</div>
+	const handSubmitReset =() =>{
+		setSelectedDay(moment());
+		setNumberDay(15);
+		setNumMineDay(-5);
+		setOpenMenu(false)
+		setOpenReservation(false)
+		setOpenMenuInforme(false)
+	}
 
-							<div className="state-type" >
-							<li  className=""  style={{marginRight:"10px",marginTop:"10px"}} > <FaPlane color="#0372f5" fontSize={28} /></li>
-								<span className="margin-let-rig" style={{marginRight:"15px"}} >${tourTotal?.toLocaleString()}</span>
-							</div>
+	const handleInputChange = (event) => {
+		const { value } = event.target;
+		console.log({"lksadkasd":value})
+		setUsername(value);
+		setShowContextMenu(value.trim() !== '');
+		setRaiting(value.trim() !== "" ? raiting : "")
+	  };
 
-							<div className="state-type" >
-							<li  className=""  style={{marginRight:"10px",marginTop:"10px"}} > <IoIosGift color="red" fontSize={28} /></li>
-								<span className="margin-let-rig" style={{marginRight:"15px"}} >${sourvenirTotal?.toLocaleString()}</span>
-					</div>
-				</ul>
- */
-		
 	return (
 		<>		
-			  
-			<div ref={timelineRef} > 
-			<div  className="container-button">
-			<Spacer x={4} y={0} />
-			<Button  
-			size="sm"
-					onClick={handClickReservaction}
-					style={{width:"20%",padding:"0%"}}  
-					color="error" 
-					icon={<HeartIcon fill="currentColor" filled   />} > <span  className="text-words" >Crear reserva</span> </Button>
-			<Spacer x={0.5} y={1} />
-			<Button 
-			size="sm"
-					onClick={handRoomDetail}
-					style={{width:"20%"}}  
-					icon={<CameraIcon fill="currentColor" />}  > <span  className="text-words" > Ver habitaciones</span></Button>
-			<Spacer  x={0.5} y={1} />
-			<select  onChange={handClickInformAuditoria} value={stateInformes}					
-							className='button-reservas-type-one button-reservas-type-space button-reservas-type-one-two-two'>
-								
-							<option   className="opo-room"  > Informes</option>
-							{Informes?.map(category =>(
-													<option 
-													className="opo-room"
-													value={category.id	}   
-													key={category.id}>
-													{category.name}
-												</option>
-																	))}
-						</select>
+			<div> 
+				<div className="container-button">
+				</div>
+				<div className="Container-looking-for" >
+					<div className="container-searching-for-reserrvation-logo">	
+							<div className="row-icon-searching" >
+								<span>{jwt.result.hotel}</span>
+							</div>	
+					</div>
+
+					<div className="container-searching-for-reserrvation" >
+						<input  className="input-Searching-Reservation"  
+								value={username}
+								onChange={handleInputChange}
+								placeholder="Buscar reservas, invitados y más" />
+					</div>
 					
-			<Button 	
-			size="sm"
-					onClick={hanclickReservation}
-					style={{width:"20%"}}  
-					icon={<NotificationIcon fill="currentColor" />} 
-					color="secondary">  <span  className="text-words" > Reservas </span> </Button>
-			<Spacer  x={0.5} y={1} />
-			<Button 
-			size="sm"
-					onClick={handCLickWhatsapp} 
-					style={{width:"20%"}}   
-					color="success" flat 
-					icon={<RiWhatsappFill fill="currentColor" fontSize={25}
-						 />} > <span  className="text-words" ONCL >Soporte</span>  </Button>
-				<select onChange={handRaiting}  
-						value={raiting} 
-						className='button-reservas-type-one button-reservas-type-space  button-reservas-type-one-two-two button-reservas-type-space-One-One' >
-						<option  className="opo-room" >  Ver habitaciones</option>
-						<option  className="opo-room" value={0}  >Todas las Habitaciones</option>
+					{showContextMenu && <StyledContextMenuSearch className="fade-in" top={85} left={41.3}>
+						{resultadosBusqueda?.map((option, index) => {
+							console.log(option)
+							//const today = moment().format('YYYY-MM-DD');//day today
+							return (
+								<StyledMenuItem
+								onClick={() => handSubmitSearch(option)}
+									key={index}>
+									<StyleSpanIcons   > <CiSearch  fontSize={20} /></StyleSpanIcons> 
+									<StyleTitle> {option.name}    {option.last_name  }  </StyleTitle>
+									<StyleSpan> in:  {option.Fecha_inicio},out: {option.Fecha_final}  </StyleSpan>
+								</StyledMenuItem>
+							)
+						})}
+					</StyledContextMenuSearch>}
+					<div>
+
+					<div className="container-searching-for-reserrvation-logo-notification">	
 						
-					{filterRoom?.map(category =>(
-						<option 
-						className="opo-room"
-						value={category.id_tipoHabitacion}   
-						key={category.ID}
-					>
-						{category.nombre}
-					</option>
-					)
-					)}
-				</select>
-												<Spacer  x={0.5} y={1} />
+						
+								
+								<div className="row-icon-searching" >
+								<IoNotificationsOutline fontSize={30} />
+								</div>
 
-		<Switch
-          checked={isChecked}
-		  size="xl"
-		  style={{ marginTop: '25px' }}
-		  icon={<NotificationIcon />}
-		  onChange={handleChange}
-        />
+								<div className="row-icon-searching" onClick={handleChange} >
+									<RxSwitch
+									fontSize={30} 
+									/>
+								</div>
 
+								<div className="row-icon-searching" onClick={handleChange} >
+										{jwt.result.name}
+								</div>	
 
-		</div>
-		<div className="card-two" >
-            <ul className="flex-container wrap-reverse"  >
-
-					<div className="state-type" >
-						<li  className="imbox-color-one"> </li>
-						<span className="margin-let-rig" >Reserva</span>
-					</div>
-
-					<div className="state-type" >
-						<li  className="imbox-color-one-pagada"> </li>
-						<span className="margin-let-rig" >Reserva Pagada</span>
-					</div>
-
-					<div className="state-type" >
-						<li  className="imbox-color"> </li>
-						<span className="margin-let-rig"  >Check out</span>
-					</div>
-					<div className="state-type" >
-						<li  className="imbox-color-three"> </li>
-						<span className="margin-let-rig" >Check in</span>
-					</div>
-
-					<div className="state-type" >
-						<li  className="imbox-color-four	"> </li>
-						<span className="margin-let-rig" >Asear</span>
-					</div>
-
-					<div className="state-type" >
-						<li  className="imbox-color-three-adeudada-list"> </li>
-						<span className="margin-let-rig" >Lista</span>
-					</div>
-
-					<div className="state-type" >
-						<li  className="imbox-color-five"> </li>
-						<span className="margin-let-rig" >Bloqueada</span>
+								
+								
 					</div>
 					
-				</ul>
+					</div>
+				</div>
+
 				
+				{OpenMenu &&  <StyledContextMenu className="fade-in" top={contextMenuPosition.top} left={contextMenuPosition.left}>
+					{contextMenuOptionsHeader.map((option, index) => (
+						<StyledMenuItem
+							onClick={() => handleItemClick(option.action)}
+							key={index}>
+							<StyleSpanIcons   >  {option.icon} </StyleSpanIcons> 
+							<StyleSpan>{option.label} </StyleSpan>
+						</StyledMenuItem>
+					))}
+					</StyledContextMenu>
+				}
 				
-            </div>
+				{OpenMenuReservation &&  <StyledContextMenu className="fade-in" top={contextMenuPosition.top} left={contextMenuPosition.left}>
+					{contextMenuOptionsReservation.map((option, index) => (
+						<StyledMenuItem
+							onClick={() => handleItemClickReservation(option.action)}
+							key={index}>
+							<StyleSpanIcons   >  {option.icon} </StyleSpanIcons> 
+							<StyleSpan>{option.label} </StyleSpan>
+						</StyledMenuItem>
+					))}
+					</StyledContextMenu>
+				}
+
+				{OpenMenuInforme &&
+					<StyledContextMenu className="fade-in" top={contextMenuPosition.top} left={contextMenuPosition.left}>
+						{contextMenuOptionsInform.map((option, index) => (
+							<StyledMenuItem
+								onClick={() => handleItemClickInform(option.action)}
+								key={index}>
+								<StyleSpanIcons   >  {option.icon} </StyleSpanIcons> 
+								<StyleSpan>{option.label} </StyleSpan>
+							</StyledMenuItem>
+						))}
+					</StyledContextMenu>
+				}
+
+				{OpenTypeRoom &&
+					<StyledContextMenuTypeRoom className="fade-in" top={contextMenuPosition.top} left={contextMenuPosition.left} >
+						<StyledMenuItemSelectedRoom  
+							onClick={() => handleItemClickTypeRoom("")}
+								>
+									<CiSearch fontWeight={"500"}  fontSize={20} />
+								<StyleSpan>Ver todas las habitaciones </StyleSpan>
+							</StyledMenuItemSelectedRoom>
+						{filterRoom.map((option, index) => {
+
+							
+							const result = option.nombre == raiting ? true : false
+
+							return (
+							<StyledMenuItemSelectedRoom  
+							valid={result}
+								onClick={() => handleItemClickTypeRoom(option.nombre)}
+								key={index}>
+								<StyleSpanIcons   > <CiSearch fontWeight={"500"}  fontSize={20} /></StyleSpanIcons> 
+								<StyleSpan>{option.nombre} </StyleSpan>
+							</StyledMenuItemSelectedRoom>
+							)
+						})}
+					</StyledContextMenuTypeRoom>
+				}
 			<Timeline
 				groupRenderer={renderGroup}
-				groups={ResutlRoom}
+				groups={resultadosBusquedaRoom}
 				items={Items}
 				horizontalLineClassNamesForGroup={horizontalLine}
 				verticalLineClassNamesForTime={verticalLineClassNamesForTime}
 				onItemResize={handleItemResize}
+				canMove
 				defaultTimeStart={moment().startOf("day").add(-1, "day")}
 				defaultTimeEnd={moment().startOf("day").add(18, "day")}
-				stackItems
+				visibleTimeEnd={timeEnd}
+				visibleTimeStart={timeStart}
 				onItemMove={handleItemMove}	
 				resizeDetector={containerResizeDetector}								
 				itemHeightRatio={0.9}                                                             
 				lineHeight={28.4}
 				sidebarWidth={225}
+				showCursorLine
 				sidebarContent={<div>Above The Left</div>}
 				itemRenderer={  ItemRenderer}
 				onItemClick={(itemId, e, time) =>{
 					onItemClick(itemId, e, time)
 				}}
 				now={nowOne}
-				itemStyle={{ background: "black" }}
-				canMove
 				canResize={"both"}
+				itemStyle={{ background: "black" }}
 				onItemSelect={handleItemSelect}
 				>
-				<TimelineHeaders className="list-booking-sticky"  >
-
-				
-				<SidebarHeader>
+				<TimelineHeaders className="list-booking-sticky"   >	
+				<SidebarHeader >
 					{({ getRootProps }) => {
 					return( 
-						 <div style={{	margin:"auto",
-						 				display:"flex",
-										justifyContent:"center",
-										width:"234px"}}  
-						>
-							 <div {...getRootProps({
-						style:{
-							borderRadius:"8px",
-							margin:"auto",
-							textAlign:"center",
-							display:"flex",
-							justifyContent:"center",
-							padding:'8px',
-							width:"208px ",
-							height: "67px"
-						}
-					})}>		
-					<img  src={jwt.result.logo} alt="" />
-			</div>
-			</div>
+					<div style={{
+								
+								justifyContent:"center",
+								width:"222px",
+							flexDirection:"column"}}  
+					>
+							<div {...getRootProps({
+					style:{
+						borderRadius:"8px",
+						margin:"auto",
+						textAlign:"center",
+						display:"flex",
+						justifyContent:"center",
+						padding:'8px',
+						width:"208px ",
+					}
+				})}>
+					<div className="row-Container-menu">
+							
+					{avaibleDay ? <>   <input 	className="desde-detail-searching" 
+								type="date" 
+								placeholder="Buscar fecha" 
+								value={selectedDay.format('YYYY-MM-DD')} onChange={(e) => setSelectedDay(moment(e.target.value))}/>
+								<div className="Row-bar"  >
+										<HiArrowUturnLeft fontSize={18}  onClick={handClickAviableDay} />
+										</div>
+								</>
+					: <><div className="Row-bar"  onClick={(e) => handClickOpenMenu(e) } >
+								<VscMenu  fontSize={18}  />
+						</div>
+						<div className="Row-bar" onClick={handClickAviableDay}>
+							<IoCalendarOutline   fontSize={18}   />
+						</div>
+						
+						<div className="Row-bar" onClick={hanclickReservation}>
+							<IoSearchOutline  fontSize={18}  />
+						</div>
+						<div className="Row-bar" onClick={handClickOpenMenuInforme}>
+									<BsMenuButtonWide  fontSize={18}  color="black"     />
+						</div>
+						<div className="Row-bar"  onClick={handClickOpentypeRoom}>
+							<RxDropdownMenu   fontSize={18}   />
+						</div>
+
+						<div className="Row-bar-reservation" onClick={handClickOpenMenuReservation} >
+							<GoPlus   fontSize={18}  color="white"   />
+						</div>
+						</>
+					}							
+					</div>
+				</div>
+
+				<div {...getRootProps({
+							style:{
+								borderRadius:"8px",
+								textAlign:"center",
+								display:"flex",
+								justifyContent:"center",
+								padding:'8px',
+								width:"208px ",
+								height: "32px",
+							}
+						})}>
+						<div className="row-Container-menu">
+							<div className="Row-bar" onClick={handSubmitBack}>
+								<button >
+										<HiArrowLeft fontSize={18}   />
+								</button>
+							</div>
+							<div className="Row-bar row-width"   onClick={handSubmitReset}>
+								<button><span>Hoy</span> </button>
+							</div>
+							<div className="Row-bar"  onClick={handSubmitNext} >
+							<button  >
+							<HiArrowSmallRight  fontSize={18}  />
+							</button>
+							</div>
+						</div>
+					</div>
+				</div>
 			)}}
 			</SidebarHeader>
+			
 					<DateHeader
 						unit="MONTH"
 						labelFormat="MMMM"
 						headerData={{ isMonth: false}}
-						defaultTimeStart={moment().startOf("day")}
-						defaultTimeEnd={moment().startOf("day")}
 						intervalRenderer={IntervalRenderer}
 					/>
 					<DateHeader
 						unit="day"
 						labelFormat="dddd"
-						defaultTimeStart={moment().startOf("day")}
-						defaultTimeEnd={moment().startOf("day")}
+						
 						headerData={{ isMonth: true, currentDate, }}
 						intervalRenderer={intervalRendererday}
 					/>
@@ -742,28 +781,27 @@ const Dashboard = () => {
 						unit="day"
 						labelFormat="D"
 						headerData={{ isMonth: false, currentDate }}
+						
 						intervalRenderer={intervalRendererdayNum}
 						/>
+					
+							
 				</TimelineHeaders>
 				<TimelineMarkers>
-				
-  <CursorMarker />
-</TimelineMarkers>
+			<CursorMarker />
+			<DateHeader unit="primaryHeader" />
+			</TimelineMarkers>
 			</Timeline>
 			<Footer  
 					ocupied={<VscSymbolEvent fontSize={20}/>}
 					reservas={<BsBell fontSize={20} color="white" />}
 					dollar={<CiBadgeDollar fontSize={20} />} />
-
-						<div className="rightMenu-one">
-						<button className=" toggleMenu   ocultar" > <AiOutlineCaretLeft fontSize={50} color="black" /></button>
-							<h1>Detalle reserva</h1>
-                            
-                        </div> 
-						
+					<div className="rightMenu-one">
+					<button className=" toggleMenu   ocultar" > <AiOutlineCaretLeft fontSize={50} color="black" /></button>
+						<h1>Detalle reserva</h1>
+					</div> 
 			</div>
 		</>
-
 	);
 }
 export default Dashboard;

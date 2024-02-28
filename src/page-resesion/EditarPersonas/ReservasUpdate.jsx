@@ -10,6 +10,7 @@ import  AutoProvider  from "../../privateRoute/AutoProvider";
 import { config } from "../../config";
 import ServiceUpdateReservation from "../../service/ServiceUpdatereservation";
 import UseDocument from "../../hooks/useDocument";
+import ButtonBack from "../../component/ButtonBack";
 
 const ReservasUpdate =(props) =>{
     const {DetailDashboard,fetchData} = props
@@ -87,7 +88,7 @@ const ReservasUpdate =(props) =>{
             <LoadingDetail loading={true}  titleLoading="Editar personas"/>
             <div className="container-detail-dasboard-in-one" >
           </div>
-
+          <ButtonBack />
             <div  className="" >
                 <div className="container-detail-dasboard-in" >
                 <input type="text" className="desde-detail" readOnly={true} defaultValue={i} />

@@ -12,6 +12,7 @@ import moment from "moment";
 import { PiSignatureLight } from "react-icons/pi";
 import { Button } from "@nextui-org/react";
 import { config } from "../../config";
+import ButtonBack from "../../component/ButtonBack";
 
 const SingnatureMaual =() =>{
 
@@ -78,6 +79,7 @@ const SingnatureMaual =() =>{
     return (<>
    
         <main className="container-webcking"  ref={componentRef}>
+            <ButtonBack />
             <div className="container-contracto" >
                 <h1>{hotel?.nombre}</h1>
                 <span>NIT. 900768373-3</span>

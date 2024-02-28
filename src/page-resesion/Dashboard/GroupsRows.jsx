@@ -1,6 +1,7 @@
 import moment from "moment";
 import React, { useEffect, useState } from  "react"
 import useDetailRoomAction from "../../action/useDetailRoomAction";
+import { StyleTitleGroup } from "../../stylecomponent/StyleMenu";
 
 const GroupRows =({group,color,estado,iconState,letra,root,parent,toggleGroup,Time_ingreso,Time_salida,Fecha,id,isValid}) =>{
 
@@ -56,8 +57,10 @@ const GroupRows =({group,color,estado,iconState,letra,root,parent,toggleGroup,Ti
 
               return (
                       <span className="font-room"  key={index}>
+                        <StyleTitleGroup>
                         {group} {estado}     
                         {occasion.remainingMinutes} minutos
+                        </StyleTitleGroup>
                       </span>
               )
           })}
@@ -72,7 +75,7 @@ const GroupRows =({group,color,estado,iconState,letra,root,parent,toggleGroup,Ti
     return (
 			<div    style={{ backgroundColor: color, color:letra}} className="flex-romm-grup" >
 				<div>
-					<span  onClick={handClickToggle}  className="font-room" >  {group} {estado} </span> 
+					<span  onClick={handClickToggle}  className="font-room" > <StyleTitleGroup>{group} {estado}</StyleTitleGroup>  </span> 
 				</div>
 				<div>
 					{iconState} 

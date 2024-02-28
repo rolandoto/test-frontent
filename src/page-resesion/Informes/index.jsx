@@ -14,6 +14,8 @@ import { useReactToPrint } from "react-to-print";
 import UseFilterAuditoria from "../../hooks/UseFilterAuditoria"
 import "moment/locale/es";
 import { config } from "../../config"
+import ButtonBack from "../../component/ButtonBack"
+import ButtonHome from "../../component/ButtonHome"
 
 const InformeAuditoria =() =>{
 
@@ -186,6 +188,8 @@ const InformeAuditoria =() =>{
         <LoadingDetail  
                    loading={true}
                    titleLoading={"Informe  auditoria"}  />
+        <ButtonBack/>
+        <ButtonHome/>
        <div style={{display:"flex",alignItems:"center"}} >
            <input type="date" className="input-selecto-auditoria-fechas"  onChange={hadChangeFecha} value={LookinforFecha}   />
            <select className="input-selecto-dasboard-n1-reservaction"   onChange={handChangeCategory} >

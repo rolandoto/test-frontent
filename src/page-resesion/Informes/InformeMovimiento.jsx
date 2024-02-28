@@ -9,6 +9,8 @@ import { CiUser } from "react-icons/ci";
 import Swal from 'sweetalert2'
 import moment from "moment"
 import "moment/locale/es";
+import ButtonBack from "../../component/ButtonBack"
+import ButtonHome from "../../component/ButtonHome"
 
 
 const InformeMovimiento =() =>{
@@ -43,7 +45,8 @@ const InformeMovimiento =() =>{
             <LoadingDetail
                         loading={true}
                         titleLoading={"Informe movimiento"}  />
-               
+            <ButtonBack/>
+            <ButtonHome/>
                <div>
                 <input type="date" className="input-selecto-dasboard-n1-reservaction" onChange={hadChangeFecha} value={LookinforFecha}   />
                 <br />

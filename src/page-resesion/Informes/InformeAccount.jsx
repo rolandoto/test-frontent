@@ -9,6 +9,8 @@ import serviceInformeAcoountErrings from "../../service/serviceInformeAcoountErr
 import ContainerGlobal from "../../Ui/ContainerGlobal"
 import LoadingDetail from "../../Ui/LoadingDetail";
 import Swal from 'sweetalert2'
+import ButtonBack from "../../component/ButtonBack";
+import ButtonHome from "../../component/ButtonHome";
 const InformeAccount = () =>  {
 
     let componentRef = useRef();
@@ -54,7 +56,8 @@ const InformeAccount = () =>  {
             <LoadingDetail 
                         loading={true}
                         titleLoading={"Informe cuenta pendiente"}  />
-            
+             <ButtonBack/>
+             <ButtonHome/>
             <div>
                 <input type="date" className="input-selecto-dasboard-n1-reservaction"   onChange={hadChangeFecha}      />
                 <br />

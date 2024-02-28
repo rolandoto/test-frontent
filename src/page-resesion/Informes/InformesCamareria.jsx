@@ -10,6 +10,8 @@ import jsPDF from "jspdf";
 import ReactDOMServer from "react-dom/server";
 import { useReactToPrint } from "react-to-print";
 import { useHistory } from "react-router-dom";
+import ButtonBack from "../../component/ButtonBack";
+import ButtonHome from "../../component/ButtonHome";
 
 
 const InformeCamareria =() =>{
@@ -70,7 +72,11 @@ const InformeCamareria =() =>{
                         loading={true}
                         titleLoading={"Informe  Camareria"}  />
 
+            <ButtonBack/>
+            <ButtonHome/>
+
             <div>
+                
                 <button className="button-informe-camareria-cosultar" onClick={hanLookingFor} >Consultar</button>
                 <br />
                 <br />

@@ -8,11 +8,16 @@
 }
 
 .react-calendar-timeline .rct-calendar-header {
-  border: none;
+ 
 }
 
 .rct-header-root > div {
   margin-left: 10px;
+}
+
+.bg-gray{
+  background: #e4e6ea00 !important;
+  text-align: start !important;
 }
 
 .react-calendar-timeline .rct-dateHeader {
@@ -117,7 +122,7 @@
 }
 
 .react-calendar-timeline {
-  margin-top: 50px;
+  margin-top: 0px !important;
   margin-left: 8px;
 }
 
@@ -351,9 +356,6 @@ hr.border {
   justify-content: initial;
 }
 
-.flex-contant {
-  margin-right: 5px;
-}
 
 .flex-contan {
   margin-right: 5px;
@@ -587,6 +589,7 @@ hr.border {
 .text-words {
   font-size: 10px;
   font-weight: 400;
+  font-family: system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
 }
 
 .day-num {
@@ -882,9 +885,9 @@ hr.border {
 }
 
 .react-calendar-timeline {
-  border-radius: 12px !important;
+  border-radius: 0px 0px 20px 20px !important;
     border-color: #DDDDDD !important;
-    box-shadow: rgb(0 0 0 / 33%) 0px 6px 16px !important;
+    box-shadow: rgb(0 0 0 / 33%) 0px 16px 25px !important;
 }
 
 .custom-axis-class {
@@ -914,7 +917,7 @@ hr.border {
     left: 89px;
     text-align: left;
     background: #f31260 ;
-    padding: 6px 15px;
+    padding: 6px 10px;
     border-radius: 32px;
     opacity: .95;
     -webkit-backdrop-filter: blur(8px);
@@ -923,13 +926,155 @@ hr.border {
     /* right: 0; */
     color: white;
     right: 0;
-    width:  211px;
+    width:  161px;
     margin: auto;
     text-align: center;
     top: 120px;
+    box-shadow:0 2px 4px rgba(0, 0, 0, 0.4);
 }
 
 .row-notification{
   display: flex;
+  justify-content: center;
   align-items: center;
+}
+
+.Row-bar{
+  display: flex;
+  justify-content: center;
+  background:#e4e6ea;
+  align-items: center;
+  padding: 7px;
+  cursor: pointer;
+  border-radius: 28px;
+  text-align: center;
+  transition: background-color 0.5s ease, transform 0.5s ease;
+}
+
+.Row-bar:hover{
+  transform:scale(1.1)
+}
+
+
+.Row-bar-reservation{
+  background: #f31260;
+  align-items: center;
+  padding: 8px;
+  cursor: pointer;
+  border-radius: 28px;
+  transition: background-color 0.5s ease, transform 0.5s ease;
+}
+
+.Row-bar-reservation:hover{
+  transform:scale(1.1)
+}
+
+
+.row-Container-menu{
+  display: flex;
+  align-items: center;
+  
+    width: 100%;
+    justify-content: space-between;
+}
+
+.row-width{
+  width: 123px;
+}
+
+.Container-looking-for{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 99%;
+  margin: auto;
+  background: #ffffff !important;
+  height: 60px;
+  margin-top: 17px;
+  padding: 27px;
+  border-radius: 20px 20px 0px 0px;
+  border-color: #DDDDDD !important;
+  box-shadow: rgb(0 0 0 / 33%) 0px 3px 19px !important;
+    margin-right: 11px;
+    border-bottom: 1px solid gray;
+ 
+}
+
+
+.fedeIn{
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.input-Searching-Reservation{
+  box-sizing: border-box;
+  width: 100%;
+  left: 300px;
+  top: 338px;
+  background: rgb(250, 250, 250);
+  border: 1px solid #847F7F;
+  border-radius: 16px;
+  outline: 0.5px solid rgba(0, 0, 0, 0.15);
+  margin-top: 5px;
+  padding: 10px;
+  border: 1px solid transparent;
+  transition:  0.3s ease;
+}
+
+.input-Searching-Reservation:focus{
+  border: 1px solid #847F7F;
+  border: 1px solid #847F7F;
+    outline: none;
+    transition:  0.3s ease;
+}
+
+.input-Searching-Reservation::placeholder{
+  color: #847F7F;
+}
+.container-searching-for-reserrvation{
+  width: 30%;
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+.container-searching-for-reserrvation-logo{
+  display: flex;
+  align-items: center;
+}
+
+.container-searching-for-reserrvation-logo-notification{
+  display: flex;
+  align-items: center;
+}
+
+.row-icon-searching{
+  margin-right: 3px;
+  cursor: pointer;
+}
+
+.row-icon-searching > img{
+  width: 100px;
+  object-fit: contain;
+}
+
+.container-white-searching-for{
+  position: absolute;
+  z-index: 1000;
+  background: white !important;
+  width: 553px;
+  top: 65px;
+  left: 28%;
+}
+
+.circular{
+  background: aqua;
+  padding: 10px;
+  border-radius: 33px
 }

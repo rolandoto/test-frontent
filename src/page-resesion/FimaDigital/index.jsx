@@ -9,6 +9,7 @@ import useDetailDashboardAction from "../../action/useDetailDashboardAction";
 import { useSelector } from "react-redux";
 import { PiCameraThin,PiCameraRotateThin } from "react-icons/pi";
 import Swal from "sweetalert2";
+import ButtonBack from "../../component/ButtonBack";
 
 const stepperDetails = [
     {
@@ -51,6 +52,7 @@ const stepperDetails = [
 
     return (
         <header className="Header">
+             
             <div>
                 <div className="progress-container ">
                     <div className="progress" style={{width:progressBarWidth}} ></div>
@@ -215,6 +217,7 @@ const FirmaDigital =()=> {
     if(checkbox ==1) 
     return  (
         <main className="container-webcking" >  
+           <ButtonBack />
             <Steep 
                 state={state}
                 changeSteep={changeSteep}

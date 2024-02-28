@@ -11,13 +11,14 @@ import moment from "moment"
 import ServiceStatus from "../../service/ServiceStatus"
 import useDetailRoomAction from "../../action/useDetailRoomAction"
 import { toast } from "react-hot-toast";
-import { AiOutlineFieldTime ,AiOutlineDelete,AiOutlineDeliveredProcedure,AiOutlineDownload,AiOutlineHeart,AiOutlineIssuesClose} from "react-icons/ai";
 import HttpClient from "../../HttpClient"
 import { AiOutlineAlignLeft ,AiOutlineCloseCircle} from "react-icons/ai";
 import CardColorReservation from "./CardColorsReservation"
 import ProductCard from "../../component/ProducCardOcasional/ProductCardOcasional"
 import ProductCardWaypay from "../../component/ProducCardOcasional/ProductCardWaypay"
 import useReservationActions from "../../action/useReservationActions"
+import { contextMenuOptions } from "../../stylecomponent/Icons"
+import ButtonBack from "../../component/ButtonBack"
 
 const Ocacionales =() =>{
     const tiempoActual = moment();
@@ -73,7 +74,6 @@ const handleInputPayOcasioanal = (event) => {
 }
 
   const handlePriceChange = (event) => {
-    // Assuming you're dealing with input of type number
     const newPrice = parseFloat(event.target.value);
     setPrice(newPrice);
 
@@ -142,14 +142,7 @@ const handleInputPayOcasioanal = (event) => {
         setContextMenuVisible(false);
     };
 
-    const contextMenuOptions = [
-        { label: 'Asignar tiempo', action: 'asignar',icon:<AiOutlineFieldTime fontSize={20} style={{marginRight:"8px"}}  /> },
-        { label: 'Eliminar', action: 'delete' ,icon:<AiOutlineDelete fontSize={20} style={{marginRight:"8px"}} />},
-        { label: 'Facturar', action: 'Facturar' ,icon:<AiOutlineDeliveredProcedure fontSize={20} style={{marginRight:"8px"}} /> },
-        { label: 'Editar', action: 'delete' ,icon:<AiOutlineDownload fontSize={20}  style={{marginRight:"8px"}}/> },
-        { label: 'Copiar', action: 'delete'  ,icon:<AiOutlineHeart fontSize={20} style={{marginRight:"8px"}} />},
-        { label: 'Actualizar', action: 'delete' ,icon:<AiOutlineIssuesClose fontSize={20} style={{marginRight:"8px"}} /> },
-    ];
+   
       
       const handSubmitRoomOcasionalOne =async() =>{
         const momentoSalida = moment(finish, "HH:mm:ss");
@@ -422,12 +415,11 @@ const checkboxProductPayment = () => {
   }
 
 
-console.log(Room)
-
 const paymentValid = checkboxProductPayment()
 
     return (
             <ContainerGlobal>
+              <ButtonBack/>
                 <div className="card-two" >   
                   <CardColorReservation />
                     <ul class="flex-container wrap-reverse">

@@ -19,13 +19,12 @@ import {
   } from 'react-date-range';
   
 import moment from "moment";
+import ButtonBack from "../../component/ButtonBack";
+import ButtonHome from "../../component/ButtonHome";
 
 const TemplateSearch =() =>{
     const {jwt} =useContext(AutoProvider)
     const [username,setUsername] =useState("")
-    const [fechaDesdeFiltro,setfechaDesdeFiltro] =useState("")
-    const [fechaHastaFiltro,setfechaHastaFiltro] =useState("")
-    const [loading,setLoading] =useState(false)
     const history = useHistory()
 
     const {error,Items,Room,filterRoom
@@ -75,34 +74,14 @@ const TemplateSearch =() =>{
         setUsername(e.target.value)
     }
 
-    const handChangeDesde  =(e) =>{
-        setfechaDesdeFiltro(e.target.value)
-    }
-
-    const handChangeHasta  =(e) =>{
-        setfechaHastaFiltro(e.target.value)
-    }
-
     const handHistory =(e) =>{
         history.push(`/DetailDashboard/${e}`)
     }
 
 
-    const handCLickUdpate =(e) => {      
-        ServiceUpdateReservationWeb({id:e,cancelado:1}).then(index=>{
-            console.log(index)
-            setLoading(true)
-            
-        }).catch(e=> {
-            console.log(e)
-            setLoading(false)
-        })
-    }
 
    
-const {resultadosBusqueda} = filtrarSearching(username, formattedStartDate, formattedEndDate);
-
-console.log(resultadosBusqueda)
+    const {resultadosBusqueda} = filtrarSearching(username, formattedStartDate, formattedEndDate);
 
 
    if(!resultadosBusqueda) return null
@@ -111,6 +90,8 @@ console.log(resultadosBusqueda)
 
         <>
         <div className="container-bicta" >
+            <ButtonBack />
+            <ButtonHome/>
                 <div className="contain-search">
                     <ul className="flex-bedrooms-search">   
                             <li>

@@ -10,7 +10,7 @@
     import { useHistory } from "react-router-dom";
     import { CiCirclePlus,CiCircleRemove } from "react-icons/ci";
     import UseListMotels from "../../hooks/UseListMotels";
-    import { config } from "../../config";
+    import { SocketRoute, config } from "../../config";
     import ServePdf from "../../service/PdfServe";
     import moment from "moment";
     import ServiceInfomeMovimiento from "../../service/ServiceInformeMovimiento";
@@ -20,7 +20,8 @@
     import io from "socket.io-client";
     import HttpClient from "../../HttpClient";
 
-    const socket = io.connect("https://railway.grupo-hoteles.com");
+    const socket = io.connect(`${SocketRoute.serverRoute}`);
+
 
 const DashboardModal = (props) => {
       

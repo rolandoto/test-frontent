@@ -5,8 +5,7 @@
   margin: 0;
   list-style: none;
   display: flex;
-  /* margin-top: 78px; */
-  margin-left: 75px;
+ 
   }
 
   .nowrap {
@@ -81,19 +80,7 @@
     font-weight: 400;
   }
 
-  .card-two{
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    min-width: 0;
-    word-wrap: break-word;
-    background-color: #fff;
-    background-clip: border-box;
-    /* border: 1px solid rgba(0,0,0,.125); */
-    border-radius: 0.25rem;
-    /* box-shadow: 3px 5px 5px 0px #E3E3E3; */
-    margin-top: 10px;
-  }
+
 
   .popup-overlay{
     font-family: Arial, Helvetica, sans-serif;

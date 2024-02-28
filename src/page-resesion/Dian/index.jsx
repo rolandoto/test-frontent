@@ -10,6 +10,9 @@ import useDetailDashboardAction from "../../action/useDetailDashboardAction";
 import { Card, Loading, Text } from "@nextui-org/react";
 import moment from "moment";
 import { StyleSpan, StyleSpanIcons, StyledContextLoading, StyledContextMenuSearch, StyledMenuItem, StyledMenuItemLoading } from "../../stylecomponent/StyleMenu";
+import toast from "react-hot-toast";
+import ButtonBack from "../../component/ButtonBack";
+import ButtonHome from "../../component/ButtonHome";
 
 const Dian =() => {
  
@@ -30,8 +33,6 @@ const Dian =() => {
         await getDetailReservationById({id})
     }
 
-    console.log(to)
-
     const [username,setUsername] =useState("")
 
     const handChange =(e) =>{
@@ -47,6 +48,8 @@ const Dian =() => {
     } 
 
     const resultDashboard = DetailDashboard[0]
+
+    console.log(resultDashboard)
 
     const totalNum = resultDashboard.Iva == 1 ? true : false;
 
@@ -123,7 +126,6 @@ const Dian =() => {
 
     const DateExit = moment(DetailDashboard.Fecha_final).utc().format('YYYY-MM-DD')
     
-
     const response= {
       document: {
         id: jwt?.result?.id_document
@@ -184,7 +186,11 @@ const Dian =() => {
     };
 
     const handSubmitInvoinces=async() =>{
-      await PostSendInvoinces({token:Dian.access_token,body:response})
+      if(Boolean(resultDashboard.ID_facturacion.trim())){
+          toast.error("no se puedes enviar mas facturacion electronica")
+      }else{
+        await PostSendInvoinces({token:Dian.access_token,body:response,id_Reserva:id})
+      } 
     }
 
     const toggleSelect = (itemId) => {
@@ -224,6 +230,8 @@ const Dian =() => {
                         </StyledMenuItemLoading>
               </StyledContextLoading> }
                
+              <ButtonBack/>
+             <ButtonHome/>
                     <ul className="flex-bedrooms-search">   
                             <li>
                                 <input  className="input-stores-personality-nine-search"  
@@ -232,8 +240,6 @@ const Dian =() => {
                                         value={username}
                                         placeholder="Buscar cliente si esta registrado" />
                             </li>   
-                            <button onClick={generarPDF}>Generar PDF desde Base64</button>
-                            
                             <Text h1>{typeIva ? "Persona obligaba a pagar iva" : " persona exenta"} </Text>
                             <table  className="de "  >
                                 <tbody class="tbody  body-cliente"  > 

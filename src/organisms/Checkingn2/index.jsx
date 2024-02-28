@@ -18,6 +18,7 @@ import Swal from "sweetalert2";
 import { HeartIcon } from "../../page-resesion/Dashboard/IconReservation";
 import { Button } from "@nextui-org/react";
 import { toast } from "react-hot-toast";
+import ButtonBack from "../../component/ButtonBack";
 
 const Checkingn2Organism =({id,postDetailRoom,fetchDataApiWhatsapp,postWhataapById}) =>{
     
@@ -248,11 +249,10 @@ const Checkingn2Organism =({id,postDetailRoom,fetchDataApiWhatsapp,postWhataapBy
         })
         }
 
-    console.log(resulDetailDashboard)
- 
         return (
             <>
                 <div className="container-flex-init-global" >
+                <ButtonBack />
                 <LoadingDetail
                                 loading={true}
                                 titleLoading={"Checking"}  />
@@ -284,7 +284,8 @@ const Checkingn2Organism =({id,postDetailRoom,fetchDataApiWhatsapp,postWhataapBy
                                         </option>
                                         )
                                         )}
-                                    </select>   </span>   
+                                    </select>  
+                                </span>   
                               
                          </h2>        
                     </div>

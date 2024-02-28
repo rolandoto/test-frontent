@@ -18,6 +18,8 @@ import "moment/locale/es";
 import ServiceaInsertStore from "../../service/ServiceInsertCart";
 import { Button } from "@nextui-org/react";
 import HttpClient from "../../HttpClient";
+import ButtonBack from "../../component/ButtonBack";
+import ButtonHome from "../../component/ButtonHome";
 
 const StoreTemplate =({Store}) =>{
 
@@ -974,6 +976,8 @@ const StoreTemplate =({Store}) =>{
 
         return (    
             <div className="mainContainer">
+              <ButtonBack/>
+              <ButtonHome/>
                 <div className="rowContainer" >
                         {MenuItems?.map((index,e)  => (
                         <MenuItem
