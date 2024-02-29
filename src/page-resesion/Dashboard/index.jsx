@@ -41,13 +41,17 @@ import { IoCalendarOutline } from "react-icons/io5";
 import { VscMenu } from "react-icons/vsc";
 import { HiArrowLeft,HiArrowSmallRight,HiArrowUturnLeft   } from "react-icons/hi2";
 import {contextMenuOptionsHeader, contextMenuOptionsInform, contextMenuOptionsReservation } from "../../stylecomponent/Icons";
-import { StyleSpan, StyleSpanIcons, StyleTitle, StyledContextMenu, StyledContextMenuSearch, StyledContextMenuTypeRoom, StyledMenuItem, StyledMenuItemSelectedRoom } from "../../stylecomponent/StyleMenu";
+import { StyleSpan, StyleSpanIcons, StyleTitle, StyleTitleHotel, StyledContextMenu, StyledContextMenuSearch, StyledContextMenuTypeRoom, StyledContextTyeHotel, StyledMenuItem, StyledMenuItemSelectedRoom } from "../../stylecomponent/StyleMenu";
 import { CiSearch } from "react-icons/ci";
 import { BsMenuButtonWide } from "react-icons/bs";
 import { SocketRoute } from "../../config";
 import { RxDropdownMenu } from "react-icons/rx";
 import { IoNotificationsOutline } from "react-icons/io5";
 import { RxSwitch } from "react-icons/rx";
+import { BsArrowDown } from "react-icons/bs";
+import UseUsers from "../../hooks/UseUser";
+import confetti from "canvas-confetti";
+import Preloading from "../../component/Preloading";
 
 
 
@@ -59,6 +63,7 @@ const Dashboard = () => {
 	
 	const currentDate = new moment();
 	const {jwt,setJwt,isOpen, setIsOpen} =useContext(AutoProvider)
+	console.log(jwt)
 	const history = useHistory()
 	const timelineRef = useRef(null);
 	const [raiting,setRaiting]= useState("")
@@ -77,12 +82,37 @@ const Dashboard = () => {
 	const [showContextMenu, setShowContextMenu] = useState(false);
 	const [username,setUsername] =useState("")
     const [contextMenuPosition, setContextMenuPosition] = useState({ top: 0, left: 0 });
+	const [validHotel,setValidHotel] =useState(false)
 
+	const { login,isError,isLogin} =UseUsers()
+	const { Img,loading} = Preloading({isLogin})
+    
  	/*const updateLocalStorage =(state) =>{
 		window.localStorage.setItem("jwt",JSON.stringify(state))
 	}*/
 
-	console.log(selectedDay)
+
+
+	const handClickValid =() =>{
+		setValidHotel(!validHotel)
+	}
+
+	const handleItemClickHotel =(action) =>{
+		login({username:jwt.result.username,password:"sassadas",hotel:action.id_hotel})
+		setValidHotel(!validHotel)
+		confetti({
+			zIndex: 999,
+			particleCount: 100,
+			spread: 70,
+			origin: { x: 0.50, y: 0.8 }
+		});
+	}
+
+
+	
+  
+
+
 
 	const handClickOpentypeRoom =() =>{
 		setContextMenuPosition({top:125, left: 168})
@@ -91,7 +121,6 @@ const Dashboard = () => {
 		setOpenMenuInforme(false)
 		setOpenReservation(false)
 	}
-
 
 	const handClickOpenMenu =() =>{
 		setContextMenuPosition({top:125, left: 28})
@@ -259,16 +288,18 @@ const Dashboard = () => {
         
     }
 
-	useEffect(() =>{
-        fetchData()
-    },[dispatch,isChecked])
-
-	
 	const FindIdHotel=(hotel) =>{
 		return hotel.id_hotel == jwt.result.id_hotel
 	}
+	
 
 	const hotel = iduser.find(FindIdHotel)
+
+	useEffect(() =>{
+        fetchData()
+    },[dispatch,isChecked,hotel])
+
+	
 
 	let countSeguro =0
 	
@@ -524,17 +555,43 @@ const Dashboard = () => {
 		setShowContextMenu(value.trim() !== '');
 		setRaiting(value.trim() !== "" ? raiting : "")
 	  };
+	
 
 	return (
 		<>		
 			<div> 
+			
 				<div className="container-button">
 				</div>
 				<div className="Container-looking-for" >
 					<div className="container-searching-for-reserrvation-logo">	
+
+							{jwt.result.id_permissions ==2 ? 
 							<div className="row-icon-searching" >
 								<span>{jwt.result.hotel}</span>
-							</div>	
+							</div> :  
+
+							<StyledContextTyeHotel className="fade-in" valid={validHotel}  top={22} left={41.3} >
+										<StyledMenuItem onClick={handClickValid}>
+												<StyleSpanIcons   ></StyleSpanIcons> 
+												<StyleTitleHotel> {hotel?.nombre} </StyleTitleHotel>
+												<StyleSpan> <BsArrowDown   fontSize={20} /> </StyleSpan>
+											</StyledMenuItem>
+									{iduser?.map((option, index) => {
+										return (
+											<> {validHotel && 
+												<StyledMenuItem
+													onClick={(e) => handleItemClickHotel(option)}
+													key={index}>
+													<StyleSpanIcons   > <CiSearch  fontSize={20} /></StyleSpanIcons> 
+													<StyleTitle> {option.nombre}   </StyleTitle>
+												</StyledMenuItem>
+												}
+											</>
+										)
+									})}
+							</StyledContextTyeHotel>
+						}
 					</div>
 
 					<div className="container-searching-for-reserrvation" >

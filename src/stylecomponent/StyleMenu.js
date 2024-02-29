@@ -71,7 +71,27 @@ export const StyledContextMenuSearch = styled.div`
   border-radius: 9px;
   transform: translateY(-10px);
   animation: ${fadeIn} 0.8s ease forwards; // Apply the fadeIn animation
+  &.fade-in {
+    animation: ${fadeIn} 0.3s ease forwards; // Apply the fadeIn animation
+  }
+`;
 
+export const StyledContextTyeHotel = styled.div`
+  top: ${(props) => `${props.top}px`};
+  position: absolute;
+  left: 0%;
+  width: 10%;
+  left: 28px;
+  overflow: scroll;
+  height:  ${(props) => `${props.valid ? "50%" :"none" } `};
+  margin: auto;
+  z-index: 1000;
+  padding: 8px;
+  background: ${(props) => `${props.valid ? "#fff" :"none" } `};
+  opacity: 0;
+  border-radius: 9px;
+  transform: translateY(-10px);
+  animation: ${fadeIn} 0.8s ease forwards; // Apply the fadeIn animation
   &.fade-in {
     animation: ${fadeIn} 0.3s ease forwards; // Apply the fadeIn animation
   }
@@ -132,7 +152,7 @@ export const StyledContextBack = styled.div`
 
 export const StyledMenuItem = styled.div`
   cursor: pointer;
-  padding: 8px;
+  padding:8px;
   transition: background 0.3s;
   display: flex;
   align-items: center;
@@ -188,6 +208,10 @@ margin-left: 7px;
 `
 export const StyleTitle = styled.span`
 margin-left: 7px;
+font-weight: 500;
+`
+
+export const StyleTitleHotel = styled.span`
 font-weight: 500;
 `
 
