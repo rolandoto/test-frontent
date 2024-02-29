@@ -6,7 +6,7 @@ import AutoProvider from "../../privateRoute/AutoProvider";
 import moment from "moment";
 import ServiceAllTotalReservation from "../../service/ServiceAllTotalReservation";
 
-const Footer =({ocupied,reservas,dollar}) =>{
+const Footer =({ocupied,reservas,dollar,hotel}) =>{
     const now = moment().format("YYYY-MM-DD");
     const  [totalday ,setTotalDay] =useState()
     const  {jwt} = useContext(AutoProvider)
@@ -17,7 +17,7 @@ const Footer =({ocupied,reservas,dollar}) =>{
 		}).catch(e =>{
 			console.log(e)
 		})
-	},[])
+	},[hotel])
 
     const totalWidth = totalday?.RoomReservationbyId[0]?.Num_Reservas
 

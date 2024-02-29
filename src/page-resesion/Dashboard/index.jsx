@@ -109,10 +109,6 @@ const Dashboard = () => {
 	}
 
 
-	
-  
-
-
 
 	const handClickOpentypeRoom =() =>{
 		setContextMenuPosition({top:125, left: 168})
@@ -157,7 +153,6 @@ const Dashboard = () => {
 	const handSubmitSearch =(option) =>{
 		setNumberDay(15);
 		setNumMineDay(-5);
-		console.log({"top gun":option?.group?.toString() })
 		setRaiting(option?.group?.toString())
 		setSelectedDay(moment(option?.start_time));
 		setShowContextMenu(false)
@@ -849,7 +844,8 @@ const Dashboard = () => {
 			<DateHeader unit="primaryHeader" />
 			</TimelineMarkers>
 			</Timeline>
-			<Footer  
+			<Footer 	
+					hotel={hotel} 
 					ocupied={<VscSymbolEvent fontSize={20}/>}
 					reservas={<BsBell fontSize={20} color="white" />}
 					dollar={<CiBadgeDollar fontSize={20} />} />
