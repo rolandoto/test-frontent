@@ -149,10 +149,10 @@ const Dian =() => {
     
       seller: 547,
       stamp: {
-        send: false
+        send: true
       },
       mail: {
-        send: false
+        send: true
       },
       
       observations: '',
