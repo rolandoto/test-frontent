@@ -87,6 +87,7 @@ export const StyledContextTyeHotel = styled.div`
   margin: auto;
   z-index: 1000;
   padding: 8px;
+  box-shadow: ${(props) => `${props.valid ? "17px 20px 40px rgba(0, 0, 0, .21)" :"none" } `} ;
   background: ${(props) => `${props.valid ? "#fff" :"none" } `};
   opacity: 0;
   border-radius: 9px;
