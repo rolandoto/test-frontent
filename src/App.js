@@ -161,13 +161,12 @@ function App() {
       <div>
         <Provider store={store}>
           <BrowserRouter>
-        
+            
             <Switch>
               <Route exact path="/" component={Login} />
               <PrivateRoute exact path="/SearchbyID" component={SearchBYID}    />
               <PrivateRoute exact path="/Ocacionales" component={Ocacionales}    />
               <PrivateRoute exact path="/HomeTypehospedaje" component={HomeTypehospedaje}    />
-
               <PrivateRoute exact path="/Home" component={MainDasboard} />
               <PrivateRoute
                 exact
@@ -177,7 +176,7 @@ function App() {
               <PrivateRoute exact path="/store" component={Store} />
               <PrivateRoute
                 exact
-                path="/DetailStoreRecepcion/:id"
+                path="/DetailStorerecepcion/:id"
                 component={DetailStoreRecepcion}
               />
               <PrivateRoute exact path="Booking" />
@@ -255,7 +254,11 @@ function App() {
                 path="/informeroomtosell"
                 component={InformeRoomToSell}
               />
-
+              <PrivateRoute
+                exact
+                path="/reportecamarera"
+                component={ReporteCamarera}
+              />
               <PrivateRoute
                 exact
                 path="/informeStore/:id"
@@ -279,14 +282,16 @@ function App() {
               />
 
               <PrivateRoute exact path="/RoomDetail" component={RoomDetail} />
+
               <PrivateRoute
                 exact
                 path="/Detailinforme/:id"
                 component={DetailnformeStore}
               />
+
               <PrivateRoute
                 exact
-                path="/typefirmar"
+                path="/typefirmar/:id"
                 component={Checkingn4}
               />
               <PrivateRoute
@@ -294,18 +299,27 @@ function App() {
                 path="/firmadigital/:id"
                 component={FirmaDigital}
               />
-              <PrivateRoute
+               <PrivateRoute
                 exact
                 path="/uploadImgeChecking/:id"
                 component={UploadImageCheckingTable}
               />
-               <PrivateRoute
+              <PrivateRoute
                 exact
                 path="/signatureByID/:id"
                 component={SingnatureMaual}
               />
+               <PrivateRoute
+                exact
+                path="/InformeContabilidad"
+                component={InformeContabilidad}
+              />
+               <PrivateRoute
+                exact
+                path="/Dian/:id"
+                component={Dian}
+              />
 
-             
               <Route component={NoFound} />
             </Switch>
           </BrowserRouter>

@@ -815,13 +815,8 @@ const Dashboard = () => {
 				</div>
 			)}}
 			</SidebarHeader>
-			
-					<DateHeader
-						unit="MONTH"
-						labelFormat="MMMM"
-						headerData={{ isMonth: false}}
-						intervalRenderer={IntervalRenderer}
-					/>
+			<DateHeader unit="primaryHeader" />
+					
 					<DateHeader
 						unit="day"
 						labelFormat="dddd"
@@ -841,7 +836,7 @@ const Dashboard = () => {
 				</TimelineHeaders>
 				<TimelineMarkers>
 			<CursorMarker />
-			<DateHeader unit="primaryHeader" />
+			
 			</TimelineMarkers>
 			</Timeline>
 			<Footer 	
