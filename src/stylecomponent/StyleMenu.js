@@ -80,7 +80,7 @@ export const StyledContextTyeHotel = styled.div`
   top: ${(props) => `${props.top}px`};
   position: absolute;
   left: 0%;
-  width: 200px;
+  width: 300px;
   left: 28px;
   overflow: scroll;
   height:  ${(props) => `${props.valid ? "50%" :"none" } `};
