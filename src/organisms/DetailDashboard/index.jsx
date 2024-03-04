@@ -212,7 +212,7 @@ const DetailDasboard =(props) =>{
 
     const message  =jwt?.result?.photo
 
-    const totalId =  jwt.result.id_hotel == 3 || jwt.result.id_hotel == 4 || jwt.result.id_hotel == 23 ||  jwt.result.id_hotel == 5 || jwt.result.id_hotel == 6 || jwt.result.id_hotel == 12  || jwt.result.id_hotel == 10 || jwt.result.id_hotel == 2  ?  true : false
+    const totalId =  jwt.result.id_hotel == 23 ||  jwt.result.id_hotel == 5 || jwt.result.id_hotel == 6 || jwt.result.id_hotel == 12  || jwt.result.id_hotel == 10 || jwt.result.id_hotel == 2  ?  true : false
 
     const numbersRecepcion = jwt.result.id_hotel == 13 &&  "573022395096"|| jwt.result.id_hotel == 7 &&  "573022395096"|| jwt.result.id_hotel == 23 &&  "573022395096" || jwt.result.id_hotel == 3 &&  "573007785193"|| jwt.result.id_hotel == 4 &&  "573007785193"|| jwt.result.id_hotel == 8 &&  "573007785193" || jwt.result.id_hotel == 5 &&  "573195550001" || jwt.result.id_hotel == 6 &&  "573195550001" || jwt.result.id_hotel == 12 &&  "573195550001"
 
