@@ -79,7 +79,7 @@ export class ImageBox extends React.Component {
 		  }, 1000);
 		})
 		.catch((e) => {
-		  toast.error("tiene que firmar por favor firma")
+		  toast.error("es obligaotoria la firma")
 		});
 	  };
 
