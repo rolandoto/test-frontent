@@ -3,6 +3,10 @@ import React from "react"
 import { PiSignatureLight } from "react-icons/pi";
 import { useParams,useHistory } from "react-router-dom";
 
+export const updateLocalStorage =(state) =>{
+    window.localStorage.setItem("contracto",JSON.stringify(state))
+}
+
 const Checkingn4 =() =>{
 
     const {id} = useParams()
@@ -11,15 +15,20 @@ const Checkingn4 =() =>{
 
     const handNext =() =>{
         history.push(`/uploadImgeChecking/${id}`)
+        updateLocalStorage(parseInt(id))
     }
 
      const handNextFirmadegital =() =>{
         history.push(`/firmadigital/${id}`)
+        updateLocalStorage(parseInt(id))
     }
 
     const handNextSignature =() =>{
         history.push(`/signatureByID/${id}`)
+        updateLocalStorage(parseInt(id))
     }
+
+    
     
     return  (
         <main className="container-webcking" >

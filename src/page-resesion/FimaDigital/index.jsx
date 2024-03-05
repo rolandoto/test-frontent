@@ -180,7 +180,10 @@ const FirmaDigital =()=> {
     const clear = () => sigCanvas.current.clear();
 
     const handNextFirmaExit  =() =>{
-        setImageURL(sigCanvas.current.getTrimmedCanvas().toDataURL("image/png"))
+        const trimmedCanvas = sigCanvas.current.getTrimmedCanvas();
+        const trimmedDataURL = trimmedCanvas.toDataURL("image/png", 0.5);
+        console.log(trimmedDataURL)
+        setImageURL(trimmedDataURL)
     }
 
     const handClickImgageFirma =() =>{
@@ -189,11 +192,12 @@ const FirmaDigital =()=> {
 
     const handleImageUpload = () => {
         if (imageURL != null) {
+            
           HttpClient.UploadImageFirma({ ID: id, file1: imageURL })
             .then((index) => {
               handNext();
               setTimeout(() => {
-                window.location.href = `/DetailDashboard/${id}`;
+                //window.location.href = `/DetailDashboard/${id}`;
               }, 1000);
             })
             .catch((e) => {

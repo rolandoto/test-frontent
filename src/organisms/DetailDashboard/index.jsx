@@ -106,6 +106,7 @@ const DetailDasboard =(props) =>{
 
     const resultDashboard = DetailDashboard[0]
 
+    console.log(resultDashboard)
     const documentByIdRoom =  resultDashboard?.Num_documento +""+id
     const init  =   moment(resultDashboard?.Fecha_inicio).utc().format('DD/MM/YYYY')
     const fin = moment(resultDashboard?.Fecha_final).utc().format('DD/MM/YYYY')
