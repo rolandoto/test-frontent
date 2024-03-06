@@ -189,7 +189,12 @@ const Dian =() => {
       if(Boolean(resultDashboard.ID_facturacion.trim())){
           toast.error("no se puedes enviar mas facturacion electronica")
       }else{
-        await PostSendInvoinces({token:Dian.access_token,body:response,id_Reserva:id})
+        if(!loadingInvoinces){
+          await PostSendInvoinces({token:Dian.access_token,body:response,id_Reserva:id})
+        }else{
+          toast.error("cargar factura")
+        }
+      
       } 
     }
 
@@ -206,6 +211,7 @@ const Dian =() => {
         }
       });
     };  
+    
 
     function generarPDF() {
       const linkSource = `data:application/pdf;base64,${Pdf?.base64}`;
