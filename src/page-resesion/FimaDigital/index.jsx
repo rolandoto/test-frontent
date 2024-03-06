@@ -197,7 +197,7 @@ const FirmaDigital =()=> {
             .then((index) => {
               handNext();
               setTimeout(() => {
-                //window.location.href = `/DetailDashboard/${id}`;
+                window.location.href = `/DetailDashboard/${id}`;
               }, 1000);
             })
             .catch((e) => {
