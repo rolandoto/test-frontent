@@ -240,9 +240,14 @@ const Dian =() => {
                                         value={username}
                                         placeholder="Buscar cliente si esta registrado" />
                             </li>   
-                            <Text h1>{typeIva ? "Persona obligaba a pagar iva" : " persona exenta"} </Text>
+                            <Text  color="error" h4>"Por favor eleija la persona a la que enviara la factura electronica que sea la correcta"</Text>
+                            <Text h4>{typeIva ? "Persona obligaba a pagar iva colombiana o empresa " : " persona exenta  extranjeros"} </Text>
+                            <Text h4>{resultDashboard.Nombre} {resultDashboard.Apellido} </Text>
+                            <Text h4>Documento: {resultDashboard.Num_documento}</Text>
+                            <Text h4>Valor total reserva ${parseInt(resultDashboard.valor_habitacion).toLocaleString()} </Text>
+
                             <table  className="de "  >
-                                <tbody class="tbody  body-cliente"  > 
+                                <tbody class="tbody  "  > 
                                            
                                             {resultadosBusqueda?.map(index =>{
                                                 const fullName= `${index.name[0]} ${index.name[1]} `

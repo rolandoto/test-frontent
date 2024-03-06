@@ -111,9 +111,7 @@ export class ImageBox extends React.Component {
 					
 
 				: <PiSignature fontSize={100} />
-			}
-			
-				
+			}	
 	</div>
 		</div>
 
@@ -128,14 +126,11 @@ export class ImageBox extends React.Component {
 		onClick={handCLickContracto}
 		style={{width:"100%",marginTop:"10px"}}
 		color={"success"}  
-		icon={<PiSignatureLight  color="white" fontSize={35}  />}  > <span>Descargar contracto</span></Button>
-	
-		
+		icon={<PiSignatureLight  color="white" fontSize={35}  />}  > <span>Descargar contrato</span></Button>
       </div>
     );
   }
 }
-
 
 export class ButtonStartStopWizard extends React.Component {
 	constructor(props) {
