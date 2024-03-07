@@ -39,6 +39,8 @@ const Dian =() => {
         setUsername(e.target.value)
     } 
 
+    console.log(products)
+
     const fetchData =async() =>{
         await  GetCLientDian({token:Dian.access_token})
         await  GetTypeDian({token:Dian.access_token})
@@ -90,6 +92,7 @@ const Dian =() => {
         quantity: 1,
         price: totalPrice,
         discount: 0.0,
+       
       }
     ];
 
@@ -100,10 +103,14 @@ const Dian =() => {
         quantity:1,
         price: item.price ,
         discount: item.discount,
+        taxes: [{
+          id:14205
+        }],
       };
     });
 
     const  items =  typeIva ? itemsIva   :itemsExenta
+
       const groupedAndSummedItems = pay?.reduce((groups, item) => {
         const code = item.Nombre;
       
@@ -126,6 +133,8 @@ const Dian =() => {
 
     const DateExit = moment(DetailDashboard.Fecha_final).utc().format('YYYY-MM-DD')
     
+    console.log(itemsIva)
+
     const response= {
       document: {
         id: jwt?.result?.id_document
@@ -161,6 +170,7 @@ const Dian =() => {
       additional_fields: {}
     };   
 
+    console.log(response)
 
     useEffect(() =>{
       fetch(`${config.serverRoute}/api/resecion/getPayabono/${id}`)
