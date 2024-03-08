@@ -40,7 +40,8 @@ const fromRervas =(event)  =>{
           Celular:index.Celular,
           codigo:index.codigo,
           nacionalidad:index.nacionalidad,
-          pagos_dia:index.valor_dia_habitacion
+          pagos_dia:index.valor_dia_habitacion,
+          ID_facturacion:index.ID_facturacion
         }
       })
     return to

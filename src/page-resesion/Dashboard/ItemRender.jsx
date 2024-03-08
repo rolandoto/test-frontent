@@ -32,6 +32,25 @@ const   itemRenderer = ({ item, itemContext, getItemProps }) => {
 
     const abono = parseInt(item.abono)
 
+    const PointerSentSigo = Boolean(item.ID_facturacion.trim()) && (
+        // Botón para enviar facturas electrónicas
+        <span
+                    style={{
+                    position: "absolute",
+                    width: "10px",
+                    height: "10px",
+                    backgroundColor: "#f31260",
+                    borderRadius: "50%",
+                    border:"solid 0.1px white",
+                    bottom: "-4px", // Ajustar según la posición deseada
+                    left: "-2px", 
+                    top:"1px"
+                    }}
+  ></span> 
+        
+      ) 
+
+
     let colorWords;
     let iconState;
     let title = itemContext.title; // Establecer título predeterminado
@@ -103,23 +122,27 @@ const   itemRenderer = ({ item, itemContext, getItemProps }) => {
                     {...getItemProps({
                     style: {
                         display: "flex",
-                alignItems: "center",
-                backgroundColor,
-                border: "",
-                borderRadius: "12px",
-                padding: "8px",
-                color: colorWords,
-                position: "relative",
-                visibility: "visible",
-                opacity: "100",
-                boxShadow: "0 2px 4px rgba(0, 0, 0, 0.4)",
-                transition: "background-color 0.8s ease",
+                        alignItems: "center",
+                        backgroundColor,
+                        border: "",
+                        borderRadius: "12px",
+                        padding: "8px",
+                        color: colorWords,
+                        position: "relative",
+                        visibility: "visible",
+                        opacity: "100",
+                        boxShadow: "0 2px 4px rgba(0, 0, 0, 0.4)",
+                        transition: "background-color 0.8s ease",
                     },	  
                     })}
                 >	
                     <div
            
             ></div>
+
+
+         {PointerSentSigo}
+             
     
             <div
             style={{
