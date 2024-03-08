@@ -52,6 +52,7 @@ import { BsArrowDown } from "react-icons/bs";
 import UseUsers from "../../hooks/UseUser";
 import confetti from "canvas-confetti";
 import Preloading from "../../component/Preloading";
+import { IoIosSwitch } from "react-icons/io";
 
 
 
@@ -87,12 +88,12 @@ const Dashboard = () => {
 	const { login,isError,isLogin} =UseUsers()
 	const { Img,loading} = Preloading({isLogin})
     
- 	/*const updateLocalStorage =(state) =>{
-		window.localStorage.setItem("jwt",JSON.stringify(state))
-	}*/
+ 	const updateLocalStorage =(state) =>{
+		window.localStorage.setItem("check",JSON.stringify(state))
+	}
 
-
-
+	const initialState = JSON.parse(window.localStorage.getItem("check")) || false
+	
 	const handClickValid =() =>{
 		setValidHotel(!validHotel)
 	}
@@ -107,8 +108,6 @@ const Dashboard = () => {
 			origin: { x: 0.50, y: 0.8 }
 		});
 	}
-
-
 
 	const handClickOpentypeRoom =() =>{
 		setContextMenuPosition({top:125, left: 168})
@@ -227,8 +226,10 @@ const Dashboard = () => {
 	//const resultIdhotel =  jwt.result.id_hotel ="23"
 
 	//localStorage.setItem('jwt', resultIdhotel);
-  const handleChange = () => {
-    setIsChecked((prevChecked) => !prevChecked);
+  const handleChange = (event) => {
+	console.log({event})
+	updateLocalStorage(event)
+    setIsChecked(event);
   };
 
 	const {getPostByReservation,
@@ -273,7 +274,7 @@ const Dashboard = () => {
 
 	 const fetchData =async() =>{
 		try {
-			await getPostByReservation({type:isChecked})
+			await getPostByReservation({type:initialState})
 			await getRoomByReservation()
 			await getRoomFilterRoom()
 			} catch (error) {
@@ -621,13 +622,16 @@ const Dashboard = () => {
 								<IoNotificationsOutline fontSize={30} />
 								</div>
 
-								<div className="row-icon-searching" onClick={handleChange} >
-									<RxSwitch
+								<div className="row-icon-searching" onClick={() => handleChange(!isChecked)} >
+									
+									<IoIosSwitch 
+									
+									color={`${initialState ?"#0070f0" : "black"}`}
 									fontSize={30} 
 									/>
 								</div>
 
-								<div className="row-icon-searching" onClick={handleChange} >
+								<div className="row-icon-searching"  >
 										{jwt.result.name}
 								</div>	
 
