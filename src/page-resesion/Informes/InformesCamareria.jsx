@@ -148,8 +148,8 @@ const InformeCamareria =() =>{
                         }
                        
                     })}
-                <td>Total Adultos : {countNino} </td>   
-                <td>Total Niño : {countAdultos} </td>    
+                <td>Total Adultos :{countAdultos}  </td>   
+                <td>Total Niño : {countNino} </td>    
                 <td>Total total : {countAdultos +countNino} </td>    
                      
                 </tbody>
