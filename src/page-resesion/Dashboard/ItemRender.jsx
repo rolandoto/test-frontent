@@ -148,6 +148,7 @@ const   itemRenderer = ({ item, itemContext, getItemProps }) => {
                                     <ul >
                                     <li className="color-white " >Numero Habitacion :{item.Num_Room}</li>
                                     <li className="color-white " >Codigo reserva :{item.Codigo_Reserva}</li>
+                                    <li className="color-white " >Nacionalidad :{item.nacionalidad}</li>
                                     <li className="color-white " >Huesped: {item.full_name}</li>
                                     <li className="color-white " >Check in :{item.Fecha_inicio}</li>
                                     <li className="color-white " >Check out :{item.Fecha_final}</li>
