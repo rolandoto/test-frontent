@@ -39,7 +39,6 @@ const Dian =() => {
         setUsername(e.target.value)
     } 
 
-    console.log(products)
 
     const fetchData =async() =>{
         await  GetCLientDian({token:Dian.access_token})
@@ -51,7 +50,7 @@ const Dian =() => {
 
     const resultDashboard = DetailDashboard[0]
 
-    console.log(resultDashboard)
+  
 
     const totalNum = resultDashboard.Iva == 1 ? true : false;
 
@@ -132,8 +131,7 @@ const Dian =() => {
   
 
     const DateExit = moment(DetailDashboard.Fecha_final).utc().format('YYYY-MM-DD')
-    
-    console.log(itemsIva)
+
 
     const response= {
       document: {
@@ -148,9 +146,13 @@ const Dian =() => {
         branch_office: 0,
         name: select?.name,
         address: {
-          address:select?.address,
-          city: select?.city,
-          postal_code: select?.postal_code
+          address:select.address,
+          city: {
+            country_code:select?.address?.city?.country_code,
+            state_code:select?.address?.city?.state_code,
+            city_code:select?.address?.city?.city_code,
+          },
+          postal_code: select.postal_code
         },
         phones:select?.phones,
        contacts:select?.contacts
@@ -170,7 +172,7 @@ const Dian =() => {
       additional_fields: {}
     };   
 
-    console.log(response)
+    console.log({response})
 
     useEffect(() =>{
       fetch(`${config.serverRoute}/api/resecion/getPayabono/${id}`)
