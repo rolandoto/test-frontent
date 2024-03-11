@@ -59,12 +59,15 @@ const Dian =() => {
     const totalPrice =  parseInt(resultDashboard?.valor_habitacion)
   
     const totalRound =  totalPrice / 1.19
-    const ValorBase = Math.round(totalRound * 100) / 100; // Redondear a 2 decimales
-
+    const ValorBase = Math.round(totalRound * 100000) / 100000; // Redondear a 5 decimales
 
     const valueSTotalProduct =  typeIva ?  ValorBase : totalPrice
     const valuesPayments = typeIva ? totalPrice :totalPrice
 
+    //218487.39495
+
+    console.log(valueSTotalProduct)
+    console.log(valuesPayments)
   
     const filteredItems = products?.results?.filter(item =>{
       return  item.id ==jwt?.result?.dian

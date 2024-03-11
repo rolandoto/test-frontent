@@ -87,7 +87,7 @@ const UseDianActions =() =>{
         dispatch(setLoadingInvonces())
         try {
             const response =  await  HttpClient.PostCreatebill({token,body})
-        
+            console.log(response)
             if(response.Status !==400){
                 const pdf = await HttpClient.GetSalesInvoice({token,id:response.id})
                 dispatch(setPdf(pdf))
