@@ -24,6 +24,7 @@ import ServePdf from "../../service/PdfServe"
 import io from "socket.io-client";
 import ButtonBack from "../../component/ButtonBack"
 import ButtonHome from "../../component/ButtonHome"
+import toast from "react-hot-toast"
 
 
 const socket = io.connect(`${SocketRoute.serverRoute}`);
@@ -56,9 +57,6 @@ const CheckoutOrganism =({DetailDashboard,postDetailRoom,fetchDataApiWhatsapp}) 
         setComprobante(true)
     }   
 
-    console.log(resultDashboard)
-
-    console.log(DateEmpresa)
 
     const MenuItems = [
         {
@@ -228,6 +226,9 @@ const CheckoutOrganism =({DetailDashboard,postDetailRoom,fetchDataApiWhatsapp}) 
         return      acum  + parseInt( current.price)
     },0)
 
+
+
+
     const persona  = searchFilter?.filter(index => index.type_people =="Persona Natural")
     const juridica = searchFilter?.filter(index => index.type_people =="Persona Juridica")
 
@@ -265,18 +266,9 @@ const CheckoutOrganism =({DetailDashboard,postDetailRoom,fetchDataApiWhatsapp}) 
         setPreSearchFilter(null)
     }
 
-    const handChange =(e) =>{
-        setSearch(e.target.value)
-        filtrar(e.target.value)
-    }
 
     const cartOne =[]
-    let inicio = new Date(resultDashboard?.Fecha_inicio)
-    const fechaInicio = inicio.toISOString().split('T')[0]
-    
-    const final=  new Date(resultDashboard?.Fecha_final)   
-    const FechaFinal = final.toISOString().split('T')[0]
-
+  
     const [loading,setLoading] =useState(false)
 
     const handLoading =() =>{
@@ -308,21 +300,22 @@ const CheckoutOrganism =({DetailDashboard,postDetailRoom,fetchDataApiWhatsapp}) 
         .then(data =>setDateEmpresa(data.query[0]))
     },[])
 
+
+
     const handUpdateStatus =() =>{
       const  adeudado =  parseInt(resultDashboard.valor_abono)
       const pago = parseInt(resultDashboard.valor_habitacion)
 
-      if(adeudado >= pago){
-        handOpenInvoince()
-      }else{
-        Swal.fire({
-            position: 'center',
-            icon: 'error',
-            title: '<p>Habitacion adeudada</p>',
-            showConfirmButton: false,
-            timer: 2000
-          })   
-      }
+    if(!cart.find(debt => debt.pago_deuda === 0)){
+        if(adeudado >= pago){
+            handOpenInvoince()
+          }else{
+            toast.error("Habitacion adeudada")
+            }
+    }else{
+        toast.error("Minibar adeudada")
+    }
+      
     }
     const numberPhone = resultDashboard?.codigo +""+ resultDashboard?.Celular
 

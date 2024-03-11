@@ -107,10 +107,17 @@ const DetailDasboard =(props) =>{
     const resultDashboard = DetailDashboard[0]
 
     console.log(resultDashboard)
+
     const documentByIdRoom =  resultDashboard?.Num_documento +""+id
     const init  =   moment(resultDashboard?.Fecha_inicio).utc().format('DD/MM/YYYY')
     const fin = moment(resultDashboard?.Fecha_final).utc().format('DD/MM/YYYY')
+    const  nowChecking = moment().format("DD/MM/YYYY");
 
+
+
+  
+ 
+    
 
     const initOne = moment(resultDashboard?.Fecha_inicio).utc();
     const finOne = moment(resultDashboard?.Fecha_final).utc();
@@ -129,6 +136,7 @@ const DetailDasboard =(props) =>{
         format: [500, 1100] // Custom size: width = 500, height = 1100 (in units, default is mm)
       });
 
+
       pdf.setFont('helvetica');
       html2canvas(input, {scale:0.1}).then((canvas) => {
         
@@ -140,7 +148,9 @@ const DetailDasboard =(props) =>{
       });
       
       pdf.setFont('helvetica');
-    
+      
+      //const base64ImageData ="https://grupo-hoteles.com/storage/app/1/page/393791917-1-page-logo-Grupo%20Hoteles.png"
+      //pdf.addImage(base64ImageData,"jpg",10,10,10,10)
       // Título
       pdf.setTextColor(titleStyle.textColor);
       pdf.setFontSize(titleStyle.fontSize);
@@ -480,27 +490,32 @@ const DetailDasboard =(props) =>{
   }
 
     const handChecking =() =>{
-      if(!findFirma){
-        if(!avaiableRoom){
-          if(avainleOcacisonal){
-            history.push(`/Ocacionales`)
-          }else{
-            HttpClient.validCheckingAll({ID:resultDashboard.ID_Habitaciones}).then(itemValid =>{
-              history.push(`/detailchecking/${id}`)
-            }).catch(e =>{
-              Swal.fire({
-                position: 'center',
-                icon: 'error',
-                title: '<p>todavia hay una habitacion con check in</p>',
-                showConfirmButton: false,
-                timer: 1000
+      if(init <=nowChecking){
+        if(!findFirma){
+          if(!avaiableRoom){
+            if(avainleOcacisonal){
+              history.push(`/Ocacionales`)
+            }else{
+              HttpClient.validCheckingAll({ID:resultDashboard.ID_Habitaciones}).then(itemValid =>{
+                history.push(`/detailchecking/${id}`)
+              }).catch(e =>{
+                Swal.fire({
+                  position: 'center',
+                  icon: 'error',
+                  title: '<p>todavia hay una habitacion con check in</p>',
+                  showConfirmButton: false,
+                  timer: 1000
+                })
               })
-            })
+            }
+          }else{
+            toast.error("habitacion esta ocupada")
           }
-        }else{
-          toast.error("habitacion esta ocupada")
         }
+      }else{
+        toast.error("No se puede hacer Check in antes")
       }
+     
     }
    
     const item = state  ? <span>Editar</span> : <span>Guardar</span>
@@ -749,7 +764,7 @@ const priceLenceria = Lenceria?.reduce((acum,current) => {
     return acum  + current.Cantidad * current.Precio
 },0)
 
-  const hanDelete =() =>{
+const hanDelete =() =>{
     if(parseInt(resultDashboard.valor_abono) <=0){
       ServiDelteReservation({id}).then(index =>{  
         ServiceInfomeMovimiento({Nombre_recepcion:jwt.result.name,Fecha:now,Movimiento:`Reserva eliminada tipo habitacion ${resultDashboard?.nombre_habitacion} ${resultDashboard.Numero} nombre ${resultDashboard.Nombre} codigo reserva ${id} `,id:jwt.result.id_hotel}).then(index =>{
