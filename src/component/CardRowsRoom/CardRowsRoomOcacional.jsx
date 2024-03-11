@@ -194,7 +194,6 @@ const CardRowsRoomOcacional =({title,id,ID_estado_habitacion,postDetailRoom,hanc
                     <div>
                             <li>  <IoBedOutline fontSize={30} style={{"margin":"auto"}} color="black"  /></li>
                             <li><h4 className="let-letra" >  {title}   </h4></li>
-                            <li><h4 className="let-letra" >   </h4></li>
                             <li><h4 className="let-letra" style={{color:letra}}   >  ${totalOcasional}   </h4></li>
                             
                     </div>
