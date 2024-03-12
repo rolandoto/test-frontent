@@ -149,7 +149,7 @@ const Dian =() => {
         branch_office: 0,
         name: select?.name,
         address: {
-          address:select.address,
+          address:select?.address,
           city: {
             country_code:select?.address?.city?.country_code,
             state_code:select?.address?.city?.state_code,
@@ -175,7 +175,8 @@ const Dian =() => {
       additional_fields: {}
     };   
 
-    console.log({response})
+
+    console.log(response)
 
     useEffect(() =>{
       fetch(`${config.serverRoute}/api/resecion/getPayabono/${id}`)
