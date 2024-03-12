@@ -43,7 +43,7 @@ const   itemRenderer = ({ item, itemContext, getItemProps }) => {
                     borderRadius: "50%",
                     border:"solid 0.1px white",
                     bottom: "-4px", // Ajustar según la posición deseada
-                    left: "-2px", 
+                    right: "-2px", 
                     top:"1px"
                     }}
   ></span> 
@@ -148,6 +148,7 @@ const   itemRenderer = ({ item, itemContext, getItemProps }) => {
             style={{
                 position: 'sticky',
                 left: '0',
+                right: '0',
                 display: 'inline-block',
                 overflow: 'hidden',
                 padding: '0 1x',
