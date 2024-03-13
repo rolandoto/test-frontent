@@ -236,13 +236,13 @@ const Invoince =({resultDashboard=[],carts=[],dataCount,setInvoice,priceCart,cli
                             <IoMdCloseCircle   fontSize={30} color="black" />
                         </div>
                             <div  className="form-login container-invoince-to "> 
-                                <span className="invoince title-invoince-cart" >{jwt.result.hotel}</span>
+                            
                                 <span className="invoince title-invoince-cart" >Nit: {searchingHotel?.Nit}</span>
                                 <span className="invoince title-invoince-cart" >{searchingHotel?.Direcion}</span>
                                 <span className="invoince title-invoince-cart" >{searchingHotel?.Telefono}</span>
                             
                                 <h6 className="p title-invoince " >GRACIAS POR SU VISITA</h6>
-                                <span className="p title-invoince-cart" >RES DIAN {searchingHotel?.Res_dian}</span>
+
                                 <span className="p title-invoince-cart  ">Fecha: {moment(searchingHotel?.fecha).utc().format('YYYY/MM/DD')}</span>
                                 <span className="p title-invoince-cart  ">Resolucion {searchingHotel?.Resolucion_initial} al {searchingHotel?.Resolucion_final}</span>
                                 <span className="p title-invoince-cart  ">FACTURA DE VENTA</span>
@@ -377,7 +377,7 @@ const Invoince =({resultDashboard=[],carts=[],dataCount,setInvoice,priceCart,cli
                                     <IoMdCloseCircle   fontSize={30} color="black" />
                                 </div>
                                         <div  className="form-login container-invoince-to "> 
-                                        <span className="invoince title-invoince-cart" >{jwt.result.hotel}</span>
+                                      
                                 {jwt.result.id_hotel  == 7 && <span className="invoince title-invoince-cart" >DIEZ ELEMENTOS SAS</span>   ||  jwt.result.id_hotel  == 3 && <span className="invoince title-invoince-cart" >DIEZ ELEMENTOS SAS </span>||  jwt.result.id_hotel  == 4 && <span className="invoince title-invoince-cart" >DIEZ ELEMENTOS SAS </span> ||  jwt.result.id_hotel  == 23 && <span className="invoince title-invoince-cart" >Carlos Ramirez </span> ||  jwt.result.id_hotel  == 6 && <span className="invoince title-invoince-cart" >Jose Bejumea </span> ||  jwt.result.id_hotel  == 12 && <span className="invoince title-invoince-cart" >Jairo enrique </span>||  jwt.result.id_hotel  == 5 && <span className="invoince title-invoince-cart" >Jose dominguez</span> } 
                                 <span className="invoince title-invoince-cart" >Nit: {searchingHotel?.Nit}</span>
                                 <span className="invoince title-invoince-cart" >{searchingHotel?.Direcion}</span>
