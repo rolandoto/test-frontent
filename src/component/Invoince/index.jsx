@@ -120,7 +120,7 @@ const Invoince =({resultDashboard=[],carts=[],dataCount,setInvoice,priceCart,cli
 
      let totalId = false;
 
-    if (jwt.result.id_hotel == 7 || jwt.result.id_hotel == 3 || jwt.result.id_hotel == 4 || jwt.result.id_hotel == 23 || jwt.result.id_hotel == 5 || jwt.result.id_hotel == 6 || jwt.result.id_hotel == 12  || jwt.result.id_hotel == 10 || jwt.result.id_hotel == 2  ) {
+    if ( jwt.result.id_hotel == 23 || jwt.result.id_hotel == 5 || jwt.result.id_hotel == 6 || jwt.result.id_hotel == 12  || jwt.result.id_hotel == 10 || jwt.result.id_hotel == 2  ) {
         totalId = true;
     }
 
@@ -140,6 +140,8 @@ const Invoince =({resultDashboard=[],carts=[],dataCount,setInvoice,priceCart,cli
         }) 
      },[setInformacion])
 
+     //{totalId ?   <span></span> :   <span className="p title-invoince-cart" >RES DIAN {searchingHotel?.Res_dian}</span>}  
+
     const searchingHotel =  information?.query?.find(index =>index.id_hotel  == jwt.result.id_hotel )
 
     if(validState){
@@ -153,7 +155,7 @@ const Invoince =({resultDashboard=[],carts=[],dataCount,setInvoice,priceCart,cli
                                 </div>
                                         <div  className="form-login container-invoince-to "> 
                                         <span className="invoince title-invoince-cart" >{jwt.result.hotel}</span>
-                                {jwt.result.id_hotel  == 7 && <span className="invoince title-invoince-cart" >Rolando Guerrero</span>   ||  jwt.result.id_hotel  == 3 && <span className="invoince title-invoince-cart" >Efraín Giraldo </span>||  jwt.result.id_hotel  == 4 && <span className="invoince title-invoince-cart" >Efraín Giraldo </span> ||  jwt.result.id_hotel  == 23 && <span className="invoince title-invoince-cart" >Carlos Ramirez </span> ||  jwt.result.id_hotel  == 6 && <span className="invoince title-invoince-cart" >Jose Bejumea </span> ||  jwt.result.id_hotel  == 12 && <span className="invoince title-invoince-cart" >Jairo enrique </span>||  jwt.result.id_hotel  == 5 && <span className="invoince title-invoince-cart" >Jose dominguez</span> } 
+                                {jwt.result.id_hotel  == 7 && <span className="invoince title-invoince-cart" >DIEZ ELEMENTOS SAS</span>   ||  jwt.result.id_hotel  == 3 && <span className="invoince title-invoince-cart" >DIEZ ELEMENTOS SAS </span>||  jwt.result.id_hotel  == 4 && <span className="invoince title-invoince-cart" >DIEZ ELEMENTOS SAS </span> ||  jwt.result.id_hotel  == 23 && <span className="invoince title-invoince-cart" >Carlos Ramirez </span> ||  jwt.result.id_hotel  == 6 && <span className="invoince title-invoince-cart" >Jose Bejumea </span> ||  jwt.result.id_hotel  == 12 && <span className="invoince title-invoince-cart" >Jairo enrique </span>||  jwt.result.id_hotel  == 5 && <span className="invoince title-invoince-cart" >Jose dominguez</span> } 
                                 <span className="invoince title-invoince-cart" >Nit: {searchingHotel?.Nit}</span>
                                 <span className="invoince title-invoince-cart" >{searchingHotel?.Direcion}</span>
                                 <span className="invoince title-invoince-cart" >{searchingHotel?.Telefono}</span>
@@ -376,14 +378,14 @@ const Invoince =({resultDashboard=[],carts=[],dataCount,setInvoice,priceCart,cli
                                 </div>
                                         <div  className="form-login container-invoince-to "> 
                                         <span className="invoince title-invoince-cart" >{jwt.result.hotel}</span>
-                                {jwt.result.id_hotel  == 7 && <span className="invoince title-invoince-cart" >Rolando Guerrero</span>   ||  jwt.result.id_hotel  == 3 && <span className="invoince title-invoince-cart" >Efraín Giraldo </span>||  jwt.result.id_hotel  == 4 && <span className="invoince title-invoince-cart" >Efraín Giraldo </span> ||  jwt.result.id_hotel  == 23 && <span className="invoince title-invoince-cart" >Carlos Ramirez </span> ||  jwt.result.id_hotel  == 6 && <span className="invoince title-invoince-cart" >Jose Bejumea </span> ||  jwt.result.id_hotel  == 12 && <span className="invoince title-invoince-cart" >Jairo enrique </span>||  jwt.result.id_hotel  == 5 && <span className="invoince title-invoince-cart" >Jose dominguez</span> } 
+                                {jwt.result.id_hotel  == 7 && <span className="invoince title-invoince-cart" >DIEZ ELEMENTOS SAS</span>   ||  jwt.result.id_hotel  == 3 && <span className="invoince title-invoince-cart" >DIEZ ELEMENTOS SAS </span>||  jwt.result.id_hotel  == 4 && <span className="invoince title-invoince-cart" >DIEZ ELEMENTOS SAS </span> ||  jwt.result.id_hotel  == 23 && <span className="invoince title-invoince-cart" >Carlos Ramirez </span> ||  jwt.result.id_hotel  == 6 && <span className="invoince title-invoince-cart" >Jose Bejumea </span> ||  jwt.result.id_hotel  == 12 && <span className="invoince title-invoince-cart" >Jairo enrique </span>||  jwt.result.id_hotel  == 5 && <span className="invoince title-invoince-cart" >Jose dominguez</span> } 
                                 <span className="invoince title-invoince-cart" >Nit: {searchingHotel?.Nit}</span>
                                 <span className="invoince title-invoince-cart" >{searchingHotel?.Direcion}</span>
                                 <span className="invoince title-invoince-cart" >{searchingHotel?.Telefono}</span>
                                 { totalId && <span className="invoince title-invoince-cart" >No responsable</span> }
 
                                 <h6 className="p title-invoince " >GRACIAS POR SU VISITA</h6>
-                                {totalId ?   <span></span> :   <span className="p title-invoince-cart" >RES DIAN {searchingHotel?.Res_dian}</span>}  
+                                
                                 <span className="p title-invoince-cart  ">Fecha: {moment(searchingHotel?.fecha).utc().format('YYYY/MM/DD')}</span>
                                 <span className="p title-invoince-cart  ">{  totalId ? "Numeracion" : "Resolucion"  } {searchingHotel?.Resolucion_initial} al {searchingHotel?.Resolucion_final}</span>
                                 <span className="p title-invoince-cart  ">FACTURA DE VENTA</span>
