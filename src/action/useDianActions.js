@@ -22,12 +22,12 @@ const UseDianActions =() =>{
 
     const dispatch =  useAppDispatch()
     
-    const GetCLientDian =async({token}) =>{
+    const GetCLientDian =async({token,document}) =>{
     
         dispatch(loading())
 
         try {
-            const response =  await  HttpClient.GetLisClienteDian({token})
+            const response =  await  HttpClient.GetLisClienteDian({token,document})
             if(response){
                 dispatch(setClient(response))
             }else{

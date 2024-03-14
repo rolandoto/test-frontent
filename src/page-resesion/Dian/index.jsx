@@ -26,6 +26,8 @@ const Dian =() => {
     const {getDetailReservationById} = useDetailDashboardAction()
     const [selectedItems, setSelectedItems] = useState([]);
 
+    console.log(ListClient)
+
     const {DetailDashboard
     } = useSelector((state) => state.DetailDashboard)
 
@@ -41,7 +43,7 @@ const Dian =() => {
 
 
     const fetchData =async() =>{
-        await  GetCLientDian({token:Dian.access_token})
+        await  GetCLientDian({token:Dian.access_token,document:username})
         await  GetTypeDian({token:Dian.access_token})
         await  GetTSeller({token:Dian.access_token})
         await  GetTProductsDian({token:Dian.access_token})
@@ -132,9 +134,7 @@ const Dian =() => {
         value:valuesPayments,
       }]
   
-
     const DateExit = moment(DetailDashboard.Fecha_final).utc().format('YYYY-MM-DD')
-
 
     const response= {
       document: {
@@ -145,7 +145,6 @@ const Dian =() => {
         person_type: select?.person_type,
         id_type: select?.id_type?.code,
         identification:select?.identification,
-       
         branch_office: 0,
         name: select?.name,
         address: {
@@ -184,7 +183,7 @@ const Dian =() => {
       .then(data=> setPay(data.query))
         fetchData()
         fetchDataDetail()
-    },[id])
+    },[username])
 
     const filtrarSearching = (terminoBusqueda) => {
         let resultadosBusqueda = ListClient?.results?.filter((elemento, index) => {
@@ -271,7 +270,7 @@ const Dian =() => {
                             <table  className="de "  >
                                 <tbody class="tbody  "  > 
                                            
-                                            {resultadosBusqueda?.map(index =>{
+                                            {ListClient?.results?.map(index =>{
                                                 const fullName= `${index.name[0]} ${index.name[1]} `
                                                 
                                                 const typeIdentification =  index.id_type.name

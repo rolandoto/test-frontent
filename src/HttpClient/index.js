@@ -741,8 +741,8 @@ const PostAutenticationDian = () => {
     })
 }
 
-const GetLisClienteDian = ({token}) => {
-  return fetch(`https://private-anon-1be4d3c754-siigoapi.apiary-proxy.com/v1/customers?created_start=2024-02-19`, {
+const GetLisClienteDian = ({token,document}) => {
+  return fetch(`https://private-anon-1be4d3c754-siigoapi.apiary-proxy.com/v1/customers?identification=${document}`, {
     method: "GET",
     headers: {
       "Authorization":token,
@@ -824,6 +824,7 @@ const GetProducts= ({token}) => {
     return data
   })
 };
+
 
 const GetCostCenter= ({token}) => {
   return fetch(`https://private-anon-407a01d67e-siigoapi.apiary-proxy.com/v1/cost-centers`, {
