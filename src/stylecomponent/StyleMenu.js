@@ -76,6 +76,27 @@ export const StyledContextMenuSearch = styled.div`
   }
 `;
 
+
+export const StyledContextMenuSearchDian = styled.div`
+  position: absolute;
+  top: ${(props) => `${props.top}px`};
+  left: 0%;
+  right:0%;
+  margin: auto;
+  background: #fff;
+  width: 80%;
+  box-shadow: 17px 20px 40px rgba(0, 0, 0, .21);
+  padding: 8px;
+  z-index: 1000;
+  opacity: 0;
+  border-radius: 9px;
+  transform: translateY(-10px);
+  animation: ${fadeIn} 0.8s ease forwards; // Apply the fadeIn animation
+  &.fade-in {
+    animation: ${fadeIn} 0.3s ease forwards; // Apply the fadeIn animation
+  }
+`;
+
 export const StyledContextTyeHotel = styled.div`
   top: ${(props) => `${props.top}px`};
   position: absolute;
@@ -108,7 +129,6 @@ export const StyledContextLoading = styled.div`
   left: ${(props) => `${props.left}%`};
   background: #fff;
   width: 7%;
-  height: 16%;
   box-shadow: 17px 20px 40px rgba(0, 0, 0, .21);
   padding: 8px;StyledContextMenu
   z-index: 1000;
