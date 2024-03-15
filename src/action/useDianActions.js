@@ -83,37 +83,45 @@ const UseDianActions =() =>{
         }
     }
 
-    const PostSendInvoinces =async({token,body,id_Reserva}) =>{
-        dispatch(setLoadingInvonces())
+    const PostSendInvoinces = async ({ token, body, id_Reserva }) => {
+        // Utiliza una variable de estado para controlar si ya se ha enviado la factura
+        let invoiceSent = false;
+    
+        dispatch(setLoadingInvonces());
         try {
-            const response =  await  HttpClient.PostCreatebill({token,body})
-            console.log({"response.id":response.id})
-            console.log({"response.id":response.id})
-            console.log({"response.id":Boolean(response.id.trim())})
-            if(Boolean(response.id.trim())){
-                const pdf = await HttpClient.GetSalesInvoice({token,id:response.id})
-                dispatch(setPdf(pdf))
-                dispatch(setPayment(response))
-                toast.success("envio exitoso")
-                dispatch(setDian(response))
-                const sigobyId = await HttpClient.PostInsertSigOpdfbyid({id:id_Reserva,id_sigo:response.id})
-                if(sigobyId){
-                    toast.success("Se guarado correctamente la facturacion")
-                    history.push(`/DetailDashboard/${id_Reserva}`)
-                }else{
-                    toast.error("Se produjo un error")
+            const response = await HttpClient.PostCreatebill({ token, body });
+            console.log({ "response.id": response.id });
+            console.log({ "response.id": response.id });
+            console.log({ "response.id": Boolean(response.id.trim()) });
+            
+            // Verifica si la factura se creó correctamente
+            if (Boolean(response.id.trim())) {
+                // Si aún no se ha enviado la factura, procede
+                if (!invoiceSent) {
+                    const pdf = await HttpClient.GetSalesInvoice({ token, id: response.id });
+                    dispatch(setPdf(pdf));
+                    dispatch(setPayment(response));
+                    toast.success("envio exitoso");
+                    dispatch(setDian(response));
+                    const sigobyId = await HttpClient.PostInsertSigOpdfbyid({ id: id_Reserva, id_sigo: response.id });
+                    if (sigobyId) {
+                        toast.success("Se guarado correctamente la facturacion");
+                        history.push(`/DetailDashboard/${id_Reserva}`);
+                    } else {
+                        toast.error("Se produjo un error");
+                    }
+                    // Marca que la factura ha sido enviada para evitar que este bloque se ejecute de nuevo
+                    invoiceSent = true;
                 }
-             
-            }else{
-                dispatch(setErrorInvoinces("no found"))
-                toast.error("envio error")
+            } else {
+                dispatch(setErrorInvoinces("no found"));
+                toast.error("envio error");
             }
         } catch (error) {
-            dispatch(setErrorInvoinces("no found"))
-            toast.error("envio error")
+            dispatch(setErrorInvoinces("no found"));
+            toast.error("envio error");
         }
     }
-
 
     const GetPayment =async({token}) =>{
         dispatch(loading())
