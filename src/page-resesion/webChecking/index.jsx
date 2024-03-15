@@ -3,7 +3,7 @@ import "./webchecking.css"
 import { Button, Spacer } from "@nextui-org/react";
 import { BsCheck2 ,BsChevronRight} from "react-icons/bs";
 import UseReservation from "../../hooks/useReservation";
-import UseDocument from "../../hooks/useDococument";
+import UseDocument from "../../hooks/useDocument";
 import UseHabitacion from "../../hooks/useHabitacion";
 import HttpClient from "../../HttpClient";
 import Swal from "sweetalert2";
@@ -135,10 +135,17 @@ const WebChecking =() =>{
     const [progressWidth, setProgressWidth] = useState(0);
     const [reservation] = UseReservation()
     const [information,setInformation] =useState()
-    const [documento] =UseDocument({itemId:information?.ID_document})  
-    const [findHotel] = UseHabitacion({itemId:information?.ID_hotel,group:information?.ID_tipo_habitaciones})
+    
+
+   
     const [imagePath, setImagePath] = useState("");
     const [imageOne,setImageOne] =useState("")
+
+    const  documentUse = UseDocument()
+ 
+
+    const docu = documentUse.document?.find(index =>  index?.ID == information?.ID_Tipo_documento)
+    
 
     const handNex =() =>{
         setCheckBox(checkbox + 1)
@@ -163,7 +170,9 @@ const WebChecking =() =>{
     };
    
     const handleSearchReservation =(itemReservation) =>{
-        const ReservationIndex = reservation.findIndex(itemReserva => itemReserva.Codigo_Reserva ==itemReservation)
+        const ReservationIndex = reservation.findIndex(itemReserva => itemReserva.Codigo_Reserva =="X14A-2683790048906")
+        console.log(reservation)
+        console.log(ReservationIndex)
         if(ReservationIndex >= 0){
             const  newReser = structuredClone(reservation)
             const someVariable = newReser[ReservationIndex]
@@ -273,15 +282,15 @@ const WebChecking =() =>{
                     </div>
                     <div className="row-flex-webchecking"   >
                         <li className="li-webchecking" > <span className="font-size-span" >  {information.Celular}</span></li>
-                        <li className="li-webchecking" > <span className="font-size-span" > {documento.nombre}</span></li>
-                        <li className="li-webchecking" > <span className="font-size-span" > {findHotel?.nombre}</span></li>
+                        <li className="li-webchecking" > <span className="font-size-span" > {docu?.nombre}</span></li>
+                        <li className="li-webchecking" > <span className="font-size-span" > </span></li>
                        
                     </div>
 
                 </div>
                 <div className="container-form-web-checking-one" >
                     <div className="form-login title-web-checking container-form-web-checkingOne"  >
-                        <label htmlFor="" className="title-label" > <span className="font-size-webchecking">Sube tu documento: </span>{documento.nombre} </label>
+                        <label htmlFor="" className="title-label" > <span className="font-size-webchecking">Sube tu documento: </span>{docu?.nombre} </label>
                         
                                <div className="file-input-container">
                                <input

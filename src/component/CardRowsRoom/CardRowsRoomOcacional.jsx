@@ -165,7 +165,7 @@ const CardRowsRoomOcacional =({title,id,ID_estado_habitacion,postDetailRoom,hanc
                 <div>
                         <li>  <AiFillHeart fontSize={30} style={{"margin":"auto","fontWeight":1}} color="white" /></li>
                         <li><h4 className="let-letra" style={{color:letra}}   >  {title}   </h4></li>
-                        <li><h4 className="let-letra" style={{color:letra}}   > 
+
                         <ul>
                         {occasions.map((occasion, index) => {
 
@@ -181,7 +181,7 @@ const CardRowsRoomOcacional =({title,id,ID_estado_habitacion,postDetailRoom,hanc
                              )
                         })}
                             </ul>
-                        </h4></li>
+                      
                 </div>
             </li>
         )
