@@ -96,7 +96,7 @@ const Dian =() => {
         quantity: 1,
         price: totalPrice,
         discount: 0.0,
-       
+
       }
     ];
 
