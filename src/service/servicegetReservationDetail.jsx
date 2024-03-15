@@ -17,6 +17,7 @@ const servicegetReservationDetail =(event) =>{
   
           return {
             Num_Room:index.Num_Room,
+            codigobyId:index.codigobyId,
             Codigo_Reserva:index.Codigo_reservaOne,
             full_name:`${index.Nombre} ${index.Last_name}`,
             Observation:index.Observation,

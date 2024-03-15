@@ -135,7 +135,7 @@ const WebChecking =() =>{
     const [progressWidth, setProgressWidth] = useState(0);
     const [reservation] = UseReservation()
     const [information,setInformation] =useState()
-    
+
 
    
     const [imagePath, setImagePath] = useState("");
@@ -155,8 +155,11 @@ const WebChecking =() =>{
         }
     }
 
+    console.log({information})
+
     const handleFile = async () => {
-        HttpClient.UploadImage({file1:imagePath,file2:imageOne,ID:information?.id}).then(index =>{
+        
+        HttpClient.UploadImage({file1:imagePath,file2:imageOne,ID:information?.codigobyId}).then(index =>{
             handNex()
         }).catch(e =>{
             Swal.fire({
@@ -170,7 +173,7 @@ const WebChecking =() =>{
     };
    
     const handleSearchReservation =(itemReservation) =>{
-        const ReservationIndex = reservation.findIndex(itemReserva => itemReserva.Codigo_Reserva =="X14A-2683790048906")
+        const ReservationIndex = reservation.findIndex(itemReserva => itemReserva.Codigo_Reserva ==itemReservation)
         console.log(reservation)
         console.log(ReservationIndex)
         if(ReservationIndex >= 0){
@@ -299,7 +302,8 @@ const WebChecking =() =>{
                                         onChange={(e) =>setImagePath(e.target.files[0])}
                                         className="file-input"
                                     />
-                                    <label htmlFor="fileInputone" className="file-input-label">
+                                    <label htmlFor="fileInputone" className={`${imagePath ?  "file-input-label-One-img-webchecking" : "file-input-label-One-webchecking"}`}>
+                                        
                                         {imagePath ? "imagen selecionada": 'Foto frontal documento...'}
                                         <PiCameraThin color="black"   fontSize={25}  />
                                     </label>
@@ -312,7 +316,7 @@ const WebChecking =() =>{
                                         onChange={(e) =>setImageOne(e.target.files[0])}
                                         className="file-input"
                                     />
-                                    <label htmlFor="fileInput" className="file-input-label">
+                                    <label htmlFor="fileInput" className={`${imageOne ?  "file-input-label-One-img-webchecking" : "file-input-label-One-webchecking" }`}>
                                         {imageOne ? "imagen selecionada" : 'Foto posterior documento...'}
                                         <PiCameraRotateThin color="black"   fontSize={25}  />
                                     </label>
