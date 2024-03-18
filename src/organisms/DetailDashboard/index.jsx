@@ -179,7 +179,7 @@ const DetailDasboard =(props) =>{
       pdf.setTextColor(bodyStyle.textColor);
       pdf.setFontSize(bodyStyle.fontSize);
       pdf.setFontStyle(bodyStyle.fontStyle);
-      pdf.text(10, 62, `Habitacion: ${resultDashboard.Numero} ${resultDashboard?.nombre_habitacion}`);
+      pdf.text(10, 62, `Habitacion:  ${resultDashboard?.nombre_habitacion}`);
 
       pdf.setTextColor(bodyStyle.textColor);
       pdf.setFontSize(bodyStyle.fontSize);
