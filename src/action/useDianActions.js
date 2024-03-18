@@ -116,10 +116,12 @@ const UseDianActions =() =>{
             } else {
                 dispatch(setErrorInvoinces("no found"));
                 toast.error("envio error");
+                window.location.reload()
             }
         } catch (error) {
             dispatch(setErrorInvoinces("no found"));
             toast.error("envio error");
+            window.location.reload()
         }
     }
 
