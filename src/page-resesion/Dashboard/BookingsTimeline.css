@@ -930,7 +930,7 @@ hr.border {
     /* right: 0; */
     color: white;
     right: 0;
-    width:  161px;
+    width:  300px;
     margin: auto;
     text-align: center;
     top: 120px;
@@ -1048,6 +1048,14 @@ hr.border {
   right: 0;
   margin: auto;
 }
+.container-searching-for-reserrvation-on{
+  width: 80%;
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+
 .container-searching-for-reserrvation-logo{
   display: flex;
   align-items: center;

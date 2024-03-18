@@ -53,6 +53,7 @@ import UseUsers from "../../hooks/UseUser";
 import confetti from "canvas-confetti";
 import Preloading from "../../component/Preloading";
 import { IoIosSwitch } from "react-icons/io";
+import { useLocation } from "react-router-dom/cjs/react-router-dom.min";
 
 
 
@@ -61,6 +62,10 @@ const socket = io.connect(`${SocketRoute.serverRoute}`);
 
 
 const Dashboard = () => {
+
+	const {pathname} = useLocation()
+
+	console.log(pathname)
 	
 	const currentDate = new moment();
 	const {jwt,setJwt,isOpen, setIsOpen} =useContext(AutoProvider)
@@ -470,16 +475,18 @@ const Dashboard = () => {
 		if (isFetchingData) {
 		  isFetchingData = false;
 		  toast.custom((t) => (
-			<>
-				<footer class="nav-notifiacation">
-							<div className="row-notification">
-								<h5>Nuevas Reservas</h5>
-							</div>
-				</footer>
-			</>
+		  <>
+			<footer class="nav-notifiacation">
+				  <div className="row-notification">
+					<h5>{data} envio una facturacion electronica  </h5>
+				  </div>
+			</footer>
+		  </>
 		  ))
 		}
-	});
+	  });
+  
+	
 
 	const [selectedRange, setSelectedRange] = useState({ start: null, end: null });
 

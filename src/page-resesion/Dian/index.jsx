@@ -4,8 +4,8 @@ import HttpClient from "../../HttpClient";
 import  AutoProvider  from "../../privateRoute/AutoProvider";
 import UseDianActions from "../../action/useDianActions";
 import { useDispatch, useSelector } from "react-redux";
-import { config } from "../../config";
-import { useParams } from "react-router-dom/cjs/react-router-dom.min";
+import { SocketRoute, config } from "../../config";
+import { useLocation, useParams } from "react-router-dom/cjs/react-router-dom.min";
 import useDetailDashboardAction from "../../action/useDetailDashboardAction";
 import { Card, Loading, Text } from "@nextui-org/react";
 import moment from "moment";
@@ -13,12 +13,18 @@ import { StyleSpan, StyleSpanIcons, StyledContextLoading, StyledContextMenuSearc
 import toast from "react-hot-toast";
 import ButtonBack from "../../component/ButtonBack";
 import ButtonHome from "../../component/ButtonHome";
+import io from "socket.io-client";
+
+const socket = io.connect(`${SocketRoute.serverRoute}`);
 
 const Dian =() => {
+
+  const {jwt,Dian} = useContext(AutoProvider)
+  const {pathname} = useLocation()
  
     const {id} = useParams()
     const [select,setSelect] =useState([])
-    const {jwt,Dian} = useContext(AutoProvider)
+   
     const [pay,setPay] =useState()
     const {loading,error,ListClient,typeDocumentDian,seller,products,Payment,loadingInvoinces,Pdf} = useSelector((state) => state.Dian)
     const to = useSelector((state) => state.Dian)
@@ -26,7 +32,7 @@ const Dian =() => {
     const {getDetailReservationById} = useDetailDashboardAction()
     const [selectedItems, setSelectedItems] = useState([]);
 
-    console.log(ListClient)
+    console.log(select)
 
     const {DetailDashboard
     } = useSelector((state) => state.DetailDashboard)
@@ -42,6 +48,9 @@ const Dian =() => {
     } 
 
 
+   
+
+
     const fetchData =async() =>{
         await  GetCLientDian({token:Dian.access_token,document:username})
         await  GetTypeDian({token:Dian.access_token})
@@ -51,6 +60,25 @@ const Dian =() => {
     } 
 
     const resultDashboard = DetailDashboard[0]
+
+    console.log(resultDashboard)
+
+    let isFetchingData = true;
+
+    socket.on("sendNotification", async(data) => {
+      if (isFetchingData) {
+        isFetchingData = false;
+        toast.custom((t) => (
+        <>
+          <footer class="nav-notifiacation">
+                <div className="row-notification">
+                  <h5>{data} envio una facturacion electronica  </h5>
+                </div>
+          </footer>
+        </>
+        ))
+      }
+    });
 
   
 
@@ -201,11 +229,13 @@ const Dian =() => {
     };
 
     const handSubmitInvoinces=async() =>{
+     
       if(Boolean(resultDashboard.ID_facturacion.trim())){
           toast.error("no se puedes enviar mas facturacion electronica")
       }else{
         if(!loadingInvoinces){
           await PostSendInvoinces({token:Dian.access_token,body:response,id_Reserva:id})
+          socket.emit("sendNotification",jwt.result.name);
         }else{
           toast.error("cargar factura")
         }
