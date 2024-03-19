@@ -32,7 +32,8 @@ const Dian =() => {
     const {getDetailReservationById} = useDetailDashboardAction()
     const [selectedItems, setSelectedItems] = useState([]);
 
-    console.log(select)
+  console.log(select)
+
 
     const {DetailDashboard
     } = useSelector((state) => state.DetailDashboard)
@@ -47,10 +48,6 @@ const Dian =() => {
         setUsername(e.target.value)
     } 
 
-
-   
-
-
     const fetchData =async() =>{
         await  GetCLientDian({token:Dian.access_token,document:username})
         await  GetTypeDian({token:Dian.access_token})
@@ -61,7 +58,7 @@ const Dian =() => {
 
     const resultDashboard = DetailDashboard[0]
 
-    console.log(resultDashboard)
+
 
     let isFetchingData = true;
 
@@ -94,10 +91,7 @@ const Dian =() => {
     const valueSTotalProduct =  typeIva ?  ValorBase : totalPrice
     const valuesPayments = typeIva ? totalPrice :totalPrice
 
-    //218487.39495
-
-    console.log(valueSTotalProduct)
-    console.log(valuesPayments)
+  
   
     const filteredItems = products?.results?.filter(item =>{
       return  item.id ==jwt?.result?.dian
@@ -202,8 +196,6 @@ const Dian =() => {
       additional_fields: {}
     };   
 
-
-    console.log(response)
 
     useEffect(() =>{
       fetch(`${config.serverRoute}/api/resecion/getPayabono/${id}`)

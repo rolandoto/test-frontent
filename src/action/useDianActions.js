@@ -103,13 +103,9 @@ const UseDianActions =() =>{
                     dispatch(setPayment(response));
                     toast.success("envio exitoso");
                     dispatch(setDian(response));
-                    const sigobyId = await HttpClient.PostInsertSigOpdfbyid({ id: id_Reserva, id_sigo: response.id });
-                    if (sigobyId) {
-                        toast.success("Se guarado correctamente la facturacion");
-                        history.push(`/DetailDashboard/${id_Reserva}`);
-                    } else {
-                        toast.error("Se produjo un error");
-                    }
+                    await HttpClient.PostInsertSigOpdfbyid({ id: id_Reserva, id_sigo: response.id });
+                    toast.success("Se guarado correctamente la facturacion");
+                    history.push(`/DetailDashboard/${id_Reserva}`);
                     // Marca que la factura ha sido enviada para evitar que este bloque se ejecute de nuevo
                     invoiceSent = true;
                 }
