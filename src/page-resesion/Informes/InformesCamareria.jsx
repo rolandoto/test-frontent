@@ -12,11 +12,85 @@ import { useReactToPrint } from "react-to-print";
 import { useHistory } from "react-router-dom";
 import ButtonBack from "../../component/ButtonBack";
 import ButtonHome from "../../component/ButtonHome";
+import { CiEdit } from "react-icons/ci";
 
+const ItemCardPago =({index,setloading,className}) => { 
+
+    const  typy_buy =  [
+        {   
+          id:null,
+          name:"",
+      },
+        {   
+            id:1,
+            name:"GLADYS ELENA JARRAMILLO",
+        },
+        {
+            id:2,
+            name:"JOHANA USUGA CASTAÑEDA",
+        },
+        {   
+            id:3,
+            name:"DIANA MARCELA CASTRO GARCIA",
+        },
+        {   
+            id:4,
+            name:"MONICA MARIA RESTREPO PATIÑO",
+        },
+        {   
+            id:5,
+            name:"DANIELA GARCIA SIERRA",
+        },
+        {   
+            id:6,
+            name:"YESENAI LOPEZ CARVAJAL",
+        }
+      ]
+
+    const [isEditing, setIsEditing] = useState(false)
+  
+    let taskContent
+  
+   
+  
+    if(isEditing){
+        taskContent  =(
+          <td className={className}> 
+              <select  className={className} >
+                {typy_buy.map(itemTybuy => (
+                  
+                  <option value={itemTybuy.id} >{itemTybuy.name}</option>
+                ))}
+            </select>
+          </td>
+        )
+      }else{
+        taskContent =(
+                              
+              <td className={className}  ><CiEdit fontSize={30} color="white" onClick={() => setIsEditing(true) }  /> 
+            </td>
+       
+        )
+      }
+  
+    return (
+        <>
+          {taskContent}
+        </>
+      )
+    
+  }
 
 const InformeCamareria =() =>{
     const {jwt} =useContext(AutoProvider)
     const history =useHistory()
+
+    const [selectedValue, setSelectedValue] = useState('dsadsa');
+
+  // Función para manejar cambios en el select
+  const handleSelectChange = (event) => {
+    setSelectedValue(event.target.value);
+  };
 
     const [camareria,setCamareria]=useState()
     const [LookinforFecha,setLokinforFecha] =useState()
@@ -94,6 +168,7 @@ const InformeCamareria =() =>{
                         <th>Estado</th>
                         <th>Salida prevista</th>
                         <th>Huesped</th> 
+                        <th>camareras</th> 
                     </tr>
                     {camareria?.map((index) =>{
 
@@ -111,6 +186,7 @@ const InformeCamareria =() =>{
                                     <td  className="ocupieds span-parrafo" >{index.Estado_Habitacio}</td>
                                     <td  className="ocupieds span-parrafo" >{fechaEnd}</td>
                                     <td  className="ocupieds span-parrafo" >{index.nombre}</td>
+                                    <ItemCardPago  className={"ocupieds span-parrafo"} />
                                 </tr>
                             )
                         }else if(validOcupied ==0){
@@ -132,6 +208,8 @@ const InformeCamareria =() =>{
                                     <td  className="aseo-camarera span-parrafo" >{index.Estado_Habitacio}</td>
                                     <td  className="aseo-camarera span-parrafo" ></td>
                                     <td  className="aseo-camarera span-parrafo" ></td>
+                                    <ItemCardPago  className={"aseo-camarera span-parrafo"} />
+                                   
                                 </tr>
                             )
                         }else if(validOcupied ==2){
@@ -143,6 +221,7 @@ const InformeCamareria =() =>{
                                     <td  className="block-room span-parrafo" >{index.Estado_Habitacio}</td>
                                     <td  className="block-room span-parrafo" ></td>
                                     <td  className="block-room span-parrafo" ></td>
+                                    <ItemCardPago  className={"block-room span-parrafo"} />
                                 </tr>
                             )
                         }
