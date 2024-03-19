@@ -130,6 +130,66 @@ const Invoince =({resultDashboard=[],carts=[],dataCount,setInvoice,priceCart,cli
     }
 
 
+    console.log(raiting)
+
+    const  typy_buy =  [
+        {   
+          id:null,
+          name:"",
+      },
+        {   
+            id:1,
+            name:"Efectivo",
+        },
+        {
+            id:2,
+            name:"Consignaciones",
+        },
+        {   
+            id:3,
+            name:"Destino",
+        },
+        {   
+            id:4,
+            name:"Sitio Web",
+        },
+        {   
+            id:5,
+            name:"Payoneer",
+        },
+        {   
+            id:6,
+            name:"T.Debito",
+        },
+        {   
+            id:7,
+            name:"T.Credito",
+        },
+        {   
+            id:8,
+            name:"Hotel Beds",
+        },
+        {   
+            id:9,
+            name:"Despegar",
+        },
+        {   
+            id:10,
+            name:"Price Travel",
+        },
+        {   
+            id:11,
+            name:"Link de pago",
+        },
+        {   
+            id:12,
+            name:"Expedia",
+        },
+      ]
+
+      const typePay =  typy_buy?.find(index =>index.id  == raiting)
+
+      console.log(typePay)
 
      useEffect(()  =>{
         fetch(`${config.serverRoute}/api/resecion/informationByIdHotel/${jwt.result.id_hotel}`)
@@ -320,7 +380,7 @@ const Invoince =({resultDashboard=[],carts=[],dataCount,setInvoice,priceCart,cli
                                             <h6 className="p title-invoince " >Tienda {jwt.result.hotel}  </h6>
                                             <span className="atm title-invoince-cart" >Recepcionista: {jwt.result.name} </span>
                                             <span className="atm title-invoince-cart" >Fecha: {date}</span>
-                                            <span className="title-invoince-cart" >Tipo pago: {raiting}</span>
+                                            <span className="title-invoince-cart" >Tipo pago: {typePay.name}</span>
                                             <span className="title-invoince-cart">Cliente: {client}</span>  
                                             <span className="title-invoince-cart">CC/NIT: {identification} </span> 
 
