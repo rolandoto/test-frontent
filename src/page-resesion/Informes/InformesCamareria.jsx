@@ -43,15 +43,13 @@ const ItemCardPago =({index,setloading,className}) => {
         },
         {   
             id:6,
-            name:"YESENAI LOPEZ CARVAJAL",
+            name:"YESENIA LOPEZ CARVAJAL",
         }
       ]
 
     const [isEditing, setIsEditing] = useState(false)
   
     let taskContent
-  
-   
   
     if(isEditing){
         taskContent  =(
