@@ -69,8 +69,9 @@ const InformeContabilidad = () =>{
   const  documentUse = UseDocument()
 
     const filterReservation = ReservationContabilidad?.map((reservation) => {
-      const tipo_documento = documentUse.document?.find(index =>  index?.ID == reservation?.ID_Tipo_documento)
+      const tipo_documento = documentUse.document?.find(item =>  item?.ID == reservation?.ID_Tipo_documento)
 
+   
                       const valorRoom = parseInt(reservation.valor_habitacion)
 
                         var totalIvaPerson =valorRoom /1.19;
@@ -99,10 +100,12 @@ const InformeContabilidad = () =>{
                         const total =valorTotalIva.toLocaleString()
                         const iva =totalIvaEmpresa
           const { Nombre ,Apellido,Num_documento,Ninos,Adultos,forma_pago} = reservation;
-          return { Nombre,Apellido,tipo_documento,Num_documento,Adultos,Ninos,dateStarn ,dateEnd,subtotal,forma_pago,iva,total,Empresa,Persona};
+          return { Nombre,Apellido,tipo_documento:tipo_documento?.nombre,Num_documento,Adultos,Ninos,dateStarn ,dateEnd,subtotal,forma_pago,iva,total,Empresa,Persona};
         });
 
-    console.log(ReservationContabilidad)
+
+
+    console.log(filterReservation)
 
     if(!ReservationContabilidad) return null
 
@@ -147,11 +150,11 @@ const InformeContabilidad = () =>{
                           }).catch((e) =>{
                             toast.error("Error al enviar")
                             console.log("error")
-                            console.log(e)
+                           
                           })
                         }
 
-                        console.log(idReserva)
+                    
 
                         const tipo_documento = documentUse.document?.find(item =>  item?.ID == index?.ID_Tipo_documento)
 
