@@ -276,15 +276,15 @@ const InformeCamareria =() =>{
             </div>
             {camareria?.length>0 && <>                  
             
-                  <td>Total Adultos :{countAdultos}  </td>   
-                    <td>Total Niño : {countNino} </td>    
-                    <td>Hospedadas : {cantidadElementosHospedadas}</td>
-                    <td>Check out para hoy  : {cantidadElementoscheckout}</td>
+                
             
             <table className="de table"   ref={componentRef} >
                    
                 <tbody>
-                       
+                    <h4 className="let-letra-initial">Total Adultos :{countAdultos}  </h4>   
+                    <h4 className="let-letra-initial">Total Niño : {countNino} </h4>    
+                    <h4  className="let-letra-initial">Hospedadas : {cantidadElementosHospedadas}</h4>
+                    <h4  className="let-letra-initial">Check out para hoy  : {cantidadElementoscheckout}</h4>
                     <tr>    
                         <th className="with-camarera" >Habitacion</th>
                         <th className="with-camarera" >Adultos</th>
