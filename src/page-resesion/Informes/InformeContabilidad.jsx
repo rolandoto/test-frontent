@@ -89,7 +89,9 @@ const InformeContabilidad = () =>{
 
                          const formattedNum = reservation.tipo_persona === "empresa" ? totalIvaPerson : totalNum;
 
+                        const city =  reservation?.Ciudad
 
+                        const country =  reservation?.nacionalidad
 
 
                         const totalIvaEmpresa = Empresa ? ivaOne.toLocaleString() :  formatoIva.toLocaleString()
@@ -100,7 +102,7 @@ const InformeContabilidad = () =>{
                         const total =valorTotalIva.toLocaleString()
                         const iva =totalIvaEmpresa
           const { Nombre ,Apellido,Num_documento,Ninos,Adultos,forma_pago} = reservation;
-          return { Nombre,Apellido,tipo_documento:tipo_documento?.nombre,Num_documento,Adultos,Ninos,dateStarn ,dateEnd,subtotal,forma_pago,iva,total,Empresa,Persona};
+          return { Nombre,Apellido,tipo_documento:tipo_documento?.nombre,Num_documento,city,country,Adultos,Ninos,dateStarn ,dateEnd,subtotal,forma_pago,iva,total,Empresa,Persona};
         });
 
 
@@ -135,7 +137,7 @@ const InformeContabilidad = () =>{
                     </tr>
 
                     {ReservationContabilidad?.map((index) =>{
-
+                      console.log(index)
                         const handClick = () =>{
                             history.push(`/DetailDashboard/${index.ID_RESERVA}`)
                         }
