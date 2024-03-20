@@ -13,8 +13,73 @@ import { useHistory } from "react-router-dom";
 import ButtonBack from "../../component/ButtonBack";
 import ButtonHome from "../../component/ButtonHome";
 import { CiEdit } from "react-icons/ci";
+import { Checkbox, Text } from "@nextui-org/react";
+import Uselocalstorage from "../../hooks/UselocalStorage";
 
-const ItemCardPago =({index,setloading,className}) => { 
+
+
+
+    export const updateLocalStorage =(state) =>{
+      window.localStorage.setItem("now",JSON.stringify(state))
+    }
+    
+
+const CheckBoxValue =({checval}) =>{
+
+    const key = `like${checval}`
+
+    const [storage,setValue]  = Uselocalstorage(key,false)
+
+    const [checkBox, setCheckBox] = useState(storage);
+
+    const handChangeCheckBox = () => {
+        if (!checkBox) {
+            // Si checkBox no está seleccionado, se selecciona y checkBoxOne se deselecciona
+            setCheckBox(true);
+            setValue(true); // Actualizar valor en el almacenamiento local
+        }
+    };
+
+    const handChangeCheckBoxOne = () => {
+        if (checkBox) {
+            // Si checkBoxOne no está seleccionado, se selecciona y checkBox se deselecciona
+            setCheckBox(false);
+            setValue(false); // Actualizar valor en el almacenamiento local
+        }
+    };
+
+    const initialState = JSON.parse(window.localStorage.getItem("now")) || null
+    const now = moment().format('YYYY/MM/DD');
+
+    useEffect(() => {
+        const formattedInitialState = moment(initialState, 'YYYY/MM/DD');
+        const formattedNow = moment(now, 'YYYY/MM/DD');
+      
+        console.log(!formattedInitialState.isSame(formattedNow, 'day'))
+        if (!formattedInitialState.isSame(formattedNow, 'day')) {
+            if(storage == true){
+                setValue(false); // Restaurar el valor del estado a false
+                setCheckBox(false)
+                updateLocalStorage(now); // Actualizar el almacenamiento local con la nueva fecha
+            }
+        }
+    }, [now]);
+
+    return (
+        <>
+         <td className=" span-parrafo">
+            <Checkbox color="success"    labelColor="default"  defaultSelected onChange={handChangeCheckBox} checked={checkBox}> <span className="with-camarera"  >si</span>  </Checkbox> 
+          
+        </td>
+            <td className=" span-parrafo">
+            <Checkbox color="error"  labelColor="default"  defaultSelected onChange={handChangeCheckBoxOne} checked={!checkBox}  ><span className="with-camarera" >no</span> </Checkbox>  
+            </td>
+        </>
+       
+    )
+}
+
+const ItemCardPago =({className}) => { 
 
     const  typy_buy =  [
         {   
@@ -44,6 +109,14 @@ const ItemCardPago =({index,setloading,className}) => {
         {   
             id:6,
             name:"YESENIA LOPEZ CARVAJAL",
+        },
+        {   
+            id:7,
+            name:"ORFILIA MUNERA",
+        },
+        {   
+            id:8,
+            name:"SANDRA LUPE GIRALDO",
         }
       ]
 
@@ -65,7 +138,7 @@ const ItemCardPago =({index,setloading,className}) => {
       }else{
         taskContent =(
                               
-              <td className={className}  ><CiEdit fontSize={30} color="white" onClick={() => setIsEditing(true) }  /> 
+              <td className={className}  ><CiEdit fontSize={20} color="black" onClick={() => setIsEditing(true) }  /> 
             </td>
        
         )
@@ -83,24 +156,12 @@ const InformeCamareria =() =>{
     const {jwt} =useContext(AutoProvider)
     const history =useHistory()
 
-    const [selectedValue, setSelectedValue] = useState('dsadsa');
-
-  // Función para manejar cambios en el select
-  const handleSelectChange = (event) => {
-    setSelectedValue(event.target.value);
-  };
+  
 
     const [camareria,setCamareria]=useState()
     const [LookinforFecha,setLokinforFecha] =useState()
-    const [loadingInforme,setLoadingInforme] =useState(false)
+   
     
-    const handClikcDescargar =() =>{
-        history.push("/reportecamarera")
-    }
-
-    const hadChangeFecha =(e) =>{
-        setLokinforFecha(e.target.value)
-    }
 
     const hanLookingFor =() =>{
         ServiceInformeCamareria({id:jwt.result.id_hotel,fecha:LookinforFecha}).then(index =>{
@@ -137,7 +198,64 @@ const InformeCamareria =() =>{
             }
             return accumulator;  // Asegúrate de devolver el acumulador en todos los casos
         }, initialValue);
+
+        const filtrarHospedadas = () => {
+            let resultadosBusquedaHospedadas = camareria?.filter((elemento, index) => {
+                if(elemento.ID_Tipo_Estados_Habitaciones == 3){
+                    const now = moment().format('YYYY/MM/DD'); // Fecha actual en formato local
+                    const fechaInicio = moment(elemento.Fecha_final).format('YYYY/MM/DD'); // Fecha del elemento en formato local
+                    return !moment(now).isSame(fechaInicio, 'day'); // Invierte la condición
+                }
+            });
+        
+            return { resultadosBusquedaHospedadas };
+        };
+        
+        // Llamar a la función filtrarSearching para obtener los elementos de camareria para hoy
+        const { resultadosBusquedaHospedadas } = filtrarHospedadas();
+
+        const cantidadElementosHospedadas = resultadosBusquedaHospedadas?.length;
+
+
+        const filtrarHospedadasCheckout = () => {
+            let resultadosBusquedacheckout = camareria?.filter((elemento, index) => {
+                if(elemento.ID_Tipo_Estados_Habitaciones == 3){
+                    const now = moment().format('YYYY/MM/DD'); // Fecha actual en formato local
+                    const fechaInicio = moment(elemento.Fecha_final).format('YYYY/MM/DD'); // Fecha del elemento en formato local
+                    return moment(now).isSame(fechaInicio, 'day'); // Invierte la condición
+                }
+            });
+        
+            return { resultadosBusquedacheckout };
+        };
+        
+        // Llamar a la función filtrarSearching para obtener los elementos de camareria para hoy
+        const { resultadosBusquedacheckout } = filtrarHospedadasCheckout();
+
+        const cantidadElementoscheckout = resultadosBusquedacheckout?.length;
      
+    //const fechaFin = moment(elemento.start_time).utc().format('YYYY/MM/DD');
+
+    const filtrarSearching = () => {
+        let resultadosBusqueda = []; // Inicializar array para guardar los elementos con ID_Tipo_Estados_Habitaciones igual a 0 o 1
+        let resultadosBusquedacheckout = []; // Inicializar array para guardar los elementos con ID_Tipo_Estados_Habitaciones igual a 3
+    
+        camareria?.forEach((elemento, index) => {
+            // Filtrar por ID_Tipo_Estados_Habitaciones igual a 0 o 1
+            if (elemento.ID_Tipo_Estados_Habitaciones === 5 || elemento.ID_Tipo_Estados_Habitaciones === 3) {
+                resultadosBusqueda.push(elemento);
+            }
+
+        });
+    
+        return { resultadosBusqueda };
+    };
+
+
+
+    const {resultadosBusqueda} =  filtrarSearching()
+    console.log(resultadosBusqueda)
+
     return (
         <ContainerGlobal>
                <LoadingDetail  
@@ -156,239 +274,116 @@ const InformeCamareria =() =>{
                     Imprimir
                 </button>}
             </div>
-            {camareria?.length>0 &&
-            <table  ref={componentRef} >
+            {camareria?.length>0 && <>                  
+            
+                  <td>Total Adultos :{countAdultos}  </td>   
+                    <td>Total Niño : {countNino} </td>    
+                    <td>Hospedadas : {cantidadElementosHospedadas}</td>
+                    <td>Check out para hoy  : {cantidadElementoscheckout}</td>
+            
+            <table className="de table"   ref={componentRef} >
+                   
                 <tbody>
+                       
                     <tr>    
-                        <th>Habitacion</th>
-                        <th>Adultos</th>
-                        <th>Niños</th>
-                        <th>Estado</th>
-                        <th>Salida prevista</th>
-                        <th>Huesped</th> 
-                        <th>camareras</th> 
+                        <th className="with-camarera" >Habitacion</th>
+                        <th className="with-camarera" >Adultos</th>
+                        <th className="with-camarera" >Niños</th>
+                        <th className="with-camarera" >Salida prevista</th>
+                        <th className="with-camarera" >Huesped</th>
+                        <th className="with-camarera" >Estado</th> 
+                        <th className="with-camarera" >Camareras</th> 
+                        <th className="with-camarera" >Opcion aseo</th> 
                     </tr>
-                    {camareria?.map((index) =>{
-
+                    {resultadosBusqueda?.map((index,e) =>{
+                      
                         const validOcupied =index.ID_Tipo_Estados_Habitaciones
 
                         const fechaEnd =moment(index.Fecha_final).utc().format('YYYY/MM/DD')
-                        console.log(index)
-                   
+
+                        const now = moment().format('YYYY/MM/DD'); // Fecha actual en formato local
+                        const fechaInicio = moment(index.Fecha_final).format('YYYY/MM/DD'); // Fecha del elemento en formato local
+                        const today =  moment(now).isSame(fechaInicio, 'day'); // Invierte la condición
+                        
                         if(validOcupied ==3){
-                            return (
-                                <tr  >
-                                    <td className="ocupieds span-parrafo" >{index.Numero}</td>
-                                    <td  className="ocupieds span-parrafo"  >{index.Adultos}</td>
-                                    <td  className="ocupieds span-parrafo" >{index.Ninos}</td>
-                                    <td  className="ocupieds span-parrafo" >{index.Estado_Habitacio}</td>
-                                    <td  className="ocupieds span-parrafo" >{fechaEnd}</td>
-                                    <td  className="ocupieds span-parrafo" >{index.nombre}</td>
-                                    <ItemCardPago  className={"ocupieds span-parrafo"} />
-                                </tr>
-                            )
+                            if(today){
+                                return (
+                                    <tr  key={e} >
+                                        <td className="with-camarera" ><span> {index.Numero}</span> </td>
+                                        <td  className="with-camarera"  >{index.Adultos}</td>
+                                        <td className="with-camarera" >{index.Ninos}</td>
+                                        <td  className="with-camarera checkout-today">salida hoy {fechaEnd}</td>
+                                        <td className="with-camarera" ><span>{index.nombre}</span> </td>
+                                        <td className=" ocupieds  with-camarera" >{index.Estado_Habitacio}</td>
+                                        <ItemCardPago  className={"span-parrafo"} />
+                                       < CheckBoxValue  checval={index.ID}  />
+                                    </tr>
+                                )
+                            }else{
+                                return (
+                                    <tr  key={e} >
+                                        <td className="with-camarera" ><span> {index.Numero}</span> </td>
+                                        <td  className="with-camarera"  >{index.Adultos}</td>
+                                        <td className="with-camarera" >{index.Ninos}</td>
+                                        <td  className="with-camarera">{fechaEnd}</td>
+                                        <td className="with-camarera" ><span>{index.nombre}</span> </td>
+                                        <td className=" ocupieds  with-camarera" >{index.Estado_Habitacio}</td>
+                                        <ItemCardPago  className={"span-parrafo"} />
+                                       < CheckBoxValue  checval={index.ID}  />
+                                    </tr>
+                                )
+                            }
+                           
                         }else if(validOcupied ==0){
                             return (
-                                <tr  >
-                                    <td className="span-parrafo" >{index.Numero}</td>
-                                    <td  className=" span-parrafo"  > </td>
-                                    <td  className=" span-parrafo" ></td>
-                                    <td  className=" span-parrafo" >{index.Estado_Habitacio}</td>
+                                <tr   key={e} >
+                                    <td className="with-camarera">{index.Numero}</td>
+                                    <td className="with-camarera"> </td>
+                                    <td className="with-camarera"></td>
+                                    <td className="with-camarera">{index.Estado_Habitacio}</td>
+                                    
                                 </tr>
                             )
                         }
                         else if(validOcupied ==5){
                             return (
-                                <tr  >
-                                    <td className="aseo-camarera span-parrafo" >{index.Numero}</td>
-                                    <td  className="aseo-camarera span-parrafo"  > </td>
-                                    <td  className="aseo-camarera span-parrafo" ></td>
-                                    <td  className="aseo-camarera span-parrafo" >{index.Estado_Habitacio}</td>
-                                    <td  className="aseo-camarera span-parrafo" ></td>
-                                    <td  className="aseo-camarera span-parrafo" ></td>
-                                    <ItemCardPago  className={"aseo-camarera span-parrafo"} />
+                                <tr  key={e}  >
+                                    <td className="with-camarera">{index.Numero}</td>
+                                    <td className="with-camarera"> </td>
+                                    <td className="with-camarera"></td>
+                                    <td className="with-camarera"></td>
+                                    <td className="with-camarera"></td>
+                                    <td className="aseo-camarera span-parrafo with-camarera">{index.Estado_Habitacio}</td>
+                                    <ItemCardPago  className={" span-parrafo"} />
+                                    < CheckBoxValue  checval={index.ID}  />
+                                  
                                    
                                 </tr>
                             )
                         }else if(validOcupied ==2){
                             return (
-                                <tr  >
-                                    <td className="block-room span-parrafo" >{index.Numero}</td>
-                                    <td  className="block-room span-parrafo"  > </td>
-                                    <td  className="block-room span-parrafo" ></td>
-                                    <td  className="block-room span-parrafo" >{index.Estado_Habitacio}</td>
-                                    <td  className="block-room span-parrafo" ></td>
-                                    <td  className="block-room span-parrafo" ></td>
+                                <tr   key={e} >
+                                    <td>{index.Numero}</td>
+                                    <td> </td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>{index.Estado_Habitacio}</td>
                                     <ItemCardPago  className={"block-room span-parrafo"} />
                                 </tr>
                             )
                         }
-                       
                     })}
-                <td>Total Adultos :{countAdultos}  </td>   
-                <td>Total Niño : {countNino} </td>    
-                <td>Total total : {countAdultos +countNino} </td>    
-                     
-                </tbody>
 
-                
+                  
+
+                </tbody>
             </table>
+            </>
+
         }
-        
         </ContainerGlobal>
     )
 }
 
 export default InformeCamareria
-
-const DescargarInforme =({camareria,setLoadingInforme,jwt}) =>{
-    
-    let docToPrint = React.createRef();
-
-    const printDocument = () => {
-        const input = docToPrint.current;
-        html2canvas(input,{scale:0.8}).then((canvas) => {
-        const imgData = canvas.toDataURL("image/png");
-        const pdf = new jsPDF({
-            orientation: "landscape",
-            format:  [900,800  ]
-        });
-        pdf.addImage(imgData, "JPEG", 0, 0);
-        // pdf.output("dataurlnewwindow");
-        pdf.save("ReporteCamarera.pdf");
-        });
-    };
-    
-    
-    const  now = moment().format("YYYY/MM/DD");
-
-    useEffect(() =>{
-        printDocument()
-    },[])
-
-    const ra =  [
-        { Room: 'Doble Superior', disponible: 0 },
-        { Room: 'Familiar', disponible: 0 },
-        { Room: 'Twin Doble', disponible: 1 },
-        { Room: 'Triple', disponible: 1 },
-        { Room: 'Urban Doble', disponible: 2 },
-        { Room: 'Grupal', disponible: 1 }
-      ]
-  
-
-    return (
-
-        <>
-        <div  className="container-pdf-flex top-pdf"  >    
-
-        <div   ref={docToPrint}>
-
-        <div className="container-title-camareras">
-            <h3>Reporte camareria</h3>
-            <h3>HOTEL FLORENCIA PLAZA</h3>
-        </div>
-        
-        <div>
-            <span>Fecha inpresion: <span className="negrita" >{now}</span> </span>
-        </div>
-        <div>
-            <span>Usuario:<span className="negrita" > {jwt.result.name}</span> </span>
-        </div>
-        
-
-        <div  >
-
-
-        <table className="border-flex"  >
-                <tbody className="border-flex" >
-                <tr  className="border-flex" >    
-                        <td>Habitacion</td>
-                        <td>Adultos</td>
-                        <td>Niños</td>
-                        <td>Estado</td>
-                        <td>Salida prevista</td>
-                        <td>Huesped</td> 
-                        <td>No. toallas</td>
-                        <td>No. Nombre camarera</td>
-                        <td>Retoque final</td>
-                        <td>Observaciones</td>
-                    </tr>
-                        {camareria?.map(index =>{
-                          let startDateOne = new Date(index.Fecha_final);
-                          let monthOne = startDateOne.toLocaleString("default", { month: "long" });
-                          let mesOne = startDateOne.getDate()
-                          let yearOne = startDateOne.getFullYear()
-
-                          if(index.ID_Tipo_Estados_Habitaciones==0){
-                            return (
-                                
-                                <tr >
-                                    <td className="width-informe " >{index.Numero}</td  >
-                                    <td className="width-informe  " >{index.Adultos}</td>
-                                    <td className="width-informe  " >{index.Ninos}</td>
-                                    <td className="width-informe  " >Reservada</td>
-                                    <td className="width-informe " >{mesOne}-{monthOne}</td>
-                                    <td className="width-informe " >{index.nombre} {index.Apellido}</td>
-                                    <td className="width-informe " ></td>
-                                </tr>  
-                               )
-                            } if(index.ID_Tipo_Estados_Habitaciones==3){
-                                return (
-                                    <tr>
-                                        <td className="width-informe " >{index.Numero}</td  >
-                                        <td className="width-informe " >{index.Adultos}</td>
-                                        <td className="width-informe " >{index.Ninos}</td>
-                                        <td className="width-informe " >Ocupada</td>
-                                        <td className="width-informe " >{mesOne}-{monthOne}</td>
-                                        <td className="width-informe " >{index.nombre} {index.Apellido}</td>
-                                        <td className="width-informe " > <div className="box" ></div> </td>
-                                        <td className="width-informe " > <div className="box" ></div> </td>
-                                        <td className="width-informe " > <div className="box" ></div> </td>
-                                    </tr>  
-                                   )
-                                }
-
-                                if(index.ID_Tipo_Estados_Habitaciones==1){
-                                    return (
-                                        <tr>
-                                            <td className="width-informe  " >{index.Numero}</td  >
-                                            <td className="width-informe   " >{index.Adultos}</td>
-                                            <td className="width-informe   " >{index.Ninos}</td>
-                                            <td className="width-informe   " >Aseo</td>
-                                            <td className="width-informe  " >{mesOne}-{monthOne}</td>
-                                            <td className="width-informe  " >{index.nombre} {index.Apellido}</td>
-                                            <td className="width-informe  " > </td>
-                                        </tr>  
-                                       )
-                                    }
-                            else{
-                                return  (
-                                    <tr>
-                                        <td className="width-informe" >{index.Numero}</td  >
-                                        <td className="width-informe" >0</td>
-                                        <td className="width-informe" >0</td>
-                                        <td className="width-informe" >Disponible</td>
-                                        <td className="width-informe" > </td>
-                                        <td className="width-informe" ></td>
-                                        <td className="width-informe" ></td>
-                                    </tr>  
-                                   )
-                            }
-                          
-                           
-                        })}
-                     
-                </tbody>
-
-                
-            </table>
-           
-       
-            </div>
-            </div>  
-        </div>
-        </>
-    )
-}
-
-

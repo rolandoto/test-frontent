@@ -546,7 +546,7 @@ tbody {
 
 .de {
   margin: auto;
-  border: none;
+ 
   width: 100%;
   transition: background-color 0.8s ease !important;
 }
