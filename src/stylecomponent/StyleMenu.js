@@ -55,6 +55,24 @@ export const StyledContextMenuTypeRoom = styled.div`
   }
 `;
 
+export const StyledContextMenuTypeRoomCamareria = styled.div`
+  position: absolute;
+  top: ${(props) => `${props.top}px`};
+  left: ${(props) => `${props.left}px`};
+  background: #fff;
+  box-shadow: 0 11px 34px 0 rgba(0,0,0,.2);
+  padding: 8px;
+  z-index: 1000;
+  opacity: 0;
+  overflow: scroll;
+  border-radius: 9px;
+  transform: translateY(-10px);
+  animation: ${fadeIn} 0.8s ease forwards; // Apply the fadeIn animation
+  &.fade-in {
+    animation: ${fadeIn} 0.3s ease forwards; // Apply the fadeIn animation
+  }
+`;
+
 
 export const StyledContextMenuSearch = styled.div`
   position: absolute;
