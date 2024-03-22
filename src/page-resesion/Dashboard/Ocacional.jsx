@@ -26,8 +26,10 @@ const Ocacionales =() =>{
     const  {postDetailRoom} =  useDetailRoomAction()
     const dispatch = useDispatch();
     const {
-      getRoomByReservation,
-      getRoomFilterRoom,
+      getPostByReservation,
+		getRoomByReservation,
+		getRoomFilterRoom,
+		setUpdateFilterReservation
     } = useReservationActions()
     const {setOcacion,ocacion,jwt, finish,setFinish} = useContext(AutoProvider)
     const {loading,error,Items,Room,filterRoom
@@ -50,6 +52,7 @@ const Ocacionales =() =>{
 
   const fetchData =async() =>{
 		try {
+			await getPostByReservation({type:true})
 			await getRoomByReservation()
 			await getRoomFilterRoom()
 			} catch (error) {
@@ -61,7 +64,7 @@ const Ocacionales =() =>{
 
 	useEffect(() =>{
     fetchData()
-},[dispatch,loading])
+},[dispatch])
 
 const handleInputPayOcasioanal = (event) => {
   const value = parseInt(event.target.value);
@@ -142,31 +145,34 @@ const handleInputPayOcasioanal = (event) => {
         setContextMenuVisible(false);
     };
 
-   
-      
-      const handSubmitRoomOcasionalOne =async() =>{
-        const momentoSalida = moment(finish, "HH:mm:ss");
-        const diferencia = momentoSalida.diff(tiempoActual);
-        const horas = Math.floor(diferencia / (60 * 60 * 1000));
-        const minutos = Math.floor((diferencia % (60 * 60 * 1000)) / (60 * 1000));
-        const segundos = Math.floor((diferencia % (60 * 1000)) / 1000);
-
-        if(!horas  <=0 && !minutos  <=0 && !segundos  <=0){
-            postDetailRoom({id:ocacion,ID_estado_habitacion:7})
-            postRoomOcasionalByID({ID_habitacion:ocacion,Fecha:fecha,Time_ingreso:horaactual,Time_salida:horaFuture,id_user:idUser,Hora_adicional:0,Persona_adicional:0,Tipo_forma_pago:inputPayValueOcasioanal.Tipo_forma_pago,Abono:amountPaid.tarifa,ID_hotel:idHotel,Fecha_today:fechaone})
-            fetchData()
-            setBlock(true)
-        }else{
-            if(!Boolean(horas)){
-            postDetailRoom({id:ocacion,ID_estado_habitacion:7})
-            postRoomOcasionalByID({ID_habitacion:ocacion,Fecha:fecha,Time_ingreso:horaactual,Time_salida:horaFuture,id_user:idUser,Hora_adicional:0,Persona_adicional:0,Tipo_forma_pago:inputPayValueOcasioanal.Tipo_forma_pago,Abono:amountPaid.tarifa,ID_hotel:idHotel,Fecha_today:fechaone})
-            fetchData()
-            setBlock(true)
-            }else{
-                toast.error("NO puedes agregar mas horas hasta que termine")
-                setBlock(false)
-            }   
-        }
+    const handSubmitRoomOcasionalOne = async () => {
+      const momentoSalida = moment(finish, "HH:mm:ss");
+      const diferencia = momentoSalida.diff(tiempoActual);
+      const horas = Math.floor(diferencia / (60 * 60 * 1000));
+      const minutos = Math.floor((diferencia % (60 * 60 * 1000)) / (60 * 1000));
+      const segundos = Math.floor((diferencia % (60 * 1000)) / 1000);
+      if (horas  <=0 && !minutos  <=0 && !segundos  <=0) {
+          postDetailRoom({ id: ocacion, ID_estado_habitacion: 7 })
+          postRoomOcasionalByID({ ID_habitacion: ocacion, Fecha: fecha, Time_ingreso: horaactual, Time_salida: horaFuture, id_user: idUser, Hora_adicional: 0, Persona_adicional: 0, Tipo_forma_pago: inputPayValueOcasioanal.Tipo_forma_pago, Abono: amountPaid.tarifa, ID_hotel: idHotel, Fecha_today: fechaone })
+          fetchData()
+          setBlock(true)
+          setTimeout(() =>{
+            window.location.reload()
+          },2000)
+      } else {
+          if (!Boolean(horas)) {
+              postDetailRoom({ id: ocacion, ID_estado_habitacion: 7 })
+              postRoomOcasionalByID({ ID_habitacion: ocacion, Fecha: fecha, Time_ingreso: horaactual, Time_salida: horaFuture, id_user: idUser, Hora_adicional: 0, Persona_adicional: 0, Tipo_forma_pago: inputPayValueOcasioanal.Tipo_forma_pago, Abono: amountPaid.tarifa, ID_hotel: idHotel, Fecha_today: fechaone })
+              fetchData()
+              setBlock(true)
+              setTimeout(() =>{
+                window.location.reload()
+              },2000)
+          } else {
+              toast.error("NO puedes agregar mas horas hasta que termine")
+              setBlock(false)
+          }
+      }
     }
 
   //ocasional #2
@@ -184,18 +190,27 @@ const handleInputPayOcasioanal = (event) => {
       const horas = Math.floor(diferencia / (60 * 60 * 1000));
       const minutos = Math.floor((diferencia % (60 * 60 * 1000)) / (60 * 1000));
       const segundos = Math.floor((diferencia % (60 * 1000)) / 1000);
+      const segundosRestantes = Math.floor((diferencia % (60 * 1000)) / 1000);
 
-      if(!horas  <=0 && !minutos  <=0 && !segundos  <=0){
+      console.log(segundosRestantes)
+
+      if(horas  <=0 && !minutos  <=0 && !segundos  <=0){
           postDetailRoom({id:ocacion,ID_estado_habitacion:7})
           postRoomOcasionalByID({ID_habitacion:ocacion,Fecha:fecha,Time_ingreso:horaactualOne,Time_salida:horaFutureOne,id_user:idUser,Hora_adicional:0,Persona_adicional:0,Tipo_forma_pago:inputPayValueOcasioanal.Tipo_forma_pago,Abono:amountPaid.hora,ID_hotel:idHotel,Fecha_today:fechaone})
           fetchData()
           setBlock(true)
+          setTimeout(() =>{
+            window.location.reload()
+          },2000)
       }else{
           if(!Boolean(horas)){
               postDetailRoom({id:ocacion,ID_estado_habitacion:7})
               postRoomOcasionalByID({ID_habitacion:ocacion,Fecha:fecha,Time_ingreso:horaactualOne,Time_salida:horaFutureOne,id_user:idUser,Hora_adicional:0,Persona_adicional:0,Tipo_forma_pago:inputPayValueOcasioanal.Tipo_forma_pago,Abono:amountPaid.hora,ID_hotel:idHotel,Fecha_today:fechaone})
               fetchData()
               setBlock(true) 
+              setTimeout(() =>{
+                window.location.reload()
+              },2000)
           }else{
               toast.error("NO puedes agregar mas horas hasta que termine")
               setBlock(false)
