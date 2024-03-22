@@ -15,13 +15,13 @@ import ButtonHome from "../../component/ButtonHome";
 import { CiEdit } from "react-icons/ci";
 import { Checkbox, Text } from "@nextui-org/react";
 import Uselocalstorage from "../../hooks/UselocalStorage";
+import { StyleSpan, StyleSpanIcons, StyledContextMenuTypeRoom, StyledContextMenuTypeRoomCamareria, StyledMenuItemSelectedRoom } from "../../stylecomponent/StyleMenu";
+import { CiSearch } from "react-icons/ci";
+import { RxDropdownMenu } from "react-icons/rx";
 
-
-
-
-    export const updateLocalStorage =(state) =>{
+export const updateLocalStorage =(state) =>{
       window.localStorage.setItem("now",JSON.stringify(state))
-    }
+}
     
 
 const CheckBoxValue =({checval}) =>{
@@ -121,7 +121,7 @@ const ItemCardPago =({className}) => {
       ]
 
     const [isEditing, setIsEditing] = useState(false)
-  
+   
     let taskContent
   
     if(isEditing){
@@ -155,9 +155,9 @@ const ItemCardPago =({className}) => {
 const InformeCamareria =() =>{
     const {jwt} =useContext(AutoProvider)
     const history =useHistory()
-
+    const [contextMenuPosition, setContextMenuPosition] = useState({ top: 0, left: 0 });
   
-
+    const [username,setUsername] =useState()
     const [camareria,setCamareria]=useState()
     const [LookinforFecha,setLokinforFecha] =useState()
    
@@ -242,7 +242,11 @@ const InformeCamareria =() =>{
     
         camareria?.forEach((elemento, index) => {
             // Filtrar por ID_Tipo_Estados_Habitaciones igual a 0 o 1
-            if (elemento.ID_Tipo_Estados_Habitaciones === 5 || elemento.ID_Tipo_Estados_Habitaciones === 3) {
+            if (elemento.ID_Tipo_Estados_Habitaciones === 5 &&  username==1 || elemento.ID_Tipo_Estados_Habitaciones === 3 && username==1)  {
+                resultadosBusqueda.push(elemento);
+            }else if(elemento.ID_Tipo_Estados_Habitaciones == username ) {
+                resultadosBusqueda.push(elemento);
+            }else if(elemento.ID_Tipo_Estados_Habitaciones === 5 &&  username==2 || elemento.ID_Tipo_Estados_Habitaciones === 3 && username==2 || elemento.ID_Tipo_Estados_Habitaciones === 0 && username==2 || elemento.ID_Tipo_Estados_Habitaciones === 2 && username==2 ) {
                 resultadosBusqueda.push(elemento);
             }
 
@@ -251,11 +255,37 @@ const InformeCamareria =() =>{
         return { resultadosBusqueda };
     };
 
+    const [OpenTypeRoom,setTypeRoom] =useState(false)
 
+    const handClickOpentypeRoom =() =>{
+		setContextMenuPosition({top:225, left: 168})
+		setTypeRoom(!OpenTypeRoom)
+	}
+
+
+    const  type_room =  [
+        
+        {   
+            id:0,
+            name:"Disponible",
+        },
+        {   
+            id:1,
+            name:"Sucias y limpias",
+        },
+        {   
+            id:2,
+            name:"Todas la habitaciones",
+        },
+    ]
+    
+    const handClick =(event) => {
+        setUsername(event)
+        setTypeRoom(false)
+    }
 
     const {resultadosBusqueda} =  filtrarSearching()
-    console.log(resultadosBusqueda)
-
+   
     return (
         <ContainerGlobal>
                <LoadingDetail  
@@ -274,8 +304,38 @@ const InformeCamareria =() =>{
                     Imprimir
                 </button>}
             </div>
-            {camareria?.length>0 && <>                  
-            
+            {camareria?.length>0 && <>    
+
+                    <div style={{
+								borderRadius:"8px",
+								textAlign:"initial",
+								display:"flex",
+								justifyContent:"intial",
+								padding:'8px',
+								width:"208px ",
+							
+							}}> 
+            	<div className="Row-bar"  onClick={handClickOpentypeRoom}>
+							<RxDropdownMenu   fontSize={18}   />
+				</div>   
+                </div>           
+                
+                {OpenTypeRoom &&
+					<StyledContextMenuTypeRoomCamareria className="fade-in" top={contextMenuPosition.top} left={contextMenuPosition.left} >
+						
+						{type_room?.map((option, index) => {
+
+							return (
+							<StyledMenuItemSelectedRoom
+                                onClick={(e) =>handClick(option.id)}
+								key={index}>
+								<StyleSpanIcons   > <CiSearch fontWeight={"500"}  fontSize={20} /></StyleSpanIcons> 
+								<StyleSpan>{option.name} </StyleSpan>
+							</StyledMenuItemSelectedRoom>
+							)
+						})}
+					</StyledContextMenuTypeRoomCamareria>
+				}
                 
             
             <table className="de table"   ref={componentRef} >
@@ -341,6 +401,11 @@ const InformeCamareria =() =>{
                                     <td className="with-camarera"> </td>
                                     <td className="with-camarera"></td>
                                     <td className="with-camarera">{index.Estado_Habitacio}</td>
+                                    <td className="with-camarera">{index.Estado_Habitacio}</td>
+                                    <td className="with-camarera">{index.Estado_Habitacio}</td>
+                                    <td className="with-camarera">{index.Estado_Habitacio}</td>
+                                    <td className="with-camarera">{index.Estado_Habitacio}</td>
+                                    <td className="with-camarera">{index.Estado_Habitacio}</td>
                                     
                                 </tr>
                             )
@@ -363,13 +428,14 @@ const InformeCamareria =() =>{
                         }else if(validOcupied ==2){
                             return (
                                 <tr   key={e} >
-                                    <td>{index.Numero}</td>
-                                    <td> </td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td>{index.Estado_Habitacio}</td>
-                                    <ItemCardPago  className={"block-room span-parrafo"} />
+                                     <td className="with-camarera">{index.Numero}</td>
+                                     <td className="with-camarera"></td>
+                                     <td className="with-camarera"></td>
+                                     <td className="with-camarera"></td>
+                                     <td className="with-camarera"></td>
+                                     <td className="block-room span-parrafo with-camarera">{index.Estado_Habitacio}</td>
+                                    <ItemCardPago className={" span-parrafo"}    />
+                                    < CheckBoxValue  checval={index.ID}  />
                                 </tr>
                             )
                         }

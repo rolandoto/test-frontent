@@ -88,37 +88,20 @@ const UseDianActions =() =>{
         let invoiceSent = false;
     
         dispatch(setLoadingInvonces());
-        try {
-            const response = await HttpClient.PostCreatebill({ token, body });
-            console.log({ "response.id": response.id });
-            console.log({ "response.id": response.id });
-            console.log({ "response.id": Boolean(response.id.trim()) });
-            
-            // Verifica si la factura se creó correctamente
-            if (Boolean(response.id.trim())) {
-                // Si aún no se ha enviado la factura, procede
-                if (!invoiceSent) {
-                    const pdf = await HttpClient.GetSalesInvoice({ token, id: response.id });
-                    dispatch(setPdf(pdf));
-                    dispatch(setPayment(response));
-                    toast.success("envio exitoso");
-                    dispatch(setDian(response));
-                    await HttpClient.PostInsertSigOpdfbyid({ id: id_Reserva, id_sigo: response.id });
-                    toast.success("Se guarado correctamente la facturacion");
-                    history.push(`/DetailDashboard/${id_Reserva}`);
-                    // Marca que la factura ha sido enviada para evitar que este bloque se ejecute de nuevo
-                    invoiceSent = true;
-                }
-            } else {
-                dispatch(setErrorInvoinces("no found"));
-                toast.error("envio error");
-                window.location.reload()
-            }
-        } catch (error) {
-            dispatch(setErrorInvoinces("no found"));
-            toast.error("envio error");
-            window.location.reload()
-        }
+        
+        HttpClient.PostCreatebill({ token, body }).then((itemResponse =>{
+                history.push(`/DetailDashboard/${id_Reserva}`);
+                toast.success("Se guarado correctamente la facturacion");
+                invoiceSent = true;
+                 HttpClient.GetSalesInvoice({ token, id: itemResponse.id }).then((item => {
+                    toast.success("Se guarado correctamente la facturacion")
+                })).catch(e =>{
+                    toast.error("error al insertar en el reserva")
+                })
+            })).catch(e =>{
+                toast.error("error ")
+            })
+          
     }
 
     const GetPayment =async({token}) =>{
