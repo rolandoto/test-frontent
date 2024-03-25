@@ -92,7 +92,7 @@ const UseDianActions =() =>{
         HttpClient.PostCreatebill({ token, body }).then((itemResponse =>{ 
                 invoiceSent = true;
                 if (Boolean(itemResponse.id.trim())) {
-                        HttpClient.GetSalesInvoice({ token, id: itemResponse.id }).then((item => {
+                        HttpClient.PostInsertSigOpdfbyid({  id:id_Reserva,id_sigo:  itemResponse.id }).then((item => {
                         history.push(`/DetailDashboard/${id_Reserva}`);
                          dispatch(setDian(itemResponse));
                         dispatch(setPayment(itemResponse));
