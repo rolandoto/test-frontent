@@ -90,13 +90,15 @@ const UseDianActions =() =>{
         dispatch(setLoadingInvonces());
         
         HttpClient.PostCreatebill({ token, body }).then((itemResponse =>{
-                history.push(`/DetailDashboard/${id_Reserva}`);
+               
                 toast.success("Se guarado correctamente la facturacion");
                 invoiceSent = true;
                  HttpClient.GetSalesInvoice({ token, id: itemResponse.id }).then((item => {
+                         history.push(`/DetailDashboard/${id_Reserva}`);
                     toast.success("Se guarado correctamente la facturacion")
                 })).catch(e =>{
                     toast.error("error al insertar en el reserva")
+                        history.push(`/DetailDashboard/${id_Reserva}`);
                 })
             })).catch(e =>{
                 toast.error("error ")
