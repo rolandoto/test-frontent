@@ -104,6 +104,7 @@ const UseDianActions =() =>{
                  
             })).catch(e =>{
                 toast.error("error ")
+                dispatch(setErrorInvoinces());
             })
           
     }
