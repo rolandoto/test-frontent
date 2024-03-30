@@ -742,7 +742,7 @@ const PostAutenticationDian = () => {
 }
 
 const GetLisClienteDian = ({token,document}) => {
-  return fetch(`https://private-anon-1be4d3c754-siigoapi.apiary-proxy.com/v1/customers?identification=${document}`, {
+  return fetch(`https://private-anon-72afbfb6b1-siigoapi.apiary-proxy.com/v1/customer?identification=${document}`, {
     method: "GET",
     headers: {
       "Authorization":token,
@@ -758,7 +758,7 @@ const GetLisClienteDian = ({token,document}) => {
 };
 
 const PostCreatebill = ({body,token}) => {
-  return fetch(`https://private-anon-407a01d67e-siigoapi.apiary-proxy.com/v1/invoices`, {
+  return fetch(`https://private-anon-72afbfb6b1-siigoapi.apiary-proxy.com/v1/invoices`, {
     method: "POST",
     body: JSON.stringify(body),
     headers: {
@@ -778,7 +778,7 @@ const PostCreatebill = ({body,token}) => {
 }
 
 const GetTypeDocuments= ({token}) => {
-  return fetch(`https://private-anon-407a01d67e-siigoapi.apiary-proxy.com/v1/document-types?type=FV`, {
+  return fetch(`https://private-anon-72afbfb6b1-siigoapi.apiary-proxy.com/v1/document-types?type=FV`, {
     method: "GET",
     headers: {
       "Authorization":token,
@@ -794,7 +794,7 @@ const GetTypeDocuments= ({token}) => {
 };
 
 const GetSellerDian= ({token}) => {
-  return fetch(`https://private-anon-407a01d67e-siigoapi.apiary-proxy.com/v1/users`, {
+  return fetch(`https://private-anon-72afbfb6b1-siigoapi.apiary-proxy.com/v1/users`, {
     method: "GET",
     headers: {
       "Authorization":token,
@@ -810,7 +810,7 @@ const GetSellerDian= ({token}) => {
 };
 
 const GetProducts= ({token}) => {
-  return fetch(`https://private-anon-407a01d67e-siigoapi.apiary-proxy.com/v1/products?created_start=2024-02-06`, {
+  return fetch(`https://private-anon-72afbfb6b1-siigoapi.apiary-proxy.com/v1/products?created_start=2024-02-06`, {
     method: "GET",
     headers: {
       "Authorization":token,
@@ -827,7 +827,7 @@ const GetProducts= ({token}) => {
 
 
 const GetCostCenter= ({token}) => {
-  return fetch(`https://private-anon-407a01d67e-siigoapi.apiary-proxy.com/v1/cost-centers`, {
+  return fetch(`https://private-anon-72afbfb6b1-siigoapi.apiary-proxy.com/v1/cost-centers`, {
     method: "GET",
     headers: {
       "Authorization":token,
@@ -843,7 +843,7 @@ const GetCostCenter= ({token}) => {
 };
 
 const GetTypePayment= ({token}) => {
-  return fetch(`https://private-anon-407a01d67e-siigoapi.apiary-proxy.com/v1/payment-types?document_type=FV`, {
+  return fetch(`https://private-anon-72afbfb6b1-siigoapi.apiary-proxy.com/v1/payment-types?document_type=FV`, {
     method: "GET",
     headers: {
       "Authorization":token,
@@ -860,7 +860,7 @@ const GetTypePayment= ({token}) => {
 
 
 const GetSalesInvoice= ({token,id}) => {
-  return fetch(`https://private-anon-1faab24ca7-siigoapi.apiary-proxy.com/v1/invoices/${id}/pdf`, {
+  return fetch(`https://private-anon-72afbfb6b1-siigoapi.apiary-proxy.com/v1/invoices/${id}/pdf`, {
     method: "GET",
     headers: {
       "Authorization":token,
