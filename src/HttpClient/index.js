@@ -742,7 +742,7 @@ const PostAutenticationDian = () => {
 }
 
 const GetLisClienteDian = ({token,document}) => {
-  return fetch(`https://private-anon-72afbfb6b1-siigoapi.apiary-proxy.com/v1/customer?identification=${document}`, {
+  return fetch(`https://private-anon-72afbfb6b1-siigoapi.apiary-proxy.com/v1/customers?identification=${document}`, {
     method: "GET",
     headers: {
       "Authorization":token,
