@@ -30,7 +30,11 @@ const UseUsers =() =>{
         setState({loading:true,error:false})
         HttpClient.PostAutenticationDian().then(e =>{
             setDian(e)
+            console.log(e)
             localStorage.setItem('tokenDian',JSON.stringify(e))
+        }).catch((e) =>{
+            console.log('no entro')
+            console.log(e)
         })
 
         LoginService({username,password,hotel}).then(index =>{
