@@ -725,7 +725,7 @@ const PostAutenticationDian = () => {
     username: '10elementossas@gmail.com',
     access_key: "YzFmOTA0MjktNmVmYi00YzMzLWJmOTItN2QyNDk1NGE1YzIzOmlkVioxSDIjalE="
   };
-  return fetch(`https://private-anon-1be4d3c754-siigoapi.apiary-proxy.com/auth`, {
+  return fetch(`https://private-anon-72afbfb6b1-siigoapi.apiary-proxy.com/auth`, {
     method: "POST",
     body: JSON.stringify(body),
     headers: {
