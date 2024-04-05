@@ -89,17 +89,31 @@ const UseDianActions =() =>{
     
         dispatch(setLoadingInvonces());
         
-        HttpClient.PostCreatebill({ token, body }).then((itemResponse =>{
-                history.push(`/DetailDashboard/${id_Reserva}`);
-                toast.success("Se guarado correctamente la facturacion");
+        HttpClient.PostCreatebill({ token, body }).then((itemResponse =>{ 
                 invoiceSent = true;
-                 HttpClient.GetSalesInvoice({ token, id: itemResponse.id }).then((item => {
-                    toast.success("Se guarado correctamente la facturacion")
-                })).catch(e =>{
-                    toast.error("error al insertar en el reserva")
-                })
+                if (Boolean(itemResponse.id.trim())) {
+                        HttpClient.PostInsertSigOpdfbyid({  id:id_Reserva,id_sigo:  itemResponse.id }).then((item => {
+                        history.push(`/DetailDashboard/${id_Reserva}`);
+                         dispatch(setDian(itemResponse));
+                        dispatch(setPayment(itemResponse));
+                            toast.success("Se guarado correctamente la facturacion")
+                        })).catch(e =>{
+                            toast.error("error al insertar en el reserva")
+                        })
+                }else{
+                         HttpClient.PostInsertSigOpdfbyid({  id:id_Reserva,id_sigo:  "123456789" }).then((item => {
+                        history.push(`/DetailDashboard/${id_Reserva}`);
+                         dispatch(setDian(itemResponse));
+                        dispatch(setPayment(itemResponse));
+                            toast.success("Se guarado correctamente la facturacion")
+                        })).catch(e =>{
+                            toast.error("error al insertar en el reserva")
+                        })
+                }
+                 
             })).catch(e =>{
                 toast.error("error ")
+                dispatch(setErrorInvoinces());
             })
           
     }

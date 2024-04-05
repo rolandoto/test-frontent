@@ -32,7 +32,7 @@ const Dian =() => {
     const {getDetailReservationById} = useDetailDashboardAction()
     const [selectedItems, setSelectedItems] = useState([]);
 
-  console.log(select)
+  console.log({loadingInvoinces})
 
 
     const {DetailDashboard
