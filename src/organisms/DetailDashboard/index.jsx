@@ -1644,11 +1644,9 @@ const handleState =(event, index) =>{
     }
   }
 
-  const rows = cart.map((value) => parseFloat(value.Price.replace(/,/g, '')));
-
-  const sumWithInitial = rows.reduce(
+  const sumWithInitial = cart.reduce(
     (accumulator, currentValue) => {
-      return accumulator + currentValue
+      return accumulator + parseInt(currentValue.Price)
     },
     0
   );
@@ -1711,7 +1709,7 @@ const handleState =(event, index) =>{
                                     required
                                     className="desde-detail-two-pagos-store" >
                                   <option >Selecionar tipo pago</option>
-                                  <option ></option>
+                                
                                   {typy_buy?.map(category =>(
                                       <option 
                                       value={category.id}   
@@ -1753,7 +1751,7 @@ const handleState =(event, index) =>{
                         )}
                         })}
                  <TableRow>
-                 <TableCell>Total:Cop {sumWithInitial.toLocaleString()} </TableCell>
+                 <TableCell>Total:{sumWithInitial.toLocaleString()} </TableCell>
                  </TableRow>
                   </TableBody>
                   </Table>
