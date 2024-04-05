@@ -282,7 +282,7 @@ const DashboardModal = (props) => {
             return {nombre,ID}
         })
 
-        console.log({"aqui esta":habi})
+  
 
         useEffect(() =>{
          
@@ -498,7 +498,8 @@ const DashboardModal = (props) => {
         const totalFindRoom =  disponibilidad?.query?.find(index => index.ID ==  asignar)
 
         const findRoomOne =  room?.find(index => index?.id_tipoHabitacion == fecha)
-       
+        
+        console.log(dataAvaible)
       
           const handClickReservation = async () => {
             if(huespe.every(isValidGuest)){
@@ -585,7 +586,7 @@ const DashboardModal = (props) => {
               document.body.removeChild(link) 
                 setPdfOne(index)
             }).catch(e =>{
-              console.log(e)
+              console.error(e)
             })
         }
    

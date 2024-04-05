@@ -45,7 +45,6 @@ import html2canvas from "html2canvas";
 import { FaFileInvoice } from "react-icons/fa";
 import { FaFilePdf } from "react-icons/fa";
 import UseDianActions from "../../action/useDianActions";
-
 import ButtonBack from "../../component/ButtonBack";
 import ButtonHome from "../../component/ButtonHome";
 
@@ -106,7 +105,6 @@ const DetailDasboard =(props) =>{
 
     const resultDashboard = DetailDashboard[0]
 
-    console.log(resultDashboard)
 
     const documentByIdRoom =  resultDashboard?.Num_documento +""+id
     const init  =   moment(resultDashboard?.Fecha_inicio).utc().format('DD/MM/YYYY')
@@ -226,7 +224,6 @@ const DetailDasboard =(props) =>{
     const totalId =  jwt.result.id_hotel == 23 ||  jwt.result.id_hotel == 5 || jwt.result.id_hotel == 6 || jwt.result.id_hotel == 12  || jwt.result.id_hotel == 10 || jwt.result.id_hotel == 2  ?  true : false
 
     const numbersRecepcion = jwt.result.id_hotel == 13 &&  "573022395096"|| jwt.result.id_hotel == 7 &&  "573022395096"|| jwt.result.id_hotel == 23 &&  "573022395096" || jwt.result.id_hotel == 3 &&  "573007785193"|| jwt.result.id_hotel == 4 &&  "573007785193"|| jwt.result.id_hotel == 8 &&  "573007785193" || jwt.result.id_hotel == 5 &&  "573195550001" || jwt.result.id_hotel == 6 &&  "573195550001" || jwt.result.id_hotel == 12 &&  "573195550001"
-
 
     const findPersona =  resultDashboard?.tipo_persona == "persona"
     const findEmpresa = resultDashboard?.tipo_persona =="empresa"
@@ -1234,8 +1231,6 @@ const  handleClickEliminar =UseModalText({handlModal:hanDelete,Text:"Estas segur
                     Descargar comprobante
               </ReactTooltip>
 
-              
-
               <div style={{ position: 'absolute', left: 50, top: -500 }}>
                 <div id="printThis">
                 
@@ -1876,8 +1871,8 @@ const ItemCardPago =({index,typy_buy,setloading}) => {
       taskContent =(
         <>                         
           <TableCell align="right">{index.Nombre}</TableCell>
-          <TableCell className="editar-checking"  ><CiEdit fontSize={30} color="black" onClick={() => setIsEditing(true) }  /> 
- </TableCell>
+            <TableCell className="editar-checking"  ><CiEdit fontSize={30} color="black" onClick={() => setIsEditing(true) }  /> 
+          </TableCell>
         </>
 
       )

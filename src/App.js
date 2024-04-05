@@ -56,7 +56,6 @@ import CustomNav from "./Ui/CustomNav";
 import RoomDetail from "./page-resesion/RoomDetail";
 import MainDasboard from "./page-resesion/Dashboard/Main";
 import Footer from "./component/Footer/Footer";
-import WebChecking from "./page-resesion/webChecking";
 import Checkingn4 from "./page-resesion/checking4";
 import FirmaDigital from "./page-resesion/FimaDigital";
 import UploadImageCheckingTable from "./page-resesion/UploadImageCheckingTable";
@@ -69,6 +68,7 @@ import HomeTypehospedaje from "./page-resesion/Dashboard/HomeTypeHospedaje";
 import Ocacionales from "./page-resesion/Dashboard/Ocacional";
 import InformeContabilidad from "./page-resesion/Informes/InformeContabilidad";
 import Dian from "./page-resesion/Dian";
+import WebChecking from "./page-resesion/webChecking";
 
 function App() {
   const { jwt } = useContext(AutoProvider);
@@ -150,6 +150,7 @@ function App() {
                 path="/webchecking"
                 component={WebChecking}
               />
+              
               <Route component={NoFound} />
             </Switch>
           </BrowserRouter>
@@ -319,6 +320,12 @@ function App() {
                 path="/Dian/:id"
                 component={Dian}
               />
+                
+             <Route
+                exact
+                path="/webchecking"
+                component={WebChecking}
+              />
 
               <Route component={NoFound} />
             </Switch>
@@ -479,15 +486,20 @@ function App() {
                 path="/signatureByID/:id"
                 component={SingnatureMaual}
               />
-               <PrivateRoute
+              <PrivateRoute
                 exact
                 path="/InformeContabilidad"
                 component={InformeContabilidad}
               />
-               <PrivateRoute
+              <PrivateRoute
                 exact
                 path="/Dian/:id"
                 component={Dian}
+              />
+              <Route
+                exact
+                path="/webchecking"
+                component={WebChecking}
               />
 
               <Route component={NoFound} />
@@ -508,7 +520,7 @@ function App() {
                 component={WebChecking}
               />
             <Route exact path="/" component={Login} />
-            <PrivateRoute exact path="/Home" component={Comunicate} />
+          
             <Route component={NoFound} />
           </Switch>
         </BrowserRouter>

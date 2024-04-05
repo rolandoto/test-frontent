@@ -965,6 +965,31 @@ const PostInsertSigOpdfbyid = ({ id, id_sigo }) => {
 };
 
 
+
+const PostReservationClean = ({ 
+  desde,
+  hasta,
+  habitaciones,
+  disponibilidad,
+  Noches,
+  username }) => {
+  return fetch(`${config.serverRoute}/api/resecion/reservationclean`, {
+    method: "POST",
+    headers:{
+      'Content-type':'application/json'
+  },
+    body:JSON.stringify({ desde,hasta,habitaciones,disponibilidad,Noches,username})
+  })
+  .then((resp) => {
+    if(!resp.ok) throw new Error('Response is not ok')
+    return resp.json();
+  })
+  .then((data) => {
+   return data
+  })
+};
+
+
 export default {
   get,
   post,
@@ -1016,5 +1041,6 @@ export default {
   GetServiceInfomeRoomtoSell,
   PostRegisterTRA,
   PostRegisterTRATwo,
-  PostInsertSigOpdfbyid
+  PostInsertSigOpdfbyid,
+  PostReservationClean
 };

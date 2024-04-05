@@ -65,11 +65,10 @@ const Dashboard = () => {
 
 	const {pathname} = useLocation()
 
-	console.log(pathname)
+
 	
 	const currentDate = new moment();
 	const {jwt,setJwt,isOpen, setIsOpen} =useContext(AutoProvider)
-	console.log(jwt)
 	const history = useHistory()
 	const timelineRef = useRef(null);
 	const [raiting,setRaiting]= useState("")
@@ -232,7 +231,6 @@ const Dashboard = () => {
 
 	//localStorage.setItem('jwt', resultIdhotel);
   const handleChange = (event) => {
-	console.log({event})
 	updateLocalStorage(event)
     setIsChecked(event);
   };
@@ -284,7 +282,7 @@ const Dashboard = () => {
 			await getRoomFilterRoom()
 			} catch (error) {
 				console.error("Error fetching data:", error);
-				console.log("error")
+		
 			}
         
     }
@@ -299,8 +297,6 @@ const Dashboard = () => {
 	useEffect(() =>{
         fetchData()
     },[dispatch,isChecked,hotel])
-
-	
 
 	let countSeguro =0
 	
@@ -333,9 +329,7 @@ const Dashboard = () => {
 
 	const {postUpdateDetailPointer} = useUpdateDetailPointerActions()
 	const {postUpdateDetailPointerRange} = useUpdateDetailPounterRangeSliceActions()
-
-
-					
+			
 	const {resultadosBusqueda} = filtrarSearching(username);
 	const {resultadosBusquedaRoom} = filtrarSearchingRoom(raiting) 
 	
@@ -395,7 +389,7 @@ const Dashboard = () => {
 		let ID_Habitaciones = 0
 		let ID_estado_habiatcion =0
 		const group = resultadosBusquedaRoom[newGroupOrder];
-		console.log(group)
+
 		 Items.map(item =>{
 			if(item.id  ==  itemId){
 				dragTimeOne= dragTime+( item.end_time - item.start_time)
@@ -438,7 +432,6 @@ const Dashboard = () => {
 				   const handClose =() =>{
 					onClose() 
 				   }
-		
 					return (
 						<div className="popup-overlay"  >
 							<h4 className="let-letra" >Confirma cambio de habitacion?</h4>
@@ -449,7 +442,6 @@ const Dashboard = () => {
 				  }
 			})
 		}
-
 		handModalText()
 	  }
 	
@@ -484,10 +476,8 @@ const Dashboard = () => {
 		  </>
 		  ))
 		}
-	  });
+	});
   
-	
-
 	const [selectedRange, setSelectedRange] = useState({ start: null, end: null });
 
   	const handleItemSelect = (itemId, e, time) => {
@@ -503,8 +493,6 @@ const Dashboard = () => {
 
 	const horizontalLine = (group) => {
 		switch (group?.ID_estado_habiatcion) {
-			case 2:
-				return ["highlight"]
 			case 5:
 				return ["highlightCheckout"]
 		default:
@@ -553,12 +541,11 @@ const Dashboard = () => {
 
 	const handleInputChange = (event) => {
 		const { value } = event.target;
-		console.log({"lksadkasd":value})
+
 		setUsername(value);
 		setShowContextMenu(value.trim() !== '');
 		setRaiting(value.trim() !== "" ? raiting : "")
-	  };
-	
+	};
 
 	return (
 		<>		
@@ -606,7 +593,8 @@ const Dashboard = () => {
 					
 					{showContextMenu && <StyledContextMenuSearch className="fade-in" top={85} left={41.3}>
 						{resultadosBusqueda?.map((option, index) => {
-							console.log(option)
+						
+						
 							//const today = moment().format('YYYY-MM-DD');//day today
 							return (
 								<StyledMenuItem
@@ -622,9 +610,6 @@ const Dashboard = () => {
 					<div>
 
 					<div className="container-searching-for-reserrvation-logo-notification">	
-						
-						
-								
 								<div className="row-icon-searching" >
 								<IoNotificationsOutline fontSize={30} />
 								</div>
@@ -640,10 +625,7 @@ const Dashboard = () => {
 
 								<div className="row-icon-searching"  >
 										{jwt.result.name}
-								</div>	
-
-								
-								
+								</div>		
 					</div>
 					
 					</div>

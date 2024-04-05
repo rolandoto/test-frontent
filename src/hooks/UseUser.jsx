@@ -48,9 +48,6 @@ const UseUsers =() =>{
         })
     },[setJwt])
 
-
-    
-
     return {
         login,
         isLogin:Boolean(jwt),

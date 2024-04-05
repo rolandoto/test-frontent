@@ -33,7 +33,6 @@ const RoomDetail =() =>{
         })
     },[setState,loading])
 
-
 	useEffect(() => {
 		HttpClient.GetRoom({url:jwt.result.id_hotel}).then(index =>{
 			setState(index.query);

@@ -83,6 +83,18 @@
     text-overflow: ellipsis;
   }
 
+  
+  .let-letra-initial{
+    font-size: 14px;
+    text-align: initial;
+    width: auto;
+    color: black;
+    font-weight: 400;
+    white-space: nowrap; /* Evita que el texto se divida en varias líneas */
+    overflow: hidden; /* Oculta el texto que excede el ancho del contenedor */
+    text-overflow: ellipsis;
+  }
+
 
 
   .popup-overlay{
