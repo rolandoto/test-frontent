@@ -33,13 +33,13 @@ const Checkingn4 =() =>{
 
 
     const fillConten =() =>{
-        if(jwt.result.id_hotel ==12 || jwt.result.id_hotel ==6 || jwt.result.id_hotel ==5 || jwt.result.id_hotel ==10 ){
+        if(jwt.result.id_hotel ==12 || jwt.result.id_hotel ==6 || jwt.result.id_hotel ==5 ){
             return <Button     
                         onClick={handNextSignature}     
                         style={{width:"100%"}}
                         color={"primary"}  
 					    icon={<PiSignatureLight  color="white" fontSize={35}  />}  > <span>Firmar manual</span></Button>
-        }else if(jwt.result.id_hotel ==3 || jwt.result.id_hotel ==4 || jwt.result.id_hotel ==2  || jwt.result.id_hotel ==13   || jwt.result.id_hotel ==7 ){
+        }else if(jwt.result.id_hotel ==3 || jwt.result.id_hotel ==4 || jwt.result.id_hotel ==2  || jwt.result.id_hotel ==13 || jwt.result.id_hotel ==10    || jwt.result.id_hotel ==7 ){
             return <Button     
                         onClick={handNext}     
                         style={{width:"100%"}}
