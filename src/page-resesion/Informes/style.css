@@ -13,6 +13,20 @@
   margin-left: 0px;
 }
 
+.button-informe-cosultar-pdf{
+  padding: 16px;
+  margin: auto;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  background: #f31260;
+  color: white;
+  cursor: pointer;
+  width: 100%;
+  height: auto;
+  margin-left: 0px;
+}
 
 
 .button-informe-camareria-cosultar {
