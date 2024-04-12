@@ -33,11 +33,7 @@ const DashboardModal = (props) => {
         const [valueEditar,setValueEditar] =useState()
         const firstSearchResult = search.length > 0 ? search[0] : null;
 
-        var curr = new Date(dateDasboard?.desdeSinHora);
-        curr.setDate(curr.getDate());
-        var fecha_inicio = curr.toISOString().substring(0,10);
-
-        console.log(dateDasboard)
+     
 
         const handChangeValueEditar =(e) =>{
             setValueEditar(e.target.value)
