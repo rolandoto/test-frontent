@@ -105,16 +105,26 @@ const InformeMovimiento =() =>{
             }
     
             const movimiento = reserva.Movimiento;
+
+            const fecha =  moment(reserva.Fecha).utc().format('YYYY-MM-DD HH:mm:ss ')
+
             const textoMovimientoHeight = doc.getTextDimensions(movimiento).h;
             if (y + textoMovimientoHeight > doc.internal.pageSize.height - margen) {
                 doc.addPage();
                 y = margen;
             }
+
+            doc.setFontStyle("normal");
+            doc.setFontSize(12);
+            doc.text(margen, y,`Fecha creacion: ${fecha}` );
+            y += textoMovimientoHeight + 5;
             // Establecer estilo para el movimiento
             doc.setFontStyle("normal");
             doc.setFontSize(12);
             doc.text(margen, y, movimiento);
             y += textoMovimientoHeight + 5;
+
+           
         });
     
         doc.save('reservas.pdf');

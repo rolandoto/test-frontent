@@ -86,11 +86,13 @@ const DetailChekingOrganism =({id}) =>{
         nombre_establecimiento:"Hotel lleras park concept",
         rnt_establecimiento:"66201"
     }
+
+
     
     const handClick = async () => {
         if(jwt.result.id_hotel ==7){
         try {
-                await PostTrapmsone({ token: "bH46iyd42bkcREK596b1KP3qcP03zJ4Lrm10TnPM", body }).then((itemcode) =>{
+                await PostTrapmsone({ token: "sadasdsa", body }).then((itemcode) =>{
                     console.log(itemcode.responseData.code)
                 if (cantidadPersonas > 1) {
                     query.map(async(item, index) => {
@@ -107,7 +109,7 @@ const DetailChekingOrganism =({id}) =>{
                             check_out: fechaCheckout,
                             padre: itemcode.responseData.code
                         };
-                        await PostTrapmsTwo({ token: "bH46iyd42bkcREK596b1KP3qcP03zJ4Lrm10TnPM", body:bodyTwo });
+                        await PostTrapmsTwo({ token: "asdasas", body:bodyTwo });
                     });
                 }
                 })
@@ -115,6 +117,33 @@ const DetailChekingOrganism =({id}) =>{
         } catch (error) {
             console.error("Error occurred:", error);
         }
+    }else if(jwt.result.id_hotel ==10){
+        try {
+            await PostTrapmsone({ token: "c6hlnx7E2sAFk16NhF13J8asWUxzZwLj8WrHIbTy", body }).then((itemcode) =>{
+                console.log(itemcode.responseData.code)
+            if (cantidadPersonas > 1) {
+                query.map(async(item, index) => {
+                    const docu = documentUse.document?.find(doc => doc?.ID === item?.ID_Tipo_documento);
+                    const bodyTwo = {
+                        tipo_identificacion: docu?.nombre,
+                        numero_identificacion: item.Num_documento,
+                        nombres: item.nombre,
+                        apellidos: item.Apellido,
+                        cuidad_residencia: item.Ciudad,
+                        cuidad_procedencia: item.Ciudad,
+                        numero_habitacion: resulDetailDashboard.Numero,
+                        check_in: fechaChecking,
+                        check_out: fechaCheckout,
+                        padre: itemcode.responseData.code
+                    };
+                    await PostTrapmsTwo({ token: "c6hlnx7E2sAFk16NhF13J8asWUxzZwLj8WrHIbTy", body:bodyTwo });
+                });
+            }
+            })
+        
+         } catch (error) {
+        console.error("Error occurred:", error);
+      }
     }
     };
     

@@ -102,7 +102,7 @@ const DetailDasboard =(props) =>{
     const [loading,setLoading] =useState({loading:false,error:false})
     const history = useHistory()
     const {jwt,Dian} = useContext(AutoProvider)
-
+    console.log(Dian)
     const resultDashboard = DetailDashboard[0]
 
 
@@ -409,7 +409,7 @@ const DetailDasboard =(props) =>{
     }
 
     const handChangeSave =() =>{
-      ServiceInfomeMovimiento({Nombre_recepcion:jwt.result.name,Fecha:now,Movimiento:`Se actualizo datos personales tipo habitacion ${resultDashboard?.nombre_habitacion} ${resultDashboard.Numero} nombre ${resultDashboard.Nombre} codigo reserva ${resultDashboard.id_persona}`,id:jwt.result.id_hotel}).then(index =>{
+      ServiceInfomeMovimiento({Nombre_recepcion:jwt.result.name,Fecha:now,Movimiento:`Se actualizo datos personales tipo habitacion ${resultDashboard?.nombre_habitacion} ${resultDashboard.Numero} nombre ${resultDashboard.Nombre} codigo reserva ${resultDashboard.id_persona}`,id:jwt.result.id_hotel,Valor_habitacion:"0"}).then(index =>{
         toast.success("Se actualizo los datos")
         handClickLoading()
       }).catch(e =>{
@@ -585,7 +585,7 @@ const DetailDasboard =(props) =>{
     const handClickInsertAbono =()  => {
       if(requiredValidator(dataPayAbono.PayAbono)){
         HttpClient.insertPayABono({data:dataPayAbono}).then(index=> {
-          ServiceInfomeMovimiento({Nombre_recepcion:jwt.result.name,Fecha:now,Movimiento:`Abono agregado tipo habitacion ${resultDashboard?.nombre_habitacion} ${resultDashboard.Numero} nombre ${resultDashboard.Nombre} codigo reserva ${resultDashboard.id_persona}`,id:jwt.result.id_hotel}).then(index =>{
+          ServiceInfomeMovimiento({Nombre_recepcion:jwt.result.name,Fecha:now,Movimiento:`Abono agregado tipo habitacion ${resultDashboard?.nombre_habitacion} ${resultDashboard.Numero} nombre ${resultDashboard.Nombre} codigo reserva ${resultDashboard.id_persona}`,id:jwt.result.id_hotel,Valor_habitacion:"0"}).then(index =>{
             toast.success('Abono exitoso!')
             handClickLoading()
           }).catch(e =>{
@@ -672,7 +672,7 @@ const DetailDasboard =(props) =>{
     }else {
       ServiceAddHuespedes({id,huespe,data:dataCountPeople,dataPay:dataOne}).then(index =>{
         setLoadingHuesped(false)
-        ServiceInfomeMovimiento({Nombre_recepcion:jwt.result.name,Fecha:now,Movimiento:`Se añadio huesped tipo habitacion ${resultDashboard?.nombre_habitacion} ${resultDashboard.Numero} nombre ${resultDashboard.Nombre} codigo reserva ${resultDashboard.id_persona}`,id:jwt.result.id_hotel}).then(index =>{
+        ServiceInfomeMovimiento({Nombre_recepcion:jwt.result.name,Fecha:now,Movimiento:`Se añadio huesped tipo habitacion ${resultDashboard?.nombre_habitacion} ${resultDashboard.Numero} nombre ${resultDashboard.Nombre} codigo reserva ${resultDashboard.id_persona}`,id:jwt.result.id_hotel,Valor_habitacion:"0"}).then(index =>{
           window.location.reload()
         }).catch(e =>{
             console.error(e)
@@ -764,7 +764,7 @@ const priceLenceria = Lenceria?.reduce((acum,current) => {
 const hanDelete =() =>{
     if(parseInt(resultDashboard.valor_abono) <=0){
       ServiDelteReservation({id}).then(index =>{  
-        ServiceInfomeMovimiento({Nombre_recepcion:jwt.result.name,Fecha:now,Movimiento:`Reserva eliminada tipo habitacion ${resultDashboard?.nombre_habitacion} ${resultDashboard.Numero} nombre ${resultDashboard.Nombre} codigo reserva ${id} `,id:jwt.result.id_hotel}).then(index =>{
+        ServiceInfomeMovimiento({Nombre_recepcion:jwt.result.name,Fecha:now,Movimiento:`Reserva eliminada tipo habitacion ${resultDashboard?.nombre_habitacion} ${resultDashboard.Numero} nombre ${resultDashboard.Nombre} codigo reserva ${id} `,id:jwt.result.id_hotel,Valor_habitacion:"0"}).then(index =>{
           socket.emit("sendNotification",message);
           history.push("/home")
         }).catch(e =>{
@@ -855,6 +855,8 @@ const  typy_buy =  [
 var curr = new Date(resultDashboard?.Fecha_inicio);
 curr.setDate(curr.getDate());
 var fecha_inicio = curr.toISOString().substring(0,10);
+
+console.log(typeof(fecha_inicio))
 
 var currOne = new Date(resultDashboard?.Fecha_final);
 currOne.setDate(currOne.getDate());

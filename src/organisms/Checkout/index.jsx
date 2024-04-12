@@ -328,7 +328,7 @@ const CheckoutOrganism =({DetailDashboard,postDetailRoom,fetchDataApiWhatsapp}) 
             fetchDataApiWhatsapp({phone:totalNumberPhone,name:fullName,hotel:jwt.result.hotel,factura:index[0]})
         })
         ServiceResolution({Resolucion:dataCount.Resolucion+1,ID:dataCount.ID}).then(index=>{
-            ServiceInfomeMovimiento({Nombre_recepcion:jwt.result.name,Fecha:now,Movimiento:`Check out realizado tipo habitacion ${resultDashboard?.nombre_habitacion} ${resultDashboard.Numero}`,id:jwt.result.id_hotel}).then(index =>{
+            ServiceInfomeMovimiento({Nombre_recepcion:jwt.result.name,Fecha:now,Movimiento:`Check out realizado tipo habitacion ${resultDashboard?.nombre_habitacion} ${resultDashboard.Numero}`,id:jwt.result.id_hotel,Valor_habitacion:"0"}).then(index =>{
             }).catch(e =>{
                 console.log(e)
             })
