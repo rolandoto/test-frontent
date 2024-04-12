@@ -520,7 +520,7 @@ const DashboardModal = (props) => {
                       })
                     
                   
-                  ServiceInfomeMovimiento({Nombre_recepcion:jwt.result.name,Fecha:now,Movimiento:`Creación reserva tipo habitacion ${findRoomOne.nombre} ${totalFindRoom.Numero}`,id:jwt.result.id_hotel}).then(index =>{
+                  ServiceInfomeMovimiento({Nombre_recepcion:jwt.result.name,Fecha:now,Movimiento:`Creación reserva tipo habitacion  ${findRoomOne.nombre} ${totalFindRoom.Numero} valor habitacion: ${valor_habiatcion}`,id:jwt.result.id_hotel,Valor_habitacion:valor_habiatcion}).then(index =>{
                     setTimeout(() =>{
                        history.push("/home")
                     },1000)
