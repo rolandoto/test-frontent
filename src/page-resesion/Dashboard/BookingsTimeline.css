@@ -788,9 +788,6 @@ hr.border {
     border: solid 2px orange;
   }
 
-
-  
-
 .container-flex-homeType{
   text-align: center;
   border: solid 1px;
@@ -953,6 +950,19 @@ hr.border {
   border-radius: 28px;
   text-align: center;
   transition: background-color 0.5s ease, transform 0.5s ease;
+}
+
+.Row-bar-one{
+  display: flex;
+  justify-content: center;
+  background:#e4e6ea;
+  align-items: center;
+  padding: 7px;
+  cursor: pointer;
+  border-radius: 28px;
+  text-align: center;
+  transition: background-color 0.5s ease, transform 0.5s ease;
+  margin-top: 10px;
 }
 
 .Row-bar:hover{

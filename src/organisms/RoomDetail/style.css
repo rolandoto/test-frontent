@@ -27,6 +27,14 @@
     border-radius: 1.25rem;
   }
 
+  .wrap-reverse-dashboard {
+    
+    margin-top:23px
+  }
+  .wrap-reverse-dashboard li {
+    border-radius: 1.25rem;
+  }
+
   .flex-item {
     position: relative;
     background: tomato;
@@ -43,10 +51,94 @@
     text-align: center;
     cursor: pointer;
   }
+
+
+  .flex-item-reservation{
+    position: relative;
+    background: tomato;
+    transition: background-color 0.5s ease, transform 0.5s ease;
+    box-shadow: 17px 20px 40px rgba(0, 0, 0, .21);
+    padding: 5px;
+    width: 79%;
+    height: 100px;
+    margin: 10px;
+    line-height: 100px;
+    color: white;
+    font-weight: bold;
+    font-size: 2em;
+    text-align: center;
+    cursor: pointer;
+  }
+
+  .flex-item-reservation-one{
+    position: relative;
+    background: tomato;
+    transition: background-color 0.5s ease, transform 0.5s ease;
+    box-shadow: 17px 20px 40px rgba(0, 0, 0, .21);
+    padding: 5px;
+    width: 79%;
+    height: 98px;
+    margin: 10px;
+    /* line-height: 100px; */
+    color: white;
+    font-weight: bold;
+    font-size: 2em;
+    text-align: center;
+    cursor: pointer;
+  }
+
+
+  .number-reservation{
+    position: absolute;
+    top: 0px;
+    font-size: 45px;
+  }
+
+  
   
   .flex-item:hover {
     background-color: #ff6347; /* Cambia el color al pasar el ratón sobre el elemento */
     transform: scale(1.1); /* Escala el elemento al 110% de su tamaño original */
+  }
+
+  .flex-item-dashboard{
+    position: relative;
+    background: tomato;
+    transition: background-color 0.5s ease, transform 0.5s ease;
+    box-shadow: 17px 20px 40px rgba(0, 0, 0, .21);
+    padding: 5px;
+    width: 20%;
+    height: 300px;
+    margin: 10px;
+    line-height: 100px;
+    color: white;
+    font-weight: bold;
+    display: flex;
+    justify-content: initial;
+    align-items: center;
+    font-size: 2em;
+    text-align: initial;
+    cursor: pointer;
+  }
+  
+
+  .flex-item-dashboard-one{
+    position: relative;
+    background: tomato;
+    transition: background-color 0.5s ease, transform 0.5s ease;
+    box-shadow: 17px 20px 40px rgba(0, 0, 0, .21);
+    padding: 5px;
+    width: 80%;
+    height: 700px;
+    margin: 10px;
+    line-height: 100px;
+    color: white;
+    font-weight: bold;
+    display: flex;
+    justify-content: initial;
+    font-size: 2em;
+    text-align: initial;
+    cursor: pointer;
   }
   
   
@@ -81,6 +173,31 @@
     white-space: nowrap; /* Evita que el texto se divida en varias líneas */
     overflow: hidden; /* Oculta el texto que excede el ancho del contenedor */
     text-overflow: ellipsis;
+  }
+
+  .let-letra-dashboard{
+    font-size: 30px;
+    text-align: initial;
+    width: auto;
+    color: black;
+    font-weight: 400;
+    white-space: nowrap; /* Evita que el texto se divida en varias líneas */
+    overflow: hidden; /* Oculta el texto que excede el ancho del contenedor */
+    text-overflow: ellipsis;
+
+  }
+
+
+  .let-letra-dashboard-one{
+    font-size: 73px;
+    text-align: initial;
+    width: auto;
+    color: black;
+    font-weight: 400;
+    white-space: nowrap; /* Evita que el texto se divida en varias líneas */
+    overflow: hidden; /* Oculta el texto que excede el ancho del contenedor */
+    text-overflow: ellipsis;
+
   }
 
   
