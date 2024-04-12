@@ -28,11 +28,16 @@ const DashboardModal = (props) => {
         const {loading,toggleCloseDashboard,toggleOpenDashboardChecking,search} = props
         const [information,setinformation] =useState()
         const {iduser} = UseListMotels()
-        const {jwt} = useContext(AutoProvider)
+        const {jwt,dateDasboard,setDatedasrboard} = useContext(AutoProvider)
         const message  =jwt?.result?.photo
         const [valueEditar,setValueEditar] =useState()
         const firstSearchResult = search.length > 0 ? search[0] : null;
 
+        var curr = new Date(dateDasboard?.desdeSinHora);
+        curr.setDate(curr.getDate());
+        var fecha_inicio = curr.toISOString().substring(0,10);
+
+        console.log(dateDasboard)
 
         const handChangeValueEditar =(e) =>{
             setValueEditar(e.target.value)
@@ -76,7 +81,7 @@ const DashboardModal = (props) => {
         const [select,setSelect] =useState(false)
         const [to,setTo] =useState(false)
         const [fecha,setFecha] =useState()
-        const [fechaOne,setFechaOne] =useState()
+        const [fechaOne,setFechaOne] =useState("2023/02/10")
         const [fechaTwo,setFechaTwo] =useState()
         const [asignar,setAsignar] =useState()
         const [decuento,setDescuento] =useState(0)
@@ -281,6 +286,8 @@ const DashboardModal = (props) => {
             const {nombre} = index
             return {nombre,ID}
         })
+
+        console.log(habi)
 
   
 
@@ -517,7 +524,7 @@ const DashboardModal = (props) => {
                       })
                     
                   
-                  ServiceInfomeMovimiento({Nombre_recepcion:jwt.result.name,Fecha:now,Movimiento:`Creación reserva tipo habitacion ${findRoomOne.nombre} ${totalFindRoom.Numero}`,id:jwt.result.id_hotel}).then(index =>{
+                  ServiceInfomeMovimiento({Nombre_recepcion:jwt.result.name,Fecha:now,Movimiento:`Creación reserva tipo habitacion ${findRoomOne.nombre} ${totalFindRoom.Numero}`,id:jwt.result.id_hotel,id_reservation:1}).then(index =>{
                     setTimeout(() =>{
                        history.push("/home")
                     },1000)
@@ -646,13 +653,14 @@ const DashboardModal = (props) => {
                                                                 <span  className="desde-detail-three-title-das">Asignar Habitacion:</span>
                                                                     </div>
                                                                     <div className="container-detail-dasboard-in" > 
-                                                                        <input   
-                                                                            
+                                                                        <input    
                                                                             name="desde"  
                                                                             type="date" 
+                                                                           
                                                                             className="desde-detail-two"  
                                                                             onChange={handleFechaOne}  
-                                                                            value={fechaOne} 
+                                                                           
+                                                                          
                                                                             />
                                                                         <input 
                                                                               
