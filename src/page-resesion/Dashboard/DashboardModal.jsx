@@ -502,7 +502,7 @@ const DashboardModal = (props) => {
 
         const findRoomOne =  room?.find(index => index?.id_tipoHabitacion == fecha)
         
-        console.log(dataAvaible)
+     
       
           const handClickReservation = async () => {
             if(huespe.every(isValidGuest)){
@@ -517,10 +517,11 @@ const DashboardModal = (props) => {
                         title: '<p>Reserva creada</p>',
                         showConfirmButton: false,
                         timer: 500
-                      })
-                    
-                  
-                  ServiceInfomeMovimiento({Nombre_recepcion:jwt.result.name,Fecha:now,Movimiento:`Creación reserva tipo habitacion  ${findRoomOne.nombre} ${totalFindRoom.Numero} valor habitacion: ${valor_habiatcion}`,id:jwt.result.id_hotel,Valor_habitacion:valor_habiatcion}).then(index =>{
+                      })    
+
+                      console.log({"sdasdjhasjdashdhsajd":index.codigo})
+
+                  ServiceInfomeMovimiento({Nombre_recepcion:jwt.result.name,Fecha:now,Movimiento:`Creación reserva tipo habitacion  ${findRoomOne.nombre} ${totalFindRoom.Numero} valor habitacion: ${valor_habiatcion}`,id:jwt.result.id_hotel,Valor_habitacion:valor_habiatcion,Codigo_reserva:index.codigo}).then(index =>{
                     setTimeout(() =>{
                        history.push("/home")
                     },1000)
@@ -592,8 +593,6 @@ const DashboardModal = (props) => {
               console.error(e)
             })
         }
-   
-
         
       function handleOnChange(event) {
         setTipoPersona("persona")

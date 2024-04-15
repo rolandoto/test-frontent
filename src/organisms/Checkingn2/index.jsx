@@ -211,7 +211,7 @@ const Checkingn2Organism =({id,postDetailRoom,fetchDataApiWhatsapp,postWhataapBy
       
           const movimiento = `Check in realizado tipo habitacion ${resulDetailDashboard?.nombre_habitacion} ${resulDetailDashboard.Numero} nombre ${resulDetailDashboard.Nombre} codigo reserva ${resulDetailDashboard.id_persona}`;
       
-          await ServiceInfomeMovimiento({ Nombre_recepcion: jwt.result.name, Fecha: now, Movimiento: movimiento, id: jwt.result.id_hotel,Valor_habitacion:"1" });
+          await ServiceInfomeMovimiento({ Nombre_recepcion: jwt.result.name, Fecha: now, Movimiento: movimiento, id: jwt.result.id_hotel,Valor_habitacion:"1",Codigo_reserva:id });
           setDisable(false);
           toast.success("pago exitoso")
           
@@ -246,7 +246,7 @@ const Checkingn2Organism =({id,postDetailRoom,fetchDataApiWhatsapp,postWhataapBy
                   </div>         
                 );
               }
-        })
+            })
         }
 
         return (

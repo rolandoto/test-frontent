@@ -109,11 +109,11 @@ const UseDianActions =() =>{
                         })
 
 
-                        ServiceInfomeMovimiento({Nombre_recepcion:jwt.result.name,Fecha:now,Movimiento:`Se envio facturacion electronica a Nombre  ${body.customer.name}`,id:jwt.result.id_hotel,Valor_habitacion:0}).then(index =>{
-                          
-                          }).catch(e =>{
-                             
-                          })
+                        ServiceInfomeMovimiento({Nombre_recepcion:jwt.result.name,Fecha:now,Movimiento:`Se envio facturacion electronica a Nombre  ${body.customer.name}`,id:jwt.result.id_hotel,Valor_habitacion:0,Codigo_reserva:"0000"}).then(index =>{
+                            
+                        }).catch(e =>{
+                           
+                        })
                 }else{
                         HttpClient.PostInsertSigOpdfbyid({  id:id_Reserva,id_sigo:  "123456789" }).then((item => {
                         history.push(`/DetailDashboard/${id_Reserva}`);
@@ -124,7 +124,7 @@ const UseDianActions =() =>{
                             toast.error("error al insertar en el reserva")
                         })
 
-                        ServiceInfomeMovimiento({Nombre_recepcion:jwt.result.name,Fecha:now,Movimiento:`Se envio facturacion electronica a Nombre  ${body.customer.name}`,id:jwt.result.id_hotel,Valor_habitacion:0}).then(index =>{
+                        ServiceInfomeMovimiento({Nombre_recepcion:jwt.result.name,Fecha:now,Movimiento:`Se envio facturacion electronica a Nombre  ${body.customer.name}`,id:jwt.result.id_hotel,Valor_habitacion:0,Codigo_reserva:"0000"}).then(index =>{
                             
                           }).catch(e =>{
                              

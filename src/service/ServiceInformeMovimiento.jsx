@@ -3,13 +3,13 @@ import { config } from "../config"
 const ENDPOINT =`${config.serverRoute}/api/resecion/informeMovimiento/`
 
 
-const ServiceInfomeMovimiento =({Nombre_recepcion,Fecha,Movimiento,id,Valor_habitacion})=>{
+const ServiceInfomeMovimiento =({Nombre_recepcion,Fecha,Movimiento,id,Valor_habitacion,Codigo_reserva})=>{
     return fetch(`${ENDPOINT}${id}`,{
         method:'POST',
         headers:{
             'Content-type':'application/json'
         },  
-        body: JSON.stringify({Nombre_recepcion,Fecha,Movimiento,Valor_habitacion})
+        body: JSON.stringify({Nombre_recepcion,Fecha,Movimiento,Valor_habitacion,Codigo_reserva})
     }).then(resp =>{
         if(!resp.ok) throw new Error('Response is not ok')
         return resp.json()

@@ -409,7 +409,7 @@ const DetailDasboard =(props) =>{
     }
 
     const handChangeSave =() =>{
-      ServiceInfomeMovimiento({Nombre_recepcion:jwt.result.name,Fecha:now,Movimiento:`Se actualizo datos personales tipo habitacion ${resultDashboard?.nombre_habitacion} ${resultDashboard.Numero} nombre ${resultDashboard.Nombre} codigo reserva ${resultDashboard.id_persona}`,id:jwt.result.id_hotel,Valor_habitacion:"0"}).then(index =>{
+      ServiceInfomeMovimiento({Nombre_recepcion:jwt.result.name,Fecha:now,Movimiento:`Se actualizo datos personales tipo habitacion ${resultDashboard?.nombre_habitacion} ${resultDashboard.Numero} nombre ${resultDashboard.Nombre} codigo reserva ${resultDashboard.id_persona}`,id:jwt.result.id_hotel,Valor_habitacion:"0",Codigo_reserva:id}).then(index =>{
         toast.success("Se actualizo los datos")
         handClickLoading()
       }).catch(e =>{
@@ -585,7 +585,7 @@ const DetailDasboard =(props) =>{
     const handClickInsertAbono =()  => {
       if(requiredValidator(dataPayAbono.PayAbono)){
         HttpClient.insertPayABono({data:dataPayAbono}).then(index=> {
-          ServiceInfomeMovimiento({Nombre_recepcion:jwt.result.name,Fecha:now,Movimiento:`Abono agregado tipo habitacion ${resultDashboard?.nombre_habitacion} ${resultDashboard.Numero} nombre ${resultDashboard.Nombre} codigo reserva ${resultDashboard.id_persona}`,id:jwt.result.id_hotel,Valor_habitacion:"0"}).then(index =>{
+          ServiceInfomeMovimiento({Nombre_recepcion:jwt.result.name,Fecha:now,Movimiento:`Abono agregado tipo habitacion ${resultDashboard?.nombre_habitacion} ${resultDashboard.Numero} nombre ${resultDashboard.Nombre} codigo reserva ${resultDashboard.id_persona}`,id:jwt.result.id_hotel,Valor_habitacion:"0",Codigo_reserva:id}).then(index =>{
             toast.success('Abono exitoso!')
             handClickLoading()
           }).catch(e =>{
@@ -672,7 +672,7 @@ const DetailDasboard =(props) =>{
     }else {
       ServiceAddHuespedes({id,huespe,data:dataCountPeople,dataPay:dataOne}).then(index =>{
         setLoadingHuesped(false)
-        ServiceInfomeMovimiento({Nombre_recepcion:jwt.result.name,Fecha:now,Movimiento:`Se añadio huesped tipo habitacion ${resultDashboard?.nombre_habitacion} ${resultDashboard.Numero} nombre ${resultDashboard.Nombre} codigo reserva ${resultDashboard.id_persona}`,id:jwt.result.id_hotel,Valor_habitacion:"0"}).then(index =>{
+        ServiceInfomeMovimiento({Nombre_recepcion:jwt.result.name,Fecha:now,Movimiento:`Se añadio huesped tipo habitacion ${resultDashboard?.nombre_habitacion} ${resultDashboard.Numero} nombre ${resultDashboard.Nombre} codigo reserva ${resultDashboard.id_persona}`,id:jwt.result.id_hotel,Valor_habitacion:"0",Codigo_reserva:id}).then(index =>{
           window.location.reload()
         }).catch(e =>{
             console.error(e)
@@ -764,8 +764,9 @@ const priceLenceria = Lenceria?.reduce((acum,current) => {
 const hanDelete =() =>{
     if(parseInt(resultDashboard.valor_abono) <=0){
       ServiDelteReservation({id}).then(index =>{  
-        ServiceInfomeMovimiento({Nombre_recepcion:jwt.result.name,Fecha:now,Movimiento:`Reserva eliminada tipo habitacion ${resultDashboard?.nombre_habitacion} ${resultDashboard.Numero} nombre ${resultDashboard.Nombre} codigo reserva ${id} `,id:jwt.result.id_hotel,Valor_habitacion:"0"}).then(index =>{
+        ServiceInfomeMovimiento({Nombre_recepcion:jwt.result.name,Fecha:now,Movimiento:`Reserva eliminada tipo habitacion ${resultDashboard?.nombre_habitacion} ${resultDashboard.Numero} nombre ${resultDashboard.Nombre} codigo reserva ${id} `,id:jwt.result.id_hotel,Valor_habitacion:"0",Codigo_reserva:id}).then(index =>{
           socket.emit("sendNotification",message);
+          toast.success("Eliminado")
           history.push("/home")
         }).catch(e =>{
             console.error(e)
