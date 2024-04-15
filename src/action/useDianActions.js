@@ -15,10 +15,17 @@ import { setClient,
         setDianSigoPdf
         } from "../reducers/DianReducer"
 import { toast } from "react-hot-toast";
+import { useContext } from "react";
+import  AutoProvider  from "../privateRoute/AutoProvider";
+import moment from "moment";
+import ServiceInfomeMovimiento from "../service/ServiceInformeMovimiento";
 
 const UseDianActions =() =>{
 
     const history = useHistory()
+    const now = moment().utc().format('YYYY-MM-DD')
+
+    const {jwt} =useContext(AutoProvider)
 
     const dispatch =  useAppDispatch()
     
@@ -100,8 +107,15 @@ const UseDianActions =() =>{
                         })).catch(e =>{
                             toast.error("error al insertar en el reserva")
                         })
+
+
+                        ServiceInfomeMovimiento({Nombre_recepcion:jwt.result.name,Fecha:now,Movimiento:`Se envio facturacion electronica a Nombre  ${body.customer.name}`,id:jwt.result.id_hotel,Valor_habitacion:0}).then(index =>{
+                          
+                          }).catch(e =>{
+                             
+                          })
                 }else{
-                         HttpClient.PostInsertSigOpdfbyid({  id:id_Reserva,id_sigo:  "123456789" }).then((item => {
+                        HttpClient.PostInsertSigOpdfbyid({  id:id_Reserva,id_sigo:  "123456789" }).then((item => {
                         history.push(`/DetailDashboard/${id_Reserva}`);
                          dispatch(setDian(itemResponse));
                         dispatch(setPayment(itemResponse));
@@ -109,13 +123,17 @@ const UseDianActions =() =>{
                         })).catch(e =>{
                             toast.error("error al insertar en el reserva")
                         })
+
+                        ServiceInfomeMovimiento({Nombre_recepcion:jwt.result.name,Fecha:now,Movimiento:`Se envio facturacion electronica a Nombre  ${body.customer.name}`,id:jwt.result.id_hotel,Valor_habitacion:0}).then(index =>{
+                            
+                          }).catch(e =>{
+                             
+                          })
                 }
-                 
             })).catch(e =>{
                 toast.error("error ")
                 dispatch(setErrorInvoinces());
             })
-          
     }
 
     const GetPayment =async({token}) =>{
