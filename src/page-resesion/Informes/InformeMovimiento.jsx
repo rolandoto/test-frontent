@@ -15,6 +15,26 @@ import { StyleSpan, StyleSpanIcons, StyledContextMenuTypeRoomCamareria, StyledMe
 import { CiSearch } from "react-icons/ci";
 import { RxDropdownMenu } from "react-icons/rx";
 import jsPDF from 'jspdf';
+import * as XLSX from 'xlsx';
+import { 
+    DateRange , 
+    Range, 
+    RangeKeyDict
+  } from 'react-date-range';
+
+const ExportButton = ({ data, filename }) => {
+    const exportToExcel = () => {
+      const ws = XLSX.utils.json_to_sheet(data);
+      const wb = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, ws, 'Sheet 1');
+      XLSX.writeFile(wb, filename);
+    };
+  
+    return (
+        <button className="button-informe-cosultar-excel"  onClick={exportToExcel} >Descargar Excel</button>
+
+    );
+  };
 
 
 const InformeMovimiento =() =>{
@@ -25,6 +45,16 @@ const InformeMovimiento =() =>{
     const [OpenTypeRoom,setTypeRoom] =useState(false)
     const [username,setUsername] =useState("")
     const [contextMenuPosition, setContextMenuPosition] = useState({ top: 0, left: 0 });
+
+
+    
+    const [stateFecha, setStateFecha] = useState([
+        {
+          startDate: new Date(),
+          endDate: new Date(),
+          key: "selection",
+        },
+      ]);
 
     const hadChangeFecha =(e) =>{
         setLokinforFecha(e.target.value)
@@ -45,18 +75,27 @@ const InformeMovimiento =() =>{
     }
 
 
-    const filtrarSearchingRoom = (terminoBusqueda) => {
+    const filtrarSearchingRoom = (terminoBusqueda, fechaDesde, fechaHasta) => {
 		let resultadosBusquedaRoom = state?.filter((elemento, index) => {
 			// Filtrar por término de búsqueda
 			const condicionBusqueda = elemento.Movimiento?.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
 			
-			return condicionBusqueda ;
+            let condicionFechas = true;
+            if (fechaDesde && fechaHasta) {
+                const fechaInicio = moment(elemento.Fecha).utc().format('YYYY/MM/DD');
+                const fechaFin = moment(elemento.Fecha).utc().format('YYYY/MM/DD');
+                condicionFechas = moment(fechaInicio).isBetween(moment(fechaDesde), moment(fechaHasta), null, '[]') ||
+                                  moment(fechaFin).isBetween(moment(fechaDesde), moment(fechaHasta), null, '[]');
+            }   
+    
+            // Retornar elemento si cumple con ambas condiciones
+            return condicionBusqueda && condicionFechas;
 		});
-	
-		return { resultadosBusquedaRoom };
+
+        return {resultadosBusquedaRoom}
 	}; 
     
-
+    
 
     const  type_room =  [   
         {   
@@ -77,10 +116,10 @@ const InformeMovimiento =() =>{
 	}
 
 
+    const formattedStartDate = moment(stateFecha[0].startDate).format('YYYY/MM/DD');
+    const formattedEndDate = moment(stateFecha[0].endDate).format('YYYY/MM/DD');
 
-    const {resultadosBusquedaRoom} = filtrarSearchingRoom(username) 
-
-    console.log(resultadosBusquedaRoom)
+    const {resultadosBusquedaRoom} = filtrarSearchingRoom(username, formattedStartDate, formattedEndDate) 
 
     const generarPDF = () => {
         const doc = new jsPDF();
@@ -105,6 +144,8 @@ const InformeMovimiento =() =>{
             }
     
             const movimiento = reserva.Movimiento;
+            const NombreCanal = reserva.Nombre;
+            const ValorHabitacion = reserva.Valor_habitacion;
 
             const fecha =  moment(reserva.Fecha).utc().format('YYYY-MM-DD HH:mm:ss ')
 
@@ -123,6 +164,17 @@ const InformeMovimiento =() =>{
             doc.setFontSize(12);
             doc.text(margen, y, movimiento);
             y += textoMovimientoHeight + 5;
+            doc.setFontStyle("bold");
+            doc.setFontSize(12);
+            doc.text(margen, y, `Canal de reserva: ${NombreCanal}`);
+            y += textoMovimientoHeight + 5;
+
+
+            const valorFormateado = parseFloat(ValorHabitacion).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+            doc.setFontStyle("bold");
+            doc.setFontSize(12);
+            doc.text(margen, y, `Total del Hospedaje: ${valorFormateado}`);
+            y += textoMovimientoHeight + 5;
 
            
         });
@@ -130,6 +182,21 @@ const InformeMovimiento =() =>{
         doc.save('reservas.pdf');
     };
     
+    const filterReservation = resultadosBusquedaRoom?.map((reservation) => {
+
+        const Recepcionista = reservation.Nombre_recepcion
+        const Fecha =  moment(reservation.Fecha).utc().format('YYYY-MM-DD HH:mm:ss ')
+        const Movimiento = reservation.Movimiento
+        const valor =  parseInt(reservation.Valor_habitacion)
+        const ValorHabitacion =  valor.toLocaleString()  
+        const Canal = reservation.Nombre
+
+        return  {Recepcionista,Movimiento,ValorHabitacion,Canal,Fecha}
+
+    });
+
+
+
 
 
     return (
@@ -141,21 +208,38 @@ const InformeMovimiento =() =>{
             <ButtonBack/>
             <ButtonHome/>
                <div>
-                <input type="date" className="input-selecto-dasboard-n1-reservaction" onChange={hadChangeFecha} value={LookinforFecha}   />
+               <DateRange 
+                color="black"
+                rangeColors={['#262626']}
+                onChange={(item) => setStateFecha([item.selection])}
+                showSelectionPreview={false}
+                moveRangeOnFirstSelection={true}
+                months={2}
+                showDateDisplay={false}
+                ranges={stateFecha}
+                disabledDates={[]}
+                direction="horizontal"
+               
+                />
                 <br />
                 <br />
                 <button className="button-informe-cosultar" onClick={handConsultar} >Consultar</button>
-             
+                <br />
             </div>
             <br />
-            <button className="button-informe-cosultar-pdf"  onClick={generarPDF} >Descargar pdf</button>
-
+                <button className="button-informe-cosultar-pdf"  onClick={generarPDF} >Descargar pdf</button>
+            <br />
+            <br />
+            <ExportButton data={filterReservation} filename="output.xlsx" />
+          
            {state &&  <div className="Row-bar-one"  onClick={handClickOpentypeRoom}>
 							<RxDropdownMenu   fontSize={18}   />
 			</div> 
            
              } 
 
+
+         
             {OpenTypeRoom &&
 
             
