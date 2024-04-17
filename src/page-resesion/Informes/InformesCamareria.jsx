@@ -271,7 +271,7 @@ const InformeCamareria =() =>{
         },
         {   
             id:1,
-            name:"Sucias y limpias",
+            name:"Sucias y Ocupadas",
         },
         {   
             id:2,

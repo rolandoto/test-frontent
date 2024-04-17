@@ -64,18 +64,21 @@ const InformeRoomToSell =() =>{
 
     var fechaInicio = new Date(formattedStartDate);
     var fechaFin    = new Date(formattedEndDate);
-   
+    
+    console.log(fechaInicio)
+    console.log(fechaFin)
 
     const array =[]
 
     while(fechaFin.getTime() >= fechaInicio.getTime()){
         array.push({
-            day:fechaInicio.getFullYear() + '/' + (fechaInicio.getMonth()) + '/' + fechaInicio.getDate()
+            day:fechaInicio.getFullYear() + '/' + (fechaInicio.getMonth()+1) + '/' + fechaInicio.getDate()
         }) 
         fechaInicio.setDate(fechaInicio.getDate()+1);
     }
 
    
+    console.log(array)
     let componentRef = useRef();
 
     const handlePrint = useReactToPrint({
