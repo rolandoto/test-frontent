@@ -111,7 +111,7 @@ const InformeMovimiento =() =>{
 
 
     const handClickOpentypeRoom =() =>{
-		setContextMenuPosition({top:230, left: 168})
+		setContextMenuPosition({top:700, left: 168})
 		setTypeRoom(!OpenTypeRoom)
 	}
 
