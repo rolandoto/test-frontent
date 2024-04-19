@@ -14,7 +14,7 @@ const InputBedRoom =({id,fetchData}) =>{
 
     useEffect(() =>{
         ServicetypeRooms({id}).then(index =>{
-            setState(index)
+            setState(index?.query)
         })
     },[setState])
 
@@ -45,13 +45,18 @@ const InputBedRoom =({id,fetchData}) =>{
                 }
         }
 
-    console.log(change)
+
 
     const mapresult = state?.map(index=> {
         const ID  = index.id_tipoHabitacion
         const  {id_hotel,id_tipoHabitacion,max_persona,nombre,persona,precio,precio_persona} =index
         return { id_hotel,ID,id_tipoHabitacion,max_persona,nombre,persona,precio,precio_persona}
     })
+
+
+    /**
+     * 
+     */
 
     return (
         <>
