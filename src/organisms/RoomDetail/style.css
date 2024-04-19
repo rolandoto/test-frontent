@@ -25,6 +25,17 @@
   }
   .wrap-reverse li {
     border-radius: 1.25rem;
+   
+  }
+  .wrap-reverse-one li {
+    border-radius: 13px;
+    border: 2px solid #eeeff2;
+    transition: border-radius 0.5s, border-color 0.5s;
+  }
+
+  .wrap-reverse-one > li:hover  {
+    border-radius: 13px;
+    border: 2px solid #17c964;  
   }
 
   .wrap-reverse-dashboard {
@@ -71,21 +82,23 @@
   }
 
   .flex-item-reservation-one{
-    position: relative;
     background: tomato;
-    transition: background-color 0.5s ease, transform 0.5s ease;
-    box-shadow: 17px 20px 40px rgba(0, 0, 0, .21);
-    padding: 5px;
-    width: 79%;
-    height: 81px;
-    margin: 10px;
-    /* line-height: 100px; */
-    color: white;
-    font-weight: bold;
-    font-size: 2em;
-    text-align: center;
+    color: #fff;
     cursor: pointer;
+    font-size: 2em;
+    font-weight: 700;
+    height: 81px;
+    line-height: 100px;
+    margin: 10px;
+    padding: 5px;
+    position: relative;
+    text-align: center;
+    transition: background-color .5s ease, -webkit-transform .5s ease;
+    transition: background-color .5s ease, transform .5s ease;
+    transition: background-color .5s ease, transform .5s ease, -webkit-transform .5s ease;
+    width: 12%;
   }
+
 
 
   .number-reservation{
@@ -103,12 +116,13 @@
 
   .flex-item-dashboard{
     position: relative;
+    border-radius: 14px ;
     background: tomato;
     transition: background-color 0.5s ease, transform 0.5s ease;
     box-shadow: 17px 20px 40px rgba(0, 0, 0, .21);
     padding: 5px;
-    width: 20%;
-    height: 300px;
+    width: 97%;
+    height: 225px;
     margin: 10px;
     line-height: 100px;
     color: white;
@@ -124,12 +138,13 @@
 
   .flex-item-dashboard-one{
     position: relative;
+    border-radius: 14px;
     background: tomato;
     transition: background-color 0.5s ease, transform 0.5s ease;
     box-shadow: 17px 20px 40px rgba(0, 0, 0, .21);
     padding: 5px;
     width: 80%;
-    height: 700px;
+    height: 624px;
     margin: 10px;
     line-height: 100px;
     color: white;

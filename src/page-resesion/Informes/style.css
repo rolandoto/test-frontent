@@ -28,6 +28,21 @@
   margin-left: 0px;
 }
 
+.button-informe-cosultar-excel{
+  padding: 16px;
+  margin: auto;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  background: #13a722d4;
+  color: white;
+  cursor: pointer;
+  width: 100%;
+  height: auto;
+  margin-left: 0px;
+}
+
 
 .button-informe-camareria-cosultar {
   padding: 16px;

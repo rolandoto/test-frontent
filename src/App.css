@@ -198,6 +198,10 @@ input{
   margin-top: 10px;
 }
 
+.card-two-one{
+  width: 100%;
+}
+
 .display-flex-card{
   display: flex;
     justify-content: space-between;
