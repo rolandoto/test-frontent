@@ -16,6 +16,7 @@ import ServiceInformeGeneral from "../../service/ServiceInformeGeneral";
 import ServiceAuditoria from "../../service/ServiceInformeAuditoria";
 import html2pdf from 'html2pdf.js';
 import { PDFDownloadLink, Document, Page, Text, View, StyleSheet } from '@react-pdf/renderer';
+import { Button } from "@nextui-org/react";
 
 const styles = StyleSheet.create({
   container: {
@@ -71,90 +72,10 @@ const InformeConsolidado = () => {
 
     const componentRef = useRef(null);
 
-  const generatePDF = () => {
-    const options = {
-      filename: 'example.pdf',
-      margin: [20, 20, 20, 20], // Márgenes [izquierdo, superior, derecho, inferior]
-      jsPDF: { format: 'a4', orientation: 'portrait' }, // Opciones de jsPDF
-    };
-
-    html2pdf()
-      .set(options)
-      .from(componentRef.current)
-      .save();
-  };
-
     
     const {jwt} =useContext(AutoProvider)
 
-    const handleChangegastors = event => {
-        let newValue = event.target.value;
-        setGastos(newValue);
-    };
-
-    const handleChangeroomBusy = event => {
-        let newValue = event.target.value;
-        setRoomroomBusy(newValue);
-    };
-
-    const handleChangeroomSell = event => {
-        let newValue = event.target.value;
-        setRoomSell(newValue);
-    };
-
-    const handleChangeefectivoTotal = event => {
-        let newValue = event.target.value;
-        setEfectivoTotal(newValue);
-    };
-
-    const handleChangesetOtrosMedios = event => {
-        let newValue = event.target.value;
-        setOtrosMedios(newValue);
-    };
-
-    const handleChangedolarespesos = event => {
-        let newValue = event.target.value;
-        setDolarespesos(newValue);
-    };
-
-    const handleChangetargetaDebito = event => {
-        let newValue = event.target.value;
-        setTargetaDebito(newValue);
-    };
-
-    const handleChangetargetaCredito = event => {
-        let newValue = event.target.value;
-        setTargetaCredito(newValue);
-    };
-
-    const handleChangetranferencia = event => {
-        let newValue = event.target.value;
-        setTranferencia(newValue);
-    };
-
-    const handleChangepagoAgil = event => {
-        let newValue = event.target.value;
-        setPagoAgil(newValue);
-    };
-    const handleChangebitcon = event => {
-        let newValue = event.target.value;
-        setBitcon(newValue);
-    };
-
-    const handleChangepayoner = event => {
-        let newValue = event.target.value;
-        setPayoner(newValue);
-    };
-
-    const handleChangedolares = event => {
-        let newValue = event.target.value;
-        setDolares(newValue);
-    };
-
-    const handleChangeeuros = event => {
-        let newValue = event.target.value;
-        setEuros(newValue);
-    };
+  
 
     const handleChangeaeropuerto = event => {
         let newValue = event.target.value;
@@ -189,7 +110,6 @@ const InformeConsolidado = () => {
         let newValue = event.target.value;
         setGuro(newValue);
     };
-
 
     const handleChangesnak= event => {
         let newValue = event.target.value;
@@ -246,22 +166,23 @@ const InformeConsolidado = () => {
         })       
     }
 
-
-
     const [auditoria,setAuditoria] =useState()
     const [store,setStore] =useState()
     const [storeOne,setStoreOne] =useState()
     const [LookinforFecha,setLokinforFecha] =useState()
     const [loadingOne,setLoadingOne] =useState({loading:false,error:false})
-
+    const [ocasional,setOcasional] =useState()
+  
     const hadChangeFecha =(e) =>{
         setLokinforFecha(e.target.value)
     }
 
+    console.log({ocasional})
+
     const hanLookingFor =() =>{
         setLoadingOne({loading:true})
         ServiceAuditoria({id:jwt.result.id_hotel,fecha:LookinforFecha}).then(index =>{
-            console.log(index.queryTwo)
+            setOcasional(index.groupedOcasional)
             setAuditoria(index.result)
             setStore(index.queryTwo)
             setStoreOne(index.queryOne)
@@ -272,15 +193,19 @@ const InformeConsolidado = () => {
         })
     }
 
-    console.log({"pruebas": auditoria })
 
-    
     const totalFilterForma = auditoria?.filter(index => index.Forma_pago ==1)
 
     const totalFilterFormaStore = store?.filter(index => index.Forma_pago ==1)
 
     const carritoReserva = storeOne?.filter(index => index.Forma_pago ==1)
 
+    const totalFilterFormaPagoOcasional = ocasional?.filter(index => index.Forma_pago ==1)
+
+
+    //ocasionales
+  
+ 
 
 
     const totalFilterFormaDebito = auditoria?.filter(index => index.Forma_pago ==6)
@@ -319,8 +244,6 @@ const InformeConsolidado = () => {
     }
 
     const tarjetaDebeito = countSix+countOneSix+countTwoSix 
-
-
 
     const totalFilterFormaCredito = auditoria?.filter(index => index.Forma_pago ==7)
 
@@ -435,6 +358,7 @@ const InformeConsolidado = () => {
     const totalFilterFormaTransferencia = auditoria?.filter(index => index.Forma_pago ==2)
     const totalFilterFormaStoreTransferencia= store?.filter(index => index.Forma_pago ==2)
     const carritoReservaTransferencia = storeOne?.filter(index => index.Forma_pago ==2)
+    const totalFilterFormaTransferenciaOcasional = ocasional?.filter(index => index.Forma_pago ==2)
 
 
     let countSixFive =0
@@ -452,6 +376,12 @@ const InformeConsolidado = () => {
         }
     }
 
+    let countSixFiveOcasional =0
+    for(let i =0;i<totalFilterFormaTransferenciaOcasional?.length;i++){
+        const totalwith = parseInt(totalFilterFormaTransferenciaOcasional[i]?.Abono ) 
+        countSixFiveOcasional += totalwith
+    }
+
     let countOneSixFive =0
     for(let i =0;i<totalFilterFormaStoreTransferencia?.length;i++){
         const totalwith = parseInt(totalFilterFormaStoreTransferencia[i]?.total ) 
@@ -464,7 +394,7 @@ const InformeConsolidado = () => {
         countTwoSixFive += totalwith
     }
 
-    const totalTranferencia = countSixFive  + countTwoSixFive + countOneSixFive
+    const totalTranferencia = countSixFive  + countTwoSixFive + countOneSixFive +countSixFiveOcasional
 
     const totalFilterFormaOne = auditoria?.filter(index => index.Forma_pago !=1)
 
@@ -488,10 +418,6 @@ const InformeConsolidado = () => {
         }
     }
 
-    
-
-    
-    
     let count =0
     for(let i =0;i<totalFilterForma?.length;i++){
         if((totalFilterForma[i].Tipo_persona =="empresa")){
@@ -506,7 +432,6 @@ const InformeConsolidado = () => {
             count += parseInt(totalFilterForma[i]?.abono)
         }
     }
-
 
     let countOne =0
     for(let i =0;i<totalFilterFormaStore?.length;i++){
@@ -532,15 +457,18 @@ const InformeConsolidado = () => {
         countFive += totalwith
     }
 
-    const totalEfectivo = countOne +count +countTwo
+    let countOcaioanl =0
+    for(let i =0;i<totalFilterFormaPagoOcasional?.length;i++){
+        const totalwith = parseInt(totalFilterFormaPagoOcasional[i]?.Abono ) 
+        countOcaioanl += totalwith
+    }
+
+    const totalEfectivo = countOne +count +countTwo +countOcaioanl
 
     console.log({"total efectivo": totalEfectivo})
 
 
-    const OtrosMedios  = countThree +countFour +countFive
-
-
-
+    const OtrosMedios  = countThree +countFour +countFive +countSixFiveOcasional 
 
     const handlePrint = useReactToPrint({
         content: () => componentRef.current
@@ -561,11 +489,22 @@ const InformeConsolidado = () => {
 
             <div>
                 <input type="date" className="input-selecto-dasboard-n1-reservaction"  onChange={hadChangeFecha} value={LookinforFecha}   />
-                <br />
-                <br />
-                <button className="button-informe-cosultar" onClick={hanLookingFor}>Consultar</button>
-                <button className="button-informe-consolidado-descargar" >Descargar Informe</button>
-               <button className="button-informe-imprimir"  onClick={handClikcDescargar} >Imprimir</button>
+
+                    <br />
+                    <br />
+                <div className="flex-button-webchekcing4" >
+                <Button  
+                        onClick={hanLookingFor} 
+                        style={{width:"80%"}}
+                        color={"success"}
+                         > <span>Consultar</span></Button>
+                <Button  
+                        onClick={handClikcDescargar} 
+                        style={{width:"80%"}}
+                        color={"error"}
+                         > <span>Imprimir</span></Button>
+                </div>
+               
             </div>
           
       <div className="init-informe  top-one" >
@@ -676,8 +615,6 @@ const FacturaCompany  =({jwt,roomBusy,roomSell,efectivoTotal,otrosMedios,dolares
 
     let docToPrint = React.createRef();
 
-
-
     const [avaible,setAvaible] =useState()
     const [room,setRoom] =useState()
 
@@ -776,6 +713,16 @@ const FacturaCompany  =({jwt,roomBusy,roomSell,efectivoTotal,otrosMedios,dolares
     for(let i =0;i<avaible?.roomByIdIDtypeRoom?.length;i++){
         const totalwith = parseInt(avaible?.roomByIdIDtypeRoom[i]?.abono )
         count  += totalwith
+    }
+
+    let countOcasional =0
+    
+
+    console.log(avaible)
+
+    for(let i =0;i<avaible?.roomByIdIDtypeRoomoOcasioanales?.length;i++){
+        const totalwith = parseInt(avaible?.roomByIdIDtypeRoomoOcasioanales[i]?.abono )
+        countOcasional  += totalwith
     }
 
     const totalIngresosPuntos  = parseInt( aeropuerto ) + parseInt( lavenderia) +   parseInt (turismo) + parseInt( countSeguro) 
@@ -936,14 +883,14 @@ const FacturaCompany  =({jwt,roomBusy,roomSell,efectivoTotal,otrosMedios,dolares
                         </div>
                     </div>
 
-                    <table className="table-factura-One" >
-                        <tr>
-                            <th> <div className="container-block-informe-conslidado"> <span  className="text-font-wei-one-informe let-title-color" > Efectivo total: : </span> <span  className="text-font-wei-one-informe let-title-color" >${totalEfectivooNE.toLocaleString()}</span></div> </th>
-                            <th> <div className="container-block-informe-conslidado"> <span  className="text-font-wei-one-informe let-title-color" > Otros medios::</span> <span  className="text-font-wei-one-informe let-title-color" >$ {OtrosMedios.toLocaleString()}</span> </div> </th>
-                            <th > <div className="container-block-informe-conslidado"> <span  className="text-font-wei-one-informe" > Dolares/Euros en pesos:</span  > <span  className="text-font-wei-one-informe " >{dolarespesos.toLocaleString()}</span> </div> </th>
-                            <th > <div className="container-block-informe-conslidado"> <span className="text-font-wei-one-informe let-title-color  "  > Ingreso Total:    :</span> <span  className="text-font-wei-one-informe let-title-color" >${totalDefinido.toLocaleString()}</span> </div> </th>
-                        </tr>
-                    </table>
+            <table className="table-factura-One" >
+                <tr>
+                    <th> <div className="container-block-informe-conslidado"> <span  className="text-font-wei-one-informe let-title-color" > Efectivo total: : </span> <span  className="text-font-wei-one-informe let-title-color" >${totalEfectivooNE.toLocaleString()}</span></div> </th>
+                    <th> <div className="container-block-informe-conslidado"> <span  className="text-font-wei-one-informe let-title-color" > Otros medios::</span> <span  className="text-font-wei-one-informe let-title-color" >$ {OtrosMedios.toLocaleString()}</span> </div> </th>
+                    <th > <div className="container-block-informe-conslidado"> <span  className="text-font-wei-one-informe" > Dolares/Euros en pesos:</span  > <span  className="text-font-wei-one-informe " >{dolarespesos.toLocaleString()}</span> </div> </th>
+                    <th > <div className="container-block-informe-conslidado"> <span className="text-font-wei-one-informe let-title-color  "  > Ingreso Total:    :</span> <span  className="text-font-wei-one-informe let-title-color" >${totalDefinido.toLocaleString()}</span> </div> </th>
+                </tr>
+            </table>
 
                     <table className="table-factura-One" >
                         <tr>
@@ -998,22 +945,30 @@ const FacturaCompany  =({jwt,roomBusy,roomSell,efectivoTotal,otrosMedios,dolares
                     </table>
 
                     <table className="table-factura-One" >
-                                <tr>
-                                    <th  className="text-font-wei-one-informe"  >Habitación</th>
+                    <tr>
+                                    <th className="text-font-wei-one-informe"  >Habitación</th>
                                     <th className="text-font-wei-one-informe"  >Cantidad</th>
                                     <th  className="text-font-wei-one-informe"  >Ventas</th>
-                                </tr>
-                                
+                                </tr>   
+                                    {avaible?.roomByIdIDtypeRoomoOcasioanales?.map(index  => {
 
-                                    {room?.map(index  => (
-                                        <tr>
-                                            <td>{index.nombre}</td>
-                                            <td>0</td>
-                                            <td>0</td>
+                               
+
+                                     const totalWith = parseInt(index.abono) 
+
+                                    
+                                        return (
+                                            <tr>
+                                            <td>{index.room}</td>
+                                            <td>{index.cantidad}</td>
+                                            <td>${totalWith.toLocaleString()}</td>
                                         </tr>
-                                    ))}
-                                <tr>
-                                    <th className="text-font-wei-one-informe" >Total Amanecida</th>
+                                        )}
+                                     )}
+                                     <tr>
+                                    <th className="text-font-wei-one-informe" >Total Ocasionales </th>
+                                    <th className="text-font-wei-one-informe" >${countOcasional.toLocaleString()}</th>
+                                    
                                 </tr>
                     </table>
 
@@ -1045,6 +1000,7 @@ const FacturaCompany  =({jwt,roomBusy,roomSell,efectivoTotal,otrosMedios,dolares
                                      <tr>
                                     <th className="text-font-wei-one-informe" >Total Hospedaje </th>
                                     <th className="text-font-wei-one-informe" >${count.toLocaleString()}</th>
+                                    
                                 </tr>
                     </table>
                 </div>
