@@ -1082,8 +1082,12 @@ hr.border {
 }
 
 .row-icon-searching > img{
-  width: 100px;
-  object-fit: contain;
+  width: 40px;
+  object-fit: cover;
+  border-bottom-left-radius: 50%;
+  border-top-right-radius: 50%;
+  border-bottom-right-radius: 50%;
+  border-top-left-radius: 50%;
 }
 
 .container-white-searching-for{
