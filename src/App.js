@@ -69,6 +69,7 @@ import Ocacionales from "./page-resesion/Dashboard/Ocacional";
 import InformeContabilidad from "./page-resesion/Informes/InformeContabilidad";
 import Dian from "./page-resesion/Dian";
 import WebChecking from "./page-resesion/webChecking";
+import Dashboardstatistics from "./page/Dashboard";
 
 function App() {
   const { jwt } = useContext(AutoProvider);
@@ -165,6 +166,7 @@ function App() {
             
             <Switch>
               <Route exact path="/" component={Login} />
+              <PrivateRoute exact path="/Dashboardstatistics" component={Dashboardstatistics}    />
               <PrivateRoute exact path="/SearchbyID" component={SearchBYID}    />
               <PrivateRoute exact path="/Ocacionales" component={Ocacionales}    />
               <PrivateRoute exact path="/HomeTypehospedaje" component={HomeTypehospedaje}    />
