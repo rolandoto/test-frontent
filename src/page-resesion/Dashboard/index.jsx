@@ -7,7 +7,6 @@ import Timeline,{
   DateHeader,
   TimelineMarkers,
   CursorMarker,
-
 } from "react-calendar-timeline";
 import containerResizeDetector from 'react-calendar-timeline/lib/resize-detector/container'
 import 'react-calendar-timeline/lib/Timeline.css'
@@ -576,13 +575,14 @@ const Dashboard = () => {
 				</div>
 				<div className="Container-looking-for" >
 					<div className="container-searching-for-reserrvation-logo">	
-
+						
 							{jwt.result.id_permissions ==2 ? 
 							<div className="row-icon-searching" >
 								<span>{jwt.result.hotel}</span>
 							</div> :  
 
 							<StyledContextTyeHotel className="fade-in" valid={validHotel}  top={22} left={41.3} >
+								
 										<StyledMenuItem onClick={handClickValid}>
 												<StyleSpanIcons   ></StyleSpanIcons> 
 												<StyleTitleHotel> {hotel?.nombre} </StyleTitleHotel>
@@ -644,14 +644,15 @@ const Dashboard = () => {
 									/>
 								</div>
 
+								
 								<div className="row-icon-searching"  >
 										{jwt.result.name}
-								</div>		
-
+								</div>	
 								<div className="row-icon-searching"  >
 										<img src="https://github.com/rolandoto/image-pms/blob/main/WhatsApp%20Image%202024-04-19%20at%2010.32.39%20PM.jpeg?raw=true" alt="" />
 								</div>
-					</div>
+
+							</div>
 					
 					</div>
 				</div>
