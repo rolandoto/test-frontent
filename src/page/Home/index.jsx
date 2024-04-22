@@ -1,16 +1,24 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import UseTitle from '../../hooks/UseTitle';
 import { RiStoreLine } from "react-icons/ri";
 import { RiHotelLine } from "react-icons/ri";
 import { IoAnalyticsOutline } from "react-icons/io5";
 import {useHistory} from "react-router-dom"
 import  AutoProvider  from '../../privateRoute/AutoProvider';
-
+import { StyleSpanIcons, StyleTitle, StyledContextTyeHotelConfiguration, StyledMenuItem, StyledMenuItemUser } from '../../stylecomponent/StyleMenu';
+import { PiUserSwitchThin } from "react-icons/pi";
+import useUserUpdateRolesActions from '../../action/useUserUpdateRolesActions';
+import confetti from 'canvas-confetti';
+import UseUsers from '../../hooks/UseUser';
 const Home =() =>{
 
     const {jwt} =useContext(AutoProvider)
-
+    const [contextMenuPosition, setContextMenuPosition] = useState({ top: 0, left: 0 });
+    const [OpenConfiguration,setOpenConfiguration] =useState(false)
     const history = useHistory() 
+
+    const {postUserUpdateRolesById} = useUserUpdateRolesActions()
+    const { login,isError,isLogin} =UseUsers() 
 
     UseTitle({title:"Home"})
     //<ShowBed bed={ray}  />
@@ -31,8 +39,56 @@ const Home =() =>{
          history.push(`/TarifasReservation/${jwt.result.id_hotel}`)
     }
 
+    const handClickConfiguration =() =>{
+		setOpenConfiguration(!OpenConfiguration)
+		setContextMenuPosition({top:76, left: 225})
+	}
+
+
+
+    const HandClickUserUpdtateRoles=async(byIdpermision) =>{
+		try {
+			await postUserUpdateRolesById({id_permissions:byIdpermision,id:jwt.result.id_user})
+			login({username:jwt.result.username,password:"sassadas",hotel:jwt.result.id_hotel})
+			confetti({
+				zIndex: 999,
+				particleCount: 100,
+				spread: 70,
+				origin: { x: 0.50, y: 0.8 }
+			});
+			setOpenConfiguration(false)
+		} catch (error) {
+			console.log("error en el servidor ")
+		}
+	}
+
+
+
     return (
         <div>
+  
+            <div className="Container-looking-for-home">
+                <div className="row-icon-searching" onClick={handClickConfiguration}    >
+					<img src="https://github.com/rolandoto/image-pms/blob/main/WhatsApp%20Image%202024-04-19%20at%2010.32.39%20PM.jpeg?raw=true" alt="" />
+			    </div>
+
+            <div  className="row-icon-searching" >
+            {OpenConfiguration &&  <StyledContextTyeHotelConfiguration className="fade-in" valid={"true"} top={contextMenuPosition.top} left={contextMenuPosition.left} >
+                    <StyledMenuItemUser>
+                        <StyleSpanIcons   > <div className="row-icon-searching"><img src="https://github.com/rolandoto/image-pms/blob/main/WhatsApp%20Image%202024-04-19%20at%2010.32.39%20PM.jpeg?raw=true" alt="" /></div></StyleSpanIcons> 
+                        <StyleTitle>{jwt.result.name}  </StyleTitle>
+                    </StyledMenuItemUser>
+                    <StyledMenuItem  onClick={() => HandClickUserUpdtateRoles(1)} > 
+                        <StyleSpanIcons   > <PiUserSwitchThin   fontSize={30} /></StyleSpanIcons> 
+                        <StyleTitle>Administrador</StyleTitle>
+                    </StyledMenuItem>
+                    <StyledMenuItem   onClick={() => HandClickUserUpdtateRoles(7)}  >
+                        <StyleSpanIcons   > <PiUserSwitchThin   fontSize={30} /></StyleSpanIcons> 
+                        <StyleTitle>Reservas</StyleTitle>
+                    </StyledMenuItem>
+                </StyledContextTyeHotelConfiguration>}
+            </div>
+            </div>
             <div className='container'>
                 <div className='rowMenuCard-home' onClick={handNextHotels} >
                      <h3 class="itemName-home">
