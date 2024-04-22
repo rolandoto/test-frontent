@@ -639,8 +639,8 @@ const Dashboard = () => {
 								onChange={handleInputChange}
 								placeholder="Buscar reservas, invitados y más" />
 					</div>
-					
-					{showContextMenu && <StyledContextMenuSearch className="fade-in" top={85} left={41.3}>
+				
+					{showContextMenu && <StyledContextMenuSearch className="fade-in" top={67} left={41.3}>
 						{resultadosBusqueda?.map((option, index) => {
 							//const today = moment().format('YYYY-MM-DD');//day today
 							return (
