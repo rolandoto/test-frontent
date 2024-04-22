@@ -214,6 +214,9 @@ const InformeConsolidado = () => {
 
     const carritoReservaDebito = storeOne?.filter(index => index.Forma_pago ==6)
 
+    const carritoReservaDebitoOcasioanales = ocasional?.filter(index => index.Forma_pago ==6)
+
+
     let countSix =0
     for(let i =0;i<totalFilterFormaDebito?.length;i++){
         if((totalFilterFormaDebito[i].Tipo_persona =="empresa")){
@@ -243,13 +246,22 @@ const InformeConsolidado = () => {
         countTwoSix += totalwith
     }
 
-    const tarjetaDebeito = countSix+countOneSix+countTwoSix 
+    let countTwoSixOcasionales =0
+    for(let i =0;i<carritoReservaDebitoOcasioanales?.length;i++){
+        const totalwith = parseInt(carritoReservaDebitoOcasioanales[i]?.Abono ) 
+        countTwoSixOcasionales += totalwith
+    }
+
+    const tarjetaDebeito = countSix+countOneSix+countTwoSix  +countTwoSixOcasionales
 
     const totalFilterFormaCredito = auditoria?.filter(index => index.Forma_pago ==7)
 
     const totalFilterFormaStoreCredito= store?.filter(index => index.Forma_pago ==7)
 
     const carritoReservaCredito = storeOne?.filter(index => index.Forma_pago ==7)
+
+    const carritoReservaCreditoOcasionales = ocasional?.filter(index => index.Forma_pago ==7)
+
 
     let countSixTwo =0
     for(let i =0;i<totalFilterFormaCredito?.length;i++){
@@ -278,9 +290,13 @@ const InformeConsolidado = () => {
         countTwoSixTwo += totalwith
     }
 
-    const totalCredito = countSixTwo+countOneSixTwo+countTwoSixTwo 
+    let countTwoSixTwoOcasionales =0
+    for(let i =0;i<carritoReservaCreditoOcasionales?.length;i++){
+        const totalwith = parseInt(carritoReservaCreditoOcasionales[i]?.total ) 
+        countTwoSixTwoOcasionales += totalwith
+    }
 
-
+    const totalCredito = countSixTwo+countOneSixTwo+countTwoSixTwo  +countTwoSixTwoOcasionales
 
     const totalFilterFormaDebitoThree = auditoria?.filter(index => index.Forma_pago ==5)
 
