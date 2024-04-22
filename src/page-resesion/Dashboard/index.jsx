@@ -64,11 +64,8 @@ const socket = io.connect(`${SocketRoute.serverRoute}`);
 const Dashboard = () => {
 
 	const {pathname} = useLocation()
-
-
-	
 	const currentDate = new moment();
-	const {jwt,setJwt,isOpen, setIsOpen} =useContext(AutoProvider)
+	const {jwt,setJwt,isOpen, setIsOpen,dateDasboard,setDatedasrboard} =useContext(AutoProvider)
 	const history = useHistory()
 	const timelineRef = useRef(null);
 	const [raiting,setRaiting]= useState("")
@@ -88,6 +85,7 @@ const Dashboard = () => {
 	const [username,setUsername] =useState("")
     const [contextMenuPosition, setContextMenuPosition] = useState({ top: 0, left: 0 });
 	const [validHotel,setValidHotel] =useState(false)
+
 
 	const { login,isError,isLogin} =UseUsers()
 	const { Img,loading} = Preloading({isLogin})
@@ -202,6 +200,9 @@ const Dashboard = () => {
 		}
 		else if(action =="contabilidadad"){
 			history.push(`/InformeContabilidad`)
+			setOpenMenuInforme(false)
+		}else if(action =="dashboard"){
+			history.push(`/dashboardstatistics`)
 			setOpenMenuInforme(false)
 		}
 	  };
@@ -477,27 +478,15 @@ const Dashboard = () => {
 		  ))
 		}
 	});
-  
-	const [selectedRange, setSelectedRange] = useState({ start: null, end: null });
 
-  	const handleItemSelect = (itemId, e, time) => {
 
-		if (!selectedRange.start) {
-		// Si no hay una fecha de inicio seleccionada, establece la fecha de inicio
-		setSelectedRange({ start: time, end: null });
-		} else {
-		// Si ya hay una fecha de inicio seleccionada, establece la fecha de fin
-		setSelectedRange({ start: selectedRange.start, end: time });
-		}
-  	};
 
 	const horizontalLine = (group) => {
-		switch (group?.ID_estado_habiatcion) {
-			case 5:
-				return ["highlightCheckout"]
-		default:
-			break;
-		}
+		if (group?.ID_estado_habiatcion === 5) {
+			return ["highlightCheckout"]; // Si el grupo cumple con la condición, aplica la clase "highlightCheckout"
+		  } else {
+			return []; // Si no cumple con la condición, no aplica ninguna clase
+		  }
 	};
 
 	//const ResutlRoom = filterRooms(Room,raiting)
@@ -546,6 +535,38 @@ const Dashboard = () => {
 		setShowContextMenu(value.trim() !== '');
 		setRaiting(value.trim() !== "" ? raiting : "")
 	};
+
+	const handleCanvasClick = (groupId, time, event) => {
+		console.log({event})
+		const fecha1 = moment(time).format('YYYY/MM/DD');
+		
+		const handModalText =(e) =>{
+			confirmAlert({
+			  title: '',
+			  
+				  customUI: ({ onClose }) => {
+					const handClick = async() =>{
+						onClose()
+					}
+					const handClickNext =() =>{
+						setDatedasrboard({group:groupId,desdeSinHora:fecha1})
+						history.push("Createreservaction/00000")
+						onClose()
+					}
+					return (
+						<div className="popup-overlay"  >
+							<h4 className="let-letra" >Confirma Creacion de reserva ?</h4>
+							<button  className="react-confirm-alert-button-group" onClick={handClickNext} >Si</button>
+							<button  className="react-confirm-alert-button-group" onClick={ handClick} >No</button>
+					  </div>         
+					);
+				  }
+			})
+		}
+		handModalText()
+	};
+
+
 
 	return (
 		<>		
@@ -626,6 +647,10 @@ const Dashboard = () => {
 								<div className="row-icon-searching"  >
 										{jwt.result.name}
 								</div>		
+
+								<div className="row-icon-searching"  >
+										<img src="https://github.com/rolandoto/image-pms/blob/main/WhatsApp%20Image%202024-04-19%20at%2010.32.39%20PM.jpeg?raw=true" alt="" />
+								</div>
 					</div>
 					
 					</div>
@@ -695,6 +720,7 @@ const Dashboard = () => {
 					</StyledContextMenuTypeRoom>
 				}
 			<Timeline
+				onCanvasClick={handleCanvasClick}
 				groupRenderer={renderGroup}
 				groups={resultadosBusquedaRoom}
 				items={Items}
@@ -707,21 +733,22 @@ const Dashboard = () => {
 				visibleTimeEnd={timeEnd}
 				visibleTimeStart={timeStart}
 				onItemMove={handleItemMove}	
+				
 				resizeDetector={containerResizeDetector}								
 				itemHeightRatio={0.9}                                                             
 				lineHeight={28.4}
 				sidebarWidth={225}
-				showCursorLine
-				sidebarContent={<div>Above The Left</div>}
+				showCursorLine={false}
 				itemRenderer={  ItemRenderer}
 				onItemClick={(itemId, e, time) =>{
 					onItemClick(itemId, e, time)
 				}}
+				
 				now={nowOne}
 				canResize={"both"}
 				itemStyle={{ background: "black" }}
-				onItemSelect={handleItemSelect}
-				>
+				stackItems
+				itemTouchSendsClick>
 				<TimelineHeaders className="list-booking-sticky"   >	
 				<SidebarHeader >
 					{({ getRootProps }) => {
@@ -828,8 +855,9 @@ const Dashboard = () => {
 							
 				</TimelineHeaders>
 				<TimelineMarkers>
-			<CursorMarker />
-			
+				<CursorMarker/>
+  
+						
 			</TimelineMarkers>
 			</Timeline>
 			<Footer 	
