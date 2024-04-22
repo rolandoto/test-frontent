@@ -4,6 +4,8 @@ import { BiTaxi } from "react-icons/bi";
 import { AiOutlineSafetyCertificate ,AiOutlineShoppingCart} from "react-icons/ai";
 import { AiOutlineContainer,AiOutlineCopy ,AiOutlineCreditCard ,AiOutlineBook,AiOutlineFileAdd,AiOutlineFilePpt  ,AiOutlineProfile     } from "react-icons/ai";
 import { IoBedOutline } from "react-icons/io5";
+import { AiOutlineLineChart } from "react-icons/ai";
+
 
 export const contextMenuOptions = [
     { label: 'Asignar tiempo', action: 'asignar',icon:<AiOutlineFieldTime fontSize={20} style={{marginRight:"8px"}}  /> },
@@ -31,6 +33,7 @@ export const contextMenuOptionsInform = [
     { label: 'Informe consolidado', action: 'consolidado' ,icon:<AiOutlineFileAdd  fontSize={20} style={{marginRight:"8px"}} /> },
     { label: 'Informe movimiento', action: 'movimiento' ,icon:<AiOutlineFilePpt  fontSize={20} style={{marginRight:"8px"}} /> },
     { label: 'Informe contabilidad', action: 'contabilidadad' ,icon:<AiOutlineProfile   fontSize={20} style={{marginRight:"8px"}} /> },
+    { label: 'Metricas', action: 'dashboard' ,icon:<AiOutlineLineChart   fontSize={20} style={{marginRight:"8px"}} /> },
 ];
 
 export const contextMenuOptionsReservation = [

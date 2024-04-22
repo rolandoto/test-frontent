@@ -1,0 +1,72 @@
+.letra-dasboard{
+    position: relative;
+    font-size: 33px;
+    font-weight: 700;
+    top: -24px;
+    right: 48px;
+}
+
+.letra-dasboard-one{
+    position: absolute;
+    left: 12px;
+    font-weight: 600;
+    top: 7PX;
+}
+
+.container-dashboard{
+    display: flex;
+}
+
+.contianer-inbox-dasboard{
+    width: 15%;
+}
+
+.border-top{
+    height: 386px !important;
+}
+
+.center-porcentaje{
+    justify-content: center;
+    align-items: initial;
+    flex-direction: column;
+}
+
+.-container-porcentaje-detail{
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+}
+
+.container-webVitals{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.container-detail-pocentaje{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.circle-dashboard{
+    width: 15px; /* Ancho del círculo */
+    height: 15px; /* Altura del círculo */
+    border-radius: 50%; /* Hace que los bordes sean redondeados */
+    background-color: #22C55E; /* Color de fondo verde */
+}
+
+.circle-dashboard-avaible{
+    width: 15px; /* Ancho del círculo */
+    height: 15px; /* Altura del círculo */
+    border-radius: 50%; /* Hace que los bordes sean redondeados */
+    background-color: #668cff; /* Color de fondo verde */
+}
+
+.circle-dashboard-block{
+    width: 15px; /* Ancho del círculo */
+    height: 15px; /* Altura del círculo */
+    border-radius: 50%; /* Hace que los bordes sean redondeados */
+    background-color: #747171; /* Color de fondo verde */
+}

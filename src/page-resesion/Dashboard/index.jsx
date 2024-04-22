@@ -40,7 +40,7 @@ import { IoCalendarOutline } from "react-icons/io5";
 import { VscMenu } from "react-icons/vsc";
 import { HiArrowLeft,HiArrowSmallRight,HiArrowUturnLeft   } from "react-icons/hi2";
 import {contextMenuOptionsHeader, contextMenuOptionsInform, contextMenuOptionsReservation } from "../../stylecomponent/Icons";
-import { StyleSpan, StyleSpanIcons, StyleTitle, StyleTitleHotel, StyledContextMenu, StyledContextMenuSearch, StyledContextMenuTypeRoom, StyledContextTyeHotel, StyledMenuItem, StyledMenuItemSelectedRoom } from "../../stylecomponent/StyleMenu";
+import { StyleSpan, StyleSpanIcons, StyleTitle, StyleTitleHotel, StyledContextMenu, StyledContextMenuSearch, StyledContextMenuTypeRoom, StyledContextTyeHotel, StyledContextTyeHotelConfiguration, StyledMenuItem, StyledMenuItemSelectedRoom, StyledMenuItemUser } from "../../stylecomponent/StyleMenu";
 import { CiSearch } from "react-icons/ci";
 import { BsMenuButtonWide } from "react-icons/bs";
 import { SocketRoute } from "../../config";
@@ -53,6 +53,9 @@ import confetti from "canvas-confetti";
 import Preloading from "../../component/Preloading";
 import { IoIosSwitch } from "react-icons/io";
 import { useLocation } from "react-router-dom/cjs/react-router-dom.min";
+import { PiUserSwitchThin } from "react-icons/pi";
+import { CiUser } from "react-icons/ci";
+import useUserUpdateRolesActions from "../../action/useUserUpdateRolesActions";
 
 
 
@@ -84,11 +87,12 @@ const Dashboard = () => {
 	const [username,setUsername] =useState("")
     const [contextMenuPosition, setContextMenuPosition] = useState({ top: 0, left: 0 });
 	const [validHotel,setValidHotel] =useState(false)
-
-
-	const { login,isError,isLogin} =UseUsers()
+	const [OpenConfiguration,setOpenConfiguration] =useState(false)
+	const { login,isError,isLogin} =UseUsers() 
 	const { Img,loading} = Preloading({isLogin})
-    
+	
+	const {postUserUpdateRolesById} = useUserUpdateRolesActions()
+	
  	const updateLocalStorage =(state) =>{
 		window.localStorage.setItem("check",JSON.stringify(state))
 	}
@@ -110,12 +114,37 @@ const Dashboard = () => {
 		});
 	}
 
+	const HandClickUserUpdtateRoles=async(byIdpermision) =>{
+		try {
+			await postUserUpdateRolesById({id_permissions:byIdpermision,id:jwt.result.id_user})
+			login({username:jwt.result.username,password:"sassadas",hotel:jwt.result.id_hotel})
+			confetti({
+				zIndex: 999,
+				particleCount: 100,
+				spread: 70,
+				origin: { x: 0.50, y: 0.8 }
+			});
+			setOpenConfiguration(false)
+		} catch (error) {
+			console.log("error en el servidor ")
+		}
+	}
+
 	const handClickOpentypeRoom =() =>{
 		setContextMenuPosition({top:125, left: 168})
 		setTypeRoom(!OpenTypeRoom)
 		setOpenMenu(false)
 		setOpenMenuInforme(false)
 		setOpenReservation(false)
+		setOpenConfiguration(false)
+	}
+
+	const handClickConfiguration =() =>{
+		setOpenConfiguration(!OpenConfiguration)
+		setContextMenuPosition({top:76, left: 49})
+		setOpenMenuInforme(false)
+		setOpenReservation(false)
+		setTypeRoom(false)
 	}
 
 	const handClickOpenMenu =() =>{
@@ -124,6 +153,7 @@ const Dashboard = () => {
 		setOpenMenuInforme(false)
 		setOpenReservation(false)
 		setTypeRoom(false)
+		setOpenConfiguration(false)
 	}
 
 	const handClickOpenMenuInforme =() =>{
@@ -131,6 +161,7 @@ const Dashboard = () => {
 		setOpenMenu(false)
 		setOpenReservation(false)
 		setTypeRoom(false)
+		setOpenConfiguration(false)
 		setContextMenuPosition({top:125, left: 130})
 	}
 
@@ -139,6 +170,7 @@ const Dashboard = () => {
 		setOpenMenu(false)
 		setOpenMenuInforme(false)
 		setTypeRoom(false)
+		setOpenConfiguration(false)
 		setContextMenuPosition({top:125, left: 205})
 	}
 
@@ -156,6 +188,7 @@ const Dashboard = () => {
 		setRaiting(option?.group?.toString())
 		setSelectedDay(moment(option?.start_time));
 		setShowContextMenu(false)
+		setOpenConfiguration(false)
 	}
 
 	const handleItemClick = (action) => {
@@ -245,6 +278,8 @@ const Dashboard = () => {
 
 	const {Items,Room,filterRoom
 	} = useSelector((state) => state.ReservationSlice)
+
+	
 
 
 	const filtrarSearchingRoom = (terminoBusqueda) => {
@@ -408,7 +443,6 @@ const Dashboard = () => {
 		const handModalText =(e) =>{
 			confirmAlert({
 			  title: '',
-			  
 				  customUI: ({ onClose }) => {
 	
 					const handClick =async () =>{
@@ -575,14 +609,12 @@ const Dashboard = () => {
 				</div>
 				<div className="Container-looking-for" >
 					<div className="container-searching-for-reserrvation-logo">	
-						
+
 							{jwt.result.id_permissions ==2 ? 
 							<div className="row-icon-searching" >
 								<span>{jwt.result.hotel}</span>
-							</div> :  
-
+							</div>:
 							<StyledContextTyeHotel className="fade-in" valid={validHotel}  top={22} left={41.3} >
-								
 										<StyledMenuItem onClick={handClickValid}>
 												<StyleSpanIcons   ></StyleSpanIcons> 
 												<StyleTitleHotel> {hotel?.nombre} </StyleTitleHotel>
@@ -614,8 +646,6 @@ const Dashboard = () => {
 					
 					{showContextMenu && <StyledContextMenuSearch className="fade-in" top={85} left={41.3}>
 						{resultadosBusqueda?.map((option, index) => {
-						
-						
 							//const today = moment().format('YYYY-MM-DD');//day today
 							return (
 								<StyledMenuItem
@@ -648,11 +678,31 @@ const Dashboard = () => {
 								<div className="row-icon-searching"  >
 										{jwt.result.name}
 								</div>	
-								<div className="row-icon-searching"  >
+								<div className="row-icon-searching" onClick={handClickConfiguration}  >
 										<img src="https://github.com/rolandoto/image-pms/blob/main/WhatsApp%20Image%202024-04-19%20at%2010.32.39%20PM.jpeg?raw=true" alt="" />
 								</div>
 
-							</div>
+								
+							{jwt.result.id_permissions ==7 &&
+								<div  className="row-icon-searching">	
+									{OpenConfiguration &&  <StyledContextTyeHotelConfiguration className="fade-in" valid={validHotel} top={contextMenuPosition.top} left={contextMenuPosition.left} >
+										<StyledMenuItemUser>
+											<StyleSpanIcons   > <div className="row-icon-searching"><img src="https://github.com/rolandoto/image-pms/blob/main/WhatsApp%20Image%202024-04-19%20at%2010.32.39%20PM.jpeg?raw=true" alt="" /></div></StyleSpanIcons> 
+											<StyleTitle>{jwt.result.name}  </StyleTitle>
+										</StyledMenuItemUser>
+										<StyledMenuItem onClick={() => HandClickUserUpdtateRoles(1)} > 
+											<StyleSpanIcons   > <PiUserSwitchThin   fontSize={30} /></StyleSpanIcons> 
+											<StyleTitle>Administrador</StyleTitle>
+										</StyledMenuItem>
+										<StyledMenuItem  onClick={() => HandClickUserUpdtateRoles(7)}  >
+											<StyleSpanIcons   > <PiUserSwitchThin   fontSize={30} /></StyleSpanIcons> 
+											<StyleTitle>Reservas</StyleTitle>
+										</StyledMenuItem>
+									</StyledContextTyeHotelConfiguration>}
+								</div>
+							}
+
+					</div>
 					
 					</div>
 				</div>
@@ -721,7 +771,7 @@ const Dashboard = () => {
 					</StyledContextMenuTypeRoom>
 				}
 			<Timeline
-				onCanvasClick={handleCanvasClick}
+				//onCanvasClick={handleCanvasClick}
 				groupRenderer={renderGroup}
 				groups={resultadosBusquedaRoom}
 				items={Items}

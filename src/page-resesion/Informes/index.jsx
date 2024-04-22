@@ -17,6 +17,7 @@ import { config } from "../../config"
 import ButtonBack from "../../component/ButtonBack"
 import ButtonHome from "../../component/ButtonHome"
 
+
 const InformeAuditoria =() =>{
 
     const [auditoria,setAuditoria] =useState()

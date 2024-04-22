@@ -21,6 +21,8 @@ import { searchSlice } from '../reducers/searchUsersReducers'
 import { apiRoomsOcasional } from '../reducers/apiRoomsOcasionalReducers'
 import { DianSlice } from '../reducers/DianReducer'
 import { PmstraSlice } from '../reducers/pmstraReduccers'
+import { OccupationSlice } from '../reducers/OccupationPorcentajeReducers'
+import { UserUpdateRolesSlice } from '../reducers/UserUpdateRolesReducers'
 
 const persistanceLocalStorageMiddleware = (store) => (next) => (action) => {
 	next(action);
@@ -60,7 +62,9 @@ const store = configureStore ({
         SearchUsers:searchSlice.reducer,
         Ocasioanal:apiRoomsOcasional.reducer,
         Dian:DianSlice.reducer,
-        Trapms:PmstraSlice.reducer
+        Trapms:PmstraSlice.reducer,
+        OccupationPorcentajeSlice:OccupationSlice.reducer,
+        UserUpdateRolesSlice:UserUpdateRolesSlice.reducer
     },
     devTools:true,
     middleware: [persistanceLocalStorageMiddleware],

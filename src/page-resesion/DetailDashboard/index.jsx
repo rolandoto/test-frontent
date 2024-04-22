@@ -100,15 +100,14 @@ const DetailDashboard =() =>{
             return <PageBack />
         }
  
-    return    <DetailDasboard  
+     return    <DetailDasboard  
                     postDetailRoom={postDetailRoom}                
                     DetailDashboard={DetailDashboard} 
                     fetchData={fetchData} 
                     postInsertTarifas={postInsertTarifas}
                     handClickLoading={handClickLoading}
-                    fetchWhatsapp={fetchWhatsapp}
-                    
-                    />}
+                    fetchWhatsapp={fetchWhatsapp}/>
+        }
 
     return (
         <>

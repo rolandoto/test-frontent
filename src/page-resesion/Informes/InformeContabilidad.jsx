@@ -85,8 +85,6 @@ const InformeContabilidad = () =>{
 
                         const totalNum = reservation.Iva == 1 ? totalIvaPerson : valorRoom;
 
-
-
                          const formattedNum = reservation.tipo_persona === "empresa" ? totalIvaPerson : totalNum;
 
                         const city =  reservation?.Ciudad

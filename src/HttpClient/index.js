@@ -990,6 +990,42 @@ const PostReservationClean = ({
 };
 
 
+const PostPorcentajeOccupation = ({ 
+  idHotel,fecha }) => {
+  return fetch(`${config.serverRoute}/api/resecion/HandDasboard`, {
+    method: "POST",
+    headers:{
+      'Content-type':'application/json'
+  },
+    body:JSON.stringify({ idHotel,fecha})
+  })
+  .then((resp) => {
+    if(!resp.ok) throw new Error('Response is not ok')
+    return resp.json();
+  })
+  .then((data) => {
+   return data
+  })
+};
+
+const PostUpdateUserRoles= ({ id_permissions,id }) => {
+  return fetch(`${config.serverRoute}/api/resecion/HandUpdateUserRoles`, {
+    method: "POST",
+    headers:{
+      'Content-type':'application/json'
+  },
+    body:JSON.stringify({ id_permissions,id})
+  })
+  .then((resp) => {
+    if(!resp.ok) throw new Error('Response is not ok')
+    return resp.json();
+  })
+  .then((data) => {
+   return data
+  })
+};
+
+
 export default {
   get,
   post,
@@ -1042,5 +1078,7 @@ export default {
   PostRegisterTRA,
   PostRegisterTRATwo,
   PostInsertSigOpdfbyid,
-  PostReservationClean
+  PostReservationClean,
+  PostPorcentajeOccupation,
+  PostUpdateUserRoles
 };

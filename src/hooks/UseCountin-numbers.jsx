@@ -20,7 +20,10 @@ export default function CountingNumbers({value,className,start = 0,duration = 80
     requestAnimationFrame(animateCount);
   }, [value, duration]);
 
-  return <p className={className}>{Intl.NumberFormat().format(count)}</p>;
+  return <>
+        <p className={className}>{`${Intl.NumberFormat().format(count)}%`}</p>;
+          <p className="absolute end-0	  top-20	 right-0	 left-0	 	 mx-auto flex items-center justify-center font-display text-1 text-green-400" >Ocupacion</p>
+        </>
 }
 const easeOutQuad = (t, b, c, d) => {
   t = t > d ? d : t / d;
