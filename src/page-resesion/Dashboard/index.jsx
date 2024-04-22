@@ -131,7 +131,7 @@ const Dashboard = () => {
 	}
 
 	const handClickOpentypeRoom =() =>{
-		setContextMenuPosition({top:125, left: 168})
+		setContextMenuPosition({top:110, left: 168})
 		setTypeRoom(!OpenTypeRoom)
 		setOpenMenu(false)
 		setOpenMenuInforme(false)
@@ -148,7 +148,7 @@ const Dashboard = () => {
 	}
 
 	const handClickOpenMenu =() =>{
-		setContextMenuPosition({top:125, left: 28})
+		setContextMenuPosition({top:110, left: 28})
 		setOpenMenu(!OpenMenu)
 		setOpenMenuInforme(false)
 		setOpenReservation(false)
@@ -162,7 +162,7 @@ const Dashboard = () => {
 		setOpenReservation(false)
 		setTypeRoom(false)
 		setOpenConfiguration(false)
-		setContextMenuPosition({top:125, left: 130})
+		setContextMenuPosition({top:110, left: 130})
 	}
 
 	const handClickOpenMenuReservation =() =>{
@@ -171,7 +171,7 @@ const Dashboard = () => {
 		setOpenMenuInforme(false)
 		setTypeRoom(false)
 		setOpenConfiguration(false)
-		setContextMenuPosition({top:125, left: 205})
+		setContextMenuPosition({top:110, left: 205})
 	}
 
 	const handExit =() =>{
@@ -610,7 +610,7 @@ const Dashboard = () => {
 							<div className="row-icon-searching" >
 								<span>{jwt.result.hotel}</span>
 							</div>:
-							<StyledContextTyeHotel className="fade-in" valid={validHotel}  top={22} left={41.3} >
+							<StyledContextTyeHotel className="fade-in" valid={validHotel}  top={7} left={41.3} >
 										<StyledMenuItem onClick={handClickValid}>
 												<StyleSpanIcons   ></StyleSpanIcons> 
 												<StyleTitleHotel> {hotel?.nombre} </StyleTitleHotel>

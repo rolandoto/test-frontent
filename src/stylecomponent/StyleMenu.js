@@ -159,6 +159,27 @@ animation: boovBR 0.8s ease forwards;
 `;
 
 
+export const StyledContextTyeHotelConfigurationHome = styled.div`
+top: 67px;
+    position: absolute;
+    width: 300px;
+    right: 40px;
+    overflow: scroll;
+    height: auto;
+    margin: auto;
+    z-index: 1000;
+    padding: 8px;
+    box-shadow: 17px 20px 40px rgba(0, 0, 0, .21);
+    background: #fff;
+    border-radius: 9px;
+-webkit-transform: translateY(-10px);
+-ms-transform: translateY(-10px);
+transform: translateY(-10px);
+-webkit-animation: boovBR 0.8s ease forwards;
+animation: boovBR 0.8s ease forwards;
+`;
+
+
 
 export const StyledContextLoading = styled.div`
   display: flex;
