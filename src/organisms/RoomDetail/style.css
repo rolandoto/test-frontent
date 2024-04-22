@@ -121,7 +121,6 @@
     transition: background-color 0.5s ease, transform 0.5s ease;
     box-shadow: 17px 20px 40px rgba(0, 0, 0, .21);
     padding: 5px;
-    width: 97%;
     height: 225px;
     margin: 10px;
     line-height: 100px;
