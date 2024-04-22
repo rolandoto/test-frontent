@@ -41,10 +41,8 @@ const Home =() =>{
 
     const handClickConfiguration =() =>{
 		setOpenConfiguration(!OpenConfiguration)
-		setContextMenuPosition({top:76, left: 225})
+		setContextMenuPosition({top:76, left: 40})
 	}
-
-
 
     const HandClickUserUpdtateRoles=async(byIdpermision) =>{
 		try {
@@ -64,7 +62,7 @@ const Home =() =>{
 
 
     return (
-        <div>
+        <>
   
             <div className="Container-looking-for-home">
                 <div className="row-icon-searching" onClick={handClickConfiguration}    >
@@ -120,7 +118,7 @@ const Home =() =>{
                      </h3>
                 </div>
             </div>
-        </div>
+        </>
     )
 }
 

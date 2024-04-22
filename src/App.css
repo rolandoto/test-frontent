@@ -379,8 +379,7 @@ input{
   display: flex;
     justify-content: end;
     align-items: center;
-    max-width: 80%;
-    
+    max-width: 99%;
     background: #ffffff !important;
     height: 60px;
     margin-top: 17px;
