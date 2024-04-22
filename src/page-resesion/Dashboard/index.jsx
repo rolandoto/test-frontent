@@ -141,7 +141,7 @@ const Dashboard = () => {
 
 	const handClickConfiguration =() =>{
 		setOpenConfiguration(!OpenConfiguration)
-		setContextMenuPosition({top:76, left: 49})
+		setContextMenuPosition({top:57, left: 49})
 		setOpenMenuInforme(false)
 		setOpenReservation(false)
 		setTypeRoom(false)
@@ -604,12 +604,8 @@ const Dashboard = () => {
 	return (
 		<>		
 			<div> 
-			
-				<div className="container-button">
-				</div>
 				<div className="Container-looking-for" >
 					<div className="container-searching-for-reserrvation-logo">	
-
 							{jwt.result.id_permissions ==2 ? 
 							<div className="row-icon-searching" >
 								<span>{jwt.result.hotel}</span>
