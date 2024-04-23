@@ -172,17 +172,17 @@ const InformeAuditoria =() =>{
         },
       ]
 
-
       useEffect(() =>{
         fetch(`${config.serverRoute}/api/resecion/getTipeDocument`)
       .then(index =>index.json())
       .then(data => setTipoDocumento(data?.query))
   },[])
       
-    
     const totalPriceInforme = count +priceInformeStore+priceInformeStoreOne+priceInformeOcasional+priceInformeCarritoOcasinal
 
     const totalDefinisInforme = totalPriceInforme.toLocaleString();
+
+    console.log(audiFiltrar)
 
     return (
         <ContainerGlobal>
@@ -219,6 +219,8 @@ const InformeAuditoria =() =>{
                    <th>Tipo documento</th>
                    <th>Identificacion</th>
                    <th>Cliente</th>
+                   <th>Personas</th>
+                   <th>valor por dia</th>
                    <th>Exento</th>
                    <th>Total</th>
                </tr>
@@ -232,6 +234,10 @@ const InformeAuditoria =() =>{
                        const PriceWithienda =  parseInt(index.abono)
 
                        const total =  PriceWithienda
+
+                       const hospedados = index.adult + index.nino
+
+                       const totalHhabitacionDia =parseInt(index.valor_habtiacion).toLocaleString()
 
                        const totalDefinid = index.Iva ==1? total : parseInt(index.abono)
 
@@ -254,6 +260,8 @@ const InformeAuditoria =() =>{
                        <td className="width-informe" >{find.nombre}</td>
                        <td className="width-informe" >{index.Num_documento}</td>
                        <td className="width-informe" >{index.Nombre_Person} {index.Apellido}</td>
+                       <td className="width-informe" >{hospedados}</td>
+                       <td className="width-informe" >${totalHhabitacionDia}</td>
                        <td className="width-informe" >${totalDefinit}</td>
                        <td className="width-informe" >${totalDefinit}</td>
                    </tr>  
@@ -276,6 +284,9 @@ const InformeAuditoria =() =>{
                        <td className="width-informe" >{index.Tipo_pago}</td>
                        <td className="width-informe" >{index.Num_documento}</td>
                        <td className="width-informe" >{index.Nombre_persona}</td>
+                       <td className="width-informe" >00000</td>
+                       <td className="width-informe" >00000</td>
+                       <td className="width-informe" >00000</td>
                        <td className="width-informe" >${totalWith}</td>
                        <td className="width-informe" >${totalWith}</td>
                    </tr>  
@@ -296,6 +307,9 @@ const InformeAuditoria =() =>{
                        <td className="width-informe" >{index.Habitacion} </td>
                        <td className="width-informe" >{fecha}</td>
                        <td className="width-informe" >{index.Tipo_forma_pago}</td>
+                       <td className="width-informe" >00000</td>
+                       <td className="width-informe" >00000</td>
+                       <td className="width-informe" >00000</td>
                        <td className="width-informe" >00000</td>
                        <td className="width-informe" >00000</td>
                        <td className="width-informe" >${totalWith}</td>
@@ -321,6 +335,8 @@ const InformeAuditoria =() =>{
                        <td className="width-informe" >{index.Tipo_pago}</td>
                        <td className="width-informe" >000000</td>
                        <td className="width-informe" >0000000 00000</td>
+                       <td className="width-informe" >00000</td>
+                       <td className="width-informe" >00000</td>
                        <td className="width-informe" >${totalWith}</td>
                        <td className="width-informe" >${totalWith}</td>
                    </tr>  
@@ -348,6 +364,8 @@ const InformeAuditoria =() =>{
                        <td className="width-informe" >{find.nombre}</td>
                        <td className="width-informe" >{index.Num_documento}</td>
                        <td className="width-informe" >{index.Nombre_Person} {index.Apellido}</td>
+                       <td className="width-informe" >00000</td>
+                       <td className="width-informe" >00000</td>
                        <td className="width-informe" >${totalWith}</td>
                        <td className="width-informe" >${totalWith}</td>
                    </tr>  
