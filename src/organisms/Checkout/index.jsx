@@ -300,13 +300,11 @@ const CheckoutOrganism =({DetailDashboard,postDetailRoom,fetchDataApiWhatsapp}) 
         .then(data =>setDateEmpresa(data.query[0]))
     },[])
 
-
-
     const handUpdateStatus =() =>{
       const  adeudado =  parseInt(resultDashboard.valor_abono)
       const pago = parseInt(resultDashboard.valor_habitacion)
 
-    if(!cart.find(debt => debt.pago_deuda === 0)){
+    if(!sinIva.find(debt => debt.pago_deuda === 0)){
         if(adeudado >= pago){
             handOpenInvoince()
           }else{
