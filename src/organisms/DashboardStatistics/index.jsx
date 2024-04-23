@@ -7,7 +7,7 @@ import ButtonBack from "../../component/ButtonBack"
 import ButtonHome from "../../component/ButtonHome"
 
 
-const DashboardStatisticsOrganism =({Available,Block,Occupation, NumReservation,NumBlock,NumAvailable }) =>{
+const DashboardStatisticsOrganism =({Available,Block,Occupation, NumReservation,NumBlock,NumAvailable ,InformeMonth}) =>{
 
     return (<ContainerGlobal>
                     <div className="container-dashboard" > 
@@ -23,7 +23,8 @@ const DashboardStatisticsOrganism =({Available,Block,Occupation, NumReservation,
                             NumBlock={NumBlock}
                             NumAvailable={NumAvailable} />
                     </div>
-                    < CardReservationActivity />
+                    < CardReservationActivity 
+                    InformeMonth={InformeMonth}/>
                     </div> 
             </ContainerGlobal>
     )

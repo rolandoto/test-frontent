@@ -669,8 +669,6 @@ const Dashboard = () => {
 									fontSize={30} 
 									/>
 								</div>
-
-								
 								<div className="row-icon-searching"  >
 										{jwt.result.name}
 								</div>	

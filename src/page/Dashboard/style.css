@@ -70,3 +70,15 @@
     border-radius: 50%; /* Hace que los bordes sean redondeados */
     background-color: #747171; /* Color de fondo verde */
 }
+
+.container-date-range-dashboard{
+    color: black;
+    display: flex;
+    justify-content: center;
+}
+
+.date-text{
+    font-size: 16px;
+    background: #e4e6ea;
+
+}

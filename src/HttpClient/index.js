@@ -1026,6 +1026,24 @@ const PostUpdateUserRoles= ({ id_permissions,id }) => {
 };
 
 
+const PostInformeInfomeMetricas= ({ id,fecha }) => {
+  return fetch(`${config.serverRoute}/api/resecion/GetMetricasInformeMonthHotel`, {
+    method: "POST",
+    headers:{
+      'Content-type':'application/json'
+  },
+    body:JSON.stringify({ id,fecha})
+  })
+  .then((resp) => {
+    if(!resp.ok) throw new Error('Response is not ok')
+    return resp.json();
+  })
+  .then((data) => {
+   return data
+  })
+};
+
+
 export default {
   get,
   post,
@@ -1080,5 +1098,6 @@ export default {
   PostInsertSigOpdfbyid,
   PostReservationClean,
   PostPorcentajeOccupation,
-  PostUpdateUserRoles
+  PostUpdateUserRoles,
+  PostInformeInfomeMetricas
 };

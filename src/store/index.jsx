@@ -23,6 +23,8 @@ import { DianSlice } from '../reducers/DianReducer'
 import { PmstraSlice } from '../reducers/pmstraReduccers'
 import { OccupationSlice } from '../reducers/OccupationPorcentajeReducers'
 import { UserUpdateRolesSlice } from '../reducers/UserUpdateRolesReducers'
+import { InformeDashboardSlice } from '../reducers/InformeDashboardReducers'
+
 
 const persistanceLocalStorageMiddleware = (store) => (next) => (action) => {
 	next(action);
@@ -64,7 +66,8 @@ const store = configureStore ({
         Dian:DianSlice.reducer,
         Trapms:PmstraSlice.reducer,
         OccupationPorcentajeSlice:OccupationSlice.reducer,
-        UserUpdateRolesSlice:UserUpdateRolesSlice.reducer
+        UserUpdateRolesSlice:UserUpdateRolesSlice.reducer,
+        InformeDashboardSlice:InformeDashboardSlice.reducer
     },
     devTools:true,
     middleware: [persistanceLocalStorageMiddleware],
