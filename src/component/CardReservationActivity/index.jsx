@@ -27,17 +27,15 @@ const ExportButton = ({ data, filename,color,Value,nameContent }) => {
         </Button>  
     </Tooltip>
     );
-  };
-
+};
 
 const CardReservationActivity =({InformeMonth,selectedDay, 
     setSelectedDay}) =>{
 
-    
-
+    console.log(InformeMonth)
     const Hospedaje = InformeMonth.Totalhospedaje.reduce((acumulador, valorActual) => acumulador + valorActual.abono, 0);
 
-    const Ocasionales = InformeMonth.Ocasionales.reduce((acumulador, valorActual) => acumulador + valorActual.Abono, 0);
+    const Ocasionales = InformeMonth.Ocasionales.reduce((acumulador, valorActual) => acumulador + valorActual.total, 0);
 
     const Minibar = InformeMonth.queryOne.reduce((acumulador, valorActual) => acumulador + valorActual.total_mes, 0);
 
@@ -55,7 +53,7 @@ const CardReservationActivity =({InformeMonth,selectedDay,
 
     const OcasionalesjeExcel = InformeMonth.Ocasionales.map((ItenReservation) => {
         const Fecha =moment(ItenReservation.Fecha).utc().format('YYYY/MM/DD')
-        const Total =  parseInt( ItenReservation.Abono).toLocaleString()
+        const Total =  parseInt( ItenReservation.total).toLocaleString()
         return {Fecha,Total}
     }); 
 
@@ -76,8 +74,62 @@ const CardReservationActivity =({InformeMonth,selectedDay,
         const Fecha =moment(ItenReservation.Fecha_compra).utc().format('YYYY/MM/DD')
         const Total =  parseInt( ItenReservation.Precio).toLocaleString()
         return {Fecha,Total}
-    }); 
+    });     
 
+
+    const exportAllToExcel = () => {
+        // Inicializar un arreglo para contener los datos combinados
+        const allData = [];
+        
+        const maxLength = Math.max(HospedajeExcel.length, OcasionalesjeExcel.length,MinibarjeExcel.length,TiendajeExcel.length,tiendaOcasionalesjeExcel.length);
+        
+        // Iterar sobre los datos de HospedajeExcel
+        for (let i = 0; i < maxLength; i++) {
+            const rowData = {};
+    
+            // Agregar los datos de HospedajeExcel en la primera fila
+            if (HospedajeExcel[i]) {
+                rowData.A = HospedajeExcel[i].Fecha; // Asignar a la columna A
+                rowData.B = HospedajeExcel[i].Total; // Asignar a la columna B
+               
+            }
+
+            if (OcasionalesjeExcel[i]) {
+                rowData.C = OcasionalesjeExcel[i].Fecha; // Asignar a la columna C
+                rowData.D = OcasionalesjeExcel[i].Total; // Asignar a la columna D
+            } 
+            if (MinibarjeExcel[i]) {
+                rowData.E = MinibarjeExcel[i].Fecha; // Asignar a la columna C
+                rowData.F = MinibarjeExcel[i].Total; // Asignar a la columna D
+            } if (TiendajeExcel[i]) {
+                rowData.G = TiendajeExcel[i].Fecha; // Asignar a la columna C
+                rowData.H = TiendajeExcel[i].Total; // Asignar a la columna D
+            }if (tiendaOcasionalesjeExcel[i]) {
+                rowData.I = tiendaOcasionalesjeExcel[i].Fecha; // Asignar a la columna C
+                rowData.J = tiendaOcasionalesjeExcel[i].Total; // Asignar a la columna D
+            } 
+            allData.push(rowData);
+        }
+    
+        // Agregar una fila vacía entre los datos de HospedajeExcel y OcasionalesjeExcel
+    
+    
+        // Iterar sobre los datos de OcasionalesjeExcel
+       
+        // Convertir todos los datos en una hoja de Excel
+        const ws = XLSX.utils.json_to_sheet(allData);
+    
+        // Crear un nuevo libro de trabajo de Excel
+        const wb = XLSX.utils.book_new();
+    
+        // Agregar la hoja al libro de trabajo con el nombre "Sheet 1"
+        XLSX.utils.book_append_sheet(wb, ws, 'Sheet 1');
+    
+        // Guardar el libro de trabajo como un archivo Excel
+        XLSX.writeFile(wb, 'all_data.xlsx');
+    };
+    
+    
 
     return  (
         <div className="flex-item-dashboard-one" style={{backgroundColor:"white" }} >
@@ -167,6 +219,7 @@ const CardReservationActivity =({InformeMonth,selectedDay,
                                 <Tooltip content="Total hospedaje" color="success">
                                     <Button 
                                         size="lg" 
+                                        onClick={exportAllToExcel}
                                         color="success" 
                                         icon={<PiMicrosoftExcelLogoLight 
                                         fontSize={30} />}>{totalHospedaje.toLocaleString()}

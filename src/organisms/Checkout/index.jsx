@@ -313,7 +313,6 @@ const CheckoutOrganism =({DetailDashboard,postDetailRoom,fetchDataApiWhatsapp}) 
         }else{
             toast.error("Minibar adeudada")
         }
-      
     }
     const numberPhone = resultDashboard?.codigo +""+ resultDashboard?.Celular
 
