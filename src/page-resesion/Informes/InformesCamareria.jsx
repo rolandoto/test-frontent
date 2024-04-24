@@ -117,6 +117,18 @@ const ItemCardPago =({className}) => {
         {   
             id:8,
             name:"SANDRA LUPE GIRALDO",
+        },
+        {   
+            id:9,
+            name:"CLARA INES BEDOYA BLANDON",
+        },
+        {   
+            id:10,
+            name:"CINDY JOHANA GUISAO USUGA",
+        },
+        {   
+            id:11,
+            name:"PAOLA ANDREA OSPINA GONZALEZ",
         }
       ]
 
@@ -198,6 +210,8 @@ const InformeCamareria =() =>{
             }
             return accumulator;  // Asegúrate de devolver el acumulador en todos los casos
         }, initialValue);
+
+        console.log(countAdultos)
 
         const filtrarHospedadas = () => {
             let resultadosBusquedaHospedadas = camareria?.filter((elemento, index) => {
