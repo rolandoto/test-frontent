@@ -304,16 +304,15 @@ const CheckoutOrganism =({DetailDashboard,postDetailRoom,fetchDataApiWhatsapp}) 
       const  adeudado =  parseInt(resultDashboard.valor_abono)
       const pago = parseInt(resultDashboard.valor_habitacion)
 
-
-    if(!sinIva.find(debt => debt.pago_deuda === 0)){
-        if(adeudado == pago){
-            handOpenInvoince()
-          }else{
-            toast.error("Habitacion adeudada")
-            }
-    }else{
-        toast.error("Minibar adeudada")
-    }
+        if(!sinIva.find(debt => debt.pago_deuda === 0)){
+            if(adeudado == pago){
+                handOpenInvoince()
+            }else{
+                toast.error("Habitacion adeudada")
+                }
+        }else{
+            toast.error("Minibar adeudada")
+        }
       
     }
     const numberPhone = resultDashboard?.codigo +""+ resultDashboard?.Celular

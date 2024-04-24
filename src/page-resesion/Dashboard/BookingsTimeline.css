@@ -965,9 +965,6 @@ hr.border {
   margin-top: 10px;
 }
 
-.Row-bar:hover{
-  transform:scale(1.1)
-}
 
 
 .Row-bar-reservation{
@@ -979,9 +976,6 @@ hr.border {
   transition: background-color 0.5s ease, transform 0.5s ease;
 }
 
-.Row-bar-reservation:hover{
-  transform:scale(1.1)
-}
 
 
 .row-Container-menu{
