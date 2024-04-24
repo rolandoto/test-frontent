@@ -6,10 +6,34 @@ import { format } from "date-fns";
 import moment from "moment";
 import {Button,Tooltip} from "@nextui-org/react";
 import { PiMicrosoftExcelLogoLight } from "react-icons/pi";
+import * as XLSX from 'xlsx';
 
-const CardReservationActivity =({InformeMonth}) =>{
+const ExportButton = ({ data, filename,color,Value,nameContent }) => {
+    const exportToExcel = () => {
+      const ws = XLSX.utils.json_to_sheet(data);
+      const wb = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, ws, 'Sheet 1');
+      XLSX.writeFile(wb, filename);
+    };
+  
+    return (
+        <Tooltip content={nameContent} color={color}>
+        <Button 
+            size="lg" 
+            onClick={exportToExcel}
+            color={color}
+            icon={<PiMicrosoftExcelLogoLight 
+            fontSize={30} />}>${Value.toLocaleString()}
+        </Button>  
+    </Tooltip>
+    );
+  };
 
-    console.log(InformeMonth)
+
+const CardReservationActivity =({InformeMonth,selectedDay, 
+    setSelectedDay}) =>{
+
+    
 
     const Hospedaje = InformeMonth.Totalhospedaje.reduce((acumulador, valorActual) => acumulador + valorActual.abono, 0);
 
@@ -23,8 +47,36 @@ const CardReservationActivity =({InformeMonth}) =>{
 
     const totalHospedaje = Hospedaje +Ocasionales +Minibar +Tienda +tiendaOcasionales
 
-    const [selectedDay, setSelectedDay] = useState(moment());
+    const HospedajeExcel = InformeMonth.Totalhospedaje.map((ItenReservation) => {
+        const Fecha =moment(ItenReservation.Fecha_pago).utc().format('YYYY/MM/DD')
+        const Total =  parseInt( ItenReservation.abono).toLocaleString()
+        return {Fecha,Total}
+    }); 
 
+    const OcasionalesjeExcel = InformeMonth.Ocasionales.map((ItenReservation) => {
+        const Fecha =moment(ItenReservation.Fecha).utc().format('YYYY/MM/DD')
+        const Total =  parseInt( ItenReservation.Abono).toLocaleString()
+        return {Fecha,Total}
+    }); 
+
+    const MinibarjeExcel =InformeMonth.queryOne.map((ItenReservation) => {
+        const Fecha =moment(ItenReservation.Fecha_compra).utc().format('YYYY/MM/DD')
+        const Total =  parseInt( ItenReservation.total_mes).toLocaleString()
+        return {Fecha,Total}
+    }); 
+
+    const TiendajeExcel =InformeMonth.queryTwo.map((ItenReservation) => {
+        const Fecha =moment(ItenReservation.Fecha_compra).utc().format('YYYY/MM/DD')
+        const Total =  parseInt( ItenReservation.total).toLocaleString()
+        return {Fecha,Total}
+    }); 
+
+
+    const tiendaOcasionalesjeExcel =InformeMonth.queryThree.map((ItenReservation) => {
+        const Fecha =moment(ItenReservation.Fecha_compra).utc().format('YYYY/MM/DD')
+        const Total =  parseInt( ItenReservation.Precio).toLocaleString()
+        return {Fecha,Total}
+    }); 
 
 
     return  (
@@ -62,82 +114,68 @@ const CardReservationActivity =({InformeMonth}) =>{
                                                         <h4 className="let-letra number-reservation letra-dasboard"   >  12 </h4>
                                                         <h4 className="let-letra number-reservation letra-dasboard-one"   > arrivals </h4>
                                                 </li>
-                                            </ul>
+                            </ul>
 
-                                                <div className="container-date-range-dashboard" >
-                                                    <div>     
-                                                        < input className="date-text desde-detail-searching" 
-                                                        type="date" 
-                                                        placeholder="Buscar fecha" 
-                                                        value={selectedDay.format('YYYY-MM-DD')} 
-                                                        />
-                                                    </div>
-                                                </div>
-                                                
-
-                                                   
-            
-                                                <div className="flex gap-4 justify-center items-center" >
-                                                <Tooltip content="Hospedaje" color="success">
-                                                     <Button 
-                                                        size="lg" 
-                                                        color="success" 
-                                                        icon={<PiMicrosoftExcelLogoLight 
-                                                        fontSize={30} />}>{Hospedaje.toLocaleString()}
-                                                    </Button>  
-                                                </Tooltip>
-
-                                                <Tooltip content="Ocasionales" color="error">
-                                                     <Button 
-                                                        size="lg"
-                                                        color="error" 
-                                                        icon={<PiMicrosoftExcelLogoLight fontSize={30} />}>{Ocasionales.toLocaleString()}
-                                                    </Button>  
-                                                </Tooltip>
-
-                                                <Tooltip content="Minibar" color="primary">
-                                                     <Button 
-                                                        size="lg" 
-                                                        color="primary" 
-                                                        icon={<PiMicrosoftExcelLogoLight fontSize={30} />}>{Minibar.toLocaleString()}
-                                                    </Button>  
-                                                </Tooltip>
-                                                <Tooltip content="Tienda" color="warning">
-                                                     <Button 
-                                                            size="lg" 
-                                                            color="warning" 
-                                                            icon={<PiMicrosoftExcelLogoLight 
-                                                            fontSize={30} />}>{Tienda.toLocaleString()}
-                                                    </Button>  
-                                                </Tooltip>
-
-                                                <Tooltip content="Tienda ocasionales" color="secondary">
-                                                     <Button size="lg"
-                                                             color="secondary"
-                                                                icon={<PiMicrosoftExcelLogoLight fontSize={30} />}>{tiendaOcasionales.toLocaleString()}
-                                                    </Button>  
-                                                </Tooltip>
-                                                   
-                                                </div>
+                            <div className="container-date-range-dashboard" >
+                                <div>     
+                                    < input className="date-text desde-detail-searching" 
+                                    type="date" 
+                                    onChange={(e) => setSelectedDay(moment(e.target.value))}
+                                    placeholder="Buscar fecha" 
+                                    value={selectedDay.format('YYYY-MM-DD')} 
+                                    />
+                                </div>
+                        </div>
+                                        
+                        <div className="flex gap-4 justify-center items-center " >
+                                <ExportButton 
+                                    data={HospedajeExcel}
+                                    nameContent="Hospedaje" 
+                                    color={"success"} 
+                                    Value={Hospedaje}
+                                    filename="output.xlsx" />
+                                <ExportButton 
+                                    data={OcasionalesjeExcel} 
+                                    color={"error"} 
+                                    nameContent="Ocasionales" 
+                                    Value={Ocasionales}
+                                    filename="output.xlsx" />
+                                <ExportButton 
+                                    data={MinibarjeExcel} 
+                                    color={"primary"} 
+                                    nameContent="Minibar" 
+                                    Value={Minibar}
+                                    filename="output.xlsx" />
+                                <ExportButton 
+                                    data={TiendajeExcel} 
+                                    color={"warning"} 
+                                    nameContent="Tienda" 
+                                    Value={Tienda}
+                                    filename="output.xlsx" />
+                                <ExportButton 
+                                    data={tiendaOcasionalesjeExcel} 
+                                    color={"success"} 
+                                    nameContent="Tienda Ocasionales" 
+                                    Value={tiendaOcasionales}
+                                    filename="output.xlsx" />
+                        </div>
 
                                                
-                                            <div>
+                        <div>
+                            <div className="flex gap-4 justify-center items-center" >
+                                <br />
+                                <Tooltip content="Total hospedaje" color="success">
+                                    <Button 
+                                        size="lg" 
+                                        color="success" 
+                                        icon={<PiMicrosoftExcelLogoLight 
+                                        fontSize={30} />}>{totalHospedaje.toLocaleString()}
+                                    </Button>  
+                                </Tooltip>
+                            </div>              
+                        </div>
 
-                                            <div className="flex gap-4 justify-center items-center" >
-                                                <br />
-                                                <Tooltip content="Hospedaje" color="success">
-                                                     <Button 
-                                                        size="lg" 
-                                                        color="success" 
-                                                        icon={<PiMicrosoftExcelLogoLight 
-                                                        fontSize={30} />}>{totalHospedaje.toLocaleString()}
-                                                    </Button>  
-                                                </Tooltip>
-
-                                                   
-                                                </div>
-                                                          
-                                </div>
+                                
                         </div>
 
                       

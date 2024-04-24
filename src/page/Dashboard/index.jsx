@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react"
+import React, { useContext, useEffect, useState } from "react"
 import ContainerGlobal from "../../Ui/ContainerGlobal"
 import "./style.css"
 import { motion } from "framer-motion";
@@ -22,6 +22,10 @@ const Dashboardstatistics=() =>{
   
     const {progress} = useProgress({id:"1"})
     const  now = moment().format("YYYY-MM-DD");
+    const [selectedDay, setSelectedDay] = useState(moment());
+
+    console.log(selectedDay)
+
     const {loading,error,occupation
     } = useSelector((state) => state.OccupationPorcentajeSlice)
 
@@ -41,7 +45,7 @@ const Dashboardstatistics=() =>{
     }
 
     const fetchDataFecha =async() =>{
-        await PostByIdhotelInforme({id:jwt.result.id_hotel,fecha:"2024-04-01"})
+        await PostByIdhotelInforme({id:jwt.result.id_hotel,fecha:selectedDay})
     }
 
     const { Available,Block,Occupation,NumReservation,NumBlock,NumAvailable } = occupation;
@@ -49,7 +53,7 @@ const Dashboardstatistics=() =>{
     useEffect(() =>{
         fetchData()
         fetchDataFecha()
-    },[ jwt.result.id_hote])
+    },[ jwt.result.id_hote,selectedDay])
 
 
     const fillContent =() =>{
@@ -73,6 +77,8 @@ const Dashboardstatistics=() =>{
                 NumReservation={NumReservation}
                 NumBlock={NumBlock}
                 NumAvailable={NumAvailable} 
+                selectedDay={selectedDay} 
+                setSelectedDay={setSelectedDay}
                 InformeMonth={InformeMonth}
                  />
     }

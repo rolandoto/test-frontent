@@ -818,9 +818,9 @@ const Dashboard = () => {
 					<div className="row-Container-menu">
 							
 					{avaibleDay ? <>   <input 	className="desde-detail-searching" 
-								type="date" 
-								placeholder="Buscar fecha" 
-								value={selectedDay.format('YYYY-MM-DD')} onChange={(e) => setSelectedDay(moment(e.target.value))}/>
+										type="date" 
+										placeholder="Buscar fecha" 
+										value={selectedDay.format('YYYY-MM-DD')} onChange={(e) => setSelectedDay(moment(e.target.value))}/>
 								<div className="Row-bar"  >
 										<HiArrowUturnLeft fontSize={18}  onClick={handClickAviableDay} />
 										</div>
