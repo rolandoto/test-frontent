@@ -1,16 +1,26 @@
 .letra-dasboard{
-    position: relative;
+    position: absolute;
     font-size: 33px;
     font-weight: 700;
     top: -24px;
-    right: 48px;
+  
+    overflow: hidden;
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: auto;
 }
 
 .letra-dasboard-one{
     position: absolute;
-    left: 12px;
     font-weight: 600;
     top: 7PX;
+    overflow: hidden;
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: auto;
+    max-width: 87%;
 }
 
 .container-dashboard{
@@ -18,7 +28,7 @@
 }
 
 .contianer-inbox-dasboard{
-    width: 15%;
+    width: 335px;
 }
 
 .border-top{
@@ -81,4 +91,10 @@
     font-size: 16px;
     background: #e4e6ea;
 
+}
+
+.row-cardTableRoom{
+    box-shadow: 17px 20px 40px rgba(0, 0, 0, .21);
+    border-radius: 12px;
+    margin: 20px;
 }

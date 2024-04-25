@@ -1051,6 +1051,13 @@ tr {
   margin-top: 1%;
 }
 
+.table-factura-two {
+  width: 100%;
+  margin: auto;
+  box-shadow: none;
+  margin-top: 1%;
+}
+
 .No-person {
   width: 235px;
 }
@@ -1208,6 +1215,12 @@ tr:nth-child(4) {
 
 .table-pdf-room {
   display: flex;
+}
+
+@media (max-width: 1430px) {
+  .table-pdf-room{
+    flex-direction: column;
+  }
 }
 
 .table-pdf-room > table {

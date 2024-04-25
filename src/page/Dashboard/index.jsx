@@ -14,6 +14,7 @@ import moment from "moment";
 import DashboardStatisticsOrganism from "../../organisms/DashboardStatistics";
 import LineProgress from "../../Ui/LineProgress";
 import useInformDashboardMetricas from "../../action/useInformDashboardMetricas";
+import { Progress, Grid } from "@nextui-org/react";
 
 const Dashboardstatistics=() =>{
 
@@ -23,8 +24,6 @@ const Dashboardstatistics=() =>{
     const {progress} = useProgress({id:"1"})
     const  now = moment().format("YYYY-MM-DD");
     const [selectedDay, setSelectedDay] = useState(moment());
-
-    console.log(selectedDay)
 
     const {loading,error,occupation
     } = useSelector((state) => state.OccupationPorcentajeSlice)
@@ -61,9 +60,27 @@ const Dashboardstatistics=() =>{
         if(progress < 100){
             return <LineProgress progress={progress} />
         }if(loading){
-            return <p>...Cargando</p>
+            return  <Grid.Container xs={50} sm={20} gap={2}>
+            <Grid>
+              <Progress
+                indeterminated
+                value={50}
+                color="success"
+                status="success"
+              />
+            </Grid>
+          </Grid.Container>
         }if(loadingDashboard){
-            return <p>...Cargando</p>
+            return <Grid.Container xs={50} sm={20} gap={2}>
+            <Grid>
+              <Progress
+                indeterminated
+                value={50}
+                color="success"
+                status="success"
+              />
+            </Grid>
+          </Grid.Container>
         }if(error){
             return <p>no found</p>
         }if(errorDashboard){

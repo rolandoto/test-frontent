@@ -5,6 +5,7 @@ import CardPorcentaje from "../../component/CardProcentaje"
 import CardReservationActivity from "../../component/CardReservationActivity"
 import ButtonBack from "../../component/ButtonBack"
 import ButtonHome from "../../component/ButtonHome"
+import CardRoomSold from "../../component/CardRoomSold"
 
 
 const DashboardStatisticsOrganism =({Available,Block,Occupation, NumReservation,NumBlock,NumAvailable ,InformeMonth , selectedDay, 
@@ -29,6 +30,8 @@ const DashboardStatisticsOrganism =({Available,Block,Occupation, NumReservation,
                     selectedDay={selectedDay} 
                     setSelectedDay={setSelectedDay}/>
                     </div> 
+
+                    <CardRoomSold InformeMonth={InformeMonth} />
             </ContainerGlobal>
     )
 }

@@ -1026,23 +1026,27 @@ const PostUpdateUserRoles= ({ id_permissions,id }) => {
 };
 
 
-const PostInformeInfomeMetricas= ({ id,fecha }) => {
-  return fetch(`${config.serverRoute}/api/resecion/GetMetricasInformeMonthHotel`, {
-    method: "POST",
-    headers:{
-      'Content-type':'application/json'
-  },
-    body:JSON.stringify({ id,fecha})
-  })
-  .then((resp) => {
-    if(!resp.ok) throw new Error('Response is not ok')
-    return resp.json();
-  })
-  .then((data) => {
-   return data
-  })
-};
+const PostInformeInfomeMetricas = async ({ id, fecha }) => {
+  try {
+    const resp = await fetch(`${config.serverRoute}/api/resecion/GetMetricasInformeMonthHotel`, {
+      method: "POST",
+      headers: {
+        'Content-type': 'application/json'
+      },
+      body: JSON.stringify({ id, fecha })
+    });
 
+    if (!resp.ok) {
+      throw new Error('Response is not ok');
+    }
+
+    const data = await resp.json();
+    return data;
+  } catch (error) {
+    console.error('Error in PostInformeInfomeMetricas:', error);
+    throw error; // Puedes lanzar el error nuevamente o manejarlo de otra manera según tus necesidades
+  }
+};
 
 export default {
   get,
