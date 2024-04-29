@@ -96,7 +96,7 @@
     transition: background-color .5s ease, -webkit-transform .5s ease;
     transition: background-color .5s ease, transform .5s ease;
     transition: background-color .5s ease, transform .5s ease, -webkit-transform .5s ease;
-    width: 12%;
+    width: 160px;
   }
 
 
@@ -150,10 +150,26 @@
     font-weight: bold;
     display: flex;
     justify-content: initial;
-    font-size: 2em;
     text-align: initial;
   }
   
+
+  .flex-item-dashboard-two{
+    position: relative;
+    border-radius: 14px;
+    background: tomato;
+    transition: background-color 0.5s ease, transform 0.5s ease;
+    box-shadow: 17px 20px 40px rgba(0, 0, 0, .21);
+    padding: 5px;
+    /* width: 80%; */
+    /* height: 624px; */
+    margin: 10px;
+    color: white;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    text-align: initial;
+  }
   
   /* Añade animación a la transición para un efecto más suave */
   @keyframes bounce {

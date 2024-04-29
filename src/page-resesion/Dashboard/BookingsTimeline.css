@@ -965,8 +965,6 @@ hr.border {
   margin-top: 10px;
 }
 
-
-
 .Row-bar-reservation{
   background: #f31260;
   align-items: center;
@@ -975,8 +973,6 @@ hr.border {
   border-radius: 28px;
   transition: background-color 0.5s ease, transform 0.5s ease;
 }
-
-
 
 .row-Container-menu{
   display: flex;
