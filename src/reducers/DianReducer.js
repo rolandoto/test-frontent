@@ -1,6 +1,6 @@
 import {createSlice}  from "@reduxjs/toolkit"
 
-export  const DEFAULT_STATE = {
+export  const initialState = {
     ListClient:[],
     Loanding:false,
     error:null,
@@ -11,13 +11,12 @@ export  const DEFAULT_STATE = {
     Payment:[],
     loadingInvoinces:false,
     Pdf:[],
-    sigoBYIDpdf:[]
+    sigoBYIDpdf:[],
+    payabono:[],
+    InvonceByIdReservation:[]
 }
 
-const initialState = (() => {
-	const persistedState = localStorage.getItem("__redux__state__");
-	return persistedState ? JSON.parse(persistedState).Dian : DEFAULT_STATE;
-})();
+
 
 export const DianSlice = createSlice({
     name:"Dian",
@@ -67,6 +66,14 @@ export const DianSlice = createSlice({
             state.sigoBYIDpdf = action.payload
             state.loading = false
         },
+        setPayabono:(state,action) =>{
+            state.payabono = action.payload
+            state.loading = false
+        },
+        setInvonceByIdReservation:(state,action) =>{
+            state.InvonceByIdReservation = action.payload
+            state.loading = false
+        },
         setError:(state,action) =>{
             state.loading = false
             state.error = action.payload
@@ -86,6 +93,8 @@ export const {loading,
                 setLoadingInvonces,
                 setErrorInvoinces,
                 setDianSigoPdf,
-                setPdf} = DianSlice.actions
+                setPayabono,
+                setPdf,
+                setInvonceByIdReservation} = DianSlice.actions
 
 export default DianSlice.reducer

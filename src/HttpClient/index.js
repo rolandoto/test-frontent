@@ -947,13 +947,13 @@ const PostRegisterTRATwo = ({ body, token }) => {
 };
 
 
-const PostInsertSigOpdfbyid = ({ id, id_sigo }) => {
+const PostInsertSigOpdfbyid = ({ id, id_sigo,id_user,fecha }) => {
   return fetch(`${config.serverRoute}/api/resecion/insertpdfsigo`, {
     method: "POST",
     headers:{
       'Content-type':'application/json'
   },
-    body:JSON.stringify({ id, id_sigo})
+    body:JSON.stringify({id,id_sigo,id_user,fecha})
   })
   .then((resp) => {
     if(!resp.ok) throw new Error('Response is not ok')
@@ -1048,6 +1048,46 @@ const PostInformeInfomeMetricas = async ({ id, fecha }) => {
   }
 };
 
+
+const GetPayAbono  = async ({ id}) => {
+  try {
+    const resp = await fetch(`${config.serverRoute}/api/resecion/getPayabono/${id}`, {
+      method: "GET",
+      headers: {
+        'Content-type': 'application/json'
+      }
+    });
+    if (!resp.ok) {
+      throw new Error('Response is not ok');
+    }
+    const data = await resp.json();
+    return data.query;
+  } catch (error) {
+    console.error('Error in PostInformeInfomeMetricas:', error);
+    throw error; // Puedes lanzar el error nuevamente o manejarlo de otra manera según tus necesidades
+  }
+};
+
+
+const GetInvoincesByReservationDian  = async ({ id}) => {
+  try {
+    const resp = await fetch(`${config.serverRoute}/api/resecion/GetFacturacionDianByIdReserva/${id}`, {
+      method: "GET",
+      headers: {
+        'Content-type': 'application/json'
+      }
+    });
+    if (!resp.ok) {
+      throw new Error('Response is not ok');
+    }
+    const data = await resp.json();
+    return data.query;
+  } catch (error) {
+    console.error('Error in PostInformeInfomeMetricas:', error);
+    throw error; // Puedes lanzar el error nuevamente o manejarlo de otra manera según tus necesidades
+  }
+};
+
 export default {
   get,
   post,
@@ -1103,5 +1143,7 @@ export default {
   PostReservationClean,
   PostPorcentajeOccupation,
   PostUpdateUserRoles,
-  PostInformeInfomeMetricas
+  PostInformeInfomeMetricas,
+  GetPayAbono,
+  GetInvoincesByReservationDian
 };

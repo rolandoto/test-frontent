@@ -1,53 +1,53 @@
 import React, { useContext, useEffect, useState } from "react";
-import ContainerGlobal from "../../Ui/ContainerGlobal";
-import HttpClient from "../../HttpClient";
+
 import  AutoProvider  from "../../privateRoute/AutoProvider";
 import UseDianActions from "../../action/useDianActions";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { SocketRoute, config } from "../../config";
-import { useLocation, useParams } from "react-router-dom/cjs/react-router-dom.min";
+import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 import useDetailDashboardAction from "../../action/useDetailDashboardAction";
 import { Card, Loading, Text } from "@nextui-org/react";
 import moment from "moment";
-import { StyleSpan, StyleSpanIcons, StyledContextLoading, StyledContextMenuSearch, StyledMenuItem, StyledMenuItemLoading } from "../../stylecomponent/StyleMenu";
+import { StyleTitleHotel, StyledContextLoading,  StyledMenuItemLoading } from "../../stylecomponent/StyleMenu";
 import toast from "react-hot-toast";
 import ButtonBack from "../../component/ButtonBack";
 import ButtonHome from "../../component/ButtonHome";
 import io from "socket.io-client";
+import PageBack from "../../component/PageBack";
+import LineProgress from "../../Ui/LineProgress";
+import useProgress from "../../hooks/useProgress";
 
 const socket = io.connect(`${SocketRoute.serverRoute}`);
 
 const Dian =() => {
 
-  const {jwt,Dian} = useContext(AutoProvider)
-  const {pathname} = useLocation()
- 
+    const {jwt,Dian} = useContext(AutoProvider)
     const {id} = useParams()
+    const {progress} = useProgress({id})
     const [select,setSelect] =useState([])
-   
-    const [pay,setPay] =useState()
-    const {loading,error,ListClient,typeDocumentDian,seller,products,Payment,loadingInvoinces,Pdf} = useSelector((state) => state.Dian)
-    const to = useSelector((state) => state.Dian)
+    const {loading,error,ListClient,typeDocumentDian,seller,products,Payment,loadingInvoinces,Pdf,payabono} = useSelector((state) => state.Dian)
+    //const to = useSelector((state) => state.Dian)
     const {GetCLientDian,GetTypeDian,GetTSeller,GetTProductsDian,PostSendInvoinces,GetPayment} = UseDianActions()
     const {getDetailReservationById} = useDetailDashboardAction()
+    const {GetPayAbono} =UseDianActions()
     const [selectedItems, setSelectedItems] = useState([]);
 
-  console.log({loadingInvoinces})
-
-
     const {DetailDashboard
-    } = useSelector((state) => state.DetailDashboard)
-
-    const fetchDataDetail =async() =>{
-        await getDetailReservationById({id})
-    }
-
+      } = useSelector((state) => state.DetailDashboard)
+    
+  
     const [username,setUsername] =useState("")
 
     const handChange =(e) =>{
         setUsername(e.target.value)
     } 
 
+    const fetchDataDetail =async() =>{
+      await getDetailReservationById({id})
+  }
+
+
+ 
     const fetchData =async() =>{
         await  GetCLientDian({token:Dian.access_token,document:username})
         await  GetTypeDian({token:Dian.access_token})
@@ -55,10 +55,11 @@ const Dian =() => {
         await  GetTProductsDian({token:Dian.access_token})
         await  GetPayment({token:Dian.access_token})
     } 
+    const fetchDataPayment =async() =>{
+      await  GetPayAbono({id})
+  } 
 
     const resultDashboard = DetailDashboard[0]
-
-
 
     let isFetchingData = true;
 
@@ -77,22 +78,30 @@ const Dian =() => {
       }
     });
 
-  
-
     const totalNum = resultDashboard.Iva == 1 ? true : false;
 
     const typeIva = resultDashboard.tipo_persona === "empresa" ? true : totalNum;
-        
-    const totalPrice =  parseInt(resultDashboard?.valor_habitacion)
-  
+
+   
+
+    const sumWithInitial = payabono.reduce((accumulator, currentValue) => {
+      if (currentValue.Valid_Dian === 0) {
+        return accumulator + currentValue.Abono;
+      }else{
+        return accumulator
+      }
+    }, 0);
+
+    console.log(Boolean(sumWithInitial))
+
+    const totalPrice = sumWithInitial
+
     const totalRound =  totalPrice / 1.19
     const ValorBase = Math.round(totalRound * 100000) / 100000; // Redondear a 5 decimales
 
     const valueSTotalProduct =  typeIva ?  ValorBase : totalPrice
     const valuesPayments = typeIva ? totalPrice :totalPrice
 
-  
-  
     const filteredItems = products?.results?.filter(item =>{
       return  item.id ==jwt?.result?.dian
     }
@@ -137,24 +146,10 @@ const Dian =() => {
 
     const  items =  typeIva ? itemsIva   :itemsExenta
 
-      const groupedAndSummedItems = pay?.reduce((groups, item) => {
-        const code = item.Nombre;
-      
-        if (!groups[code]) {
-          groups[code] = { value: 0, Nombre: "", id: 0, type: "pay" };
-        }
-      
-        groups[code].value += item.Abono;
-        groups[code].Nombre = item.Nombre;
-      
-        // Verificar si el nombre es igual a "Consignaciones" o "Efectivo"
-        return groups;
-      }, {});
-      
-      const payments =[{
-        id: jwt?.result?.id_payment,
-        value:valuesPayments,
-      }]
+    const payments =[{
+      id: jwt?.result?.id_payment,
+      value:valuesPayments,
+    }]
   
     const DateExit = moment(DetailDashboard.Fecha_final).utc().format('YYYY-MM-DD')
 
@@ -196,14 +191,11 @@ const Dian =() => {
       additional_fields: {}
     };   
 
-
     useEffect(() =>{
-      fetch(`${config.serverRoute}/api/resecion/getPayabono/${id}`)
-      .then(resp => resp.json())
-      .then(data=> setPay(data.query))
+      fetchDataPayment()
         fetchData()
         fetchDataDetail()
-    },[username])
+    },[username,id])
 
     const filtrarSearching = (terminoBusqueda) => {
         let resultadosBusqueda = ListClient?.results?.filter((elemento, index) => {
@@ -220,19 +212,22 @@ const Dian =() => {
         return { resultadosBusqueda };
     };
 
+    console.log(sumWithInitial)
+
     const handSubmitInvoinces=async() =>{
-     
-      if(Boolean(resultDashboard.ID_facturacion.trim())){
+      if(sumWithInitial ==0) {
+        toast.error("No se puede facturar no tiene ningun valor pendiente");
+      }else{
+        if(Boolean(resultDashboard.ID_facturacion.trim())){
           toast.error("no se puedes enviar mas facturacion electronica")
       }else{
         if(!loadingInvoinces){
           await PostSendInvoinces({token:Dian.access_token,body:response,id_Reserva:id})
           socket.emit("sendNotification",jwt.result.name);
         }else{
-          toast.error("cargar factura")
-        }
-      
-      } 
+          toast.error("Error factura")
+        }} 
+      }
     }
 
     const toggleSelect = (itemId) => {
@@ -248,98 +243,113 @@ const Dian =() => {
         }
       });
     };  
+
+  const {resultadosBusqueda}  = filtrarSearching(username)
+
+  const FillContent =() =>{
+      if(progress < 100){
+      return <LineProgress progress={progress} />
+      }
+      if(loading){
+        return <p>...cargando</p>
+      }if(error){
+        return  <PageBack />
+      }
+
+      return (<div className="container-bicta" >
+      <div className="contain-search">
+        {loadingInvoinces &&  <StyledContextLoading className="fade-in" top={332} left={39}>
+              <StyledMenuItemLoading>
+
+              <Loading type="default" size="lg" />
+                
+                    </StyledMenuItemLoading>
+          </StyledContextLoading> }
+          
+          <ButtonBack/>
+        <ButtonHome/>
+                <ul className="flex-bedrooms-search">   
+                  <li>
+                      <input  className="input-stores-personality-nine-search"  
+                              name="Ciudad"
+                              onChange={handChange}
+                              value={username}
+                              placeholder="Buscar cliente si esta registrado" />
+                  </li>  
+                  <table>
+                  <StyleTitleHotel> Por favor eleija la persona a la que enviara la factura electronica que sea la correcta  </StyleTitleHotel>
+                  <tbody>
+                    <tr>
+                      <th>Iva</th>
+                      <th>Nombre Completo</th>
+                      <th>Numero Documento </th>
+                      <th>Valor habitacion</th>
+                    </tr>
+                    <tr>
+                     
+                      <td>{typeIva ? "Persona obligaba a pagar iva colombiana o empresa " : " persona exenta  extranjeros"}</td>
+                      <td>{resultDashboard.Nombre} {resultDashboard.Apellido}</td>
+                      <td> {resultDashboard.Num_documento} </td>
+                      <td>{parseInt(resultDashboard.valor_habitacion).toLocaleString()}</td>
+                    </tr>
+                  </tbody>    
+                  </table> 
+                 
+                  <table  className="de "  >
+                      <tbody class="tbody  "  > 
+                                 
+                                  {ListClient?.results?.map(index =>{
+                                      const fullName= `${index.name[0]} ${index.name[1]} `
+                                      
+                                      const typeIdentification =  index.id_type.name
+                                      
+                                      const resulActive =index.active ? "Activo" : "no Activado"
+
+                                      const vat_responsible = index.vat_responsible ? "Responsable de IVA	" :"No responsable de IVA"
+
+                                      const address=`${index.address.address}`
+
+                                      const city = `${index.address.city.country_name}`
+
+                                      const phone  = index?.phones?.[0]?.number
+
+                                      const nameContact = `${index.contacts[0]?.first_name} ${index.contacts[0]?.last_name} `
+                                    
+                                          return (
+                                              <div className={selectedItems.includes(index.id) ? "selected" : "product-card"}     >
+                                               <input
+                                                    type="checkbox"
+                                                    className="checkbox-product"
+                                                    checked={selectedItems.includes(index.id)}
+                                                    onChange={() => toggleSelect(index.id)}
+                                                  />
+
+                                                  <td className=""  >{fullName}</td>
+                                                  <td className=""  >{typeIdentification}</td>
+                                                  <td className="" >{index.identification}</td>
+                                                  <td className="" >{index.check_digit}</td>
+                                                  <td>{index.branch_office}</td>
+                                                  <td>{vat_responsible}</td>
+                                                  <td>{address}</td>
+                                                  <td>{city}</td>
+                                                  <td>{phone}</td>
+                                                  <td>{nameContact}</td>
+                                                  <td>{resulActive}</td>
+                                                  <td>{ selectedItems.includes(index.id) && <button  disabled={loadingInvoinces}
+                                                                                                    onClick={handSubmitInvoinces}  className={`${loadingInvoinces ? "disable-pay" :"pay-button"}`} >Enviar </button> }</td>
+                                          </div>
+                                          )
+                              })}
+                      </tbody>       
+                  </table>
+          </ul>
+      </div>          
+</div>)
+
+    }
+
     
-
-    function generarPDF() {
-      const linkSource = `data:application/pdf;base64,${Pdf?.base64}`;
-      const downloadLink = document.createElement("a");
-      const fileName = "file.pdf";
-      downloadLink.href = linkSource;
-      downloadLink.download = fileName;
-      downloadLink.click();
-  }
-
-    const {resultadosBusqueda}  = filtrarSearching(username)
-
-  
-    return (
-        <div className="container-bicta" >
-                <div className="contain-search">
-                  {loadingInvoinces &&  <StyledContextLoading className="fade-in" top={332} left={39}>
-                        <StyledMenuItemLoading>
-
-                  <Loading type="default" size="lg" />
-                    
-                        </StyledMenuItemLoading>
-              </StyledContextLoading> }
-               
-              <ButtonBack/>
-             <ButtonHome/>
-                    <ul className="flex-bedrooms-search">   
-                            <li>
-                                <input  className="input-stores-personality-nine-search"  
-                                        name="Ciudad"
-                                        onChange={handChange}
-                                        value={username}
-                                        placeholder="Buscar cliente si esta registrado" />
-                            </li>   
-                            <Text  color="error" h4>"Por favor eleija la persona a la que enviara la factura electronica que sea la correcta"</Text>
-                            <Text h4>{typeIva ? "Persona obligaba a pagar iva colombiana o empresa " : " persona exenta  extranjeros"} </Text>
-                            <Text h4>{resultDashboard.Nombre} {resultDashboard.Apellido} </Text>
-                            <Text h4>Documento: {resultDashboard.Num_documento}</Text>
-                            <Text h4>Valor total reserva ${parseInt(resultDashboard.valor_habitacion).toLocaleString()} </Text>
-
-                            <table  className="de "  >
-                                <tbody class="tbody  "  > 
-                                           
-                                            {ListClient?.results?.map(index =>{
-                                                const fullName= `${index.name[0]} ${index.name[1]} `
-                                                
-                                                const typeIdentification =  index.id_type.name
-                                                
-                                                const resulActive =index.active ? "Activo" : "no Activado"
-
-                                                const vat_responsible = index.vat_responsible ? "Responsable de IVA	" :"No responsable de IVA"
-
-                                                const address=`${index.address.address}`
-
-                                                const city = `${index.address.city.country_name}`
-
-                                                const phone  = index?.phones?.[0]?.number
-
-                                                const nameContact = `${index.contacts[0]?.first_name} ${index.contacts[0]?.last_name} `
-                                              
-                                                    return (
-                                                        <div className={selectedItems.includes(index.id) ? "selected" : "product-card"}     >
-                                                         <input
-                                                              type="checkbox"
-                                                              className="checkbox-product"
-                                                              checked={selectedItems.includes(index.id)}
-                                                              onChange={() => toggleSelect(index.id)}
-                                                            />
-        
-                                                            <td className=""  >{fullName}</td>
-                                                            <td className=""  >{typeIdentification}</td>
-                                                            <td className="" >{index.identification}</td>
-                                                            <td className="" >{index.check_digit}</td>
-                                                            <td>{index.branch_office}</td>
-                                                            <td>{vat_responsible}</td>
-                                                            <td>{address}</td>
-                                                            <td>{city}</td>
-                                                            <td>{phone}</td>
-                                                            <td>{nameContact}</td>
-                                                            <td>{resulActive}</td>
-                                                            <td>{ selectedItems.includes(index.id) && <button  disabled={loadingInvoinces}
-                                                                                                              onClick={handSubmitInvoinces}  className={`${loadingInvoinces ? "disable-pay" :"pay-button"}`} >Enviar </button> }</td>
-                                                    </div>
-                                                    )
-                                        })}
-                                </tbody>       
-                            </table>
-                    </ul>
-                </div>          
-        </div>
-    )
+    return (<>{FillContent()}</>)
 }
 
 export default Dian

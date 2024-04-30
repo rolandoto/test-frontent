@@ -18,23 +18,21 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';  
 import { CiEdit } from "react-icons/ci";
 import ServiceAddHuespedes from "../../service/ServiceAddHuespedes";
-import UseListMotels from "../../hooks/UseListMotels";
 import UsePrice from "../../hooks/UsePrice";
 import { SocketRoute, config } from "../../config";
 import ServiDelteReservation from "../../service/ServiDelecteReservation";
-import ServePdf from "../../service/PdfServe";
 import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
 import ServicePayReservationSore from "../../service/ServicePayReservationSore";
-import { VscSymbolEvent ,VscSignOut,VscSearch,VscAccount} from "react-icons/vsc";
+import { VscSymbolEvent ,VscSignOut} from "react-icons/vsc";
 import { VscVerified} from "react-icons/vsc";
 import HttpClient from "../../HttpClient"
 import Swal from 'sweetalert2'
 import ReactTooltip from "react-tooltip";
 import ServiceInfomeMovimiento from "../../service/ServiceInformeMovimiento";
-import { BsBucket ,BsCalendarCheck,BsCheckCircle,BsBell} from "react-icons/bs";
+import {BsCheckCircle,BsBell} from "react-icons/bs";
 import UseModalText from "../../hooks/UseModalText";
-import { Button, Grid, Image, Spacer, Table as table,Tooltip, User } from "@nextui-org/react";
-import { CiBadgeDollar,CiDollar ,CiExport,CiUser,CiCirclePlus} from "react-icons/ci";
+import { Button,Table as table,Tooltip, User } from "@nextui-org/react";
+import { CiBadgeDollar ,CiExport,CiCirclePlus} from "react-icons/ci";
 import { PiUsersLight,PiShoppingBagOpenLight,PiPaypalLogoLight } from "react-icons/pi";
 import { toast } from "react-hot-toast";
 import HistorialDetailReservation from "../../component/HistorialDetailReservation";
@@ -47,20 +45,8 @@ import { FaFilePdf } from "react-icons/fa";
 import UseDianActions from "../../action/useDianActions";
 import ButtonBack from "../../component/ButtonBack";
 import ButtonHome from "../../component/ButtonHome";
+import TableInvoinceDian from "../../component/TableInvoinceDian";
 
-const styles = {
-  fontFamily: "arial",
-  textAlign: "center",
-  padding: "50px",
-};
-
-const btnStyle = {
-  cursor: "pointer",
-  padding: "10px 20px",
-  borderRadius: "5px",
-  outline: "none",
-  fontSize: "20px",
-};
 
 // Estilo para el título
 const titleStyle = {
@@ -102,20 +88,13 @@ const DetailDasboard =(props) =>{
     const [loading,setLoading] =useState({loading:false,error:false})
     const history = useHistory()
     const {jwt,Dian} = useContext(AutoProvider)
-    console.log(Dian)
-    const resultDashboard = DetailDashboard[0]
 
+    const resultDashboard = DetailDashboard[0]
 
     const documentByIdRoom =  resultDashboard?.Num_documento +""+id
     const init  =   moment(resultDashboard?.Fecha_inicio).utc().format('DD/MM/YYYY')
     const fin = moment(resultDashboard?.Fecha_final).utc().format('DD/MM/YYYY')
     const  nowChecking = moment().format("DD/MM/YYYY");
-
-
-
-  
- 
-    
 
     const initOne = moment(resultDashboard?.Fecha_inicio).utc();
     const finOne = moment(resultDashboard?.Fecha_final).utc();
@@ -129,16 +108,11 @@ const DetailDasboard =(props) =>{
 
     const print = () => {
       const input = document.getElementById("printThis");
-     
       const pdf = new jsPDF({
         format: [500, 1100] // Custom size: width = 500, height = 1100 (in units, default is mm)
       });
-
-
       pdf.setFont('helvetica');
       html2canvas(input, {scale:0.1}).then((canvas) => {
-        
-        const imgData = canvas.toDataURL("image/jpeg", 1.0);
         const pdf = new jsPDF({
           orientation: "landscape",
         
@@ -172,7 +146,6 @@ const DetailDasboard =(props) =>{
       pdf.setFontSize(bodyStyle.fontSize);
       pdf.setFontStyle(bodyStyle.fontStyle);
       pdf.text(10, 45, `Realiza:  ${resultDashboard?.Nombre} ${resultDashboard?.Apellido}`);
-
 
       pdf.setTextColor(bodyStyle.textColor);
       pdf.setFontSize(bodyStyle.fontSize);
@@ -270,6 +243,7 @@ const DetailDasboard =(props) =>{
       const [huesped,setHuesped] =useState(false)
       const [consumo,setConsumo] =useState(false)
       const [pago,setPago] =useState(true)
+      const [Invoince,setInvoinces] =useState(false)
       const [historialReservation,setHistorialReservation] =useState(false)
       const [quyery,setQuery] =useState()
       const [documnet,setDocument] = useState()
@@ -289,9 +263,6 @@ const DetailDasboard =(props) =>{
       const [valorSolicitado, setValorSolicitado] = useState('');
       const [DateEmpresa, setDateEmpresa] = useState();
  
-
-      const  {getPdfSigo} =UseDianActions()
-
       const isValidNumber = (value) => {
         const parsedValue = parseFloat(value);
         return !isNaN(parsedValue) && parsedValue >= 0;
@@ -343,6 +314,7 @@ const DetailDasboard =(props) =>{
         setHuesped(true)
         setConsumo(false)
         setPago(false)
+        setInvoinces(false)
         setHistorialReservation(false)
       }
 
@@ -350,6 +322,7 @@ const DetailDasboard =(props) =>{
         setHuesped(false)
         setConsumo(true)
         setPago(false)
+        setInvoinces(false)
         setHistorialReservation(false)
       }
 
@@ -357,6 +330,7 @@ const DetailDasboard =(props) =>{
         setHuesped(false)
         setConsumo(false)
         setPago(true)
+        setInvoinces(false)
         setHistorialReservation(false)
       }
 
@@ -364,7 +338,16 @@ const DetailDasboard =(props) =>{
         setHuesped(false)
         setConsumo(false)
         setPago(false)
+        setInvoinces(false)
         setHistorialReservation(true)
+      }
+
+      const handInvoinceDian=() =>{
+        setHuesped(false)
+        setConsumo(false)
+        setPago(false)
+        setHistorialReservation(false)
+        setInvoinces(true)
       }
 
       function handleOnChange(event) {
@@ -469,22 +452,6 @@ const DetailDasboard =(props) =>{
     const hanClickFacturasElectronica =() =>{
       history.push(`/Dian/${id}`)
    }
-
-  const  GnerarPdf =async() => {
-      await getPdfSigo({id:resultDashboard.ID_facturacion,token:Dian.access_token}).then(itemPdf =>{
-        if (itemPdf.Status !== 500) {
-          toast.success("descargardo factura");
-          const linkSource = `data:application/pdf;base64,${itemPdf?.base64}`;
-          const downloadLink = document.createElement("a");
-          const fileName = "file.pdf";
-          downloadLink.href = linkSource;
-          downloadLink.download = fileName;
-          downloadLink.click();
-        } else {
-          toast.error("Error al descargar");
-        }
-      })
-  }
 
     const handChecking =() =>{
       if(init <=nowChecking){
@@ -857,7 +824,7 @@ var curr = new Date(resultDashboard?.Fecha_inicio);
 curr.setDate(curr.getDate());
 var fecha_inicio = curr.toISOString().substring(0,10);
 
-console.log(typeof(fecha_inicio))
+
 
 var currOne = new Date(resultDashboard?.Fecha_final);
 currOne.setDate(currOne.getDate());
@@ -880,10 +847,8 @@ const numberWithCommas = (event) => {
   return formattedValue;
 };
 
-
-const ButtonValidSigo = Boolean(resultDashboard.ID_facturacion.trim()) ? (
-              // Botón para enviar facturas electrónicas
-              <Button
+/**
+ *  <Button
               icon={<FaFilePdf className="flex-contan" color="white" fontSize={20} />}
               onClick={GnerarPdf}
               disabled={!findFirma}
@@ -891,10 +856,9 @@ const ButtonValidSigo = Boolean(resultDashboard.ID_facturacion.trim()) ? (
               color="error"
             >
               <span className="text-words">Descargar factura Sigo</span>
-            </Button>
-              
-            ) : (
-              <Button
+            </Button>  
+ */
+const ButtonValidSigo =  <Button
               icon={<FaFileInvoice className="flex-contan" color="white" fontSize={20} />}
               onClick={hanClickFacturasElectronica}
               disabled={!findFirma}
@@ -903,10 +867,6 @@ const ButtonValidSigo = Boolean(resultDashboard.ID_facturacion.trim()) ? (
             >
               <span className="text-words">Enviar facturas electrónicas</span>
             </Button>
-            
-);
-
-
 
 
 const  handComprobante =UseModalText({handlModal:print,Text:"Descargar comprobante reserva?"})
@@ -1190,7 +1150,7 @@ const  handleClickEliminar =UseModalText({handlModal:hanDelete,Text:"Estas segur
                   onClick={handChecking}
                      disabled={findFirma}
                     className="button-checking-detail-one-das"
-                    
+                
                     color="success" 
                     icon={( <VscSymbolEvent fontSize={18} className="flex-contan"  color="white" />)}
                      > <span  className="text-words" >Check in</span> </Button>
@@ -1300,7 +1260,9 @@ const  handleClickEliminar =UseModalText({handlModal:hanDelete,Text:"Estas segur
                     <li className={`${huesped ? "desde-detail-three-estados-black-one-finish" :"desde-detail-three-estados" } `} onClick={handHuesped} >Huespedes:  <PiUsersLight fontSize={25}  /> {quyery?.length}  </li>
                     <li className={`${consumo ? "desde-detail-three-estados-black" :"desde-detail-three-estados" } `} onClick={handConsumo} >Consumos: <PiShoppingBagOpenLight fontSize={25} /> {product?.length >0 ?product?.length : 0  }  </li>
                     <li className={`${pago ? "desde-detail-three-estados-black" :"desde-detail-three-estados" } `}  onClick={handPago} >Pagos: <PiPaypalLogoLight  fontSize={25}   /> {product?.length >0 ?product?.length : 0 }   </li>
+                    <li className={`${Invoince ? "desde-detail-three-estados-black" :"desde-detail-three-estados" } `}  onClick={handInvoinceDian}  >Facturas Dian:</li>
                     <li className={`${historialReservation ? "desde-detail-three-estados-black" :"desde-detail-three-estados" } `}  onClick={handhistorial}  >Historial:</li>
+                   
                 </ul>
            { huesped && <Huesped  quyery={quyery}
                                   DetailDashboard={DetailDashboard}
@@ -1342,6 +1304,7 @@ const  handleClickEliminar =UseModalText({handlModal:hanDelete,Text:"Estas segur
           {pago && <Pagos   pagos={resultDashboard}  
                             idReserva={id}
                             typy_buy={typy_buy}   />}
+           {Invoince && <TableInvoinceDian    />}
           {historialReservation && <HistorialDetailReservation />}
         </div>       
       </form>
@@ -1573,6 +1536,8 @@ const Consumo =(props) =>{
           loadinConsumo,
           product} = props
 
+          console.log(product)
+
           const  typy_buy =  [
             {   
                 id:1,
@@ -1650,9 +1615,8 @@ const handleState =(event, index) =>{
   const sumWithInitial = cart.reduce(
     (accumulator, currentValue) => {
       return accumulator + parseInt(currentValue.Price)
-    },
-    0
-  );
+    },0
+    );
 
   if(!habitacion) return null
 
@@ -1724,7 +1688,8 @@ const handleState =(event, index) =>{
                                   )}
                         </select>
                 </TableCell>
-                <TableCell> <span className="pay_Pagado" onClick={() => handPayProduct(row.ID)} >Pagar producto</span></TableCell>
+                <TableCell>  <Button onClick={() => handPayProduct(row.ID)} color="success">Pagar Producto</Button>
+                </TableCell>
                 <TableCell>{row.Nombre_Recepcion}</TableCell>
                   </TableRow>
                           )
@@ -1889,3 +1854,4 @@ const ItemCardPago =({index,typy_buy,setloading}) => {
     )
   
 }
+
