@@ -25,8 +25,6 @@ const TableInvoinceDian =() =>{
 
     const {loading,error,InvonceByIdReservation,sigoBYIDpdf,payabono} = useSelector((state) => state.Dian)
 
-
-
     const sumWithInitial = InvonceByIdReservation.reduce((accumulator, currentValue) => {
         return accumulator + currentValue.Abono;
     }, 0);
@@ -63,6 +61,7 @@ const TableInvoinceDian =() =>{
               <TableRow>
               <TableCell align="right">Fecha</TableCell>
               <TableCell align="right">Pago</TableCell>
+              <TableCell align="right">Nombre Recepcion</TableCell>
               <TableCell align="right">Descargar</TableCell>
               </TableRow>
           </TableHead>
@@ -91,6 +90,7 @@ const TableInvoinceDian =() =>{
               <TableRow>
               <TableCell align="right">{Fecha}</TableCell>
               <TableCell align="right">${itemByIdReservation.Abono.toLocaleString()}</TableCell>
+              <TableCell align="right">{itemByIdReservation.name} {itemByIdReservation.lastname}</TableCell>
               <TableCell align="right" >  
                 <Button
                   onClick={GnerarPdf}
