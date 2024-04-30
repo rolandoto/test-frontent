@@ -20,15 +20,20 @@ const TableInvoinceDian =() =>{
 
     const {id} = useParams()
     const {Dian} = useContext(AutoProvider)
-    const {GetInvonceByIdReservation} =UseDianActions()
+    const {GetInvonceByIdReservation,GetPayAbono} =UseDianActions()
     const  {getPdfSigo} =UseDianActions()
 
-    const {loading,error,InvonceByIdReservation,sigoBYIDpdf} = useSelector((state) => state.Dian)
+    const {loading,error,InvonceByIdReservation,sigoBYIDpdf,payabono} = useSelector((state) => state.Dian)
 
- 
+
+
+    const sumWithInitial = InvonceByIdReservation.reduce((accumulator, currentValue) => {
+        return accumulator + currentValue.Abono;
+    }, 0);
 
     const fetchData = async () => {
         await GetInvonceByIdReservation({id})
+        await GetPayAbono({id})
     }
 
     useEffect(() =>{
@@ -85,7 +90,7 @@ const TableInvoinceDian =() =>{
             return (
               <TableRow>
               <TableCell align="right">{Fecha}</TableCell>
-              <TableCell align="right">{itemByIdReservation.Abono.toLocaleString()}</TableCell>
+              <TableCell align="right">${itemByIdReservation.Abono.toLocaleString()}</TableCell>
               <TableCell align="right" >  
                 <Button
                   onClick={GnerarPdf}
@@ -101,7 +106,7 @@ const TableInvoinceDian =() =>{
           </TableBody>
           <TableHead>
               <TableRow>
-               <TableCell align="right">Total $100.000</TableCell>
+               <TableCell align="right">Total ${sumWithInitial.toLocaleString()}</TableCell>
               </TableRow>
           </TableHead>
           </Table>
