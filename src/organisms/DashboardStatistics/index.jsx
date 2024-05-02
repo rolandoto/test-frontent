@@ -6,6 +6,7 @@ import CardReservationActivity from "../../component/CardReservationActivity"
 import ButtonBack from "../../component/ButtonBack"
 import ButtonHome from "../../component/ButtonHome"
 import CardRoomSold from "../../component/CardRoomSold"
+import CardRoomSoldTWo from "../../component/CardRoomSold/CardRoomSoldTwo"
 
 
 const DashboardStatisticsOrganism =({Available,Block,Occupation, NumReservation,NumBlock,NumAvailable ,InformeMonth , selectedDay, 
@@ -32,6 +33,7 @@ const DashboardStatisticsOrganism =({Available,Block,Occupation, NumReservation,
                     </div> 
 
                     <CardRoomSold InformeMonth={InformeMonth} />
+                    <CardRoomSoldTWo InformeMonth={InformeMonth} />
             </ContainerGlobal>
     )
 }
