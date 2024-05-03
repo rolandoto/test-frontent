@@ -317,7 +317,6 @@ const Dashboard = () => {
 			await getRoomFilterRoom()
 			} catch (error) {
 				console.error("Error fetching data:", error);
-		
 			}
         
     }
@@ -331,7 +330,7 @@ const Dashboard = () => {
 
 	useEffect(() =>{
         fetchData()
-    },[dispatch,isChecked,hotel])
+    },[dispatch,isChecked,hotel,socket])
 
 	let countSeguro =0
 	
