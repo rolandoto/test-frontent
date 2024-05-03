@@ -47,7 +47,6 @@ import ButtonBack from "../../component/ButtonBack";
 import ButtonHome from "../../component/ButtonHome";
 import TableInvoinceDian from "../../component/TableInvoinceDian";
 
-
 // Estilo para el título
 const titleStyle = {
   fontSize: 20,
