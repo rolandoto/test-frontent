@@ -92,6 +92,9 @@ const Dashboard = () => {
 	const { Img,loading} = Preloading({isLogin})
 	
 	const {postUserUpdateRolesById} = useUserUpdateRolesActions()
+
+
+	console.log(socket)
 	
  	const updateLocalStorage =(state) =>{
 		window.localStorage.setItem("check",JSON.stringify(state))
@@ -129,6 +132,10 @@ const Dashboard = () => {
 			console.log("error en el servidor ")
 		}
 	}
+
+
+
+	let isFetchingData = true;
 
 	const handClickOpentypeRoom =() =>{
 		setContextMenuPosition({top:110, left: 168})
@@ -330,7 +337,7 @@ const Dashboard = () => {
 
 	useEffect(() =>{
         fetchData()
-    },[dispatch,isChecked,hotel,socket])
+    },[dispatch,isChecked,hotel,isFetchingData])
 
 	let countSeguro =0
 	
@@ -494,9 +501,10 @@ const Dashboard = () => {
 		return fecha === today ? ["today"] : ['holiday'];
 	}
 
-	let isFetchingData = true;
+
 
 	socket.on("sendNotification", async(data) => {
+		await fetchData()
 		if (isFetchingData) {
 		  isFetchingData = false;
 		  toast.custom((t) => (
