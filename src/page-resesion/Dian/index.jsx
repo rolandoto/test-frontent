@@ -92,7 +92,6 @@ const Dian =() => {
       }
     }, 0);
 
-    console.log(Boolean(sumWithInitial))
 
     const totalPrice = sumWithInitial
 
@@ -101,6 +100,9 @@ const Dian =() => {
 
     const valueSTotalProduct =  typeIva ?  ValorBase : totalPrice
     const valuesPayments = typeIva ? totalPrice :totalPrice
+
+
+    console.log(valueSTotalProduct)
 
     const filteredItems = products?.results?.filter(item =>{
       return  item.id ==jwt?.result?.dian
@@ -146,6 +148,7 @@ const Dian =() => {
 
     const  items =  typeIva ? itemsIva   :itemsExenta
 
+ 
     const payments =[{
       id: jwt?.result?.id_payment,
       value:valuesPayments,
