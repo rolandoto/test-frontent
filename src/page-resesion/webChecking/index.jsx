@@ -135,17 +135,14 @@ const WebChecking =() =>{
     const [progressWidth, setProgressWidth] = useState(0);
     const [reservation] = UseReservation()
     const [information,setInformation] =useState()
-
-
-   
+    const [loading,setLoading] =useState(false)
     const [imagePath, setImagePath] = useState("");
     const [imageOne,setImageOne] =useState("")
 
     const  documentUse = UseDocument()
- 
-
-    const docu = documentUse.document?.find(index =>  index?.ID == information?.ID_Tipo_documento)
+    const docu = documentUse.document?.find(index =>  index?.ID == information?.ID_document)
     
+    console.log(information)
 
     const handNex =() =>{
         setCheckBox(checkbox + 1)
@@ -155,13 +152,13 @@ const WebChecking =() =>{
         }
     }
 
-    console.log({information})
-
     const handleFile = async () => {
-        
+        setLoading(true)
         HttpClient.UploadImage({file1:imagePath,file2:imageOne,ID:information?.codigobyId}).then(index =>{
+            setLoading(false)
             handNex()
         }).catch(e =>{
+            setLoading(false)
             Swal.fire({
                 position: 'center',
                 icon: 'error',
@@ -169,6 +166,7 @@ const WebChecking =() =>{
                 showConfirmButton: false,
                 timer: 1000
               })
+             
         })
     };
    
@@ -286,7 +284,7 @@ const WebChecking =() =>{
                     <div className="row-flex-webchecking"   >
                         <li className="li-webchecking" > <span className="font-size-span" >  {information.Celular}</span></li>
                         <li className="li-webchecking" > <span className="font-size-span" > {docu?.nombre}</span></li>
-                        <li className="li-webchecking" > <span className="font-size-span" > </span></li>
+                        <li className="li-webchecking" > <span className="font-size-span" > </span>{information?.Num_Room}</li>
                        
                     </div>
 
@@ -326,6 +324,7 @@ const WebChecking =() =>{
 
             <Spacer x={0.1} y={0.5} />
                 <Button  
+                    disabled={loading}
                     onClick={handleFile}
                     style={{width:"100%",height:"50px"}} 
                     auto color={"success"}

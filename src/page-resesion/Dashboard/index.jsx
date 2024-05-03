@@ -130,9 +130,6 @@ const Dashboard = () => {
 		}
 	}
 
-
-
-	
 	const handClickOpentypeRoom =() =>{
 		setContextMenuPosition({top:110, left: 168})
 		setTypeRoom(!OpenTypeRoom)
@@ -491,6 +488,8 @@ const Dashboard = () => {
 		}, 100);
 	}
 */
+
+
 	const verticalLineClassNamesForTime = (timeStart, timeEnd) => {
 		const today = moment().format('YYYY-MM-DD');//day today
 		const fecha = moment(timeStart).format('YYYY-MM-DD');//day range of calendario
@@ -501,6 +500,7 @@ const Dashboard = () => {
 
 
 	socket.on("sendNotification", async(data) => {
+		 setIsChecked(!isChecked);
 		if (isFetchingData) {
 		  isFetchingData = false;
 		  toast.custom((t) => (
@@ -514,8 +514,6 @@ const Dashboard = () => {
 		  ))
 		}
 	});
-
-
 
 	const horizontalLine = (group) => {
 		if (group?.ID_estado_habiatcion === 5) {
