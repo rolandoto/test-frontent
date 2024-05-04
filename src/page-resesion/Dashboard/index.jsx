@@ -18,18 +18,16 @@ import { VscSymbolEvent } from "react-icons/vsc";
 import {BsBell} from "react-icons/bs";
 import UseListMotels from "../../hooks/UseListMotels";
 import { CiBadgeDollar } from "react-icons/ci";
-import {  Spacer, Switch} from '@nextui-org/react';
+
 import Footer from "../../component/Footer/Footer";
 import io from "socket.io-client";
 import { toast } from "react-hot-toast";
 import ItemRenderer from "./ItemRender";
-import IntervalRenderer from "./IntervalRender";
 import renderGroup from "./RenderGroup";
 import intervalRendererday from "./IntervalRenderDay";
 import intervalRendererdayNum from "./IntervalRendererdayNum";
 import { useDispatch, useSelector } from "react-redux";
 import useReservationActions from "../../action/useReservationActions";
-import UseFilterRooms from "../../hooks/useFilterRooms";
 import useUpdateDetailPointerActions from "../../action/useUpdateDetailPointerActions";
 import { confirmAlert } from "react-confirm-alert";
 import useUpdateDetailPounterRangeSliceActions from "../../action/useUpdateDetailPounterRangeSliceActions";
@@ -46,7 +44,6 @@ import { BsMenuButtonWide } from "react-icons/bs";
 import { SocketRoute } from "../../config";
 import { RxDropdownMenu } from "react-icons/rx";
 import { IoNotificationsOutline } from "react-icons/io5";
-import { RxSwitch } from "react-icons/rx";
 import { BsArrowDown } from "react-icons/bs";
 import UseUsers from "../../hooks/UseUser";
 import confetti from "canvas-confetti";
@@ -56,20 +53,16 @@ import { useLocation } from "react-router-dom/cjs/react-router-dom.min";
 import { PiUserSwitchThin } from "react-icons/pi";
 import { CiUser } from "react-icons/ci";
 import useUserUpdateRolesActions from "../../action/useUserUpdateRolesActions";
-
-
+import useSocket from "../../hooks/UseSocket";
 
 //https://railway.grupo-hoteles.com
-const socket = io.connect(`${SocketRoute.serverRoute}`);
-
+//const socket = io.connect(`${SocketRoute.serverRoute}`);
 
 const Dashboard = () => {
 
-	const {pathname} = useLocation()
 	const currentDate = new moment();
 	const {jwt,setJwt,isOpen, setIsOpen,dateDasboard,setDatedasrboard} =useContext(AutoProvider)
 	const history = useHistory()
-	const timelineRef = useRef(null);
 	const [raiting,setRaiting]= useState("")
 	const {iduser} = UseListMotels()
 	const message  =jwt?.result?.photo
@@ -89,7 +82,7 @@ const Dashboard = () => {
 	const [validHotel,setValidHotel] =useState(false)
 	const [OpenConfiguration,setOpenConfiguration] =useState(false)
 	const { login,isError,isLogin} =UseUsers() 
-	const { Img,loading} = Preloading({isLogin})
+	const { Img} = Preloading({isLogin})
 	
 	const {postUserUpdateRolesById} = useUserUpdateRolesActions()
 	
@@ -102,6 +95,11 @@ const Dashboard = () => {
 	const handClickValid =() =>{
 		setValidHotel(!validHotel)
 	}
+
+	const socket = useSocket();
+
+	
+	
 
 	const handleItemClickHotel =(action) =>{
 		login({username:jwt.result.username,password:"sassadas",hotel:action.id_hotel})
@@ -126,7 +124,7 @@ const Dashboard = () => {
 			});
 			setOpenConfiguration(false)
 		} catch (error) {
-			console.log("error en el servidor ")
+			console.error("error en el servidor ")
 		}
 	}
 
@@ -258,11 +256,6 @@ const Dashboard = () => {
 			setTypeRoom(false)
 	  };
 	
-	
-
-	//const resultIdhotel =  jwt.result.id_hotel ="23"
-
-	//localStorage.setItem('jwt', resultIdhotel);
   const handleChange = (event) => {
 	updateLocalStorage(event)
     setIsChecked(event);
@@ -278,8 +271,6 @@ const Dashboard = () => {
 
 	const {Items,Room,filterRoom
 	} = useSelector((state) => state.ReservationSlice)
-
-	
 
 
 	const filtrarSearchingRoom = (terminoBusqueda) => {
@@ -321,16 +312,27 @@ const Dashboard = () => {
         
     }
 
+	useEffect(() => {
+		if (socket) {
+			socket.on("sendNotification", async(data) => {
+				console.log("hello socekt")
+				fetchData()
+				toast.success("Se creo una reserva")
+		});
+		}
+	}, [socket]);
+
+
+
 	const FindIdHotel=(hotel) =>{
 		return hotel.id_hotel == jwt.result.id_hotel
 	}
 	
-
 	const hotel = iduser.find(FindIdHotel)
 
 	useEffect(() =>{
         fetchData()
-    },[dispatch,isChecked,hotel])
+    },[isChecked,dispatch,isChecked,hotel])
 
 	let countSeguro =0
 	
@@ -385,6 +387,7 @@ const Dashboard = () => {
 			Total=totalDiaPat
 		}
 
+		
 		const handModalText =(e) =>{
 			confirmAlert({
 			  title: '',
@@ -396,13 +399,16 @@ const Dashboard = () => {
 							postUpdateDetailPointer({ id: itemId, Fecha_final: fecha,countSeguro ,type:"subir"});
 							socket.emit("sendNotification",message);
 							setUpdateFilterReservation(newReservation)
+							onClose()
 						}else{
-							newReservation[ReservationIndex].end_time = time
-							postUpdateDetailPointer({ id: itemId, Fecha_final: fecha,countSeguro ,type:"bajar"});
 							socket.emit("sendNotification",message);
+							newReservation[ReservationIndex].end_time = time
+							postUpdateDetailPointer({ id: itemId, Fecha_final: fecha,countSeguro ,type:"bajar"})
 							setUpdateFilterReservation(newReservation)
+						
+							onClose()
 						}
-						onClose()
+						
 				}
 					return (
 						<div className="popup-overlay"  >
@@ -496,24 +502,6 @@ const Dashboard = () => {
 		return fecha === today ? ["today"] : ['holiday'];
 	}
 
-	let isFetchingData = true;
-
-
-	socket.on("sendNotification", async(data) => {
-		 setIsChecked(!isChecked);
-		if (isFetchingData) {
-		  isFetchingData = false;
-		  toast.custom((t) => (
-		  <>
-			<footer class="nav-notifiacation">
-				  <div className="row-notification">
-					<h5>{data} envio una facturacion electronica  </h5>
-				  </div>
-			</footer>
-		  </>
-		  ))
-		}
-	});
 
 	const horizontalLine = (group) => {
 		if (group?.ID_estado_habiatcion === 5) {
@@ -571,7 +559,7 @@ const Dashboard = () => {
 	};
 
 	const handleCanvasClick = (groupId, time, event) => {
-		console.log({event})
+		
 		const fecha1 = moment(time).format('YYYY/MM/DD');
 		
 		const handModalText =(e) =>{
@@ -601,7 +589,7 @@ const Dashboard = () => {
 	};
 
 
-
+	
 	return (
 		<>		
 			<div> 
