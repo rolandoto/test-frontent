@@ -32,8 +32,6 @@ const Dashboardstatistics=() =>{
   
     const { jwt } = useContext(AutoProvider);
 
-    
-    
     const fetchData = async () => {
         if (jwt && jwt.result && jwt.result.id_hotel) {
             await getOccupationPorcentaje({ fecha: now, idHotel: jwt.result.id_hotel });
