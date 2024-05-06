@@ -12,14 +12,20 @@ import UsePrice from "../../hooks/UsePrice";
 import   AutoProvider  from "../../privateRoute/AutoProvider";
 import { useContext } from "react";
 import { config } from "../../config";
+import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 
 const Invoince =({resultDashboard=[],carts=[],dataCount,setInvoice,priceCart,client,identification,raiting,handLoading,loading,handLoadingOne,sinIvaCart,tienda,handSubmitInsertCartOne,hancCheckout,lastname,fechaFinal,formattedNum,formatoIva,valorTotalIva,nacionalidad,
     correo}) =>{
-        
+
+
+
+    const {id} = useParams()
     const dispatch  = useDispatch()
-    const t= moment().format();   
-    let today = new Date(t)
-    const day = today.toISOString().split('T')[0]
+    
+    const [query,setQuery] =useState()
+
+    console.log(query?.length)
+
     const date = moment().set({ hour: 0, minute: 0, second: 0 }).format('YYYY-MM-DD');
     const [preloading,setPreloading] =useState(false)
    
@@ -29,7 +35,7 @@ const Invoince =({resultDashboard=[],carts=[],dataCount,setInvoice,priceCart,cli
     const {jwt} = useContext(AutoProvider)
     let componentRef = useRef();
     let componetRefSinDian = useRef()
-
+    
     const totalResultPrice = priceCart  *19/100
 
     const resultSinIva = sinIvaCart  *19/100
@@ -189,8 +195,6 @@ const Invoince =({resultDashboard=[],carts=[],dataCount,setInvoice,priceCart,cli
 
       const typePay =  typy_buy?.find(index =>index.id  == raiting)
 
-      console.log(typePay)
-
      useEffect(()  =>{
         fetch(`${config.serverRoute}/api/resecion/informationByIdHotel/${jwt.result.id_hotel}`)
         .then(resp => resp.json())
@@ -198,6 +202,10 @@ const Invoince =({resultDashboard=[],carts=[],dataCount,setInvoice,priceCart,cli
         .catch(e  => {
             console.log(e)
         }) 
+        fetch(`${config.serverRoute}/api/resecion/getdetailchecking/${id}`)
+        .then(resp => resp.json())
+        .then(data=> setQuery(data?.query))
+  
      },[setInformacion])
 
      //{totalId ?   <span></span> :   <span className="p title-invoince-cart" >RES DIAN {searchingHotel?.Res_dian}</span>}  
@@ -316,7 +324,7 @@ const Invoince =({resultDashboard=[],carts=[],dataCount,setInvoice,priceCart,cli
                                 <span className="title-invoince-cart">CC/NIT: {identification} </span> 
                                 <span className="title-invoince-cart">Nacionalidad: {nacionalidad} </span> 
                                 <span className="title-invoince-cart">Email: {correo} </span> 
-
+                                <span className="title-invoince-cart">Huespedes: {query?.length} </span> 
 
                                 <div className="details-invoince atm" >
                                         <span className="title-invoince-cart" >Detalles </span>
@@ -460,6 +468,8 @@ const Invoince =({resultDashboard=[],carts=[],dataCount,setInvoice,priceCart,cli
                                 <span className="title-invoince-cart">CC/NIT: {identification} </span> 
                                 <span className="title-invoince-cart">Nacionalidad: {nacionalidad} </span> 
                                 <span className="title-invoince-cart">Email: {correo} </span> 
+                                <span className="title-invoince-cart">Huespedes: {query?.length} </span> 
+
 
 
                                         <div className="details-invoince atm" >
