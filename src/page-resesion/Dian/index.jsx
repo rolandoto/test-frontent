@@ -27,7 +27,7 @@ const Dian =() => {
     const [select,setSelect] =useState([])
     const {loading,error,ListClient,typeDocumentDian,seller,products,Payment,loadingInvoinces,Pdf,payabono} = useSelector((state) => state.Dian)
     //const to = useSelector((state) => state.Dian)
-    const {GetCLientDian,GetTypeDian,GetTSeller,GetTProductsDian,PostSendInvoinces,GetPayment} = UseDianActions()
+    const {GetCLientDian,GetTypeDian,GetTSeller,GetTProductsDian,PostSendInvoinces,GetPayment,valid} = UseDianActions()
     const {getDetailReservationById} = useDetailDashboardAction()
     const {GetPayAbono} =UseDianActions()
     const [selectedItems, setSelectedItems] = useState([]);
@@ -225,8 +225,10 @@ const Dian =() => {
           toast.error("no se puedes enviar mas facturacion electronica")
       }else{
         if(!loadingInvoinces){
-          await PostSendInvoinces({token:Dian.access_token,body:response,id_Reserva:id})
-          socket.emit("sendNotification",jwt.result.name);
+          if(!valid){
+            await PostSendInvoinces({token:Dian.access_token,body:response,id_Reserva:id})
+            socket.emit("sendNotification",jwt.result.name);
+          }
         }else{
           toast.error("Error factura")
         }} 

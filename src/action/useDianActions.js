@@ -17,7 +17,7 @@ import { setClient,
         setInvonceByIdReservation
         } from "../reducers/DianReducer"
 import { toast } from "react-hot-toast";
-import { useContext } from "react";
+import { useCallback, useContext, useState } from "react";
 import  AutoProvider  from "../privateRoute/AutoProvider";
 import moment from "moment";
 import ServiceInfomeMovimiento from "../service/ServiceInformeMovimiento";
@@ -94,17 +94,16 @@ const UseDianActions =() =>{
         }
     }
 
-    const PostSendInvoinces = async ({ token, body, id_Reserva }) => {
-        // Utiliza una variable de estado para controlar si ya se ha enviado la factura
-        let invoiceSent = false;
+    const [valid,setValidDian] = useState(null);
+  
+    const PostSendInvoinces = useCallback(({ token, body, id_Reserva }) => {
         dispatch(setLoadingInvonces());
         HttpClient.PostCreatebill({ token, body }).then((itemResponse =>{ 
-                invoiceSent = true;
+                setValidDian(itemResponse.id)
                 if (Boolean(itemResponse.id.trim())) {
                         HttpClient.PostInsertSigOpdfbyid({  id:id_Reserva,id_sigo:itemResponse.id,id_user:jwt.result.id_user,fecha:now }).then((item => {
                             ServiceInfomeMovimiento({Nombre_recepcion:jwt.result.name,Fecha:now,Movimiento:`Se envio facturacion electronica a Nombre  ${body.customer.name}`,id:jwt.result.id_hotel,Valor_habitacion:0,Codigo_reserva:"0000"}).then(index =>{
                             }).catch(e =>{
-                              
                         })
                         dispatch(setDian(itemResponse));
                         dispatch(setPayment(itemResponse));
@@ -112,31 +111,13 @@ const UseDianActions =() =>{
                         })).catch(e =>{
                             toast.error("error al insertar en el reserva")
                         })
-
                         history.push(`/DetailDashboard/${id_Reserva}`);
-
-                       
-                }else{
-                        HttpClient.PostInsertSigOpdfbyid({  id:id_Reserva,id_sigo:  "123456789" }).then((item => {
-                    
-                         dispatch(setDian(itemResponse));
-                        dispatch(setPayment(itemResponse));
-                            toast.success("Se guarado correctamente la facturacion")
-                        })).catch(e =>{
-                            toast.error("error al insertar en el reserva")
-                        })
-
-                        ServiceInfomeMovimiento({Nombre_recepcion:jwt.result.name,Fecha:now,Movimiento:`Se envio facturacion electronica a Nombre  ${body.customer.name}`,id:jwt.result.id_hotel,Valor_habitacion:0,Codigo_reserva:"0000"}).then(index =>{
-                          }).catch(e =>{
-                             
-                          })
-                          history.push(`/DetailDashboard/${id_Reserva}`);
                 }
             })).catch(e =>{
                 toast.error("error ")
                 dispatch(setErrorInvoinces());
             })
-    }
+    },[])
 
     const GetPayment =async({token}) =>{
         dispatch(loading())
@@ -231,7 +212,8 @@ const UseDianActions =() =>{
             GetPayment,
             getPdfSigo,
             GetPayAbono,
-            GetInvonceByIdReservation
+            GetInvonceByIdReservation,
+            valid
            }
 }
 
