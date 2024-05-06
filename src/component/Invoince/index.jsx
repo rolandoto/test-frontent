@@ -354,7 +354,7 @@ const Invoince =({resultDashboard=[],carts=[],dataCount,setInvoice,priceCart,cli
                             <h6 className="p title-invoince " >Califica nuestro servicio</h6>
                             <img className="image-qr" src="https://github.com/rolandoto/image-pms/blob/main/qr.jpeg?raw=true" alt="" />
                         
-                            <span className="invoince grupo title-invoince-cart to-cart-grupo" >WWW.GRUPO-HOTLELES.COM</span>
+                        
                         </div>            
                 </div>      
                 </div>
@@ -498,7 +498,7 @@ const Invoince =({resultDashboard=[],carts=[],dataCount,setInvoice,priceCart,cli
                                     <h6 className="p title-invoince " >Califica nuestro servicio</h6>
                                     <img className="image-qr" src="https://github.com/rolandoto/image-pms/blob/main/qr.jpeg?raw=true" alt="" />
                                 
-                                    <span className="invoince grupo title-invoince-cart to-cart-grupo" >WWW.GRUPO-HOTLELES.COM</span>
+                                   
                                 </div>            
                         </div>      
                         </div>
