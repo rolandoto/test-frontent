@@ -21,15 +21,17 @@ import { useCallback, useContext, useState } from "react";
 import  AutoProvider  from "../privateRoute/AutoProvider";
 import moment from "moment";
 import ServiceInfomeMovimiento from "../service/ServiceInformeMovimiento";
+import { useSelector } from "react-redux";
 
 const UseDianActions =() =>{
 
     const history = useHistory()
     const now = moment().utc().format('YYYY-MM-DD')
+    const {Dian} = useSelector((state) => state.Dian)
 
     const {jwt} =useContext(AutoProvider)
 
-    console.log(jwt)
+ 
 
     const dispatch =  useAppDispatch()
     
@@ -98,26 +100,48 @@ const UseDianActions =() =>{
   
     const PostSendInvoinces = useCallback(({ token, body, id_Reserva }) => {
         dispatch(setLoadingInvonces());
-        HttpClient.PostCreatebill({ token, body }).then((itemResponse =>{ 
-                setValidDian(itemResponse.id)
+        HttpClient.PostCreatebill({ token, body })
+            .then((itemResponse) => { 
+                setValidDian(itemResponse.id);
                 if (Boolean(itemResponse.id.trim())) {
-                        HttpClient.PostInsertSigOpdfbyid({  id:id_Reserva,id_sigo:itemResponse.id,id_user:jwt.result.id_user,fecha:now }).then((item => {
-                            ServiceInfomeMovimiento({Nombre_recepcion:jwt.result.name,Fecha:now,Movimiento:`Se envio facturacion electronica a Nombre  ${body.customer.name}`,id:jwt.result.id_hotel,Valor_habitacion:0,Codigo_reserva:"0000"}).then(index =>{
-                            }).catch(e =>{
-                        })
-                        dispatch(setDian(itemResponse));
-                        dispatch(setPayment(itemResponse));
-                            toast.success("Se guarado correctamente la facturacion")
-                        })).catch(e =>{
-                            toast.error("error al insertar en el reserva")
-                        })
-                        history.push(`/DetailDashboard/${id_Reserva}`);
+                    HttpClient.PostInsertSigOpdfbyid({  
+                        id: id_Reserva,
+                        id_sigo: itemResponse.id,
+                        id_user: jwt.result.id_user,
+                        fecha: now 
+                    }).then((item) => {
+                        ServiceInfomeMovimiento({
+                            Nombre_recepcion: jwt.result.name,
+                            Fecha: now,
+                            Movimiento: `Se envio facturacion electronica a Nombre  ${body.customer.name}`,
+                            id: jwt.result.id_hotel,
+                            Valor_habitacion: 0,
+                            Codigo_reserva: "0000"
+                        }).then(() => {
+                            dispatch(setDian(itemResponse));
+                            dispatch(setPayment(itemResponse));
+                            toast.success("Se guardó correctamente la facturación");
+                            history.push(`/DetailDashboard/${id_Reserva}`);
+                        }).catch((error) => {
+                            // Manejar errores en ServiceInfomeMovimiento
+                            toast.error("Error en ServiceInfomeMovimiento: " + error.message);
+                            dispatch(setErrorInvoinces("error"));
+                        });
+                    }).catch((error) => {
+                        // Manejar errores en HttpClient.PostInsertSigOpdfbyid
+                        toast.error("Error en HttpClient.PostInsertSigOpdfbyid: " + error.message);
+                        dispatch(setErrorInvoinces("error"));
+                    });
                 }
-            })).catch(e =>{
-                toast.error("error ")
-                dispatch(setErrorInvoinces());
-            })
-    },[])
+            }).catch((error) => {
+                // Manejar errores en HttpClient.PostCreatebill
+                toast.error("Error en HttpClient.PostCreatebill: " + error.message);
+                dispatch(setErrorInvoinces("error"));
+            });
+    }, []);
+    
+    
+
 
     const GetPayment =async({token}) =>{
         dispatch(loading())
