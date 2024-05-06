@@ -244,7 +244,9 @@ const Invoince =({resultDashboard=[],carts=[],dataCount,setInvoice,priceCart,cli
                                 <span className="title-invoince-cart" >Tipo pago: {raiting}</span>
                                 <span className="title-invoince-cart">Cliente: {client} {lastname} </span>  
                                 <span className="title-invoince-cart">CC/NIT: {identification} </span> 
-
+                                <span className="title-invoince-cart">Nacionalidad: {nacionalidad} </span> 
+                                <span className="title-invoince-cart">Email: {correo} </span> 
+                                <span className="title-invoince-cart">Huespedes: {query?.length} </span> 
 
                                         <div className="details-invoince atm" >
                                                 <span className="title-invoince-cart" >Detalles </span>
