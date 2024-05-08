@@ -20,7 +20,7 @@ const CardTikets =({Username,Lastname,id_huesped,Id_hotel,handChange,Fecha,Numbe
           
                 <div className="cardWrap">
                     <div className="card cardLeft">
-                        <h1>Tikect <span>Desayuno</span></h1>
+                        <h1 className="title-tikects" >Tikect <span>Desayuno</span></h1>
                         <div className="title">
                         </div>
                         <div className="name">
@@ -37,7 +37,7 @@ const CardTikets =({Username,Lastname,id_huesped,Id_hotel,handChange,Fecha,Numbe
                             <div className="eye"></div>
                             <div className="number">
                             <h3>156</h3>
-                            <span>Numero</span>
+                            <span className="title-numer">Numero</span>
                             </div>
                             <div className="barcode"><Button  onClick={handChangeAll}  color={"success"} size={"xs"} >Generar Factura</Button></div>
                         </div>

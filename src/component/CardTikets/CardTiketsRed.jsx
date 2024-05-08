@@ -7,7 +7,7 @@ const CardTiketsRed =({Username,Lastname}) =>{
 
     return (<div className="cardWrap">
                 <div className="card-one cardLeft">
-                    <h1>Tikect <span>Desayuno</span></h1>
+                    <h1 className="title-tikects" >Tikect <span>Desayuno</span></h1>
                     <div className="title">
                     </div>
                     <div className="name">
@@ -22,9 +22,9 @@ const CardTiketsRed =({Username,Lastname}) =>{
                     </div>
                     <div className="card-one cardRight">
                         <div className="eyeone"></div>
-                        <div className="number">
+                        <div className="numberone">
                         <h3>156</h3>
-                        <span>Numero</span>
+                        <span className="title-numer" >Numero</span>
                         </div>
                     </div>
             </div>)
