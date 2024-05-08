@@ -1,0 +1,198 @@
+
+/* Estilos de la tarjeta */
+.cardWrap {
+    width: 27em;
+    margin: 3em auto;
+    color: #fff;
+    font-family: sans-serif;
+  }
+  
+  .card {
+    background: linear-gradient(to bottom, #17c964 0%, #17c964 26%, #ecedef 26%, #ecedef 100%);
+    height: 15em;
+    float: left;
+    position: relative;
+    padding: 1em;
+  }
+  
+  .cardLeft {
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+    width: 16em;
+  }
+  
+  .cardRight {
+    width: 8.5em;
+    border-left: .18em dashed #fff;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+  }
+  
+  .cardRight:before,
+  .cardRight:after {
+    content: "";
+    position: absolute;
+    display: block;
+    width: .9em;
+    height: .9em;
+    background: #fff;
+    border-radius: 50%;
+    left: -.5em;
+  }
+  
+  .cardRight:before {
+    top: -.4em;
+  }
+  
+  .cardRight:after {
+    bottom: -.4em;
+  }
+  
+  /* Estilos de los textos */
+  h1 {
+    font-size: 1.1em;
+    margin-top: 0;
+  }
+  
+  .title,
+  .name,
+  .seat,
+  .time {
+    text-transform: uppercase;
+    font-weight: normal;
+  }
+  
+  .title h2 {
+    font-size: .9em;
+    color: #525252;
+    margin: 0;
+  }
+  
+  .title span,
+  .name span {
+    font-size: .7em;
+    color: #a2aeae;
+  }
+  
+  .title {
+    margin: 2em 0 0 0;
+  }
+  
+  .name,
+  .seat {
+    margin: .7em 0 0 0;
+  }
+  
+  .time {
+    margin: .7em 0 0 1em;
+  }
+  
+  .seat,
+  .time {
+    float: left;
+  }
+  
+  /* Estilos del ojo */
+  .eye {
+    position: relative;
+    width: 2em;
+    height: 1.5em;
+    background: #fff;
+    margin: 0 auto;
+    border-radius: 1em/0.6em;
+    z-index: 1;
+  }
+  
+  .eye:before,
+  .eye:after {
+    content: "";
+    display: block;
+    position: absolute;
+    border-radius: 50%;
+  }
+  
+  .eye:before {
+    width: 1em;
+    height: 1em;
+    background: #17c964;
+    z-index: 2;
+    left: 8px;
+    top: 4px;
+  }
+  
+  .eye:after {
+    width: .5em;
+    height: .5em;
+    background: #fff;
+    z-index: 3;
+    left: 12px;
+    top: 8px;
+  }
+  
+  /* Estilos del número */
+  .number {
+    text-align: center;
+    text-transform: uppercase;
+  }
+  
+  .number h3 {
+    color: #17c964;
+    margin: .9em 0 0 0;
+    font-size: 2.5em;
+  }
+  
+  .number span {
+    display: block;
+    color: #a2aeae;
+  }
+  
+  /* Estilos del código de barras */
+  .barcode {
+    height: 2em;
+    width: 0;
+    margin: 1.2em 0 0 0.0em;
+    
+  }
+  
+  .title-name{
+    font-size: 0.9em;
+    color: #525252;
+    margin: 0;
+  }
+
+  .span-title-breafast{
+    font-size: .7em;
+    color: #a2aeae;
+  }
+
+  .card-one {
+    background: linear-gradient(to bottom, #f31260 0%, #f31260 26%, #ecedef 26%, #ecedef 100%);
+    height: 15em;
+    float: left;
+    position: relative;
+    padding: 1em;
+  }
+
+  .eyeone:before {
+    width: 1em;
+    height: 1em;
+    background: f31260;
+    z-index: 2;
+    left: 8px;
+    top: 4px;
+  }
+  
+  .eyeone:after {
+    width: .5em;
+    height: .5em;
+    background: #fff;
+    z-index: 3;
+    left: 12px;
+    top: 8px;
+  }
+
+  .numberone h3 {
+    color: #f31260;
+    margin: .9em 0 0 0;
+    font-size: 2.5em;
+  }

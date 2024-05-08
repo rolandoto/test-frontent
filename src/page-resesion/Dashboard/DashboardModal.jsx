@@ -502,12 +502,14 @@ const DashboardModal = (props) => {
 
         const findRoomOne =  room?.find(index => index?.id_tipoHabitacion == fecha)
         
+
+        console.log(jwt)
      
       
           const handClickReservation = async () => {
             if(huespe.every(isValidGuest)){
                 setLoadingReservation({loading:true})
-                ServiceAvaiblereservation({desde:dataAvaible.desde,hasta:dataAvaible.hasta,habitaciones:dataAvaible.habitaciones,disponibilidad:dataAvaible.disponibilidad,id_estados_habitaciones:0,ID_Canal:change.canal_reserva,Adultos:change.adultos,Ninos:change.niños,ID_Talla_mascota:change.talla_perro,Infantes:change.infantes,Noches:ResultDay,huespe,Observacion:change.observacion,valor:totalResultglobal,ID_Tipo_Forma_pago:change.ID_Tipo_Forma_pago,abono:change.abono,valor_habitacion:valor_habiatcion,Tipo_persona:tipoPersonas,valor_dia_habitacion:default_Value,resepcion:jwt.result.name,link:"https://test-frontent-n9ec.vercel.app/webchecking",id_hotel:jwt.result.id_hotel,nowOne,ID_facturacion:change.factutacion}).then(index =>{
+                ServiceAvaiblereservation({desde:dataAvaible.desde,hasta:dataAvaible.hasta,habitaciones:dataAvaible.habitaciones,disponibilidad:dataAvaible.disponibilidad,id_estados_habitaciones:0,ID_Canal:change.canal_reserva,Adultos:change.adultos,Ninos:change.niños,ID_Talla_mascota:change.talla_perro,Infantes:change.infantes,Noches:ResultDay,huespe,Observacion:change.observacion,valor:totalResultglobal,ID_Tipo_Forma_pago:change.ID_Tipo_Forma_pago,abono:change.abono,valor_habitacion:valor_habiatcion,Tipo_persona:tipoPersonas,valor_dia_habitacion:default_Value,resepcion:jwt.result.name,link:"https://test-frontent-n9ec.vercel.app/webchecking",id_hotel:jwt.result.id_hotel,nowOne,ID_facturacion:change.factutacion,id_user:jwt.result.id_user}).then(index =>{
                     setLoadingReservation({loading:false}) 
                     socket.emit("sendNotification",message);
                     setCreateReservation(true)
@@ -517,10 +519,7 @@ const DashboardModal = (props) => {
                         title: '<p>Reserva creada</p>',
                         showConfirmButton: false,
                         timer: 500
-                      })    
-
-                      console.log({"sdasdjhasjdashdhsajd":index.codigo})
-
+                      }) 
                   ServiceInfomeMovimiento({Nombre_recepcion:jwt.result.name,Fecha:now,Movimiento:`Creación reserva tipo habitacion  ${findRoomOne.nombre} ${totalFindRoom.Numero} valor habitacion: ${valor_habiatcion}`,id:jwt.result.id_hotel,Valor_habitacion:valor_habiatcion,Codigo_reserva:index.codigo}).then(index =>{
                     setTimeout(() =>{
                        history.push("/home")

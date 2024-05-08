@@ -100,7 +100,9 @@ const UseDianActions =() =>{
   
     const PostSendInvoinces = useCallback(({ token, body, id_Reserva }) => {
         dispatch(setLoadingInvonces());
-        HttpClient.PostCreatebill({ token, body })
+
+        try {
+            HttpClient.PostCreatebill({ token, body })
             .then((itemResponse) => { 
                 setValidDian(itemResponse.id);
                 if (Boolean(itemResponse.id.trim())) {
@@ -138,6 +140,12 @@ const UseDianActions =() =>{
                 toast.error("Error en HttpClient.PostCreatebill: " + error.message);
                 dispatch(setErrorInvoinces("error"));
             });
+            
+        } catch (error) {
+            toast.error("Error en HttpClient.PostCreatebill: " + error.message);
+            dispatch(setErrorInvoinces("error"));
+        }
+       
     }, []);
     
     

@@ -15,7 +15,7 @@ const useReservationActions  =() =>{
 
 
     const getPostByReservation =  async({type}) =>{
-        console.log(type)
+       
         dispatch(ReservationSlice.actions.loading())
         try {
             const postResponse = await  ServiceReservas({id:jwt.result.id_hotel,type})
@@ -26,7 +26,7 @@ const useReservationActions  =() =>{
     }   
 
     const getRoomByReservation  = async() =>{
-
+        dispatch(ReservationSlice.actions.loading())
         try {   
             const getRoom = await HttpClient.GetRoom({url:jwt.result.id_hotel}) 
             if(getRoom){
@@ -40,6 +40,7 @@ const useReservationActions  =() =>{
 
 
     const getRoomFilterRoom  = async() =>{
+        dispatch(ReservationSlice.actions.loading())
         try {   
 
             const getRoomFilter= await ServicetypeRooms({id:jwt.result.id_hotel})
@@ -55,6 +56,7 @@ const useReservationActions  =() =>{
 
 
     const setUpdateFilterReservation =(Items) =>{
+        dispatch(ReservationSlice.actions.loading())
         try {
 
             dispatch(ReservationSlice.actions.setSaveReservation(Items))
@@ -65,6 +67,7 @@ const useReservationActions  =() =>{
     }
 
     const setPostInformContabilidad =async() =>{
+        dispatch(ReservationSlice.actions.loading())
         try {
 
             const postInformationReservation= await HttpClient.postInformContabilidad({id:jwt.result.id_hotel})

@@ -928,6 +928,7 @@ const PostRegisterTRA = ({ body, token }) => {
 };
 
 
+
 const PostRegisterTRATwo = ({ body, token }) => {
 
   return fetch(`${config.serverRoute}/api/resecion/pmstratwo`, {
@@ -1088,6 +1089,70 @@ const GetInvoincesByReservationDian  = async ({ id}) => {
   }
 };
 
+
+
+
+const GetHupedes  = async ({ id}) => {
+  try {
+    const resp = await fetch(`${config.serverRoute}/api/resecion/getdetailchecking/${id}`, {
+      method: "GET",
+      headers: {
+        'Content-type': 'application/json'
+      }
+    });
+    if (!resp.ok) {
+      throw new Error('Response is not ok');
+    }
+    const data = await resp.json();
+    return data.query;
+  } catch (error) {
+    console.error('Error in PostInformeInfomeMetricas:', error);
+    throw error; // Puedes lanzar el error nuevamente o manejarlo de otra manera según tus necesidades
+  }
+};
+
+const PostRegisterHuespedBreafast  = async ({ Id_user,id_huesped,Fecha,NumberDesayuno,Id_hotel,ID_Reserva}) => {
+  try {
+    const resp = await fetch(`${config.serverRoute}/api/resecion/PostInsertRegisterHuespedBreafast`, {
+      method: "POST",
+      headers: {
+        'Content-type': 'application/json'
+      },
+      body: JSON.stringify({Id_user,id_huesped,Fecha,NumberDesayuno,Id_hotel,ID_Reserva})
+    });
+
+    if (!resp.ok) {
+      throw new Error('Response is not ok');
+    }
+
+    const data = await resp.json();
+    return data;
+  } catch (error) {
+    console.error('Error in PostInformeInfomeMetricas:', error);
+    throw error; // Puedes lanzar el error nuevamente o manejarlo de otra manera según tus necesidades
+  }
+};
+
+
+const GetHupedesBraskfast = async ({ id}) => {
+  try {
+    const resp = await fetch(`${config.serverRoute}/api/resecion/Getbreakfast/${id}`, {
+      method: "GET",
+      headers: {
+        'Content-type': 'application/json'
+      }
+    });
+    if (!resp.ok) {
+      throw new Error('Response is not ok');
+    }
+    const data = await resp.json();
+    return data.query;
+  } catch (error) {
+    console.error('Error in PostInformeInfomeMetricas:', error);
+    throw error; // Puedes lanzar el error nuevamente o manejarlo de otra manera según tus necesidades
+  }
+};
+
 export default {
   get,
   post,
@@ -1145,5 +1210,8 @@ export default {
   PostUpdateUserRoles,
   PostInformeInfomeMetricas,
   GetPayAbono,
-  GetInvoincesByReservationDian
+  GetInvoincesByReservationDian,
+  GetHupedes,
+  PostRegisterHuespedBreafast,
+  GetHupedesBraskfast
 };

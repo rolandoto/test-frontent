@@ -46,6 +46,9 @@ import UseDianActions from "../../action/useDianActions";
 import ButtonBack from "../../component/ButtonBack";
 import ButtonHome from "../../component/ButtonHome";
 import TableInvoinceDian from "../../component/TableInvoinceDian";
+import useUpdateDetailPointerActions from "../../action/useUpdateDetailPointerActions";
+import useSocket from "../../hooks/UseSocket";
+import { IoTicketOutline } from "react-icons/io5";
 
 // Estilo para el título
 const titleStyle = {
@@ -70,20 +73,17 @@ const bodyStyle = {
   textColor: 'black'
 };
 
-const socket = io.connect(`${SocketRoute.serverRoute}`);
+//const socket = io.connect(`${SocketRoute.serverRoute}`);
 
 const DetailDasboard =(props) =>{
-  
-  useEffect(() => {
-    socket.on("sendNotification", (data) => {
-     console.error(data)
-    });
-  }, [socket]);
+
+	const socket = useSocket();
+
   
     const {id} = useParams()
     const [state,setState] =useState(true)
   
-    const {DetailDashboard,fetchData,postDetailRoom,postInsertTarifas,handClickLoading,fetchWhatsapp} = props
+    const {DetailDashboard,postInsertTarifas,handClickLoading,fetchWhatsapp} = props
     const [loading,setLoading] =useState({loading:false,error:false})
     const history = useHistory()
     const {jwt,Dian} = useContext(AutoProvider)
@@ -447,6 +447,10 @@ const DetailDasboard =(props) =>{
     const hanClickDetailCheckout =() =>{
        history.push(`/Checkout/${id}`)
     }
+
+    const hanClickTikets =() =>{
+      history.push(`/breakfast/${id}`)
+   }
 
     const hanClickFacturasElectronica =() =>{
       history.push(`/Dian/${id}`)
@@ -919,6 +923,7 @@ const  handleClickEliminar =UseModalText({handlModal:hanDelete,Text:"Estas segur
               <input type="date" className="desde-detail"   onChange={(e) => setspandOne(e.target.value)}  defaultValue={fecha_inicio}    />
               <input type="date" className="desde-detail"   onChange={(e) =>setspand(e.target.value)}  defaultValue={fecha_final}  />
               <h2 className="cod-reserva" ><span className="title-code" >COD:</span> X14A-{resultDashboard?.Num_documento}{id}</h2>
+             
           </div>
       </div>
       <div className="init" >
@@ -1164,6 +1169,17 @@ const  handleClickEliminar =UseModalText({handlModal:hanDelete,Text:"Estas segur
                           color="success" 
                           >
                           <span  className="text-words" >Check out</span> 
+                  </Button>
+                </div>
+                <div>
+                  <Button
+                    icon={(<IoTicketOutline  className="flex-contan"  color="white" fontSize={18}  /> )}
+                    onClick={hanClickTikets} 
+                          disabled={!findFirma}
+                          className="button-checking-detail-one-das"
+                          color="success" 
+                          >
+                          <span  className="text-words" >tickets Desayuno</span> 
                   </Button>
                 </div>
               
@@ -1465,7 +1481,6 @@ const Huesped =({quyery,handEditar,handChangeSubmit ,stateButton,DetailDashboard
       query.push(quyery[i])
     }
 }
-
 
   return (
     <Paper sx={{ width: '100%',margin:"10px" }}>
