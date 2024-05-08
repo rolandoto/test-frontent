@@ -6,7 +6,7 @@ import React from "react"
 const CardTiketsRed =({Username,Lastname}) =>{
 
     return (<div className="cardWrap">
-                <div className="card-one cardLeft">
+                <div className="cardone cardLeft">
                     <h1 className="title-tikects" >Tickets <span>Desayuno</span></h1>
                     <div className="title">
                     </div>
@@ -20,7 +20,7 @@ const CardTiketsRed =({Username,Lastname}) =>{
                     </div>
                     
                     </div>
-                    <div className="card-one cardRight">
+                    <div className="cardone cardRight">
                         <div className="eyeone"></div>
                         <div className="numberone">
                         <h3>156</h3>
