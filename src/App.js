@@ -71,6 +71,7 @@ import Dian from "./page-resesion/Dian";
 import WebChecking from "./page-resesion/webChecking";
 import Dashboardstatistics from "./page/Dashboard";
 import Huespedbreakfast from "./page-resesion/HuespedDesayuno";
+import InformeAuditoriaMonth from "./page-resesion/Informes/InformeAuditoriaMonth";
 
 function App() {
   const { jwt } = useContext(AutoProvider);
@@ -331,6 +332,12 @@ function App() {
                 component={WebChecking}
               />
 
+              <PrivateRoute
+                exact
+                path="/informeAuditoriaMonth"
+                component={InformeAuditoriaMonth}
+              />
+
               <Route component={NoFound} />
             </Switch>
           </BrowserRouter>
@@ -506,6 +513,13 @@ function App() {
                 path="/webchecking"
                 component={WebChecking}
               />
+
+<PrivateRoute
+                exact
+                path="/informeAuditoriaMonth"
+                component={InformeAuditoriaMonth}
+              />
+
 
               <Route component={NoFound} />
             </Switch>

@@ -1153,6 +1153,31 @@ const GetHupedesBraskfast = async ({ id}) => {
   }
 };
 
+
+const PostRoomOcasionalMonth  = async ({fecha,id}) => {
+  try {
+    const resp = await fetch(`${config.serverRoute}/api/resecion/PostRoomOcasionalMonth`, {
+      method: "POST",
+      headers: {
+        'Content-type': 'application/json'
+      },
+      body: JSON.stringify({fecha,id})
+    });
+
+    if (!resp.ok) {
+      throw new Error('Response is not ok');
+    }
+
+    const data = await resp.json();
+    return data.query;
+  } catch (error) {
+    console.error('Error in PostInformeInfomeMetricas:', error);
+    throw error; // Puedes lanzar el error nuevamente o manejarlo de otra manera según tus necesidades
+  }
+};
+
+
+
 export default {
   get,
   post,
@@ -1213,5 +1238,6 @@ export default {
   GetInvoincesByReservationDian,
   GetHupedes,
   PostRegisterHuespedBreafast,
-  GetHupedesBraskfast
+  GetHupedesBraskfast,
+  PostRoomOcasionalMonth
 };

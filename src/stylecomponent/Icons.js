@@ -34,6 +34,7 @@ export const contextMenuOptionsInform = [
     { label: 'Informe movimiento', action: 'movimiento' ,icon:<AiOutlineFilePpt  fontSize={20} style={{marginRight:"8px"}} /> },
     { label: 'Informe contabilidad', action: 'contabilidadad' ,icon:<AiOutlineProfile   fontSize={20} style={{marginRight:"8px"}} /> },
     { label: 'Metricas', action: 'dashboard' ,icon:<AiOutlineLineChart   fontSize={20} style={{marginRight:"8px"}} /> },
+    { label: 'Informe Ocasionales', action: 'informeAuditoriaMonth' ,icon:<AiOutlineDeliveredProcedure   fontSize={20} style={{marginRight:"8px"}} /> },
 ];
 
 export const contextMenuOptionsReservation = [

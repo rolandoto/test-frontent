@@ -1,6 +1,6 @@
 import HttpClient from "../HttpClient"
 import { useAppDispatch } from "../hooks/redux"
-import { setOcasional,setError, loading } from "../reducers/apiRoomsOcasionalReducers"
+import { setOcasional,setError, loading,setOcasionalRoom } from "../reducers/apiRoomsOcasionalReducers"
 import { toast } from "react-hot-toast";
 
 const useRoomOcasional =() =>{
@@ -27,7 +27,28 @@ const useRoomOcasional =() =>{
         
     }
 
-    return {postRoomOcasionalByID}
+
+    const postRoomOcasionalMonth =async({fecha,id}) =>{
+        dispatch(loading())
+        try {
+            const postResponse = await  HttpClient.PostRoomOcasionalMonth({fecha,id})
+            if(postResponse){
+                dispatch(setOcasionalRoom(postResponse))
+                toast.success("Exitoso ")
+            }else{
+                dispatch(setError("post with wans found"))
+                toast.error("Error ")
+            }
+
+        } catch (error) {
+            dispatch(setError("post with wans found"))
+            toast.error("Error")
+        }
+        
+    }
+
+
+    return {postRoomOcasionalMonth,postRoomOcasionalByID}
 
 }
 

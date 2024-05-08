@@ -3,7 +3,8 @@ import {createSlice} from "@reduxjs/toolkit"
 export const initialState ={
     ocasional:[],
     loading:false,
-    error:null
+    error:null,
+    OcasionalMonth:[]
 }
 
 export const apiRoomsOcasional = createSlice({
@@ -18,6 +19,11 @@ export const apiRoomsOcasional = createSlice({
             state.ocasional = action.payload
             state.loading= false
             console.log({"---payload":state.ocasional})
+        }, 
+        setOcasionalRoom:(state,action) =>{
+            state.OcasionalMonth = action.payload
+            state.loading= false
+            console.log({"---payload":state.ocasional})
         },
         setError:(state) =>{
             state.loading = false
@@ -26,6 +32,6 @@ export const apiRoomsOcasional = createSlice({
     }
 })
 
-export const {loading,setOcasional,setError} = apiRoomsOcasional.actions
+export const {loading,setOcasional,setError,setOcasionalRoom} = apiRoomsOcasional.actions
 
 export default  apiRoomsOcasional.reducer
