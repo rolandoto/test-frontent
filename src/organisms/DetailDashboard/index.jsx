@@ -862,13 +862,13 @@ const numberWithCommas = (event) => {
             </Button>  
  */
 const ButtonValidSigo =  <Button
-              icon={<FaFileInvoice className="flex-contan" color="white" fontSize={20} />}
               onClick={hanClickFacturasElectronica}
               disabled={!findFirma}
+              size={"xs"}
               className="button-checking-detail-one-das"
               color="success"
             >
-              <span className="text-words">Enviar facturas electrónicas</span>
+              <span className="text-words">Factura electrónicas</span>
             </Button>
 
 
@@ -1151,33 +1151,34 @@ const  handleClickEliminar =UseModalText({handlModal:hanDelete,Text:"Estas segur
         <div className="container-flex-init-one-center " >
               <div> 
                   <Button
-                  onClick={handChecking}
+                   onClick={handChecking}
                      disabled={findFirma}
                     className="button-checking-detail-one-das"
-                
                     color="success" 
-                    icon={( <VscSymbolEvent fontSize={18} className="flex-contan"  color="white" />)}
+                    size={"xs"}
                      > <span  className="text-words" >Check in</span> </Button>
               </div>
 
               <div>
                   <Button
-                    icon={(<VscSignOut className="flex-contan"  color="white" fontSize={18}  /> )}
+                  
                     onClick={hanClickDetailCheckout} 
                           disabled={!findFirma}
                           className="button-checking-detail-one-das"
                           color="success" 
+                          size={"xs"}
                           >
                           <span  className="text-words" >Check out</span> 
                   </Button>
                 </div>
                 <div>
                   <Button
-                    icon={(<IoTicketOutline  className="flex-contan"  color="white" fontSize={18}  /> )}
+                    
                     onClick={hanClickTikets} 
                           disabled={!findFirma}
                           className="button-checking-detail-one-das"
                           color="success" 
+                          size={"xs"}
                           >
                           <span  className="text-words" >tickets Desayuno</span> 
                   </Button>
