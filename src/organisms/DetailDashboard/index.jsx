@@ -90,6 +90,8 @@ const DetailDasboard =(props) =>{
 
     const resultDashboard = DetailDashboard[0]
 
+    console.log(resultDashboard )
+
     const documentByIdRoom =  resultDashboard?.Num_documento +""+id
     const init  =   moment(resultDashboard?.Fecha_inicio).utc().format('DD/MM/YYYY')
     const fin = moment(resultDashboard?.Fecha_final).utc().format('DD/MM/YYYY')
@@ -880,6 +882,7 @@ const  handleClickEliminar =UseModalText({handlModal:hanDelete,Text:"Estas segur
     
     return (
       <>
+      
         <div className="container-flex-init-global" >
           <ButtonBack />
           <ButtonHome/>
@@ -890,10 +893,14 @@ const  handleClickEliminar =UseModalText({handlModal:hanDelete,Text:"Estas segur
                    <span>Valor noche:</span>
                    <span className="negrita-detail-reserva"> {toPriceNigth.price}</span>
               </div>
-
               <div  className="border-detail"   >
                    <span>Total hospedaje:</span>
                    <span className="negrita-detail-reserva" >{valor_habitacion}</span>
+              </div>
+
+              <div  className="border-detail"   >
+                   <span>Canal de reserva:</span>
+                   <span className="negrita-detail-reserva" >{resultDashboard.Canales_Nombre}</span>
               </div>
            
               <div  style={{background:`${totalPrice ==0 ? "#17c964" : "#f21361" }`,color:"white"}} className="border-detail" >
