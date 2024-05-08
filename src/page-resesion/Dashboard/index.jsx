@@ -98,9 +98,6 @@ const Dashboard = () => {
 
 	const socket = useSocket();
 
-	
-	
-
 	const handleItemClickHotel =(action) =>{
 		login({username:jwt.result.username,password:"sassadas",hotel:action.id_hotel})
 		setValidHotel(!validHotel)
@@ -233,6 +230,9 @@ const Dashboard = () => {
 			setOpenMenuInforme(false)
 		}else if(action =="dashboard"){
 			history.push(`/dashboardstatistics`)
+			setOpenMenuInforme(false)
+		}else if(action =="informeAuditoriaMonth"){
+			history.push(`/informeAuditoriaMonth`)
 			setOpenMenuInforme(false)
 		}
 	  };
