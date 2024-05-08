@@ -2,10 +2,6 @@ import { Button } from "@nextui-org/react"
 import moment from "moment"
 import React, { useState } from "react"
 
-
-
-/** */
-
 const CardTikets =({Username,Lastname,id_huesped,Id_hotel,handChange,Fecha,NumberDesayuno,ID_Reserva,Id_user,setShowinforme}) =>{
 //<Button disabled={loadingValiHuesped} onClick={OnclickHandSubmit}  color={"success"} size={"xs"} >Generar Factura</Button>
 
@@ -20,7 +16,7 @@ const CardTikets =({Username,Lastname,id_huesped,Id_hotel,handChange,Fecha,Numbe
           
                 <div className="cardWrap">
                     <div className="card cardLeft">
-                        <h1 className="title-tikects" >Tikect <span>Desayuno</span></h1>
+                        <h1 className="title-tikects" >Tickets <span>Desayuno</span></h1>
                         <div className="title">
                         </div>
                         <div className="name">

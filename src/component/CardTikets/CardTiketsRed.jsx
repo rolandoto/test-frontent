@@ -7,7 +7,7 @@ const CardTiketsRed =({Username,Lastname}) =>{
 
     return (<div className="cardWrap">
                 <div className="card-one cardLeft">
-                    <h1 className="title-tikects" >Tikect <span>Desayuno</span></h1>
+                    <h1 className="title-tikects" >Tickets <span>Desayuno</span></h1>
                     <div className="title">
                     </div>
                     <div className="name">
