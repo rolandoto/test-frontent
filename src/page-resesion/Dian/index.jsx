@@ -78,9 +78,9 @@ const Dian =() => {
       }
     });
 
-    const totalNum = resultDashboard.Iva == 1 ? true : false;
+    const totalNum = resultDashboard?.Iva == 1 ? true : false;
 
-    const typeIva = resultDashboard.tipo_persona === "empresa" ? true : totalNum;
+    const typeIva = resultDashboard?.tipo_persona === "empresa" ? true : totalNum;
 
    
 
@@ -101,8 +101,6 @@ const Dian =() => {
     const valueSTotalProduct =  typeIva ?  ValorBase : totalPrice
     const valuesPayments = typeIva ? totalPrice :totalPrice
 
-
-    console.log(valueSTotalProduct)
 
     const filteredItems = products?.results?.filter(item =>{
       return  item.id ==jwt?.result?.dian
@@ -215,7 +213,8 @@ const Dian =() => {
         return { resultadosBusqueda };
     };
 
-    console.log(sumWithInitial)
+
+
 
     const handSubmitInvoinces=async() =>{
       if(sumWithInitial ==0) {
@@ -225,10 +224,8 @@ const Dian =() => {
           toast.error("no se puedes enviar mas facturacion electronica")
       }else{
         if(!loadingInvoinces){
-          if(!valid){
             await PostSendInvoinces({token:Dian.access_token,body:response,id_Reserva:id})
             socket.emit("sendNotification",jwt.result.name);
-          }
         }else{
           toast.error("Error factura")
         }} 

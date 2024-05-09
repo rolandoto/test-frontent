@@ -36,8 +36,7 @@ const ExportButton = ({ data, filename,color,Value,nameContent }) => {
     );
 };
 
-const CardReservationActivity =({InformeMonth,selectedDay, 
-    setSelectedDay}) =>{
+const CardReservationActivity =({InformeMonth,selectedDay, setSelectedDay}) =>{
 
     const {jwt} = useContext(AutoProvider)
 
@@ -46,11 +45,9 @@ const CardReservationActivity =({InformeMonth,selectedDay,
     const FindIdHotel=(hotel) =>{
 		return hotel.id_hotel == jwt.result.id_hotel
 	}
-	
 
 	const hotel = iduser.find(FindIdHotel)
     
-
     const Hospedaje = InformeMonth.Totalhospedaje.reduce((acumulador, valorActual) => acumulador + valorActual.abono, 0);
 
     const Ocasionales = InformeMonth.Ocasionales.reduce((acumulador, valorActual) => acumulador + valorActual.total, 0);
@@ -60,6 +57,8 @@ const CardReservationActivity =({InformeMonth,selectedDay,
     const Tienda = InformeMonth.queryTwo.reduce((acumulador, valorActual) => acumulador + valorActual.total, 0);
 
     const tiendaOcasionales = InformeMonth.queryThree.reduce((acumulador, valorActual) => acumulador + valorActual.Precio, 0);
+
+    const TotalDian = InformeMonth.roomByIdIDtypeRoomDian.reduce((acumulador, valorActual) => acumulador + valorActual.abono, 0);
 
     const totalHospedaje = Hospedaje +Ocasionales +Minibar +Tienda +tiendaOcasionales
 
@@ -96,7 +95,15 @@ const CardReservationActivity =({InformeMonth,selectedDay,
         const Total =  parseInt( ItenReservation.Precio).toLocaleString()
         const Tipo ="Tienda Ocasioanales"
         return {Fecha,Total,Tipo}
-    });     
+    });    
+    
+    const TotaldianExcel = InformeMonth.roomByIdIDtypeRoomDian.map((ItenReservation) => {
+        const Habitacion =ItenReservation.room
+        const Cantidad =ItenReservation.cantidad
+        const Total =  parseInt( ItenReservation.abono).toLocaleString()
+        const Tipo ="Hospedaje dian"
+        return {Habitacion,Cantidad,Total,Tipo}
+    }); 
 
 
     const exportAllToExcel = () => {
@@ -240,10 +247,16 @@ const CardReservationActivity =({InformeMonth,selectedDay,
                                         fontSize={30} />}>{totalHospedaje.toLocaleString()}
                                     </Button>  
                                 </Tooltip>
+                               
                     </div>
                     
                     <div className="block" >
-                        <DonutChart />
+                    <ExportButton 
+                        data={TotaldianExcel} 
+                        color={"gradient"} 
+                        nameContent="Dian" 
+                        Value={TotalDian}
+                        filename="output.xlsx" />
                     </div> 
                     <div className="block" >
                     <DonutChart />
