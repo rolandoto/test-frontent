@@ -32,8 +32,8 @@ const CardInvoinces =({handChangeClose,showInforme,handSubmitInvoinces,loading,N
                         
                             <div className="container-invoince line-invoince"></div>
             
-                            <h6 className="p title-invoince " >Califica nuestro servicio</h6>
-                            <img className="image-qr" src="https://github.com/rolandoto/image-pms/blob/main/qr.jpeg?raw=true" alt="" />
+                            <h6 className="p title-invoince " >Gracias por su visita</h6>
+                           
                         
                         </div>            
                 </div>     
