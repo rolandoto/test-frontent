@@ -12,12 +12,13 @@ import CardRoomSoldTWo from "../../component/CardRoomSold/CardRoomSoldTwo"
 const DashboardStatisticsOrganism =({Available,Block,Occupation, NumReservation,NumBlock,NumAvailable ,InformeMonth , selectedDay, 
     setSelectedDay}) =>{
 
+   
     return (<ContainerGlobal>
                     <div className="container-dashboard" > 
                     <ButtonBack />
                     <ButtonHome/>  
                     <div className="contianer-inbox-dasboard">
-                        <CardToday />
+                        <CardToday  selectedDay={selectedDay} />
                         <CardPorcentaje  
                             Available={Available} 
                             Block={Block} 

@@ -19,13 +19,18 @@ import { HeartIcon } from "../../page-resesion/Dashboard/IconReservation";
 import { Button } from "@nextui-org/react";
 import { toast } from "react-hot-toast";
 import ButtonBack from "../../component/ButtonBack";
+import useSocket from "../../hooks/UseSocket";
 
 const Checkingn2Organism =({id,postDetailRoom,fetchDataApiWhatsapp,postWhataapById}) =>{
-    
+
+
+    const socket = useSocket();
     const history = useHistory()
     const {getDetailReservationById} = useDetailDashboardAction()
     const {loading,error,DetailDashboard} = useSelector((state) => state.DetailDashboard)
+    const to= useSelector((state) => state.DetailDashboard)
     const {jwt} =useContext(AutoProvider)
+    const message  =jwt?.result?.photo
     const [change,setChange] =useState({
         ID_Tipo_Forma_pago:null,
     })
@@ -37,6 +42,8 @@ const Checkingn2Organism =({id,postDetailRoom,fetchDataApiWhatsapp,postWhataapBy
     useEffect(() =>{
         fetchData()
     },[id])
+
+    console.log(to)
 
     const  resulDetailDashboard = DetailDashboard[0]
 
@@ -199,25 +206,19 @@ const Checkingn2Organism =({id,postDetailRoom,fetchDataApiWhatsapp,postWhataapBy
     const handUpdateConfirms = async () => {
         setDisable(true);
         try {
-
-        HttpClient.PostUploadCarPresent({ID_Reserva:id,Username:userName}).then((item) =>{
-             fetchDataApiWhatsapp({ phone: totalNumberPhone, name:`${resulDetailDashboard.Nombre} ${resulDetailDashboard.Apellido}`,url:item.imageCarPresents});
-        }).catch(e =>{
-            console.log("error")
-        })
-          await ServiceUpdateReservationpay({ id, dataOne: dataTwo });
-          await postDetailRoom({ id: resulDetailDashboard?.ID_Habitaciones, ID_estado_habitacion: 3 });
-          await ServiceStatus({ id, ID_Tipo_Estados_Habitaciones: 3 });
-      
-          const movimiento = `Check in realizado tipo habitacion ${resulDetailDashboard?.nombre_habitacion} ${resulDetailDashboard.Numero} nombre ${resulDetailDashboard.Nombre} codigo reserva ${resulDetailDashboard.id_persona}`;
-      
-          await ServiceInfomeMovimiento({ Nombre_recepcion: jwt.result.name, Fecha: now, Movimiento: movimiento, id: jwt.result.id_hotel,Valor_habitacion:"1",Codigo_reserva:id });
-          setDisable(false);
-          toast.success("pago exitoso")
-          
-          history.push(`/checkingin3/${id}`);
+        await HttpClient.PostUploadCarPresent({ID_Reserva:id,Username:userName})
+        await ServiceUpdateReservationpay({ id, dataOne: dataTwo });
+        await postDetailRoom({ id: resulDetailDashboard?.ID_Habitaciones, ID_estado_habitacion: 3 });
+        await ServiceStatus({ id, ID_Tipo_Estados_Habitaciones: 3 });
+        socket.emit("sendNotification","photo");
+        const movimiento = `Check in realizado tipo habitacion ${resulDetailDashboard?.nombre_habitacion} ${resulDetailDashboard.Numero} nombre ${resulDetailDashboard.Nombre} codigo reserva ${resulDetailDashboard.id_persona}`;
+        await ServiceInfomeMovimiento({ Nombre_recepcion: jwt.result.name, Fecha: now, Movimiento: movimiento, id: jwt.result.id_hotel,Valor_habitacion:"1",Codigo_reserva:id })
+        setDisable(false);
+       
+        toast.success("pago exitoso")
+        history.push(`/checkingin3/${id}`);
         } catch (error) {
-          console.log(error);
+            toast.error("error al servicio")
         }
       };
 
@@ -292,6 +293,7 @@ const Checkingn2Organism =({id,postDetailRoom,fetchDataApiWhatsapp,postWhataapBy
                         <div className="top-title-re" >
                             <span className="close-negritaOne">Recuerda que la emision de la factura electronica o pos es en el check out</span>
                         </div>
+
                       
                     <div className="container-detail-dasboard-in-one container-detail-dasboard-in-one-two" >
                             <div style={{background: "#ebebeb"}} className="border-detail" >

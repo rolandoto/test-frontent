@@ -3,25 +3,25 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   updateDetail: [],
   loading: false,
-  error: false,
+  error: "",
 };
 
 export const UpdateDetailPounterSlice = createSlice({
-  name: "Formats",
+  name: "UpdateDetailPounterSlice",
   initialState,
   reducers: {
-    loading: (state) => {
-      state.loading = true;
-      state.error = null;
-    },
+    loading:(state) =>{
+      state.loading=true
+      state.error=null
+  },
     setUpdate: (state, action) => {
       state.updateDetail = action.payload;
       state.loading = false;
       console.log({ "---payload": state.updateDetail });
     },
     setError: (state, action) => {
-      state.loading = true;
-      state.error = action.payload;
+      state.loading = false;
+      state.error = "sdasdsajdsad"
     },
   },
 });

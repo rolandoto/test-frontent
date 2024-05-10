@@ -25,17 +25,16 @@ import io from "socket.io-client";
 import ButtonBack from "../../component/ButtonBack"
 import ButtonHome from "../../component/ButtonHome"
 import toast from "react-hot-toast"
+import useSocket from "../../hooks/UseSocket"
 
 
 const socket = io.connect(`${SocketRoute.serverRoute}`);
 
 const CheckoutOrganism =({DetailDashboard,postDetailRoom,fetchDataApiWhatsapp}) =>{
 
-    useEffect(() => {
-        socket.on("receive_message", (data) => {
-          console.log(data)
-        });
-      }, [socket]);
+    const socket = useSocket();
+
+
 
     const {id} = useParams()
     const {jwt} = useContext(AutoProvider)
@@ -319,28 +318,26 @@ const CheckoutOrganism =({DetailDashboard,postDetailRoom,fetchDataApiWhatsapp}) 
     const totalNumberPhone = numberPhone.replace("+","")
 
     const fullName =   resultDashboard.Nombre +" "+ resultDashboard.Apellido
-  
-    const hancCheckout =async() => {
-        ServePdf({ codigoReserva:resultDashboard?.Num_documento,Nombre:resultDashboard?.Nombre,room:resultDashboard?.nombre_habitacion,adults:resultDashboard?.Adultos,children:resultDashboard?.Ninos,tituloReserva:resultDashboard?.Nombre,abono:resultDashboard?.valor_abono,formaPago:resultDashboard?.forma_pago,telefono:resultDashboard.Celular,identificacion:resultDashboard.Num_documento,correo:resultDashboard.Correo,urllogo:jwt?.result?.logo,tarifa:resultDashboard.valor_habitacion,entrada:fecha_inicio,salida:fecha_final}).then(index=>{
+
+    /***
+     *   ServePdf({ codigoReserva:resultDashboard?.Num_documento,Nombre:resultDashboard?.Nombre,room:resultDashboard?.nombre_habitacion,adults:resultDashboard?.Adultos,children:resultDashboard?.Ninos,tituloReserva:resultDashboard?.Nombre,abono:resultDashboard?.valor_abono,formaPago:resultDashboard?.forma_pago,telefono:resultDashboard.Celular,identificacion:resultDashboard.Num_documento,correo:resultDashboard.Correo,urllogo:jwt?.result?.logo,tarifa:resultDashboard.valor_habitacion,entrada:fecha_inicio,salida:fecha_final}).then(index=>{
             fetchDataApiWhatsapp({phone:totalNumberPhone,name:fullName,hotel:jwt.result.hotel,factura:index[0]})
         })
-        ServiceResolution({Resolucion:dataCount.Resolucion+1,ID:dataCount.ID}).then(index=>{
-            ServiceInfomeMovimiento({Nombre_recepcion:jwt.result.name,Fecha:now,Movimiento:`Check out realizado tipo habitacion ${resultDashboard?.nombre_habitacion} ${resultDashboard.Numero}`,id:jwt.result.id_hotel,Valor_habitacion:"0",Codigo_reserva:id}).then(index =>{
-            }).catch(e =>{
-                console.log(e)
-            })
-        }).catch(e =>{
-            console.log(e)
-        })
+     */
   
-        if(resultDashboard.Estado==3){
-            postDetailRoom({id:resultDashboard.ID_Habitaciones,ID_estado_habitacion:5})
-            ServiceStatus({id,ID_Tipo_Estados_Habitaciones:6}).then(index=>{
-                
-            }).catch(e =>{
-                console.log(e)
-            })
-        }
+    const hancCheckout =async() => {
+        try {
+           await ServiceResolution({Resolucion:dataCount.Resolucion+1,ID:dataCount.ID})
+           await ServiceInfomeMovimiento({Nombre_recepcion:jwt.result.name,Fecha:now,Movimiento:`Check out realizado tipo habitacion ${resultDashboard?.nombre_habitacion} ${resultDashboard.Numero}`,id:jwt.result.id_hotel,Valor_habitacion:"0",Codigo_reserva:id})
+            if(resultDashboard.Estado==3){
+               await postDetailRoom({id:resultDashboard.ID_Habitaciones,ID_estado_habitacion:5})
+               await ServiceStatus({id,ID_Tipo_Estados_Habitaciones:6})
+            }
+            socket.emit("sendNotification","photo");
+            toast.success("exitoso")
+        } catch (error) {
+        toast.error("error")
+         }
     }
 
     let count =0

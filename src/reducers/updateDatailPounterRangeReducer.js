@@ -7,7 +7,7 @@ const initialState = {
 };
 
 export const UpdateDetailPounterRangeSlice = createSlice({
-  name: "Formats",
+  name: "UpdateDetailPounterRangeSlice",
   initialState,
   reducers: {
     loading: (state) => {
@@ -17,10 +17,10 @@ export const UpdateDetailPounterRangeSlice = createSlice({
     setUpdate: (state, action) => {
       state.updateDetail = action.payload;
       state.loading = false;
-      console.log({ "---payload": state.updateDetail });
+      console.log("sdihasoisaidash");
     },
     setError: (state, action) => {
-      state.loading = true;
+      state.loading = false;
       state.error = action.payload;
     },
   },

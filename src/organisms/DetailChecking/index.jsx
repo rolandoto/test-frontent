@@ -31,9 +31,12 @@ const DetailChekingOrganism =({id}) =>{
         ID_facturacion:null
     })
 
-    console.log(jwt)
-
     const  resulDetailDashboard = DetailDashboard[0]
+
+    //const resulDetailDashboard = DetailDashboard.find((item) => item.)
+
+    console.log(DetailDashboard)
+
     const findPersona =  resulDetailDashboard?.tipo_persona == "persona"
     const findEmpresa = resulDetailDashboard?.tipo_persona =="empresa"
     const [tipoPersonas,setTipoPersona] =useState()
@@ -87,8 +90,6 @@ const DetailChekingOrganism =({id}) =>{
         rnt_establecimiento:"66201"
     }
 
-
-    
     const handClick = async () => {
         if(jwt.result.id_hotel ==7){
         try {
@@ -250,9 +251,8 @@ const DetailChekingOrganism =({id}) =>{
     
     }
 
+    if(!resulDetailDashboard) return null
 
-
-  
         return (
             <>
             <div className="container-flex-init-global" >

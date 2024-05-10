@@ -90,6 +90,9 @@ const Dashboard = () => {
 		window.localStorage.setItem("check",JSON.stringify(state))
 	}
 
+	//const {loading} = useSelector((state) => state.updateDetailPounter)
+
+
 	const initialState = JSON.parse(window.localStorage.getItem("check")) || false
 	
 	const handClickValid =() =>{
@@ -308,17 +311,16 @@ const Dashboard = () => {
 			await getRoomFilterRoom()
 			} catch (error) {
 				console.error("Error fetching data:", error);
-			}
-        
+			} 
     }
 
 	useEffect(() => {
 		if (socket) {
 			socket.on("sendNotification", async(data) => {
-				console.log("hello socekt")
-				fetchData()
+				await getPostByReservation({type:null})
+				await getRoomByReservation()
 				toast.success("Se creo una reserva")
-		});
+		});	
 		}
 	}, [socket]);
 
@@ -332,7 +334,7 @@ const Dashboard = () => {
 
 	useEffect(() =>{
         fetchData()
-    },[isChecked,dispatch,isChecked,hotel])
+    },[isChecked,dispatch,isChecked,hotel,socket])
 
 	let countSeguro =0
 	
@@ -343,7 +345,7 @@ const Dashboard = () => {
 	}
 
 	const onItemClick = (itemId, e, time) => {	
-	  return history.push(`/DetailDashboard/${itemId}`)
+	  return  window.open(`/DetailDashboard/${itemId}`, '');
 	}
 
 	/*const filtrar=(terminoBusqueda)=>{
@@ -387,28 +389,29 @@ const Dashboard = () => {
 			Total=totalDiaPat
 		}
 
-		
 		const handModalText =(e) =>{
 			confirmAlert({
 			  title: '',
 			  
 				  customUI: ({ onClose }) => {
 					const handClick = async() =>{
-						if (edge === 'left') {
-							newReservation[ReservationIndex].start_time = time
-							postUpdateDetailPointer({ id: itemId, Fecha_final: fecha,countSeguro ,type:"subir"});
-							socket.emit("sendNotification",message);
-							setUpdateFilterReservation(newReservation)
-							onClose()
-						}else{
-							socket.emit("sendNotification",message);
-							newReservation[ReservationIndex].end_time = time
-							postUpdateDetailPointer({ id: itemId, Fecha_final: fecha,countSeguro ,type:"bajar"})
-							setUpdateFilterReservation(newReservation)
-						
-							onClose()
+						try {
+							if (edge === 'left') {
+								newReservation[ReservationIndex].start_time = time
+								await postUpdateDetailPointer({ id: itemId, Fecha_final: fecha,countSeguro ,type:"subir"});
+								setUpdateFilterReservation(newReservation)
+								socket.emit("sendNotification",message);
+								onClose()
+							}else{
+								newReservation[ReservationIndex].end_time = time
+							    await postUpdateDetailPointer({ id: itemId, Fecha_final: fecha,countSeguro ,type:"bajar"})
+								setUpdateFilterReservation(newReservation)
+								socket.emit("sendNotification",message);
+								onClose()
+							}
+						} catch (error) {
+							toast.error("error servicio")
 						}
-						
 				}
 					return (
 						<div className="popup-overlay"  >
@@ -462,9 +465,9 @@ const Dashboard = () => {
 								  : item,
 							  );
 							
-							  postUpdateDetailPointerRange({desde,hasta,ID_Habitaciones,id:itemId,ID_estado_habiatcion})
-							  socket.emit("sendNotification",message);
-							  setUpdateFilterReservation(updatedItems)
+							await postUpdateDetailPointerRange({desde,hasta,ID_Habitaciones,id:itemId,ID_estado_habiatcion})
+							setUpdateFilterReservation(updatedItems)
+							socket.emit("sendNotification",message);
 						onClose() 
 					}
 		
@@ -588,8 +591,6 @@ const Dashboard = () => {
 		handModalText()
 	};
 
-
-	
 	return (
 		<>		
 			<div> 
@@ -767,17 +768,13 @@ const Dashboard = () => {
 				visibleTimeEnd={timeEnd}
 				visibleTimeStart={timeStart}
 				onItemMove={handleItemMove}	
-				
 				resizeDetector={containerResizeDetector}								
 				itemHeightRatio={0.9}                                                             
 				lineHeight={28.4}
 				sidebarWidth={225}
 				showCursorLine={false}
 				itemRenderer={  ItemRenderer}
-				onItemClick={(itemId, e, time) =>{
-					onItemClick(itemId, e, time)
-				}}
-				
+				onItemClick={onItemClick}
 				now={nowOne}
 				canResize={"both"}
 				itemStyle={{ background: "black" }}

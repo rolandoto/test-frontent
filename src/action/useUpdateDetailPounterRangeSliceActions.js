@@ -7,6 +7,7 @@ import {
 import HttpClient from "../HttpClient";
 import confetti from "canvas-confetti";
 import Swal from "sweetalert2";
+import toast from "react-hot-toast";
 
 const useUpdateDetailPounterRangeSliceActions =() =>{
 
@@ -24,17 +25,14 @@ const useUpdateDetailPounterRangeSliceActions =() =>{
                     spread: 70,
                     origin: { x: 0.5, y: 0.8 },
                   });
+            }else{
+                toast.error("Error en el servicio")
+                setError("Error")
             }
             
         } catch (error) {
-            dispatch(setError(true));
-            Swal.fire({
-                position: "center",
-                icon: "error",
-                title: "<p>Error</p>",
-                showConfirmButton: false,
-                timer: 3000,
-              });
+            setError("Error")
+            toast.error("Error al cambiar de habitacion")
         }
     }
     return {

@@ -5,9 +5,8 @@ import {
   loading,
   setError,
 } from "../reducers/updateDatailPounterReducer";
-import Swal from "sweetalert2";
 import { useState } from "react";
-import confetti from "canvas-confetti";
+import toast from "react-hot-toast";
 
 const useUpdateDetailPointerActions = () => {
   const dispatch = useAppDispatch();
@@ -24,24 +23,13 @@ const useUpdateDetailPointerActions = () => {
       });
       if (response) {
         dispatch(setUpdate(response));
-        confetti({
-          zIndex: 999,
-          particleCount: 100,
-          spread: 70,
-          origin: { x: 0.5, y: 0.8 },
-        });
+        toast.success("se ha cambiar la habitacion")
+      }else{
+        setError("Error")
       }
     } catch (error) {
-      dispatch(setError(true));
-      setErro(true);
-      Swal.fire({
-        position: "center",
-        icon: "error",
-        title: "<p>Error</p>",
-        showConfirmButton: false,
-        timer: 3000,
-      });
-      setErro(false);
+      toast.error("Ha ocurrido un error")
+      setError("Error")
     }
   };
 
