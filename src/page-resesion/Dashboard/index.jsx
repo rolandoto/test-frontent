@@ -101,20 +101,27 @@ const Dashboard = () => {
 
 	const socket = useSocket();
 
-	const handleItemClickHotel =(action) =>{
-		login({username:jwt.result.username,password:"sassadas",hotel:action.id_hotel})
-		setValidHotel(!validHotel)
-		confetti({
-			zIndex: 999,
-			particleCount: 100,
-			spread: 70,
-			origin: { x: 0.50, y: 0.8 }
-		});
+	const handleItemClickHotel =async(action) =>{
+		try {
+			login({username:jwt.result.username,password:"sassadas",hotel:action.id_hotel})
+			setValidHotel(!validHotel)
+			fetchData()
+			confetti({
+				zIndex: 999,
+				particleCount: 100,
+				spread: 70,
+				origin: { x: 0.50, y: 0.8 }
+			});
+		} catch (error) {
+			toast.error("error al servicio")
+		} 
+
+	
 	}
 
 	const HandClickUserUpdtateRoles=async(byIdpermision) =>{
 		try {
-			await postUserUpdateRolesById({id_permissions:byIdpermision,id:jwt.result.id_user})
+			postUserUpdateRolesById({id_permissions:byIdpermision,id:jwt.result.id_user})
 			login({username:jwt.result.username,password:"sassadas",hotel:jwt.result.id_hotel})
 			confetti({
 				zIndex: 999,
@@ -317,8 +324,7 @@ const Dashboard = () => {
 	useEffect(() => {
 		if (socket) {
 			socket.on("sendNotification", async(data) => {
-				await getPostByReservation({type:null})
-				await getRoomByReservation()
+				fetchData()
 				toast.success("Se creo una reserva")
 		});	
 		}
@@ -334,7 +340,7 @@ const Dashboard = () => {
 
 	useEffect(() =>{
         fetchData()
-    },[isChecked,dispatch,isChecked,hotel,socket])
+    },[isChecked,dispatch,isChecked,hotel])
 
 	let countSeguro =0
 	
