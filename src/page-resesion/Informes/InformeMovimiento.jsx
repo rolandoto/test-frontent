@@ -188,7 +188,7 @@ const InformeMovimiento =() =>{
         const Fecha =  moment(reservation.Fecha).utc().format('YYYY-MM-DD HH:mm:ss ')
         const Movimiento = reservation.Movimiento
         const valor =  parseInt(reservation.Valor_habitacion)
-        const ValorHabitacion =  valor.toLocaleString()  
+        const ValorHabitacion =  valor
         const Canal = reservation.Nombre
 
         return  {Recepcionista,Movimiento,ValorHabitacion,Canal,Fecha}
