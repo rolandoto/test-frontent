@@ -22,6 +22,7 @@ const ReservasUpdate =(props) =>{
     const [nacimiento,setNacimiento] =useState()
     const [correo,setCorreo] =useState()
     const [celular,setCelular] =useState()
+    const [ciudad,setCiudad] =useState()
     const [loading,setLoading] =useState(false)
     const [nacionalidad,setNacionalidad] =useState()
     const [typeDocument,setypeDocument] = useState() 
@@ -66,7 +67,8 @@ const ReservasUpdate =(props) =>{
             Correo:correo,
             Celular:celular,
             ID_Prefijo:nacionalidad,
-            ID_Tipo_documento:typeDocument
+            ID_Tipo_documento:typeDocument,
+            Ciudad:ciudad
     }
 
    
@@ -162,6 +164,7 @@ const ReservasUpdate =(props) =>{
                 <span className="desde-detail-three-das" >Nacionalidad </span>
                 <span className="desde-detail-two-das" >Correo electronico</span>    
                 <span  className="desde-detail-three-das">Celular /sin indicativo</span>
+                <span  className="desde-detail-two-das">Ciudad</span>
             </div>
 
             <div className="container-detail-dasboard-in" >
@@ -205,6 +208,13 @@ const ReservasUpdate =(props) =>{
                         placeholder="Celular"  
                         defaultValue={resultDasboard?.Celular}
                         onChange={(e) => setCelular(e.target.value)}
+                        />
+                 <input  type="text" 
+                        className="desde-detail-two" 
+                        name="Celular"  
+                        placeholder="Celular"  
+                        defaultValue={resultDasboard?.Ciudad}
+                        onChange={(e) => setCiudad(e.target.value)}
                         />
             </div>
         </form>

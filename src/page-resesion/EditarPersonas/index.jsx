@@ -20,6 +20,7 @@ const EditarPersonas =() =>{
     const [nacimiento,setNacimiento] =useState()
     const [correo,setCorreo] =useState()
     const [celular,setCelular] =useState()
+    const [ciudad,setciudad] =useState()
     const [loading,setLoading] =useState(false)
     const [nacionalidad,setNacionalidad] =useState()
     const [country,setCountry] =useState()
@@ -70,9 +71,9 @@ const EditarPersonas =() =>{
         Correo:correo,
         Celular:celular,
         ID_Prefijo:nacionalidad,
-        ID_Tipo_documento:typeDocument
+        ID_Tipo_documento:typeDocument,
+        Ciudad:ciudad
   }
-
   const handClick =() =>{
     ServiceUpdatePersonas({id,data}).then(index=> {
         setLoading(true)
@@ -126,8 +127,7 @@ const EditarPersonas =() =>{
                                                 defaultValue={resulrEditar?.Apellido}
                                                 onChange={(e) => setApellido(e.target.value)}
                                                 />
-
-<select  type="text" 
+                                        <select  type="text" 
                                             className="desde-detail-two" 
                                             placeholder="Tipo de documento"
                                             name="Fecha"
@@ -166,6 +166,7 @@ const EditarPersonas =() =>{
                     <span className="desde-detail-three-das" >Nacionalidad </span>
                     <span className="desde-detail-two-das" >Correo electronico</span>    
                     <span  className="desde-detail-three-das">Celular /sin indicativo</span>
+                    <span  className="desde-detail-two-das">Ciudad</span>
                 </div>
 
                 <div className="container-detail-dasboard-in" >
@@ -209,6 +210,14 @@ const EditarPersonas =() =>{
                             placeholder="Celular"  
                             defaultValue={resulrEditar?.Celular}
                             onChange={(e) => setCelular(e.target.value)}
+                            />
+                    
+                    <input  type="text" 
+                            className="desde-detail-two" 
+                            name="Celular"  
+                            placeholder="Celular"  
+                            defaultValue={resulrEditar?.Ciudad}
+                            onChange={(e) => setciudad(e.target.value)}
                             />
                 </div>
             </form>

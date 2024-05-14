@@ -45,8 +45,6 @@ const Dian =() => {
     const fetchDataDetail =async() =>{
       await getDetailReservationById({id})
   }
-
-
  
     const fetchData =async() =>{
         await  GetCLientDian({token:Dian.access_token,document:username})
@@ -214,7 +212,7 @@ const Dian =() => {
     };
 
 
-
+    console.log(sumWithInitial)
 
     const handSubmitInvoinces=async() =>{
       if(sumWithInitial ==0) {
@@ -300,7 +298,7 @@ const Dian =() => {
                   <table  className="de "  >
                       <tbody class="tbody  "  > 
                                  
-                                  {ListClient?.results?.map(index =>{
+                                  {ListClient?.results?.slice(0, 1).map(index =>{
                                       const fullName= `${index.name[0]} ${index.name[1]} `
                                       
                                       const typeIdentification =  index.id_type.name
