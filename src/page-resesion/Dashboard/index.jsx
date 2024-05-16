@@ -115,8 +115,6 @@ const Dashboard = () => {
 		} catch (error) {
 			toast.error("error al servicio")
 		} 
-
-	
 	}
 
 	const HandClickUserUpdtateRoles=async(byIdpermision) =>{
@@ -351,7 +349,12 @@ const Dashboard = () => {
 	}
 
 	const onItemClick = (itemId, e, time) => {	
-	  return  window.open(`/DetailDashboard/${itemId}`, '');
+		if(initialState){
+			return  window.open(`/DetailDashboard/${itemId}`, '');
+		}else{
+			history.push(`/DetailDashboard/${itemId}`, '')
+		}
+	 
 	}
 
 	/*const filtrar=(terminoBusqueda)=>{
@@ -611,7 +614,7 @@ const Dashboard = () => {
 												<StyleSpanIcons   ></StyleSpanIcons> 
 												<StyleTitleHotel> {hotel?.nombre} </StyleTitleHotel>
 												<StyleSpan> <BsArrowDown   fontSize={20} /> </StyleSpan>
-											</StyledMenuItem>
+										</StyledMenuItem>
 									{iduser?.map((option, index) => {
 										return (
 											<> {validHotel && 
