@@ -49,6 +49,9 @@ import TableInvoinceDian from "../../component/TableInvoinceDian";
 import useUpdateDetailPointerActions from "../../action/useUpdateDetailPointerActions";
 import useSocket from "../../hooks/UseSocket";
 import { IoTicketOutline } from "react-icons/io5";
+import { AiOutlineDelete } from "react-icons/ai";
+import { BsFilePdf } from "react-icons/bs";
+import { CiHeart } from "react-icons/ci";
 
 // Estilo para el título
 const titleStyle = {
@@ -90,7 +93,7 @@ const DetailDasboard =(props) =>{
 
     const resultDashboard = DetailDashboard[0]
 
-    console.log(resultDashboard )
+    console.log(resultDashboard)
 
     const documentByIdRoom =  resultDashboard?.Num_documento +""+id
     const init  =   moment(resultDashboard?.Fecha_inicio).utc().format('DD/MM/YYYY')
@@ -227,7 +230,8 @@ const DetailDasboard =(props) =>{
         Fecha_nacimiento:null,
         Nacionalidad:null,
         Correo:null,
-        Celular:null
+        Celular:null,
+        Ciudad:null
       });
 
       const [Nombre,setNombre] =useState()
@@ -975,11 +979,10 @@ const  handleClickEliminar =UseModalText({handlModal:hanDelete,Text:"Estas segur
 
                 <input  type="text" 
                         className="desde-detail-two" 
-                        name="Fecha"  
+                        name="Ciudad"  
                         placeholder="Mascotas"    
-                        readOnly={state}
                         defaultValue={resultDashboard.Ciudad}
-                        onChange={handleChange("Fecha")}   />
+                        onChange={handleChange("Ciudad")}   />
             </div>
         </form>
       </div>
@@ -1201,7 +1204,7 @@ const  handleClickEliminar =UseModalText({handlModal:hanDelete,Text:"Estas segur
            
               <div className="name-pinter"  onClick={handleClickEliminar.handModalText} data-tip data-for="registerTip" >
                   <div>
-                    <img width={33} src="https://medellin47.com/ico_pms/qcancel.svg" alt="" />
+                    <AiOutlineDelete fontSize={40} />
                   </div>
               </div>
               <ReactTooltip id="registerTip-1" place="top" effect="solid">
@@ -1209,7 +1212,7 @@ const  handleClickEliminar =UseModalText({handlModal:hanDelete,Text:"Estas segur
               </ReactTooltip>
               <div className="name-pinter"  onClick={ hanclickEditar.handModalText }   data-tip data-for="registerTip-1">
                   <div>
-                    <img width={33}  src="https://medellin47.com/ico_pms/qedit.svg" alt="" />
+                      <CiHeart fontSize={40} />
                   </div>
 
               </div>
@@ -1225,7 +1228,7 @@ const  handleClickEliminar =UseModalText({handlModal:hanDelete,Text:"Estas segur
 
               <div  className="name-pinter"  data-tip data-for="registerTip-2" >
                   <div onClick={ handComprobante.handModalText } >
-                     <img width={33}  src="https://medellin47.com/ico_pms/qdoc.svg" alt="" />
+                     <BsFilePdf fontSize={40} />
                   </div>
               </div>
                 <div className="container-checkbox" >
