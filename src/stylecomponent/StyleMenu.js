@@ -359,3 +359,9 @@ width: 470px
 export const ContaineButton = styled.div`
 width:17%;
 `
+
+export const BorderImgCloudbeds = styled.div`
+  width: 43%;
+border-radius: 10px;
+`
+

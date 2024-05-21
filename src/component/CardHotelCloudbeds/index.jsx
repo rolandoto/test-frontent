@@ -1,5 +1,5 @@
 import React from "react"
-import { ContaineButton, ImginProduct, MainProduct, TextWidth } from "../../stylecomponent/StyleMenu"
+import { BorderImgCloudbeds, ContaineButton, ImginProduct, MainProduct, TextWidth } from "../../stylecomponent/StyleMenu"
 
 const CardHotelCloudbeds =({getHotel}) =>{
 
@@ -11,7 +11,9 @@ const CardHotelCloudbeds =({getHotel}) =>{
                             <MainProduct className="bg-white shadow-md"  >
                                 <ImginProduct src={itemHotel.propertyImage}  alt="Hotel Image"/>
                                 <div >
-
+                                    <BorderImgCloudbeds className="bg-blue-500 ">
+                                        <img src="https://cloudbeds-fcfc.kxcdn.com/wp-content/uploads/2019/02/CB_logo_wht.svg" alt="" />
+                                    </BorderImgCloudbeds>
                                 <TextWidth>
                                 <h2 className="text-lg font-semibold mb-2">{itemHotel.propertyName}</h2>
                                 </TextWidth>
@@ -22,7 +24,7 @@ const CardHotelCloudbeds =({getHotel}) =>{
                                 </div>
                                 <ContaineButton >
                                     <button className=" Button-Search w-[150px] bg-blue-500 text-white py-4  rounded hover:bg-blue-600 transition duration-200">
-                                                Mirar hotel
+                                                Ver hotel
                                     </button>
                                 </ContaineButton>
                             </MainProduct>
