@@ -326,7 +326,6 @@ export const StyleContainerLoadingCLoudbeds = styled.div`
     align-items: center;
 `
 
-
 export const MainProduct = styled.span`
 width: 100%;
 display: flex;
@@ -335,8 +334,6 @@ justify-content: space-between;
 align-items: center;
 border-radius:25px;
 `
-
-
 
 export const ImginProduct = styled.img`
 width: 28%;
@@ -361,7 +358,25 @@ width:17%;
 `
 
 export const BorderImgCloudbeds = styled.div`
-  width: 43%;
+  width: 33%;
 border-radius: 10px;
 `
 
+export const MainReservation = styled.div`
+display: flex;
+flex-wrap: wrap;
+gap: 21px;
+`
+
+
+
+
+export const MainCardReservation = styled.span`
+width: 30%;
+display: flex;
+box-shadow: 17px 20px 40px rgba(0, 0, 0, .21) ;
+justify-content: space-between;
+align-items: center;
+border-radius:25px;
+padding:11px;
+`

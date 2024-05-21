@@ -13,9 +13,9 @@ const HomeIntegrationCloudbeds =() =>{
 
     const {loading,error,getHotel} = useSelector((state) => state.ApiCloudbedsReducersSlice)
 
-    const fetchDate =async() =>{
-        await getHotelGenalCloudbeds()
-    }
+      const fetchDate =async() =>{
+          await getHotelGenalCloudbeds()
+      }
 
     const FillContent =() =>{
         if(loading){

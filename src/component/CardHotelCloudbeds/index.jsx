@@ -1,13 +1,18 @@
 import React from "react"
-import { BorderImgCloudbeds, ContaineButton, ImginProduct, MainProduct, TextWidth } from "../../stylecomponent/StyleMenu"
+import { BorderImgCloudbeds, ContaineButton, ImginProduct, MainProduct, MainReservation, TextWidth } from "../../stylecomponent/StyleMenu"
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min"
 
 const CardHotelCloudbeds =({getHotel}) =>{
 
     const  {data} =  getHotel
+    const   history = useHistory()
 
     return (<>  
                 {data?.data.map((itemHotel) => {
-                    return ( <main className=" mx-auto flex  max-w-5xl items-center justify-between p-4 lg:px-8">
+                const handNextByHotelCloudbed =()=>{
+                    history.push(`/Cloudbeds/hotel/${itemHotel.propertyID}`)
+                }
+                    return ( <main key={itemHotel.propertyID} className=" mx-auto max-w-5xl items-center justify-between p-4 lg:px-8">
                             <MainProduct className="bg-white shadow-md"  >
                                 <ImginProduct src={itemHotel.propertyImage}  alt="Hotel Image"/>
                                 <div >
@@ -22,8 +27,8 @@ const CardHotelCloudbeds =({getHotel}) =>{
                                     <span className="text-green-300 font-semibold">{itemHotel.propertyCurrency.currencyCode} <span >(200)</span></span>
                                     </div>
                                 </div>
-                                <ContaineButton >
-                                    <button className=" Button-Search w-[150px] bg-blue-500 text-white py-4  rounded hover:bg-blue-600 transition duration-200">
+                                <ContaineButton  >
+                                    <button className=" Button-Search w-[150px] bg-blue-500 text-white py-4  rounded hover:bg-blue-600 transition duration-200" onClick={handNextByHotelCloudbed}   >
                                                 Ver hotel
                                     </button>
                                 </ContaineButton>
