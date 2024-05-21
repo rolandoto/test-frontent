@@ -6,7 +6,7 @@ const CardHotelCloudbeds =({getHotel}) =>{
     const  {data} =  getHotel
 
     return (<>  
-                {data.data.map((itemHotel) => {
+                {data?.data.map((itemHotel) => {
                     return ( <main className=" mx-auto flex  max-w-5xl items-center justify-between p-4 lg:px-8">
                             <MainProduct className="bg-white shadow-md"  >
                                 <ImginProduct src={itemHotel.propertyImage}  alt="Hotel Image"/>
