@@ -301,6 +301,8 @@ align-items: center;
 font-weight: 300;
 margin-left: 7px;
 `
+
+
 export const StyleTitle = styled.span`
 margin-left: 7px;
 font-weight: 500;
@@ -317,3 +319,43 @@ font-weight: 500;
 `
 
 
+export const StyleContainerLoadingCLoudbeds = styled.div`
+  height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+`
+
+
+export const MainProduct = styled.span`
+width: 100%;
+display: flex;
+box-shadow: 17px 20px 40px rgba(0, 0, 0, .21) ;
+justify-content: space-between;
+align-items: center;
+border-radius:25px;
+`
+
+
+
+export const ImginProduct = styled.img`
+width: 28%;
+object-fit: cover;
+height:12rem;
+border-bottom-left-radius:8%;
+border-top-left-radius: 8%;
+`
+
+
+export const  TextWidth = styled.div`
+font-weight: 400;
+overflow: hidden;
+text-overflow: ellipsis;
+white-space: nowrap;
+width: 470px
+`
+
+
+export const ContaineButton = styled.div`
+width:17%;
+`
