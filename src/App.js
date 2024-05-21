@@ -73,6 +73,7 @@ import Dashboardstatistics from "./page/Dashboard";
 import Huespedbreakfast from "./page-resesion/HuespedDesayuno";
 import InformeAuditoriaMonth from "./page-resesion/Informes/InformeAuditoriaMonth";
 import HomeIntegrationCloudbeds from "./page/HomeIntegrationCloubeds";
+import HomeHotelCloudbed from "./page/HomeHotelCloudbed";
 
 function App() {
   const { jwt } = useContext(AutoProvider);
@@ -175,6 +176,7 @@ function App() {
               <PrivateRoute exact path="/Home" component={MainDasboard} />
               <PrivateRoute exact path="/breakfast/:id" component={Huespedbreakfast} />
               <PrivateRoute exact path="/Cloudbeds" component={HomeIntegrationCloudbeds}    />
+              <PrivateRoute exact path="/Cloudbeds/hotel/:id" component={HomeHotelCloudbed}    />
               <PrivateRoute
                 exact
                 path="/DetailDashboard/:id"
