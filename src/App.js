@@ -72,6 +72,7 @@ import WebChecking from "./page-resesion/webChecking";
 import Dashboardstatistics from "./page/Dashboard";
 import Huespedbreakfast from "./page-resesion/HuespedDesayuno";
 import InformeAuditoriaMonth from "./page-resesion/Informes/InformeAuditoriaMonth";
+import HomeIntegrationCloudbeds from "./page/HomeIntegrationCloubeds";
 
 function App() {
   const { jwt } = useContext(AutoProvider);
@@ -165,7 +166,6 @@ function App() {
       <div>
         <Provider store={store}>
           <BrowserRouter>
-            
             <Switch>
               <Route exact path="/" component={Login} />
               <PrivateRoute exact path="/Dashboardstatistics" component={Dashboardstatistics}    />
@@ -174,6 +174,7 @@ function App() {
               <PrivateRoute exact path="/HomeTypehospedaje" component={HomeTypehospedaje}    />
               <PrivateRoute exact path="/Home" component={MainDasboard} />
               <PrivateRoute exact path="/breakfast/:id" component={Huespedbreakfast} />
+              <PrivateRoute exact path="/Cloudbeds" component={HomeIntegrationCloudbeds}    />
               <PrivateRoute
                 exact
                 path="/DetailDashboard/:id"
@@ -353,6 +354,7 @@ function App() {
             <Switch>
               <Route exact path="/" component={Login} />
               <PrivateRoute exact path="/SearchbyID" component={SearchBYID}    />
+              <PrivateRoute exact path="/Cloudbeds" component={HomeIntegrationCloudbeds}    />
               <PrivateRoute exact path="/Ocacionales" component={Ocacionales}    />
               <PrivateRoute exact path="/HomeTypehospedaje" component={HomeTypehospedaje}    />
               <PrivateRoute exact path="/breakfast/:id" component={Huespedbreakfast} />
@@ -514,7 +516,7 @@ function App() {
                 component={WebChecking}
               />
 
-<PrivateRoute
+            <PrivateRoute
                 exact
                 path="/informeAuditoriaMonth"
                 component={InformeAuditoriaMonth}
