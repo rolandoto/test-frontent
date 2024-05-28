@@ -10,6 +10,8 @@ export  const initialState = {
     Dian:[],
     Payment:[],
     loadingInvoinces:false,
+    Invoinces:[],
+    errorInvoince:false,
     Pdf:[],
     sigoBYIDpdf:[],
     payabono:[],
@@ -24,15 +26,19 @@ export const DianSlice = createSlice({
     reducers:{
         loading:(state) =>{
             state.loading=true
-            state.error=null
+            state.errorInvoince=null
+        },
+        setInvoinces(state,action){
+            state.Invoinces = action.payload
+            state.loadingInvoinces = false
         },
         setLoadingInvonces:(state,action)=>{
             state.loadingInvoinces = true
-            state.error=null
+            state.errorInvoince=null
         },
         setErrorInvoinces:(state,action)=>{
             state.loadingInvoinces = false
-            state.error= action.payload
+            state.errorInvoince= action.payload
         },
         setClient:(state,action) =>{
             state.ListClient = action.payload
@@ -83,6 +89,9 @@ export const DianSlice = createSlice({
 })
 
 export const {loading,
+                setInvoinces,
+                setLoadingInvonces,
+                setErrorInvoinces,
                 setClient,
                 setTSeller,
                 setError,
@@ -90,8 +99,6 @@ export const {loading,
                 setProducts,
                 setDian,
                 setPayment,
-                setLoadingInvonces,
-                setErrorInvoinces,
                 setDianSigoPdf,
                 setPayabono,
                 setPdf,
