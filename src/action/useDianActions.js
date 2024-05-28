@@ -7,14 +7,13 @@ import { setClient,
         setError,
         setTSeller ,
         setProducts,
-        setDian,
         setPayment,
         setLoadingInvonces,
         setErrorInvoinces,
-        setPdf,
         setDianSigoPdf,
         setPayabono,
-        setInvonceByIdReservation
+        setInvonceByIdReservation,
+        setInvoinces
         } from "../reducers/DianReducer"
 import { toast } from "react-hot-toast";
 import { useCallback, useContext, useState } from "react";
@@ -26,13 +25,7 @@ import { useSelector } from "react-redux";
 const UseDianActions =() =>{
 
     const history = useHistory()
-    const now = moment().utc().format('YYYY-MM-DD')
-    const {Dian} = useSelector((state) => state.Dian)
-
-    const {jwt} =useContext(AutoProvider)
-
- 
-
+  
     const dispatch =  useAppDispatch()
     
     const GetCLientDian =async({token,document}) =>{
@@ -96,56 +89,22 @@ const UseDianActions =() =>{
         }
     }
 
-    const [valid,setValidDian] = useState(null);
-  
-    const PostSendInvoinces = useCallback(({ token, body, id_Reserva }) => {
+    const PostSendInvoinces = useCallback(async({ token,body,id_Reserva,id_user,fecha}) => {
         dispatch(setLoadingInvonces());
-
         try {
-            HttpClient.PostCreatebill({ token, body })
-            .then((itemResponse) => { 
-                setValidDian(itemResponse.id);
-                if (Boolean(itemResponse.id.trim())) {
-                    HttpClient.PostInsertSigOpdfbyid({  
-                        id: id_Reserva,
-                        id_sigo: itemResponse.id,
-                        id_user: jwt.result.id_user,
-                        fecha: now 
-                    }).then((item) => {
-                        ServiceInfomeMovimiento({
-                            Nombre_recepcion: jwt.result.name,
-                            Fecha: now,
-                            Movimiento: `Se envio facturacion electronica a Nombre  ${body.customer.name}`,
-                            id: jwt.result.id_hotel,
-                            Valor_habitacion: 0,
-                            Codigo_reserva: "0000"
-                        }).then(() => {
-                            dispatch(setDian(itemResponse));
-                            dispatch(setPayment(itemResponse));
-                            toast.success("Se guardó correctamente la facturación");
-                            history.push(`/DetailDashboard/${id_Reserva}`);
-                        }).catch((error) => {
-                            // Manejar errores en ServiceInfomeMovimiento
-                            toast.error("Error en ServiceInfomeMovimiento: " + error.message);
-                            dispatch(setErrorInvoinces("error"));
-                        });
-                    }).catch((error) => {
-                        // Manejar errores en HttpClient.PostInsertSigOpdfbyid
-                        toast.error("Error en HttpClient.PostInsertSigOpdfbyid: " + error.message);
-                        dispatch(setErrorInvoinces("error"));
-                    });
-                }
-            }).catch((error) => {
-                // Manejar errores en HttpClient.PostCreatebill
-                toast.error("Error en HttpClient.PostCreatebill: " + error.message);
+            const response = await HttpClient.PostSigoBYClient({ token,body,id_Reserva,id_user,fecha})
+            if(response){
+                dispatch(setInvoinces(response)) 
+                toast.success("Exitos: ");
+                history.push(`/DetailDashboard/${id_Reserva}`)
+            }else{
+                toast.error("error en el peticion")
                 dispatch(setErrorInvoinces("error"));
-            });
-            
+            }
         } catch (error) {
             toast.error("Error en HttpClient.PostCreatebill: " + error.message);
             dispatch(setErrorInvoinces("error"));
         }
-       
     }, []);
     
     
@@ -200,14 +159,13 @@ const UseDianActions =() =>{
         }
     }
 
-   
     const GetPayAbono =async({id}) =>{
         dispatch(loading())
         try {
-            const response = await   HttpClient.GetPayAbono({id})
+            const response = await HttpClient.GetPayAbono({id})
             console.log(response)
             if(response){
-                dispatch( setPayabono(response))
+                dispatch(setPayabono(response))
             }else{
                 toast.error("envio error")
                 dispatch(setError("no found"))
@@ -223,8 +181,10 @@ const UseDianActions =() =>{
         dispatch(loading())
         try {
             const response = await HttpClient.GetInvoincesByReservationDian({id})
+          
             if(response){
                 dispatch(setInvonceByIdReservation(response))
+                toast.success("envio")
             }else{
                 toast.error("envio error")
                 dispatch(setError("no found"))
@@ -245,7 +205,6 @@ const UseDianActions =() =>{
             getPdfSigo,
             GetPayAbono,
             GetInvonceByIdReservation,
-            valid
            }
 }
 

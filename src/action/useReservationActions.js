@@ -15,7 +15,8 @@ const useReservationActions  =() =>{
 
 
     const getPostByReservation =  async({type}) =>{
-       
+        
+        console.log({"swidjasiojdsad":jwt.result.id_hotel})
         dispatch(ReservationSlice.actions.loading())
         try {
             const postResponse = await  ServiceReservas({id:jwt.result.id_hotel,type})

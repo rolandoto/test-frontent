@@ -757,24 +757,24 @@ const GetLisClienteDian = ({token,document}) => {
   })
 };
 
-const PostCreatebill = ({body,token}) => {
-  return fetch(`https://private-anon-72afbfb6b1-siigoapi.apiary-proxy.com/v1/invoices`, {
-    method: "POST",
-    body: JSON.stringify(body),
-    headers: {
-      "Authorization":token,
-      'Content-Type': 'application/json',
-      'Partner-Id': 'officegroup'
-    },
-  })
-    .then((resp) => {
-      return resp.json();
-    })
-    .then((data) => {
+const PostSigoBYClient = async({token,body,id_Reserva,id_user,fecha}) => {
+  try {
+    const resp = await fetch(`${config.serverRoute}/api/hotels/sigo/PostInvoinceByIdCLient`, {
+        method: "POST",
+        body: JSON.stringify({ token,body,id_Reserva,id_user,fecha}),
+        headers: {
+            'Content-type': 'application/json',
+        }
+    });
+    if (!resp.ok) {
+        throw new Error('Response is not ok');
+      }
+      const data = await resp.json();
       return data
-    }).catch((e) =>{
-      console.log(e)
-    })
+} catch (error) {
+    console.error('Error in PostInformeInfomeMetricas:', error);
+    throw error; // You can re-throw the error or handle it differently based on your needs
+}
 }
 
 const GetTypeDocuments= ({token}) => {
@@ -1176,8 +1176,6 @@ const PostRoomOcasionalMonth  = async ({fecha,id}) => {
   }
 };
 
-
-
 export default {
   get,
   post,
@@ -1221,7 +1219,7 @@ export default {
   GetTypeDocuments,
   GetSellerDian,
   GetProducts,
-  PostCreatebill,
+  PostSigoBYClient,
   GetCostCenter,
   GetTypePayment,
   GetSalesInvoice,

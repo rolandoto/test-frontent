@@ -27,15 +27,17 @@ const Dian =() => {
     const [select,setSelect] =useState([])
     const {loading,error,ListClient,typeDocumentDian,seller,products,Payment,loadingInvoinces,Pdf,payabono} = useSelector((state) => state.Dian)
     //const to = useSelector((state) => state.Dian)
-    const {GetCLientDian,GetTypeDian,GetTSeller,GetTProductsDian,PostSendInvoinces,GetPayment,valid} = UseDianActions()
+    const {GetCLientDian,GetTypeDian,GetTSeller,GetTProductsDian,PostSendInvoinces,GetPayment} = UseDianActions()
     const {getDetailReservationById} = useDetailDashboardAction()
     const {GetPayAbono} =UseDianActions()
     const [selectedItems, setSelectedItems] = useState([]);
+    const now = moment().utc().format('YYYY-MM-DD')
+
+    console.log(seller)
 
     const {DetailDashboard
       } = useSelector((state) => state.DetailDashboard)
     
-  
     const [username,setUsername] =useState("")
 
     const handChange =(e) =>{
@@ -79,8 +81,6 @@ const Dian =() => {
     const totalNum = resultDashboard?.Iva == 1 ? true : false;
 
     const typeIva = resultDashboard?.tipo_persona === "empresa" ? true : totalNum;
-
-   
 
     const sumWithInitial = payabono.reduce((accumulator, currentValue) => {
       if (currentValue.Valid_Dian === 0) {
@@ -211,9 +211,6 @@ const Dian =() => {
         return { resultadosBusqueda };
     };
 
-
-    console.log(sumWithInitial)
-
     const handSubmitInvoinces=async() =>{
       if(sumWithInitial ==0) {
         toast.error("No se puede facturar no tiene ningun valor pendiente");
@@ -222,7 +219,7 @@ const Dian =() => {
           toast.error("no se puedes enviar mas facturacion electronica")
       }else{
         if(!loadingInvoinces){
-            await PostSendInvoinces({token:Dian.access_token,body:response,id_Reserva:id})
+            await PostSendInvoinces({token:Dian.access_token,body:response,id_Reserva:id,id_user:jwt.result.id_user,fecha:now})
             socket.emit("sendNotification",jwt.result.name);
         }else{
           toast.error("Error factura")
@@ -262,12 +259,11 @@ const Dian =() => {
               <StyledMenuItemLoading>
 
               <Loading type="default" size="lg" />
-                
-                    </StyledMenuItemLoading>
+              </StyledMenuItemLoading>
           </StyledContextLoading> }
           
-          <ButtonBack/>
-        <ButtonHome/>
+               {!loadingInvoinces &&  <ButtonBack/> }
+              <ButtonHome/>
                 <ul className="flex-bedrooms-search">   
                   <li>
                       <input  className="input-stores-personality-nine-search"  
