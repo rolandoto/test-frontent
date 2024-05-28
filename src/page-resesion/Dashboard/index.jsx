@@ -781,14 +781,14 @@ const Dashboard = () => {
 				itemHeightRatio={0.9}                                                             
 				lineHeight={28.4}
 				sidebarWidth={225}
-				showCursorLine={false}
+				showCursorLine={true}
 				itemRenderer={  ItemRenderer}
 				onItemClick={onItemClick}
 				now={nowOne}
 				canResize={"both"}
 				itemStyle={{ background: "black" }}
 				stackItems
-				itemTouchSendsClick>
+				>
 				<TimelineHeaders className="list-booking-sticky"   >	
 				<SidebarHeader >
 					{({ getRootProps }) => {
