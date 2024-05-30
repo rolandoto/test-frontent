@@ -13,14 +13,15 @@ import { setClient,
         setDianSigoPdf,
         setPayabono,
         setInvonceByIdReservation,
-        setInvoinces
+        setInvoinces,
+        setClientLoading,
+        setClientError,
+        setTaxesError,
+        setTaxes,
+        setTaxesLoading
         } from "../reducers/DianReducer"
 import { toast } from "react-hot-toast";
-import { useCallback, useContext, useState } from "react";
-import  AutoProvider  from "../privateRoute/AutoProvider";
-import moment from "moment";
-import ServiceInfomeMovimiento from "../service/ServiceInformeMovimiento";
-import { useSelector } from "react-redux";
+import { useCallback } from "react";
 
 const UseDianActions =() =>{
 
@@ -29,18 +30,17 @@ const UseDianActions =() =>{
     const dispatch =  useAppDispatch()
     
     const GetCLientDian =async({token,document}) =>{
-    
-        dispatch(loading())
-
+        dispatch(setClientLoading())
         try {
             const response =  await  HttpClient.GetLisClienteDian({token,document})
             if(response){
-                dispatch(setClient(response))
+                dispatch(setClient(response.data))
             }else{
+                dispatch(setClient(""))
                 dispatch(setError("no found"))
             }
         } catch (error) {
-            
+            dispatch(  setClientError("no found")) 
         }
     }
 
@@ -48,6 +48,7 @@ const UseDianActions =() =>{
         dispatch(loading())
         try {
             const response =  await  HttpClient.GetTypeDocuments({token})
+          
 
             if(response){
                 dispatch(setTypeDian(response))
@@ -63,7 +64,7 @@ const UseDianActions =() =>{
         dispatch(loading())
         try {
             const response =  await  HttpClient.GetSellerDian({token})
-          
+            
             if(response){
                 dispatch(setTSeller(response))
             }else{
@@ -78,7 +79,6 @@ const UseDianActions =() =>{
         dispatch(loading())
         try {
             const response =  await  HttpClient.GetProducts({token})
-           
             if(response){
                 dispatch(setProducts(response))
             }else{
@@ -126,19 +126,6 @@ const UseDianActions =() =>{
         }
     }
 
-    const saveSettings = async (settings) => {
-        // Simula una promesa de guardado
-        return new Promise((resolve, reject) => {
-          setTimeout(() => {
-            if (settings) {
-              resolve();
-            } else {
-              reject();
-            }
-          }, 2000);
-        });
-      };
-
 
     const getPdfSigo =async({token,id}) =>{
         dispatch(loading())
@@ -163,7 +150,7 @@ const UseDianActions =() =>{
         dispatch(loading())
         try {
             const response = await HttpClient.GetPayAbono({id})
-            console.log(response)
+           
             if(response){
                 dispatch(setPayabono(response))
             }else{
@@ -194,6 +181,24 @@ const UseDianActions =() =>{
             dispatch(setError("no found Service "))
         }
     }
+
+
+    const GetTaxesDian=async({token}) =>{
+        dispatch(setTaxesLoading())
+        try {
+            const response = await HttpClient.GetTaxesDian({token})
+            if(response){
+                dispatch(setTaxes(response))
+                toast.success("envio")
+            }else{
+                toast.error("envio error")
+                dispatch(setTaxesError("no found"))
+            }
+        } catch (error) {
+            toast.error("envio service")
+            dispatch(setTaxesError("no found Service "))
+        }
+    }
    
 
     return {GetCLientDian,
@@ -205,6 +210,7 @@ const UseDianActions =() =>{
             getPdfSigo,
             GetPayAbono,
             GetInvonceByIdReservation,
+            GetTaxesDian
            }
 }
 

@@ -702,7 +702,6 @@ const PostResdianByIdReserva = ({ id, resdian }) => {
     });
 }
 
-
 const PostSeacrhHotelsByIdHotel = ({ id, desde, hasta }) => {
   return fetch(`${config.serverRoute}/api/hotels//SeacrhHotelsById`, {
     method: "POST",
@@ -720,41 +719,49 @@ const PostSeacrhHotelsByIdHotel = ({ id, desde, hasta }) => {
       return resp;
     });
 }
-const PostAutenticationDian = () => {
-  const body = {
-    username: '10elementossas@gmail.com',
-    access_key: "YzFmOTA0MjktNmVmYi00YzMzLWJmOTItN2QyNDk1NGE1YzIzOmlkVioxSDIjalE="
-  };
-  return fetch(`https://private-anon-72afbfb6b1-siigoapi.apiary-proxy.com/auth`, {
-    method: "POST",
-    body: JSON.stringify(body),
-    headers: {
-      'Content-Type': 'application/json',
-      'Partner-Id': 'officegroupe'
-    },
-  })
-    .then((resp) => {
-      return resp.json();
-    })
-    .then((data) => {
+
+
+//SIGO
+const PostAutenticationDian = async() => {
+  
+  try {
+    const resp = await fetch(`${config.serverRoute}/api/hotels/sigo/PostAuthSigo`, {
+      method: "POST",
+      headers: {
+          'Content-type': 'application/json',
+      }
+    });
+    if (!resp.ok) {
+        throw new Error('Response is not ok');
+      }
+      const {data} = await resp.json();
       return data
-    })
+} catch (error) {
+    console.error('Error in PostInformeInfomeMetricas:', error);
+    throw error; // You can re-throw the error or handle it differently based on your needs
+}
 }
 
-const GetLisClienteDian = ({token,document}) => {
-  return fetch(`https://private-anon-72afbfb6b1-siigoapi.apiary-proxy.com/v1/customers?identification=${document}`, {
-    method: "GET",
-    headers: {
-      "Authorization":token,
-      'Content-Type': 'application/json',
-      'Partner-Id': 'officegroup'
-    },
-  }).then((resp) => {
-    return resp.json();
-  })
-  .then((data) => {
-    return data
-  })
+const GetLisClienteDian = async({token,document}) => {
+  try {
+    const resp = await fetch(`${config.serverRoute}/api/hotels/sigo/GetClientSigo`, {
+  
+      method: "POST",
+      body: JSON.stringify({ token,document}),
+      headers: {
+          'Content-type': 'application/json',
+      }
+    });
+
+    if (!resp.ok) {
+        throw new Error('Response is not ok');
+      }
+      const data = await resp.json();
+      return data
+} catch (error) {
+    console.error('Error in PostInformeInfomeMetricas:', error);
+    throw error; // You can re-throw the error or handle it differently based on your needs
+}
 };
 
 const PostSigoBYClient = async({token,body,id_Reserva,id_user,fecha}) => {
@@ -778,7 +785,7 @@ const PostSigoBYClient = async({token,body,id_Reserva,id_user,fecha}) => {
 }
 
 const GetTypeDocuments= ({token}) => {
-  return fetch(`https://private-anon-72afbfb6b1-siigoapi.apiary-proxy.com/v1/document-types?type=FV`, {
+  return fetch(`https://private-anon-5edaff4dcc-siigoapi.apiary-proxy.com/v1/document-types?type=FV`, {
     method: "GET",
     headers: {
       "Authorization":token,
@@ -794,7 +801,7 @@ const GetTypeDocuments= ({token}) => {
 };
 
 const GetSellerDian= ({token}) => {
-  return fetch(`https://private-anon-72afbfb6b1-siigoapi.apiary-proxy.com/v1/users`, {
+  return fetch(`https://private-anon-5edaff4dcc-siigoapi.apiary-proxy.com/v1/users`, {
     method: "GET",
     headers: {
       "Authorization":token,
@@ -809,41 +816,52 @@ const GetSellerDian= ({token}) => {
   })
 };
 
-const GetProducts= ({token}) => {
-  return fetch(`https://private-anon-72afbfb6b1-siigoapi.apiary-proxy.com/v1/products?created_start=2024-02-06`, {
-    method: "GET",
-    headers: {
-      "Authorization":token,
-      'Content-Type': 'application/json',
-      'Partner-Id': 'officegroup'
-    },
-  }).then((resp) => {
-    return resp.json();
-  })
-  .then((data) => {
+const GetProducts= async({token}) => {
+  try {
+    const resp = await fetch(`${config.serverRoute}/api/hotels/sigo/GetProductSigo`, {
+      method: "POST",
+      body: JSON.stringify({ token}),
+      headers: {
+          'Content-type': 'application/json',
+      },
+    });
+    if (!resp.ok) {
+      throw new Error('Response is not ok');
+    }
+    const {data} = await resp.json();
     return data
-  })
+    
+  } catch (error) {
+    console.error('Error in PostInformeInfomeMetricas:', error);
+    throw error; // You can re-throw the error or handle it differently based on your needs
+  }
 };
 
-
-const GetCostCenter= ({token}) => {
-  return fetch(`https://private-anon-72afbfb6b1-siigoapi.apiary-proxy.com/v1/cost-centers`, {
-    method: "GET",
-    headers: {
-      "Authorization":token,
-      'Content-Type': 'application/json',
-      'Partner-Id': 'officegroup'
-    },
-  }).then((resp) => {
-    return resp.json();
-  })
-  .then((data) => {
+//GetTaxesSigo
+const GetTaxesDian=async({token}) => {
+  try {
+    const resp = await fetch(`${config.serverRoute}/api/hotels/sigo/GetTaxesSigo`, {
+      method: "POST",
+      body: JSON.stringify({ token}),
+      headers: {
+          'Content-type': 'application/json',
+      },
+    });
+    if (!resp.ok) {
+      throw new Error('Response is not ok');
+    }
+    const {data} = await resp.json();
     return data
-  })
+    
+  } catch (error) {
+    console.error('Error in PostInformeInfomeMetricas:', error);
+    throw error; // You can re-throw the error or handle it differently based on your needs
+  }
+  
 };
 
 const GetTypePayment= ({token}) => {
-  return fetch(`https://private-anon-72afbfb6b1-siigoapi.apiary-proxy.com/v1/payment-types?document_type=FV`, {
+  return fetch(`https://private-anon-5edaff4dcc-siigoapi.apiary-proxy.com/v1/payment-types?document_type=FV`, {
     method: "GET",
     headers: {
       "Authorization":token,
@@ -859,20 +877,25 @@ const GetTypePayment= ({token}) => {
 };
 
 
-const GetSalesInvoice= ({token,id}) => {
-  return fetch(`https://private-anon-72afbfb6b1-siigoapi.apiary-proxy.com/v1/invoices/${id}/pdf`, {
-    method: "GET",
-    headers: {
-      "Authorization":token,
-      'Content-Type': 'application/json',
-      'Partner-Id': 'officegroup'
-    },
-  }).then((resp) => {
-    return resp.json();
-  })
-  .then((data) => {
+const GetSalesInvoice= async({token,id}) => {
+  try {
+    const resp = await fetch(`${config.serverRoute}/api/hotels/sigo/GetPdfSigo`, {
+      method: "POST",
+      body: JSON.stringify({ token,id}),
+      headers: {
+          'Content-type': 'application/json',
+      },
+    });
+    if (!resp.ok) {
+      throw new Error('Response is not ok');
+    }
+    const {data} = await resp.json();
     return data
-  })
+    
+  } catch (error) {
+    console.error('Error in PostInformeInfomeMetricas:', error);
+    throw error; // You can re-throw the error or handle it differently based on your needs
+  }
 };
 
 
@@ -1220,7 +1243,7 @@ export default {
   GetSellerDian,
   GetProducts,
   PostSigoBYClient,
-  GetCostCenter,
+  GetTaxesDian,
   GetTypePayment,
   GetSalesInvoice,
   GetTypeRoom,

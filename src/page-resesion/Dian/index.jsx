@@ -1,85 +1,110 @@
-import React, { useContext, useEffect, useState } from "react";
-
+import React, { Fragment, useCallback, useContext, useEffect, useState } from "react";
 import  AutoProvider  from "../../privateRoute/AutoProvider";
 import UseDianActions from "../../action/useDianActions";
 import { useSelector } from "react-redux";
-import { SocketRoute, config } from "../../config";
+import { SocketRoute } from "../../config";
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 import useDetailDashboardAction from "../../action/useDetailDashboardAction";
-import { Card, Loading, Text } from "@nextui-org/react";
+import { Button, Card, Loading, Text } from "@nextui-org/react";
 import moment from "moment";
-import { StyleTitleHotel, StyledContextLoading,  StyledMenuItemLoading } from "../../stylecomponent/StyleMenu";
+import {StyledContextLoading,  StyledMenuItemLoading } from "../../stylecomponent/StyleMenu";
 import toast from "react-hot-toast";
 import ButtonBack from "../../component/ButtonBack";
 import ButtonHome from "../../component/ButtonHome";
 import io from "socket.io-client";
-import PageBack from "../../component/PageBack";
-import LineProgress from "../../Ui/LineProgress";
 import useProgress from "../../hooks/useProgress";
+import TableClientDian from "../../component/TableClientDian";
+import HttpClient from "../../HttpClient";
+import { useDebounce } from 'use-debounce';
+import SearchClient from "../../component/SearchClientSigo";
+import ContentLoader, { List } from 'react-content-loader'
+import useSocket from "../../hooks/UseSocket";
 
-const socket = io.connect(`${SocketRoute.serverRoute}`);
+const DiscordLoader = props => {
+  return (
+    <ContentLoader height={100} width={700} {...props}>
+      <circle cx="25" cy="50" r="25" />
+      <rect x="60" y="30" rx="5" ry="5" width="220" height="15" />
+      <rect x="60" y="50" rx="5" ry="5" width="70" height="15" />
+      <rect x="140" y="50" rx="5" ry="5" width="90" height="15" />
+      <rect x="240" y="50" rx="5" ry="5" width="70" height="15" />
+      <rect x="320" y="50" rx="5" ry="5" width="60" height="15" />
+      <rect x="390" y="50" rx="5" ry="5" width="50" height="15" />
+      <rect x="450" y="50" rx="5" ry="5" width="70" height="15" />
+      <rect x="60" y="70" rx="5" ry="5" width="60" height="15" />
+      <rect x="130" y="70" rx="5" ry="5" width="80" height="15" />
+      <rect x="220" y="70" rx="5" ry="5" width="90" height="15" />
+      <rect x="320" y="70" rx="5" ry="5" width="100" height="15" />
+      <rect x="380" y="70" rx="5" ry="5" width="50" height="15" />
+      <rect x="440" y="70" rx="5" ry="5" width="60" height="15" />
+    </ContentLoader>
+  )
+}
+
 
 const Dian =() => {
-
+  const socket = useSocket();
     const {jwt,Dian} = useContext(AutoProvider)
     const {id} = useParams()
-    const {progress} = useProgress({id})
-    const [select,setSelect] =useState([])
-    const {loading,error,ListClient,typeDocumentDian,seller,products,Payment,loadingInvoinces,Pdf,payabono} = useSelector((state) => state.Dian)
+    const [select,setSelect] =useState({})
+    const {loading,
+          error,
+          typeDocumentDian,
+          seller,
+          products,
+          Payment,
+          Taxes,
+          ListClient,
+          loadingClient,
+          errorClient,
+          loadingInvoinces,
+          payabono} = useSelector((state) => state.Dian)
     //const to = useSelector((state) => state.Dian)
-    const {GetCLientDian,GetTypeDian,GetTSeller,GetTProductsDian,PostSendInvoinces,GetPayment} = UseDianActions()
+    const {GetCLientDian,
+          GetTypeDian,
+          GetTSeller,
+          GetTProductsDian,
+          PostSendInvoinces,
+          GetPayment,
+          GetTaxesDian} = UseDianActions()
     const {getDetailReservationById} = useDetailDashboardAction()
     const {GetPayAbono} =UseDianActions()
-    const [selectedItems, setSelectedItems] = useState([]);
     const now = moment().utc().format('YYYY-MM-DD')
-
-    console.log(seller)
 
     const {DetailDashboard
       } = useSelector((state) => state.DetailDashboard)
     
-    const [username,setUsername] =useState("")
-
-    const handChange =(e) =>{
-        setUsername(e.target.value)
-    } 
-
     const fetchDataDetail =async() =>{
       await getDetailReservationById({id})
   }
- 
+
     const fetchData =async() =>{
-        await  GetCLientDian({token:Dian.access_token,document:username})
-        await  GetTypeDian({token:Dian.access_token})
-        await  GetTSeller({token:Dian.access_token})
+      //  await  GetTypeDian({token:Dian.access_token})
+      //  await  GetTSeller({token:Dian.access_token})
         await  GetTProductsDian({token:Dian.access_token})
         await  GetPayment({token:Dian.access_token})
+        await GetTaxesDian({token:Dian.access_token})
     } 
+
     const fetchDataPayment =async() =>{
       await  GetPayAbono({id})
   } 
 
-    const resultDashboard = DetailDashboard[0]
 
-    let isFetchingData = true;
+  useEffect(() => {
+		if (socket) {
+			socket.on("sendNotification", async(data) => {
+				fetchData()
+				toast.success("Se creo una reserva")
+		});	
+		}
+	}, [socket]);
 
-    socket.on("sendNotification", async(data) => {
-      if (isFetchingData) {
-        isFetchingData = false;
-        toast.custom((t) => (
-        <>
-          <footer class="nav-notifiacation">
-                <div className="row-notification">
-                  <h5>{data} envio una facturacion electronica  </h5>
-                </div>
-          </footer>
-        </>
-        ))
-      }
-    });
+  const resultDashboard = DetailDashboard[0]
+
+  
 
     const totalNum = resultDashboard?.Iva == 1 ? true : false;
-
     const typeIva = resultDashboard?.tipo_persona === "empresa" ? true : totalNum;
 
     const sumWithInitial = payabono.reduce((accumulator, currentValue) => {
@@ -90,20 +115,31 @@ const Dian =() => {
       }
     }, 0);
 
-
+    // IVA 19%
     const totalPrice = sumWithInitial
-
     const totalRound =  totalPrice / 1.19
     const ValorBase = Math.round(totalRound * 100000) / 100000; // Redondear a 5 decimales
-
     const valueSTotalProduct =  typeIva ?  ValorBase : totalPrice
     const valuesPayments = typeIva ? totalPrice :totalPrice
 
 
-    const filteredItems = products?.results?.filter(item =>{
+    const totalPriceRete = sumWithInitial
+    const totalRoundRete =  totalPriceRete / 1.19
+    const ValorBaseRete = Math.round(totalRoundRete * 100000) / 100000; // Redondear a 5 decimales
+    const valueSTotalProductRete =  typeIva ?  ValorBaseRete : totalPrice
+    const valuesPaymentsRete = typeIva ? totalPrice :totalPrice
+
+    console.log(valueSTotalProduct)
+    console.log(valuesPayments)
+
+
+
+    const filteredItems = products?.filter(item =>{
       return  item.id ==jwt?.result?.dian
-    }
+      }
     );
+
+    console.log(filteredItems)
 
      const itemsIva = filteredItems?.map(item => {
       return {
@@ -118,33 +154,29 @@ const Dian =() => {
       };
     });
 
-    const itemsProduct = [
-      {
-        code: '6',
-        description: 'HOSPEDAJE EXENTO',
-        quantity: 1,
-        price: totalPrice,
-        discount: 0.0,
+    
 
-      }
-    ];
+    const filteredItemsExecento = products?.filter(item =>{
+      return  item.code =="6"
+    }
+    );
 
-    const itemsExenta = itemsProduct?.map(item => {
+    const itemsExenta = filteredItemsExecento?.map(item => {
       return {
         code: `${item.code}`,
-        description: `${item.description}`,
+        description: `${item.name}`,
         quantity:1,
-        price: item.price ,
-        discount: item.discount,
-        taxes: [{
-          id:14205
+        price: totalPrice ,
+        discount: 0.0,
+        taxes: [
+          {
+          id:item?.taxes[0]?.id  || 0
         }],
       };
     });
 
     const  items =  typeIva ? itemsIva   :itemsExenta
 
- 
     const payments =[{
       id: jwt?.result?.id_payment,
       value:valuesPayments,
@@ -175,7 +207,6 @@ const Dian =() => {
         phones:select?.phones,
        contacts:select?.contacts
       },
-    
       seller: 547,
       stamp: {
         send: true
@@ -183,8 +214,8 @@ const Dian =() => {
       mail: {
         send: true
       },
-      
       observations: '',
+      
       items,
       payments,
       additional_fields: {}
@@ -194,22 +225,8 @@ const Dian =() => {
       fetchDataPayment()
         fetchData()
         fetchDataDetail()
-    },[username,id])
-
-    const filtrarSearching = (terminoBusqueda) => {
-        let resultadosBusqueda = ListClient?.results?.filter((elemento, index) => {
-            // Filtrar por término de búsqueda
-            const condicionBusqueda = elemento.identification?.toString().toLowerCase().includes(terminoBusqueda.toLowerCase()) ||
-                                      elemento?.name[0]?.toString().toLowerCase().includes(terminoBusqueda.toLowerCase()) ||
-                                      elemento?.name[1]?.toString().toLowerCase().includes(terminoBusqueda.toLowerCase()) ||
-                                      elemento.full_name?.toString().toLowerCase().includes(terminoBusqueda.toLowerCase());
-            // Filtrar por rango de fechas
-            let condicionFechas = true;
-            // Retornar elemento si cumple con ambas condiciones
-            return condicionBusqueda && condicionFechas;
-        });
-        return { resultadosBusqueda };
-    };
+    },[id])
+    
 
     const handSubmitInvoinces=async() =>{
       if(sumWithInitial ==0) {
@@ -227,125 +244,102 @@ const Dian =() => {
       }
     }
 
-    const toggleSelect = (itemId) => {
-      setSelectedItems((prevSelected) => {
-        if (prevSelected.includes(itemId)) {
-          return prevSelected.filter((id) => id !== itemId);
-        } else {
-          const productIncartIndex = resultadosBusqueda.findIndex(item => item.id == itemId)
-          const newStatet = structuredClone(resultadosBusqueda)
-          const resultNewState =  newStatet[productIncartIndex]
-          setSelect(resultNewState);
-          return [prevSelected, itemId];
-        }
-      });
-    };  
+    const handleSelectChange = (client) => {
+      setSelect(client);
+    };
 
-  const {resultadosBusqueda}  = filtrarSearching(username)
+    const handleSelectDelete = (client) => {
+      setSelect(() => ListClient.results.filter((product) => product.id !== client.id))
+    };
 
-  const FillContent =() =>{
-      if(progress < 100){
-      return <LineProgress progress={progress} />
+  const [searchTerm, setSearchTerm] = useState();
+  const [debouncedSearchTerm] = useDebounce(searchTerm, 500); // 500ms de retraso
+
+  const fetchSearchResults = useCallback(async () => {
+    try {
+      if (debouncedSearchTerm) {
+        await GetCLientDian({ token: Dian.access_token, document: debouncedSearchTerm });
       }
-      if(loading){
-        return <p>...cargando</p>
-      }if(error){
-        return  <PageBack />
+    } catch (error) {
+      console.error('Error fetching search results:', error);
+    }
+  }, [debouncedSearchTerm]); // Dependencia para el useCallback
+
+  useEffect(() => {
+    fetchSearchResults();
+  }, [id, fetchSearchResults]); // Ejecutar el efecto cuando fetchSearchResults cambie
+
+  const handleChange = useCallback((event) => {
+    setSearchTerm(event.target.value);
+  }, []); 
+    
+    const FillContent =() =>{
+      if(loadingClient){
+        return  <DiscordLoader />
+      }if(errorClient){
+        return  <div class="bg-red-50 border-l-4 border-red-400  rounded-md shadow-md">
+                  <div class="flex items-center">
+                      <svg class="h-6 w-6 text-red-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                      </svg>
+                      <p class="font-semibold text-red-800">¡Oops! Resultados no encontrados</p>
+                  </div>
+              </div>
       }
-
-      return (<div className="container-bicta" >
-      <div className="contain-search">
-        {loadingInvoinces &&  <StyledContextLoading className="fade-in" top={332} left={39}>
-              <StyledMenuItemLoading>
-
-              <Loading type="default" size="lg" />
-              </StyledMenuItemLoading>
-          </StyledContextLoading> }
-          
-               {!loadingInvoinces &&  <ButtonBack/> }
-              <ButtonHome/>
-                <ul className="flex-bedrooms-search">   
-                  <li>
-                      <input  className="input-stores-personality-nine-search"  
-                              name="Ciudad"
-                              onChange={handChange}
-                              value={username}
-                              placeholder="Buscar cliente si esta registrado" />
-                  </li>  
-                  <table>
-                  <StyleTitleHotel> Por favor eleija la persona a la que enviara la factura electronica que sea la correcta  </StyleTitleHotel>
-                  <tbody>
-                    <tr>
-                      <th>Iva</th>
-                      <th>Nombre Completo</th>
-                      <th>Numero Documento </th>
-                      <th>Valor habitacion</th>
-                    </tr>
-                    <tr>
-                     
-                      <td>{typeIva ? "Persona obligaba a pagar iva colombiana o empresa " : " persona exenta  extranjeros"}</td>
-                      <td>{resultDashboard.Nombre} {resultDashboard.Apellido}</td>
-                      <td> {resultDashboard.Num_documento} </td>
-                      <td>{parseInt(resultDashboard.valor_habitacion).toLocaleString()}</td>
-                    </tr>
-                  </tbody>    
-                  </table> 
-                 
-                  <table  className="de "  >
-                      <tbody class="tbody  "  > 
-                                 
-                                  {ListClient?.results?.slice(0, 1).map(index =>{
-                                      const fullName= `${index.name[0]} ${index.name[1]} `
-                                      
-                                      const typeIdentification =  index.id_type.name
-                                      
-                                      const resulActive =index.active ? "Activo" : "no Activado"
-
-                                      const vat_responsible = index.vat_responsible ? "Responsable de IVA	" :"No responsable de IVA"
-
-                                      const address=`${index.address.address}`
-
-                                      const city = `${index.address.city.country_name}`
-
-                                      const phone  = index?.phones?.[0]?.number
-
-                                      const nameContact = `${index.contacts[0]?.first_name} ${index.contacts[0]?.last_name} `
-                                    
-                                          return (
-                                              <div className={selectedItems.includes(index.id) ? "selected" : "product-card"}     >
-                                               <input
-                                                    type="checkbox"
-                                                    className="checkbox-product"
-                                                    checked={selectedItems.includes(index.id)}
-                                                    onChange={() => toggleSelect(index.id)}
-                                                  />
-
-                                                  <td className=""  >{fullName}</td>
-                                                  <td className=""  >{typeIdentification}</td>
-                                                  <td className="" >{index.identification}</td>
-                                                  <td className="" >{index.check_digit}</td>
-                                                  <td>{index.branch_office}</td>
-                                                  <td>{vat_responsible}</td>
-                                                  <td>{address}</td>
-                                                  <td>{city}</td>
-                                                  <td>{phone}</td>
-                                                  <td>{nameContact}</td>
-                                                  <td>{resulActive}</td>
-                                                  <td>{ selectedItems.includes(index.id) && <button  disabled={loadingInvoinces}
-                                                                                                    onClick={handSubmitInvoinces}  className={`${loadingInvoinces ? "disable-pay" :"pay-button"}`} >Enviar </button> }</td>
-                                          </div>
-                                          )
-                              })}
-                      </tbody>       
-                  </table>
-          </ul>
-      </div>          
-</div>)
-
+     return  <TableClientDian  ListClient={ListClient}
+                          handleSelectChange={handleSelectChange} 
+                          select={select}
+                          handleSelectDelete={handleSelectDelete} 
+                          loadingInvoinces={loadingInvoinces} />
     }
 
-    
-    return (<>{FillContent()}</>)
+
+    const checkboxCliente = () =>{
+      return ListClient?.results?.some(item => item.id == select.id)
+  }
+
+  console.log(ListClient)
+
+  const validProductCheck  = checkboxCliente() 
+
+
+    return (<><div className="container-bicta" >
+                <div className="contain-search">
+                  {loadingInvoinces &&  <StyledContextLoading className="fade-in" top={332} left={39}>
+                        <StyledMenuItemLoading>
+                        <Loading type="default" size="lg" />
+                        </StyledMenuItemLoading>
+                    </StyledContextLoading> }
+                    
+                        {!loadingInvoinces && (
+                          <Fragment >
+                                <ButtonHome/>
+                                <ButtonBack/>
+                          </Fragment>
+                        )   }
+                    
+                <div class=" mx-auto bg-white p-6 rounded-lg shadow-md">
+                    <SearchClient 
+                    typeIva={typeIva}
+                    resultDashboard={resultDashboard}
+                    searchTerm={searchTerm}
+                    handleChange={handleChange}
+                    />
+                    {FillContent()}
+                 {validProductCheck &&  (
+                   <Button
+                   onClick={handSubmitInvoinces}
+                   disabled={loadingInvoinces}
+                   className="m-2"
+                   color={"success"}                                     
+                 >
+                   Emitir facturacion electronica
+                 </Button>
+                 )} 
+                  </div>
+                </div>    
+            </div>
+            </>)
 }
 
 export default Dian

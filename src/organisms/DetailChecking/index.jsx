@@ -35,8 +35,6 @@ const DetailChekingOrganism =({id}) =>{
 
     //const resulDetailDashboard = DetailDashboard.find((item) => item.)
 
-    console.log(DetailDashboard)
-
     const findPersona =  resulDetailDashboard?.tipo_persona == "persona"
     const findEmpresa = resulDetailDashboard?.tipo_persona =="empresa"
     const [tipoPersonas,setTipoPersona] =useState()

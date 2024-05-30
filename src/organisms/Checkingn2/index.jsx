@@ -43,7 +43,7 @@ const Checkingn2Organism =({id,postDetailRoom,fetchDataApiWhatsapp,postWhataapBy
         fetchData()
     },[id])
 
-    console.log(to)
+
 
     const  resulDetailDashboard = DetailDashboard[0]
 

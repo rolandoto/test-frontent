@@ -10,7 +10,7 @@ import { FaFilePdf } from "react-icons/fa";
 import LoadingDetail from '../../Ui/LoadingDetail';
 import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 import UseDianActions from '../../action/useDianActions';
-import { useSelector } from 'react-redux';
+import {  useSelector } from 'react-redux';
 import { useContext, useEffect } from 'react';
 import moment from 'moment';
 import  AutoProvider  from '../../privateRoute/AutoProvider';
@@ -36,10 +36,8 @@ const TableInvoinceDian =() =>{
 
     useEffect(() =>{
         fetchData()
-    },[id])
-
-
-
+    },[])
+    
     const fillContent =() =>{
         if(loading){
             return  <Loading color="success" style={{ width:"100%", display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
@@ -49,69 +47,71 @@ const TableInvoinceDian =() =>{
             return <p>...error</p>
     }
 
+
     return  <Paper sx={{ width: '100%',margin:"10px" }}>
-    <TableContainer  component={Paper}   onSubmit={(e) =>{
-      e.preventDefault()
-    }} >
-     <LoadingDetail  
-                     loading={true}
-                     titleLoading={"Facturas emitidas por la Dian"}  />
-          <Table  > 
-          <TableHead>
-              <TableRow>
-              <TableCell align="right">Fecha</TableCell>
-              <TableCell align="right">Pago</TableCell>
-              <TableCell align="right">Nombre Recepcion</TableCell>
-              <TableCell align="right">Descargar</TableCell>
-              </TableRow>
-          </TableHead>
-          <TableBody>
-          {InvonceByIdReservation.map((itemByIdReservation) =>{
+              <TableContainer  component={Paper}   onSubmit={(e) =>{
+                e.preventDefault()
+              }} >
+              <LoadingDetail  
+                              loading={true}
+                              titleLoading={"Facturas emitidas por la Dian"}  />
+                    <Table  > 
+                    <TableHead>
+                        <TableRow>
+                        <TableCell align="right">Fecha</TableCell>
+                        <TableCell align="right">Pago</TableCell>
+                        <TableCell align="right">Nombre Recepcion</TableCell>
+                        <TableCell align="right">Descargar</TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                    {InvonceByIdReservation.map((itemByIdReservation) =>{
 
-            const Fecha =  moment(itemByIdReservation.Fecha).utc().format('YYYY/MM/DD')
+                      const Fecha =  moment(itemByIdReservation.Fecha).utc().format('YYYY/MM/DD')
 
-            const  GnerarPdf =async() => {
-              await getPdfSigo({id:itemByIdReservation.ID_facturacion,token:Dian.access_token}).then(itemPdf =>{
-                if (itemPdf.Status !== 500) {
-                  toast.success("descargardo factura");
-                  const linkSource = `data:application/pdf;base64,${itemPdf?.base64}`;
-                  const downloadLink = document.createElement("a");
-                  const fileName = "file.pdf";
-                  downloadLink.href = linkSource;
-                  downloadLink.download = fileName;
-                  downloadLink.click();
-                } else {
-                  toast.error("Error al descargar");
-                }
-              })
-          }
+                      const  GnerarPdf =async() => {
+                        await getPdfSigo({id:itemByIdReservation.ID_facturacion,token:Dian.access_token}).then(itemPdf =>{
+                          if (itemPdf.Status !== 500) {
+                            toast.success("descargardo factura");
+                            const linkSource = `data:application/pdf;base64,${itemPdf?.base64}`;
+                            const downloadLink = document.createElement("a");
+                            const fileName = "file.pdf";
+                            downloadLink.href = linkSource;
+                            console.log(downloadLink.href)
+                            downloadLink.download = fileName;
+                            downloadLink.click();
+                          } else {
+                            toast.error("Error al descargar");
+                          }
+                        })
+                    }
 
-            return (
-              <TableRow>
-              <TableCell align="right">{Fecha}</TableCell>
-              <TableCell align="right">${itemByIdReservation.Abono.toLocaleString()}</TableCell>
-              <TableCell align="right">{itemByIdReservation.name} {itemByIdReservation.lastname}</TableCell>
-              <TableCell align="right" >  
-                <Button
-                  onClick={GnerarPdf}
-                  icon={<FaFilePdf className="flex-contan" color="white" fontSize={20} />}
-                  className="button-checking-detail-one-das"
-                  color="error"
-                >
-                  <span className="text-words">Descargar factura Sigo</span>
-                </Button></TableCell>
-            </TableRow>
-            )
-          })}
-          </TableBody>
-          <TableHead>
-              <TableRow>
-               <TableCell align="right">Total ${sumWithInitial.toLocaleString()}</TableCell>
-              </TableRow>
-          </TableHead>
-          </Table>
-    </TableContainer> 
-</Paper>  
+                      return (
+                        <TableRow>
+                        <TableCell align="right">{Fecha}</TableCell>
+                        <TableCell align="right">${itemByIdReservation.Abono.toLocaleString()}</TableCell>
+                        <TableCell align="right">{itemByIdReservation.name} {itemByIdReservation.lastname}</TableCell>
+                        <TableCell align="right" >  
+                          <Button
+                            onClick={GnerarPdf}
+                            icon={<FaFilePdf className="flex-contan" color="white" fontSize={20} />}
+                            className="button-checking-detail-one-das"
+                            color="error"
+                          >
+                            <span className="text-words">Descargar factura Sigo</span>
+                          </Button></TableCell>
+                      </TableRow>
+                      )
+                    })}
+                    </TableBody>
+                    <TableHead>
+                        <TableRow>
+                        <TableCell align="right">Total ${sumWithInitial.toLocaleString()}</TableCell>
+                        </TableRow>
+                    </TableHead>
+                    </Table>
+              </TableContainer> 
+          </Paper>  
     }
     return (<>{fillContent()}</>)
 }

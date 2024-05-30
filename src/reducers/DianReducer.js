@@ -1,21 +1,33 @@
 import {createSlice}  from "@reduxjs/toolkit"
 
 export  const initialState = {
-    ListClient:[],
-    Loanding:false,
     error:null,
-    typeDocumentDian:[],
+    errorInvoince:false,
+    ErrorTaxes:null,
+
+    Loanding:false,
+    loadingInvoinces:false,
+    LoadingTaxes:false,
+
+
+    Invoinces:[],
     seller:[],
     products:[],
     Dian:[],
     Payment:[],
-    loadingInvoinces:false,
-    Invoinces:[],
-    errorInvoince:false,
+    typeDocumentDian:[],
+    Taxes:[],
+   
+    
+   
+    ListClient:[],
+    loadingClient:false,
+    errorClient:false,
     Pdf:[],
     sigoBYIDpdf:[],
     payabono:[],
-    InvonceByIdReservation:[]
+    InvonceByIdReservation:[],
+   
 }
 
 
@@ -28,6 +40,8 @@ export const DianSlice = createSlice({
             state.loading=true
             state.errorInvoince=null
         },
+
+        //invoinces
         setInvoinces(state,action){
             state.Invoinces = action.payload
             state.loadingInvoinces = false
@@ -40,10 +54,36 @@ export const DianSlice = createSlice({
             state.loadingInvoinces = false
             state.errorInvoince= action.payload
         },
+
+        //CLient
         setClient:(state,action) =>{
-            state.ListClient = action.payload
-            state.loading = false
+            state.loadingClient = false
+            state.ListClient= action.payload
         },
+        setClientLoading:(state,action) =>{
+            state.loadingClient = true
+            state.errorClient = null
+        },
+        setClientError:(state,action) =>{
+            state.loadingClient = false
+            state.errorClient= true 
+        },
+
+        //taxes 
+        setTaxes:(state,action) =>{
+            state.LoadingTaxes = false
+            state.Taxes= action.payload
+        },
+        setTaxesLoading:(state,action) =>{
+            state.LoadingTaxes = true
+            state.ErrorTaxes = null
+        },
+        setTaxesError:(state,action) =>{
+            state.LoadingTaxes = false
+            state.ErrorTaxes= true 
+        },
+
+
         setTypeDian:(state,action) =>{
             state.typeDocumentDian = action.payload
             state.loading = false
@@ -85,7 +125,8 @@ export const DianSlice = createSlice({
             state.error = action.payload
         },
         
-    }
+    },
+    
 })
 
 export const {loading,
@@ -93,6 +134,8 @@ export const {loading,
                 setLoadingInvonces,
                 setErrorInvoinces,
                 setClient,
+                setClientError,
+                setClientLoading,
                 setTSeller,
                 setError,
                 setTypeDian,
@@ -102,6 +145,9 @@ export const {loading,
                 setDianSigoPdf,
                 setPayabono,
                 setPdf,
-                setInvonceByIdReservation} = DianSlice.actions
+                setInvonceByIdReservation,
+                setTaxes,
+                setTaxesLoading,
+                setTaxesError} = DianSlice.actions
 
 export default DianSlice.reducer
