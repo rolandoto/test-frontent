@@ -89,10 +89,10 @@ const UseDianActions =() =>{
         }
     }
 
-    const PostSendInvoinces = useCallback(async({ token,body,id_Reserva,id_user,fecha}) => {
+    const PostSendInvoinces = useCallback(async({ token,body,id_Reserva,id_user,fecha,Retention}) => {
         dispatch(setLoadingInvonces());
         try {
-            const response = await HttpClient.PostSigoBYClient({ token,body,id_Reserva,id_user,fecha})
+            const response = await HttpClient.PostSigoBYClient({ token,body,id_Reserva,id_user,fecha,Retention})
             if(response){
                 dispatch(setInvoinces(response)) 
                 toast.success("Exitos: ");

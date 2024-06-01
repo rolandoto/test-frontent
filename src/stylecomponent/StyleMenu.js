@@ -137,6 +137,29 @@ export const StyledContextTyeHotel = styled.div`
   }
 `;
 
+
+export const StyledContextbyFacturacion = styled.div`
+  top: ${(props) => `${props.top}px`};
+  position: absolute;
+  left: 0%;
+  width: 300px;
+  left: 300px;
+  overflow: scroll;
+  height:  ${(props) => `${props.valid ? "50%" :"none" } `};
+  margin: auto;
+  z-index: 1000;
+  padding: 8px;
+  box-shadow: ${(props) => `${props.valid ? "17px 20px 40px rgba(0, 0, 0, .21)" :"none" } `} ;
+  background: ${(props) => `${props.valid ? "#fff" :"none" } `};
+  opacity: 0;
+  border-radius: 9px;
+  transform: translateY(-10px);
+  animation: ${fadeIn} 0.8s ease forwards; // Apply the fadeIn animation
+  &.fade-in {
+    animation: ${fadeIn} 0.3s ease forwards; // Apply the fadeIn animation
+  }
+`;
+
 export const StyledContextTyeHotelConfiguration = styled.div`
 top:${(props) => `${props.top}px`};
 position: absolute;
@@ -316,6 +339,7 @@ font-weight: 500;
 
 export const StyleTitleGroup = styled.span`
 font-weight: 500;
+font-size: 12px;
 `
 
 

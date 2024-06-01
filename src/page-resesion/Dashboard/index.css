@@ -68,16 +68,14 @@
 .react-calendar-timeline {
   width: 99%;
   margin: auto;
-      overflow: scroll;
-      height: 68vh;
-      overflow-x: hidden;
-      margin-top: 9px;
-      display: flex;
-    
-      flex-direction: column;
-      height: auto;
-      overflow: auto;
-      margin-right: 10px;
+  overflow: scroll;
+  height: 130%;
+  overflow-x: hidden;
+  margin-top: 9px;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+  margin-right: 10px;
 }
 
 .list-booking-sticky {

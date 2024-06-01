@@ -13,6 +13,7 @@ body{
       font-stretch: normal;
       line-height: initial;
       font-size: 16px !important; 
+     
       transition: background-color 0.5s ease !important;
 }
 

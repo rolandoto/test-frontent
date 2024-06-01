@@ -38,7 +38,7 @@ import { IoCalendarOutline } from "react-icons/io5";
 import { VscMenu } from "react-icons/vsc";
 import { HiArrowLeft,HiArrowSmallRight,HiArrowUturnLeft   } from "react-icons/hi2";
 import {contextMenuOptionsHeader, contextMenuOptionsInform, contextMenuOptionsReservation } from "../../stylecomponent/Icons";
-import { StyleSpan, StyleSpanIcons, StyleTitle, StyleTitleHotel, StyledContextMenu, StyledContextMenuSearch, StyledContextMenuTypeRoom, StyledContextTyeHotel, StyledContextTyeHotelConfiguration, StyledMenuItem, StyledMenuItemSelectedRoom, StyledMenuItemUser } from "../../stylecomponent/StyleMenu";
+import { StyleSpan, StyleSpanIcons, StyleTitle, StyleTitleHotel, StyledContextMenu, StyledContextMenuSearch, StyledContextMenuTypeRoom, StyledContextTyeHotel, StyledContextTyeHotelConfiguration, StyledContextbyFacturacion, StyledMenuItem, StyledMenuItemSelectedRoom, StyledMenuItemUser } from "../../stylecomponent/StyleMenu";
 import { CiSearch } from "react-icons/ci";
 import { BsMenuButtonWide } from "react-icons/bs";
 import { SocketRoute } from "../../config";
@@ -54,6 +54,7 @@ import { PiUserSwitchThin } from "react-icons/pi";
 import { CiUser } from "react-icons/ci";
 import useUserUpdateRolesActions from "../../action/useUserUpdateRolesActions";
 import useSocket from "../../hooks/UseSocket";
+import IconAviableBill from "../../component/IconAviableBill";
 
 //https://railway.grupo-hoteles.com
 //const socket = io.connect(`${SocketRoute.serverRoute}`);
@@ -571,9 +572,8 @@ const Dashboard = () => {
 	};
 
 	const handleCanvasClick = (groupId, time, event) => {
-		
 		const fecha1 = moment(time).format('YYYY/MM/DD');
-		
+
 		const handModalText =(e) =>{
 			confirmAlert({
 			  title: '',
@@ -630,9 +630,14 @@ const Dashboard = () => {
 									})}
 							</StyledContextTyeHotel>
 						}
+						
+						
 					</div>
 
+
 					<div className="container-searching-for-reserrvation" >
+						
+				
 						<input  className="input-Searching-Reservation"  
 								value={username}
 								onChange={handleInputChange}
@@ -654,53 +659,45 @@ const Dashboard = () => {
 						})}
 					</StyledContextMenuSearch>}
 					<div>
+							<div className="container-searching-for-reserrvation-logo-notification">
+										<IconAviableBill />
+															<div className="row-icon-searching" >
+									<IoNotificationsOutline fontSize={30} />
+									</div>
+									<div className="row-icon-searching" onClick={() => handleChange(!isChecked)} >
+										<IoIosSwitch 
+										color={`${initialState ?"#0070f0" : "black"}`}
+										fontSize={30} 
+										/>
+									</div>
+									<div className="row-icon-searching"  >
+											{jwt.result.name}
+									</div>	
+									<div className="row-icon-searching" onClick={handClickConfiguration}  >
+											<img src="https://github.com/rolandoto/image-pms/blob/main/WhatsApp%20Image%202024-04-19%20at%2010.32.39%20PM.jpeg?raw=true" alt="" />
+									</div>
+								{jwt.result.id_permissions ==7 &&
+									<div  className="row-icon-searching">	
+										{OpenConfiguration &&  <StyledContextTyeHotelConfiguration className="fade-in" valid={validHotel} top={contextMenuPosition.top} left={contextMenuPosition.left} >
+											<StyledMenuItemUser>
+												<StyleSpanIcons   > <div className="row-icon-searching"><img src="https://github.com/rolandoto/image-pms/blob/main/WhatsApp%20Image%202024-04-19%20at%2010.32.39%20PM.jpeg?raw=true" alt="" /></div></StyleSpanIcons> 
+												<StyleTitle>{jwt.result.name}  </StyleTitle>
+											</StyledMenuItemUser>
+											<StyledMenuItem onClick={() => HandClickUserUpdtateRoles(1)} > 
+												<StyleSpanIcons   > <PiUserSwitchThin   fontSize={30} /></StyleSpanIcons> 
+												<StyleTitle>Administrador</StyleTitle>
+											</StyledMenuItem>
+											<StyledMenuItem  onClick={() => HandClickUserUpdtateRoles(7)}  >
+												<StyleSpanIcons   > <PiUserSwitchThin   fontSize={30} /></StyleSpanIcons> 
+												<StyleTitle>Reservas</StyleTitle>
+											</StyledMenuItem>
+										</StyledContextTyeHotelConfiguration>}
+									</div>
+								}
 
-					<div className="container-searching-for-reserrvation-logo-notification">	
-								<div className="row-icon-searching" >
-								<IoNotificationsOutline fontSize={30} />
-								</div>
-
-								<div className="row-icon-searching" onClick={() => handleChange(!isChecked)} >
-									
-									<IoIosSwitch 
-									
-									color={`${initialState ?"#0070f0" : "black"}`}
-									fontSize={30} 
-									/>
-								</div>
-								<div className="row-icon-searching"  >
-										{jwt.result.name}
-								</div>	
-								<div className="row-icon-searching" onClick={handClickConfiguration}  >
-										<img src="https://github.com/rolandoto/image-pms/blob/main/WhatsApp%20Image%202024-04-19%20at%2010.32.39%20PM.jpeg?raw=true" alt="" />
-								</div>
-
-								
-							{jwt.result.id_permissions ==7 &&
-								<div  className="row-icon-searching">	
-									{OpenConfiguration &&  <StyledContextTyeHotelConfiguration className="fade-in" valid={validHotel} top={contextMenuPosition.top} left={contextMenuPosition.left} >
-										<StyledMenuItemUser>
-											<StyleSpanIcons   > <div className="row-icon-searching"><img src="https://github.com/rolandoto/image-pms/blob/main/WhatsApp%20Image%202024-04-19%20at%2010.32.39%20PM.jpeg?raw=true" alt="" /></div></StyleSpanIcons> 
-											<StyleTitle>{jwt.result.name}  </StyleTitle>
-										</StyledMenuItemUser>
-										<StyledMenuItem onClick={() => HandClickUserUpdtateRoles(1)} > 
-											<StyleSpanIcons   > <PiUserSwitchThin   fontSize={30} /></StyleSpanIcons> 
-											<StyleTitle>Administrador</StyleTitle>
-										</StyledMenuItem>
-										<StyledMenuItem  onClick={() => HandClickUserUpdtateRoles(7)}  >
-											<StyleSpanIcons   > <PiUserSwitchThin   fontSize={30} /></StyleSpanIcons> 
-											<StyleTitle>Reservas</StyleTitle>
-										</StyledMenuItem>
-									</StyledContextTyeHotelConfiguration>}
-								</div>
-							}
-
-					</div>
-					
+						</div>
 					</div>
 				</div>
-
-				
 				{OpenMenu &&  <StyledContextMenu className="fade-in" top={contextMenuPosition.top} left={contextMenuPosition.left}>
 					{contextMenuOptionsHeader.map((option, index) => (
 						<StyledMenuItem

@@ -1,4 +1,4 @@
-import React, { Fragment, useCallback, useContext, useEffect, useState } from "react";
+import React, { Fragment, useCallback, useContext, useEffect, useMemo, useState } from "react";
 import  AutoProvider  from "../../privateRoute/AutoProvider";
 import UseDianActions from "../../action/useDianActions";
 import { useSelector } from "react-redux";
@@ -11,36 +11,12 @@ import {StyledContextLoading,  StyledMenuItemLoading } from "../../stylecomponen
 import toast from "react-hot-toast";
 import ButtonBack from "../../component/ButtonBack";
 import ButtonHome from "../../component/ButtonHome";
-import io from "socket.io-client";
-import useProgress from "../../hooks/useProgress";
 import TableClientDian from "../../component/TableClientDian";
-import HttpClient from "../../HttpClient";
 import { useDebounce } from 'use-debounce';
 import SearchClient from "../../component/SearchClientSigo";
-import ContentLoader, { List } from 'react-content-loader'
 import useSocket from "../../hooks/UseSocket";
-
-const DiscordLoader = props => {
-  return (
-    <ContentLoader height={100} width={700} {...props}>
-      <circle cx="25" cy="50" r="25" />
-      <rect x="60" y="30" rx="5" ry="5" width="220" height="15" />
-      <rect x="60" y="50" rx="5" ry="5" width="70" height="15" />
-      <rect x="140" y="50" rx="5" ry="5" width="90" height="15" />
-      <rect x="240" y="50" rx="5" ry="5" width="70" height="15" />
-      <rect x="320" y="50" rx="5" ry="5" width="60" height="15" />
-      <rect x="390" y="50" rx="5" ry="5" width="50" height="15" />
-      <rect x="450" y="50" rx="5" ry="5" width="70" height="15" />
-      <rect x="60" y="70" rx="5" ry="5" width="60" height="15" />
-      <rect x="130" y="70" rx="5" ry="5" width="80" height="15" />
-      <rect x="220" y="70" rx="5" ry="5" width="90" height="15" />
-      <rect x="320" y="70" rx="5" ry="5" width="100" height="15" />
-      <rect x="380" y="70" rx="5" ry="5" width="50" height="15" />
-      <rect x="440" y="70" rx="5" ry="5" width="60" height="15" />
-    </ContentLoader>
-  )
-}
-
+import UseRoundRention from "../../hooks/UseRoundRention";
+import DiscordLoader from "../../component/LoadingDian";
 
 const Dian =() => {
   const socket = useSocket();
@@ -70,7 +46,13 @@ const Dian =() => {
     const {getDetailReservationById} = useDetailDashboardAction()
     const {GetPayAbono} =UseDianActions()
     const now = moment().utc().format('YYYY-MM-DD')
-
+    const [isSelected, setIsSelected] = useState(false); // defaultSelected
+ 
+    const handleCheckboxChange = () => {
+      setIsSelected(!isSelected);
+    };
+  
+    
     const {DetailDashboard
       } = useSelector((state) => state.DetailDashboard)
     
@@ -90,6 +72,15 @@ const Dian =() => {
       await  GetPayAbono({id})
   } 
 
+  const sumWithInitial = payabono.reduce((accumulator, currentValue) => {
+    if (currentValue.Valid_Dian === 0) {
+      return accumulator + currentValue.Abono;
+    }else{
+      return accumulator
+    }
+  }, 0);
+
+  const {SubtotalDian,TotalRetentionDian} =UseRoundRention({Price:sumWithInitial})
 
   useEffect(() => {
 		if (socket) {
@@ -100,82 +91,72 @@ const Dian =() => {
 		}
 	}, [socket]);
 
-  const resultDashboard = DetailDashboard[0]
-
-  
+    const resultDashboard = DetailDashboard[0]
 
     const totalNum = resultDashboard?.Iva == 1 ? true : false;
     const typeIva = resultDashboard?.tipo_persona === "empresa" ? true : totalNum;
 
-    const sumWithInitial = payabono.reduce((accumulator, currentValue) => {
-      if (currentValue.Valid_Dian === 0) {
-        return accumulator + currentValue.Abono;
-      }else{
-        return accumulator
-      }
-    }, 0);
-
-    // IVA 19%
     const totalPrice = sumWithInitial
     const totalRound =  totalPrice / 1.19
     const ValorBase = Math.round(totalRound * 100000) / 100000; // Redondear a 5 decimales
     const valueSTotalProduct =  typeIva ?  ValorBase : totalPrice
     const valuesPayments = typeIva ? totalPrice :totalPrice
 
-
-    const totalPriceRete = sumWithInitial
-    const totalRoundRete =  totalPriceRete / 1.19
-    const ValorBaseRete = Math.round(totalRoundRete * 100000) / 100000; // Redondear a 5 decimales
-    const valueSTotalProductRete =  typeIva ?  ValorBaseRete : totalPrice
-    const valuesPaymentsRete = typeIva ? totalPrice :totalPrice
-
-    console.log(valueSTotalProduct)
-    console.log(valuesPayments)
-
-
-
     const filteredItems = products?.filter(item =>{
       return  item.id ==jwt?.result?.dian
-      }
-    );
+    });
 
     console.log(filteredItems)
 
-     const itemsIva = filteredItems?.map(item => {
-      return {
+    const filterItemsExecento = products?.filter(item =>{
+      return  item.code =="6"
+    });
+
+    const itemIva = useMemo(() => (
+      filteredItems?.map(item => ({
         code: `${item.code}`,
         description: `${item.name}`,
-        quantity:1,
+        quantity: 1,
         price: valueSTotalProduct,
         discount: 0.00,
         taxes: [{
-          id:item?.taxes[0]?.id  || 0
-        }],
-      };
-    });
-
-    
-
-    const filteredItemsExecento = products?.filter(item =>{
-      return  item.code =="6"
-    }
-    );
-
-    const itemsExenta = filteredItemsExecento?.map(item => {
-      return {
+          id: item?.taxes[0]?.id || 0
+        }]
+      }))
+    ), [filteredItems, valueSTotalProduct]);
+  
+    const itemRetention = useMemo(() => (
+      filteredItems?.map(item => ({
         code: `${item.code}`,
         description: `${item.name}`,
-        quantity:1,
-        price: totalPrice ,
-        discount: 0.0,
-        taxes: [
-          {
-          id:item?.taxes[0]?.id  || 0
-        }],
-      };
-    });
+        quantity: 1,
+        price: SubtotalDian,
+        discount: 0.00,
+        taxes: [{
+          id: item?.taxes[0]?.id || 0
+        }, {
+          id: 11451
+        }]
+      }))
+    ), [filteredItems, SubtotalDian]);
 
-    const  items =  typeIva ? itemsIva   :itemsExenta
+    
+    const itemsExenta = useMemo(() => (
+      filterItemsExecento?.map(item => ({
+        code: `${item.code}`,
+        description: `${item.name}`,
+        quantity: 1,
+        price: totalPrice,
+        discount: 0.00,
+        taxes: [{
+          id: item?.taxes[0]?.id || 0
+        }]
+      }))
+    ), [filterItemsExecento, totalPrice]);
+
+    const Retention = isSelected ?   TotalRetentionDian : 0
+    const  itemsIva =  isSelected ?  itemRetention :  itemIva
+    const items =  typeIva ? itemsIva   :itemsExenta
 
     const payments =[{
       id: jwt?.result?.id_payment,
@@ -215,7 +196,6 @@ const Dian =() => {
         send: true
       },
       observations: '',
-      
       items,
       payments,
       additional_fields: {}
@@ -227,7 +207,6 @@ const Dian =() => {
         fetchDataDetail()
     },[id])
     
-
     const handSubmitInvoinces=async() =>{
       if(sumWithInitial ==0) {
         toast.error("No se puede facturar no tiene ningun valor pendiente");
@@ -236,7 +215,7 @@ const Dian =() => {
           toast.error("no se puedes enviar mas facturacion electronica")
       }else{
         if(!loadingInvoinces){
-            await PostSendInvoinces({token:Dian.access_token,body:response,id_Reserva:id,id_user:jwt.result.id_user,fecha:now})
+            await PostSendInvoinces({token:Dian.access_token,body:response,id_Reserva:id,id_user:jwt.result.id_user,fecha:now,Retention})
             socket.emit("sendNotification",jwt.result.name);
         }else{
           toast.error("Error factura")
@@ -286,7 +265,10 @@ const Dian =() => {
                   </div>
               </div>
       }
-     return  <TableClientDian  ListClient={ListClient}
+     return  <TableClientDian  
+                          ListClient={ListClient}
+                          handleCheckboxChange={handleCheckboxChange }
+                          isSelected={isSelected}
                           handleSelectChange={handleSelectChange} 
                           select={select}
                           handleSelectDelete={handleSelectDelete} 
@@ -298,7 +280,6 @@ const Dian =() => {
       return ListClient?.results?.some(item => item.id == select.id)
   }
 
-  console.log(ListClient)
 
   const validProductCheck  = checkboxCliente() 
 

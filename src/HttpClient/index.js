@@ -764,11 +764,11 @@ const GetLisClienteDian = async({token,document}) => {
 }
 };
 
-const PostSigoBYClient = async({token,body,id_Reserva,id_user,fecha}) => {
+const PostSigoBYClient = async({token,body,id_Reserva,id_user,fecha,Retention}) => {
   try {
     const resp = await fetch(`${config.serverRoute}/api/hotels/sigo/PostInvoinceByIdCLient`, {
         method: "POST",
-        body: JSON.stringify({ token,body,id_Reserva,id_user,fecha}),
+        body: JSON.stringify({ token,body,id_Reserva,id_user,fecha,Retention}),
         headers: {
             'Content-type': 'application/json',
         }

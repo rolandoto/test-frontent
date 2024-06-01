@@ -13,23 +13,24 @@ import   AutoProvider  from "../../privateRoute/AutoProvider";
 import { useContext } from "react";
 import { config } from "../../config";
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
+import CardRetention from "../CardRententionIvoince";
 
 const Invoince =({resultDashboard=[],carts=[],dataCount,setInvoice,priceCart,client,identification,raiting,handLoading,loading,handLoadingOne,sinIvaCart,tienda,handSubmitInsertCartOne,hancCheckout,lastname,fechaFinal,formattedNum,formatoIva,valorTotalIva,nacionalidad,
     correo}) =>{
 
-
-
     const {id} = useParams()
-    const dispatch  = useDispatch()
     
-    const [query,setQuery] =useState()
+    const totalStore = carts.reduce((total, item) => {
+        // Convertir el precio a número, eliminando espacios en blanco
+        const price = parseFloat(item.price.toString().trim()) || 0;
+        return total + price;
+    }, 0);
 
-    console.log(query?.length)
+    const [query,setQuery] =useState()
 
     const date = moment().set({ hour: 0, minute: 0, second: 0 }).format('YYYY-MM-DD');
     const [preloading,setPreloading] =useState(false)
    
-    const [state,setate] =useState(false)
     const [information,setInformacion] =useState()
     
     const {jwt} = useContext(AutoProvider)
@@ -51,13 +52,7 @@ const Invoince =({resultDashboard=[],carts=[],dataCount,setInvoice,priceCart,cli
 
     const toOne = toPriceDefinitive.price ?  toPriceDefinitive.price:  totalPrice.price
 
-    const handClickProduct =() =>{
-        dispatch(postProduct({product:carts}))
-        setate(true)
-        const element = document.getElementById("demo");
-        element.remove();
-    }
-
+   
     const totalIva = resultDashboard.Iva ==1? to :0
 
     const totalwiTHiV =resultDashboard.Iva ==1? toOne :totalPrice.price 
@@ -90,7 +85,6 @@ const Invoince =({resultDashboard=[],carts=[],dataCount,setInvoice,priceCart,cli
         setPreloading(true)
         handSubmitInsertCartOne()
         handlePrint()
-        
     }
 
      const handStInvoince =() =>{
@@ -105,25 +99,6 @@ const Invoince =({resultDashboard=[],carts=[],dataCount,setInvoice,priceCart,cli
 
      const [invo,setIvo] =useState(false)
 
-     const handAll =() =>{
-        handLoading()
-        setIvo(true)
-        hancCheckout()
-        setTimeout(()  =>{
-            handlePrint()
-        },600)
-     }
-
-
-     const handAllOne =() =>{
-        handLoading()
-        setIvo(true)
-        hancCheckout()
-        setTimeout(()  =>{
-            handLEpront()
-        },600)
-     }
-
      let totalId = false;
 
     if ( jwt.result.id_hotel == 23 || jwt.result.id_hotel == 5 || jwt.result.id_hotel == 6 || jwt.result.id_hotel == 12  || jwt.result.id_hotel == 10 || jwt.result.id_hotel == 2  ) {
@@ -134,9 +109,6 @@ const Invoince =({resultDashboard=[],carts=[],dataCount,setInvoice,priceCart,cli
     if (jwt.result.id_hotel == 6 ) {
         hotelId = true;
     }
-
-
-    console.log(raiting)
 
     const  typy_buy =  [
         {   
@@ -193,6 +165,7 @@ const Invoince =({resultDashboard=[],carts=[],dataCount,setInvoice,priceCart,cli
         },
       ]
 
+   
       const typePay =  typy_buy?.find(index =>index.id  == raiting)
 
      useEffect(()  =>{
@@ -215,7 +188,7 @@ const Invoince =({resultDashboard=[],carts=[],dataCount,setInvoice,priceCart,cli
     if(validState){
         return (
             <>     
-            <div className="border-ri"   >
+            <div className="border-ri  "    >
                     <div  >
                         <div className={`content-Modal-store-one-two-finish-tomo`}  ref={componetRefSinDian}    >
                                 <div className="handclose" onClick={() => handStInvoince()}>
@@ -397,18 +370,20 @@ const Invoince =({resultDashboard=[],carts=[],dataCount,setInvoice,priceCart,cli
                                                     <span className="value title-invoince-cart" >Valor</span>
                                                 
                                             </div>
-                                                {carts && <div className="container-invoince" >
-                                                    {carts?.map(index =>{
-                                                        const toPrice = UsePrice({number:index.price})
-                                                        return (
-                                                        <div className="carts-invoince">
-                                                            <span className="title-invoince-cart">{index.name}</span>   
-                                                            <span className="valo title-invoince-cart ">{toPrice.price}</span> 
-                                                            <span className="title-invoince-cart" ></span>              
-                                                        </div>
-                                                        )
-                                                    })}
+                                            {carts && <div className="container-invoince" >
+                                                {carts?.map(index =>{
+                                                    const toPrice = UsePrice({number:index.price})
+                                                    return (
+                                                    <div className="carts-invoince">
+                                                        <span className="title-invoince-cart">{index.name}</span>   
+                                                        <span className="valo title-invoince-cart ">{toPrice.price}</span> 
+                                                        <span className="title-invoince-cart" ></span>              
+                                                    </div>
+                                                    )
+                                                })}
                                         </div>}
+
+                                       
                                         <div className="sub-total title-invoince-cart sub-total-top ">
                                             <span>Sub Total</span>
                                             <span className="valo" > {totalPrice.price} </span>
@@ -488,24 +463,13 @@ const Invoince =({resultDashboard=[],carts=[],dataCount,setInvoice,priceCart,cli
                                             )
                                         })}
                                     </div>}
-                                    <div className="sub-total title-invoince-cart sub-total-top ">
-                                        <span>Sub Total</span>
-                                        <span className="valo" >COP {formattedNum.toLocaleString()} </span>
-                                    </div>
-                                    <div className="sub-total title-invoince-cart" >
-                                        <span>IVA</span>
-                                        <span className="valo" >COP {formatoIva}</span>
-                                    </div>
-                                    <div className="sub-total title-invoince-cart">
-                                        <span>Total</span>
-                                        <span className="valo" >COP {valorTotalIva.toLocaleString()}</span>
-                                    </div>
-                                    
-                                    <div className="container-invoince line-invoince"></div>
 
+                                    <CardRetention Dashboard={resultDashboard}  
+                                                    Total={formattedNum.toLocaleString()} 
+                                                    Iva={formatoIva}
+                                                    totalStore={totalStore}
+                                                    ValorTotal={valorTotalIva.toLocaleString()}/> 
                                     <h6 className="p title-invoince " >Gracias por su visita</h6>
-                                
-                                   
                                 </div>            
                         </div>      
                         </div>
