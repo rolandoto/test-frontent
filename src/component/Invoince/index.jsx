@@ -1,13 +1,8 @@
 import React, { useRef, useState } from "react"
 import { IoMdCloseCircle } from "react-icons/io";
-import UseUsers from "../../hooks/UseUser"
 import moment from "moment"
-import ReactToPrint from "react-to-print";
-import { useDispatch, useSelector } from "react-redux"
-import { postProduct } from "../../store/slice";
 import { useEffect } from "react";
 import { useReactToPrint } from "react-to-print";
-import ServiceResolution from "../../service/serviceResolution";
 import UsePrice from "../../hooks/UsePrice";
 import   AutoProvider  from "../../privateRoute/AutoProvider";
 import { useContext } from "react";
@@ -227,7 +222,8 @@ const Invoince =({resultDashboard=[],carts=[],dataCount,setInvoice,priceCart,cli
                                             
                                         </div>
 
-                                    {carts && <div className="container-invoince" >
+                                   
+                                        {carts && <div className="container-invoince" >
                                         {carts?.map(index =>{
                                             const toPrice = UsePrice({number:index.price})
                                             return (
@@ -239,19 +235,12 @@ const Invoince =({resultDashboard=[],carts=[],dataCount,setInvoice,priceCart,cli
                                             )
                                         })}
                                     </div>}
-                                    <div className="sub-total title-invoince-cart sub-total-top ">
-                                        <span>Sub Total</span>
-                                        <span className="valo" >COP {formattedNum.toLocaleString()} </span>
-                                    </div>
-                                    <div className="sub-total title-invoince-cart" >
-                                        <span>IVA</span>
-                                        <span className="valo" >COP {formatoIva}</span>
-                                    </div>
-                                    <div className="sub-total title-invoince-cart">
-                                        <span>Total</span>
-                                        <span className="valo" >COP {valorTotalIva.toLocaleString()}</span>
-                                    </div>
-                                    
+
+                                    <CardRetention Dashboard={resultDashboard}  
+                                                    Total={formattedNum.toLocaleString()} 
+                                                    Iva={formatoIva}
+                                                    totalStore={totalStore}
+                                                    ValorTotal={valorTotalIva.toLocaleString()}/>
                                     <div className="container-invoince line-invoince"></div>
 
                                     <h6 className="p title-invoince " >Gracias por su visita</h6>

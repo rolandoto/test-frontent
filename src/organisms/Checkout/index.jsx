@@ -18,19 +18,20 @@ import IconsUser from "../../component/IconUser"
 import CardCartChekout from "../../component/CardCartChekout"
 import CardCheckoutInformationHuesped from "../../component/CardCheckoutInformationHuesped"
 import CardinformationValue from "../../component/CardInformationValue"
+import InvoinceSinRetention from "../../component/Invoince/InvoinceSinRetention"
+import UseDianActions from "../../action/useDianActions"
+import { useSelector } from "react-redux"
 
 const CheckoutOrganism =({DetailDashboard,postDetailRoom,fetchDataApiWhatsapp}) =>{
 
     const socket = useSocket();
     const resultDashboard = DetailDashboard[0] 
     const {id} = useParams()
-    const {jwt} = useContext(AutoProvider)
+    const {jwt,Dian} = useContext(AutoProvider)
     const [data,setDate] =useState()
     const [invoince,setInvoice] =useState(false)
     const [isChecked, setIsChecked] = useState(true);
     const [to,setTo] =useState()
-
-
     const [query,setQuery] = useState()
 
     useEffect(() =>{
@@ -41,6 +42,22 @@ const CheckoutOrganism =({DetailDashboard,postDetailRoom,fetchDataApiWhatsapp}) 
         .then(resp => resp.json())
         .then(data=> setQuery(data?.query))
     },[setDate])
+
+    const {products} = useSelector((state) => state.Dian)
+
+    const filteredItems = products?.filter(item =>{
+        return  item.id ==jwt?.result?.dian
+    });
+  
+
+    const {
+        GetTProductsDian
+    } = UseDianActions()
+
+    const fetchData =async() =>{
+         await  GetTProductsDian({token:Dian.access_token})
+     } 
+ 
 
     const bebidas  = data?.filter(index => index.ID_Categoria ==1)    
     const Snacks  = data?.filter(index => index.ID_Categoria ==2)    
@@ -96,7 +113,6 @@ const CheckoutOrganism =({DetailDashboard,postDetailRoom,fetchDataApiWhatsapp}) 
         priceServicioTotal
     ];
 
-  
     const totalStore = prices.reduce((total, price) => total + price, 0);
     
     const now = moment().format("YYYY/MM/DD")
@@ -125,7 +141,6 @@ const CheckoutOrganism =({DetailDashboard,postDetailRoom,fetchDataApiWhatsapp}) 
             })
     }
    
-
     const handCloseInvoince =() =>{
         setInvoice(false)
     }
@@ -134,7 +149,6 @@ const CheckoutOrganism =({DetailDashboard,postDetailRoom,fetchDataApiWhatsapp}) 
            setInvoice(true)
     }
     
- 
     const totalPrice = cart?.reduce((acum,current) =>{
         return      acum  + parseInt( current.price)
     },0)
@@ -144,10 +158,7 @@ const CheckoutOrganism =({DetailDashboard,postDetailRoom,fetchDataApiWhatsapp}) 
     },0)
 
     const totalPersona =  resultDashboard?.tipo_persona =="persona"?"Natural":"Juridica"
-
-    const valor_habitacion =  resultDashboard.valor_habitacion
-    const iva =  parseInt(valor_habitacion *19/100)
-        
+  
     const [loading,setLoading] =useState(false)
 
     const handLoading =() =>{
@@ -164,7 +175,8 @@ const CheckoutOrganism =({DetailDashboard,postDetailRoom,fetchDataApiWhatsapp}) 
         fetch(`${config.serverRoute}/api/resecion/resolucion`)
         .then(res => res.json())
         .then(data => setTo(data?.query))
-    },[])
+        fetchData()
+    },[id])
 
     const handUpdateStatus =() =>{
       const  adeudado =  parseInt(resultDashboard.valor_abono)
@@ -214,34 +226,72 @@ const CheckoutOrganism =({DetailDashboard,postDetailRoom,fetchDataApiWhatsapp}) 
     function handleOnChange() {
         setIsChecked(!isChecked);
     }
-    
+
     const fechaFinal= moment(resultDashboard?.Fecha_final).utc().format('YYYY/MM/DD')
 
-    return (<>
-                {invoince  && <Invoince           
-                resultDashboard={resultDashboard}
-                tienda={false}
-                formatoIva={formatoIva}
-                formattedNum={formattedNum}
-                valorTotalIva={valorTotalIva}
-                sinIvaCart={sinIvaCart}
-                dataCount={dataCount}
-                setInvoice={handCloseInvoince} 
-                carts={cart}
-                priceCart={totalPrice}
-                client={resultDashboard?.Nombre}
-                lastname={resultDashboard?.Apellido} 
-                identification={resultDashboard?.Num_documento}
-                nacionalidad={resultDashboard?.nacionalidad}
-                correo={resultDashboard?.Correo}
-                raiting={pagoInvoince}
-                loading={loading}
-                handLoading={handLoading}
-                handLoadingOne={handLoadingOne}
-                hancCheckout={hancCheckout} 
-                fechaFinal={fechaFinal}
-                totalStore={totalStore}/>}
+    const InvoinceItemSinRetencion =() =>{
+        if(filteredItems.some((item) =>item.taxes)){
+            return (
+                <>
+                        {invoince  &&   <Invoince           
+                        resultDashboard={resultDashboard}
+                        tienda={false}
+                        formatoIva={formatoIva}
+                        formattedNum={formattedNum}
+                        valorTotalIva={valorTotalIva}
+                        sinIvaCart={sinIvaCart}
+                        dataCount={dataCount}
+                        setInvoice={handCloseInvoince} 
+                        carts={cart}
+                        priceCart={totalPrice}
+                        client={resultDashboard?.Nombre}
+                        lastname={resultDashboard?.Apellido} 
+                        identification={resultDashboard?.Num_documento}
+                        nacionalidad={resultDashboard?.nacionalidad}
+                        correo={resultDashboard?.Correo}
+                        raiting={pagoInvoince}
+                        loading={loading}
+                        handLoading={handLoading}
+                        handLoadingOne={handLoadingOne}
+                        hancCheckout={hancCheckout} 
+                        fechaFinal={fechaFinal}
+                        totalStore={totalStore}/> } 
+                                    </>
+             )
+         }else{
+            return (<>
+                    {invoince  && 
+                    <InvoinceSinRetention         
+                    resultDashboard={resultDashboard}
+                    tienda={false}
+                    formatoIva={formatoIva}
+                    formattedNum={formattedNum}
+                    valorTotalIva={valorTotalIva}
+                    sinIvaCart={sinIvaCart}
+                    dataCount={dataCount}
+                    setInvoice={handCloseInvoince} 
+                    carts={cart}
+                    priceCart={totalPrice}
+                    client={resultDashboard?.Nombre}
+                    lastname={resultDashboard?.Apellido} 
+                    identification={resultDashboard?.Num_documento}
+                    nacionalidad={resultDashboard?.nacionalidad}
+                    correo={resultDashboard?.Correo}
+                    raiting={pagoInvoince}
+                    loading={loading}
+                    handLoading={handLoading}
+                    handLoadingOne={handLoadingOne}
+                    hancCheckout={hancCheckout} 
+                    fechaFinal={fechaFinal}
+                    totalStore={totalStore}/>
+              }
+              </>)
+         }
+    }
+        
+    return (<>  
 
+            {InvoinceItemSinRetencion()}
                         <IconsUser  Username={jwt.result.name} />
                         <ButtonBack/>
                         <ButtonHome/>

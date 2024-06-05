@@ -17,6 +17,8 @@ import SearchClient from "../../component/SearchClientSigo";
 import useSocket from "../../hooks/UseSocket";
 import UseRoundRention from "../../hooks/UseRoundRention";
 import DiscordLoader from "../../component/LoadingDian";
+import UseRoundRetentionSinIva from "../../hooks/UseRoundRetentionSinIva";
+import IconsUser from "../../component/IconUser";
 
 const Dian =() => {
   const socket = useSocket();
@@ -51,7 +53,6 @@ const Dian =() => {
     const handleCheckboxChange = () => {
       setIsSelected(!isSelected);
     };
-  
     
     const {DetailDashboard
       } = useSelector((state) => state.DetailDashboard)
@@ -61,8 +62,8 @@ const Dian =() => {
   }
 
     const fetchData =async() =>{
-      //  await  GetTypeDian({token:Dian.access_token})
-      //  await  GetTSeller({token:Dian.access_token})
+       await  GetTypeDian({token:Dian.access_token})
+      //await GetTSeller({token:Dian.access_token})
         await  GetTProductsDian({token:Dian.access_token})
         await  GetPayment({token:Dian.access_token})
         await GetTaxesDian({token:Dian.access_token})
@@ -80,7 +81,13 @@ const Dian =() => {
     }
   }, 0);
 
+  console.log({products})
+  console.log({Payment})
+  console.log({typeDocumentDian})
+
   const {SubtotalDian,TotalRetentionDian} =UseRoundRention({Price:sumWithInitial})
+  const {SubtotalDianSinIva,TotalRetentionDianSinIva,TotalPaySinIva} =UseRoundRetentionSinIva({Price:sumWithInitial})
+
 
   useEffect(() => {
 		if (socket) {
@@ -101,68 +108,90 @@ const Dian =() => {
     const ValorBase = Math.round(totalRound * 100000) / 100000; // Redondear a 5 decimales
     const valueSTotalProduct =  typeIva ?  ValorBase : totalPrice
     const valuesPayments = typeIva ? totalPrice :totalPrice
-
+  
     const filteredItems = products?.filter(item =>{
       return  item.id ==jwt?.result?.dian
     });
-
-    console.log(filteredItems)
 
     const filterItemsExecento = products?.filter(item =>{
       return  item.code =="6"
     });
 
-    const itemIva = useMemo(() => (
-      filteredItems?.map(item => ({
-        code: `${item.code}`,
-        description: `${item.name}`,
-        quantity: 1,
-        price: valueSTotalProduct,
-        discount: 0.00,
-        taxes: [{
-          id: item?.taxes[0]?.id || 0
-        }]
-      }))
-    ), [filteredItems, valueSTotalProduct]);
-  
-    const itemRetention = useMemo(() => (
-      filteredItems?.map(item => ({
-        code: `${item.code}`,
-        description: `${item.name}`,
-        quantity: 1,
-        price: SubtotalDian,
-        discount: 0.00,
-        taxes: [{
-          id: item?.taxes[0]?.id || 0
-        }, {
-          id: 11451
-        }]
-      }))
-    ), [filteredItems, SubtotalDian]);
-
+      const itemIva = useMemo(() => {
+        if(filteredItems.some((item) =>item.taxes)){
+          return  filteredItems?.map(item => ({
+            code: `${item.code}`,
+            description: `${item.name}`,
+            quantity: 1,
+            price: valueSTotalProduct,
+            discount: 0.00,
+            taxes: [{
+              id: item?.taxes[0]?.id || 0
+            }]
+          }))
+        }else{
+          return  filteredItems?.map(item => ({
+            code: `${item.code}`,
+            description: `${item.name}`,
+            quantity: 1,
+            price: totalPrice,
+            discount: 0.00,
+          }))
+        }}
+  , [filteredItems, valueSTotalProduct]);
     
-    const itemsExenta = useMemo(() => (
-      filterItemsExecento?.map(item => ({
-        code: `${item.code}`,
-        description: `${item.name}`,
-        quantity: 1,
-        price: totalPrice,
-        discount: 0.00,
-        taxes: [{
-          id: item?.taxes[0]?.id || 0
-        }]
-      }))
-    ), [filterItemsExecento, totalPrice]);
+    const itemRetention = useMemo(() => {
+      if(filteredItems.some((item) =>item.taxes)){
+        return   filteredItems?.map(item => ({
+          code: `${item.code}`,
+          description: `${item.name}`,
+          quantity: 1,
+          price: SubtotalDian,
+          discount: 0.00,
+          taxes: [{
+            id: item?.taxes[0]?.id || 0
+          }, {
+            id: 11451
+          }]
+        }))
+      }else{
+        return   filteredItems?.map(item => ({
+          code: `${item.code}`,
+          description: `${item.name}`,
+          quantity: 1,
+          price: SubtotalDianSinIva,
+          discount: 0.00,
+          taxes: [{
+            id: 11451
+          }]
+        }))
+      }
+    } , [filteredItems, SubtotalDian]);
+    
+    const itemsExenta = useMemo(() => {
+        return  filterItemsExecento?.map(item => ({
+          code: `${item.code}`,
+          description: `${item.name}`,
+          quantity: 1,
+          price: totalPrice,
+          discount: 0.00,
+          taxes: [{
+            id: item?.taxes[0]?.id || 0
+          }]
+        }))
+    }, [filterItemsExecento, totalPrice]);
 
     const Retention = isSelected ?   TotalRetentionDian : 0
+    const RetentionSinIva = isSelected ?   SubtotalDianSinIva : 0
     const  itemsIva =  isSelected ?  itemRetention :  itemIva
     const items =  typeIva ? itemsIva   :itemsExenta
+    const RetentionItem = filteredItems.some((item) =>item.taxes) ?  Retention :  RetentionSinIva 
 
     const payments =[{
       id: jwt?.result?.id_payment,
       value:valuesPayments,
     }]
-  
+
     const DateExit = moment(DetailDashboard.Fecha_final).utc().format('YYYY-MM-DD')
 
     const response= {
@@ -195,7 +224,7 @@ const Dian =() => {
       mail: {
         send: true
       },
-      observations: '',
+      observations:jwt?.result?.observation,
       items,
       payments,
       additional_fields: {}
@@ -215,7 +244,7 @@ const Dian =() => {
           toast.error("no se puedes enviar mas facturacion electronica")
       }else{
         if(!loadingInvoinces){
-            await PostSendInvoinces({token:Dian.access_token,body:response,id_Reserva:id,id_user:jwt.result.id_user,fecha:now,Retention})
+            await PostSendInvoinces({token:Dian.access_token,body:response,id_Reserva:id,id_user:jwt.result.id_user,fecha:now,Retention:RetentionItem})
             socket.emit("sendNotification",jwt.result.name);
         }else{
           toast.error("Error factura")
@@ -282,7 +311,7 @@ const Dian =() => {
 
 
   const validProductCheck  = checkboxCliente() 
-
+  
 
     return (<><div className="container-bicta" >
                 <div className="contain-search">
@@ -298,8 +327,8 @@ const Dian =() => {
                                 <ButtonBack/>
                           </Fragment>
                         )   }
-                    
-                <div class=" mx-auto bg-white p-6 rounded-lg shadow-md">
+                  <IconsUser  Username={jwt.result.name} />
+                <div class=" mx-auto  p-6 rounded-lg ">
                     <SearchClient 
                     typeIva={typeIva}
                     resultDashboard={resultDashboard}
