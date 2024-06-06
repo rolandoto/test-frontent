@@ -208,10 +208,7 @@ const DetailChekingOrganism =({id}) =>{
 
     let totalId = false;
 
-    if ( jwt.result.id_hotel == 23 || jwt.result.id_hotel == 5 || jwt.result.id_hotel == 6 || jwt.result.id_hotel == 12 || jwt.result.id_hotel == 10 || jwt.result.id_hotel == 2 ) {
-        totalId = true;
-    }
-
+    
     let dataTwo = {
         Tipo_persona: tipoPersonas,
         Iva: totalId ? 2 : change.Iva,
