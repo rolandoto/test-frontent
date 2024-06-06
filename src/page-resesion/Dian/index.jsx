@@ -62,7 +62,7 @@ const Dian =() => {
   }
 
     const fetchData =async() =>{
-       await  GetTypeDian({token:Dian.access_token})
+       //await  GetTypeDian({token:Dian.access_token})
       //await GetTSeller({token:Dian.access_token})
         await  GetTProductsDian({token:Dian.access_token})
         await  GetPayment({token:Dian.access_token})
@@ -81,9 +81,6 @@ const Dian =() => {
     }
   }, 0);
 
-  console.log({products})
-  console.log({Payment})
-  console.log({typeDocumentDian})
 
   const {SubtotalDian,TotalRetentionDian} =UseRoundRention({Price:sumWithInitial})
   const {SubtotalDianSinIva,TotalRetentionDianSinIva,TotalPaySinIva} =UseRoundRetentionSinIva({Price:sumWithInitial})
@@ -169,6 +166,7 @@ const Dian =() => {
     } , [filteredItems, SubtotalDian]);
     
     const itemsExenta = useMemo(() => {
+      if(filteredItems.some((item) =>item.taxes)){
         return  filterItemsExecento?.map(item => ({
           code: `${item.code}`,
           description: `${item.name}`,
@@ -179,6 +177,15 @@ const Dian =() => {
             id: item?.taxes[0]?.id || 0
           }]
         }))
+      }else{
+        return  filteredItems?.map(item => ({
+          code: `${item.code}`,
+          description: `${item.name}`,
+          quantity: 1,
+          price: totalPrice,
+          discount: 0.00,
+        }))
+      }
     }, [filterItemsExecento, totalPrice]);
 
     const Retention = isSelected ?   TotalRetentionDian : 0
@@ -186,6 +193,7 @@ const Dian =() => {
     const  itemsIva =  isSelected ?  itemRetention :  itemIva
     const items =  typeIva ? itemsIva   :itemsExenta
     const RetentionItem = filteredItems.some((item) =>item.taxes) ?  Retention :  RetentionSinIva 
+
 
     const payments =[{
       id: jwt?.result?.id_payment,
