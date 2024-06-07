@@ -16,7 +16,7 @@ const UseRoundRention =({Price=0}) =>{
         let subtotal = totalDeseado / factor;
         subtotal = roundTo(subtotal, 5);
         let iva = subtotal * tasaIVA;
-        iva = roundTo(iva, 2);
+        iva = roundTo(iva, 5);
         let retefuente = subtotal * tasaRetefuente;
         retefuente = roundTo(retefuente, 2);
         let total = roundTo(subtotal + iva - retefuente, 2);
