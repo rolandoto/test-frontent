@@ -1,43 +1,66 @@
 
 const UseRoundRention =({Price=0}) =>{
+function roundTo(value, decimals) {
+    return Number(Math.round(value + 'e' + decimals) + 'e-' + decimals);
+}
 
-          function roundTo(value, decimals) {
-            return Number(Math.round(value + 'e' + decimals) + 'e-' + decimals);
-        }
-        const RountValue =(round) =>{
-          return  Math.round(round * 100000) / 100000;
-        }
-        
-        const CalculateRetention =(ValorProduct) =>{
-            let totalDeseado =ValorProduct
-            let tasaIVA = 0.19;
-            let tasaRetefuente = 0.035;
-            let factor = 1 + tasaIVA - tasaRetefuente;
-            let subtotal = totalDeseado / factor;
-            subtotal = roundTo(subtotal, 5);
-            let iva = subtotal * tasaIVA;
-            iva = roundTo(iva, 2);
-            let retefuente = subtotal * tasaRetefuente;
-            retefuente = roundTo(retefuente, 2);
-            let total = roundTo(subtotal + iva - retefuente, 2);
-            if (total !== totalDeseado) {
-                let adjustment = totalDeseado - total;
-                subtotal += adjustment;
-                iva = roundTo(subtotal * tasaIVA, 2);
-                retefuente = roundTo(subtotal * tasaRetefuente, 2);
-                total = roundTo(subtotal + iva - retefuente, 2);
-            }
-          return {subtotal,retefuente,total,iva}
-        }
-    
-        const {subtotal,retefuente,total,iva} = CalculateRetention(Price)
+// Función para redondear a cinco decimales
+const roundValue = (value) => {
+    return Math.round(value * 100000) / 100000;
+}
 
+// Función para calcular la retención y los valores necesarios
+const calculateRetention = (cantidad, valorUnitario, descuento, porcentajeIVA, porcentajeRetefuente, valorProductoDeseado) => {
+    // Cálculo del valor base
+    let valorBase = roundTo(cantidad * valorUnitario - descuento, 2);
 
-    const SubtotalDian =RountValue(subtotal)
-    const TotalIva = RountValue(iva)
-    const TotalRetentionDian = RountValue(retefuente)
-    const TotalPay = RountValue(total)
-    
+    // Cálculo del IVA
+    let iva = roundTo((valorBase * porcentajeIVA) / 100, 2);
+
+    // Cálculo del total del ítem
+    let totalItem = roundTo(valorBase + iva, 2);
+
+    // Ajuste para que coincida con el valor deseado (total neto)
+    let totalDeseado = valorProductoDeseado;
+    let factor = 1 + porcentajeIVA / 100 - porcentajeRetefuente;
+    let subtotal = totalDeseado / factor;
+    subtotal = roundTo(subtotal, 5);
+    iva = roundTo(subtotal * porcentajeIVA / 100, 2);
+    let retefuente = roundTo(subtotal * porcentajeRetefuente, 2);
+    let total = roundTo(subtotal + iva - retefuente, 2);
+
+    // Ajuste fino
+    let iterationLimit = 1000; // Límite de iteraciones para evitar bucles infinitos
+    let iteration = 0;
+    while (total !== totalDeseado && iteration < iterationLimit) {
+        let adjustment = totalDeseado - total;
+        subtotal += adjustment / (1 + porcentajeIVA / 100 - porcentajeRetefuente);
+        subtotal = roundTo(subtotal, 5);
+        iva = roundTo(subtotal * porcentajeIVA / 100, 2);
+        retefuente = roundTo(subtotal * porcentajeRetefuente, 2);
+        total = roundTo(subtotal + iva - retefuente, 2);
+        iteration++;
+    }
+
+    return { valorBase, iva, totalItem, retefuente, subtotal, total };
+}
+
+// Ejemplo de uso
+const cantidad = 10;
+const valorUnitario = 100.00;
+const descuento = 50.00;
+const porcentajeIVA = 19;
+const porcentajeRetefuente = 0.035;
+const valorProductoDeseado = Price;
+
+const { valorBase, iva, totalItem, retefuente, subtotal, total } = calculateRetention(
+    cantidad, valorUnitario, descuento, porcentajeIVA, porcentajeRetefuente, valorProductoDeseado
+);
+
+const subtotalDian = roundValue(subtotal);
+const totalIva = roundValue(iva);
+const totalRetentionDian = roundValue(retefuente);
+const totalPay = total;
 
     return {SubtotalDian,TotalIva,TotalRetentionDian,TotalPay}
    
