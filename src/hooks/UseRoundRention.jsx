@@ -31,10 +31,10 @@ const UseRoundRention =({Price=0}) =>{
 
         const {subtotal,retefuente,total,iva} = CalculateRetention(Price)
 
-      const subtotalDian = roundValue(subtotal);
-      const totalIva = roundValue(iva);
-      const totalRetentionDian = roundValue(retefuente);
-      const totalPay = roundValue(total);
+      const subtotalDian = RountValue(subtotal);
+      const totalIva = RountValue(iva);
+      const totalRetentionDian = RountValue(retefuente);
+      const totalPay = RountValue(total);
 
   return {subtotalDian,totalIva,totalRetentionDian,totalPay}
    
