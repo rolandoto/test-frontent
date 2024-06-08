@@ -1,5 +1,7 @@
 
 const UseRoundRention =({Price=0}) =>{
+
+    // Función para redondear a los decimales especificados
 function roundTo(value, decimals) {
     return Number(Math.round(value + 'e' + decimals) + 'e-' + decimals);
 }
@@ -45,22 +47,23 @@ const calculateRetention = (cantidad, valorUnitario, descuento, porcentajeIVA, p
     return { valorBase, iva, totalItem, retefuente, subtotal, total };
 }
 
-// Ejemplo de uso
-const cantidad = 10;
-const valorUnitario = 100.00;
-const descuento = 50.00;
-const porcentajeIVA = 19;
-const porcentajeRetefuente = 0.035;
-const valorProductoDeseado = Price;
+    // Ejemplo de uso
+    const cantidad = 0;
+    const valorUnitario = 000;
+    const descuento = 0;
+    const porcentajeIVA = 19;
+    const porcentajeRetefuente = 0.035;
+    const valorProductoDeseado = Price;
+    
+    const { valorBase, iva, totalItem, retefuente, subtotal, total } = calculateRetention(
+        cantidad, valorUnitario, descuento, porcentajeIVA, porcentajeRetefuente, valorProductoDeseado
+    );
+    
+    const subtotalDian = roundValue(subtotal);
+    const totalIva = roundValue(iva);
+    const totalRetentionDian = roundValue(retefuente);
+    const totalPay = total;
 
-const { valorBase, iva, totalItem, retefuente, subtotal, total } = calculateRetention(
-    cantidad, valorUnitario, descuento, porcentajeIVA, porcentajeRetefuente, valorProductoDeseado
-);
-
-const subtotalDian = roundValue(subtotal);
-const totalIva = roundValue(iva);
-const totalRetentionDian = roundValue(retefuente);
-const totalPay = total;
 
     return {SubtotalDian,TotalIva,TotalRetentionDian,TotalPay}
    
