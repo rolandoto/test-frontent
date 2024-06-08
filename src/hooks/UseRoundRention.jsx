@@ -5,7 +5,7 @@ const UseRoundRention =({Price=0}) =>{
             return Number(Math.round(value + 'e' + decimals) + 'e-' + decimals);
         }
         const RountValue =(round) =>{
-          return  Math.round(round * 100) / 100;
+          return  Math.round(round * 10000000) / 10000000;
         }
         
         const CalculateRetention =(ValorProduct) =>{
@@ -14,18 +14,18 @@ const UseRoundRention =({Price=0}) =>{
             let tasaRetefuente = 0.035;
             let factor = 1 + tasaIVA - tasaRetefuente;
             let subtotal = totalDeseado / factor;
-            subtotal = roundTo(subtotal, 5);
+            subtotal = roundTo(subtotal, 6);
             let iva = subtotal * tasaIVA;
-            iva = roundTo(iva, 2);
+            iva = roundTo(iva, 6);
             let retefuente = subtotal * tasaRetefuente;
-            retefuente = roundTo(retefuente, 2);
-            let total = roundTo(subtotal + iva - retefuente, 2);
+            retefuente = roundTo(retefuente, 6);
+            let total = roundTo(subtotal + iva - retefuente, 6);
             if (total !== totalDeseado) {
                 let adjustment = totalDeseado - total;
                 subtotal += adjustment;
-                iva = roundTo(subtotal * tasaIVA, 2);
-                retefuente = roundTo(subtotal * tasaRetefuente, 2);
-                total = roundTo(subtotal + iva - retefuente, 2);
+                iva = roundTo(subtotal * tasaIVA, 6);
+                retefuente = roundTo(subtotal * tasaRetefuente, 6);
+                total = roundTo(subtotal + iva - retefuente, 6);
             }
           return {subtotal,retefuente,total,iva}
         }
