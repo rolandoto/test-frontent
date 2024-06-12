@@ -85,6 +85,8 @@ const Dian =() => {
   const {SubtotalDian,TotalRetentionDian} =UseRoundRention({Price:sumWithInitial})
   const {SubtotalDianSinIva,TotalRetentionDianSinIva,TotalPaySinIva} =UseRoundRetentionSinIva({Price:sumWithInitial})
 
+  console.log(SubtotalDian)
+
 
   useEffect(() => {
 		if (socket) {
@@ -143,7 +145,7 @@ const Dian =() => {
           code: `${item.code}`,
           description: `${item.name}`,
           quantity: 1,
-          price: SubtotalDian,
+          price:1183549.78355,
           discount: 0.00,
           taxes: [{
             id: item?.taxes[0]?.id || 0
@@ -197,7 +199,7 @@ const Dian =() => {
 
     const payments =[{
       id: jwt?.result?.id_payment,
-      value:valuesPayments,
+      value:15611561,
     }]
 
     const DateExit = moment(DetailDashboard.Fecha_final).utc().format('YYYY-MM-DD')
@@ -302,7 +304,8 @@ const Dian =() => {
                   </div>
               </div>
       }
-     return  <TableClientDian  
+     return  <TableClientDian   
+                         
                           ListClient={ListClient}
                           handleCheckboxChange={handleCheckboxChange }
                           isSelected={isSelected}
@@ -338,6 +341,7 @@ const Dian =() => {
                   <IconsUser  Username={jwt.result.name} />
                 <div class=" mx-auto  p-6 rounded-lg ">
                     <SearchClient 
+                     sumWithInitial={sumWithInitial}
                     typeIva={typeIva}
                     resultDashboard={resultDashboard}
                     searchTerm={searchTerm}

@@ -2,7 +2,7 @@ import React from "react"
 
 
 
-const SearchClient =({searchTerm,handleChange,resultDashboard,typeIva }) =>{
+const SearchClient =({  sumWithInitial,searchTerm,handleChange,resultDashboard,typeIva }) =>{
 
     return (
         <div >
@@ -34,7 +34,7 @@ const SearchClient =({searchTerm,handleChange,resultDashboard,typeIva }) =>{
                             <td class="text-gray-700">{resultDashboard.Num_documento}</td>
                             <td class="text-gray-700">{resultDashboard.Nombre}</td>
                             <td class="text-gray-700">{resultDashboard.Apellido}</td>
-                            <td class="text-gray-700">${parseInt(resultDashboard.valor_habitacion).toLocaleString()}</td>
+                            <td class="text-gray-700">${parseInt(sumWithInitial).toLocaleString()}</td>
                           
                         </tr>
                   
