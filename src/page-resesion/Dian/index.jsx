@@ -86,7 +86,7 @@ const Dian =() => {
   const {SubtotalDianSinIva,TotalRetentionDianSinIva,TotalPaySinIva} =UseRoundRetentionSinIva({Price:sumWithInitial})
 
 
-  console.log(SubtotalDian)
+
   
   useEffect(() => {
 		if (socket) {
@@ -201,7 +201,7 @@ const Dian =() => {
 
     const payments =[{
       id: jwt?.result?.id_payment,
-      value:15611561,
+      value:valuesPayments,
     }]
 
     const DateExit = moment(DetailDashboard.Fecha_final).utc().format('YYYY-MM-DD')
