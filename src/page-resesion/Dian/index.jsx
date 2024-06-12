@@ -85,9 +85,9 @@ const Dian =() => {
   const {SubtotalDian,TotalRetentionDian} =UseRoundRention({Price:sumWithInitial})
   const {SubtotalDianSinIva,TotalRetentionDianSinIva,TotalPaySinIva} =UseRoundRetentionSinIva({Price:sumWithInitial})
 
+
   console.log(SubtotalDian)
-
-
+  
   useEffect(() => {
 		if (socket) {
 			socket.on("sendNotification", async(data) => {
@@ -145,7 +145,7 @@ const Dian =() => {
           code: `${item.code}`,
           description: `${item.name}`,
           quantity: 1,
-          price:1183549.78355,
+          price:SubtotalDian,
           discount: 0.00,
           taxes: [{
             id: item?.taxes[0]?.id || 0
@@ -166,6 +166,8 @@ const Dian =() => {
         }))
       }
     } , [filteredItems, SubtotalDian]);
+
+   
     
     const itemsExenta = useMemo(() => {
       if(filteredItems.some((item) =>item.taxes)){
