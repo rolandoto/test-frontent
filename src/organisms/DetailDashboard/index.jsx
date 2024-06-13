@@ -52,6 +52,7 @@ import { IoTicketOutline } from "react-icons/io5";
 import { AiOutlineDelete } from "react-icons/ai";
 import { BsFilePdf } from "react-icons/bs";
 import { CiHeart } from "react-icons/ci";
+import IconsUser from "../../component/IconUser";
 
 // Estilo para el título
 const titleStyle = {
@@ -189,6 +190,7 @@ const DetailDasboard =(props) =>{
       pdf.text(80, 198, `${resultDashboard.Adultos}`);
       pdf.text(150, 190, `Niños:`);
       pdf.text(150, 198, `${resultDashboard.Ninos}`);
+      pdf.text(10, 210, `Direccion: Cl. 47 #41-55, La Candelaria, Medellín`);
       pdf.save("download.pdf"); // Guarda el PDF
       });
     };
@@ -887,598 +889,598 @@ const  handleClickEliminar =UseModalText({handlModal:hanDelete,Text:"Estas segur
     return (
       <>
       
-        <div className="container-flex-init-global" >
-          <ButtonBack />
-          <ButtonHome/>
-          <div className="container-detail-dasboard-in-one" >
-              <div    className="border-detail " > 
-                   <span className="negrita-detail-reserva" >{day} noches</span>
+      <div className="container-flex-init-global" >
+        <ButtonBack />
+        <ButtonHome/>
+        <div className="container-detail-dasboard-in-one" >
+            <div    className="border-detail " > 
+                 <span className="negrita-detail-reserva" >{day} noches</span>
 
-                   <span>Valor noche:</span>
-                   <span className="negrita-detail-reserva"> {toPriceNigth.price}</span>
-              </div>
-              <div  className="border-detail"   >
-                   <span>Total hospedaje:</span>
-                   <span className="negrita-detail-reserva" >{valor_habitacion}</span>
-              </div>
-
-              <div  className="border-detail"   >
-                   <span>Canal de reserva:</span>
-                   <span className="negrita-detail-reserva" >{resultDashboard.Canales_Nombre}</span>
-              </div>
-           
-              <div  style={{background:`${totalPrice ==0 ? "#17c964" : "#f21361" }`,color:"white"}} className="border-detail" >
-                   {totalPrice == 0 ?  <span className="negrita-detail-reserva" >   <BsCheckCircle  className="text-center-icon"   fontSize={25} color="white"  />Pagado</span> : <span className="negrita-detail-reserva" >   <CiBadgeDollar  className="text-center-icon"   fontSize={45} color="white"  />  ${cobrar.toLocaleString()}</span>   }   
-              </div>
-              
-
-               <div className="border-detail" >
-                  <span>Habitacion:</span>
-                   <span className="negrita-detail-reserva"  >{resultDashboard.Numero} {resultDashboard?.nombre_habitacion}</span>
-              </div>
-
-              {resultDashboard.Foto_documento_adelante ?  (
-                 <div  style={{background:"background: rgb(34,193,195)",background: "linear-gradient(32deg, rgba(34,193,195,1) 0%, rgba(143,102,189,1) 62%, rgba(253,187,45,1) 100%)",color:"white"}} className="border-detail" >
-                  <span className="negrita-detail-reserva" >   <VscVerified     className="text-center-icon"   fontSize={30} color="white"  />web check in realizado</span>
-              </div>) :  null  } 
-
-              <div   className="border-detail" >
-                  <span>Abono:</span>
-                   <span className="negrita-detail-reserva" >{valor_abono}</span>
-              </div>
-             
-          </div>
-      </div>
-      <div  className="container-flex-init-global" >
-            <div className="container-detail-dasboard-in" >
-              <input type="date" className="desde-detail"   onChange={(e) => setspandOne(e.target.value)}  defaultValue={fecha_inicio}    />
-              <input type="date" className="desde-detail"   onChange={(e) =>setspand(e.target.value)}  defaultValue={fecha_final}  />
-              <h2 className="cod-reserva" ><span className="title-code" >COD:</span> X14A-{resultDashboard?.Num_documento}{id}</h2>
-             
-          </div>
-      </div>
-      <div className="init" >
-        <form  className="container-flex-init" >
-        <div className="container-detail-dasboard-in" > 
-
-        <span className="desde-detail-two-title" > Adultos:</span>
-        <span className="desde-detail-two-title" >Niños:</span>
-        <span className="desde-detail-three-title-das" >Infantes:</span>    
-        <span  className="desde-detail-three-title-das">Mascotas:</span>
-        <span className="desde-detail-two-title" > Ciudad:</span>
-
+                 <span>Valor noche:</span>
+                 <span className="negrita-detail-reserva"> {toPriceNigth.price}</span>
             </div>
-              <div className="container-detail-dasboard-in" > 
-                <input type="text" 
-                      className="desde-detail-two"  
-                      placeholder="Adultos" 
-                      name="Adultos"
-                      defaultValue={resultDashboard.Adultos}  
-                      onChange={(e) =>setAdultos(e.target.value)}  />
-                <input type="text" 
-                      className="desde-detail-two" 
-                      name="Fecha" 
-                   placeholder="Niños"  
-                      defaultValue={resultDashboard.Ninos}  
-                      onChange={(e) =>setNinos(e.target.value)}   />
-
-                <input  type="text" 
-                        className="desde-detail-three" 
-                        name="Infantes"
-                        placeholder="Infantes"  
-                        defaultValue={resultDashboard.Infantes}
-                        onChange={(e) =>setInfantes(e.target.value)}   />
-
-                <input  type="text" 
-                        className="desde-detail-three" 
-                        name="Mascotas" 
-                        placeholder="Mascotas"   
-                        readOnly={state}
-                        defaultValue={resultDashboard.Talla}
-                        onChange={handleChange("Mascotas")}   />
-
-                <input  type="text" 
-                        className="desde-detail-two" 
-                        name="Ciudad"  
-                        placeholder="Mascotas"    
-                        defaultValue={resultDashboard.Ciudad}
-                        onChange={handleChange("Ciudad")}   />
-            </div>
-        </form>
-      </div>
-      
-      {findEmpresa &&  DateEmpresa?.map((index) =>  (
-        <div className="init-detail" >
-        <form  className="container-flex-init" >
-        <span className="negrita-detail-reserva-reservation">Datos de la empresa donde se estaran enviando la factura electronica</span>
-        <div  className="container-detail-dasboard-in" > 
-              
-        <span className="desde-detail-two-title" > Nombre empresa:</span>
-        <span className="desde-detail-two-title" >Nit:</span>
-        <span className="desde-detail-three-title-das" >Correo:</span>    
-        <span  className="desde-detail-three-title-das">Direccion:</span>
-        <span className="desde-detail-two-title" > Telefono:</span>
-
-            </div>
-              <div className="container-detail-dasboard-in" > 
-                <input type="text" 
-                      className="desde-detail-two"  
-                      placeholder="Adultos" 
-                      name="Adultos"
-                    
-                      defaultValue={`${index?.name_people} ${index?.apellido_people} `}  
-                      onChange={(e) =>setAdultos(e.target.value)}  />
-                <input type="text" 
-                      className="desde-detail-two" 
-                      name="Fecha" 
-                    placeholder="Niños"  
-                    defaultValue={index?.num_id}   
-                      onChange={(e) =>setNinos(e.target.value)}   />
-
-                <input  type="text" 
-                        className="desde-detail-three" 
-                        name="Infantes"
-                        placeholder="Infantes"  
-                        defaultValue={index?.email_people}  
-                        onChange={(e) =>setInfantes(e.target.value)}   />
-
-                <input  type="text" 
-                        className="desde-detail-three" 
-                        name="Mascotas" 
-                        placeholder="Mascotas"   
-                        readOnly={state}
-                        defaultValue={index?.direccion_people}  
-                        onChange={handleChange("Mascotas")}   />
-
-                <input  type="text" 
-                        className="desde-detail-two" 
-                        name="Fecha"  
-                        placeholder="Mascotas"    
-                        readOnly={state}
-                        defaultValue={index?.number_people}  
-                        onChange={handleChange("Fecha")}   />
-            </div>
-        </form>
-        </div>
-      ))}
-     
-      <div className="init-photo top-one-detail-room" >
-            <form  className="container-flex-init"  onSubmit={e =>{
-              e.preventDefault()
-        }} >
-        <div className="container-detail-dasboard-in" > 
-          <span className="desde-detail-two-title-photo" >Forma pago:</span>
-          <span className="desde-detail-two-title-photo-three" >Abono:</span>
-          <span className="desde-detail-two-title-photo-four" >Doc frontal:</span>
-          <span className="desde-detail-two-title-photo-four" >Doc posterior:</span>
-          <span className="desde-detail-two-title-photo" >Firma:</span>
-        </div>
-              <div className="container-detail-dasboard-in-photo" >       
-                <select   name="Tipo_forma_pago"
-                            value={inputPayValue.Tipo_forma_pago}
-                            onChange={handleInputPay}
-                            className={`desde-detail-twophoto ${errorAbono ? "error-solicitud" : ""}  ` }   >
-                        {typy_buy?.map(category =>(
-                            <option 
-                            value={category.id}   
-                            key={category.id}>
-                            {category.name}
-                        </option>
-                        )
-                        )}
-                </select>
-              <input 
-                        onChange={(e) =>setPrice(e.target.value)}
-                        type="text"
-                        value={price !== '' ? numberWithCommas(price) : ''}
-                          placeholder="abono"
-                      className={`desde-detail-twophoto  ${errorAbono ? "error-solicitud" : "" } `} />        
-                <div>
-                  <Tooltip content={"Agregar pago sin coma, ni punto "} style={{color:"white"}} >
-                  <button style={{background:"black"}} 
-                  className="button-change-type-room" 
-                    onClick={handModalText} >
-                      <span className="negrita-detail-reserva  row-text-box" style={{marginLeft:"10px"}}   ><CiCirclePlus  fontSize={35}  /> <span> Abono</span></span>
-                    </button>
-                  </Tooltip> 
-
-               
-                </div>  
-                <div className="row-flex-one"   >
-                    <img
-                        src={`${resultDashboard.Foto_documento_adelante ? resultDashboard.Foto_documento_adelante : "https://github.com/rolandoto/image-pms/blob/main/pdf_Mesa%20de%20trabajo%201_Mesa%20de%20trabajo%201%20(1).png?raw=true"  }`}
-                        objectFit="initial"
-                        alt="Default Image"
-                        className={`img-photo`} onClick={toggleModal}
-    
-                      />
-
-                      {isModalOpen && (
-                              <div className="modal" onClick={toggleModal}>
-                                <img src={`${resultDashboard.Foto_documento_adelante ? resultDashboard.Foto_documento_adelante : "https://github.com/rolandoto/image-pms/blob/main/pdf_Mesa%20de%20trabajo%201_Mesa%20de%20trabajo%201%20(1).png?raw=true"  }`} alt="Imagen" className="modal-image" />
-                              </div>
-                        )}
-                  <img
-                      src={`${resultDashboard.Foto_documento_atras ? resultDashboard.Foto_documento_atras : "https://github.com/rolandoto/image-pms/blob/main/pdf_Mesa%20de%20trabajo%201_Mesa%20de%20trabajo%201%20(1).png?raw=true"  }`}
-                      objectFit="initial"
-                      alt="Default Image"
-                      className="img-photo"
-                      onClick={toggleModalOne}
-                    />
-
-                  {isModalOpenOne && (
-                      <div className="modal" onClick={toggleModalOne}>
-                        <img src={`${resultDashboard.Foto_documento_atras ? resultDashboard.Foto_documento_atras : "https://github.com/rolandoto/image-pms/blob/main/pdf_Mesa%20de%20trabajo%201_Mesa%20de%20trabajo%201%20(1).png?raw=true" }`} alt="Imagen" className="modal-image" />
-                      </div>
-                          )}
-                  <img
-                      src={`${resultDashboard.Pasaporte ? resultDashboard.Pasaporte : "https://github.com/rolandoto/image-pms/blob/main/pdf_Mesa%20de%20trabajo%201_Mesa%20de%20trabajo%201%20(1).png?raw=true"  }`}
-                      objectFit="initial"
-                      alt="Default Image"
-                      className="img-photo"
-                      onClick={toggleModalTwo}
-                    />
-
-                  {isModalOpenTwo && (
-                      <div className="modal" onClick={toggleModalTwo}>
-                        <img src={`${resultDashboard.Pasaporte ? resultDashboard.Pasaporte : "https://github.com/rolandoto/image-pms/blob/main/pdf_Mesa%20de%20trabajo%201_Mesa%20de%20trabajo%201%20(1).png?raw=true"  }`} alt="Imagen" className="modal-image" />
-                      </div>
-                  )}
-                </div>
+            <div  className="border-detail"   >
+                 <span>Total hospedaje:</span>
+                 <span className="negrita-detail-reserva" >{valor_habitacion}</span>
             </div>
 
-            <div className="form-margintop-solicitud" >
-
-              <input  
-                onChange={handChangeDescription}
-                value={descripcion}
-                name="PayAbono"
-                placeholder="Descripcion del envio"
-                type="text"
-                className={`desde-detail-twophoto-two ${error ? "error-solicitud" : "" } `}  />  
-              <input
-                name="PayAbono"
-                type="text"
-                id="valorSolicitadoInput"
-                placeholder="Valor solicitado"
-                className={`desde-detail-twophoto-two ${error ? "error-solicitud" : "" } `} 
-                onChange={handChangeValorsolicitado}
-               
-                value={valorSolicitado !== '' ? numberWithCommas(valorSolicitado) : ''}
-              />
-                <button style={{background:"black"}} 
-                 className="button-change-type-room " 
-                  onClick={handClickPostTarifasReservation} >
-                     <span className="negrita-detail-reserva  row-text-box" style={{marginLeft:"10px"}}   ><CiCirclePlus  fontSize={35}  /> <span> Enviar</span></span>
-                  </button>
-
+            <div  className="border-detail"   >
+                 <span>Canal de reserva:</span>
+                 <span className="negrita-detail-reserva" >{resultDashboard.Canales_Nombre}</span>
             </div>
-          
-        </form>
-      
-      </div>
-
-        <div className="container-flex-init-one-center " >
-              <div> 
-                  <Button
-                   onClick={handChecking}
-                     disabled={findFirma}
-                    className="button-checking-detail-one-das"
-                    color="success" 
-                    size={"xs"}
-                     > <span  className="text-words" >Check in</span> </Button>
-              </div>
-
-              <div>
-                  <Button
-                  
-                    onClick={hanClickDetailCheckout} 
-                          disabled={!findFirma}
-                          className="button-checking-detail-one-das"
-                          color="success" 
-                          size={"xs"}
-                          >
-                          <span  className="text-words" >Check out</span> 
-                  </Button>
-                </div>
-                <div>
-                  <Button
-                    
-                    onClick={hanClickTikets} 
-                          disabled={!findFirma}
-                          className="button-checking-detail-one-das"
-                          color="success" 
-                          size={"xs"}
-                          >
-                          <span  className="text-words" >tickets Desayuno</span> 
-                  </Button>
-                </div>
-              
-                    <div>
-                          {ButtonValidSigo}
-                    </div>
-
-              <ReactTooltip id="registerTip" place="top" effect="solid">
-                    Eliminar reserva
-              </ReactTooltip>
-           
-              <div className="name-pinter"  onClick={handleClickEliminar.handModalText} data-tip data-for="registerTip" >
-                  <div>
-                    <AiOutlineDelete fontSize={40} />
-                  </div>
-              </div>
-              <ReactTooltip id="registerTip-1" place="top" effect="solid">
-                    Actualizar reserva
-              </ReactTooltip>
-              <div className="name-pinter"  onClick={ hanclickEditar.handModalText }   data-tip data-for="registerTip-1">
-                  <div>
-                      <CiHeart fontSize={40} />
-                  </div>
-
-              </div>
-              <ReactTooltip id="registerTip-2" place="top" effect="solid">
-                    Descargar comprobante
-              </ReactTooltip>
-
-              <div style={{ position: 'absolute', left: 50, top: -500 }}>
-                <div id="printThis">
-                
-                </div>
-              </div>
-
-              <div  className="name-pinter"  data-tip data-for="registerTip-2" >
-                  <div onClick={ handComprobante.handModalText } >
-                     <BsFilePdf fontSize={40} />
-                  </div>
-              </div>
-                <div className="container-checkbox" >
-                    <input   type="checkbox" 
-                            className={`checkbox-round  ${isChecked && "checkbox-round-click"} `}
-                            onChange={handleOnChange}
-                            defaultValue={(e) =>findPersona && setIsChecked(true)}       
-                            checked={isChecked} /> Persona
-                    
-                </div> 
-
-
-                { totalId  ? null :
-              <div className="container-checkbox" >
-                      <input   type="checkbox" 
-                              className={`checkbox-round  ${isChecke && "checkbox-round-click"} `}
-                              onChange={handleOnChanger}
-                              readOnly={true}
-                              checked={isChecked}/> Empresa
-              </div> 
-            }
-
+         
+            <div  style={{background:`${totalPrice ==0 ? "#17c964" : "#f21361" }`,color:"white"}} className="border-detail" >
+                 {totalPrice == 0 ?  <span className="negrita-detail-reserva" >   <BsCheckCircle  className="text-center-icon"   fontSize={25} color="white"  />Pagado</span> : <span className="negrita-detail-reserva" >   <CiBadgeDollar  className="text-center-icon"   fontSize={45} color="white"  />  ${cobrar.toLocaleString()}</span>   }   
+            </div>
             
-        
-            <div>
-            <Button
-            className="button-checking-detail-one-das" 
-            color={`${totalPrice <=0 ? "success" : "error" }`} 
-            > <span  className="text-words" >Total a cobro ${totaCobrar.toLocaleString()} </span> </Button>
-              
+
+             <div className="border-detail" >
+                <span>Habitacion:</span>
+                 <span className="negrita-detail-reserva"  >{resultDashboard.Numero} {resultDashboard?.nombre_habitacion}</span>
             </div>
-      </div>
-      <div >
-    </div>
 
-        <div className="in-cehcki-out" >
-        
+            {resultDashboard.Foto_documento_adelante ?  (
+               <div  style={{background:"background: rgb(34,193,195)",background: "linear-gradient(32deg, rgba(34,193,195,1) 0%, rgba(143,102,189,1) 62%, rgba(253,187,45,1) 100%)",color:"white"}} className="border-detail" >
+                <span className="negrita-detail-reserva" >   <VscVerified     className="text-center-icon"   fontSize={30} color="white"  />web check in realizado</span>
+            </div>) :  null  } 
+
+            <div   className="border-detail" >
+                <span>Abono:</span>
+                 <span className="negrita-detail-reserva" >{valor_abono}</span>
+            </div>
+           
         </div>
-      <div className="container-flex-init-one-container-delete" >
-      <textarea                                           rows="10" 
-                                                        
-                                                         cols="217" 
-                                                        placeholder="Observacion" 
-                                                        name="observacion"
-                                                        defaultValue={resultDashboard.Observacion}
-                                                        onChange={handChangeObservation}
-                                                        className="obs" ></textarea>  
-      
-      </div>  
-      {!stateButton && 
-      <div className="init-one-three top-detail  " >
+    </div>
+    <div  className="container-flex-init-global" >
+          <div className="container-detail-dasboard-in" >
+            <input type="date" className="desde-detail"   onChange={(e) => setspandOne(e.target.value)}  defaultValue={fecha_inicio}    />
+            <input type="date" className="desde-detail"   onChange={(e) =>setspand(e.target.value)}  defaultValue={fecha_final}  />
+            <h2 className="cod-reserva" ><span className="title-code" >COD:</span> X14A-{resultDashboard?.Num_documento}{id}</h2>
+           
+        </div>
+    </div>
+    <div className="init" >
       <form  className="container-flex-init" >
-        <div className="container-detail-dasboard-in in-type-button" > 
-                <ul className="flex-contain"  >
-                    <li className={`${huesped ? "desde-detail-three-estados-black-one-finish" :"desde-detail-three-estados" } `} onClick={handHuesped} >Huespedes:  <PiUsersLight fontSize={25}  /> {quyery?.length}  </li>
-                    <li className={`${consumo ? "desde-detail-three-estados-black" :"desde-detail-three-estados" } `} onClick={handConsumo} >Consumos: <PiShoppingBagOpenLight fontSize={25} /> {product?.length >0 ?product?.length : 0  }  </li>
-                    <li className={`${pago ? "desde-detail-three-estados-black" :"desde-detail-three-estados" } `}  onClick={handPago} >Pagos: <PiPaypalLogoLight  fontSize={25}   /> {product?.length >0 ?product?.length : 0 }   </li>
-                    <li className={`${Invoince ? "desde-detail-three-estados-black" :"desde-detail-three-estados" } `}  onClick={handInvoinceDian}  >Facturas Dian:</li>
-                    <li className={`${historialReservation ? "desde-detail-three-estados-black" :"desde-detail-three-estados" } `}  onClick={handhistorial}  >Historial:</li>
-                   
-                </ul>
-           { huesped && <Huesped  quyery={quyery}
-                                  DetailDashboard={DetailDashboard}
-                                  handEditar={handEditar} 
-                                  handChangeSubmit={handChangeSubmit} 
-                                  stateButton={stateButton} 
-                                  handEditarReservas={handEditarReservas}/>} 
-          {consumo && <Consumo  day={day} 
-                                jwt={jwt}
-                                habitacion={resultDashboard?.nombre_habitacion}
-                                totalAlojamiento={totalAlojamiento}
-                                product={product}
-                                totalBebidas={totalBebidas}
-                                priceBebidas={priceBebidas}
-                                bebidas={bebidas}
-                                setLoadingConsumo={setLoadingConsumo}
-                                loadinConsumo={loadinConsumo}
-                                totalSnacks={totalSnacks}
-                                priceSnacks={priceSnacks}
-                                Snacks={Snacks}
+      <div className="container-detail-dasboard-in" > 
 
-                                totalSouvenir={totalSouvenir}
-                                priceSouvenir={priceSouvenir}
-                                Souvenir={Souvenir}
+      <span className="desde-detail-two-title" > Adultos:</span>
+      <span className="desde-detail-two-title" >Niños:</span>
+      <span className="desde-detail-three-title-das" >Infantes:</span>    
+      <span  className="desde-detail-three-title-das">Mascotas:</span>
+      <span className="desde-detail-two-title" > Ciudad:</span>
 
-                                totalDrogueria={totalDrogueria}
-                                priceDrogueria={priceDrogueria}
-                                Drogueria={Drogueria}
+          </div>
+            <div className="container-detail-dasboard-in" > 
+              <input type="text" 
+                    className="desde-detail-two"  
+                    placeholder="Adultos" 
+                    name="Adultos"
+                    defaultValue={resultDashboard.Adultos}  
+                    onChange={(e) =>setAdultos(e.target.value)}  />
+              <input type="text" 
+                    className="desde-detail-two" 
+                    name="Fecha" 
+                 placeholder="Niños"  
+                    defaultValue={resultDashboard.Ninos}  
+                    onChange={(e) =>setNinos(e.target.value)}   />
 
-                                totalAdultos={totalAdultos}
-                                priceAdultos={priceAdultos}
-                                Adultos={Adultos}
+              <input  type="text" 
+                      className="desde-detail-three" 
+                      name="Infantes"
+                      placeholder="Infantes"  
+                      defaultValue={resultDashboard.Infantes}
+                      onChange={(e) =>setInfantes(e.target.value)}   />
 
-                                totalLenceria={totalLenceria}
-                                priceLenceria={priceLenceria}
-                                Lenceria={Lenceria}
-                              
-                                 />}
-          {pago && <Pagos   pagos={resultDashboard}  
-                            idReserva={id}
-                            typy_buy={typy_buy}   />}
-           {Invoince && <TableInvoinceDian    />}
-          {historialReservation && <HistorialDetailReservation />}
-        </div>       
+              <input  type="text" 
+                      className="desde-detail-three" 
+                      name="Mascotas" 
+                      placeholder="Mascotas"   
+                      readOnly={state}
+                      defaultValue={resultDashboard.Talla}
+                      onChange={handleChange("Mascotas")}   />
+
+              <input  type="text" 
+                      className="desde-detail-two" 
+                      name="Ciudad"  
+                      placeholder="Mascotas"    
+                      defaultValue={resultDashboard.Ciudad}
+                      onChange={handleChange("Ciudad")}   />
+          </div>
+      </form>
+    </div>
+    
+    {findEmpresa &&  DateEmpresa?.map((index) =>  (
+      <div className="init-detail" >
+      <form  className="container-flex-init" >
+      <span className="negrita-detail-reserva-reservation">Datos de la empresa donde se estaran enviando la factura electronica</span>
+      <div  className="container-detail-dasboard-in" > 
+            
+      <span className="desde-detail-two-title" > Nombre empresa:</span>
+      <span className="desde-detail-two-title" >Nit:</span>
+      <span className="desde-detail-three-title-das" >Correo:</span>    
+      <span  className="desde-detail-three-title-das">Direccion:</span>
+      <span className="desde-detail-two-title" > Telefono:</span>
+
+          </div>
+            <div className="container-detail-dasboard-in" > 
+              <input type="text" 
+                    className="desde-detail-two"  
+                    placeholder="Adultos" 
+                    name="Adultos"
+                  
+                    defaultValue={`${index?.name_people} ${index?.apellido_people} `}  
+                    onChange={(e) =>setAdultos(e.target.value)}  />
+              <input type="text" 
+                    className="desde-detail-two" 
+                    name="Fecha" 
+                  placeholder="Niños"  
+                  defaultValue={index?.num_id}   
+                    onChange={(e) =>setNinos(e.target.value)}   />
+
+              <input  type="text" 
+                      className="desde-detail-three" 
+                      name="Infantes"
+                      placeholder="Infantes"  
+                      defaultValue={index?.email_people}  
+                      onChange={(e) =>setInfantes(e.target.value)}   />
+
+              <input  type="text" 
+                      className="desde-detail-three" 
+                      name="Mascotas" 
+                      placeholder="Mascotas"   
+                      readOnly={state}
+                      defaultValue={index?.direccion_people}  
+                      onChange={handleChange("Mascotas")}   />
+
+              <input  type="text" 
+                      className="desde-detail-two" 
+                      name="Fecha"  
+                      placeholder="Mascotas"    
+                      readOnly={state}
+                      defaultValue={index?.number_people}  
+                      onChange={handleChange("Fecha")}   />
+          </div>
       </form>
       </div>
-    }
-      {stateButton && 
-        <form className="container-flex-init init ono"   >
-                          <div className="container-detail-dasboard-in" > 
-                              <span className="desde-detail-three-das" > Nombre</span>
-                              <span className="desde-detail-three-das" >Apellido </span>
-                              <span className="desde-detail-two-das" >Tipo de Documento</span>    
-                              <span  className="desde-detail-three-das">No documento</span>
-                          </div>
-                              <div className="container-detail-dasboard-in" >
-                                
-                                  <input  className="desde-detail-three"     
-                                          name="Nombre"  
-                                          type={"text"} 
-                                          placeholder="Nombre" 
-                                          value={item.Nombre} 
-                                          onChange={handleInpuHuespe}
-                                          required  />
+    ))}
+   
+    <div className="init-photo top-one-detail-room" >
+          <form  className="container-flex-init"  onSubmit={e =>{
+            e.preventDefault()
+      }} >
+      <div className="container-detail-dasboard-in" > 
+        <span className="desde-detail-two-title-photo" >Forma pago:</span>
+        <span className="desde-detail-two-title-photo-three" >Abono:</span>
+        <span className="desde-detail-two-title-photo-four" >Doc frontal:</span>
+        <span className="desde-detail-two-title-photo-four" >Doc posterior:</span>
+        <span className="desde-detail-two-title-photo" >Firma:</span>
+      </div>
+            <div className="container-detail-dasboard-in-photo" >       
+              <select   name="Tipo_forma_pago"
+                          value={inputPayValue.Tipo_forma_pago}
+                          onChange={handleInputPay}
+                          className={`desde-detail-twophoto ${errorAbono ? "error-solicitud" : ""}  ` }   >
+                      {typy_buy?.map(category =>(
+                          <option 
+                          value={category.id}   
+                          key={category.id}>
+                          {category.name}
+                      </option>
+                      )
+                      )}
+              </select>
+            <input 
+                      onChange={(e) =>setPrice(e.target.value)}
+                      type="text"
+                      value={price !== '' ? numberWithCommas(price) : ''}
+                        placeholder="abono"
+                    className={`desde-detail-twophoto  ${errorAbono ? "error-solicitud" : "" } `} />        
+              <div>
+                <Tooltip content={"Agregar pago sin coma, ni punto "} style={{color:"white"}} >
+                <button style={{background:"black"}} 
+                className="button-change-type-room" 
+                  onClick={handModalText} >
+                    <span className="negrita-detail-reserva  row-text-box" style={{marginLeft:"10px"}}   ><CiCirclePlus  fontSize={35}  /> <span> Abono</span></span>
+                  </button>
+                </Tooltip> 
 
-                                  <input  type="text" 
-                                          className="desde-detail-three" 
-                                          name="Apellido"  
-                                          placeholder="Apellido" 
-                                          value={item.Apellido} 
-                                          onChange={handleInpuHuespe}
-                                          required  />
-                                      
+             
+              </div>  
+              <div className="row-flex-one"   >
+                  <img
+                      src={`${resultDashboard.Foto_documento_adelante ? resultDashboard.Foto_documento_adelante : "https://github.com/rolandoto/image-pms/blob/main/pdf_Mesa%20de%20trabajo%201_Mesa%20de%20trabajo%201%20(1).png?raw=true"  }`}
+                      objectFit="initial"
+                      alt="Default Image"
+                      className={`img-photo`} onClick={toggleModal}
+  
+                    />
 
-                                      <select  onChange={handleInpuHuespe}
-                                                  name={"Tipo_documento"}
-                                                  value={item.Tipo_documento}
-                                                  required
-                                                  className="desde-detail-two" >
-                                                <option >{null}</option>
-                                                {documnet?.map(category =>(
-                                                    <option 
-                                                    value={category.ID}   
-                                                    key={category.ID}
-                                                >
-                                                    {category.nombre}
-                                                </option>
-                                                )
-                                                )}
-                                      </select>
+                    {isModalOpen && (
+                            <div className="modal" onClick={toggleModal}>
+                              <img src={`${resultDashboard.Foto_documento_adelante ? resultDashboard.Foto_documento_adelante : "https://github.com/rolandoto/image-pms/blob/main/pdf_Mesa%20de%20trabajo%201_Mesa%20de%20trabajo%201%20(1).png?raw=true"  }`} alt="Imagen" className="modal-image" />
+                            </div>
+                      )}
+                <img
+                    src={`${resultDashboard.Foto_documento_atras ? resultDashboard.Foto_documento_atras : "https://github.com/rolandoto/image-pms/blob/main/pdf_Mesa%20de%20trabajo%201_Mesa%20de%20trabajo%201%20(1).png?raw=true"  }`}
+                    objectFit="initial"
+                    alt="Default Image"
+                    className="img-photo"
+                    onClick={toggleModalOne}
+                  />
 
-                                  <input  type="text" 
-                                          className="desde-detail-two" 
-                                          name="Num_documento" 
-                                          placeholder="Numero de documento"
-                                          value={item.Num_documento} 
-                                          onChange={handleInpuHuespe}
-                                          required />
-                              </div>
+                {isModalOpenOne && (
+                    <div className="modal" onClick={toggleModalOne}>
+                      <img src={`${resultDashboard.Foto_documento_atras ? resultDashboard.Foto_documento_atras : "https://github.com/rolandoto/image-pms/blob/main/pdf_Mesa%20de%20trabajo%201_Mesa%20de%20trabajo%201%20(1).png?raw=true" }`} alt="Imagen" className="modal-image" />
+                    </div>
+                        )}
+                <img
+                    src={`${resultDashboard.Pasaporte ? resultDashboard.Pasaporte : "https://github.com/rolandoto/image-pms/blob/main/pdf_Mesa%20de%20trabajo%201_Mesa%20de%20trabajo%201%20(1).png?raw=true"  }`}
+                    objectFit="initial"
+                    alt="Default Image"
+                    className="img-photo"
+                    onClick={toggleModalTwo}
+                  />
 
-                              <div className="container-detail-dasboard-in" > 
-                              <span className="desde-detail-three-das" > Fecha Nacimiento </span>
-                              <span className="desde-detail-three-das" >Nacionalidad </span>
-                              <span className="desde-detail-two-das" >Correo electronico</span>    
-                              <span  className="desde-detail-three-das">Celular</span>
-                          </div>
+                {isModalOpenTwo && (
+                    <div className="modal" onClick={toggleModalTwo}>
+                      <img src={`${resultDashboard.Pasaporte ? resultDashboard.Pasaporte : "https://github.com/rolandoto/image-pms/blob/main/pdf_Mesa%20de%20trabajo%201_Mesa%20de%20trabajo%201%20(1).png?raw=true"  }`} alt="Imagen" className="modal-image" />
+                    </div>
+                )}
+              </div>
+          </div>
 
-                              <div className="container-detail-dasboard-in" >
-                                  <input  type="date" 
-                                          className="desde-detail-three" 
-                                          placeholder="Fecha Nacimiento"
-                                          name="Fecha_nacimiento"
-                                          value={item.Fecha_nacimiento} 
-                                          onChange={handleInpuHuespe}
-                                          required />
+          <div className="form-margintop-solicitud" >
 
-                                          <select   onChange={handleInpuHuespe}
-                                                                      name={"Nacionalidad"}
-                                                                      value={item.Nacionalidad}
-                                                                      
-                                                                      required
-                                                                      className='desde-detail-three'>
-                                                                  <option >{null}</option>
-                                                                  {country?.query?.map(category =>(
-                                                                      <option 
-                                                                      value={category.ID}   
-                                                                      key={category.ID}
-                                                                  >
-                                                                      {category.nombre}
-                                                                  </option>
-                                                                  )
-                                          )}
-                                          </select>
+            <input  
+              onChange={handChangeDescription}
+              value={descripcion}
+              name="PayAbono"
+              placeholder="Descripcion del envio"
+              type="text"
+              className={`desde-detail-twophoto-two ${error ? "error-solicitud" : "" } `}  />  
+            <input
+              name="PayAbono"
+              type="text"
+              id="valorSolicitadoInput"
+              placeholder="Valor solicitado"
+              className={`desde-detail-twophoto-two ${error ? "error-solicitud" : "" } `} 
+              onChange={handChangeValorsolicitado}
+             
+              value={valorSolicitado !== '' ? numberWithCommas(valorSolicitado) : ''}
+            />
+              <button style={{background:"black"}} 
+               className="button-change-type-room " 
+                onClick={handClickPostTarifasReservation} >
+                   <span className="negrita-detail-reserva  row-text-box" style={{marginLeft:"10px"}}   ><CiCirclePlus  fontSize={35}  /> <span> Enviar</span></span>
+                </button>
 
-                                  <input  type="text" 
-                                          className="desde-detail-two" 
-                                          name="Correo" 
-                                          placeholder="Correo  electronico"  
-                                          value={item.Correo} 
-                                          onChange={handleInpuHuespe}
-                                          required/>
+          </div>
+        
+      </form>
+    
+    </div>
 
-                                  <input  type="number" 
-                                          className="desde-detail-two" 
-                                          name="Celular"  
-                                          placeholder="Celular"  
-                                          value={item.Celular} 
-                                          onChange={handleInpuHuespe}
-                                          required  />
-                              </div>
+      <div className="container-flex-init-one-center " >
+            <div> 
+                <Button
+                 onClick={handChecking}
+                   disabled={findFirma}
+                  className="button-checking-detail-one-das"
+                  color="success" 
+                  size={"xs"}
+                   > <span  className="text-words" >Check in</span> </Button>
+            </div>
 
-                              <div className="container-detail-dasboard-in" > 
-                              <span className="desde-detail-two-das" >Ciudad </span>
-                              <span className="desde-detail-three-das-state" >Estadia </span>
-                          </div>
+            <div>
+                <Button
+                
+                  onClick={hanClickDetailCheckout} 
+                        disabled={!findFirma}
+                        className="button-checking-detail-one-das"
+                        color="success" 
+                        size={"xs"}
+                        >
+                        <span  className="text-words" >Check out</span> 
+                </Button>
+              </div>
+              <div>
+                <Button
+                  
+                  onClick={hanClickTikets} 
+                        disabled={!findFirma}
+                        className="button-checking-detail-one-das"
+                        color="success" 
+                        size={"xs"}
+                        >
+                        <span  className="text-words" >tickets Desayuno</span> 
+                </Button>
+              </div>
+            
+                  <div>
+                        {ButtonValidSigo}
+                  </div>
 
-                              <div className="container-detail-dasboard-in" >
-                                  <input  type="text" 
-                                          className="desde-detail-two" 
-                                          name="Ciudad"  
-                                          placeholder="Ciudad"   
-                                          value={item.Ciudad} 
-                                          onChange={handleInpuHuespe}
-                                          required  />
+            <ReactTooltip id="registerTip" place="top" effect="solid">
+                  Eliminar reserva
+            </ReactTooltip>
+         
+            <div className="name-pinter"  onClick={handleClickEliminar.handModalText} data-tip data-for="registerTip" >
+                <div>
+                  <AiOutlineDelete fontSize={40} />
+                </div>
+            </div>
+            <ReactTooltip id="registerTip-1" place="top" effect="solid">
+                  Actualizar reserva
+            </ReactTooltip>
+            <div className="name-pinter"  onClick={ hanclickEditar.handModalText }   data-tip data-for="registerTip-1">
+                <div>
+                    <CiHeart fontSize={40} />
+                </div>
 
-                                    <select  onChange={handChanEstadia} 
-                                                                      name={"Nacionalidad"}
-                                                                      value={estadia}
-                                                                      required
-                                                                      className='desde-detail-three'>
-                                                                  <option  value={2} >estadia</option>
-                                            {tipos_adicional.map(category =>(
-                                                <option 
-                                                value={category.id}   
-                                                key={category.id}
-                                            >
-                                                {category.name}
-                                            </option>
-                                            )
-                                          )}
+            </div>
+            <ReactTooltip id="registerTip-2" place="top" effect="solid">
+                  Descargar comprobante
+            </ReactTooltip>
+
+            <div style={{ position: 'absolute', left: 50, top: -500 }}>
+              <div id="printThis">
+              
+              </div>
+            </div>
+
+            <div  className="name-pinter"  data-tip data-for="registerTip-2" >
+                <div onClick={ handComprobante.handModalText } >
+                   <BsFilePdf fontSize={40} />
+                </div>
+            </div>
+              <div className="container-checkbox" >
+                  <input   type="checkbox" 
+                          className={`checkbox-round  ${isChecked && "checkbox-round-click"} `}
+                          onChange={handleOnChange}
+                          defaultValue={(e) =>findPersona && setIsChecked(true)}       
+                          checked={isChecked} /> Persona
+                  
+              </div> 
+
+
+              { totalId  ? null :
+            <div className="container-checkbox" >
+                    <input   type="checkbox" 
+                            className={`checkbox-round  ${isChecke && "checkbox-round-click"} `}
+                            onChange={handleOnChanger}
+                            readOnly={true}
+                            checked={isChecked}/> Empresa
+            </div> 
+          }
+
+          
+      
+          <div>
+          <Button
+          className="button-checking-detail-one-das" 
+          color={`${totalPrice <=0 ? "success" : "error" }`} 
+          > <span  className="text-words" >Total a cobro ${totaCobrar.toLocaleString()} </span> </Button>
+            
+          </div>
+    </div>
+    <div >
+  </div>
+
+      <div className="in-cehcki-out" >
+      
+      </div>
+    <div className="container-flex-init-one-container-delete" >
+    <textarea                                           rows="10" 
+                                                      
+                                                       cols="217" 
+                                                      placeholder="Observacion" 
+                                                      name="observacion"
+                                                      defaultValue={resultDashboard.Observacion}
+                                                      onChange={handChangeObservation}
+                                                      className="obs" ></textarea>  
+    
+    </div>  
+    {!stateButton && 
+    <div className="init-one-three top-detail  " >
+    <form  className="container-flex-init" >
+      <div className="container-detail-dasboard-in in-type-button" > 
+              <ul className="flex-contain"  >
+                  <li className={`${huesped ? "desde-detail-three-estados-black-one-finish" :"desde-detail-three-estados" } `} onClick={handHuesped} >Huespedes:  <PiUsersLight fontSize={25}  /> {quyery?.length}  </li>
+                  <li className={`${consumo ? "desde-detail-three-estados-black" :"desde-detail-three-estados" } `} onClick={handConsumo} >Consumos: <PiShoppingBagOpenLight fontSize={25} /> {product?.length >0 ?product?.length : 0  }  </li>
+                  <li className={`${pago ? "desde-detail-three-estados-black" :"desde-detail-three-estados" } `}  onClick={handPago} >Pagos: <PiPaypalLogoLight  fontSize={25}   /> {product?.length >0 ?product?.length : 0 }   </li>
+                  <li className={`${Invoince ? "desde-detail-three-estados-black" :"desde-detail-three-estados" } `}  onClick={handInvoinceDian}  >Facturas Dian:</li>
+                  <li className={`${historialReservation ? "desde-detail-three-estados-black" :"desde-detail-three-estados" } `}  onClick={handhistorial}  >Historial:</li>
+                 
+              </ul>
+         { huesped && <Huesped  quyery={quyery}
+                                DetailDashboard={DetailDashboard}
+                                handEditar={handEditar} 
+                                handChangeSubmit={handChangeSubmit} 
+                                stateButton={stateButton} 
+                                handEditarReservas={handEditarReservas}/>} 
+        {consumo && <Consumo  day={day} 
+                              jwt={jwt}
+                              habitacion={resultDashboard?.nombre_habitacion}
+                              totalAlojamiento={totalAlojamiento}
+                              product={product}
+                              totalBebidas={totalBebidas}
+                              priceBebidas={priceBebidas}
+                              bebidas={bebidas}
+                              setLoadingConsumo={setLoadingConsumo}
+                              loadinConsumo={loadinConsumo}
+                              totalSnacks={totalSnacks}
+                              priceSnacks={priceSnacks}
+                              Snacks={Snacks}
+
+                              totalSouvenir={totalSouvenir}
+                              priceSouvenir={priceSouvenir}
+                              Souvenir={Souvenir}
+
+                              totalDrogueria={totalDrogueria}
+                              priceDrogueria={priceDrogueria}
+                              Drogueria={Drogueria}
+
+                              totalAdultos={totalAdultos}
+                              priceAdultos={priceAdultos}
+                              Adultos={Adultos}
+
+                              totalLenceria={totalLenceria}
+                              priceLenceria={priceLenceria}
+                              Lenceria={Lenceria}
+                            
+                               />}
+        {pago && <Pagos   pagos={resultDashboard}  
+                          idReserva={id}
+                          typy_buy={typy_buy}   />}
+         {Invoince && <TableInvoinceDian    />}
+        {historialReservation && <HistorialDetailReservation />}
+      </div>       
+    </form>
+    </div>
+  }
+    {stateButton && 
+      <form className="container-flex-init init ono"   >
+                        <div className="container-detail-dasboard-in" > 
+                            <span className="desde-detail-three-das" > Nombre</span>
+                            <span className="desde-detail-three-das" >Apellido </span>
+                            <span className="desde-detail-two-das" >Tipo de Documento</span>    
+                            <span  className="desde-detail-three-das">No documento</span>
+                        </div>
+                            <div className="container-detail-dasboard-in" >
+                              
+                                <input  className="desde-detail-three"     
+                                        name="Nombre"  
+                                        type={"text"} 
+                                        placeholder="Nombre" 
+                                        value={item.Nombre} 
+                                        onChange={handleInpuHuespe}
+                                        required  />
+
+                                <input  type="text" 
+                                        className="desde-detail-three" 
+                                        name="Apellido"  
+                                        placeholder="Apellido" 
+                                        value={item.Apellido} 
+                                        onChange={handleInpuHuespe}
+                                        required  />
+                                    
+
+                                    <select  onChange={handleInpuHuespe}
+                                                name={"Tipo_documento"}
+                                                value={item.Tipo_documento}
+                                                required
+                                                className="desde-detail-two" >
+                                              <option >{null}</option>
+                                              {documnet?.map(category =>(
+                                                  <option 
+                                                  value={category.ID}   
+                                                  key={category.ID}
+                                              >
+                                                  {category.nombre}
+                                              </option>
+                                              )
+                                              )}
                                     </select>
-                              </div>  
-                              {stateButton &&<div className="container-flex-init-one" >
-                        <button className="button-dasboard-six-one-one-one" onClick={hanAdd}  disabled={loadingHuesped}  >
-                            <span>Añadir huesped </span> 
-                        </button>
-                    </div>}                            
-                      </form>
-        }   
-      </>
+
+                                <input  type="text" 
+                                        className="desde-detail-two" 
+                                        name="Num_documento" 
+                                        placeholder="Numero de documento"
+                                        value={item.Num_documento} 
+                                        onChange={handleInpuHuespe}
+                                        required />
+                            </div>
+
+                            <div className="container-detail-dasboard-in" > 
+                            <span className="desde-detail-three-das" > Fecha Nacimiento </span>
+                            <span className="desde-detail-three-das" >Nacionalidad </span>
+                            <span className="desde-detail-two-das" >Correo electronico</span>    
+                            <span  className="desde-detail-three-das">Celular</span>
+                        </div>
+
+                            <div className="container-detail-dasboard-in" >
+                                <input  type="date" 
+                                        className="desde-detail-three" 
+                                        placeholder="Fecha Nacimiento"
+                                        name="Fecha_nacimiento"
+                                        value={item.Fecha_nacimiento} 
+                                        onChange={handleInpuHuespe}
+                                        required />
+
+                                        <select   onChange={handleInpuHuespe}
+                                                                    name={"Nacionalidad"}
+                                                                    value={item.Nacionalidad}
+                                                                    
+                                                                    required
+                                                                    className='desde-detail-three'>
+                                                                <option >{null}</option>
+                                                                {country?.query?.map(category =>(
+                                                                    <option 
+                                                                    value={category.ID}   
+                                                                    key={category.ID}
+                                                                >
+                                                                    {category.nombre}
+                                                                </option>
+                                                                )
+                                        )}
+                                        </select>
+
+                                <input  type="text" 
+                                        className="desde-detail-two" 
+                                        name="Correo" 
+                                        placeholder="Correo  electronico"  
+                                        value={item.Correo} 
+                                        onChange={handleInpuHuespe}
+                                        required/>
+
+                                <input  type="number" 
+                                        className="desde-detail-two" 
+                                        name="Celular"  
+                                        placeholder="Celular"  
+                                        value={item.Celular} 
+                                        onChange={handleInpuHuespe}
+                                        required  />
+                            </div>
+
+                            <div className="container-detail-dasboard-in" > 
+                            <span className="desde-detail-two-das" >Ciudad </span>
+                            <span className="desde-detail-three-das-state" >Estadia </span>
+                        </div>
+
+                            <div className="container-detail-dasboard-in" >
+                                <input  type="text" 
+                                        className="desde-detail-two" 
+                                        name="Ciudad"  
+                                        placeholder="Ciudad"   
+                                        value={item.Ciudad} 
+                                        onChange={handleInpuHuespe}
+                                        required  />
+
+                                  <select  onChange={handChanEstadia} 
+                                                                    name={"Nacionalidad"}
+                                                                    value={estadia}
+                                                                    required
+                                                                    className='desde-detail-three'>
+                                                                <option  value={2} >estadia</option>
+                                          {tipos_adicional.map(category =>(
+                                              <option 
+                                              value={category.id}   
+                                              key={category.id}
+                                          >
+                                              {category.name}
+                                          </option>
+                                          )
+                                        )}
+                                  </select>
+                            </div>  
+                            {stateButton &&<div className="container-flex-init-one" >
+                      <button className="button-dasboard-six-one-one-one" onClick={hanAdd}  disabled={loadingHuesped}  >
+                          <span>Añadir huesped </span> 
+                      </button>
+                  </div>}                            
+                    </form>
+      }   
+    </>
     )
 }
 export default DetailDasboard
@@ -1593,12 +1595,12 @@ const Consumo =(props) =>{
     forma_pago:null,
 })
 
-const handleState =(event, index) =>{
-  setState({
-    ...state,
-    [event.target.name] : event.target.value
-})
-}
+  const handleState =(event, index) =>{
+    setState({
+      ...state,
+      [event.target.name] : event.target.value
+  })
+  }
 
   for(let i = 0;i<product?.length;i++){
     cart.push({ 
@@ -1637,9 +1639,9 @@ const handleState =(event, index) =>{
     }
   }
 
-  const sumWithInitial = cart.reduce(
+  const sumWithInitial = product.reduce(
     (accumulator, currentValue) => {
-      return accumulator + parseInt(currentValue.Price)
+      return accumulator + parseInt(currentValue.Precio)
     },0
     );
 
