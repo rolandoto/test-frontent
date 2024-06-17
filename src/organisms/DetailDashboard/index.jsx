@@ -190,7 +190,7 @@ const DetailDasboard =(props) =>{
       pdf.text(80, 198, `${resultDashboard.Adultos}`);
       pdf.text(150, 190, `Niños:`);
       pdf.text(150, 198, `${resultDashboard.Ninos}`);
-      pdf.text(10, 210, `Direccion: Cl. 47 #41-55, La Candelaria, Medellín`);
+     // pdf.text(10, 210, `Direccion: Cl. 47 #41-55, La Candelaria, Medellín`);
       pdf.save("download.pdf"); // Guarda el PDF
       });
     };
