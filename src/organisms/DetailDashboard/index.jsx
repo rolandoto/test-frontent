@@ -1639,12 +1639,12 @@ const Consumo =(props) =>{
     }
   }
 
-  const sumWithInitial = product.reduce(
-    (accumulator, currentValue) => {
-      return accumulator + parseInt(currentValue.Precio)
-    },0
-    );
-
+ const sumWithInitial = (Array.isArray(product) ? product : []).reduce(
+  (accumulator, currentValue) => {
+    return accumulator + (parseInt(currentValue?.Precio) || 0);
+  }, 
+  0
+);
   if(!habitacion) return null
 
   return (
