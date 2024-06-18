@@ -10,7 +10,7 @@ import { config } from "../../config";
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 import CardRetention from "../CardRententionIvoince";
 
-const Invoince =({resultDashboard=[],carts=[],dataCount,setInvoice,priceCart,client,identification,raiting,handLoading,loading,handLoadingOne,sinIvaCart,tienda,handSubmitInsertCartOne,hancCheckout,lastname,fechaFinal,formattedNum,formatoIva,valorTotalIva,nacionalidad,
+const Invoince =({preloading, handlePrint, componentRef,resultDashboard=[],carts=[],dataCount,setInvoice,priceCart,client,identification,raiting,handLoading,loading,handLoadingOne,sinIvaCart,tienda,handSubmitInsertCartOne,hancCheckout,lastname,fechaFinal,formattedNum,formatoIva,valorTotalIva,nacionalidad,
     correo}) =>{
 
     const {id} = useParams()
@@ -24,42 +24,28 @@ const Invoince =({resultDashboard=[],carts=[],dataCount,setInvoice,priceCart,cli
     const [query,setQuery] =useState()
 
     const date = moment().set({ hour: 0, minute: 0, second: 0 }).format('YYYY-MM-DD');
-    const [preloading,setPreloading] =useState(false)
    
     const [information,setInformacion] =useState()
     
     const {jwt} = useContext(AutoProvider)
-    let componentRef = useRef();
+  
     let componetRefSinDian = useRef()
     
     const totalResultPrice = priceCart  *19/100
-
     const resultSinIva = sinIvaCart  *19/100
-
     const totalResultPriceTwo = priceCart  +totalResultPrice  -resultSinIva
-
-
     const totalPrice  = UsePrice({number:priceCart })
     const toPriceIva = UsePrice({number:totalResultPrice -resultSinIva})
-
     const to  = toPriceIva.price =="COPNaN" ?0 : toPriceIva.price
     const toPriceDefinitive = UsePrice({number:totalResultPriceTwo})
-
     const toOne = toPriceDefinitive.price ?  toPriceDefinitive.price:  totalPrice.price
-
-   
     const totalIva = resultDashboard.Iva ==1? to :0
-
     const totalwiTHiV =resultDashboard.Iva ==1? toOne :totalPrice.price 
 
     const handSubmit =() =>{
         handlePrint()
         handLoading()
     }
-
-    const handlePrint = useReactToPrint({
-        content: () => componentRef.current
-    });
 
     const handLEpront = useReactToPrint({
         content: () => componetRefSinDian.current
@@ -76,12 +62,7 @@ const Invoince =({resultDashboard=[],carts=[],dataCount,setInvoice,priceCart,cli
         },600)
     }
 
-    const hadAllInvoince =() =>{
-        setPreloading(true)
-        handSubmitInsertCartOne()
-        handlePrint()
-    }
-
+   
      const handStInvoince =() =>{
         setInvoice(false)
         handLoadingOne() 
@@ -390,7 +371,7 @@ const Invoince =({resultDashboard=[],carts=[],dataCount,setInvoice,priceCart,cli
                                     </div>            
                             </div>     
                         </div>
-                        <button id="demo" className= {` top-button-invoince checkOut  sub-total-top`} onClick={hadAllInvoince} disabled={preloading}   >
+                        <button id="demo" className= {` top-button-invoince checkOut  sub-total-top`} onClick={handSubmitInsertCartOne} disabled={preloading}   >
                             <span className="itemNameonE">Guardar e imprimir</span>
                         </button>
                         </div>

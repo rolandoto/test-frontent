@@ -1,5 +1,5 @@
 
-import React, { useState,useEffect,useContext} from "react"
+import React, { useState,useEffect,useContext, useRef} from "react"
 import ItemCard from "../../component/ItemCard"
 import Cart from "../../organisms/Store/Cart"
 import ModalStore from "../../component/Modal/ModalStore";
@@ -20,6 +20,7 @@ import { Button } from "@nextui-org/react";
 import HttpClient from "../../HttpClient";
 import ButtonBack from "../../component/ButtonBack";
 import ButtonHome from "../../component/ButtonHome";
+import { useReactToPrint } from "react-to-print";
 
 const StoreTemplate =({Store}) =>{
 
@@ -742,8 +743,6 @@ const StoreTemplate =({Store}) =>{
 
     const [isMainData, setMainData] = useState(
       Store?.query?.filter((element) => element.Nombre_categoria == "Snacks"));    
-      
-    const [num,setNum] =useState()
     
     const handModal =() =>{
         setState(true)
@@ -753,27 +752,21 @@ const StoreTemplate =({Store}) =>{
 
     useEffect(() => {
       const menuLi = document.querySelectorAll("#menu li");
-  
       function setMenuActive() {
         menuLi.forEach((n) => n.classList.remove("active"));
         this.classList.add("active");
       }
-      
       menuLi.forEach((n) => n.addEventListener("click", setMenuActive));
-  
       // menu Card active class changer
       const menuCard = document
         .querySelector(".rowContainer")
         .querySelectorAll(".rowMenuCard");
-  
       function setMenuCardActive() {
         menuCard.forEach((n) => n.classList.remove("active"));
         this.classList.add("active");
       }
-      
       menuCard.forEach((n) => n.addEventListener("click", setMenuCardActive));
     }, [isMainData, totalPrice]);
-
       const setData = (itemId) => {
         setMainData( Store?.query?.filter((element) => element.Nombre_categoria ==  itemId));
       };
@@ -786,7 +779,6 @@ const StoreTemplate =({Store}) =>{
 
     if(!to) {
 
-      console.log({"cart":carts})
      
       return  setCarts({
           ...carts,
@@ -914,10 +906,20 @@ const StoreTemplate =({Store}) =>{
       Nombre_recepcion:jwt.result.name,
       ID_user:jwt.result.id_user,
     }
+    
+    let componentRef = useRef();
+
+    const [preloading,setPreloading] =useState(false)
+   
+
+    const handlePrint = useReactToPrint({
+      content: () => componentRef.current
+    });
 
     const handSubmitInsertCartOne =() =>{
       ServiceaInsertStore({data:dataOne}).then(index =>{
-         console.log("entro")
+        handlePrint()
+        setPreloading(true)
       }).catch(e=> {
          console.log(e)
       })
@@ -1088,6 +1090,9 @@ const StoreTemplate =({Store}) =>{
                     {invoice && <Invoince
                                         handSubmitInsertCartOne={handSubmitInsertCartOne}
                                         tienda={true}
+                                        componentRef={componentRef}
+                                        preloading={preloading}
+                                        handlePrint={handlePrint}
                                         dataCount={dataCount}
                                         setInvoice={setInvoice} 
                                         carts={currenCart}
