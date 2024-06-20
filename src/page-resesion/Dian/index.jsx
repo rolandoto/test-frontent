@@ -138,10 +138,10 @@ const Dian =() => {
       return  item.code =="6"
     }); 
 
-    const resdian = jwt.result.RestDian;
+    const resdian = jwt?.result?.RestDian;
 
     const combinedArray = products.filter(item => {
-      if(resdian.some(otherItem =>otherItem.Code == item.code)){
+      if(resdian?.some(otherItem =>otherItem.Code == item.code)){
           return  item
       }}
     );
