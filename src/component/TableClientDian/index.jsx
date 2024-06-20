@@ -2,7 +2,7 @@ import { Button, Checkbox } from "@nextui-org/react"
 import React from "react"
 
 
-const TableClientDian =({ListClient,select,handleSelectChange,handleSelectDelete,loadingInvoinces,isSelected,handleCheckboxChange}) =>{
+const TableClientDian =({handleCheckboxChangeMinibar,isSelectedMinibar,ListClient,select,handleSelectChange,handleSelectDelete,loadingInvoinces,isSelected,handleCheckboxChange}) =>{
 
     return (<>  
             {ListClient?.results?.length >0 ?( 
@@ -59,6 +59,22 @@ const TableClientDian =({ListClient,select,handleSelectChange,handleSelectDelete
                                                 lineThrough>
                                             <span> Aplicar Retefuente</span> 
                                         </Checkbox>
+                                        
+                                        </td>
+                                        <td className="px-4  font-semibold bg-green-50  py-2 border-b ">
+                                        <Checkbox 
+                                                size="sm" 
+                                                color="error" 
+                                                onClick={handleCheckboxChangeMinibar}
+                                                disabled={loadingInvoinces}
+                                                defaultSelected
+                                                checked={isSelectedMinibar}
+                                                disableAnimation
+                                                  
+                                                lineThrough>
+                                            <span>tienda</span> 
+                                        </Checkbox>
+                                        
                                         </td>
                                             <td className="px-4 py-2 border-b bg-green-50 ">
                                             {select.id == itemClient.id ?   <Button

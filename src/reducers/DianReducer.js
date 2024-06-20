@@ -4,11 +4,16 @@ export  const initialState = {
     error:null,
     errorInvoince:false,
     ErrorTaxes:null,
+    ErrordashboardSigo:false,
+    ErrorProducts:false,
+    ErrorProductMinibar:false,
 
     Loanding:false,
     loadingInvoinces:false,
     LoadingTaxes:false,
-
+    LoadingdashboardSigo:false,
+    LoadingProducts:false,
+    LoadingProductsMinibar:false,
 
     Invoinces:[],
     seller:[],
@@ -17,7 +22,8 @@ export  const initialState = {
     Payment:[],
     typeDocumentDian:[],
     Taxes:[],
-   
+    dashboardSigo:[],
+    ProductsMinibar:[],
     
    
     ListClient:[],
@@ -27,6 +33,9 @@ export  const initialState = {
     sigoBYIDpdf:[],
     payabono:[],
     InvonceByIdReservation:[],
+
+    
+    
    
 }
 
@@ -39,6 +48,34 @@ export const DianSlice = createSlice({
         loading:(state) =>{
             state.loading=true
             state.errorInvoince=null
+        },
+
+         //minibar
+         setProductMinibar(state,action){
+            state.ProductsMinibar = action.payload
+            state.LoadingProductsMinibar = false
+        },
+        setLoadingProductMinibar:(state,action)=>{
+            state.LoadingProductsMinibar = true
+            state.ErrorProductMinibar=null
+        },
+        setErrorProductMinibar:(state,action)=>{
+            state.LoadingProductsMinibar = false
+            state.ErrorProductMinibar= action.payload
+        },
+
+        //Daashboard
+        setDashboard(state,action){
+            state.dashboardSigo = action.payload
+            state.LoadingdashboardSigo = false
+        },
+        setLoadingDashboard:(state,action)=>{
+            state.LoadingdashboardSigo = true
+            state.ErrordashboardSigo=null
+        },
+        setErrorDashboard:(state,action)=>{
+            state.LoadingdashboardSigo = false
+            state.ErrordashboardSigo= action.payload
         },
 
         //invoinces
@@ -83,6 +120,21 @@ export const DianSlice = createSlice({
             state.ErrorTaxes= true 
         },
 
+        //products
+        setProducts:(state,action) =>{
+            state.products = action.payload
+            state.LoadingProducts = false
+        },
+        setProductsLoading:(state,action) =>{
+            state.LoadingProducts = true
+            state.ErrorProducts = null
+        },
+        setPorductsError:(state,action) =>{
+            state.LoadingProducts = false
+            state.ErrorProducts= true 
+        },
+        
+
 
         setTypeDian:(state,action) =>{
             state.typeDocumentDian = action.payload
@@ -92,10 +144,7 @@ export const DianSlice = createSlice({
             state.seller = action.payload
             state.loading = false
         },
-        setProducts:(state,action) =>{
-            state.products = action.payload
-            state.loading = false
-        },
+       
         setPdf:(state,action) =>{
             state.Pdf = action.payload
             state.loading = false
@@ -148,6 +197,15 @@ export const {loading,
                 setInvonceByIdReservation,
                 setTaxes,
                 setTaxesLoading,
-                setTaxesError} = DianSlice.actions
+                setTaxesError,
+                setDashboard,
+                setLoadingDashboard,
+                setErrorDashboard,
+                setProductsLoading,
+                setPorductsError,
+                setProductMinibar,
+                setLoadingProductMinibar,
+                setErrorProductMinibar
+            } = DianSlice.actions
 
 export default DianSlice.reducer

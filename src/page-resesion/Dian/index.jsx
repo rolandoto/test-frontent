@@ -19,9 +19,10 @@ import UseRoundRention from "../../hooks/UseRoundRention";
 import DiscordLoader from "../../component/LoadingDian";
 import UseRoundRetentionSinIva from "../../hooks/UseRoundRetentionSinIva";
 import IconsUser from "../../component/IconUser";
+import UseAroundIpoconsumo from "../../hooks/UseAroundIpoconsumo";
 
 const Dian =() => {
-  const socket = useSocket();
+    const socket = useSocket();
     const {jwt,Dian} = useContext(AutoProvider)
     const {id} = useParams()
     const [select,setSelect] =useState({})
@@ -36,7 +37,8 @@ const Dian =() => {
           loadingClient,
           errorClient,
           loadingInvoinces,
-          payabono} = useSelector((state) => state.Dian)
+          payabono,
+          ProductsMinibar} = useSelector((state) => state.Dian)
     //const to = useSelector((state) => state.Dian)
     const {GetCLientDian,
           GetTypeDian,
@@ -44,16 +46,28 @@ const Dian =() => {
           GetTProductsDian,
           PostSendInvoinces,
           GetPayment,
-          GetTaxesDian} = UseDianActions()
+          GetTaxesDian,
+          GetProductMinibar
+        } = UseDianActions()
     const {getDetailReservationById} = useDetailDashboardAction()
     const {GetPayAbono} =UseDianActions()
     const now = moment().utc().format('YYYY-MM-DD')
     const [isSelected, setIsSelected] = useState(false); // defaultSelected
- 
+    const [isSelectedMinibar, setIsSelectedMinibar] = useState(false); // defaultSelected
+        
+
+
     const handleCheckboxChange = () => {
       setIsSelected(!isSelected);
     };
+
     
+    
+    const handleCheckboxChangeMinibar = () => {
+      setIsSelectedMinibar(!isSelectedMinibar);
+    };
+
+
     const {DetailDashboard
       } = useSelector((state) => state.DetailDashboard)
     
@@ -71,6 +85,7 @@ const Dian =() => {
 
     const fetchDataPayment =async() =>{
       await  GetPayAbono({id})
+      await GetProductMinibar({id})
   } 
 
   const sumWithInitial = payabono.reduce((accumulator, currentValue) => {
@@ -81,13 +96,18 @@ const Dian =() => {
     }
   }, 0);
 
+  const sumWithInitialMinibar= ProductsMinibar.reduce((accumulator, currentValue) => {
+      return accumulator + currentValue.Precio;
+  }, 0);
+
+
+  const totalAmount = sumWithInitial +sumWithInitialMinibar
 
   const {SubtotalDian,TotalRetentionDian} =UseRoundRention({Price:sumWithInitial})
   const {SubtotalDianSinIva,TotalRetentionDianSinIva,TotalPaySinIva} =UseRoundRetentionSinIva({Price:sumWithInitial})
+  const {SubtotalDianIpoconsumo,TotalPayipoconsumo} =UseAroundIpoconsumo({Price:sumWithInitialMinibar})
 
 
-
-  
   useEffect(() => {
 		if (socket) {
 			socket.on("sendNotification", async(data) => {
@@ -96,6 +116,8 @@ const Dian =() => {
 		});	
 		}
 	}, [socket]);
+
+
 
     const resultDashboard = DetailDashboard[0]
 
@@ -114,30 +136,63 @@ const Dian =() => {
 
     const filterItemsExecento = products?.filter(item =>{
       return  item.code =="6"
-    });
+    }); 
 
-      const itemIva = useMemo(() => {
-        if(filteredItems.some((item) =>item.taxes)){
-          return  filteredItems?.map(item => ({
-            code: `${item.code}`,
-            description: `${item.name}`,
-            quantity: 1,
-            price: valueSTotalProduct,
-            discount: 0.00,
-            taxes: [{
-              id: item?.taxes[0]?.id || 0
-            }]
-          }))
-        }else{
-          return  filteredItems?.map(item => ({
-            code: `${item.code}`,
-            description: `${item.name}`,
-            quantity: 1,
-            price: totalPrice,
-            discount: 0.00,
-          }))
-        }}
-  , [filteredItems, valueSTotalProduct]);
+    const resdian = jwt.result.RestDian;
+
+    const combinedArray = products.filter(item => {
+      if(resdian.some(otherItem =>otherItem.Code == item.code)){
+          return  item
+      }}
+    );
+
+   
+
+    const itemIvaIpoconsumo = useMemo(() => {
+      if(combinedArray.some((item) =>item.taxes)){
+        return  combinedArray?.map(item => ({
+          code: `${item.code}`,
+          description: `${item.name}`,
+          quantity: 1,
+          price: SubtotalDianIpoconsumo,
+          discount: 0.00,
+          taxes: [{
+            id: item?.taxes[0]?.id || 0
+          }]
+        }))
+      }else{
+        return  combinedArray?.map(item => ({
+          code: `${item.code}`,
+          description: `${item.name}`,
+          quantity: 1,
+          price: sumWithInitialMinibar,
+          discount: 0.00,
+        }))
+      }}
+, [filteredItems, valueSTotalProduct]);
+
+  const itemIva = useMemo(() => {
+    if(filteredItems.some((item) =>item.taxes)){
+      return  filteredItems?.map(item => ({
+        code: `${item.code}`,
+        description: `${item.name}`,
+        quantity: 1,
+        price: valueSTotalProduct,
+        discount: 0.00,
+        taxes: [{
+          id: item?.taxes[0]?.id || 0
+        }]
+      }))
+    }else{
+      return  filteredItems?.map(item => ({
+        code: `${item.code}`,
+        description: `${item.name}`,
+        quantity: 1,
+        price: totalPrice,
+        discount: 0.00,
+      }))
+    }}
+, [filteredItems, valueSTotalProduct]);
     
     const itemRetention = useMemo(() => {
       if(filteredItems.some((item) =>item.taxes)){
@@ -167,8 +222,8 @@ const Dian =() => {
       }
     } , [filteredItems, SubtotalDian]);
 
-   
-    
+
+
     const itemsExenta = useMemo(() => {
       if(filteredItems.some((item) =>item.taxes)){
         return  filterItemsExecento?.map(item => ({
@@ -192,16 +247,31 @@ const Dian =() => {
       }
     }, [filterItemsExecento, totalPrice]);
 
+
+  
+    const ProductRententionExtra  =  itemRetention.concat(itemIvaIpoconsumo)
+
+   
+    const validProduct =  typeIva ? itemIva   :itemsExenta
+    const ItemIpoconsumo  =  validProduct.concat(itemIvaIpoconsumo)
+    const ItemIpoconsumoTotal = totalAmount
+
+    const ValidaIvaRetention = isSelected &&  isSelectedMinibar && typeIva ?   ProductRententionExtra : ItemIpoconsumo
+    
     const Retention = isSelected ?   TotalRetentionDian : 0
     const RetentionSinIva = isSelected ?   SubtotalDianSinIva : 0
+
     const  itemsIva =  isSelected ?  itemRetention :  itemIva
-    const items =  typeIva ? itemsIva   :itemsExenta
+    const itemsinipoconsumo =  typeIva ? itemsIva   :itemsExenta
+    const items  = isSelectedMinibar ? ValidaIvaRetention : itemsinipoconsumo
     const RetentionItem = filteredItems.some((item) =>item.taxes) ?  Retention :  RetentionSinIva 
+
+    const valuePymentIpoconsumo = isSelectedMinibar ? ItemIpoconsumoTotal : valuesPayments
 
 
     const payments =[{
       id: jwt?.result?.id_payment,
-      value:valuesPayments,
+      value:valuePymentIpoconsumo,
     }]
 
     const DateExit = moment(DetailDashboard.Fecha_final).utc().format('YYYY-MM-DD')
@@ -307,8 +377,9 @@ const Dian =() => {
               </div>
       }
      return  <TableClientDian   
-                         
+                          handleCheckboxChangeMinibar={handleCheckboxChangeMinibar}
                           ListClient={ListClient}
+                          isSelectedMinibar={isSelectedMinibar}
                           handleCheckboxChange={handleCheckboxChange }
                           isSelected={isSelected}
                           handleSelectChange={handleSelectChange} 
@@ -343,6 +414,7 @@ const Dian =() => {
                   <IconsUser  Username={jwt.result.name} />
                 <div class=" mx-auto  p-6 rounded-lg ">
                     <SearchClient 
+                    sumWithInitialMinibar={sumWithInitialMinibar}
                      sumWithInitial={sumWithInitial}
                     typeIva={typeIva}
                     resultDashboard={resultDashboard}

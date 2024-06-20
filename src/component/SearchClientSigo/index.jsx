@@ -2,7 +2,7 @@ import React from "react"
 
 
 
-const SearchClient =({  sumWithInitial,searchTerm,handleChange,resultDashboard,typeIva }) =>{
+const SearchClient =({ sumWithInitialMinibar, sumWithInitial,searchTerm,handleChange,resultDashboard,typeIva }) =>{
 
     return (
         <div >
@@ -25,7 +25,8 @@ const SearchClient =({  sumWithInitial,searchTerm,handleChange,resultDashboard,t
                             <th class="px-4 py-2 border-b">Documento</th>
                             <th class="px-4 py-2 border-b">Nombre</th>
                             <th class="px-4 py-2 border-b">Apellido</th>
-                            <th class="px-4 py-2 border-b">Valor Habitación</th>
+                            <th class="px-4 py-2 border-b">Total Habitación</th>
+                            <th class="px-4 py-2 border-b">Total Minibar</th>
                         </tr>
             
                         <tr class="bg-gray-50">
@@ -35,12 +36,11 @@ const SearchClient =({  sumWithInitial,searchTerm,handleChange,resultDashboard,t
                             <td class="text-gray-700">{resultDashboard.Nombre}</td>
                             <td class="text-gray-700">{resultDashboard.Apellido}</td>
                             <td class="text-gray-700">${parseInt(sumWithInitial).toLocaleString()}</td>
+                            <td class="text-gray-700">${parseInt(sumWithInitialMinibar).toLocaleString()}</td>
                           
                         </tr>
                   
                 </table>
-            
-            
             
         </div>
     </div>

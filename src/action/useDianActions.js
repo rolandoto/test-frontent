@@ -18,7 +18,15 @@ import { setClient,
         setClientError,
         setTaxesError,
         setTaxes,
-        setTaxesLoading
+        setTaxesLoading,
+        setLoadingDashboard,
+        setDashboard,
+        setErrorDashboard,
+        setPorductsError,
+        setProductsLoading,
+        setLoadingProductMinibar,
+        setErrorProductMinibar,
+        setProductMinibar
         } from "../reducers/DianReducer"
 import { toast } from "react-hot-toast";
 import { useCallback } from "react";
@@ -76,13 +84,13 @@ const UseDianActions =() =>{
     }
 
     const GetTProductsDian =async({token}) =>{
-        dispatch(loading())
+        dispatch(setProductsLoading())
         try {
             const response =  await  HttpClient.GetProducts({token})
             if(response){
                 dispatch(setProducts(response))
             }else{
-                dispatch(setError("no found"))
+                dispatch(setPorductsError("no found"))
             }
         } catch (error) {
             
@@ -200,6 +208,43 @@ const UseDianActions =() =>{
         }
     }
    
+    const GetProductDashboard=async() =>{
+        dispatch(setLoadingDashboard())
+        try {
+            const response = await HttpClient.GetPorductoSigoDashboard()
+            console.log(response)
+            if(response){
+                dispatch(setDashboard(response))
+                toast.success("envio")
+            }else{
+                toast.error("envio error asdsadsa")
+                dispatch(setErrorDashboard("no found"))
+            }
+        } catch (error) {
+            toast.error("envio service")
+            dispatch(setErrorDashboard("no found Service "))
+        }
+    }
+
+
+    const GetProductMinibar=async({id}) =>{
+        dispatch(setLoadingProductMinibar())
+        try {
+            const response = await HttpClient.PostProductRoomDetail({id})
+          
+            if(response){
+                dispatch(setProductMinibar(response))
+                toast.success("envio")
+            }else{
+                toast.error("envio error")
+                dispatch(setErrorProductMinibar("no found"))
+            }
+        } catch (error) {
+            toast.error("envio service")
+            dispatch(setErrorProductMinibar("no found Service "))
+        }
+    }
+   
 
     return {GetCLientDian,
             GetTypeDian,
@@ -210,7 +255,9 @@ const UseDianActions =() =>{
             getPdfSigo,
             GetPayAbono,
             GetInvonceByIdReservation,
-            GetTaxesDian
+            GetTaxesDian,
+            GetProductDashboard,
+            GetProductMinibar
            }
 }
 

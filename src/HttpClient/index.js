@@ -703,7 +703,7 @@ const PostResdianByIdReserva = ({ id, resdian }) => {
 }
 
 const PostSeacrhHotelsByIdHotel = ({ id, desde, hasta }) => {
-  return fetch(`${config.serverRoute}/api/hotels//SeacrhHotelsById`, {
+  return fetch(`${config.serverRoute}/api/hotels/SeacrhHotelsById`, {
     method: "POST",
     body: JSON.stringify({ id, desde, hasta }),
     headers: {
@@ -722,6 +722,29 @@ const PostSeacrhHotelsByIdHotel = ({ id, desde, hasta }) => {
 
 
 //SIGO
+
+
+const GetPorductoSigoDashboard = async () => {
+  try {
+      const resp = await fetch(`${config.serverRoute}/api/hotels/sigo/GetProductsigoDashboard`, {
+          method: "GET",
+          headers: {
+              'Content-type': 'application/json',
+          }
+      });
+
+      
+      if (!resp.ok) {
+          throw new Error('Response is not ok');
+        }
+        const {data} = await resp.json();
+        return data
+  } catch (error) {
+      console.error('Error in PostInformeInfomeMetricas:', error);
+      throw error; // You can re-throw the error or handle it differently based on your needs
+  }
+};
+
 const PostAutenticationDian = async() => {
   
   try {
@@ -1199,6 +1222,26 @@ const PostRoomOcasionalMonth  = async ({fecha,id}) => {
   }
 };
 
+
+const PostProductRoomDetail  = async ({id}) => {
+  try {
+    const resp = await fetch(`${config.serverRoute}/api/resecion/getcartreservaction/${id}`, {
+      method: "GET",
+      headers: {
+        'Content-type': 'application/json'
+      },
+    });
+    if (!resp.ok) {
+      throw new Error('Response is not ok');
+    }
+    const data = await resp.json();
+    return data.query;
+  } catch (error) {
+    console.error('Error in PostInformeInfomeMetricas:', error);
+    throw error; // Puedes lanzar el error nuevamente o manejarlo de otra manera según tus necesidades
+  }
+};
+
 export default {
   get,
   post,
@@ -1260,5 +1303,7 @@ export default {
   GetHupedes,
   PostRegisterHuespedBreafast,
   GetHupedesBraskfast,
-  PostRoomOcasionalMonth
+  PostRoomOcasionalMonth,
+  GetPorductoSigoDashboard,
+  PostProductRoomDetail
 };
