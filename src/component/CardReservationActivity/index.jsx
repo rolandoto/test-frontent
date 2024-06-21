@@ -64,35 +64,35 @@ const CardReservationActivity =({InformeMonth,selectedDay, setSelectedDay}) =>{
 
     const HospedajeExcel = InformeMonth.Totalhospedaje.map((ItenReservation) => {
         const Fecha =moment(ItenReservation.Fecha_pago).utc().format('YYYY/MM/DD')
-        const Total =  parseInt( ItenReservation.abono).toLocaleString()
+        const Total =  parseInt( ItenReservation.abono)
         const Tipo ="Hospedaje"
         return {Fecha,Total,Tipo}
     }); 
 
     const OcasionalesjeExcel = InformeMonth.Ocasionales.map((ItenReservation) => {
         const Fecha =moment(ItenReservation.Fecha).utc().format('YYYY/MM/DD')
-        const Total =  parseInt( ItenReservation.total).toLocaleString()
+        const Total =  parseInt( ItenReservation.total)
         const Tipo ="Ocasioanales"
         return {Fecha,Total,Tipo}
     }); 
 
     const MinibarjeExcel =InformeMonth.queryOne.map((ItenReservation) => {
         const Fecha =moment(ItenReservation.Fecha_compra).utc().format('YYYY/MM/DD')
-        const Total =  parseInt( ItenReservation.total_mes).toLocaleString()
+        const Total =  parseInt( ItenReservation.total_mes)
         const Tipo ="Minibar"
         return {Fecha,Total,Tipo}
     }); 
 
     const TiendajeExcel =InformeMonth.queryTwo.map((ItenReservation) => {
         const Fecha =moment(ItenReservation.Fecha_compra).utc().format('YYYY/MM/DD')
-        const Total =  parseInt( ItenReservation.total).toLocaleString()
+        const Total =  parseInt( ItenReservation.total)
         const Tipo ="Tienda"
         return {Fecha,Total,Tipo}
     }); 
 
     const tiendaOcasionalesjeExcel =InformeMonth.queryThree.map((ItenReservation) => {
         const Fecha =moment(ItenReservation.Fecha_compra).utc().format('YYYY/MM/DD')
-        const Total =  parseInt( ItenReservation.Precio).toLocaleString()
+        const Total =  parseInt( ItenReservation.Precio)
         const Tipo ="Tienda Ocasioanales"
         return {Fecha,Total,Tipo}
     });    
@@ -100,7 +100,7 @@ const CardReservationActivity =({InformeMonth,selectedDay, setSelectedDay}) =>{
     const TotaldianExcel = InformeMonth.roomByIdIDtypeRoomDian.map((ItenReservation) => {
         const Habitacion =ItenReservation.room
         const Cantidad =ItenReservation.cantidad
-        const Total =  parseInt( ItenReservation.abono).toLocaleString()
+        const Total =  parseInt( ItenReservation.abono)
         const Tipo ="Hospedaje dian"
         return {Habitacion,Cantidad,Total,Tipo}
     }); 
