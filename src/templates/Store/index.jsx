@@ -917,9 +917,11 @@ const StoreTemplate =({Store}) =>{
     });
 
     const handSubmitInsertCartOne = useCallback(() => {
-        if (preloading) return; // Evita la ejecución si ya está cargando
-        setPreloading(true);
-        ServiceaInsertStore({ data: dataOne })
+        if (preloading){
+            setPreloading(false);
+        }else{
+            setPreloading(true);
+            ServiceaInsertStore({ data: dataOne })
             .then(index => {
                 setPreloading(false);
                 handlePrint();
@@ -928,7 +930,9 @@ const StoreTemplate =({Store}) =>{
                 setPreloading(false);
                 console.log(e);
             });
-    }, [preloading, dataOne]);
+        }
+      
+    }, []);
     
 
     const {cart} = carts
