@@ -116,34 +116,53 @@ const CardReservationActivity =({InformeMonth,selectedDay, setSelectedDay}) =>{
         for (let i = 0; i < maxLength; i++) {
             const rowData = {};
 
-
+            const fechaHospedaje = HospedajeExcel[i].Fecha;
+            const matchOcasionales = OcasionalesjeExcel.find(item => item && item.Fecha === fechaHospedaje);
+            const matchOcasionalesminibar = MinibarjeExcel.find(item => item && item.Fecha === fechaHospedaje);
+            const matchOTienda = TiendajeExcel.find(item => item && item.Fecha === fechaHospedaje);
+            const matchOTiendaOcasionales = tiendaOcasionalesjeExcel.find(item => item && item.Fecha === fechaHospedaje);
             // Agregar los datos de HospedajeExcel en la primera fila
             if (HospedajeExcel[i]) {
                 rowData.A = HospedajeExcel[i].Fecha; // Asignar a la columna A
                 rowData.B = HospedajeExcel[i].Total; // Asignar a la columna B  
                 rowData.C = HospedajeExcel[i].Tipo; // Asignar a la columna B  
             }
-            if (OcasionalesjeExcel[i]) {
-                rowData.D = OcasionalesjeExcel[i].Fecha; // Asignar a la columna C
-                rowData.E = OcasionalesjeExcel[i].Total; // Asignar a la columna D
-                rowData.F = OcasionalesjeExcel[i].Tipo; // Asignar a la columna D
-            } 
-            if (MinibarjeExcel[i]) {
-                rowData.G = MinibarjeExcel[i].Fecha; // Asignar a la columna C
-                rowData.H = MinibarjeExcel[i].Total; // Asignar a la columna D
-                rowData.I = MinibarjeExcel[i].Tipo; // Asignar a la columna D
-            } 
-            if (TiendajeExcel[i]) {
-                rowData.J = TiendajeExcel[i].Fecha; // Asignar a la columna C
-                rowData.K = TiendajeExcel[i].Total; // Asignar a la columna D
-                rowData.L = TiendajeExcel[i].Tipo; // Asignar a la columna D
-            } 
-            if (tiendaOcasionalesjeExcel[i]) {
-                rowData.M = tiendaOcasionalesjeExcel[i].Fecha; // Asignar a la columna C
-                rowData.M = tiendaOcasionalesjeExcel[i].Total; // Asignar a la columna D
-                rowData.O = tiendaOcasionalesjeExcel[i].Tipo; // Asignar a la columna D
-            } 
-           
+            if (matchOcasionales) {
+                rowData.D = matchOcasionales.Fecha; // Asignar a la columna D de Ocasionales
+                rowData.E = matchOcasionales.Total; // Asignar a la columna E de Ocasionales
+                rowData.F = matchOcasionales.Tipo; // Asignar a la columna F de Ocasionales
+            } else {
+                rowData.D =  HospedajeExcel[i].Fecha; // Si no hay coincidencia, asignar valor vacío
+                rowData.E = 0;
+                rowData.F = 'Ocasioanales';
+            }
+            if (matchOcasionalesminibar) {
+                rowData.G = matchOcasionalesminibar.Fecha; // Asignar a la columna C
+                rowData.H = matchOcasionalesminibar.Total; // Asignar a la columna D
+                rowData.I = matchOcasionalesminibar.Tipo; // Asignar a la columna D
+            }else{
+                rowData.G =  HospedajeExcel[i].Fecha; // Si no hay coincidencia, asignar valor vacío
+                rowData.H = 0;
+                rowData.I = 'Minibar';
+            }
+            if (matchOTienda) {
+                rowData.J = matchOTienda.Fecha; // Asignar a la columna C
+                rowData.K = matchOTienda.Total; // Asignar a la columna D
+                rowData.L = matchOTienda.Tipo; // Asignar a la columna D
+            }else{
+                rowData.J = HospedajeExcel[i].Fecha; // Asignar a la columna C
+                rowData.H = 0;
+                rowData.I = 'Tienda';
+            }
+            if (matchOTiendaOcasionales) {
+                rowData.M = matchOTiendaOcasionales.Fecha; // Asignar a la columna C
+                rowData.M = matchOTiendaOcasionales.Total; // Asignar a la columna D
+                rowData.O = matchOTiendaOcasionales.Tipo; // Asignar a la columna D
+            } else{
+                rowData.M = HospedajeExcel[i].Fecha; // Asignar a la columna C
+                rowData.M = 0; //
+                rowData.O = "Tienda Ocasioanales"; // Asignar a la columna D
+            }
             allData.push(rowData);
         }
 
