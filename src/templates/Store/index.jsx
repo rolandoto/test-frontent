@@ -1,5 +1,5 @@
 
-import React, { useState,useEffect,useContext, useRef} from "react"
+import React, { useState,useEffect,useContext, useRef,useCallback} from "react"
 import ItemCard from "../../component/ItemCard"
 import Cart from "../../organisms/Store/Cart"
 import ModalStore from "../../component/Modal/ModalStore";
@@ -916,6 +916,7 @@ const StoreTemplate =({Store}) =>{
       content: () => componentRef.current
     });
 
+    //insert card
     const handSubmitInsertCartOne =() =>{
       setPreloading(true)
       ServiceaInsertStore({data:dataOne}).then(index =>{
@@ -925,6 +926,7 @@ const StoreTemplate =({Store}) =>{
          console.log(e)
       })
     }
+
 
     const {cart} = carts
     const currenCart =[]
