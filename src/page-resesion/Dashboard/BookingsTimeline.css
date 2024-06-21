@@ -224,6 +224,7 @@
   background: #fff;
 }
 
+
 .react-calendar-timeline .rct-sidebar .rct-sidebar-row.rct-sidebar-row-odd {
   background: #f9f9f9;
   text-indent: 18px;
@@ -586,7 +587,11 @@ hr.border {
   font-weight: 400;
   width: 10px;
 }
-
+.selected-item {
+  background-color: rgba(0, 255, 0, 0.3);
+  position: absolute;
+  z-index: 2;
+}
 .text-words {
   font-size: 10px;
   font-weight: 400;
