@@ -156,11 +156,11 @@ const CardReservationActivity =({InformeMonth,selectedDay, setSelectedDay}) =>{
             }
             if (matchOTiendaOcasionales) {
                 rowData.M = matchOTiendaOcasionales.Fecha; // Asignar a la columna C
-                rowData.M = matchOTiendaOcasionales.Total; // Asignar a la columna D
+                rowData.N = matchOTiendaOcasionales.Total; // Asignar a la columna D
                 rowData.O = matchOTiendaOcasionales.Tipo; // Asignar a la columna D
             } else{
                 rowData.M = HospedajeExcel[i].Fecha; // Asignar a la columna C
-                rowData.M = 0; //
+                rowData.N = 0; //
                 rowData.O = "Tienda Ocasioanales"; // Asignar a la columna D
             }
             allData.push(rowData);
