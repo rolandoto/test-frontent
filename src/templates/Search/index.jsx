@@ -61,7 +61,7 @@ const TemplateSearch =() =>{
                 const fechaFin = moment(elemento.start_time).utc().format('YYYY/MM/DD');
                 condicionFechas = moment(fechaInicio).isBetween(moment(fechaDesde), moment(fechaHasta), null, '[]') ||
                                   moment(fechaFin).isBetween(moment(fechaDesde), moment(fechaHasta), null, '[]');
-            }
+            }   
     
             // Retornar elemento si cumple con ambas condiciones
             return condicionBusqueda && condicionFechas;
@@ -118,46 +118,48 @@ const TemplateSearch =() =>{
                                     locale={esLocale}
                                 />
 
-            <table  className="de"  >
-                    <tbody class="tbody"  > 
+            <table  className="de "  >
+                    <tbody class="tbody border-y-black "  > 
                 <thead >
                 <tr>    
-                        <th>Habitacion</th>
+                        <th  >Habitacion</th>
                         <th>Nombre</th>
                         <th>Apellido</th>
                         <th>Fecha entrada</th>
                         <th>Fecha salida</th>
                         <th>Codigo reserva</th>
+                        <th>Obervacion</th>
                         <th>Abono</th>
+                        <th>valor dia </th>
                         <th>Total hospedaje</th>
                         <th>Prefijo</th>
                         <th>Celular</th>
                         <th>Nacionalidad</th>
                         <th>Opciones</th>
                     </tr>
-                </thead>
+                </thead   >
                   {resultadosBusqueda?.map(index =>{
                      let todaydesde = new Date(index.start_time)
                      const desde = moment(todaydesde).utc().format('YYYY/MM/DD')
-
                      let todayhasta = new Date(index.end_time)
                      const hasta = moment(todayhasta).utc().format('YYYY/MM/DD')
-
                      const valor_habitacion =  parseInt(index?.valor_habitacion)
-
+                     const valor_habitacionDia =  parseInt(index?.pagos_dia)
                      const abono = parseInt(index?.abono)
 
                     if(index.state ==0)
                        if(index.abono > 0){
                         return (
-                            <tr className="pay-reservation-search"   >
+                            <tr className="  bot pay-reservation-search"   >
                                 <td>{index.Num_Room}</td>
                                 <td  >{index.name}</td>
                                 <td >{index.last_name}</td>
                                 <td> Desde {desde}</td>
                                 <td> Hasta {hasta}</td>
                                 <td>{index.Codigo_Reserva}</td>
+                                <td>{index.Observation}</td>
                                 <td>${abono.toLocaleString()}</td>
+                                <td>${valor_habitacionDia.toLocaleString()}</td>
                                 <td>${valor_habitacion.toLocaleString()}</td>
                                 <td>{index.codigo}</td>
                                 <td>{index.Celular}</td>
@@ -171,14 +173,16 @@ const TemplateSearch =() =>{
                         )
                        }else{
                         return (
-                            <tr className=""  >
+                            <tr className="border-y-black"  >
                                 <td>{index.Num_Room}</td>
                                 <td  >{index.name}</td>
                                 <td>{index.last_name}</td>
                                 <td> Desde {desde}</td>
                                 <td> Hasta {hasta}</td>
                                 <td>{index.Codigo_Reserva}</td>
+                                <td>{index.Observation}</td>
                                 <td>${abono.toLocaleString()}</td>
+                                <td>${valor_habitacionDia.toLocaleString()}</td>
                                 <td>${valor_habitacion.toLocaleString()}</td>
                                 <td>{index.codigo}</td>
                                 <td>{index.Celular}</td>
