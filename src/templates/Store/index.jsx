@@ -916,16 +916,18 @@ const StoreTemplate =({Store}) =>{
       content: () => componentRef.current
     });
 
-    const handSubmitInsertCartOne =() =>{
-        setPreloading(true) 
-      ServiceaInsertStore({data:dataOne}).then(index =>{
-        handlePrint()
-        setPreloading(false)
-      }).catch(e=> {
-           setPreloading(false)
-         console.log(e)
-      })
+   const handSubmitInsertCartOne = async () => {
+    try {
+        setPreloading(true); // Indica que la carga ha comenzado
+        await ServiceaInsertStore({ data: dataOne }); // Espera a que la llamada a la API se complete
+        handlePrint(); // Llama a handlePrint después de que la API se complete con éxito
+    } catch (e) {
+        console.log(e); // Maneja cualquier error que ocurra durante la llamada a la API
+    } finally {
+        setPreloading(false); // Asegura que setPreloading(false) se ejecute independientemente del éxito o fracaso de la llamada a la API
     }
+};
+    
 
     const {cart} = carts
     const currenCart =[]
