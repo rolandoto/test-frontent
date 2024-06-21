@@ -932,7 +932,7 @@ const StoreTemplate =({Store}) =>{
             });
         }
       
-    }, []);
+    },[preloading]);
     
 
     const {cart} = carts
