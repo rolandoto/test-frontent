@@ -917,17 +917,18 @@ const StoreTemplate =({Store}) =>{
     });
 
     const handSubmitInsertCartOne = useCallback(() => {
+        if (preloading) return; // Evita la ejecución si ya está cargando
         setPreloading(true);
         ServiceaInsertStore({ data: dataOne })
             .then(index => {
-                handlePrint();
                 setPreloading(false);
+                handlePrint();
             })
             .catch(e => {
                 setPreloading(false);
                 console.log(e);
             });
-    }, [dataOne]);
+    }, [preloading, dataOne]);
     
 
     const {cart} = carts
