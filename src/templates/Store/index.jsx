@@ -916,10 +916,8 @@ const StoreTemplate =({Store}) =>{
       content: () => componentRef.current
     });
 
-    const handSubmitInsertCartOne = useCallback(() => {
-        if (preloading){
-            setPreloading(false);
-        }else{
+    const handSubmitInsertCartOne = () => {
+        if (!preloading){
             setPreloading(true);
             ServiceaInsertStore({ data: dataOne })
             .then(index => {
@@ -930,9 +928,11 @@ const StoreTemplate =({Store}) =>{
                 setPreloading(false);
                 console.log(e);
             });
+           
+        }else{
+             setPreloading(false);
         }
-      
-    },[setPreloading]);
+    }
     
 
     const {cart} = carts
