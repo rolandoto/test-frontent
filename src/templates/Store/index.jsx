@@ -917,6 +917,7 @@ const StoreTemplate =({Store}) =>{
     });
 
     const handSubmitInsertCartOne =() =>{
+      setPreloading(true)
       ServiceaInsertStore({data:dataOne}).then(index =>{
         handlePrint()
         setPreloading(true)

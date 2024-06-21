@@ -9,6 +9,7 @@ import { useContext } from "react";
 import { config } from "../../config";
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 import CardRetention from "../CardRententionIvoince";
+import { Button } from "@nextui-org/react";
 
 const Invoince =({preloading, handlePrint, componentRef,resultDashboard=[],carts=[],dataCount,setInvoice,priceCart,client,identification,raiting,handLoading,loading,handLoadingOne,sinIvaCart,tienda,handSubmitInsertCartOne,hancCheckout,lastname,fechaFinal,formattedNum,formatoIva,valorTotalIva,nacionalidad,
     correo}) =>{
@@ -371,9 +372,9 @@ const Invoince =({preloading, handlePrint, componentRef,resultDashboard=[],carts
                                     </div>            
                             </div>     
                         </div>
-                        <button id="demo" className= {` top-button-invoince checkOut  sub-total-top`} onClick={handSubmitInsertCartOne} disabled={preloading}   >
-                            <span className="itemNameonE">Guardar e imprimir</span>
-                        </button>
+                        <Button id="demo" className= {`flex  items-center top-button-invoince checkOut  sub-total-top`} onClick={handSubmitInsertCartOne} disabled={preloading}   >
+                            <span className="font-thin	  flex ">Guardar e imprimir</span>
+                        </Button>
                         </div>
                 </>
         )
