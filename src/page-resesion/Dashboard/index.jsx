@@ -897,11 +897,7 @@ const Dashboard = () => {
 						
 			</TimelineMarkers>
 			</Timeline>
-			<Footer 	
-					hotel={hotel} 
-					ocupied={<VscSymbolEvent fontSize={20}/>}
-					reservas={<BsBell fontSize={20} color="white" />}
-					dollar={<CiBadgeDollar fontSize={20} />} />
+			
 					<div className="rightMenu-one">
 					<button className=" toggleMenu   ocultar" > <AiOutlineCaretLeft fontSize={50} color="black" /></button>
 						<h1>Detalle reserva</h1>
