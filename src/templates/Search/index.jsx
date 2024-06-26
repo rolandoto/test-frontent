@@ -101,6 +101,18 @@ const TemplateSearch =() =>{
         return Object.keys(resultadosBusqueda).length;
     };
 
+    const getCartSubtotal = () => {
+        let subtotal = 0    
+        Object.values(resultadosBusqueda)
+          .forEach(({valor_habitacion}) => {
+            subtotal +=parseInt( valor_habitacion)
+          })
+    
+        return subtotal
+    }
+
+     
+    const totalHospedaje = getCartSubtotal()
     const totalCuantity = getCartTotalCount()
 
    if(!resultadosBusqueda) return null
@@ -268,8 +280,13 @@ const TemplateSearch =() =>{
                                 }
                                 }
                             )}
+                             <article className="text-justify" >
+                         
+                         <h3>Total a pagar $({totalHospedaje.toLocaleString()})</h3>
+                      
+                         </article>
                         </tbody>
-
+                       
                  </table>
                     </ul>
                 </div>
