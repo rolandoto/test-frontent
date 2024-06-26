@@ -63,23 +63,26 @@ const TemplateSearch =() =>{
 
     const filtrarSearching = (terminoBusqueda, fechaDesde, fechaHasta) => {
         let resultadosBusqueda = Items?.filter((elemento, index) => {
-            // Filtrar por término de búsqueda
-            const condicionBusqueda = elemento.name?.toString().toLowerCase().includes(terminoBusqueda.toLowerCase()) ||
-                                      elemento.document?.toString().toLowerCase().includes(terminoBusqueda.toLowerCase()) ||
-                                      elemento.Codigo_Reserva?.toString().toLowerCase().includes(terminoBusqueda.toLowerCase()) ||
-                                      elemento.full_name?.toString().toLowerCase().includes(terminoBusqueda.toLowerCase());
-    
-            // Filtrar por rango de fechas
-            let condicionFechas = true;
-            if (fechaDesde && fechaHasta) {
+            if(elemento.state != 3){
+                // Filtrar por término de búsqueda
+                const condicionBusqueda = elemento.name?.toString().toLowerCase().includes(terminoBusqueda.toLowerCase()) ||
+                elemento.document?.toString().toLowerCase().includes(terminoBusqueda.toLowerCase()) ||
+                elemento.Codigo_Reserva?.toString().toLowerCase().includes(terminoBusqueda.toLowerCase()) ||
+                elemento.full_name?.toString().toLowerCase().includes(terminoBusqueda.toLowerCase());
+
+                // Filtrar por rango de fechas
+                let condicionFechas = true;
+                if (fechaDesde && fechaHasta) {
                 const fechaInicio = moment(elemento.start_time).utc().format('YYYY/MM/DD');
-                const fechaFin = moment(elemento.start_time).utc().format('YYYY/MM/DD');
+                const fechaFin = moment(elemento.end_time).utc().format('YYYY/MM/DD');
                 condicionFechas = moment(fechaInicio).isBetween(moment(fechaDesde), moment(fechaHasta), null, '[]') ||
-                                  moment(fechaFin).isBetween(moment(fechaDesde), moment(fechaHasta), null, '[]');
-            }   
-    
-            // Retornar elemento si cumple con ambas condiciones
-            return condicionBusqueda && condicionFechas;
+                moment(fechaFin).isBetween(moment(fechaHasta), moment(fechaHasta), null, '[]');
+                }   
+
+                // Retornar elemento si cumple con ambas condiciones
+                return condicionBusqueda && condicionFechas;
+            }
+          
         });
     
         return { resultadosBusqueda };
@@ -96,10 +99,11 @@ const TemplateSearch =() =>{
     }
     const {resultadosBusqueda} = filtrarSearching(username, formattedStartDate, formattedEndDate);
 
-     
     const getCartTotalCount = () => {
-        return Object.keys(resultadosBusqueda).length;
+        return resultadosBusqueda.length ;
     };
+
+
 
     const getCartSubtotal = () => {
         let subtotal = 0    

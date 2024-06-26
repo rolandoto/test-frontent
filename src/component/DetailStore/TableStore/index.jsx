@@ -1,6 +1,7 @@
 import React, { useState ,useEffect} from "react"
 import { useHistory } from "react-router-dom"
-    import { CiSquarePlus } from "react-icons/ci";
+import { CiSquarePlus } from "react-icons/ci";
+import { GiPencil } from "react-icons/gi";
 
 const TableStore =({Store}) =>{
 
@@ -15,13 +16,18 @@ const TableStore =({Store}) =>{
                     <th>Nombre</th>
                     <th>Cantidad</th>
                     <th>Precio</th>
-                    <th>Opciones</th>
+                    <th>Agregar</th>
+                    <th>Actualizar</th>
                 </tr>
 
                 {Store?.query?.map(index =>{
 
                     const handHistory = () =>{
                         history.push(`/detailById/${index.ID}`)
+                    }
+
+                    const handUpdateHistory = () =>{
+                        history.push(`/DetailStoreUpate/${index.ID}`)
                     }
  
                     if(index.id_categoria== 1)
@@ -32,6 +38,7 @@ const TableStore =({Store}) =>{
                             <td className="table-color-color" >{index.Cantidad}</td>
                             <td className="table-color-color"  >{index.Precio}</td>
                             <td className="table-color-color" ><button  className="button-Border-Id"   onClick={handHistory} > <CiSquarePlus     fontSize={35}  /> </button></td>
+                            <td className="table-color-color" ><button  className="button-Border-Id"   onClick={handUpdateHistory} > <GiPencil     fontSize={35}  /> </button></td>
                         </tr>
                     )
                 })}
@@ -46,13 +53,18 @@ const TableStore =({Store}) =>{
                     <th>Nombre</th>
                     <th>Cantidad</th>
                     <th>Precio</th>
-                    <th>Opciones</th>
+                    <th>Agregar</th>
+                    <th>Actualizar</th>
                 </tr>
 
                 {Store?.query?.map(index =>{
 
                     const handHistory = () =>{
                         history.push(`/detailById/${index.ID}`)
+                    }
+
+                    const handUpdateHistory = () =>{
+                        history.push(`/DetailStoreUpate/${index.ID}`)
                     }
                     if(index.id_categoria== 2)
                     return (
@@ -62,6 +74,7 @@ const TableStore =({Store}) =>{
                             <td className="table-color-color" >{index.Cantidad}</td>
                             <td className="table-color-color" >{index.Precio}</td>
                             <td className="table-color-color" ><button  className="button-Border-Id"   onClick={handHistory} > <CiSquarePlus     fontSize={35}  /> </button></td>
+                            <td className="table-color-color" ><button  className="button-Border-Id"   onClick={handUpdateHistory} > <GiPencil     fontSize={35}  /> </button></td>
                         </tr>
                     )
                 })}
@@ -76,12 +89,17 @@ const TableStore =({Store}) =>{
                     <th>Nombre</th>
                     <th>Cantidad</th>
                     <th>Precio</th>
-                    <th>Opciones</th>
+                    <th>Agregar</th>
+                    <th>Actualizar</th>
                 </tr>
 
                 {Store?.query?.map(index =>{
                     const handHistory = () =>{
                         history.push(`/detailById/${index.ID}`)
+                    }
+
+                    const handUpdateHistory = () =>{
+                        history.push(`/DetailStoreUpate/${index.ID}`)
                     }
                     
                     if(index.id_categoria== 3)
@@ -92,6 +110,7 @@ const TableStore =({Store}) =>{
                             <td className="table-color-color" >{index.Cantidad}</td>
                             <td className="table-color-color" >{index.Precio}</td>
                             <td className="table-color-color" ><button  className="button-Border-Id"   onClick={handHistory} > <CiSquarePlus    fontSize={35}  /> </button></td>
+                            <td className="table-color-color" ><button  className="button-Border-Id"   onClick={handUpdateHistory} > <GiPencil     fontSize={35}  /> </button></td>
                         </tr>
                     )
                 })}
@@ -105,7 +124,8 @@ const TableStore =({Store}) =>{
                     <th>Nombre</th>
                     <th>Cantidad</th>
                     <th>Precio</th>
-                    <th>Opciones</th>
+                    <th>Agregar</th>
+                    <th>Actualizar</th>
                 </tr>
 
                 {Store?.query?.map(index =>{
@@ -114,6 +134,10 @@ const TableStore =({Store}) =>{
                         history.push(`/detailById/${index.ID}`)
                     }
                     
+                    const handUpdateHistory = () =>{
+                        history.push(`/DetailStoreUpate/${index.ID}`)
+                    }
+
                     if(index.id_categoria== 4)
                     return (
                         <tr>
@@ -122,6 +146,7 @@ const TableStore =({Store}) =>{
                             <td className="table-color-color" >{index.Cantidad}</td>
                             <td className="table-color-color" >{index.Precio}</td>
                             <td className="table-color-color" ><button  className="button-Border-Id"   onClick={handHistory} > <CiSquarePlus    fontSize={35}  /> </button></td>
+                            <td className="table-color-color" ><button  className="button-Border-Id"   onClick={handUpdateHistory} > <GiPencil     fontSize={35}  /> </button></td>
                         </tr>
                     )
                 })}
@@ -136,13 +161,18 @@ const TableStore =({Store}) =>{
                     <th>Nombre</th>
                     <th>Cantidad</th>
                     <th>Precio</th>
-                    <th>Opciones</th>
+                    <th>Agregar</th>
+                    <th>Actualizar</th>
                 </tr>
 
                 {Store?.query?.map(index =>{
 
                     const handHistory = () =>{
                         history.push(`/detailById/${index.ID}`)
+                    }
+
+                    const handUpdateHistory = () =>{
+                        history.push(`/DetailStoreUpate/${index.ID}`)
                     }
 
                     if(index.id_categoria== 5)
@@ -153,6 +183,7 @@ const TableStore =({Store}) =>{
                             <td className="table-color-color" >{index.Cantidad}</td>
                             <td className="table-color-color" >{index.Precio}</td>
                             <td className="table-color-color" ><button  className="button-Border-Id"   onClick={handHistory} > <CiSquarePlus     fontSize={35}  /> </button></td>
+                            <td className="table-color-color" ><button  className="button-Border-Id"   onClick={handUpdateHistory} > <GiPencil     fontSize={35}  /> </button></td>
                         </tr>
                     )
                 })}
@@ -167,13 +198,18 @@ const TableStore =({Store}) =>{
                     <th>Nombre</th>
                     <th>Cantidad</th>
                     <th>Precio</th>
-                    <th>Opciones</th>
+                    <th>Agregar</th>
+                    <th>Actualizar</th>
                 </tr>
 
                 {Store?.query?.map(index =>{
 
                     const handHistory = () =>{
                         history.push(`/detailById/${index.ID}`)
+                    }
+
+                    const handUpdateHistory = () =>{
+                        history.push(`/DetailStoreUpate/${index.ID}`)
                     }
 
                     if(index.id_categoria== 6)
@@ -184,6 +220,7 @@ const TableStore =({Store}) =>{
                             <td className="table-color-color" > {index.Cantidad}</td>
                             <td className="table-color-color" >{index.Precio}</td>
                             <td className="table-color-color" ><button  className="button-Border-Id"   onClick={handHistory} > <CiSquarePlus  fontSize={35} /> </button></td>
+                            <td className="table-color-color" ><button  className="button-Border-Id"   onClick={handUpdateHistory} > <GiPencil     fontSize={35}  /> </button></td>
                         </tr>
                     )
                 })}
@@ -198,13 +235,18 @@ const TableStore =({Store}) =>{
                     <th>Nombre</th>
                     <th>Cantidad</th>
                     <th>Precio</th>
-                    <th>Opciones</th>
+                    <th>Agregar</th>
+                    <th>Actualizar</th>
                 </tr>
 
                 {Store?.query?.map(index =>{
 
                 const handHistory = () =>{
                     history.push(`/detailById/${index.ID}`)
+                }
+
+                const handUpdateHistory = () =>{
+                    history.push(`/DetailStoreUpate/${index.ID}`)
                 }
 
                     if(index.id_categoria== 7)
@@ -215,6 +257,7 @@ const TableStore =({Store}) =>{
                             <td className="table-color-color" >{index.Cantidad}</td>
                             <td className="table-color-color" >{index.Precio}</td>
                             <td className="table-color-color" ><button  className="button-Border-Id"   onClick={handHistory} > <CiSquarePlus    fontSize={35} /> </button></td>
+                            <td className="table-color-color" ><button  className="button-Border-Id"   onClick={handUpdateHistory} > <GiPencil     fontSize={35}  /> </button></td>
                         </tr>
                     )
                 })}
@@ -231,13 +274,18 @@ const TableStore =({Store}) =>{
                     <th>Nombre</th>
                     <th>Cantidad</th>
                     <th>Precio</th>
-                    <th>Opciones</th>
+                    <th>Agregar</th>
+                    <th>Actualizar</th>
                 </tr>
 
                 {Store?.query?.map(index =>{
 
                 const handHistory = () =>{
                     history.push(`/detailById/${index.ID}`)
+                }
+
+                const handUpdateHistory = () =>{
+                    history.push(`/DetailStoreUpate/${index.ID}`)
                 }
 
                     if(index.id_categoria== 8)
@@ -248,6 +296,7 @@ const TableStore =({Store}) =>{
                             <td className="table-color-color" >{index.Cantidad}</td>
                             <td className="table-color-color" >{index.Precio}</td>
                             <td className="table-color-color" ><button  className="button-Border-Id"   onClick={handHistory} > <CiSquarePlus    fontSize={35} /> </button></td>
+                            <td className="table-color-color" ><button  className="button-Border-Id"   onClick={handUpdateHistory} > <GiPencil     fontSize={35}  /> </button></td>
                         </tr>
                     )
                 })}
