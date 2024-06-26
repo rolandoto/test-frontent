@@ -89,10 +89,19 @@ const TemplateSearch =() =>{
         setUsername(e.target.value)
     }
 
+    
+
     const handHistory =(e) =>{
         history.push(`/DetailDashboard/${e}`)
     }
     const {resultadosBusqueda} = filtrarSearching(username, formattedStartDate, formattedEndDate);
+
+     
+    const getCartTotalCount = () => {
+        return Object.keys(resultadosBusqueda).length;
+    };
+
+    const totalCuantity = getCartTotalCount()
 
    if(!resultadosBusqueda) return null
 
@@ -116,6 +125,7 @@ const TemplateSearch =() =>{
                             <li className="left">
                             <article className="text-justify" >
                             <h3>filtrar fecha anteriores check out</h3>
+                            <h3>Total de busquedad ({totalCuantity})</h3>
                             <Switch className="items-start left" onChange={(e) => setIsChecked(!isChecked)}  /> 
                             </article>
                             </li>
