@@ -22,13 +22,10 @@ import Hotels from "./page/Hotels";
 import DetailBedRoom from "./page/DetailBedRoom";
 import Stores from "./page/StoresListAdmin";
 import DetailStore from "./page/DetailStore";
-import Dashboard from "./page-resesion/Dashboard";
 import DetailDashboard from "./page-resesion/DetailDashboard";
 import DetailStoreRecepcion from "./page-resesion/DetailStore";
-import HeaderRecepcion from "./component/Header/HeaderRepcion";
 import Search from "./page-resesion/Search";
 import Checking from "./organisms/Checking/Checking";
-import CreateReservaction from "./page-resesion/CreateReservaction/CreateReservaction";
 import DetailChecking from "./page-resesion/DetailChecking";
 import Nochecking from "./page-resesion/no-checking";
 import CheckingEditar from "./page-resesion/CheckingEditar";
@@ -36,7 +33,6 @@ import EditarPersonas from "./page-resesion/EditarPersonas";
 import Checkingn2 from "./page-resesion/Checkingn2";
 import Contracto from "./page-resesion/Contracto";
 import Checkout from "./page-resesion/Checkout";
-import Comunicate from "./page/Comunicate";
 import HeaderComunicate from "./component/Header/HeaderComunicate";
 import InformeConsolidado from "./page-resesion/InformeConsolidado";
 import UpdateRservation from "./page-resesion/EditarPersonas/EditarUpdateReserva";
@@ -47,9 +43,7 @@ import ReporteCamarera from "./page-resesion/Informes/ReporteCamareras";
 import InformeStore from "./page/InformeStore";
 import Checkingn3 from "./page-resesion/checking3";
 import DetailnformeStore from "./page/InformeStore/DetailnformeStore";
-import InformeAccountEarrings from "./page-resesion/Informes/InformeAccount";
 import InformeAccount from "./page-resesion/Informes/InformeAccount";
-import TableStore from "./component/DetailStore/TableStore";
 import DetailStoreById from "./component/DetailStore/DetailStoreById";
 import InformeMovimiento from "./page-resesion/Informes/InformeMovimiento";
 import CustomNav from "./Ui/CustomNav";
@@ -74,6 +68,8 @@ import Huespedbreakfast from "./page-resesion/HuespedDesayuno";
 import InformeAuditoriaMonth from "./page-resesion/Informes/InformeAuditoriaMonth";
 import HomeIntegrationCloudbeds from "./page/HomeIntegrationCloubeds";
 import HomeHotelCloudbed from "./page/HomeHotelCloudbed";
+import ProductSigo from "./page/ProductSigo";
+import DetailStoreUpdate from "./component/DetailStore/DetailStoreUpdate";
 
 function App() {
   const { jwt } = useContext(AutoProvider);
@@ -97,6 +93,13 @@ function App() {
                 path="/DetailBedRoom/:id"
                 component={DetailBedRoom}
               />
+
+              <PrivateRoute
+                exact
+                path="/productSigo"
+                component={ProductSigo}
+              />
+
               <PrivateRoute 
                 exact
                 path="/Detail/:id"
@@ -123,6 +126,11 @@ function App() {
                 component={DetailStoreRecepcion}
               />
               <PrivateRoute exact path="/Stores" component={Stores} />
+              <PrivateRoute
+                exact
+                path="/DetailStoreUpate/:id"
+                component={DetailStoreUpdate}
+              />
               <PrivateRoute
                 exact
                 path="/DetailStore/:id"
