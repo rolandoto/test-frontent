@@ -56,13 +56,16 @@ import useUserUpdateRolesActions from "../../action/useUserUpdateRolesActions";
 import useSocket from "../../hooks/UseSocket";
 import IconAviableBill from "../../component/IconAviableBill";
 
+
+
+
 //https://railway.grupo-hoteles.com
 //const socket = io.connect(`${SocketRoute.serverRoute}`);
 
 const Dashboard = () => {
 
 	const currentDate = new moment();
-	const {jwt,setJwt,isOpen, setIsOpen,dateDasboard,setDatedasrboard} =useContext(AutoProvider)
+	const {jwt,setJwt} =useContext(AutoProvider)
 	const history = useHistory()
 	const [raiting,setRaiting]= useState("")
 	const {iduser} = UseListMotels()
@@ -273,10 +276,11 @@ const Dashboard = () => {
 	const {getPostByReservation,
 		getRoomByReservation,
 		getRoomFilterRoom,
-		setUpdateFilterReservation
+		setUpdateFilterReservation,
+		SetReservationAdd
 	} =useReservationActions()
 
-	//const {filterRooms } =UseFilterRooms() 
+
 
 	const {Items,Room,filterRoom
 	} = useSelector((state) => state.ReservationSlice)
@@ -312,7 +316,7 @@ const Dashboard = () => {
 
 	 const fetchData =async() =>{
 		try {
-			await getPostByReservation({type:initialState})
+			await getPostByReservation({type:false})
 			await getRoomByReservation()
 			await getRoomFilterRoom()
 			} catch (error) {
@@ -382,6 +386,7 @@ const Dashboard = () => {
 	const {resultadosBusquedaRoom} = filtrarSearchingRoom(raiting) 
 	
 	const handleItemResize = (itemId, time, edge) => {
+		
 		const fecha = moment(time).format('YYYY-MM-DD');
 		const newReservation = structuredClone(Items)
 		const ReservationIndex = Items.findIndex(item => item.id == itemId)
@@ -394,6 +399,14 @@ const Dashboard = () => {
     	var contdias = Math.round(diasdif / (1000 * 60 * 60 * 24));
 
 		const totalDiaPat = parseInt(newReservation[ReservationIndex].pagos_dia) * contdias +countSeguro
+
+		if(newReservation[ReservationIndex].state ==2){
+			return null
+		}
+
+		
+
+		console.log()
 		let Total =0
 		if(totalDiaPat > 0){
 			Total=totalDiaPat
@@ -442,15 +455,18 @@ const Dashboard = () => {
 		let ID_Habitaciones = 0
 		let ID_estado_habiatcion =0
 		const group = resultadosBusquedaRoom[newGroupOrder];
+		
+		const ReservationIndex = Items.findIndex(item => item.id == itemId)
+		const ItemReservation =  Items[ReservationIndex]
+	
+		if(ItemReservation.state ==2 || ItemReservation.state ==6){
+			return null
+		}
 
-		 Items.map(item =>{
-			if(item.id  ==  itemId){
-				dragTimeOne= dragTime+( item.end_time - item.start_time)
-				ID_Habitaciones =group.id
-				ID_estado_habiatcion=group.ID_estado_habiatcion
-			}
-		})
-
+		dragTimeOne= dragTime+( ItemReservation.end_time - ItemReservation.start_time)
+		ID_Habitaciones =group.id
+		ID_estado_habiatcion=group.ID_estado_habiatcion
+		
 		const fecha1 = moment(dragTime).format('YYYY-MM-DD');
 		const fecha2 = moment(dragTimeOne).format('YYYY-MM-DD');
 
@@ -478,7 +494,7 @@ const Dashboard = () => {
 							await postUpdateDetailPointerRange({desde,hasta,ID_Habitaciones,id:itemId,ID_estado_habiatcion})
 							setUpdateFilterReservation(updatedItems)
 							socket.emit("sendNotification",message);
-						onClose() 
+							onClose() 
 					}
 		
 				   const handClose =() =>{
@@ -496,25 +512,12 @@ const Dashboard = () => {
 		}
 		handModalText()
 	  }
-	
-	/*const handCLickWhatsapp =() =>{
-		const link = document.createElement('a');
-		link.href = "https://api.whatsapp.com/send/?phone=573195550001";
-		link.setAttribute('target', '_blank');
-		document.body.appendChild(link);
-		setTimeout(() => {
-		link.click();
-		}, 100);
-	}
-*/
-
 
 	const verticalLineClassNamesForTime = (timeStart, timeEnd) => {
 		const today = moment().format('YYYY-MM-DD');//day today
 		const fecha = moment(timeStart).format('YYYY-MM-DD');//day range of calendario
 		return fecha === today ? ["today"] : ['holiday'];
 	}
-
 
 	const horizontalLine = (group) => {
 		if (group?.ID_estado_habiatcion === 5) {
@@ -571,34 +574,66 @@ const Dashboard = () => {
 		setRaiting(value.trim() !== "" ? raiting : "")
 	};
 
-	const handleCanvasClick = (groupId, time, event) => {
-		const fecha1 = moment(time).format('YYYY/MM/DD');
+	const [selection, setSelection] = useState({ start: null, end: null, groupId: null });
+  	const [items, setItems] = useState([]);
 
-		const handModalText =(e) =>{
-			confirmAlert({
-			  title: '',
-			  
-				  customUI: ({ onClose }) => {
-					const handClick = async() =>{
-						onClose()
-					}
-					const handClickNext =() =>{
-						setDatedasrboard({group:groupId,desdeSinHora:fecha1})
-						history.push("Createreservaction/00000")
-						onClose()
-					}
-					return (
-						<div className="popup-overlay"  >
-							<h4 className="let-letra" >Confirma Creacion de reserva ?</h4>
-							<button  className="react-confirm-alert-button-group" onClick={handClickNext} >Si</button>
-							<button  className="react-confirm-alert-button-group" onClick={ handClick} >No</button>
-					  </div>         
-					);
-				  }
-			})
+	const handleCanvasClick = (groupId, time, e) => {
+		const start = moment(time);
+		const end = selection.start ? moment(selection.start) : null;
+		console.log(`Clicked on group: ${groupId} at time: ${time}`);
+		// If groupId changes, reset the selection
+		if (selection.groupId && selection.groupId !== groupId) {
+		  setSelection({ start: null, end: null, groupId: null });
+		  toast.error("Group ID changed, selection reset.");
+		  return;
 		}
-		handModalText()
-	};
+	
+		if (end && start.isSameOrBefore(end)) {
+		  toast.error("La fecha final debe ser mayor que la fecha de inicio. No se puede seleccionar el mismo día o una fecha anterior.");
+		  setSelection({ start: null, end: null, groupId: null });
+		  return;
+		}
+	
+		if (end && start.isAfter(end)) {
+		  const diffInDays = start.diff(end, 'days');
+	
+		
+			const newItem = {
+			  Num_Room: "201",
+			  Codigo_Reserva: "X14A-HMJR8PCQZ295052",
+			  full_name: "Crear Reserva",
+			  Observation: "MANUEL - AIRBNB VENTILADOR 1PAX $48.072 X 9 NOCHES $432.648 + SEGURO $36.000 = $468.648 ----_ RESERVA NO SHOW",
+			  Fecha_inicio: "2024/01/07",
+			  Fecha_final: "2024/01/08",
+			  Noches: 1,
+			  Adultos: 1,
+			  Ninos: 8,
+			  end_time: start.valueOf(),
+			  group: groupId,
+			  id: items.length + 1,
+			  title: "",
+			  start_time: end.valueOf(),
+			  state: 8,
+			  valor_habitacion: "52072",
+			  abono: "468661",
+			  name: "Logique",
+			  document: "HMJR8PCQZ2",
+			  code: "17597",
+			  last_name: "Amuri",
+			  Celular: "0",
+			  codigo: "+1",
+			  nacionalidad: "United States",
+			  pagos_dia: "48072",
+			  ID_facturacion: " "
+			};
+			SetReservationAdd(newItem);
+			setSelection({ start: null, end: null, groupId: null }); // Reset the selection after creating the reservation
+		  
+		} else {
+		  setSelection({ start: start, end: null, groupId: groupId });
+		}
+	  };
+	
 
 	return (
 		<>		
@@ -761,7 +796,6 @@ const Dashboard = () => {
 					</StyledContextMenuTypeRoom>
 				}
 			<Timeline
-				//onCanvasClick={handleCanvasClick}
 				groupRenderer={renderGroup}
 				groups={resultadosBusquedaRoom}
 				items={Items}
@@ -773,14 +807,17 @@ const Dashboard = () => {
 				defaultTimeEnd={moment().startOf("day").add(18, "day")}
 				visibleTimeEnd={timeEnd}
 				visibleTimeStart={timeStart}
-				onItemMove={handleItemMove}	
+				onItemMove={handleItemMove}
+				onCanvasClick={handleCanvasClick}	
 				resizeDetector={containerResizeDetector}								
 				itemHeightRatio={0.9}                                                             
 				lineHeight={28.4}
 				sidebarWidth={225}
-				showCursorLine={true}
-				itemRenderer={  ItemRenderer}
+				
 				onItemClick={onItemClick}
+				showCursorLine={true}
+				itemRenderer={ItemRenderer}
+			
 				now={nowOne}
 				canResize={"both"}
 				itemStyle={{ background: "black" }}
@@ -897,11 +934,7 @@ const Dashboard = () => {
 						
 			</TimelineMarkers>
 			</Timeline>
-			<Footer 	
-					hotel={hotel} 
-					ocupied={<VscSymbolEvent fontSize={20}/>}
-					reservas={<BsBell fontSize={20} color="white" />}
-					dollar={<CiBadgeDollar fontSize={20} />} />
+			
 					<div className="rightMenu-one">
 					<button className=" toggleMenu   ocultar" > <AiOutlineCaretLeft fontSize={50} color="black" /></button>
 						<h1>Detalle reserva</h1>
