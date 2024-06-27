@@ -63,7 +63,7 @@ const DetailStoreUpdate =() =>{
         })
    }
 
-   
+   console.log(produ)
 
    if(!state) return null 
   
@@ -79,11 +79,21 @@ const DetailStoreUpdate =() =>{
                         <th>Precio</th>
                         <th>Nombre Recepcion</th>
                     </tr>
-                    {produ?.map(index =>{
+                    
+                    {produ?.slice(0, -1)?.map(index =>{
+                        return (
+                            <tr>
+                                <td><s>{index.categoria}</s></td>
+                                <td><s>{index.Nombre}</s> </td>
+                                <td><s>{index.Cantidad_total}</s></td>
+                                <td><s>{index.Price}</s></td>
+                                <td><s>{index.name}</s></td>
+                    </tr>)})}
+                    {produ?.slice(-1)?.map(index =>{
                         return (
                             <tr>
                                 <td>{index.categoria}</td>
-                                <td>{index.Nombre}</td>
+                                <td>{index.Nombre} </td>
                                 <td>{index.Cantidad_total}</td>
                                 <td>{index.Price}</td>
                                 <td>{index.name}</td>
