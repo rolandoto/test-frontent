@@ -8,6 +8,7 @@ import { config } from "../../../config";
 import PostUpdateStoreProduct from "../../../service/PostUpdateStoreProduct";
 import Swal from "sweetalert2";
 import { IoAlertCircle } from "react-icons/io5";
+import moment from "moment";
 
 
 const DetailStoreUpdate =() =>{
@@ -42,8 +43,10 @@ const DetailStoreUpdate =() =>{
     },[])
 
 
-   const handCLickServiceInsertStore =() =>{
-        PostUpdateStoreProduct({ID:id,Cantidad:CantidadValues,ID_user:jwt?.result?.id_user,Price:PriceValue}).then(index => {
+    const  now = moment().format("YYYY/MM/DD");
+
+    const handCLickServiceInsertStore =() =>{
+        PostUpdateStoreProduct({ID:id,Cantidad:CantidadValues,ID_user:jwt?.result?.id_user,Price:PriceValue,Fecha:now}).then(index => {
             handEffect()
             setCantidad(0)
             Swal.fire({
@@ -64,8 +67,6 @@ const DetailStoreUpdate =() =>{
         })
    }
 
-   console.log(produ)
-
    if(!state) return null 
   
 
@@ -79,10 +80,13 @@ const DetailStoreUpdate =() =>{
                         <th>Cantidad</th>
                         <th>Precio</th>
                         <th>Nombre Recepcion</th>
+                        <th>Fecha</th>
                     </tr>
                     
                     {produ?.slice(0, -1)?.map(index =>{
-                    
+                        
+                        const fecharegister= moment(index.Fecha).format("YYYY/MM/DD");
+
                        if(index.valid ==1){
                         return (
                             <tr className="bg-red-50 border-l-4 border-red-400" >
@@ -91,6 +95,7 @@ const DetailStoreUpdate =() =>{
                                 <td className="bg-red-50 border-l-4 border-red-400" ><s>{index.Cantidad_total}</s></td>
                                 <td className="bg-red-50 border-l-4 border-red-400"><s>{index.Price}</s></td>
                                 <td className="bg-red-50 border-l-4 border-red-400"><s>{index.name}</s></td>
+                                <td className="bg-red-50 border-l-4 border-red-400"><s>{fecharegister}</s></td>
                                 <td className="bg-red-50 border-l-4 border-red-400" > <IoAlertCircle fontSize={35} color="red" /></td>
                             </tr>
                         )}else{
@@ -101,13 +106,14 @@ const DetailStoreUpdate =() =>{
                                     <td><s>{index.Cantidad_total}</s></td>
                                     <td><s>{index.Price}</s></td>
                                     <td><s>{index.name}</s></td>
+                                    <td><s>{fecharegister}</s></td>
                                     
                                 </tr>
                             )
                         }
                 })}
                     {produ?.slice(-1)?.map(index =>{
-                        
+                    const fecharegister= moment(index.Fecha).format("YYYY/MM/DD");
                        if(index.valid ==1){
                         return (
                             <tr className="bg-red-50 border-l-4 border-red-400" >
@@ -116,6 +122,7 @@ const DetailStoreUpdate =() =>{
                                 <td className="bg-red-50 border-l-4 border-red-400" >{index.Cantidad_total}</td>
                                 <td className="bg-red-50 border-l-4 border-red-400">{index.Price}</td>
                                 <td className="bg-red-50 border-l-4 border-red-400">{index.name}</td>
+                                <td className="bg-red-50 border-l-4 border-red-400">{fecharegister}</td>
                                 <td className="bg-red-50 border-l-4 border-red-400" > <IoAlertCircle fontSize={35} color="red" /></td>
                             </tr>
                         )}else{
@@ -126,6 +133,7 @@ const DetailStoreUpdate =() =>{
                                     <td>{index.Cantidad_total}</td>
                                     <td>{index.Price}</td>
                                     <td>{index.name}</td>
+                                    <td>{fecharegister}</td>
                                     
                                 </tr>
                             )

@@ -5,6 +5,7 @@ import { CiSquarePlus } from "react-icons/ci";
 import postInserStorePorduct from "../../../service/postInserStorePorduct";
 import AutoProvider from "../../../privateRoute/AutoProvider";
 import Swal from 'sweetalert2'
+import moment from "moment";
 const DetailStoreById  =() =>{
 
     const {id}  = useParams()
@@ -21,28 +22,34 @@ const DetailStoreById  =() =>{
     useEffect(() =>{
         handEffect()
     },[])
+    
+    const  now = moment().format("YYYY/MM/DD");
   
-   const handCLickServiceInsertStore =() =>{
-        postInserStorePorduct({ID:id,Cantidad:cantidad,Nombre_Recepcion:jwt.result.name}).then(index => {
-            handEffect()
-            setCantidad(0)
-            Swal.fire({
-                position: 'center',
-                icon: 'success',
-                title: '<p>Exitoso</p>',
-                showConfirmButton: false,
-                timer: 2000
-              })
-        }).catch(e =>{
-            Swal.fire({
-                position: 'center',
-                icon: 'error',
-                title: '<p>error al agregar</p>',
-                showConfirmButton: false,
-                timer: 2000
-              })
-        })
-   }
+    const handCLickServiceInsertStore =() =>{
+            postInserStorePorduct({ID:id,Cantidad:cantidad,Nombre_Recepcion:jwt.result.name,Fecha:now}).then(index => {
+                handEffect()
+                setCantidad(0)
+                Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    title: '<p>Exitoso</p>',
+                    showConfirmButton: false,
+                    timer: 2000
+                })
+            }).catch(e =>{
+                Swal.fire({
+                    position: 'center',
+                    icon: 'error',
+                    title: '<p>error al agregar</p>',
+                    showConfirmButton: false,
+                    timer: 2000
+                })
+            })
+    }
+
+
+
+    console.log(state)
 
    
     return (
@@ -55,8 +62,12 @@ const DetailStoreById  =() =>{
                         <th>Cantidad</th>
                         <th>Precio</th>
                         <th>Nombre Recepcion</th>
+                        <th>Fecha</th>
                     </tr>
                     {state?.map(index =>{
+
+                    const fecharegister= moment(index.Fecha).format("YYYY/MM/DD");
+
                         return (
                             <tr>
                                 <td>{index.Nombre_categoria}</td>
@@ -64,6 +75,7 @@ const DetailStoreById  =() =>{
                                 <td>{index.Cantidad_total}</td>
                                 <td>{index.Precio}</td>
                                 <td>{index.Nombre_Recepcion}</td>
+                                <td>{fecharegister}</td>
                             </tr>)})}
                 </table>
             </tbody>
