@@ -7,6 +7,7 @@ import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 import { config } from "../../../config";
 import PostUpdateStoreProduct from "../../../service/PostUpdateStoreProduct";
 import Swal from "sweetalert2";
+import { IoAlertCircle } from "react-icons/io5";
 
 
 const DetailStoreUpdate =() =>{
@@ -81,23 +82,54 @@ const DetailStoreUpdate =() =>{
                     </tr>
                     
                     {produ?.slice(0, -1)?.map(index =>{
+                    
+                       if(index.valid ==1){
                         return (
-                            <tr>
-                                <td><s>{index.categoria}</s></td>
-                                <td><s>{index.Nombre}</s> </td>
-                                <td><s>{index.Cantidad_total}</s></td>
-                                <td><s>{index.Price}</s></td>
-                                <td><s>{index.name}</s></td>
-                    </tr>)})}
+                            <tr className="bg-red-50 border-l-4 border-red-400" >
+                                <td className="bg-red-50 border-l-4 border-red-400" ><s>{index.categoria}</s></td>
+                                <td className="bg-red-50 border-l-4 border-red-400" ><s>{index.Nombre}</s> </td>
+                                <td className="bg-red-50 border-l-4 border-red-400" ><s>{index.Cantidad_total}</s></td>
+                                <td className="bg-red-50 border-l-4 border-red-400"><s>{index.Price}</s></td>
+                                <td className="bg-red-50 border-l-4 border-red-400"><s>{index.name}</s></td>
+                                <td className="bg-red-50 border-l-4 border-red-400" > <IoAlertCircle fontSize={35} color="red" /></td>
+                            </tr>
+                        )}else{
+                            return (
+                                <tr>
+                                    <td><s>{index.categoria}</s></td>
+                                    <td><s>{index.Nombre}</s> </td>
+                                    <td><s>{index.Cantidad_total}</s></td>
+                                    <td><s>{index.Price}</s></td>
+                                    <td><s>{index.name}</s></td>
+                                    
+                                </tr>
+                            )
+                        }
+                })}
                     {produ?.slice(-1)?.map(index =>{
+                        
+                       if(index.valid ==1){
                         return (
-                            <tr>
-                                <td>{index.categoria}</td>
-                                <td>{index.Nombre} </td>
-                                <td>{index.Cantidad_total}</td>
-                                <td>{index.Price}</td>
-                                <td>{index.name}</td>
-                    </tr>)})}
+                            <tr className="bg-red-50 border-l-4 border-red-400" >
+                                <td className="bg-red-50 border-l-4 border-red-400" >{index.categoria}</td>
+                                <td className="bg-red-50 border-l-4 border-red-400" >{index.Nombre}</td>
+                                <td className="bg-red-50 border-l-4 border-red-400" >{index.Cantidad_total}</td>
+                                <td className="bg-red-50 border-l-4 border-red-400">{index.Price}</td>
+                                <td className="bg-red-50 border-l-4 border-red-400">{index.name}</td>
+                                <td className="bg-red-50 border-l-4 border-red-400" > <IoAlertCircle fontSize={35} color="red" /></td>
+                            </tr>
+                        )}else{
+                            return (
+                                <tr>
+                                    <td>{index.categoria}</td>
+                                    <td>{index.Nombre} </td>
+                                    <td>{index.Cantidad_total}</td>
+                                    <td>{index.Price}</td>
+                                    <td>{index.name}</td>
+                                    
+                                </tr>
+                            )
+                        }})}
                 </table>
             </tbody>
 
