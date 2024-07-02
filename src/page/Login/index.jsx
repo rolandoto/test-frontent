@@ -1,6 +1,6 @@
 import React, {useState } from 'react'
 import UseUsers from '../../hooks/UseUser'
-import logo from '../../image/logo.jpeg'
+import logo from '../../image/logo512.png'
 import {useHistory} from 'react-router-dom'
 import Preloading from '../../component/Preloading'
 import UseListMotels from '../../hooks/UseListMotels'
@@ -19,7 +19,6 @@ const Login =() =>{
     const [raiting,setRaiting]= useState('')
     const { Img,loading} = Preloading({isLogin})
     
-  
     const handRaiting =(e)=>{
         setRaiting(e.target.value)
     }
