@@ -322,7 +322,7 @@ const InformeAuditoria =() =>{
                        <td className="width-informe" >{index.Habitacion} </td>
                        <td className="width-informe" >{fecha}</td>
                        <td className="width-informe" >{index.Nombre}</td>
-                       <td className="width-informe" >{find.nombre}</td>
+                       <td className="width-informe" >{find?.nombre}</td>
                        <td className="width-informe" >{index.Num_documento}</td>
                        <td className="width-informe" >{index.Nombre_Person} {index.Apellido}</td>
                        <td className="width-informe" >{hospedados}</td>
@@ -465,11 +465,8 @@ const InformeAuditoria =() =>{
            <Button disabled={loading} color={"success"} className="button-informe-cosultar-auditoria" onClick={fetchData}>Consultar</Button>
            <button className="button-informe-imprimir-auditoria" onClick={handClikcDescargar} >Imprimir</button>
        </div>
-     
-      
         {loading  ?< LoadingSkeleton  /> :  FillContent() }   
-          
-   {loadingInforme &&  <DescargarInforme auditoria={auditoria} setLoadingInforme={setLoadingInforme}  totalPriceInforme={totalPriceInforme} />   }
+        {loadingInforme &&  <DescargarInforme auditoria={auditoria} setLoadingInforme={setLoadingInforme}  totalPriceInforme={totalPriceInforme} />   }
  
    </ContainerGlobal>
     )
