@@ -25,6 +25,7 @@ import { OccupationSlice } from '../reducers/OccupationPorcentajeReducers'
 import { UserUpdateRolesSlice } from '../reducers/UserUpdateRolesReducers'
 import { InformeDashboardSlice } from '../reducers/InformeDashboardReducers'
 import { ApiCloudbedsReducersSlice } from '../reducers/ApiCloudbedsReducers'
+import { apiInformeAuditoriaSlice } from '../reducers/ApiInformeAuditoriaReducers'
 
 
 
@@ -70,7 +71,8 @@ const store = configureStore ({
         OccupationPorcentajeSlice:OccupationSlice.reducer,
         UserUpdateRolesSlice:UserUpdateRolesSlice.reducer,
         InformeDashboardSlice:InformeDashboardSlice.reducer,
-        ApiCloudbedsReducersSlice:ApiCloudbedsReducersSlice.reducer
+        nformeDashboardSlice:InformeDashboardSlice.reducer,
+        apiInformeAuditoriaSlice:apiInformeAuditoriaSlice.reducer
     },
     devTools:true,
     middleware: [persistanceLocalStorageMiddleware],

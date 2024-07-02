@@ -16,36 +16,117 @@ import "moment/locale/es";
 import { config } from "../../config"
 import ButtonBack from "../../component/ButtonBack"
 import ButtonHome from "../../component/ButtonHome"
+import useReservationActions from "../../action/useInformeAuditoriaAction"
+import { useAppSelector } from "../../hooks/redux"
+import ContentLoader from "react-content-loader"
+import { Button } from "@nextui-org/react"
 
+const LoadingSkeleton =(props) =>{
+    return (      <ContentLoader height={1000} width={700} >
+        <circle cx="25" cy="50" r="25" />
+        <circle cx="25" cy="150" r="25" />
+        <circle cx="25" cy="250" r="25" />
+        <circle cx="25" cy="330" r="25" />
+      
+       
+        <rect x="60" y="30" rx="5" ry="5" width="220" height="15" />
+        <rect x="60" y="50" rx="5" ry="5" width="70" height="15" />
+        <rect x="140" y="50" rx="5" ry="5" width="90" height="15" />
+        <rect x="240" y="50" rx="5" ry="5" width="70" height="15" />
+        <rect x="320" y="50" rx="5" ry="5" width="60" height="15" />
+        <rect x="390" y="50" rx="5" ry="5" width="50" height="15" />
+        <rect x="450" y="50" rx="5" ry="5" width="70" height="15" />
+        <rect x="60" y="70" rx="5" ry="5" width="60" height="15" />
+        <rect x="130" y="70" rx="5" ry="5" width="80" height="15" />
+        <rect x="220" y="70" rx="5" ry="5" width="90" height="15" />
+        <rect x="320" y="70" rx="5" ry="5" width="100" height="15" />
+        <rect x="380" y="70" rx="5" ry="5" width="50" height="15" />
+        <rect x="440" y="70" rx="5" ry="5" width="60" height="15" />
+  
+        <rect x="60" y="130" rx="5" ry="5" width="220" height="15" />
+        <rect x="60" y="150" rx="5" ry="5" width="70" height="15" />
+        <rect x="140" y="150" rx="5" ry="5" width="90" height="15" />
+        <rect x="240" y="150" rx="5" ry="5" width="70" height="15" />
+        <rect x="320" y="150" rx="5" ry="5" width="60" height="15" />
+        <rect x="390" y="150" rx="5" ry="5" width="50" height="15" />
+        <rect x="450" y="150" rx="5" ry="5" width="70" height="15" />
+        <rect x="60" y="170" rx="5" ry="5" width="60" height="15" />
+        <rect x="130" y="170" rx="5" ry="5" width="80" height="15" />
+        <rect x="220" y="170" rx="5" ry="5" width="90" height="15" />
+        <rect x="320" y="170" rx="5" ry="5" width="100" height="15" />
+        <rect x="380" y="170" rx="5" ry="5" width="50" height="15" />
+        <rect x="440" y="170" rx="5" ry="5" width="60" height="15" />
+  
+        <rect x="60" y="230" rx="5" ry="5" width="220" height="15" />
+        <rect x="60" y="250" rx="5" ry="5" width="70" height="15" />
+        <rect x="140" y="250" rx="5" ry="5" width="90" height="15" />
+        <rect x="240" y="250" rx="5" ry="5" width="70" height="15" />
+        <rect x="320" y="250" rx="5" ry="5" width="60" height="15" />
+        <rect x="390" y="250" rx="5" ry="5" width="50" height="15" />
+        <rect x="450" y="250" rx="5" ry="5" width="70" height="15" />
+        <rect x="60" y="270" rx="5" ry="5" width="60" height="15" />
+        <rect x="130" y="270" rx="5" ry="5" width="80" height="15" />
+        <rect x="220" y="270" rx="5" ry="5" width="90" height="15" />
+        <rect x="320" y="270" rx="5" ry="5" width="100" height="15" />
+        <rect x="380" y="270" rx="5" ry="5" width="50" height="15" />
+        <rect x="440" y="270" rx="5" ry="5" width="60" height="15" />
+  
+        <rect x="60" y="310" rx="5" ry="5" width="220" height="15" />
+        <rect x="60" y="330" rx="5" ry="5" width="70" height="15" />
+        <rect x="140" y="330" rx="5" ry="5" width="90" height="15" />
+        <rect x="240" y="330" rx="5" ry="5" width="70" height="15" />
+        <rect x="320" y="330" rx="5" ry="5" width="60" height="15" />
+        <rect x="390" y="330" rx="5" ry="5" width="50" height="15" />
+        <rect x="450" y="330" rx="5" ry="5" width="70" height="15" />
+        <rect x="60" y="350" rx="5" ry="5" width="60" height="15" />
+        <rect x="130" y="350" rx="5" ry="5" width="80" height="15" />
+        <rect x="220" y="350" rx="5" ry="5" width="90" height="15" />
+        <rect x="320" y="350" rx="5" ry="5" width="100" height="15" />
+        <rect x="380" y="350" rx="5" ry="5" width="50" height="15" />
+        <rect x="440" y="350" rx="5" ry="5" width="60" height="15" />
+  
+      
+       
+      </ContentLoader>)
+}
 
 const InformeAuditoria =() =>{
-
+    const {getPostInformeAuditoria} = useReservationActions()
     const [auditoria,setAuditoria] =useState()
     const [ocasional,setOcasional] =useState()
     const [carritoOcasinal,setcarritoOcasional] =useState()
     const [store,setStore] =useState()
     const [storeOne,setStoreOne] =useState()
     const [LookinforFecha,setLokinforFecha] =useState()
-    const [loading,setLoading] =useState({loading:false,error:false})
     const [loadingInforme,setLoadingInforme] =useState(false)
     const {jwt} = useContext(AutoProvider)
     const [tipoDocumento,setTipoDocumento] =useState()
+
+    const {loading,error,informe} = useAppSelector((state) => state.apiInformeAuditoriaSlice)
+
+    const fetchData =async() =>{
+        try {
+           await  getPostInformeAuditoria({fecha:LookinforFecha})
+        } catch (error) {
+            console.error("Error fetching data:", error);
+        }
+    }
 
     const hadChangeFecha =(e) =>{
         setLokinforFecha(e.target.value)
     }
 
     const hanLookingFor =() =>{
-        setLoading({loading:true})
+      
         ServiceAuditoria({id:jwt.result.id_hotel,fecha:LookinforFecha}).then(index =>{
             setAuditoria(index.result)
             setStore(index.queryTwo)
             setOcasional(index.groupedOcasional)
             setStoreOne(index.queryOne)
             setcarritoOcasional(index.queryThree)
-            setLoading({loading:true})
+       
         }).catch(e =>{
-            setLoading({loading:false})
+           
             setAuditoria(null)
         })
     }
@@ -61,23 +142,20 @@ const InformeAuditoria =() =>{
         handlePrint()
     }
 
-
-
     // <button className="button-informe-descargar">Descargar Informe</button>
 
     const {filterAuditoriaRoom,setCategory} =  UseFilterAuditoria()
 
-    const  audiFiltrar =  filterAuditoriaRoom(auditoria)
+    const  audiFiltrar =  filterAuditoriaRoom(informe?.result)
 
-    const  audOcasional=  filterAuditoriaRoom(ocasional)
+    const  audOcasional=  filterAuditoriaRoom(informe?.groupedOcasional)
 
-    const storeFilter = filterAuditoriaRoom(store)
+    const storeFilter = filterAuditoriaRoom(informe?.queryTwo)
 
-    const storeOneFiltrar =  filterAuditoriaRoom(storeOne)
+    const storeOneFiltrar =  filterAuditoriaRoom(informe?.queryOne)
 
-    const CarritoOcasional =  filterAuditoriaRoom(carritoOcasinal)
+    const CarritoOcasional =  filterAuditoriaRoom(informe?.queryThree)
 
-   
 
     const handChangeCategory =(event) =>{
         setCategory(prevent  =>({
@@ -89,6 +167,7 @@ const InformeAuditoria =() =>{
     const priceInformeStore = storeFilter?.reduce((acum,current) => {
         return acum  +   parseInt(current.total) 
     },0)
+
 
     const priceInformeStoreOne = storeOneFiltrar?.reduce((acum,current) => {
         return acum  +   parseInt(current.total) 
@@ -103,6 +182,7 @@ const InformeAuditoria =() =>{
     const priceInformeCarritoOcasinal = CarritoOcasional?.reduce((acum,current) => {
         return acum  +   parseInt(current.total) 
     },0)
+
 
     
     let count =0
@@ -172,40 +252,27 @@ const InformeAuditoria =() =>{
         },
       ]
 
-      useEffect(() =>{
-        fetch(`${config.serverRoute}/api/resecion/getTipeDocument`)
-      .then(index =>index.json())
-      .then(data => setTipoDocumento(data?.query))
-  },[])
+        useEffect(() =>{
+            fetch(`${config.serverRoute}/api/resecion/getTipeDocument`)
+        .then(index =>index.json())
+        .then(data => setTipoDocumento(data?.query))
+    },[])
       
     const totalPriceInforme = count +priceInformeStore+priceInformeStoreOne+priceInformeOcasional+priceInformeCarritoOcasinal
 
     const totalDefinisInforme = totalPriceInforme.toLocaleString();
 
-    console.log(audiFiltrar)
 
-    return (
-        <ContainerGlobal>
-        <LoadingDetail  
-                   loading={true}
-                   titleLoading={"Informe  auditoria"}  />
-        <ButtonBack/>
-        <ButtonHome/>
-       <div style={{display:"flex",alignItems:"center"}} >
-           <input type="date" className="input-selecto-auditoria-fechas"  onChange={hadChangeFecha} value={LookinforFecha}   />
-           <select className="input-selecto-dasboard-n1-reservaction"   onChange={handChangeCategory} >
-               <option value="0">Filtrar tipo forma pago</option>
-               {tipo_forma_pago.map(index =>(
-                   <option value={index.id} key={index.id} >
-                           {index.name}
-                   </option>
-               ))}
-           </select>
-           <button className="button-informe-cosultar-auditoria" onClick={hanLookingFor}>Consultar</button>
-           <button className="button-informe-imprimir-auditoria" onClick={handClikcDescargar} >Imprimir</button>
-       </div>
-      
-       <table className="de table"  ref={componentRef} >
+    const FillContent =() =>{
+        if(error){
+            return <p>error</p>
+        }
+        if(loading){
+            return <p>cargando...</p>
+        }
+
+        return  (<>
+         <table className="de table"  ref={componentRef} >
            <tbody>
                <tr>    
                    <th>Codigo reserva</th>
@@ -225,8 +292,6 @@ const InformeAuditoria =() =>{
                    <th>Total</th>
                </tr>
                {audiFiltrar?.map(index =>{
-
-                   
                         const find  = tipoDocumento?.find(item=> parseInt(item?.ID) == index?.ID_Tipo_documento )
                       
                        const fecha =  moment(index.Fecha_pago).utc().format('YYYY/MM/DD')
@@ -361,7 +426,7 @@ const InformeAuditoria =() =>{
                        <td className="width-informe" >{index.Cantidad}  {index.Nombre_producto} </td>
                        <td className="width-informe" >{fecha}</td>
                        <td className="width-informe" >{index.Tipo_pago}</td>
-                       <td className="width-informe" >{find.nombre}</td>
+                       <td className="width-informe" >{find?.nombre}</td>
                        <td className="width-informe" >{index.Num_documento}</td>
                        <td className="width-informe" >{index.Nombre_Person} {index.Apellido}</td>
                        <td className="width-informe" >00000</td>
@@ -374,9 +439,35 @@ const InformeAuditoria =() =>{
                        <th className="width-informe" >Total ${totalDefinisInforme}</th>
                       
                    </div>       
-           </tbody>   
-       </table>
-               
+                </tbody>   
+            </table>
+            </>
+        )
+    }
+
+    return (
+        <ContainerGlobal>
+        <LoadingDetail  
+                   loading={true}
+                   titleLoading={"Informe  auditoria"}  />
+        <ButtonBack/>
+        <ButtonHome/>
+       <div style={{display:"flex",alignItems:"center"}} >
+           <input type="date" className="input-selecto-auditoria-fechas"  onChange={hadChangeFecha} value={LookinforFecha}   />
+           <select className="input-selecto-dasboard-n1-reservaction"   onChange={handChangeCategory} >
+               <option value="0">Filtrar tipo forma pago</option>
+               {tipo_forma_pago.map(index =>(
+                   <option value={index.id} key={index.id} >
+                           {index.name}
+                   </option>
+               ))}
+           </select>
+           <Button disabled={loading} color={"success"} className="button-informe-cosultar-auditoria" onClick={fetchData}>Consultar</Button>
+           <button className="button-informe-imprimir-auditoria" onClick={handClikcDescargar} >Imprimir</button>
+       </div>
+     
+      
+        {loading  ?< LoadingSkeleton  /> :  FillContent() }   
           
    {loadingInforme &&  <DescargarInforme auditoria={auditoria} setLoadingInforme={setLoadingInforme}  totalPriceInforme={totalPriceInforme} />   }
  
