@@ -56,12 +56,6 @@ import useUserUpdateRolesActions from "../../action/useUserUpdateRolesActions";
 import useSocket from "../../hooks/UseSocket";
 import IconAviableBill from "../../component/IconAviableBill";
 
-
-
-
-//https://railway.grupo-hoteles.com
-//const socket = io.connect(`${SocketRoute.serverRoute}`);
-
 const Dashboard = () => {
 
 	const currentDate = new moment();
@@ -316,7 +310,7 @@ const Dashboard = () => {
 
 	 const fetchData =async() =>{
 		try {
-			await getPostByReservation({type:false})
+			await getPostByReservation({type:isChecked})
 			await getRoomByReservation()
 			await getRoomFilterRoom()
 			} catch (error) {
@@ -575,7 +569,7 @@ const Dashboard = () => {
 	};
 
 	const [selection, setSelection] = useState({ start: null, end: null, groupId: null });
-  	const [items, setItems] = useState([]);
+  	/*const [items, setItems] = useState([]);
 
 	const handleCanvasClick = (groupId, time, e) => {
 		const start = moment(time);
@@ -633,7 +627,7 @@ const Dashboard = () => {
 		  setSelection({ start: start, end: null, groupId: groupId });
 		}
 	  };
-	
+	*/
 
 	return (
 		<>		
@@ -808,16 +802,14 @@ const Dashboard = () => {
 				visibleTimeEnd={timeEnd}
 				visibleTimeStart={timeStart}
 				onItemMove={handleItemMove}
-				onCanvasClick={handleCanvasClick}	
+				//onCanvasClick={handleCanvasClick}	
 				resizeDetector={containerResizeDetector}								
 				itemHeightRatio={0.9}                                                             
 				lineHeight={28.4}
 				sidebarWidth={225}
-				
 				onItemClick={onItemClick}
 				showCursorLine={true}
 				itemRenderer={ItemRenderer}
-			
 				now={nowOne}
 				canResize={"both"}
 				itemStyle={{ background: "black" }}
@@ -924,14 +916,10 @@ const Dashboard = () => {
 						headerData={{ isMonth: false, currentDate }}
 						
 						intervalRenderer={intervalRendererdayNum}
-						/>
-					
-							
+						/>	
 				</TimelineHeaders>
 				<TimelineMarkers>
 				<CursorMarker/>
-  
-						
 			</TimelineMarkers>
 			</Timeline>
 			
