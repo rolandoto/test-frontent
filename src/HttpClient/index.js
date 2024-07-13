@@ -1222,10 +1222,52 @@ const PostRoomOcasionalMonth  = async ({fecha,id}) => {
   }
 };
 
+const PostClientSigo = async ({body,token}) => {
+  try {
+    const resp = await fetch(`${config.serverRoute}/api/hotels/sigo/PostClientSigo`, {
+      method: "POST",
+      headers: {
+        'Content-type': 'application/json'
+      },
+      body: JSON.stringify({body,token})
+    });
+
+    if (!resp.ok) {
+      throw new Error('Response is not ok');
+    }
+
+    const data = await resp.json();
+    return data;
+  } catch (error) {
+    console.error('Error in PostInformeInfomeMetricas:', error);
+    throw error; // Puedes lanzar el error nuevamente o manejarlo de otra manera según tus necesidades
+  }
+};
+
 
 const PostProductRoomDetail  = async ({id}) => {
   try {
     const resp = await fetch(`${config.serverRoute}/api/resecion/getcartreservaction/${id}`, {
+      method: "GET",
+      headers: {
+        'Content-type': 'application/json'
+      },
+    });
+    if (!resp.ok) {
+      throw new Error('Response is not ok');
+    }
+    const data = await resp.json();
+    return data.query;
+  } catch (error) {
+    console.error('Error in PostInformeInfomeMetricas:', error);
+    throw error; // Puedes lanzar el error nuevamente o manejarlo de otra manera según tus necesidades
+  }
+};
+
+
+const GetCitySigo  = async () => {
+  try {
+    const resp = await fetch(`${config.serverRoute}/api/hotels/sigo/CitySiigo`, {
       method: "GET",
       headers: {
         'Content-type': 'application/json'
@@ -1305,5 +1347,7 @@ export default {
   GetHupedesBraskfast,
   PostRoomOcasionalMonth,
   GetPorductoSigoDashboard,
-  PostProductRoomDetail
+  PostProductRoomDetail,
+  GetCitySigo,
+  PostClientSigo
 };

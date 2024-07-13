@@ -26,7 +26,7 @@ import { UserUpdateRolesSlice } from '../reducers/UserUpdateRolesReducers'
 import { InformeDashboardSlice } from '../reducers/InformeDashboardReducers'
 import { ApiCloudbedsReducersSlice } from '../reducers/ApiCloudbedsReducers'
 import { apiInformeAuditoriaSlice } from '../reducers/ApiInformeAuditoriaReducers'
-
+import { CitySigoSlice } from '../reducers/CitySigoReducers'
 
 
 const persistanceLocalStorageMiddleware = (store) => (next) => (action) => {
@@ -71,8 +71,10 @@ const store = configureStore ({
         OccupationPorcentajeSlice:OccupationSlice.reducer,
         UserUpdateRolesSlice:UserUpdateRolesSlice.reducer,
         InformeDashboardSlice:InformeDashboardSlice.reducer,
-        nformeDashboardSlice:InformeDashboardSlice.reducer,
-        apiInformeAuditoriaSlice:apiInformeAuditoriaSlice.reducer
+        InformeDashboardSlice:InformeDashboardSlice.reducer,
+        apiInformeAuditoriaSlice:apiInformeAuditoriaSlice.reducer,
+        ApiCloudbedsReducersSlice:ApiCloudbedsReducersSlice.reducer,
+        CitySigoSlice:CitySigoSlice.reducer
     },
     devTools:true,
     middleware: [persistanceLocalStorageMiddleware],

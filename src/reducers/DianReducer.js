@@ -7,6 +7,7 @@ export  const initialState = {
     ErrordashboardSigo:false,
     ErrorProducts:false,
     ErrorProductMinibar:false,
+    ErrorRegisterClient:false,
 
     Loanding:false,
     loadingInvoinces:false,
@@ -14,6 +15,7 @@ export  const initialState = {
     LoadingdashboardSigo:false,
     LoadingProducts:false,
     LoadingProductsMinibar:false,
+    loadingRegisterClient:false,
 
     Invoinces:[],
     seller:[],
@@ -24,6 +26,7 @@ export  const initialState = {
     Taxes:[],
     dashboardSigo:[],
     ProductsMinibar:[],
+    RegisterClient:false,
     
    
     ListClient:[],
@@ -133,6 +136,20 @@ export const DianSlice = createSlice({
             state.LoadingProducts = false
             state.ErrorProducts= true 
         },
+    
+        //register client
+        setRegisterClient:(state,action) =>{
+            state.RegisterClient = action.payload
+            state.loadingRegisterClient = false
+        },
+        RegisterClientLoading:(state,action) =>{
+            state.loadingRegisterClient = true
+            state.ErrorRegisterClient = null
+        },
+        RegisterClientError:(state,action) =>{
+            state.loadingRegisterClient = false
+            state.ErrorRegisterClient= true 
+        },
         
 
 
@@ -205,7 +222,10 @@ export const {loading,
                 setPorductsError,
                 setProductMinibar,
                 setLoadingProductMinibar,
-                setErrorProductMinibar
+                setErrorProductMinibar,
+                setRegisterClient,
+                RegisterClientLoading,
+                RegisterClientError
             } = DianSlice.actions
 
 export default DianSlice.reducer

@@ -26,7 +26,10 @@ import { setClient,
         setProductsLoading,
         setLoadingProductMinibar,
         setErrorProductMinibar,
-        setProductMinibar
+        setProductMinibar,
+        RegisterClientLoading,
+        RegisterClientError,
+        setRegisterClient
         } from "../reducers/DianReducer"
 import { toast } from "react-hot-toast";
 import { useCallback } from "react";
@@ -244,6 +247,25 @@ const UseDianActions =() =>{
             dispatch(setErrorProductMinibar("no found Service "))
         }
     }
+
+
+    const PostCLienteRegister=async({body,token}) =>{
+        dispatch(RegisterClientLoading())
+        try {
+            const response = await HttpClient.PostClientSigo({body,token})
+            console.log(response)
+            if(response){
+                dispatch(setRegisterClient(response))
+                toast.success("envio")
+            }else{
+                toast.error("envio el registrar la empresa")
+                dispatch(RegisterClientError("no found"))
+            }
+        } catch (error) {
+            toast.error("envio service")
+            dispatch(RegisterClientError("no found Service "))
+        }
+    }
    
 
     return {GetCLientDian,
@@ -257,7 +279,8 @@ const UseDianActions =() =>{
             GetInvonceByIdReservation,
             GetTaxesDian,
             GetProductDashboard,
-            GetProductMinibar
+            GetProductMinibar,
+            PostCLienteRegister
            }
 }
 
