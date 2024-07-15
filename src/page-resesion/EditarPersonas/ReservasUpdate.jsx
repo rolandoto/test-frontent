@@ -170,12 +170,13 @@ const ReservasUpdate =(props) =>{
 
     const [searchTerm, setSearchTerm] = useState(resultDasboard?.City);
     const debouncedSearchTerm = useDebounce(searchTerm, 300);
+
     const filteredCities = useMemo(() => {
         return City.filter(city =>
-            city.City.toLowerCase().includes(debouncedSearchTerm?.toLowerCase() ?? '')
+            city.City.toLowerCase().includes(debouncedSearchTerm?.toLowerCase() ?? '') ||
+            city.Country.toLowerCase().includes(debouncedSearchTerm?.toLowerCase() ?? '')
         );
     }, [debouncedSearchTerm, City]);
-
 
     const handleCityClick = useCallback((city) => {
         setSearchTerm(city.City);
@@ -220,8 +221,6 @@ const ReservasUpdate =(props) =>{
     const cedula = resultDasboard.Num_documento;
     const dv = calcularDV(cedula);
 
-    console.log(dv)
-
     const validDefinidName = person =="Company" ?  
     [ [
         `${resultDasboard.Nombre,resultDasboard.Apellido}`
@@ -231,7 +230,6 @@ const ReservasUpdate =(props) =>{
         resultDasboard.Apellido
     ] 
 
-   
     const body = {
         "type": "Customer",
         "person_type":`${person}`,
