@@ -5,7 +5,6 @@ import { VscSymbolEvent } from "react-icons/vsc";
 import styled from "styled-components";
 import ReactTooltip from "react-tooltip";
 
-
 const Info = styled(ReactTooltip)`
   max-width: 500px;
   padding-top: 9px;
@@ -32,6 +31,25 @@ const   itemRenderer = ({ item, itemContext, getItemProps }) => {
 
     const abono = parseInt(item.abono)
 
+
+    const PointeWebSite = Boolean(item.canal ==3) && (
+        // Botón para enviar facturas electrónicas
+        <span
+                    style={{
+                    position: "absolute",
+                    width: "10px",
+                    height: "10px",
+                    backgroundColor: "#0072f5",
+                    borderRadius: "50%",
+                    border:"solid 0.1px white",
+                    bottom: "-4px", // Ajustar según la posición deseada
+                    right: "-2px", 
+                    top:"1px"
+                    }}
+  ></span> 
+    )
+        
+    
     const PointerSentSigo = Boolean(item.ID_facturacion.trim()) && (
         // Botón para enviar facturas electrónicas
         <span
@@ -57,8 +75,8 @@ const   itemRenderer = ({ item, itemContext, getItemProps }) => {
 
     let color;
 
-
     switch (item.state) {
+   
     case 0:
         if(abono>0){
             color = '#ff9275';
@@ -90,7 +108,6 @@ const   itemRenderer = ({ item, itemContext, getItemProps }) => {
             colorWords = 'white ';
             iconState =<CiBadgeDollar fontSize={20} /> ;
         }
-           
         break;
     case 4:
         color = '#0DC034';
@@ -106,12 +123,38 @@ const   itemRenderer = ({ item, itemContext, getItemProps }) => {
         colorWords = 'white';
         iconState = <BsCheckCircle fontSize={15} />;
         break;
+    case 8:
+        color = '#fff9ad';
+        colorWords = 'white';
+        break;
     default:
         break;
     }
         const backgroundColor = itemContext.selected  ? "black" :color
 
         const key = `${item.id}_${item.id}_schedule`;
+
+        const renderHover =  item.state !==8  && item.state !==2 && (<Info  	place="top" 
+        variant="info" 
+        id={key}  >
+        <InfoMessage>
+        <div className="go" >
+            <ul >
+            <li className="color-white " >Numero Habitacion :{item.Num_Room}</li>
+            <li className="color-white " >Codigo reserva :{item.Codigo_Reserva}</li>
+            <li className="color-white " >Nacionalidad :{item.nacionalidad}</li>
+            <li className="color-white " >Huesped: {item.full_name}</li>
+            <li className="color-white " >Check in :{item.Fecha_inicio}</li>
+            <li className="color-white " >Check out :{item.Fecha_final}</li>
+            <li className="color-white " >Noches :{item.Noches}</li>
+            <li className="color-white " >Adultos :{item.Adultos}</li>
+            <li className="color-white " >Niños :{item.Ninos}</li>
+            <li className="color-white " >Total hospedaje :${total_habitacion.toLocaleString()}</li>
+            <li className="color-white " >Abono :${abono.toLocaleString()}</li>
+            </ul>
+        </div>
+        </InfoMessage>
+        </Info>)
 
         return (
             
@@ -131,18 +174,17 @@ const   itemRenderer = ({ item, itemContext, getItemProps }) => {
                         position: "relative",
                         visibility: "visible",
                         opacity: "100",
-                        boxShadow: "0 2px 4px rgba(0, 0, 0, 0.4)",
+                        
+                        boxShadow:  item.state !==8 && "0 2px 4px rgba(0, 0, 0, 0.4)",
                         transition: "background-color 0.8s ease",
                     },	  
                     })}
                 >	
-                    <div
-           
-            ></div>
+                    
 
 
          {PointerSentSigo}
-             
+             {PointeWebSite}
     
             <div
             style={{
@@ -162,29 +204,8 @@ const   itemRenderer = ({ item, itemContext, getItemProps }) => {
                     <span className="margin-icon-state" >{iconState}</span>
                     <span className="text-words" >{title}</span>
             </div>
-               
                 <div>
-                        <Info  	place="top" 
-                                variant="info" 
-                                id={key}  >
-                            <InfoMessage>
-                                <div className="go" >
-                                    <ul >
-                                    <li className="color-white " >Numero Habitacion :{item.Num_Room}</li>
-                                    <li className="color-white " >Codigo reserva :{item.Codigo_Reserva}</li>
-                                    <li className="color-white " >Nacionalidad :{item.nacionalidad}</li>
-                                    <li className="color-white " >Huesped: {item.full_name}</li>
-                                    <li className="color-white " >Check in :{item.Fecha_inicio}</li>
-                                    <li className="color-white " >Check out :{item.Fecha_final}</li>
-                                    <li className="color-white " >Noches :{item.Noches}</li>
-                                    <li className="color-white " >Adultos :{item.Adultos}</li>
-                                    <li className="color-white " >Niños :{item.Ninos}</li>
-                                    <li className="color-white " >Total hospedaje :${total_habitacion.toLocaleString()}</li>
-                                    <li className="color-white " >Abono :${abono.toLocaleString()}</li>
-                                    </ul>
-                                </div>
-                            </InfoMessage>
-                        </Info>
+                    {renderHover}    
                 </div>
             </div>
     </div>

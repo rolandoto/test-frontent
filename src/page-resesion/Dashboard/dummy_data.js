@@ -14,6 +14,7 @@ const fromRervas =(event)  =>{
       const last_name = index.Last_name
       const document = index.Document
       const code = index.Codigo_reserva
+      const canal = index.ID_Canal
 
         return {
           Num_Room:index.Num_Room,
@@ -41,7 +42,8 @@ const fromRervas =(event)  =>{
           codigo:index.codigo,
           nacionalidad:index.nacionalidad,
           pagos_dia:index.valor_dia_habitacion,
-          ID_facturacion:index.ID_facturacion
+          ID_facturacion:index.ID_facturacion,
+          canal
         }
       })
     return to
