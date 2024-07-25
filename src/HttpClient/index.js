@@ -1284,6 +1284,27 @@ const GetCitySigo  = async () => {
   }
 };
 
+
+
+const getDetallehistory= async ({id}) => {
+  try {
+      const resp = await fetch(`${config.serverRoute}/api/resecion/HandDetalleHistory/${id}`, {
+        method: "GET",
+        headers: {
+          'Content-type': 'application/json'
+        }
+      });
+      if (!resp.ok) {
+        throw new Error('Response is not ok');
+      }
+      const {userQuery} = await resp.json();
+      return userQuery;
+    } catch (error) {
+     
+      throw error; // Puedes lanzar el error nuevamente o manejarlo de otra manera según tus necesidades
+    }
+};
+
 export default {
   get,
   post,
@@ -1349,5 +1370,6 @@ export default {
   GetPorductoSigoDashboard,
   PostProductRoomDetail,
   GetCitySigo,
-  PostClientSigo
+  PostClientSigo,
+  getDetallehistory
 };

@@ -7,7 +7,13 @@ const DEFAULT_STATE = {
   loading: false,
   error: null,
   Room:[],
-  ReservationContabilidad:[]
+  ReservationContabilidad:[],
+
+
+  Historyreservation:[],
+  loadingHistoryreservation:false,
+  errorHistoryreservation:false
+
 };
 
 const initialState = (() => {
@@ -26,7 +32,10 @@ export const ReservationSlice = createSlice({
     setReservation: (state, action) => {
       state.Items = action.payload;
       state.loading = true;
-     
+    },
+    setAddReservation: (state, action) => {
+      state.Items.push(action.payload);
+      state.loading = true;
     },
     setReservationFilter: (state, action) => {
       state.filterRoom = action.payload;
@@ -52,10 +61,24 @@ export const ReservationSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     },
+
+    setloadingHistoryreservation:(state,action)=>{
+      state.errorHistoryreservation = false;
+      state.loadingHistoryreservation = true;
+    },
+    setHistoryreservation:(state,action)=>{
+      state.Historyreservation = action.payload
+      state.loadingHistoryreservation = false;
+    },
+    setErrorHistoryReservation: (state, action) => {
+      state.loadingHistoryreservation = false;
+      state.errorHistoryreservation = false;
+    },
+
   },
 });
 
-export const { loading, setReservation, setReservationFilter,setRoom, setError } =
+export const { loading, setReservation, setReservationFilter,setRoom, setError ,setAddReservation} =
   ReservationSlice.actions;
 
 export default ReservationSlice.reducer;

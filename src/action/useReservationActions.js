@@ -1,7 +1,7 @@
 import { useContext } from "react"
 import HttpClient from "../HttpClient"
 import { useAppDispatch, useAppSelector } from "../hooks/redux"
-import  {ReservationSlice}  from "../reducers/ReservationReducers"
+import  {ReservationSlice, setAddReservation}  from "../reducers/ReservationReducers"
 import  AutoProvider  from "../privateRoute/AutoProvider"
 import moment from "moment"
 import { ServiceReservas } from "../page-resesion/Dashboard/dummy_data"
@@ -15,8 +15,7 @@ const useReservationActions  =() =>{
 
 
     const getPostByReservation =  async({type}) =>{
-        
-        console.log({"swidjasiojdsad":jwt.result.id_hotel})
+    
         dispatch(ReservationSlice.actions.loading())
         try {
             const postResponse = await  ServiceReservas({id:jwt.result.id_hotel,type})
@@ -38,6 +37,7 @@ const useReservationActions  =() =>{
         }
 
     }
+
 
 
     const getRoomFilterRoom  = async() =>{
@@ -84,6 +84,30 @@ const useReservationActions  =() =>{
         }
     }
 
+
+    const setGetHistoryReservation =async({id}) =>{
+        dispatch(ReservationSlice.actions.setloadingHistoryreservation())
+        try {
+
+            const postInformationReservation= await HttpClient.getDetallehistory({id:id})
+           
+            if(postInformationReservation){
+                dispatch(ReservationSlice.actions.setHistoryreservation(postInformationReservation))
+            }else{
+                dispatch(ReservationSlice.actions.setErrorHistoryReservation("no found"))
+            }
+
+        } catch (error) {
+            dispatch(ReservationSlice.actions.setErrorHistoryReservation("no found"))
+        }
+    }
+
+
+    const SetReservationAdd = async(Item) =>{
+         dispatch(setAddReservation(Item)) 
+    }
+    
+
        
     return  {getPostByReservation,
                 Items,
@@ -91,9 +115,9 @@ const useReservationActions  =() =>{
                 ReservationSlice,
                 getRoomFilterRoom,
                 setUpdateFilterReservation,
-                setPostInformContabilidad
-            
-                        
+                setPostInformContabilidad,
+                SetReservationAdd,
+                setGetHistoryReservation             
     }
 
 }

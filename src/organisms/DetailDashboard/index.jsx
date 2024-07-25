@@ -53,6 +53,7 @@ import { AiOutlineDelete } from "react-icons/ai";
 import { BsFilePdf } from "react-icons/bs";
 import { CiHeart } from "react-icons/ci";
 import IconsUser from "../../component/IconUser";
+import CardHistoryReservationDetail from "../../component/CardHistoryReservationDetail";
 
 // Estilo para el título
 const titleStyle = {
@@ -248,6 +249,7 @@ const DetailDasboard =(props) =>{
       const [espan,setspand] =useState()
       const [espanOne,setspandOne] =useState()
       const [huesped,setHuesped] =useState(false)
+      const [detalle,setDetalle] =useState(false)
       const [consumo,setConsumo] =useState(false)
       const [pago,setPago] =useState(true)
       const [Invoince,setInvoinces] =useState(false)
@@ -317,8 +319,19 @@ const DetailDasboard =(props) =>{
         setStateButton(true)
       }
 
+
+      const handDetalle =() =>{
+        setDetalle(true)
+        setHuesped(false)
+        setConsumo(false)
+        setPago(false)
+        setInvoinces(false)
+        setHistorialReservation(false)
+      }
+
       const handHuesped =() =>{
         setHuesped(true)
+        setDetalle(false)
         setConsumo(false)
         setPago(false)
         setInvoinces(false)
@@ -327,6 +340,7 @@ const DetailDasboard =(props) =>{
 
       const handConsumo=() =>{
         setHuesped(false)
+        setDetalle(false)
         setConsumo(true)
         setPago(false)
         setInvoinces(false)
@@ -336,6 +350,7 @@ const DetailDasboard =(props) =>{
       const handPago =() =>{
         setHuesped(false)
         setConsumo(false)
+        setDetalle(false)
         setPago(true)
         setInvoinces(false)
         setHistorialReservation(false)
@@ -344,6 +359,7 @@ const DetailDasboard =(props) =>{
       const handhistorial=() =>{
         setHuesped(false)
         setConsumo(false)
+        setDetalle(false)
         setPago(false)
         setInvoinces(false)
         setHistorialReservation(true)
@@ -351,6 +367,7 @@ const DetailDasboard =(props) =>{
 
       const handInvoinceDian=() =>{
         setHuesped(false)
+        setDetalle(false)
         setConsumo(false)
         setPago(false)
         setHistorialReservation(false)
@@ -459,6 +476,10 @@ const DetailDasboard =(props) =>{
     const hanClickTikets =() =>{
       history.push(`/breakfast/${id}`)
    }
+
+    const hanClickCoctel =() =>{
+      history.push(`/coctel/${id}`)
+  }
 
     const hanClickFacturasElectronica =() =>{
       history.push(`/Dian/${id}`)
@@ -572,6 +593,7 @@ const DetailDasboard =(props) =>{
        
         }).catch(e =>{
           setErrorAbono(true)
+          alert(e)
           toast.error('Error al guardar abono!')
         })
       }else {
@@ -848,7 +870,6 @@ const numberWithCommas = (event) => {
     return '';
   }
 
-
   // Convertir el valor a una cadena de texto
   const stringValue = event.toString();
   // Eliminar todos los caracteres que no sean dígitos
@@ -888,7 +909,6 @@ const  handleClickEliminar =UseModalText({handlModal:hanDelete,Text:"Estas segur
     
     return (
       <>
-      
       <div className="container-flex-init-global" >
         <ButtonBack />
         <ButtonHome/>
@@ -948,7 +968,6 @@ const  handleClickEliminar =UseModalText({handlModal:hanDelete,Text:"Estas segur
       <span className="desde-detail-three-title-das" >Infantes:</span>    
       <span  className="desde-detail-three-title-das">Mascotas:</span>
       <span className="desde-detail-two-title" > Ciudad:</span>
-
           </div>
             <div className="container-detail-dasboard-in" > 
               <input type="text" 
@@ -1195,6 +1214,18 @@ const  handleClickEliminar =UseModalText({handlModal:hanDelete,Text:"Estas segur
                         <span  className="text-words" >tickets Desayuno</span> 
                 </Button>
               </div>
+
+              <div>
+                <Button
+                  onClick={hanClickCoctel} 
+                        disabled={!findFirma}
+                        className="button-checking-detail-one-das"
+                        color="success" 
+                        size={"xs"}
+                        >
+                        <span  className="text-words" >Coctel</span> 
+                </Button>
+              </div>
             
                   <div>
                         {ButtonValidSigo}
@@ -1253,14 +1284,11 @@ const  handleClickEliminar =UseModalText({handlModal:hanDelete,Text:"Estas segur
             </div> 
           }
 
-          
-      
           <div>
-          <Button
-          className="button-checking-detail-one-das" 
-          color={`${totalPrice <=0 ? "success" : "error" }`} 
-          > <span  className="text-words" >Total a cobro ${totaCobrar.toLocaleString()} </span> </Button>
-            
+            <Button
+            className="button-checking-detail-one-das" 
+            color={`${totalPrice <=0 ? "success" : "error" }`} 
+            > <span  className="text-words" >Total a cobro ${totaCobrar.toLocaleString()} </span> </Button>
           </div>
     </div>
     <div >
@@ -1286,6 +1314,7 @@ const  handleClickEliminar =UseModalText({handlModal:hanDelete,Text:"Estas segur
       <div className="container-detail-dasboard-in in-type-button" > 
               <ul className="flex-contain"  >
                   <li className={`${huesped ? "desde-detail-three-estados-black-one-finish" :"desde-detail-three-estados" } `} onClick={handHuesped} >Huespedes:  <PiUsersLight fontSize={25}  /> {quyery?.length}  </li>
+                  <li className={`${detalle ? "desde-detail-three-estados-black-one-finish" :"desde-detail-three-estados" } `} onClick={handDetalle} >Hisotrial reserva:</li>
                   <li className={`${consumo ? "desde-detail-three-estados-black" :"desde-detail-three-estados" } `} onClick={handConsumo} >Consumos: <PiShoppingBagOpenLight fontSize={25} /> {product?.length >0 ?product?.length : 0  }  </li>
                   <li className={`${pago ? "desde-detail-three-estados-black" :"desde-detail-three-estados" } `}  onClick={handPago} >Pagos: <PiPaypalLogoLight  fontSize={25}   /> {product?.length >0 ?product?.length : 0 }   </li>
                   <li className={`${Invoince ? "desde-detail-three-estados-black" :"desde-detail-three-estados" } `}  onClick={handInvoinceDian}  >Facturas Dian:</li>
@@ -1334,6 +1363,7 @@ const  handleClickEliminar =UseModalText({handlModal:hanDelete,Text:"Estas segur
                           typy_buy={typy_buy}   />}
          {Invoince && <TableInvoinceDian    />}
         {historialReservation && <HistorialDetailReservation />}
+        {detalle && <CardHistoryReservationDetail />}
       </div>       
     </form>
     </div>
@@ -1785,6 +1815,8 @@ for(let i =0;i<payState?.length;i++){
 const total = count?.toLocaleString()
 
 return (
+
+  
   <Paper sx={{ width: '100%',margin:"10px" }}>
          <TableContainer  component={Paper}   onSubmit={(e) =>{
            e.preventDefault()
@@ -1874,11 +1906,10 @@ const ItemCardPago =({index,typy_buy,setloading}) => {
   return (
       <TableRow>
         <TableCell align="right">{fecha}</TableCell>
-        <TableCell align="right">${total}</TableCell>
+        <TableCell align="right">${total} </TableCell>
         <TableCell align="right" >{index.Nombre_recepcion}</TableCell>
         {taskContent}
       </TableRow>
     )
-  
 }
 
