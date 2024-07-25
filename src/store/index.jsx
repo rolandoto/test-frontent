@@ -27,6 +27,8 @@ import { InformeDashboardSlice } from '../reducers/InformeDashboardReducers'
 import { ApiCloudbedsReducersSlice } from '../reducers/ApiCloudbedsReducers'
 import { apiInformeAuditoriaSlice } from '../reducers/ApiInformeAuditoriaReducers'
 import { CitySigoSlice } from '../reducers/CitySigoReducers'
+import { ApiwompiReducersSlice } from '../reducers/ApiwompiReducers'
+
 
 
 const persistanceLocalStorageMiddleware = (store) => (next) => (action) => {
@@ -74,7 +76,8 @@ const store = configureStore ({
         InformeDashboardSlice:InformeDashboardSlice.reducer,
         apiInformeAuditoriaSlice:apiInformeAuditoriaSlice.reducer,
         ApiCloudbedsReducersSlice:ApiCloudbedsReducersSlice.reducer,
-        CitySigoSlice:CitySigoSlice.reducer
+        CitySigoSlice:CitySigoSlice.reducer,
+        ApiwompiReducersSlice:ApiwompiReducersSlice.reducer
     },
     devTools:true,
     middleware: [persistanceLocalStorageMiddleware],

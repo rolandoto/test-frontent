@@ -1305,6 +1305,27 @@ const getDetallehistory= async ({id}) => {
     }
 };
 
+
+
+const getDetailWompi= async ({id}) => {
+  try {
+      const resp = await fetch(`${config.serverRoute}/api/hotels/wompi/getDetailtPayment/${id}`, {
+        method: "GET",
+        headers: {
+          'Content-type': 'application/json'
+        }
+      });
+      if (!resp.ok) {
+        throw new Error('Response is not ok');
+      }
+      const {Trasntion} = await resp.json();
+      return Trasntion;
+    } catch (error) {
+     
+      throw error; // Puedes lanzar el error nuevamente o manejarlo de otra manera según tus necesidades
+    }
+};
+
 export default {
   get,
   post,
@@ -1371,5 +1392,6 @@ export default {
   PostProductRoomDetail,
   GetCitySigo,
   PostClientSigo,
-  getDetallehistory
+  getDetallehistory,
+  getDetailWompi
 };

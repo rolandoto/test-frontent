@@ -54,6 +54,7 @@ import { BsFilePdf } from "react-icons/bs";
 import { CiHeart } from "react-icons/ci";
 import IconsUser from "../../component/IconUser";
 import CardHistoryReservationDetail from "../../component/CardHistoryReservationDetail";
+import CardDownloadPayment from "../../component/CardDownloadPayment";
 
 // Estilo para el título
 const titleStyle = {
@@ -905,13 +906,23 @@ const  handComprobante =UseModalText({handlModal:print,Text:"Descargar comproban
 const  hanclickEditar =UseModalText({handlModal:state ?handChangeSave :handChangeEdit,Text:"Editar la informacion de la reserva?"})
 const  handleClickEliminar =UseModalText({handlModal:hanDelete,Text:"Estas seguro de eliminar la reserva ?"})
 
+
+
  const toPriceNigth = UsePrice({number:resultDashboard?.valor_dia_habitacion})
     
     return (
       <>
+
+      
       <div className="container-flex-init-global" >
         <ButtonBack />
         <ButtonHome/>
+
+        <CardDownloadPayment 
+        Nombre={resultDashboard?.Nombre}
+        Apellido={resultDashboard?.Apellido}
+        Correo={resultDashboard.Correo}
+        id_prod_card={resultDashboard.id_prod_card} />
         <div className="container-detail-dasboard-in-one" >
             <div    className="border-detail " > 
                  <span className="negrita-detail-reserva" >{day} noches</span>
