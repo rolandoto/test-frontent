@@ -1314,7 +1314,7 @@ const  handleClickEliminar =UseModalText({handlModal:hanDelete,Text:"Estas segur
       <div className="container-detail-dasboard-in in-type-button" > 
               <ul className="flex-contain"  >
                   <li className={`${huesped ? "desde-detail-three-estados-black-one-finish" :"desde-detail-three-estados" } `} onClick={handHuesped} >Huespedes:  <PiUsersLight fontSize={25}  /> {quyery?.length}  </li>
-                  <li className={`${detalle ? "desde-detail-three-estados-black-one-finish" :"desde-detail-three-estados" } `} onClick={handDetalle} >Hisotrial reserva:</li>
+                  <li className={`${detalle ? "desde-detail-three-estados-black-one-finish" :"desde-detail-three-estados" } `} onClick={handDetalle} >Historial reserva:</li>
                   <li className={`${consumo ? "desde-detail-three-estados-black" :"desde-detail-three-estados" } `} onClick={handConsumo} >Consumos: <PiShoppingBagOpenLight fontSize={25} /> {product?.length >0 ?product?.length : 0  }  </li>
                   <li className={`${pago ? "desde-detail-three-estados-black" :"desde-detail-three-estados" } `}  onClick={handPago} >Pagos: <PiPaypalLogoLight  fontSize={25}   /> {product?.length >0 ?product?.length : 0 }   </li>
                   <li className={`${Invoince ? "desde-detail-three-estados-black" :"desde-detail-three-estados" } `}  onClick={handInvoinceDian}  >Facturas Dian:</li>
