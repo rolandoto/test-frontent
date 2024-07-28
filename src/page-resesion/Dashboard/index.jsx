@@ -1,4 +1,4 @@
-import React, { useRef ,useState,useEffect,useContext, useCallback, useMemo} from "react";
+import React, { useState,useEffect,useContext, useCallback, useMemo} from "react";
 import moment from "moment";
 import "moment/locale/es";
 import Timeline,{
@@ -14,13 +14,7 @@ import "./BookingsTimeline.css";
 import AutoProvider  from "../../privateRoute/AutoProvider";
 import "./index.css"
 import { useHistory } from "react-router-dom";
-import { VscSymbolEvent } from "react-icons/vsc";
-import {BsBell} from "react-icons/bs";
 import UseListMotels from "../../hooks/UseListMotels";
-import { CiBadgeDollar } from "react-icons/ci";
-
-import Footer from "../../component/Footer/Footer";
-import io from "socket.io-client";
 import { toast } from "react-hot-toast";
 import ItemRenderer from "./ItemRender";
 import renderGroup from "./RenderGroup";
@@ -41,7 +35,6 @@ import {contextMenuOptionsHeader, contextMenuOptionsInform, contextMenuOptionsRe
 import { StyleSpan, StyleSpanIcons, StyleTitle, StyleTitleHotel, StyledContextMenu, StyledContextMenuSearch, StyledContextMenuTypeRoom, StyledContextTyeHotel, StyledContextTyeHotelConfiguration, StyledContextbyFacturacion, StyledMenuItem, StyledMenuItemSelectedRoom, StyledMenuItemUser } from "../../stylecomponent/StyleMenu";
 import { CiSearch } from "react-icons/ci";
 import { BsMenuButtonWide } from "react-icons/bs";
-import { SocketRoute } from "../../config";
 import { RxDropdownMenu } from "react-icons/rx";
 import { IoNotificationsOutline } from "react-icons/io5";
 import { BsArrowDown } from "react-icons/bs";
@@ -49,15 +42,12 @@ import UseUsers from "../../hooks/UseUser";
 import confetti from "canvas-confetti";
 import Preloading from "../../component/Preloading";
 import { IoIosSwitch } from "react-icons/io";
-import { useLocation } from "react-router-dom/cjs/react-router-dom.min";
 import { PiUserSwitchThin } from "react-icons/pi";
-import { CiUser } from "react-icons/ci";
 import useUserUpdateRolesActions from "../../action/useUserUpdateRolesActions";
 import useSocket from "../../hooks/UseSocket";
 import IconAviableBill from "../../component/IconAviableBill";
 
 const Dashboard = () => {
-
 	const currentDate = new moment();
 	const {jwt,setJwt} =useContext(AutoProvider)
 	const history = useHistory()
@@ -70,8 +60,8 @@ const Dashboard = () => {
 	const [OpenMenuInforme,setOpenMenuInforme] =useState(false)
 	const [OpenTypeRoom,setTypeRoom] =useState(false)
 	const [OpenMenuReservation,setOpenReservation] =useState(false)
-	const [numberDay,setNumberDay] =useState(15)
-	const [numMineDay,setNumMineDay] =useState(-5)
+	const [numberDay,setNumberDay] =useState(14)
+	const [numMineDay,setNumMineDay] =useState(-3)
 	const [selectedDay, setSelectedDay] = useState(moment()); // Inicializar con la fecha actual
 	const [avaibleDay,setAvaibleDay] =useState(false)
 	const [showContextMenu, setShowContextMenu] = useState(false);
@@ -203,7 +193,7 @@ const Dashboard = () => {
 			history.push(`/DetailStorerecepcion/${jwt.result.id_hotel}`)
 			setOpenMenu(false)
 		}
-	  };
+	};
 	
 	  
 	const handleItemClickInform = (action) => {
@@ -629,6 +619,42 @@ const Dashboard = () => {
 	  };
 	*/
 
+	
+	const filtrarPorFechas = (items, fechaDesde, fechaHasta) => {
+		// Convertir las fechas de rango a objetos moment
+		const startDate = moment(fechaDesde);
+		const endDate = moment(fechaHasta);
+	
+		// Filtrar los elementos dentro del rango de fechas
+		let resultadosFiltrados = Items.filter((elemento) => {
+			const fechaInicio = moment(elemento.start_time).utc();
+			const fechaFin = moment(elemento.end_time).utc();
+	
+			// Verificar si el elemento está dentro del rango de fechas
+			const estaEnRango = 
+				(fechaInicio.isSameOrAfter(startDate) && fechaInicio.isSameOrBefore(endDate)) ||
+				(fechaFin.isSameOrAfter(startDate) && fechaFin.isSameOrBefore(endDate)) ||
+				(fechaInicio.isBefore(startDate) && fechaFin.isAfter(endDate));
+	
+			return estaEnRango;
+		});
+	
+		return resultadosFiltrados;
+	};
+	
+	
+	const [defaultTimeStart, setDefaultTimeStart] = useState(moment().startOf('day').subtract(4, 'day'));
+	const [defaultTimeEnd, setDefaultTimeEnd] = useState(moment().startOf('day').add(15, 'day'));
+  
+	const fechaInicio = (moment(timeStart).utc().format('YYYY/MM/DD'));
+	const fechaFin = (moment(timeEnd).utc().format('YYYY/MM/DD'));
+
+	console.log(fechaInicio)
+	console.log(fechaFin)
+
+	const resultados = filtrarPorFechas(Items, fechaInicio, fechaFin);
+	
+	console.log(resultados);
 	return (
 		<>		
 			<div> 
@@ -792,13 +818,13 @@ const Dashboard = () => {
 			<Timeline
 				groupRenderer={renderGroup}
 				groups={resultadosBusquedaRoom}
-				items={Items}
+				items={resultados}
 				horizontalLineClassNamesForGroup={horizontalLine}
 				verticalLineClassNamesForTime={verticalLineClassNamesForTime}
 				onItemResize={handleItemResize}
 				canMove
-				defaultTimeStart={moment().startOf("day").add(-1, "day")}
-				defaultTimeEnd={moment().startOf("day").add(18, "day")}
+				defaultTimeStart={defaultTimeStart}
+				defaultTimeEnd={defaultTimeEnd}
 				visibleTimeEnd={timeEnd}
 				visibleTimeStart={timeStart}
 				onItemMove={handleItemMove}
