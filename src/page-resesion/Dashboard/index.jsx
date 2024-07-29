@@ -60,7 +60,7 @@ const Dashboard = () => {
 	const [OpenMenuInforme,setOpenMenuInforme] =useState(false)
 	const [OpenTypeRoom,setTypeRoom] =useState(false)
 	const [OpenMenuReservation,setOpenReservation] =useState(false)
-	const [numberDay,setNumberDay] =useState(14)
+	const [numberDay,setNumberDay] =useState(13)
 	const [numMineDay,setNumMineDay] =useState(-3)
 	const [selectedDay, setSelectedDay] = useState(moment()); // Inicializar con la fecha actual
 	const [avaibleDay,setAvaibleDay] =useState(false)
@@ -615,41 +615,34 @@ const Dashboard = () => {
 	*/
 
 	
-	const filtrarPorFechas = (items, fechaDesde, fechaHasta) => {
-		// Convertir las fechas de rango a objetos moment
-		const startDate = moment(fechaDesde);
-		const endDate = moment(fechaHasta);
-	
-		// Filtrar los elementos dentro del rango de fechas
-		let resultadosFiltrados = Items.filter((elemento) => {
-			const fechaInicio = moment(elemento.start_time).utc();
-			const fechaFin = moment(elemento.end_time).utc();
-	
-			// Verificar si el elemento está dentro del rango de fechas
-			const estaEnRango = 
-				(fechaInicio.isSameOrAfter(startDate) && fechaInicio.isSameOrBefore(endDate)) ||
-				(fechaFin.isSameOrAfter(startDate) && fechaFin.isSameOrBefore(endDate)) ||
-				(fechaInicio.isBefore(startDate) && fechaFin.isAfter(endDate));
-	
-			return estaEnRango;
-		});
-	
-		return resultadosFiltrados;
-	};
-	
-	
 	const [defaultTimeStart, setDefaultTimeStart] = useState(moment().startOf('day').subtract(4, 'day'));
 	const [defaultTimeEnd, setDefaultTimeEnd] = useState(moment().startOf('day').add(15, 'day'));
   
 	const fechaInicio = (moment(timeStart).utc().format('YYYY/MM/DD'));
 	const fechaFin = (moment(timeEnd).utc().format('YYYY/MM/DD'));
 
-	console.log(fechaInicio)
-	console.log(fechaFin)
 
-	const resultados = filtrarPorFechas(Items, fechaInicio, fechaFin);
+	const filtrarPorFechas = (items, fechaDesde, fechaHasta) => {
+		// Convertir las fechas de rango a objetos moment y ajustar el formato
+		const startDate = moment(fechaDesde).startOf('day');
+		const endDate = moment(fechaHasta).endOf('day');
 	
-	console.log(resultados);
+		// Filtrar los elementos dentro del rango de fechas
+		return items.filter((elemento) => {
+			const fechaInicio = moment(elemento.start_time).utc();
+			const fechaFin = moment(elemento.end_time).utc();
+	
+			// Verificar si el elemento está dentro del rango de fechas
+			return (
+				(fechaInicio.isBetween(startDate, endDate, null, '[]')) ||
+				(fechaFin.isBetween(startDate, endDate, null, '[]')) ||
+				(fechaInicio.isBefore(startDate) && fechaFin.isAfter(endDate))
+			);
+		});
+	};
+	
+	// Ejemplo de uso
+	const resultados = filtrarPorFechas(Items, fechaInicio, fechaFin);
 	return (
 		<>		
 			<div> 

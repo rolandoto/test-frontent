@@ -81,17 +81,17 @@ const   itemRenderer = ({ item, itemContext, getItemProps }) => {
         if(abono>0){
             color = '#ff9275';
             colorWords = 'white ';
-            iconState = <CiBadgeDollar fontSize={20} /> ;
+           
         }else{
             color = '#f31260';
             colorWords = 'white';
-            iconState = <BsBell fontSize={15} />;
+          
         }
         break;
     case 1:
         color = '#7828c8';
         colorWords = 'white';
-        iconState = <BsBucket fontSize={15} />;
+       
         break;
     case 2:
         color = '#747171';
@@ -101,12 +101,12 @@ const   itemRenderer = ({ item, itemContext, getItemProps }) => {
         if(abono>=total_habitacion){
             color = '#17c964';
             colorWords = 'white';
-            iconState = <VscSymbolEvent fontSize={15} />;
+          
           
         }else{
             color = '#13a722';
             colorWords = 'white ';
-            iconState =<CiBadgeDollar fontSize={20} /> ;
+            
         }
         break;
     case 4:
@@ -121,7 +121,7 @@ const   itemRenderer = ({ item, itemContext, getItemProps }) => {
     case 6:
         color = '#0072f5';
         colorWords = 'white';
-        iconState = <BsCheckCircle fontSize={15} />;
+       
         break;
     case 8:
         color = '#fff9ad';
@@ -202,7 +202,7 @@ const   itemRenderer = ({ item, itemContext, getItemProps }) => {
             >
             <div className="icon-state-reservation " >
                     <span className="margin-icon-state" >{iconState}</span>
-                    <span className="text-words" >{title}</span>
+                    <span className="text-words" >{item.full_name}</span>
             </div>
                 <div>
                     {renderHover}    
