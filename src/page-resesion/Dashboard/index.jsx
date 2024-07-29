@@ -338,12 +338,7 @@ const Dashboard = () => {
 	}
 
 	const onItemClick = (itemId, e, time) => {	
-		if(initialState){
-			return  window.open(`/DetailDashboard/${itemId}`, '');
-		}else{
-			history.push(`/DetailDashboard/${itemId}`, '')
-		}
-	 
+		history.push(`/DetailDashboard/${itemId}`, '')
 	}
 
 	/*const filtrar=(terminoBusqueda)=>{
