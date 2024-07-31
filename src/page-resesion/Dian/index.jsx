@@ -97,9 +97,23 @@ const Dian =() => {
   }, 0);
 
   const sumWithInitialMinibar= ProductsMinibar.reduce((accumulator, currentValue) => {
+    if (currentValue.Nombre_producto !=="Early check-in") {
       return accumulator + currentValue.Precio;
+    }else{
+      return accumulator
+    }
   }, 0);
 
+    const minibarServicio= ProductsMinibar.reduce((accumulator, currentValue) => {
+      if (currentValue.Nombre_producto ==="Early check-in") {
+        return accumulator + currentValue.Precio;
+      }else{
+        return accumulator
+      }
+  }, 0);
+
+
+ 
 
   const totalAmount = sumWithInitial +sumWithInitialMinibar
 
@@ -124,7 +138,8 @@ const Dian =() => {
     const totalNum = resultDashboard?.Iva == 1 ? true : false;
     const typeIva = resultDashboard?.tipo_persona === "empresa" ? true : totalNum;
 
-    const totalPrice = sumWithInitial
+    const totalPrice = sumWithInitial + minibarServicio
+    console.log({totalPrice})
     const totalRound =  totalPrice / 1.19
     const ValorBase = Math.round(totalRound * 100000) / 100000; // Redondear a 5 decimales
     const valueSTotalProduct =  typeIva ?  ValorBase : totalPrice
@@ -321,17 +336,13 @@ const Dian =() => {
     const handSubmitInvoinces=async() =>{
       if(sumWithInitial ==0) {
         toast.error("No se puede facturar no tiene ningun valor pendiente");
-      }else{
-        if(Boolean(resultDashboard.ID_facturacion.trim())){
-          toast.error("no se puedes enviar mas facturacion electronica")
-      }else{
+      }
         if(!loadingInvoinces){
             await PostSendInvoinces({token:Dian.access_token,body:response,id_Reserva:id,id_user:jwt.result.id_user,fecha:now,Retention:RetentionItem})
             socket.emit("sendNotification",jwt.result.name);
         }else{
           toast.error("Error factura")
-        }} 
-      }
+        }
     }
 
     const handleSelectChange = (client) => {
@@ -415,7 +426,7 @@ const Dian =() => {
                 <div class=" mx-auto  p-6 rounded-lg ">
                     <SearchClient 
                     sumWithInitialMinibar={sumWithInitialMinibar}
-                     sumWithInitial={sumWithInitial}
+                     sumWithInitial={totalPrice}
                     typeIva={typeIva}
                     resultDashboard={resultDashboard}
                     searchTerm={searchTerm}
