@@ -47,6 +47,7 @@ const CardReservationActivity =({InformeMonth,selectedDay, setSelectedDay}) =>{
 
 	const hotel = iduser.find(FindIdHotel)
 
+    console.log(InformeMonth.roomByIdIDtypeRoomChannel)
   
     const Hospedaje = InformeMonth.Totalhospedaje.reduce((acumulador, valorActual) => acumulador + valorActual.abono, 0);
 

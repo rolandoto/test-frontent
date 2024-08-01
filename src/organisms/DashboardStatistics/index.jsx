@@ -32,9 +32,7 @@ const DashboardStatisticsOrganism =({Available,Block,Occupation, NumReservation,
                     selectedDay={selectedDay} 
                     setSelectedDay={setSelectedDay}/>
                     </div> 
-
-                    <CardRoomSold InformeMonth={InformeMonth} />
-                    <CardRoomSoldTWo InformeMonth={InformeMonth} />
+                    <CardRoomSoldTWo InformeMonth={InformeMonth}  />
             </ContainerGlobal>
     )
 }

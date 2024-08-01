@@ -1,38 +1,36 @@
-import { StyleTitleHotel } from "../../stylecomponent/StyleMenu"
+import { Table } from "@nextui-org/react";
 
 
-const CardTableRoom  =({ItemValueRoom,title}) =>{
+
+const CardTableRoom  =({ItemValueRoom}) =>{
     
-        return ( <div className="row-cardTableRoom" >
-                            <table className="table-factura-two" > 
-                            <tr>
-                                <td >Habitación</td>
-                                <td >Cantidad</td>
-                                <td  >Ventas</td>
-                            </tr>
-                            
-                                {ItemValueRoom.map(index  => {
-                                        const totalWith = parseInt(index.abono) 
-                                        return (
-                                            <tr>
-                                            <th  className="text-font-wei-one-informe" >{index.room}</th>
-                                            <th  className="text-font-wei-one-informe">{index.cantidad}</th>
-                                            <th  className="text-font-wei-one-informe">${totalWith.toLocaleString()}</th>
-                                        </tr>
-                                        )}
-                                        )}
+        return (  <Table
+                    
+            bordered
+            shadow={false}
+            selectionMode="multiple"
+            aria-label="Example static bordered collection table"
+            css={{
+              height: "auto",
+              minWidth: "100%",
+            }}
+                >
+                    <Table.Header>
+                    <Table.Column>Canal</Table.Column>
+                    <Table.Column>Abono</Table.Column>
+                    <Table.Column>Cantidad</Table.Column>
+                    </Table.Header>
+                    <Table.Body>
 
-                             
-                           
-                        </table>
-                        <div>
-                            <span style={{color:"black"}} >	
-                                <StyleTitleHotel> {title} 
-                                </StyleTitleHotel>
-                            </span>
-                        </div>
-                       
-                </div>
+                    {ItemValueRoom.map((itemChannel,e) => (
+                         <Table.Row key={e}>
+                            <Table.Cell>{itemChannel.nameChanel}</Table.Cell>
+                            <Table.Cell>${parseInt(itemChannel.abono).toLocaleString()}</Table.Cell>
+                            <Table.Cell>{itemChannel.cantidad}</Table.Cell>
+                        </Table.Row>
+                    ))}  
+                    </Table.Body>
+                </Table>
         )
 
 }
