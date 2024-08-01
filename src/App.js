@@ -70,6 +70,7 @@ import HomeIntegrationCloudbeds from "./page/HomeIntegrationCloubeds";
 import HomeHotelCloudbed from "./page/HomeHotelCloudbed";
 import ProductSigo from "./page/ProductSigo";
 import DetailStoreUpdate from "./component/DetailStore/DetailStoreUpdate";
+import SubCategoria from "./page/SubCategoria";
 
 function App() {
   const { jwt } = useContext(AutoProvider);
@@ -131,6 +132,12 @@ function App() {
                 path="/DetailStoreUpate/:id"
                 component={DetailStoreUpdate}
               />
+              <PrivateRoute
+                exact
+                path="/SubCategoria/:id"
+                component={SubCategoria}
+              />
+
               <PrivateRoute
                 exact
                 path="/DetailStore/:id"

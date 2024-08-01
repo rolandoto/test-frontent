@@ -31,6 +31,10 @@ const Home =() =>{
         history.push(`/DetailStore/${jwt.result.id_hotel}`)
     }
 
+    const handNextStoresSubcategory = () => {
+        history.push(`/SubCategoria/${jwt.result.id_hotel}`)
+    }
+
     const handNextStUpload =() =>{
         history.push(`/UploadPopUp`)
     }
@@ -99,6 +103,13 @@ const Home =() =>{
                         <span className='let-home' >Tienda</span>
                     </h3>
                 </div>
+                <div className='rowMenuCard-home ' onClick={handNextStoresSubcategory}>
+                     <h3 class="itemName-home">
+                        <RiStoreLine fontSize={24}/>
+                        <span className='let-home' >Categorias</span>
+                    </h3>
+                </div>
+
                 <div className='rowMenuCard-home' onClick={handNextStUpload}  >
                      <h3 class="itemName-home">
                         <IoAnalyticsOutline fontSize={24}  />
