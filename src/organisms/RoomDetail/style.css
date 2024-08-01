@@ -167,7 +167,7 @@
     color: white;
     font-weight: bold;
     display: flex;
-    justify-content: center;
+    justify-content: initial;
     text-align: initial;
   }
   

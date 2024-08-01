@@ -45,18 +45,8 @@ button {
   align-self: end;
 }
 
-.table {
-  font-family: arial, sans-serif !important;
-  border-collapse: collapse !important;
- 
-}
 
-td,
-th {
-  text-align: left !important;
-  padding: 8px !important;
 
-}
 
 .container-table {
   display: flex;
