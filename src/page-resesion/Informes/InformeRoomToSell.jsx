@@ -19,6 +19,7 @@ import { useSelector } from "react-redux";
 import toast from "react-hot-toast";
 import ButtonBack from "../../component/ButtonBack";
 import ButtonHome from "../../component/ButtonHome";
+import { GroupAdd } from "@material-ui/icons";
 
 const InformeRoomToSell =() =>{    
     const {jwt} =useContext(AutoProvider)
@@ -85,7 +86,6 @@ const InformeRoomToSell =() =>{
 
     const group = []
 
-    console.log(group)
 
     useEffect(() =>{
          fetchDate()
@@ -122,65 +122,64 @@ const InformeRoomToSell =() =>{
                                 Imprimir
                         </button>
                             </div>
-                            <div className="  ">
-                            <div className="w-full overflow-x-auto">
-                                <table className="table min-w-full bg-white shadow-md rounded border border-gray-200" ref={componentRef}>
-                                <thead>
-                                    <tr>
-                                    <td className="px-6 py-3 border-b  text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Nombre</td>
-                                    {array.map((index, i) => (
-                                        <td key={i} className="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">{index.day}</td>
-                                    ))}
-                                    <td className="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Total</td>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {roomType?.map((room, ri) => (
-                                    <tr key={ri} className="border-t border-gray-200">
-                                        <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">{room.nombre}</td>
-                                        {RoomTosell.map((index, i) => {
-                                        const roomData = index.find(row => row.Room === room.nombre);
-                                        if (roomData) {
-                                            return (
-                                            <td key={i} className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                                {roomData.disponible}
-                                            </td>
-                                            );
-                                        }
-                                        return <td key={i} className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">0</td>;
-                                        })}
-                                        <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                        {RoomTosell.reduce((acc, index) => {
-                                            const roomData = index.find(row => row.Room === room.nombre);
-                                            return acc + (roomData ? roomData.disponible : 0);
-                                        }, 0)}
-                                        </td>
-                                    </tr>
-                                    ))}
-                                    <tr className="border-t border-gray-200">
-                                    <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">Total por día</td>
-                                    {array.map((_,dayIndex) => {
+                            <div className=" ">
+                        <div className="w-full overflow-x-auto">
+                            <table className="min-w-full bg-white shadow-md rounded border border-gray-200" ref={componentRef}>
+                            <thead>
+                                <tr>
+                                <th className="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Nombre</th>
+                                {array.map((index, i) => (
+                                    <th key={i} className="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">{index.day}</th>
+                                ))}
+                                <th className="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {roomType?.map((room, ri) => (
+                                <tr key={ri} className="border-t border-gray-200">
+                                    <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">{room.nombre}</td>
+                                    {RoomTosell.map((index, i) => {
 
-                                        console.log({RoomTosell})
-                                        const totalPorDia = RoomTosell.reduce((acc, index) => {
-                                        const row = index[dayIndex].disponible;
-                                        
-                                        return acc + (row ?row  : 0);
-                                        }, 0);
+
+                                    const roomData = index.find(row => row.Room === room.nombre);
+
+
+                                    if (roomData) {
+                                     
                                         return (
-                                        <td key={dayIndex} className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">{totalPorDia}</td>
-                                        );
-                                    })}
-                                        <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                            {RoomTosell.reduce((acc, index) => {
-                                            return acc + index.reduce((dayAcc, row) => dayAcc + row.disponible, 0);
-                                            }, 0)}
+                                        <>
+                                           <td key={i} className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                            {roomData.disponible} 
                                         </td>
-                                    </tr>
-                                </tbody>
-                                </table>
-                            </div>
-                            </div>
+                                       
+                                        </>
+                                     
+                                        );
+                                    }
+  
+                                    })}
+                                    <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                    {RoomTosell.reduce((acc, index) => {
+                                        const roomData = index.find(row => row.Room === room.nombre);
+                                        return acc + (roomData ? roomData.disponible : 0);
+                                    }, 0)}
+                                    </td>
+                                </tr>
+                                ))}
+                                <tr className="border-t border-gray-200">
+                              
+                                {group.map((index,e) => {
+                                    console.log(group)
+                                    return (
+                                    <td key={e} className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">{index}</td>
+                                    );
+                                })}
+                              
+                                </tr>
+                            </tbody>
+                            </table>
+                        </div>
+                        </div>
         </div>
             </ContainerGlobal>
     )
