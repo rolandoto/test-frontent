@@ -124,11 +124,11 @@ const TemplateSearch =() =>{
     return (
 
         <>
-        <div className="container-bicta" >
+        <div className="" >
             <ButtonBack />
             <ButtonHome/>
-                <div className="contain-search">
-                    <ul className="flex-bedrooms-search">   
+                <div className="">
+                    <ul className="">   
                             <li>
                                
                                 <input  className="input-stores-personality-nine-search"  
@@ -160,9 +160,10 @@ const TemplateSearch =() =>{
                                     direction="horizontal"
                                     locale={esLocale}
                                 />
-
-                    <table  className="auto "  >
-                    <tbody class="tbody border-y-black "  >                <thead >
+        
+<div className="container-table-One-search" >
+                    <table  className="table "  >
+                          
                         <tr>        
                                 <th>facturacion </th>
                                 <th  >Habitacion</th>
@@ -180,7 +181,7 @@ const TemplateSearch =() =>{
                                 <th>Nacionalidad</th>
                                 <th>Opciones</th>
                             </tr>
-                        </thead   >
+                      
                         {resultadosBusqueda?.map(index =>{
                             
                             let todaydesde = new Date(index.start_time)
@@ -289,9 +290,10 @@ const TemplateSearch =() =>{
                          <h3>Total a pagar $({totalHospedaje.toLocaleString()})</h3>
                       
                          </article>
-                        </tbody>
+                   
                        
                  </table>
+                 </div>
                     </ul>
                 </div>
               

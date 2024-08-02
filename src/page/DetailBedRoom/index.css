@@ -69,6 +69,20 @@ cursor: pointer;
 }
 
 
+.container-table-One-search{
+    display: flex;
+  max-width: 100%;
+ 
+}
+
+@media (max-width: 768px) {
+    .container-table-One-search {
+      max-width: 100%;
+    }
+  }
+  
+
+
 td, th, tr {
     border: none !important;
   text-align: left !important;

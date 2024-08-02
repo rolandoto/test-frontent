@@ -87,6 +87,8 @@ const SubCategoria =() =>{
           
 
             <div className="container-table-One" >
+                
+           
             <table   className="table" >
                 <tr>
                     <th>Product</th>

@@ -14,7 +14,7 @@ body{
       line-height: initial;
       font-size: 16px !important; 
      
-      transition: background-color 0.5s ease !important;
+  
 }
 
 .App-logo {
@@ -361,14 +361,7 @@ input{
 }
 
 
-::-webkit-scrollbar {
-  width: 12px; /* Ancho del indicador de desplazamiento */
-}
 
-::-webkit-scrollbar-thumb {
-  background-color: #3498db; /* Color del indicador de desplazamiento */
-  border-radius: 6px; /* Radio de las esquinas del indicador */
-}
 
 .contianer-icon-User{
   position: absolute;
@@ -391,4 +384,51 @@ input{
     margin-right: 11px;
     border-bottom: 1px solid gray;
     margin: auto;
+}
+
+.container-table-one {
+  display: flex;
+  justify-content: center;
+  padding: 1.5rem;
+  background-color: #f7fafc;
+  min-height: 100vh;
+}
+
+.table-wrapper {
+  max-width: 83%;
+  width: 100%;
+  overflow-x: auto;
+}
+
+.table {
+  min-width: 100%;
+  background-color: white;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  border-radius: 0.25rem;
+  border: 1px solid #e2e8f0;
+}
+
+.table th, .table td {
+  padding: 1rem;
+  border-bottom: 1px solid #e2e8f0;
+  text-align: left;
+}
+
+.table th {
+  background-color: #edf2f7;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #4a5568;
+}
+
+.table td {
+  font-size: 0.875rem;
+  color: #2d3748;
+}
+
+@media (max-width: 768px) {
+  .table-wrapper {
+    max-width: 100%;
+  }
 }
