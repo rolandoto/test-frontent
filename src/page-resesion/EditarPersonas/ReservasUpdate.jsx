@@ -274,10 +274,9 @@ const ReservasUpdate =(props) =>{
             }
           }
         ]
-
-        
-
       }
+
+
 
       const handSubmitInvoinces=async() =>{
         await PostCLienteRegister({token:Dian.access_token,body})
@@ -291,6 +290,10 @@ const ReservasUpdate =(props) =>{
     })
   }
 
+
+  console.log(typeDocument)
+
+
   const FillContent =() =>{
     if(loading){
       return (<StyleContainerLoadingCLoudbeds >
@@ -300,6 +303,8 @@ const ReservasUpdate =(props) =>{
     }if(error){
       return  <PageBack />
     }
+
+   
    return  <>
     <div className=""  >
             <LoadingDetail loading={loading}  titleLoading="guardado correctame"/>
@@ -311,38 +316,17 @@ const ReservasUpdate =(props) =>{
                 e.preventDefault()
             }}>
                 <div className="grid border-grid-cols-1 gap-4">
-                    <label className="block col-span-2">
-                    <span className="text-gray-700">Nombre /Nombre empresa</span>
-                    <input
-                        type="text"
-                        name="nombre"
-                        placeholder="Nombre" 
-                        defaultValue={resultDasboard?.Nombre}
-                        onChange={(e) => setNombre(e.target.value)}
-                        className="pt-2 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-black peer"
-                        required
-                    />
-                    </label>
-                    <label className="block col-span-2">
-                    <span className="text-gray-700">Apellido </span>
-                    <input
-                        type="text"
-                        name="apellido"
-                        placeholder="Apellido" 
-                        defaultValue={resultDasboard?.Apellido}
-                        onChange={(e) => setApellido(e.target.value)}
-                        className="pt-2 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-black peer"
-                        required
-                    />
-                    </label>
-                    <label className=" block col-span-2 ">
-                    <span className="text-gray-700">Tipo documento</span>
-                        <select
+             
+                <label className="block col-span-2">
+                <span className="text-gray-700">Tipo documento</span>
+                     
+                      
+                <select
                             defaultValue={docu?.nombre}
                             onChange={(e) => setypeDocument(e.target.value)}
                             className="pt-2 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-black peer"
                         >
-                            <option >{docu?.nombre}</option>
+                            <option value={docu?.ID} >{docu?.nombre}</option>
                                     {documentUse?.document?.map(category =>(
                                         <option 
                                         value={category.ID}   
@@ -355,7 +339,34 @@ const ReservasUpdate =(props) =>{
                             </select>
                        
                         </label>
-                      
+                    {typeDocument !=8 &&  
+                        <label className="block col-span-2">
+                        <span className="text-gray-700">Nombre /Nombre empresa</span>
+                        <input
+                            type="text"
+                            name="nombre"
+                            placeholder="Nombre" 
+                            defaultValue={resultDasboard?.Nombre}
+                            onChange={(e) => setNombre(e.target.value)}
+                            className="pt-2 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-black peer"
+                            required
+                        />
+                        </label>
+                    }  
+                    <label className="block col-span-2">
+                    <span className="text-gray-700">Apellido/Nombre empresa </span>
+                    <input
+                        type="text"
+                        name="apellido"
+                        placeholder="Apellido" 
+                        defaultValue={resultDasboard?.Apellido}
+                        onChange={(e) => setApellido(e.target.value)}
+                        className="pt-2 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-black peer"
+                        required
+                    />
+                    </label>
+                    <label className=" block col-span-2 ">
+                  
                         <label className="block col-span-2">
                             <span className="text-gray-700">Documento/ NIT</span>
                             <input
@@ -391,8 +402,7 @@ const ReservasUpdate =(props) =>{
                         />
                     </label>
                     
-                    <label className="block col-span-2">
-                 
+                    
                     <span className="text-gray-700">Nacionalidad</span>
                     <select required  
                             onChange={(e) => setNacionalidad(e.target.value)} 
