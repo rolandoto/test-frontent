@@ -2,13 +2,13 @@ import { config } from "../config"
 
 const ENDPOINT =`${config.serverRoute}/api/admin/updateProduct/`
 
-const PostUpdateStoreProduct =({ID,Cantidad,ID_user,Price,Fecha})=>{
+const PostUpdateStoreProduct =({ID,Cantidad,ID_user,Price,Fecha,Nombre})=>{
     return fetch(`${ENDPOINT}`,{
         method:'POST',
         headers:{
             'Content-type':'application/json'
         },
-        body:JSON.stringify({ID,Cantidad,ID_user,Price,Fecha})
+        body:JSON.stringify({ID,Cantidad,ID_user,Price,Fecha,Nombre})
     }).then(resp =>{
         if(!resp.ok) throw new Error('Response is not ok')
         return resp.json()

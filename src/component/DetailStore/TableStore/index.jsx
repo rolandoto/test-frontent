@@ -10,7 +10,7 @@ const TableStore =({Store}) =>{
     return (
         <div className="container-bicta ">
             <tbody className="" >
-            <table className="de  ">
+            <table className="table">
                 <tr>
                     <th>Categoria</th>
                     <th>Nombre</th>
@@ -47,7 +47,7 @@ const TableStore =({Store}) =>{
             </tbody>
 
             <tbody>
-            <table className="de">
+            <table className="table">
                 <tr>
                     <th>Categoria</th>
                     <th>Nombre</th>
@@ -83,7 +83,7 @@ const TableStore =({Store}) =>{
             </tbody>
 
             <tbody>
-            <table className="de">
+            <table className="table">
                 <tr>
                     <th>Categoria</th>
                     <th>Nombre</th>
@@ -118,7 +118,7 @@ const TableStore =({Store}) =>{
             
             </tbody>
             <tbody>
-            <table className="de">
+            <table className="table">
                 <tr>
                     <th>Categoria</th>
                     <th>Nombre</th>
@@ -155,7 +155,7 @@ const TableStore =({Store}) =>{
             </tbody>
 
             <tbody>
-            <table className="de">
+            <table className="table">
                 <tr>
                     <th>Categoria</th>
                     <th>Nombre</th>
@@ -192,7 +192,7 @@ const TableStore =({Store}) =>{
             </tbody>
 
             <tbody>
-            <table className="de">
+            <table className="table">
                 <tr>
                     <th>Categoria</th>
                     <th>Nombre</th>
@@ -229,7 +229,7 @@ const TableStore =({Store}) =>{
             </tbody>
 
             <tbody>
-            <table className="de">
+            <table className="table">
                 <tr>
                     <th>Categoria</th>
                     <th>Nombre</th>
@@ -268,7 +268,7 @@ const TableStore =({Store}) =>{
             </tbody>
 
             <tbody>
-            <table className="de">
+            <table className="table">
                 <tr>
                     <th>Categoria</th>
                     <th>Nombre</th>
@@ -302,8 +302,6 @@ const TableStore =({Store}) =>{
                 })}
             </table>
 
-            
-            
             </tbody>
         </div>
     )

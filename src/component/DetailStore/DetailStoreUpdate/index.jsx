@@ -31,12 +31,14 @@ const DetailStoreUpdate =() =>{
     
     const Product = state?.find(index => index.ID == id);
 
+    const [Nombre, setNombre] = useState();
     const [cantidad, setCantidad] = useState();
     const [Price, setPrice] = useState();
 
     const PriceValue =  Price ? Price :   Product?.Precio
     const CantidadValues =  cantidad? cantidad   : Product?.Cantidad
-    
+
+ 
 
     useEffect(() =>{
         handEffect()
@@ -46,7 +48,7 @@ const DetailStoreUpdate =() =>{
     const  now = moment().format("YYYY/MM/DD");
 
     const handCLickServiceInsertStore =() =>{
-        PostUpdateStoreProduct({ID:id,Cantidad:CantidadValues,ID_user:jwt?.result?.id_user,Price:PriceValue,Fecha:now}).then(index => {
+        PostUpdateStoreProduct({ID:id,Cantidad:CantidadValues,ID_user:jwt?.result?.id_user,Price:PriceValue,Fecha:now,Nombre}).then(index => {
             handEffect()
             setCantidad(0)
             Swal.fire({
@@ -70,10 +72,10 @@ const DetailStoreUpdate =() =>{
    if(!state) return null 
   
 
-    return (<div>
-          <div className="container-bicta">
-            <tbody>
-                <table className="de">
+
+    return (<>
+          <div className="container-table-One">
+                <table className="table ">
                     <tr>
                         <th>Categoria</th>
                         <th>Nombre</th>
@@ -139,9 +141,9 @@ const DetailStoreUpdate =() =>{
                             )
                         }})}
                 </table>
-            </tbody>
-
-            <tbody>
+            </div>
+            <div className="container-table-One">
+         
                 <table className="de">
                     <tr>
                         <th>Cantidad</th>
@@ -153,8 +155,9 @@ const DetailStoreUpdate =() =>{
                             <td>  
                             <input 
                                 className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" 
-                                name="Correo" 
+                                name="Nombre" 
                                 type="text"
+                                onChange={(e)=>  setNombre(e.target.value)}
                                 defaultValue={Product?.Nombre}
                             />
                         </td>
@@ -177,16 +180,11 @@ const DetailStoreUpdate =() =>{
                                 defaultValue={Product?.Precio}
                             />
                         </td>
-                        
-                        
                         <td><button  className="button-Border-Id"   onClick={handCLickServiceInsertStore} > <CiSquarePlus     fontSize={35} /> </button></td>
-                    </tr>
-                    
-                           
+                    </tr>          
                 </table>
-            </tbody>
-        </div>
-            </div>)
+                </div>
+                </>)
 
 }
 

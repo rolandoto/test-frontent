@@ -10,8 +10,13 @@
   display: flex;
   max-width: 83%;
   background: #fff;
-  overflow: hidden;
   margin: auto;
+}
+
+@media (max-width: 768px) {
+  .flex-stores {
+    max-width: 70%;
+  }
 }
 
 .input-stores {
