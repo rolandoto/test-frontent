@@ -65,8 +65,6 @@ const InformeRoomToSell =() =>{
     var fechaInicio = new Date(formattedStartDate);
     var fechaFin    = new Date(formattedEndDate);
     
-    console.log(fechaInicio)
-    console.log(fechaFin)
 
     const array =[]
 
@@ -86,6 +84,8 @@ const InformeRoomToSell =() =>{
     });
 
     const group = []
+
+    console.log(group)
 
     useEffect(() =>{
          fetchDate()
@@ -122,85 +122,64 @@ const InformeRoomToSell =() =>{
                                 Imprimir
                         </button>
                             </div>
-                            <div className="tablecontainer">
-                                <table className="de">   
-                                    <tbody ref={componentRef}  >
-                                        <tr>
-                                            <th  className="top-pq sticky-left"  >Nombre</th>
-                                                {array.map(index => (
-                                                    <th className="top-room-to-sell-width" >{index.day}</th>
-                                                ))}
-                                                <th   className="top-room-to-sell-width"  >Total</th>
-                                            </tr>
-                                            <div className="template-flex" >
-                                            <tr className="to-tr top-pq " >
-                                                {roomType?.map(index  =>(
-                                                    <>
-                                                    <td>{index.nombre}</td>
-                                                
-                                                    </>
-                                                ))}
-                                                 <td>Total por dia</td>
-                                            </tr> 
-                                        {RoomTosell?.map((index)  => {
-
-                                            const totaGroup =  index.map((row, i)=>{
-                                                const fechaActual = row.fecha;
-                                                const fechaAnterior = i > 0 ? index[i - 1].fecha : null;
-                                                if (fechaAnterior !== null && fechaActual !== fechaAnterior) {
-                                                    
-                                                }else {
-                                                    return row.disponible
-                                                }
-                                            })
-
-                                            const sumWithInitial = totaGroup.reduce(
-                                                (accumulator, currentValue) => accumulator + currentValue,
-                                                0
-                                            );
+                            <div className="  ">
+                            <div className="w-full overflow-x-auto">
+                                <table className="table min-w-full bg-white shadow-md rounded border border-gray-200" ref={componentRef}>
+                                <thead>
+                                    <tr>
+                                    <td className="px-6 py-3 border-b  text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Nombre</td>
+                                    {array.map((index, i) => (
+                                        <td key={i} className="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">{index.day}</td>
+                                    ))}
+                                    <td className="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Total</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {roomType?.map((room, ri) => (
+                                    <tr key={ri} className="border-t border-gray-200">
+                                        <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">{room.nombre}</td>
+                                        {RoomTosell.map((index, i) => {
+                                        const roomData = index.find(row => row.Room === room.nombre);
+                                        if (roomData) {
                                             return (
-                                                <tr  className="flex-room-to-sell top-room-to-sell-width" > 
-                                                {index?.map((row, i) => {
-                                                group.push(row)
-                                                const fechaActual = row.fecha;
-                                                const fechaAnterior = i > 0 ? index[i - 1].fecha : null;   
-                                                if (fechaAnterior !== null && fechaActual !== fechaAnterior) {
-                                                    return (
-                                                        <>
-                                                            <th > </th>  
-                                                        </>
-                                                    );
-                                                } else {
-
-                                                    return (
-                                                    <>
-                                                        <th  >{row.disponible}  </th> 
-                                                        </> 
-                                                    );
-                                                    }
-                                                })} 
-                                               <th  >{sumWithInitial}</th> 
-                                                </tr> 
-                                            )
-                                           
-                                        })}
-                                        { <tr className="flex-room-to-sell top-room-to-sell-width" >
-                                            {roomType?.map(index  =>{
-                                                const filterIndex =   group.filter((Item)=> Item.Room == index.nombre  )
-                                                const sumWithInitial = filterIndex.reduce(
-                                                    (accumulator, currentValue) => accumulator + currentValue.disponible,
-                                                    0
-                                                );
-                                                return (
-                                                    <th>{sumWithInitial}</th>
-                                                )
-                                            })}
-                                            <th>0</th>
-                                            </tr> 
+                                            <td key={i} className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                                {roomData.disponible}
+                                            </td>
+                                            );
                                         }
-                                            </div>
-                                        </tbody>       
+                                        return <td key={i} className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">0</td>;
+                                        })}
+                                        <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                        {RoomTosell.reduce((acc, index) => {
+                                            const roomData = index.find(row => row.Room === room.nombre);
+                                            return acc + (roomData ? roomData.disponible : 0);
+                                        }, 0)}
+                                        </td>
+                                    </tr>
+                                    ))}
+                                    <tr className="border-t border-gray-200">
+                                    <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">Total por día</td>
+                                    {array.map((_,dayIndex) => {
+
+                                        console.log({RoomTosell})
+                                        const totalPorDia = RoomTosell.reduce((acc, index) => {
+                                        const row = index[dayIndex].disponible;
+                                        
+                                        return acc + (row ?row  : 0);
+                                        }, 0);
+                                        return (
+                                        <td key={dayIndex} className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">{totalPorDia}</td>
+                                        );
+                                    })}
+                                        <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                            {RoomTosell.reduce((acc, index) => {
+                                            return acc + index.reduce((dayAcc, row) => dayAcc + row.disponible, 0);
+                                            }, 0)}
+                                        </td>
+                                    </tr>
+                                </tbody>
                                 </table>
+                            </div>
                             </div>
         </div>
             </ContainerGlobal>
