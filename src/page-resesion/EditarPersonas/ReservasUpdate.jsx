@@ -192,8 +192,7 @@ const ReservasUpdate =(props) =>{
 
     const docu = documentUse.document?.find(index =>  index?.ID == resultDasboard?.ID_Tipo_documento)
 
-    const person  = docu?.ID_document_dian ==31?"Company" :"Person"
-
+    const person = (docu?.ID_document_dian === 31 || docu?.ID_document_dian === 50) ? "Company" : "Person";
 
     const n = moment(resultDasboard?.Fecha_nacimiento).utc().format('YYYY/MM/DD')
 
@@ -229,6 +228,8 @@ const ReservasUpdate =(props) =>{
         resultDasboard.Nombre,
         resultDasboard.Apellido
     ] 
+
+    console.log(validDefinidName)
 
     const body = {
         "type": "Customer",
