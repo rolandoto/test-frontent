@@ -37,18 +37,17 @@ const DetailStoreUpdate =() =>{
 
     const PriceValue =  Price ? Price :   Product?.Precio
     const CantidadValues =  cantidad? cantidad   : Product?.Cantidad
-
+    const NombreValue  = Nombre? Nombre   : Product?.Nombre
  
 
     useEffect(() =>{
         handEffect()
     },[])
 
-
     const  now = moment().format("YYYY/MM/DD");
 
     const handCLickServiceInsertStore =() =>{
-        PostUpdateStoreProduct({ID:id,Cantidad:CantidadValues,ID_user:jwt?.result?.id_user,Price:PriceValue,Fecha:now,Nombre}).then(index => {
+        PostUpdateStoreProduct({ID:id,Cantidad:CantidadValues,ID_user:jwt?.result?.id_user,Price:PriceValue,Fecha:now,Nombre:NombreValue}).then(index => {
             handEffect()
             setCantidad(0)
             Swal.fire({
