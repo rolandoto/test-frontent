@@ -172,12 +172,11 @@ const InformeConsolidado = () => {
     const [LookinforFecha,setLokinforFecha] =useState()
     const [loadingOne,setLoadingOne] =useState({loading:false,error:false})
     const [ocasional,setOcasional] =useState()
+    const [carritoOcasional,setCarritoOcasional] =useState()
   
     const hadChangeFecha =(e) =>{
         setLokinforFecha(e.target.value)
     }
-
-    console.log({ocasional})
 
     const hanLookingFor =() =>{
         setLoadingOne({loading:true})
@@ -186,6 +185,7 @@ const InformeConsolidado = () => {
             setAuditoria(index.result)
             setStore(index.queryTwo)
             setStoreOne(index.queryOne)
+            setCarritoOcasional(index.queryThree)
             setLoadingOne({loading:true})
         }).catch(e =>{
             setLoadingOne({loading:false})
@@ -205,10 +205,12 @@ const InformeConsolidado = () => {
 
     //ocasionales
   
- 
 
+    const totalFilterPagina = auditoria?.filter(index => index.Forma_pago ==4)
+    console.log({totalFilterPagina})
 
     const totalFilterFormaDebito = auditoria?.filter(index => index.Forma_pago ==6)
+
 
     const totalFilterFormaStoreDebito= store?.filter(index => index.Forma_pago ==6)
 
@@ -229,6 +231,22 @@ const InformeConsolidado = () => {
             countSix += total
         } else{
             countSix += parseInt(totalFilterFormaDebito[i].abono)
+        }
+    }
+
+
+    let PaginaWeb =0
+    for(let i =0;i<totalFilterPagina?.length;i++){
+        if((totalFilterPagina[i].Tipo_persona =="empresa")){
+            //const totalwith = parseInt(totalFilterPagina[i]?.abono ) *19/100
+            const total =parseInt(totalFilterPagina[i]?.abono )
+            PaginaWeb += total
+        }else  if((totalFilterPagina[i].Iva ==1)){
+            //const totalwith = parseInt(totalFilterPagina[i].abono ) *19/100
+            const total =  parseInt(totalFilterPagina[i]?.abono )
+            PaginaWeb += total
+        } else{
+            PaginaWeb += parseInt(totalFilterPagina[i].abono)
         }
     }
 
@@ -261,6 +279,8 @@ const InformeConsolidado = () => {
     const carritoReservaCredito = storeOne?.filter(index => index.Forma_pago ==7)
 
     const carritoReservaCreditoOcasionales = ocasional?.filter(index => index.Forma_pago ==7)
+
+   
 
 
     let countSixTwo =0
@@ -479,10 +499,12 @@ const InformeConsolidado = () => {
         countOcaioanl += totalwith
     }
 
-    const totalEfectivo = countOne +count +countTwo +countOcaioanl
 
-    console.log({"total efectivo": totalEfectivo})
+    const priceInformeCarritoOcasinal = carritoOcasional?.reduce((acum,current) => {
+        return acum  +   parseInt(current.total) 
+    },0)
 
+    const totalEfectivo = countOne +count +countTwo +countOcaioanl+priceInformeCarritoOcasinal
 
     const OtrosMedios  = countThree +countFour +countFive +countSixFiveOcasional 
 
@@ -589,6 +611,7 @@ const InformeConsolidado = () => {
 
         
       <FacturaCompany   jwt={jwt}  
+                        PaginaWeb={PaginaWeb}
                         totalEfectivooNE={totalEfectivo}
                         efectivoTotal={efectivoTotal} 
                         otrosMedios={otrosMedios} 
@@ -627,9 +650,11 @@ export default InformeConsolidado
 
 
 const FacturaCompany  =({jwt,roomBusy,roomSell,efectivoTotal,otrosMedios,dolarespesos, 
-    targetaDebito,targetaCredito,totalTranferencia,pagoAgil,bitcon,payoner,dolares,euros,aeropuerto,lavenderia,turismo,componentRef,totalEfectivooNE,OtrosMedios,store,storeOne,LookinforFecha,hanLookingFor,tarjetaDebeito,totalCredito,totalPayoner,totalLinkPago}) =>{
+    targetaDebito,PaginaWeb,targetaCredito,totalTranferencia,pagoAgil,bitcon,payoner,dolares,euros,aeropuerto,lavenderia,turismo,componentRef,totalEfectivooNE,OtrosMedios,store,storeOne,LookinforFecha,hanLookingFor,tarjetaDebeito,totalCredito,totalPayoner,totalLinkPago}) =>{
 
     let docToPrint = React.createRef();
+
+    
 
     const [avaible,setAvaible] =useState()
     const [room,setRoom] =useState()
@@ -704,6 +729,8 @@ const FacturaCompany  =({jwt,roomBusy,roomSell,efectivoTotal,otrosMedios,dolares
     const debitopocarritoTwo =  avaible?.carroReservaEfectivoTwo[0]?.Total_Abono
     const debitopocarritoThree =  avaible?.carroReservaEfectivoThree[0]?.Total_Abono
 
+    console.log({avaible})
+
     const valEfectivo  = totalEfectivo ? totalEfectivo + efectviotienda  +efectviocarrito: 0
 
     const valOtherMedios  = totalOtherMedios ? totalOtherMedios +efectviotiendaONe  +efectviocarritoONe: 0
@@ -734,8 +761,6 @@ const FacturaCompany  =({jwt,roomBusy,roomSell,efectivoTotal,otrosMedios,dolares
     let countOcasional =0
     
 
-    console.log(avaible)
-
     for(let i =0;i<avaible?.roomByIdIDtypeRoomoOcasioanales?.length;i++){
         const totalwith = parseInt(avaible?.roomByIdIDtypeRoomoOcasioanales[i]?.abono )
         countOcasional  += totalwith
@@ -761,7 +786,6 @@ const FacturaCompany  =({jwt,roomBusy,roomSell,efectivoTotal,otrosMedios,dolares
     const findLenceriaOne= storeOne?.filter(index =>  index.categoria == 6)
     const findServicioOne = storeOne?.filter(index =>  index.categoria == 7)
 
-    console.log({"categorias":findBebidas})
 
     const priceBebidas = findBebidas?.reduce((acum,current) => {
         return acum  +  current.total
@@ -837,15 +861,12 @@ const FacturaCompany  =({jwt,roomBusy,roomSell,efectivoTotal,otrosMedios,dolares
 
     const totalTienda =  totalBebidas + totalSnaks +totalSouvenir +totalAseo +totalAdults +totalLenceria +totalServicios
 
-    const totalCount = count +  totalTienda
+    // const totalCount = count +  totalTienda
 
-    const totalDefinido =OtrosMedios + totalEfectivooNE
+    const totalDefinido  = (tarjetaDebeito +totalCredito +totalTranferencia +totalEfectivooNE +PaginaWeb)
 
-
-    console.log(totalTranferencia)
-
-
-    
+    const totalDefinidoEfectivo = (tarjetaDebeito +totalCredito +totalTranferencia  +PaginaWeb)
+    console.log(totalDefinidoEfectivo)  
     const MyDocument = () => (
         <Document>
           <Page>
@@ -902,7 +923,7 @@ const FacturaCompany  =({jwt,roomBusy,roomSell,efectivoTotal,otrosMedios,dolares
             <table className="table-factura-One" >
                 <tr>
                     <th> <div className="container-block-informe-conslidado"> <span  className="text-font-wei-one-informe let-title-color" > Efectivo total: : </span> <span  className="text-font-wei-one-informe let-title-color" >${totalEfectivooNE.toLocaleString()}</span></div> </th>
-                    <th> <div className="container-block-informe-conslidado"> <span  className="text-font-wei-one-informe let-title-color" > Otros medios::</span> <span  className="text-font-wei-one-informe let-title-color" >$ {OtrosMedios.toLocaleString()}</span> </div> </th>
+                    <th> <div className="container-block-informe-conslidado"> <span  className="text-font-wei-one-informe let-title-color" > Otros medios::</span> <span  className="text-font-wei-one-informe let-title-color" >$ {totalDefinidoEfectivo.toLocaleString()}</span> </div> </th>
                     <th > <div className="container-block-informe-conslidado"> <span  className="text-font-wei-one-informe" > Dolares/Euros en pesos:</span  > <span  className="text-font-wei-one-informe " >{dolarespesos.toLocaleString()}</span> </div> </th>
                     <th > <div className="container-block-informe-conslidado"> <span className="text-font-wei-one-informe let-title-color  "  > Ingreso Total:    :</span> <span  className="text-font-wei-one-informe let-title-color" >${totalDefinido.toLocaleString()}</span> </div> </th>
                 </tr>
