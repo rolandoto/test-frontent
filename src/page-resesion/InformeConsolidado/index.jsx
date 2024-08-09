@@ -17,7 +17,31 @@ import ServiceAuditoria from "../../service/ServiceInformeAuditoria";
 import html2pdf from 'html2pdf.js';
 import { PDFDownloadLink, Document, Page, Text, View, StyleSheet } from '@react-pdf/renderer';
 import { Button } from "@nextui-org/react";
+import { useAppSelector } from "../../hooks/redux";
+import useReservationActions from "../../action/useReservationActions";
 
+
+
+const UseFilterAuditoria  =() =>{
+
+    const {category,setCategory}  = useContext(AutoProvider)
+ 
+     const filterAuditoriaRoom =(audit) =>{
+       
+         if(audit){
+             return audit.filter(item  => {
+               return (
+                     category.Forma_pago ==0 || 
+                     category.Forma_pago ==item.Forma_pago
+                 )
+                  
+             })
+         }
+     }
+ 
+     return {filterAuditoriaRoom,setCategory}
+ 
+ }
 const styles = StyleSheet.create({
   container: {
     padding: '20px',
@@ -172,20 +196,232 @@ const InformeConsolidado = () => {
     const [LookinforFecha,setLokinforFecha] =useState()
     const [loadingOne,setLoadingOne] =useState({loading:false,error:false})
     const [ocasional,setOcasional] =useState()
-    const [carritoOcasional,setCarritoOcasional] =useState()
   
     const hadChangeFecha =(e) =>{
         setLokinforFecha(e.target.value)
     }
 
+    console.log({ocasional})
+
+
+    
+    const {getPostInformeAuditoria} = useReservationActions()
+    const [informe,setInforme] =useState()
+
+    console.log({informe})
+
+    const hanLookingFore =async() =>{
+        try {
+           await  getPostInformeAuditoria({fecha:LookinforFecha})
+        } catch (error) {
+            console.error("Error fetching data:", error);
+        }
+    }
+
+
+    const {filterAuditoriaRoom,setCategory} =  UseFilterAuditoria()
+
+    
+
+    const  audiFiltrar =  filterAuditoriaRoom(informe?.result)
+
+    const filterByFormaPago = (data, formaPago) => {
+        return data?.filter(item => item?.Forma_pago === formaPago);
+    };
+        
+
+    const calculateTotalAbono = (data) => {
+        return data?.reduce((total, item) => total + item?.abono, 0);
+      };
+    // Filtrar y calcular el total de 'abono' para cada forma de pago
+    const audiFiltrareFECTIVO = filterByFormaPago(informe?.result, 1);
+    const totalEfectivoe = calculateTotalAbono(audiFiltrareFECTIVO);
+
+    const audiFiltrareConsignaciones = filterByFormaPago(informe?.result, 2);
+    const totalConsignaciones = calculateTotalAbono(audiFiltrareConsignaciones);
+
+    const audiFiltrarDestino = filterByFormaPago(informe?.result, 3);
+    const totalDestino = calculateTotalAbono(audiFiltrarDestino);
+
+    const audiFiltraSitioweb = filterByFormaPago(informe?.result, 4);
+    const totalSitioweb = calculateTotalAbono(audiFiltraSitioweb);
+
+    const audiFiltrarePayoneer = filterByFormaPago(informe?.result, 5);
+    const totalPayoneer = calculateTotalAbono(audiFiltrarePayoneer);
+
+    const audiFiltTDebito = filterByFormaPago(informe?.result, 6);
+    const totalTDebito = calculateTotalAbono(audiFiltTDebito);
+
+    const audiFiltraTCredito = filterByFormaPago(informe?.result, 7);
+    const totalTCredito = calculateTotalAbono(audiFiltraTCredito);
+
+    const audiFiltrarHotelBeds = filterByFormaPago(informe?.result, 8);
+    const totalHotelBeds = calculateTotalAbono(audiFiltrarHotelBeds);
+
+    const audiFiltrarHoteDespegar = filterByFormaPago(informe?.result, 9);
+    const totalHoteDespegar = calculateTotalAbono(audiFiltrarHoteDespegar);
+
+    const audiFiltrarHotelPriceTravel = filterByFormaPago(informe?.result, 10);
+    const totalHotelPriceTravel = calculateTotalAbono(audiFiltrarHotelPriceTravel);
+
+    const audiFiltrarHotelBedLinkdepago = filterByFormaPago(informe?.result, 11);
+    const totalHotelBedLinkdepago = calculateTotalAbono(audiFiltrarHotelBedLinkdepago);
+
+    const audiFiltrarHotelBedsExpedia = filterByFormaPago(informe?.result, 12);
+    const totalHotelBedsExpedia = calculateTotalAbono(audiFiltrarHotelBedsExpedia)
+
+    
+    const FullTOTALAUDITORIA =totalEfectivoe +totalConsignaciones +totalSitioweb +totalPayoneer +totalTDebito +totalTCredito+totalHotelBeds+totalHoteDespegar +totalHotelPriceTravel+totalHotelBedLinkdepago +totalHotelBedsExpedia
+      
+
+    const calculateTotalAbonOcasioanles = (data) => {
+        return data?.reduce((total, item) => total + item?.Abono, 0);
+    };
+
+    const  audOcasional=  filterAuditoriaRoom(informe?.groupedOcasional)
+    // Filtrar y calcular el total de 'Abono' para cada forma de pago
+    const ocasionalesEfectivo1 = filterByFormaPago(informe?.groupedOcasional, 1);
+    const totalOcasionalesEfectivo1 = calculateTotalAbonOcasioanles(ocasionalesEfectivo1);
+
+    const ocasionalesEfectivo2 = filterByFormaPago(informe?.groupedOcasional, 2);
+    const totalOcasionalesEfectivo2 = calculateTotalAbonOcasioanles(ocasionalesEfectivo2);
+
+    const ocasionalesEfectivo3 = filterByFormaPago(informe?.groupedOcasional, 3);
+    const totalOcasionalesEfectivo3 = calculateTotalAbonOcasioanles(ocasionalesEfectivo3);
+
+    const ocasionalesEfectivo4 = filterByFormaPago(informe?.groupedOcasional, 4);
+    const totalOcasionalesEfectivo4 = calculateTotalAbonOcasioanles(ocasionalesEfectivo4);
+
+    const ocasionalesEfectivo5 = filterByFormaPago(informe?.groupedOcasional, 5);
+    const totalOcasionalesEfectivo5 = calculateTotalAbonOcasioanles(ocasionalesEfectivo5);
+
+    const ocasionalesEfectivo6 = filterByFormaPago(informe?.groupedOcasional, 6);
+    const totalOcasionalesEfectivo6 = calculateTotalAbonOcasioanles(ocasionalesEfectivo6);
+
+    const ocasionalesEfectivo7 = filterByFormaPago(informe?.groupedOcasional, 7);
+    const totalOcasionalesEfectivo7 = calculateTotalAbonOcasioanles(ocasionalesEfectivo7);
+
+    const ocasionalesEfectivo8 = filterByFormaPago(informe?.groupedOcasional, 8);
+    const totalOcasionalesEfectivo8 = calculateTotalAbonOcasioanles(ocasionalesEfectivo8);
+
+    const ocasionalesEfectivo9 = filterByFormaPago(informe?.groupedOcasional, 9);
+    const totalOcasionalesEfectivo9 = calculateTotalAbonOcasioanles(ocasionalesEfectivo9);
+
+    const ocasionalesEfectivo10 = filterByFormaPago(informe?.groupedOcasional, 10);
+    const totalOcasionalesEfectivo10 = calculateTotalAbonOcasioanles(ocasionalesEfectivo10);
+
+    const ocasionalesEfectivo11 = filterByFormaPago(informe?.groupedOcasional, 11);
+    const totalOcasionalesEfectivo11 = calculateTotalAbonOcasioanles(ocasionalesEfectivo11);
+
+    const ocasionalesEfectivo12 = filterByFormaPago(informe?.groupedOcasional, 12);
+    const totalOcasionalesEfectivo12 = calculateTotalAbonOcasioanles(ocasionalesEfectivo12);
+
+
+    const total = totalOcasionalesEfectivo12 +totalOcasionalesEfectivo11 +totalOcasionalesEfectivo10+ totalOcasionalesEfectivo9+totalOcasionalesEfectivo8 +totalOcasionalesEfectivo7+ totalOcasionalesEfectivo6+ totalOcasionalesEfectivo5 
+    +totalOcasionalesEfectivo4 +totalOcasionalesEfectivo3 +totalOcasionalesEfectivo2 +totalOcasionalesEfectivo1
+
+    
+    const storeFilter = filterAuditoriaRoom(informe?.queryTwo)
+    const calculateTotalAbonStore = (data) => {
+        return data?.reduce((total, item) => total + item?.total, 0);
+    };
+    
+    // Filtrar y calcular el total para cada tipo de forma de pago
+    const storeFilterEfectivo = filterByFormaPago(informe?.queryTwo, 1);
+    const totalStoreEfectivo = calculateTotalAbonStore(storeFilterEfectivo);
+    
+    const storeFilterConsignaciones = filterByFormaPago(informe?.queryTwo, 2);
+    const totalStoreConsignaciones = calculateTotalAbonStore(storeFilterConsignaciones);
+    
+    const storeFilterDestino = filterByFormaPago(informe?.queryTwo, 3);
+    const totalStoreDestino = calculateTotalAbonStore(storeFilterDestino);
+    
+    const storeFilterSitioweb = filterByFormaPago(informe?.queryTwo, 4);
+    const totalStoreSitioweb = calculateTotalAbonStore(storeFilterSitioweb);
+    
+    const storeFilterPayoneer = filterByFormaPago(informe?.queryTwo, 5);
+    const totalStorePayoneer = calculateTotalAbonStore(storeFilterPayoneer);
+    
+    const storeFilterTDebito = filterByFormaPago(informe?.queryTwo, 6);
+    const totalStoreTDebito = calculateTotalAbonStore(storeFilterTDebito);
+    
+    const storeFilterTCredito = filterByFormaPago(informe?.queryTwo, 7);
+    const totalStoreTCredito = calculateTotalAbonStore(storeFilterTCredito);
+    
+    const storeFilterHotelBeds = filterByFormaPago(informe?.queryTwo, 8);
+    const totalStoreHotelBeds = calculateTotalAbonStore(storeFilterHotelBeds);
+    
+    const storeFilterHoteDespegar = filterByFormaPago(informe?.queryTwo, 9);
+    const totalStoreHoteDespegar = calculateTotalAbonStore(storeFilterHoteDespegar);
+    
+    const storeFilterHotelPriceTravel = filterByFormaPago(informe?.queryTwo, 10);
+    const totalStoreHotelPriceTravel = calculateTotalAbonStore(storeFilterHotelPriceTravel);
+    
+    const storeFilterHotelBedLinkdepago = filterByFormaPago(informe?.queryTwo, 11);
+    const totalStoreHotelBedLinkdepago = calculateTotalAbonStore(storeFilterHotelBedLinkdepago);
+    
+    const storeFilterHotelBedsExpedia = filterByFormaPago(informe?.queryTwo, 12);
+    const totalStoreHotelBedsExpedia = calculateTotalAbonStore(storeFilterHotelBedsExpedia);
+
+    const storEfectivo = filterAuditoriaRoom(informe?.queryTwo)
+
+
+    const storeOneFiltrar =  filterAuditoriaRoom(informe?.queryOne)
+
+    const CarritoOcasional =  filterAuditoriaRoom(informe?.queryThree)
+
+   
+    const priceInformeStore = storeFilter?.reduce((acum,current) => {
+        return acum  +   parseInt(current.total) 
+    },0)
+
+
+    const priceInformeStoreOne = storeOneFiltrar?.reduce((acum,current) => {
+        return acum  +   parseInt(current.total) 
+    },0)
+
+
+    const priceInformeOcasional = audOcasional?.reduce((acum,current) => {
+        return acum  +   parseInt(current.Abono) 
+    },0)
+
+
+    const priceInformeCarritoOcasinal = CarritoOcasional?.reduce((acum,current) => {
+        return acum  +   parseInt(current.total) 
+    },0)
+
+
+    
+
+    
+    let countooo =0
+    if(storeOneFiltrar){
+        for(let i =0;i<audiFiltrar?.length;i++){
+            if((audiFiltrar[i].Tipo_persona =="empresa")){
+                const total =  parseInt(audiFiltrar[i].abono )
+                countooo += total
+            }else  if((audiFiltrar[i].Iva ==1)){
+                const total = parseInt(audiFiltrar[i]?.abono )
+                countooo += total
+            } else{
+                countooo += parseInt(audiFiltrar[i]?.abono)
+            }
+        }
+    }
+
+    const totalPriceInforme = countooo +priceInformeStore+priceInformeStoreOne+priceInformeOcasional+priceInformeCarritoOcasinal
+
+    const totalDefinisInforme = totalPriceInforme.toLocaleString();
+ 
     const hanLookingFor =() =>{
+       
         setLoadingOne({loading:true})
         ServiceAuditoria({id:jwt.result.id_hotel,fecha:LookinforFecha}).then(index =>{
+            setInforme(index)
             setOcasional(index.groupedOcasional)
             setAuditoria(index.result)
             setStore(index.queryTwo)
             setStoreOne(index.queryOne)
-            setCarritoOcasional(index.queryThree)
             setLoadingOne({loading:true})
         }).catch(e =>{
             setLoadingOne({loading:false})
@@ -205,12 +441,10 @@ const InformeConsolidado = () => {
 
     //ocasionales
   
+ 
 
-    const totalFilterPagina = auditoria?.filter(index => index.Forma_pago ==4)
-    console.log({totalFilterPagina})
 
     const totalFilterFormaDebito = auditoria?.filter(index => index.Forma_pago ==6)
-
 
     const totalFilterFormaStoreDebito= store?.filter(index => index.Forma_pago ==6)
 
@@ -231,22 +465,6 @@ const InformeConsolidado = () => {
             countSix += total
         } else{
             countSix += parseInt(totalFilterFormaDebito[i].abono)
-        }
-    }
-
-
-    let PaginaWeb =0
-    for(let i =0;i<totalFilterPagina?.length;i++){
-        if((totalFilterPagina[i].Tipo_persona =="empresa")){
-            //const totalwith = parseInt(totalFilterPagina[i]?.abono ) *19/100
-            const total =parseInt(totalFilterPagina[i]?.abono )
-            PaginaWeb += total
-        }else  if((totalFilterPagina[i].Iva ==1)){
-            //const totalwith = parseInt(totalFilterPagina[i].abono ) *19/100
-            const total =  parseInt(totalFilterPagina[i]?.abono )
-            PaginaWeb += total
-        } else{
-            PaginaWeb += parseInt(totalFilterPagina[i].abono)
         }
     }
 
@@ -280,8 +498,6 @@ const InformeConsolidado = () => {
 
     const carritoReservaCreditoOcasionales = ocasional?.filter(index => index.Forma_pago ==7)
 
-   
-
 
     let countSixTwo =0
     for(let i =0;i<totalFilterFormaCredito?.length;i++){
@@ -312,9 +528,10 @@ const InformeConsolidado = () => {
 
     let countTwoSixTwoOcasionales =0
     for(let i =0;i<carritoReservaCreditoOcasionales?.length;i++){
-        const totalwith = parseInt(carritoReservaCreditoOcasionales[i]?.total ) 
+        const totalwith = parseInt(carritoReservaCreditoOcasionales[i]?.Abono ) 
         countTwoSixTwoOcasionales += totalwith
     }
+
 
     const totalCredito = countSixTwo+countOneSixTwo+countTwoSixTwo  +countTwoSixTwoOcasionales
 
@@ -499,12 +716,10 @@ const InformeConsolidado = () => {
         countOcaioanl += totalwith
     }
 
+    const totalEfectivo = countOne +count +countTwo +countOcaioanl
 
-    const priceInformeCarritoOcasinal = carritoOcasional?.reduce((acum,current) => {
-        return acum  +   parseInt(current.total) 
-    },0)
+    console.log({"total efectivo": totalEfectivo})
 
-    const totalEfectivo = countOne +count +countTwo +countOcaioanl+priceInformeCarritoOcasinal
 
     const OtrosMedios  = countThree +countFour +countFive +countSixFiveOcasional 
 
@@ -611,7 +826,7 @@ const InformeConsolidado = () => {
 
         
       <FacturaCompany   jwt={jwt}  
-                        PaginaWeb={PaginaWeb}
+      totalDefinisInforme={totalDefinisInforme}
                         totalEfectivooNE={totalEfectivo}
                         efectivoTotal={efectivoTotal} 
                         otrosMedios={otrosMedios} 
@@ -650,11 +865,9 @@ export default InformeConsolidado
 
 
 const FacturaCompany  =({jwt,roomBusy,roomSell,efectivoTotal,otrosMedios,dolarespesos, 
-    targetaDebito,PaginaWeb,targetaCredito,totalTranferencia,pagoAgil,bitcon,payoner,dolares,euros,aeropuerto,lavenderia,turismo,componentRef,totalEfectivooNE,OtrosMedios,store,storeOne,LookinforFecha,hanLookingFor,tarjetaDebeito,totalCredito,totalPayoner,totalLinkPago}) =>{
+    targetaDebito,totalDefinisInforme,targetaCredito,totalTranferencia,pagoAgil,bitcon,payoner,dolares,euros,aeropuerto,lavenderia,turismo,componentRef,totalEfectivooNE,OtrosMedios,store,storeOne,LookinforFecha,hanLookingFor,tarjetaDebeito,totalCredito,totalPayoner,totalLinkPago}) =>{
 
     let docToPrint = React.createRef();
-
-    
 
     const [avaible,setAvaible] =useState()
     const [room,setRoom] =useState()
@@ -729,8 +942,6 @@ const FacturaCompany  =({jwt,roomBusy,roomSell,efectivoTotal,otrosMedios,dolares
     const debitopocarritoTwo =  avaible?.carroReservaEfectivoTwo[0]?.Total_Abono
     const debitopocarritoThree =  avaible?.carroReservaEfectivoThree[0]?.Total_Abono
 
-    console.log({avaible})
-
     const valEfectivo  = totalEfectivo ? totalEfectivo + efectviotienda  +efectviocarrito: 0
 
     const valOtherMedios  = totalOtherMedios ? totalOtherMedios +efectviotiendaONe  +efectviocarritoONe: 0
@@ -761,6 +972,8 @@ const FacturaCompany  =({jwt,roomBusy,roomSell,efectivoTotal,otrosMedios,dolares
     let countOcasional =0
     
 
+    console.log(avaible)
+
     for(let i =0;i<avaible?.roomByIdIDtypeRoomoOcasioanales?.length;i++){
         const totalwith = parseInt(avaible?.roomByIdIDtypeRoomoOcasioanales[i]?.abono )
         countOcasional  += totalwith
@@ -786,6 +999,7 @@ const FacturaCompany  =({jwt,roomBusy,roomSell,efectivoTotal,otrosMedios,dolares
     const findLenceriaOne= storeOne?.filter(index =>  index.categoria == 6)
     const findServicioOne = storeOne?.filter(index =>  index.categoria == 7)
 
+    console.log({"categorias":findBebidas})
 
     const priceBebidas = findBebidas?.reduce((acum,current) => {
         return acum  +  current.total
@@ -861,12 +1075,12 @@ const FacturaCompany  =({jwt,roomBusy,roomSell,efectivoTotal,otrosMedios,dolares
 
     const totalTienda =  totalBebidas + totalSnaks +totalSouvenir +totalAseo +totalAdults +totalLenceria +totalServicios
 
-    // const totalCount = count +  totalTienda
+    const totalCount = count +  totalTienda
 
-    const totalDefinido  = (tarjetaDebeito +totalCredito +totalTranferencia +totalEfectivooNE +PaginaWeb)
+    const totalDefinido =OtrosMedios + totalEfectivooNE
 
-    const totalDefinidoEfectivo = (tarjetaDebeito +totalCredito +totalTranferencia  +PaginaWeb)
-    console.log(totalDefinidoEfectivo)  
+
+    
     const MyDocument = () => (
         <Document>
           <Page>
@@ -923,9 +1137,9 @@ const FacturaCompany  =({jwt,roomBusy,roomSell,efectivoTotal,otrosMedios,dolares
             <table className="table-factura-One" >
                 <tr>
                     <th> <div className="container-block-informe-conslidado"> <span  className="text-font-wei-one-informe let-title-color" > Efectivo total: : </span> <span  className="text-font-wei-one-informe let-title-color" >${totalEfectivooNE.toLocaleString()}</span></div> </th>
-                    <th> <div className="container-block-informe-conslidado"> <span  className="text-font-wei-one-informe let-title-color" > Otros medios::</span> <span  className="text-font-wei-one-informe let-title-color" >$ {totalDefinidoEfectivo.toLocaleString()}</span> </div> </th>
+                    <th> <div className="container-block-informe-conslidado"> <span  className="text-font-wei-one-informe let-title-color" > Otros medios::</span> <span  className="text-font-wei-one-informe let-title-color" >$ {OtrosMedios.toLocaleString()}</span> </div> </th>
                     <th > <div className="container-block-informe-conslidado"> <span  className="text-font-wei-one-informe" > Dolares/Euros en pesos:</span  > <span  className="text-font-wei-one-informe " >{dolarespesos.toLocaleString()}</span> </div> </th>
-                    <th > <div className="container-block-informe-conslidado"> <span className="text-font-wei-one-informe let-title-color  "  > Ingreso Total:    :</span> <span  className="text-font-wei-one-informe let-title-color" >${totalDefinido.toLocaleString()}</span> </div> </th>
+                    <th > <div className="container-block-informe-conslidado"> <span className="text-font-wei-one-informe let-title-color  "  > Ingreso Total:    :</span> <span  className="text-font-wei-one-informe let-title-color" >${totalDefinisInforme}</span> </div> </th>
                 </tr>
             </table>
 
