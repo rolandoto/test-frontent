@@ -61,8 +61,6 @@ const Dian =() => {
       setIsSelected(!isSelected);
     };
 
-    
-    
     const handleCheckboxChangeMinibar = () => {
       setIsSelectedMinibar(!isSelectedMinibar);
     };
@@ -76,8 +74,8 @@ const Dian =() => {
   }
 
     const fetchData =async() =>{
-       //await  GetTypeDian({token:Dian.access_token})
-      //await GetTSeller({token:Dian.access_token})
+        await  GetTypeDian({token:Dian.access_token})
+        await GetTSeller({token:Dian.access_token})
         await  GetTProductsDian({token:Dian.access_token})
         await  GetPayment({token:Dian.access_token})
         await GetTaxesDian({token:Dian.access_token})
@@ -132,6 +130,8 @@ const Dian =() => {
 	}, [socket]);
 
 
+
+ 
 
     const resultDashboard = DetailDashboard[0]
 
@@ -282,7 +282,6 @@ const Dian =() => {
     const RetentionItem = filteredItems.some((item) =>item.taxes) ?  Retention :  RetentionSinIva 
 
     const valuePymentIpoconsumo = isSelectedMinibar ? ItemIpoconsumoTotal : valuesPayments
-
 
     const payments =[{
       id: jwt?.result?.id_payment,
