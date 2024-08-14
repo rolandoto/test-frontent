@@ -123,6 +123,12 @@ const   itemRenderer = ({ item, itemContext, getItemProps }) => {
         colorWords = 'white';
        
         break;
+
+        case 7:
+            color = 'black';
+            colorWords = 'white';
+           
+            break;
     case 8:
         color = '#fff9ad';
         colorWords = 'white';

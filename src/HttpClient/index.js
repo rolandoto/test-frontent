@@ -808,7 +808,7 @@ const PostSigoBYClient = async({token,body,id_Reserva,id_user,fecha,Retention}) 
 }
 
 const GetTypeDocuments= ({token}) => {
-  return fetch(`https://private-anon-5edaff4dcc-siigoapi.apiary-proxy.com/v1/document-types?type=FV`, {
+  return fetch(`https://private-anon-ae4b890665-siigoapi.apiary-proxy.com/v1/document-types?type=FV`, {
     method: "GET",
     headers: {
       "Authorization":token,
@@ -824,7 +824,7 @@ const GetTypeDocuments= ({token}) => {
 };
 
 const GetSellerDian= ({token}) => {
-  return fetch(`https://private-anon-5edaff4dcc-siigoapi.apiary-proxy.com/v1/users`, {
+  return fetch(`https://private-anon-ae4b890665-siigoapi.apiary-proxy.com/v1/users`, {
     method: "GET",
     headers: {
       "Authorization":token,
@@ -884,7 +884,7 @@ const GetTaxesDian=async({token}) => {
 };
 
 const GetTypePayment= ({token}) => {
-  return fetch(`https://private-anon-5edaff4dcc-siigoapi.apiary-proxy.com/v1/payment-types?document_type=FV`, {
+  return fetch(`https://private-anon-ae4b890665-siigoapi.apiary-proxy.com/v1/payment-types?document_type=FV`, {
     method: "GET",
     headers: {
       "Authorization":token,

@@ -12,5 +12,4 @@ const CardRoomSoldTWo =({InformeMonth}) =>{
         </div>
     )
 }
-
 export default CardRoomSoldTWo

@@ -153,6 +153,11 @@ const Dian =() => {
       return  item.code =="6"
     }); 
 
+
+    const StartDate = moment(resultDashboard?.Fecha_inicio).utc().format('YYYY/MM/DD')
+    const EndDate = moment(resultDashboard?.Fecha_final).utc().format('YYYY/MM/DD')
+    console.log(resultDashboard)
+
     const resdian = jwt?.result?.RestDian;
 
     const combinedArray = products.filter(item => {
@@ -320,11 +325,13 @@ const Dian =() => {
       mail: {
         send: true
       },
-      observations:jwt?.result?.observation,
+      observations:`hospedaje del ${StartDate} al ${EndDate}`,
       items,
       payments,
       additional_fields: {}
-    };   
+    };  
+    
+
 
     useEffect(() =>{
       fetchDataPayment()

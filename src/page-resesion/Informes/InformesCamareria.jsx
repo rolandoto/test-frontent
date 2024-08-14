@@ -29,7 +29,6 @@ const CheckBoxValue =({checval}) =>{
     const key = `like${checval}`
 
     const [storage,setValue]  = Uselocalstorage(key,false)
-
     const [checkBox, setCheckBox] = useState(storage);
 
     const handChangeCheckBox = () => {
@@ -211,8 +210,7 @@ const InformeCamareria =() =>{
             return accumulator;  // Asegúrate de devolver el acumulador en todos los casos
         }, initialValue);
 
-        console.log(countAdultos)
-
+   
         const filtrarHospedadas = () => {
             let resultadosBusquedaHospedadas = camareria?.filter((elemento, index) => {
                 if(elemento.ID_Tipo_Estados_Habitaciones == 3){
@@ -299,7 +297,9 @@ const InformeCamareria =() =>{
     }
 
     const {resultadosBusqueda} =  filtrarSearching()
-   
+    
+
+
     return (
         <ContainerGlobal>
                <LoadingDetail  
@@ -370,7 +370,8 @@ const InformeCamareria =() =>{
                         <th className="with-camarera" >Opcion aseo</th> 
                     </tr>
                     {resultadosBusqueda?.map((index,e) =>{
-                      
+                        
+
                         const validOcupied =index.ID_Tipo_Estados_Habitaciones
 
                         const fechaEnd =moment(index.Fecha_final).utc().format('YYYY/MM/DD')
@@ -379,6 +380,15 @@ const InformeCamareria =() =>{
                         const fechaInicio = moment(index.Fecha_final).format('YYYY/MM/DD'); // Fecha del elemento en formato local
                         const today =  moment(now).isSame(fechaInicio, 'day'); // Invierte la condición
                         
+
+                        const fechaIniFinal = moment(index.Fecha_inicio).format('YYYY/MM/DD'); // Fecha del elemento en formato local
+                        const todayFinalBefore =  moment(now).isSame(fechaIniFinal, 'day'); // Invierte la condición
+                        
+
+
+                        console.log(index.Estado_Habitacio)
+
+
                         if(validOcupied ==3){
                             if(today){
                                 return (
@@ -409,20 +419,36 @@ const InformeCamareria =() =>{
                             }
                            
                         }else if(validOcupied ==0){
-                            return (
+                            if(todayFinalBefore){
+                                return (
+                                    <tr   key={e} >
+                                        <td className="with-camarera" ><span> {index.Numero}</span> </td>
+                                            <td  className="with-camarera"  >Reservada</td>
+                                            <td  className="with-camarera"  >Reservada</td>
+                                            <td  className="with-camarera"  >Reservada</td>
+                                            <td  className="with-camarera"  >Reservada</td>
+                                            <td  className="with-camarera"  >Reservada</td>
+                                            <td  className="with-camarera"  >Reservada</td>
+                                            <td  className="with-camarera"  >Reservada</td>
+                                            <td  className="with-camarera"  >Reservada</td>
+                                    </tr>
+                                )
+                            }else{
+                                return (
                                 <tr   key={e} >
-                                    <td className="with-camarera">{index.Numero}</td>
-                                    <td className="with-camarera"> </td>
-                                    <td className="with-camarera"></td>
+                                <td className="with-camarera" ><span> {index.Numero}</span> </td>
+                                    <td  className="with-camarera"  >{index.Adultos}</td>
+                                    <td className="with-camarera" >{index.Ninos}</td>
+                                    <td  className="with-camarera">{fechaEnd}</td>
+                                    <td className="with-camarera" ><span>{index.nombre}</span> </td>
+                                    <td className=" ocupieds checkout-today  with-camarera" >{index.Estado_Habitacio}</td>
                                     <td className="with-camarera">{index.Estado_Habitacio}</td>
-                                    <td className="with-camarera">{index.Estado_Habitacio}</td>
-                                    <td className="with-camarera">{index.Estado_Habitacio}</td>
-                                    <td className="with-camarera">{index.Estado_Habitacio}</td>
-                                    <td className="with-camarera">{index.Estado_Habitacio}</td>
-                                    <td className="with-camarera">{index.Estado_Habitacio}</td>
-                                    
-                                </tr>
+                                    <td  className="with-camarera"  ></td>
+                                    <td  className="with-camarera"  ></td>
+                            </tr>
                             )
+                            }
+                          
                         }
                         else if(validOcupied ==5){
                             return (
@@ -432,7 +458,7 @@ const InformeCamareria =() =>{
                                     <td className="with-camarera"></td>
                                     <td className="with-camarera"></td>
                                     <td className="with-camarera"></td>
-                                    <td className="aseo-camarera span-parrafo with-camarera">{index.Estado_Habitacio}</td>
+                                    <td className="aseo-camarera  span-parrafo with-camarera">{index.Estado_Habitacio}</td>
                                     <ItemCardPago  className={" span-parrafo"} />
                                     < CheckBoxValue  checval={index.ID}  />
                                   

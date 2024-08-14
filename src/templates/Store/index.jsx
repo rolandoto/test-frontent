@@ -767,9 +767,11 @@ const StoreTemplate =({Store}) =>{
       }
       menuCard.forEach((n) => n.addEventListener("click", setMenuCardActive));
     }, [isMainData, totalPrice]);
-      const setData = (itemId) => {
-        setMainData( Store?.query?.filter((element) => element.Nombre_categoria ==  itemId));
-      };
+
+      
+  const setData = (itemId) => {
+    setMainData( Store?.query?.filter((element) => element.Nombre_categoria ==  itemId));
+  };
     
     const handCart =(evt) =>{
 

@@ -101,7 +101,6 @@ const EditarPersonas =() =>{
                     <h2 className="cod-reserva" ><span className="title-code" >COD:</span> X14A-</h2>
                 </div>
                 </div>
-
                             <div className=" one-detail" >
                         
                                 <form className="container-flex-init" >

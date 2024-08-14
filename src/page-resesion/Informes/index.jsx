@@ -157,6 +157,7 @@ const InformeAuditoria =() =>{
     const CarritoOcasional =  filterAuditoriaRoom(informe?.queryThree)
 
 
+
     const handChangeCategory =(event) =>{
         setCategory(prevent  =>({
             ...prevent,
