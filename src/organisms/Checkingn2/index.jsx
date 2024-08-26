@@ -20,6 +20,7 @@ import { Button } from "@nextui-org/react";
 import { toast } from "react-hot-toast";
 import ButtonBack from "../../component/ButtonBack";
 import useSocket from "../../hooks/UseSocket";
+import NoFound from "../../component/Nofound";
 
 const Checkingn2Organism =({id,postDetailRoom,fetchDataApiWhatsapp,postWhataapById}) =>{
 
@@ -253,7 +254,7 @@ const Checkingn2Organism =({id,postDetailRoom,fetchDataApiWhatsapp,postWhataapBy
         }
 
     if(resulDetailDashboard.ID_estado_habitacion ==3){
-       return <p>Bloqueda</p>
+       return <NoFound />
     }
 
         return (
