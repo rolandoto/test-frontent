@@ -47,6 +47,8 @@ const Checkingn2Organism =({id,postDetailRoom,fetchDataApiWhatsapp,postWhataapBy
 
     const  resulDetailDashboard = DetailDashboard[0]
 
+   
+
     const init  =   moment(resulDetailDashboard?.Fecha_inicio).utc().format('MM/DD/YYYY')
     const fin = moment(resulDetailDashboard?.Fecha_final).utc().format('MM/DD/YYYY')
 
@@ -249,6 +251,10 @@ const Checkingn2Organism =({id,postDetailRoom,fetchDataApiWhatsapp,postWhataapBy
               }
             })
         }
+
+    if(resulDetailDashboard.ID_estado_habitacion ==3){
+       return <p>Bloqueda</p>
+    }
 
         return (
             <>
