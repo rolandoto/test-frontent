@@ -55,8 +55,6 @@ const Dian =() => {
     const [isSelected, setIsSelected] = useState(false); // defaultSelected
     const [isSelectedMinibar, setIsSelectedMinibar] = useState(false); // defaultSelected
         
-
-
     const handleCheckboxChange = () => {
       setIsSelected(!isSelected);
     };
@@ -64,7 +62,6 @@ const Dian =() => {
     const handleCheckboxChangeMinibar = () => {
       setIsSelectedMinibar(!isSelectedMinibar);
     };
-
 
     const {DetailDashboard
       } = useSelector((state) => state.DetailDashboard)
@@ -94,16 +91,17 @@ const Dian =() => {
     }
   }, 0);
 
-  const sumWithInitialMinibar= ProductsMinibar.reduce((accumulator, currentValue) => {
-    if (currentValue.Nombre_producto !=="Early check-in") {
+  const sumWithInitialMinibar = ProductsMinibar.reduce((accumulator, currentValue) => {
+    // Verifica si el nombre del producto no es "Early check-in" y no es "Last Check Out"
+    if (currentValue.Nombre_producto !== "Early check-in" && currentValue.Nombre_producto !== "Last Check Out") {
       return accumulator + currentValue.Precio;
-    }else{
-      return accumulator
+    } else {
+      return accumulator;
     }
   }, 0);
 
     const minibarServicio= ProductsMinibar.reduce((accumulator, currentValue) => {
-      if (currentValue.Nombre_producto ==="Early check-in") {
+      if (currentValue.Nombre_producto ==="Early check-in" || currentValue.Nombre_producto ==="Last Check Out") {
         return accumulator + currentValue.Precio;
       }else{
         return accumulator
@@ -111,13 +109,13 @@ const Dian =() => {
   }, 0);
 
 
- 
 
   const totalAmount = sumWithInitial +sumWithInitialMinibar
 
   const {SubtotalDian,TotalRetentionDian} =UseRoundRention({Price:sumWithInitial})
   const {SubtotalDianSinIva,TotalRetentionDianSinIva,TotalPaySinIva} =UseRoundRetentionSinIva({Price:sumWithInitial})
   const {SubtotalDianIpoconsumo,TotalPayipoconsumo} =UseAroundIpoconsumo({Price:sumWithInitialMinibar})
+
 
 
   useEffect(() => {
@@ -130,21 +128,20 @@ const Dian =() => {
 	}, [socket]);
 
 
-
- 
-
     const resultDashboard = DetailDashboard[0]
 
     const totalNum = resultDashboard?.Iva == 1 ? true : false;
     const typeIva = resultDashboard?.tipo_persona === "empresa" ? true : totalNum;
 
     const totalPrice = sumWithInitial + minibarServicio
-    console.log({totalPrice})
+
     const totalRound =  totalPrice / 1.19
     const ValorBase = Math.round(totalRound * 100000) / 100000; // Redondear a 5 decimales
     const valueSTotalProduct =  typeIva ?  ValorBase : totalPrice
     const valuesPayments = typeIva ? totalPrice :totalPrice
-  
+
+    console.log(totalPrice)
+
     const filteredItems = products?.filter(item =>{
       return  item.id ==jwt?.result?.dian
     });
@@ -153,9 +150,9 @@ const Dian =() => {
       return  item.code =="6"
     }); 
 
-
     const StartDate = moment(resultDashboard?.Fecha_inicio).utc().format('YYYY/MM/DD')
     const EndDate = moment(resultDashboard?.Fecha_final).utc().format('YYYY/MM/DD')
+
     console.log(resultDashboard)
 
     const resdian = jwt?.result?.RestDian;
@@ -165,8 +162,6 @@ const Dian =() => {
           return  item
       }}
     );
-
-   
 
     const itemIvaIpoconsumo = useMemo(() => {
       if(combinedArray.some((item) =>item.taxes)){
@@ -243,7 +238,6 @@ const Dian =() => {
     } , [filteredItems, SubtotalDian]);
 
 
-
     const itemsExenta = useMemo(() => {
       if(filteredItems.some((item) =>item.taxes)){
         return  filterItemsExecento?.map(item => ({
@@ -267,11 +261,8 @@ const Dian =() => {
       }
     }, [filterItemsExecento, totalPrice]);
 
-
-  
     const ProductRententionExtra  =  itemRetention.concat(itemIvaIpoconsumo)
 
-   
     const validProduct =  typeIva ? itemIva   :itemsExenta
     const ItemIpoconsumo  =  validProduct.concat(itemIvaIpoconsumo)
     const ItemIpoconsumoTotal = totalAmount
@@ -332,7 +323,6 @@ const Dian =() => {
     };  
     
 
-
     useEffect(() =>{
       fetchDataPayment()
         fetchData()
@@ -371,6 +361,8 @@ const Dian =() => {
       console.error('Error fetching search results:', error);
     }
   }, [debouncedSearchTerm]); // Dependencia para el useCallback
+
+  
 
   useEffect(() => {
     fetchSearchResults();
