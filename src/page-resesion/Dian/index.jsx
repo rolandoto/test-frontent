@@ -284,6 +284,8 @@ const Dian =() => {
       value:valuePymentIpoconsumo,
     }]
 
+    console.log()
+
     const DateExit = moment(DetailDashboard.Fecha_final).utc().format('YYYY-MM-DD')
 
     const response= {
@@ -316,7 +318,7 @@ const Dian =() => {
       mail: {
         send: true
       },
-      observations:`hospedaje del ${StartDate} al ${EndDate}`,
+      observations:`hospedaje del ${StartDate} al ${EndDate}   ${jwt?.result?.observation} `,
       items,
       payments,
       additional_fields: {}
