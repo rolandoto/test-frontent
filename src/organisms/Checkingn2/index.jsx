@@ -209,7 +209,7 @@ const Checkingn2Organism =({id,postDetailRoom,fetchDataApiWhatsapp,postWhataapBy
     const handUpdateConfirms = async () => {
         setDisable(true);
         try {
-        await HttpClient.PostUploadCarPresent({ID_Reserva:id,Username:userName})
+        //await HttpClient.PostUploadCarPresent({ID_Reserva:id,Username:userName})
         await ServiceUpdateReservationpay({ id, dataOne: dataTwo });
         await postDetailRoom({ id: resulDetailDashboard?.ID_Habitaciones, ID_estado_habitacion: 3 });
         await ServiceStatus({ id, ID_Tipo_Estados_Habitaciones: 3 });
@@ -221,6 +221,7 @@ const Checkingn2Organism =({id,postDetailRoom,fetchDataApiWhatsapp,postWhataapBy
         toast.success("pago exitoso")
         history.push(`/checkingin3/${id}`);
         } catch (error) {
+            console.log(error)
             toast.error("error al servicio")
         }
       };
