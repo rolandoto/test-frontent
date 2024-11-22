@@ -763,7 +763,6 @@ const priceLenceria = Lenceria?.reduce((acum,current) => {
 },0)
 
 const hanDelete =() =>{
-    if(parseInt(resultDashboard.valor_abono) <=0){
       ServiDelteReservation({id}).then(index =>{  
         ServiceInfomeMovimiento({Nombre_recepcion:jwt.result.name,Fecha:now,Movimiento:`Reserva eliminada tipo habitacion ${resultDashboard?.nombre_habitacion} ${resultDashboard.Numero} nombre ${resultDashboard.Nombre} codigo reserva ${id} `,id:jwt.result.id_hotel,Valor_habitacion:"0",Codigo_reserva:id}).then(index =>{
           socket.emit("sendNotification",message);
@@ -775,9 +774,6 @@ const hanDelete =() =>{
     }).catch(e =>{
         console.error("error")
     })
-    }else{
-      toast.error("Error al eliminar Habitacion")
-    }  
 } 
 
 const isValidNumberOne = (value) => {
