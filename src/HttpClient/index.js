@@ -732,8 +732,6 @@ const GetPorductoSigoDashboard = async () => {
               'Content-type': 'application/json',
           }
       });
-
-      
       if (!resp.ok) {
           throw new Error('Response is not ok');
         }
@@ -747,22 +745,22 @@ const GetPorductoSigoDashboard = async () => {
 
 const PostAutenticationDian = async() => {
   
-  try {
-    const resp = await fetch(`${config.serverRoute}/api/hotels/sigo/PostAuthSigo`, {
-      method: "POST",
-      headers: {
-          'Content-type': 'application/json',
-      }
-    });
-    if (!resp.ok) {
-        throw new Error('Response is not ok');
-      }
-      const {data} = await resp.json();
-      return data
-} catch (error) {
-    console.error('Error in PostInformeInfomeMetricas:', error);
-    throw error; // You can re-throw the error or handle it differently based on your needs
-}
+    try {
+      const resp = await fetch(`${config.serverRoute}/api/hotels/sigo/PostAuthSigo`, {
+        method: "POST",
+        headers: {
+            'Content-type': 'application/json',
+        }
+      });
+      if (!resp.ok) {
+          throw new Error('Response is not ok');
+        }
+        const {data} = await resp.json();
+        return data
+  } catch (error) {
+      console.error('Error in PostInformeInfomeMetricas:', error);
+      throw error; // You can re-throw the error or handle it differently based on your needs
+  }
 }
 
 const GetLisClienteDian = async({token,document}) => {
@@ -808,7 +806,7 @@ const PostSigoBYClient = async({token,body,id_Reserva,id_user,fecha,Retention}) 
 }
 
 const GetTypeDocuments= ({token}) => {
-  return fetch(`https://private-anon-ae4b890665-siigoapi.apiary-proxy.com/v1/document-types?type=FV`, {
+  return fetch(`https://private-anon-0b63fa8cf8-siigoapi.apiary-proxy.com/v1/document-types?type=FV`, {
     method: "GET",
     headers: {
       "Authorization":token,
@@ -824,7 +822,7 @@ const GetTypeDocuments= ({token}) => {
 };
 
 const GetSellerDian= ({token}) => {
-  return fetch(`https://private-anon-ae4b890665-siigoapi.apiary-proxy.com/v1/users`, {
+  return fetch(`https://private-anon-0b63fa8cf8-siigoapi.apiary-proxy.com/v1/users`, {
     method: "GET",
     headers: {
       "Authorization":token,
@@ -884,7 +882,7 @@ const GetTaxesDian=async({token}) => {
 };
 
 const GetTypePayment= ({token}) => {
-  return fetch(`https://private-anon-ae4b890665-siigoapi.apiary-proxy.com/v1/payment-types?document_type=FV`, {
+  return fetch(`https://private-anon-0b63fa8cf8-siigoapi.apiary-proxy.com/v1/payment-types?document_type=FV`, {
     method: "GET",
     headers: {
       "Authorization":token,
@@ -955,7 +953,6 @@ const GetServiceInfomeRoomtoSell =({id,fechaInicio,fechaFinal})=>{
 
 
 const PostRegisterTRA = ({ body, token }) => {
- 
   return fetch(`${config.serverRoute}/api/resecion/pmstraone`, {
     method: "POST",
     headers:{
@@ -1326,32 +1323,6 @@ const getDetailWompi= async ({id}) => {
     }
 };
 
-
-
-const PostClienInsertStoreSubcategory = async ({Product,Tipo_categoria}) => {
-  try {
-    const resp = await fetch(`${config.serverRoute}/api/resecion/InsertSubcategory`, {
-      method: "POST",
-      headers: {
-        'Content-type': 'application/json'
-      },
-      body: JSON.stringify({Product,Tipo_categoria})
-    });
-
-    if (!resp.ok) {
-      throw new Error('Response is not ok');
-    }
-
-    const data = await resp.json();
-    return data;
-  } catch (error) {
-    console.error('Error in PostInformeInfomeMetricas:', error);
-    throw error; // Puedes lanzar el error nuevamente o manejarlo de otra manera según tus necesidades
-  }
-};
-
-
-
 export default {
   get,
   post,
@@ -1419,6 +1390,5 @@ export default {
   GetCitySigo,
   PostClientSigo,
   getDetallehistory,
-  getDetailWompi,
-  PostClienInsertStoreSubcategory
+  getDetailWompi
 };

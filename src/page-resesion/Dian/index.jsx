@@ -55,13 +55,18 @@ const Dian =() => {
     const [isSelected, setIsSelected] = useState(false); // defaultSelected
     const [isSelectedMinibar, setIsSelectedMinibar] = useState(false); // defaultSelected
         
+      console.log(seller)
+
     const handleCheckboxChange = () => {
       setIsSelected(!isSelected);
     };
 
+    
+    
     const handleCheckboxChangeMinibar = () => {
       setIsSelectedMinibar(!isSelectedMinibar);
     };
+
 
     const {DetailDashboard
       } = useSelector((state) => state.DetailDashboard)
@@ -71,8 +76,8 @@ const Dian =() => {
   }
 
     const fetchData =async() =>{
-        await  GetTypeDian({token:Dian.access_token})
-        await GetTSeller({token:Dian.access_token})
+       await  GetTypeDian({token:Dian.access_token})
+      await GetTSeller({token:Dian.access_token})
         await  GetTProductsDian({token:Dian.access_token})
         await  GetPayment({token:Dian.access_token})
         await GetTaxesDian({token:Dian.access_token})
@@ -91,31 +96,15 @@ const Dian =() => {
     }
   }, 0);
 
-  const sumWithInitialMinibar = ProductsMinibar.reduce((accumulator, currentValue) => {
-    // Verifica si el nombre del producto no es "Early check-in" y no es "Last Check Out"
-    if (currentValue.Nombre_producto !== "Early check-in" && currentValue.Nombre_producto !== "Last Check Out") {
+  const sumWithInitialMinibar= ProductsMinibar.reduce((accumulator, currentValue) => {
       return accumulator + currentValue.Precio;
-    } else {
-      return accumulator;
-    }
   }, 0);
-
-    const minibarServicio= ProductsMinibar.reduce((accumulator, currentValue) => {
-      if (currentValue.Nombre_producto ==="Early check-in" || currentValue.Nombre_producto ==="Last Check Out") {
-        return accumulator + currentValue.Precio;
-      }else{
-        return accumulator
-      }
-  }, 0);
-
-
 
   const totalAmount = sumWithInitial +sumWithInitialMinibar
 
   const {SubtotalDian,TotalRetentionDian} =UseRoundRention({Price:sumWithInitial})
   const {SubtotalDianSinIva,TotalRetentionDianSinIva,TotalPaySinIva} =UseRoundRetentionSinIva({Price:sumWithInitial})
   const {SubtotalDianIpoconsumo,TotalPayipoconsumo} =UseAroundIpoconsumo({Price:sumWithInitialMinibar})
-
 
 
   useEffect(() => {
@@ -128,32 +117,25 @@ const Dian =() => {
 	}, [socket]);
 
 
+
     const resultDashboard = DetailDashboard[0]
 
     const totalNum = resultDashboard?.Iva == 1 ? true : false;
     const typeIva = resultDashboard?.tipo_persona === "empresa" ? true : totalNum;
 
-    const totalPrice = sumWithInitial + minibarServicio
-
+    const totalPrice = sumWithInitial
     const totalRound =  totalPrice / 1.19
     const ValorBase = Math.round(totalRound * 100000) / 100000; // Redondear a 5 decimales
     const valueSTotalProduct =  typeIva ?  ValorBase : totalPrice
     const valuesPayments = typeIva ? totalPrice :totalPrice
-
-    console.log(totalPrice)
-
+  
     const filteredItems = products?.filter(item =>{
       return  item.id ==jwt?.result?.dian
     });
 
     const filterItemsExecento = products?.filter(item =>{
-      return  item.code =="6"
+      return  item.code =="03"
     }); 
-
-    const StartDate = moment(resultDashboard?.Fecha_inicio).utc().format('YYYY/MM/DD')
-    const EndDate = moment(resultDashboard?.Fecha_final).utc().format('YYYY/MM/DD')
-
-    console.log(resultDashboard)
 
     const resdian = jwt?.result?.RestDian;
 
@@ -162,6 +144,7 @@ const Dian =() => {
           return  item
       }}
     );
+
 
     const itemIvaIpoconsumo = useMemo(() => {
       if(combinedArray.some((item) =>item.taxes)){
@@ -208,6 +191,8 @@ const Dian =() => {
       }))
     }}
 , [filteredItems, valueSTotalProduct]);
+
+
     
     const itemRetention = useMemo(() => {
       if(filteredItems.some((item) =>item.taxes)){
@@ -238,6 +223,7 @@ const Dian =() => {
     } , [filteredItems, SubtotalDian]);
 
 
+
     const itemsExenta = useMemo(() => {
       if(filteredItems.some((item) =>item.taxes)){
         return  filterItemsExecento?.map(item => ({
@@ -261,8 +247,11 @@ const Dian =() => {
       }
     }, [filterItemsExecento, totalPrice]);
 
+
+  
     const ProductRententionExtra  =  itemRetention.concat(itemIvaIpoconsumo)
 
+   
     const validProduct =  typeIva ? itemIva   :itemsExenta
     const ItemIpoconsumo  =  validProduct.concat(itemIvaIpoconsumo)
     const ItemIpoconsumoTotal = totalAmount
@@ -283,8 +272,6 @@ const Dian =() => {
       id: jwt?.result?.id_payment,
       value:valuePymentIpoconsumo,
     }]
-
-    console.log()
 
     const DateExit = moment(DetailDashboard.Fecha_final).utc().format('YYYY-MM-DD')
 
@@ -311,19 +298,21 @@ const Dian =() => {
         phones:select?.phones,
        contacts:select?.contacts
       },
-      seller: 547,
+      seller: 50,
       stamp: {
         send: true
       },
       mail: {
         send: true
       },
-      observations:`hospedaje del ${StartDate} al ${EndDate}   ${jwt?.result?.observation} `,
+      observations:jwt?.result?.observation,
       items,
       payments,
       additional_fields: {}
     };  
     
+    
+    console.log(response)
 
     useEffect(() =>{
       fetchDataPayment()
@@ -334,13 +323,17 @@ const Dian =() => {
     const handSubmitInvoinces=async() =>{
       if(sumWithInitial ==0) {
         toast.error("No se puede facturar no tiene ningun valor pendiente");
-      }
+      }else{
+        if(Boolean(resultDashboard.ID_facturacion.trim())){
+          toast.error("no se puedes enviar mas facturacion electronica")
+      }else{
         if(!loadingInvoinces){
             await PostSendInvoinces({token:Dian.access_token,body:response,id_Reserva:id,id_user:jwt.result.id_user,fecha:now,Retention:RetentionItem})
             socket.emit("sendNotification",jwt.result.name);
         }else{
           toast.error("Error factura")
-        }
+        }} 
+      }
     }
 
     const handleSelectChange = (client) => {
@@ -355,16 +348,14 @@ const Dian =() => {
   const [debouncedSearchTerm] = useDebounce(searchTerm, 500); // 500ms de retraso
 
   const fetchSearchResults = useCallback(async () => {
-    try {
-      if (debouncedSearchTerm) {
-        await GetCLientDian({ token: Dian.access_token, document: debouncedSearchTerm });
+      try {
+        if (debouncedSearchTerm) {
+          await GetCLientDian({ token: Dian.access_token, document: debouncedSearchTerm });
+        }
+      } catch (error) {
+        console.error('Error fetching search results:', error);
       }
-    } catch (error) {
-      console.error('Error fetching search results:', error);
-    }
   }, [debouncedSearchTerm]); // Dependencia para el useCallback
-
-  
 
   useEffect(() => {
     fetchSearchResults();
@@ -426,7 +417,7 @@ const Dian =() => {
                 <div class=" mx-auto  p-6 rounded-lg ">
                     <SearchClient 
                     sumWithInitialMinibar={sumWithInitialMinibar}
-                     sumWithInitial={totalPrice}
+                     sumWithInitial={sumWithInitial}
                     typeIva={typeIva}
                     resultDashboard={resultDashboard}
                     searchTerm={searchTerm}
