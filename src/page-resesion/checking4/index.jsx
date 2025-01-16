@@ -1,5 +1,5 @@
 import { Button, Spacer } from "@nextui-org/react"
-import React, { useContext } from "react"
+import React, { useContext, useEffect } from "react"
 import { PiSignatureLight } from "react-icons/pi";
 import { useParams,useHistory } from "react-router-dom";
 import  AutoProvider  from "../../privateRoute/AutoProvider";
@@ -14,6 +14,9 @@ const Checkingn4 =() =>{
     const {jwt} =useContext(AutoProvider)
     const history =  useHistory()
 
+    useEffect(() =>{
+        history.push(`/DetailDashboard/${id}`)
+    },[])
 
     const handNext =() =>{
         history.push(`/uploadImgeChecking/${id}`)
