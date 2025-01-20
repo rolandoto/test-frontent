@@ -54,15 +54,12 @@ const Dian =() => {
     const now = moment().utc().format('YYYY-MM-DD')
     const [isSelected, setIsSelected] = useState(false); // defaultSelected
     const [isSelectedMinibar, setIsSelectedMinibar] = useState(false); // defaultSelected
-        
-      console.log(seller)
+
 
     const handleCheckboxChange = () => {
       setIsSelected(!isSelected);
     };
 
-    
-    
     const handleCheckboxChangeMinibar = () => {
       setIsSelectedMinibar(!isSelectedMinibar);
     };
@@ -274,7 +271,7 @@ const Dian =() => {
     }]
 
     const DateExit = moment(DetailDashboard.Fecha_final).utc().format('YYYY-MM-DD')
-
+    const DateStart = moment(DetailDashboard.Fecha_inicio).utc().format('YYYY-MM-DD')
     const response= {
       document: {
         id: jwt?.result?.id_document
@@ -305,14 +302,14 @@ const Dian =() => {
       mail: {
         send: true
       },
-      observations:jwt?.result?.observation,
+      observations:`hospedaje del ${DateStart} a  ${DateExit} `,
       items,
       payments,
       additional_fields: {}
     };  
     
     
-    console.log(response)
+
 
     useEffect(() =>{
       fetchDataPayment()
