@@ -44,11 +44,7 @@ const Checkingn2Organism =({id,postDetailRoom,fetchDataApiWhatsapp,postWhataapBy
         fetchData()
     },[id])
 
-
-
     const  resulDetailDashboard = DetailDashboard[0]
-
-   
 
     const init  =   moment(resulDetailDashboard?.Fecha_inicio).utc().format('MM/DD/YYYY')
     const fin = moment(resulDetailDashboard?.Fecha_final).utc().format('MM/DD/YYYY')
@@ -60,7 +56,6 @@ const Checkingn2Organism =({id,postDetailRoom,fetchDataApiWhatsapp,postWhataapBy
     
     const day =diff/(1000*60*60*24)
 
-   
     const i = moment(resulDetailDashboard?.Fecha_inicio).utc().format('YYYY/MM/DD')
     const f = moment(resulDetailDashboard?.Fecha_final).utc().format('YYYY/MM/DD')
     const n = moment(resulDetailDashboard?.Fecha_nacimiento).utc().format('YYYY/MM/DD') 

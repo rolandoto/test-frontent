@@ -28,7 +28,7 @@ const UseUsers =() =>{
 
     const login = useCallback(({username,password,hotel}) =>{
         setState({loading:true,error:false})
-        HttpClient.PostAutenticationDian().then(e =>{
+        HttpClient.PostAutenticationDian({Dian:2}).then(e =>{
             setDian(e)
             console.log(e)
             localStorage.setItem('tokenDian',JSON.stringify(e))

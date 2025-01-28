@@ -55,7 +55,6 @@ const Dian =() => {
     const [isSelected, setIsSelected] = useState(false); // defaultSelected
     const [isSelectedMinibar, setIsSelectedMinibar] = useState(false); // defaultSelected
 
-
     const handleCheckboxChange = () => {
       setIsSelected(!isSelected);
     };
@@ -63,7 +62,6 @@ const Dian =() => {
     const handleCheckboxChangeMinibar = () => {
       setIsSelectedMinibar(!isSelectedMinibar);
     };
-
 
     const {DetailDashboard
       } = useSelector((state) => state.DetailDashboard)
@@ -130,6 +128,8 @@ const Dian =() => {
       return  item.id ==jwt?.result?.dian
     });
 
+
+
     const filterItemsExecento = products?.filter(item =>{
       return  item.code =="03"
     }); 
@@ -189,7 +189,6 @@ const Dian =() => {
     }}
 , [filteredItems, valueSTotalProduct]);
 
-
     
     const itemRetention = useMemo(() => {
       if(filteredItems.some((item) =>item.taxes)){
@@ -243,12 +242,9 @@ const Dian =() => {
         }))
       }
     }, [filterItemsExecento, totalPrice]);
-
-
   
     const ProductRententionExtra  =  itemRetention.concat(itemIvaIpoconsumo)
 
-   
     const validProduct =  typeIva ? itemIva   :itemsExenta
     const ItemIpoconsumo  =  validProduct.concat(itemIvaIpoconsumo)
     const ItemIpoconsumoTotal = totalAmount
@@ -307,10 +303,7 @@ const Dian =() => {
       payments,
       additional_fields: {}
     };  
-    
-    
-
-
+  
     useEffect(() =>{
       fetchDataPayment()
         fetchData()
