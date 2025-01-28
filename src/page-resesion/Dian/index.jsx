@@ -266,8 +266,11 @@ const Dian =() => {
       value:valuePymentIpoconsumo,
     }]
 
-    const DateExit = moment(DetailDashboard.Fecha_final).utc().format('YYYY-MM-DD')
-    const DateStart = moment(DetailDashboard.Fecha_inicio).utc().format('YYYY-MM-DD')
+    const DateExit = moment(resultDashboard.Fecha_final).utc().format('YYYY-MM-DD')
+    const DateStart = moment(resultDashboard.Fecha_inicio).utc().format('YYYY-MM-DD')
+    
+    
+
     const response= {
       document: {
         id: jwt?.result?.id_document
@@ -303,6 +306,9 @@ const Dian =() => {
       payments,
       additional_fields: {}
     };  
+
+
+    console.log(response)
   
     useEffect(() =>{
       fetchDataPayment()

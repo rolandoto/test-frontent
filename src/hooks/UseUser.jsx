@@ -36,7 +36,6 @@ const UseUsers =() =>{
             console.log('no entro')
             console.log(e)
         })
-
         LoginService({username,password,hotel}).then(index =>{
             localStorage.setItem('jwt',JSON.stringify(index))
             createCookie("user", index);
