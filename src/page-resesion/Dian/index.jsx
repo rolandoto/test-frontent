@@ -242,9 +242,12 @@ const Dian =() => {
         }))
       }
     }, [filterItemsExecento, totalPrice]);
+
+
   
     const ProductRententionExtra  =  itemRetention.concat(itemIvaIpoconsumo)
 
+   
     const validProduct =  typeIva ? itemIva   :itemsExenta
     const ItemIpoconsumo  =  validProduct.concat(itemIvaIpoconsumo)
     const ItemIpoconsumoTotal = totalAmount
@@ -266,10 +269,10 @@ const Dian =() => {
       value:valuePymentIpoconsumo,
     }]
 
-    const DateExit = moment(resultDashboard.Fecha_final).utc().format('YYYY-MM-DD')
+    const DateExit = moment().utc().format('YYYY-MM-DD')
     const DateStart = moment(resultDashboard.Fecha_inicio).utc().format('YYYY-MM-DD')
-    
-    
+    const DateFinish = moment(resultDashboard.Fecha_final).utc().format('YYYY-MM-DD')
+
 
     const response= {
       document: {
@@ -301,15 +304,13 @@ const Dian =() => {
       mail: {
         send: true
       },
-      observations:`hospedaje del ${DateStart} a  ${DateExit} `,
+      observations:`hospedaje del ${DateStart} a  ${DateFinish} `,
       items,
       payments,
       additional_fields: {}
     };  
 
 
-    console.log(response)
-  
     useEffect(() =>{
       fetchDataPayment()
         fetchData()
