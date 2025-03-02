@@ -96,16 +96,15 @@ const DetailDasboard =(props) =>{
 
     const resultDashboard = DetailDashboard[0]
 
-    console.log(resultDashboard)
-
     const documentByIdRoom =  resultDashboard?.Num_documento +""+id
-    const init  =   moment(resultDashboard?.Fecha_inicio).utc().format('DD/MM/YYYY')
     const fin = moment(resultDashboard?.Fecha_final).utc().format('DD/MM/YYYY')
-    const  nowChecking = moment().format("DD/MM/YYYY");
-
+   
     const initOne = moment(resultDashboard?.Fecha_inicio).utc();
     const finOne = moment(resultDashboard?.Fecha_final).utc();
-    
+    const init = moment(resultDashboard?.Fecha_inicio, "YYYY-MM-DD").utc(); // Ajusta el formato según el dato real
+    const nowChecking = moment().utc(); // Fecha actual en UTC
+
+ 
     // Calcula la diferencia en días entre las fechas
     const diffInDays = finOne.diff(initOne, 'days');
     
@@ -400,7 +399,6 @@ const DetailDasboard =(props) =>{
     const  fecha = useDate({fecha:i})
     const  fechaOne = useDate({fecha:f})
 
-    
 
     const pruebaOne  =   moment(fecha.defaultValueone).utc().format('MM/DD/YYYY')
     const pruebaTwo = moment(espan).utc().format('MM/DD/YYYY')
@@ -486,8 +484,9 @@ const DetailDasboard =(props) =>{
       history.push(`/Dian/${id}`)
    }
 
+   
     const handChecking =() =>{
-      if(init <=nowChecking){
+      if(!nowChecking.isBefore(init)){
         if(!findFirma){
           if(!avaiableRoom){
             if(avainleOcacisonal){
