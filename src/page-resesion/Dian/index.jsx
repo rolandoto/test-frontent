@@ -145,24 +145,7 @@ const Dian =() => {
 
     const itemIvaIpoconsumo = useMemo(() => {
       if(combinedArray.some((item) =>item.taxes)){
-        return  combinedArray?.map(item => ({
-          code: `${item.code}`,
-          description: `${item.name}`,
-          quantity: 1,
-          price: SubtotalDianIpoconsumo,
-          discount: 0.00,
-          taxes: [{
-            id: item?.taxes[0]?.id || 0
-          }]
-        }))
-      }else{
-        return  combinedArray?.map(item => ({
-          code: `${item.code}`,
-          description: `${item.name}`,
-          quantity: 1,
-          price: sumWithInitialMinibar,
-          discount: 0.00,
-        }))
+        
       }}
 , [filteredItems, valueSTotalProduct]);
 
