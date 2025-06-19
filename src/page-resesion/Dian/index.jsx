@@ -59,6 +59,7 @@ const Dian =() => {
       setIsSelected(!isSelected);
     };
 
+
     const handleCheckboxChangeMinibar = () => {
       setIsSelectedMinibar(!isSelectedMinibar);
     };
@@ -280,7 +281,7 @@ const Dian =() => {
         phones:select?.phones,
        contacts:select?.contacts
       },
-      seller: 50,
+      seller: 824,
       stamp: {
         send: true
       },
@@ -288,7 +289,7 @@ const Dian =() => {
         send: true
       },
       observations:`hospedaje del ${DateStart} a  ${DateFinish} `,
-      items,
+      items,  
       payments,
       additional_fields: {}
     };  
