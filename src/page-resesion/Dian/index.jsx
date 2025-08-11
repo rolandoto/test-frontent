@@ -185,7 +185,7 @@ const Dian =() => {
           taxes: [{
             id: item?.taxes[0]?.id || 0
           }, {
-            id: 11451
+            id: 1035
           }]
         }))
       }else{
@@ -196,7 +196,7 @@ const Dian =() => {
           price: SubtotalDianSinIva,
           discount: 0.00,
           taxes: [{
-            id: 11451
+            id: 1035
           }]
         }))
       }
