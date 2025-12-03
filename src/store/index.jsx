@@ -30,20 +30,6 @@ import { CitySigoSlice } from '../reducers/CitySigoReducers'
 import { ApiwompiReducersSlice } from '../reducers/ApiwompiReducers'
 
 
-
-const persistanceLocalStorageMiddleware = (store) => (next) => (action) => {
-	next(action);
-	localStorage.setItem("__redux__state__", JSON.stringify(store.getState()));
-};
-
-export const fetchDataFromApi = createAsyncThunk(
-    'data/fetchData',
-    async () => {
-      const response = await fetch('https://api.example.com/data');
-      const data = await response.json();
-      return data;
-    }
-  );
   
 const store = configureStore ({
     reducer:{
@@ -79,8 +65,7 @@ const store = configureStore ({
         CitySigoSlice:CitySigoSlice.reducer,
         ApiwompiReducersSlice:ApiwompiReducersSlice.reducer
     },
-    devTools:true,
-    middleware: [persistanceLocalStorageMiddleware],
+    devTools:true
 })
 
 export const RootState = store.getState
