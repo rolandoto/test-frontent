@@ -250,10 +250,11 @@ const UseDianActions =() =>{
 
 
     const PostCLienteRegister=async({body,token}) =>{
+        console.log(body)
         dispatch(RegisterClientLoading())
         try {
             const response = await HttpClient.PostClientSigo({body,token})
-            console.log(response)
+            console.log({"sdsdasd":response})
             if(response){
                 dispatch(setRegisterClient(response))
                 toast.success("envio")

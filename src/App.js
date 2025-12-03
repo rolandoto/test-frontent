@@ -355,7 +355,6 @@ function App() {
                 path="/informeAuditoriaMonth"
                 component={InformeAuditoriaMonth}
               />
-
               <Route component={NoFound} />
             </Switch>
           </BrowserRouter>

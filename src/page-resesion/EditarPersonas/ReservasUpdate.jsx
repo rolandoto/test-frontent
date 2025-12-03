@@ -152,7 +152,7 @@ const ReservasUpdate =(props) =>{
         error,loading}= useSelector((state) => state.CitySigoSlice)
 
     const {ErrorRegisterClient,loadingRegisterClient,RegisterClient}= useSelector((state) => state.Dian)
-  
+
     const {PostCLienteRegister} =UseDianActions()
 
     const FetchDate=async() =>{
@@ -229,8 +229,6 @@ const ReservasUpdate =(props) =>{
         resultDasboard.Apellido
     ] 
 
-    console.log(validDefinidName)
-
     const body = {
         "type": "Customer",
         "person_type":`${person}`,
@@ -282,17 +280,14 @@ const ReservasUpdate =(props) =>{
       const handSubmitInvoinces=async() =>{
         await PostCLienteRegister({token:Dian.access_token,body})
     }
-    
-  const handClick =() =>{
-    ServiceUpdateReservation({id,data}).then(index =>{
-       window.location.reload()
-        }).catch(e =>{
-        console.log(e)
-    })
-  }
 
-
-  console.log(typeDocument)
+    const handClick =() =>{
+        ServiceUpdateReservation({id,data}).then(index =>{
+        window.location.reload()
+            }).catch(e =>{
+            console.log(e)
+        })
+    }
 
 
   const FillContent =() =>{
@@ -302,10 +297,9 @@ const ReservasUpdate =(props) =>{
              </StyleContainerLoadingCLoudbeds>
          )
     }if(error){
-      return  <PageBack />
+      return <p>...{error}</p>
     }
-
-   
+  
    return  <>
     <div className=""  >
             <LoadingDetail loading={loading}  titleLoading="guardado correctame"/>

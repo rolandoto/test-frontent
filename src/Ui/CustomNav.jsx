@@ -24,8 +24,7 @@ const socket = io.connect(`${SocketRoute.serverRoute}`);
 const SideNavBar = () => {
 
     const {pathname} = useLocation()
-    console.log(pathname)
-
+    
     const {jwt,update,setUpadte} =useContext(AutoProvider)
 	const [isExpanded, setExpendState] = useState(false);
     const {setJwt} = useContext(AutoProvider)

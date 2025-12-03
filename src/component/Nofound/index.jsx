@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom/cjs/react-router-dom'
 
 const NoFound =() =>{
 
-    
 
         return (
         <div className='no-found'>

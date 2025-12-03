@@ -10,13 +10,15 @@ const UseCitySigoActions =() =>{
         dispatch(loadingCitySigo())
         try {
             const response  = await HttpClient.GetCitySigo()
+            
             if(response){
                 dispatch(setCitySigo(response))
             }else{
                 dispatch(setErrorCitySigo("get with was found"))
             }
         } catch (error) {
-            dispatch(setErrorCitySigo("get with was found"))
+            console.log(error)
+            dispatch(setErrorCitySigo("get with was found asdasdsadsa"))
         }
     }
 

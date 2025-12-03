@@ -173,14 +173,14 @@ const Dian =() => {
     }}
 , [filteredItems, valueSTotalProduct]);
 
-    
+ 
     const itemRetention = useMemo(() => {
       if(filteredItems.some((item) =>item.taxes)){
         return   filteredItems?.map(item => ({
           code: `${item.code}`,
           description: `${item.name}`,
           quantity: 1,
-          price:SubtotalDian,
+          price:2138528.14,
           discount: 0.00,
           taxes: [{
             id: item?.taxes[0]?.id || 0
@@ -247,12 +247,12 @@ const Dian =() => {
     const RetentionItem = filteredItems.some((item) =>item.taxes) ?  Retention :  RetentionSinIva 
 
     const valuePymentIpoconsumo = isSelectedMinibar ? ItemIpoconsumoTotal : valuesPayments
-
+    
     const payments =[{
       id: jwt?.result?.id_payment,
-      value:valuePymentIpoconsumo,
+      value:2470000.01,
     }]
-
+   
     const DateExit = moment().utc().format('YYYY-MM-DD')
     const DateStart = moment(resultDashboard.Fecha_inicio).utc().format('YYYY-MM-DD')
     const DateFinish = moment(resultDashboard.Fecha_final).utc().format('YYYY-MM-DD')
