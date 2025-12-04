@@ -250,8 +250,9 @@ const Dian =() => {
     
     const payments =[{
       id: jwt?.result?.id_payment,
-      value:2470000.01,
+      value:valuePymentIpoconsumo,
     }]
+
    
     const DateExit = moment().utc().format('YYYY-MM-DD')
     const DateStart = moment(resultDashboard.Fecha_inicio).utc().format('YYYY-MM-DD')
