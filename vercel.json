@@ -1,4 +1,7 @@
 {
   "version": 2,
-  "functions": { "api/**/*.js": { "runtime": "nodejs18.x" } }
+  "buildCommand": "npm run build",
+  "outputDirectory": "build",
+  "framework": "create-react-app",
+  "installCommand": "npm install"
 }
