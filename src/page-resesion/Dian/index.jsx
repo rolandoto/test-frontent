@@ -180,7 +180,7 @@ const Dian =() => {
           code: `${item.code}`,
           description: `${item.name}`,
           quantity: 1,
-          price:2138528.14,
+          price:SubtotalDianIpoconsumo,
           discount: 0.00,
           taxes: [{
             id: item?.taxes[0]?.id || 0
@@ -294,7 +294,7 @@ const Dian =() => {
       payments,
       additional_fields: {}
     };  
-
+    console.log(response)
 
     useEffect(() =>{
       fetchDataPayment()
