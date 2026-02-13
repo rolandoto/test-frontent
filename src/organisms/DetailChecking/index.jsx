@@ -8,8 +8,7 @@ import  AutoProvider  from "../../privateRoute/AutoProvider";
 import { config } from "../../config";
 import ServiceUpdateReservation from "../../service/ServiceUpdatereservation";
 import Swal from 'sweetalert2'
-import esLocale from 'date-fns/locale/es';
-import { DateRange } from "react-date-range";
+import SimpleDateRange from "../../component/SimpleDateRange";
 import HttpClient from "../../HttpClient";
 import useTrapmsActions from "../../action/useTrapmsActions";
 import UseDocument from "../../hooks/useDocument";
@@ -281,7 +280,7 @@ const DetailChekingOrganism =({id}) =>{
                 </div>
                     <div  className="container-flex-init-global" >
                         <div className="container-detail-dasboard-in" >
-                        <DateRange 
+                        <SimpleDateRange 
                         color="black"
                         minDate={new Date()}
                         rangeColors={['#262626']}
@@ -292,7 +291,6 @@ const DetailChekingOrganism =({id}) =>{
                         ranges={stateDate}
                         disabledDates={[]}
                         direction="horizontal"
-                        locale={esLocale}
                     />
                         <input type="text" className="desde-detail" defaultValue={i}   />
                         <input type="text" className="desde-detail" name="Fecha" defaultValue={f}   />

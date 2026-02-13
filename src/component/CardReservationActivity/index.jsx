@@ -1,8 +1,5 @@
 import React, { useContext, useState } from "react";
-import { DateRange } from "react-date-range";
-import "react-date-range/dist/styles.css"; // main css file
-import "react-date-range/dist/theme/default.css"; // theme css file
-import { format } from "date-fns";
+
 import moment from "moment";
 import {Button,Tooltip} from "@nextui-org/react";
 import { PiMicrosoftExcelLogoLight } from "react-icons/pi";
