@@ -8,7 +8,7 @@ import  AutoProvider  from "../../privateRoute/AutoProvider";
 import { config } from "../../config";
 import ServiceUpdateReservation from "../../service/ServiceUpdatereservation";
 import Swal from 'sweetalert2'
-import esLocale from 'date-fns/locale/es';
+import esLocale from 'date-fns/locale';
 import { DateRange } from "react-date-range";
 import HttpClient from "../../HttpClient";
 import useTrapmsActions from "../../action/useTrapmsActions";
