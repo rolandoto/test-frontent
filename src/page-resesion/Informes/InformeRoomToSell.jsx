@@ -7,12 +7,7 @@ import LoadingDetail from "../../Ui/LoadingDetail";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import { useReactToPrint } from "react-to-print";
-import esLocale from 'date-fns/locale/es';
-import { 
-    DateRange , 
-    Range, 
-    RangeKeyDict
-  } from 'react-date-range';
+import SimpleDateRange from "../../component/SimpleDateRange";
   import moment from "moment";
 import useDetailRoomAction from "../../action/useDetailRoomAction";
 import { useSelector } from "react-redux";
@@ -102,7 +97,7 @@ const InformeRoomToSell =() =>{
                 <div >
                     <div style={{display:"flex",alignItems:"center"}} >
 
-                    <DateRange
+                    <SimpleDateRange
                                     color="black"
                                     minDate={new Date()}
                                     rangeColors={['#262626']}
@@ -114,7 +109,6 @@ const InformeRoomToSell =() =>{
                                     ranges={state}
                                     disabledDates={[]}
                                     direction="horizontal"
-                                    locale={esLocale}
                                 />
                        
                         <button className="button-informe-cosultar-roomtosell " onClick={handSubmit} >Consultar</button>

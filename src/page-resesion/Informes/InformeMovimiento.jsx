@@ -16,11 +16,7 @@ import { CiSearch } from "react-icons/ci";
 import { RxDropdownMenu } from "react-icons/rx";
 import jsPDF from 'jspdf';
 import * as XLSX from 'xlsx';
-import { 
-    DateRange , 
-    Range, 
-    RangeKeyDict
-  } from 'react-date-range';
+import SimpleDateRange from "../../component/SimpleDateRange";
 
 const ExportButton = ({ data, filename }) => {
     const exportToExcel = () => {
@@ -208,7 +204,7 @@ const InformeMovimiento =() =>{
             <ButtonBack/>
             <ButtonHome/>
                <div>
-               <DateRange 
+               <SimpleDateRange 
                 color="black"
                 rangeColors={['#262626']}
                 onChange={(item) => setStateFecha([item.selection])}

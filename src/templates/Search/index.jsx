@@ -8,15 +8,9 @@ import { BsCalendarX } from "react-icons/bs";
 import ServiceUpdateReservationWeb from "../../service/ServiceUpdateReservationWeb";
 import { Button } from "@nextui-org/react";
 import { useSelector } from "react-redux";
-import 'react-date-range/dist/styles.css';
-import 'react-date-range/dist/theme/default.css';
+
 import 'moment/locale/es';
-import esLocale from 'date-fns/locale/es';
-import { 
-    DateRange , 
-    Range, 
-    RangeKeyDict
-  } from 'react-date-range';
+import SimpleDateRange from "../../component/SimpleDateRange";
   import { Switch, Spacer } from "@nextui-org/react";
 
 import moment from "moment";
@@ -147,7 +141,7 @@ const TemplateSearch =() =>{
                             </li>
                           
                             
-                                    <DateRange 
+                                    <SimpleDateRange 
                                     color="black"
                                     rangeColors={['#262626']}
                                     onChange={(item) => setState([item.selection])}
@@ -158,7 +152,6 @@ const TemplateSearch =() =>{
                                     ranges={state}
                                     disabledDates={[]}
                                     direction="horizontal"
-                                    locale={esLocale}
                                 />
         
 <div className="container-table-One-search" >
