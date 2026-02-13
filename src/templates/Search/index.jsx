@@ -11,7 +11,7 @@ import { useSelector } from "react-redux";
 import 'react-date-range/dist/styles.css';
 import 'react-date-range/dist/theme/default.css';
 import 'moment/locale/es';
-import esLocale from 'date-fns/locale';
+import esLocale from 'date-fns/locale/es';
 import { 
     DateRange , 
     Range, 

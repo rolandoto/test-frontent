@@ -7,7 +7,7 @@ import LoadingDetail from "../../Ui/LoadingDetail";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import { useReactToPrint } from "react-to-print";
-import esLocale from 'date-fns/locale';
+import esLocale from 'date-fns/locale/es';
 import { 
     DateRange , 
     Range, 
