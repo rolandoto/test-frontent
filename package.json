@@ -27,6 +27,7 @@
     "bootstrap": "^5.2.3",
     "canvas-confetti": "^1.5.1",
     "chart.js": "^4.4.2",
+    "date-fns": "^4.1.0",
     "dayjs": "^1.11.7",
     "dotenv": "^8.2.0",
     "faker": "^6.6.6",
@@ -84,7 +85,6 @@
     "xlsx": "^0.18.5",
     "yup": "^0.32.11"
   },
-  
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
