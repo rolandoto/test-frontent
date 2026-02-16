@@ -102,6 +102,7 @@ const Dian =() => {
   const {SubtotalDianSinIva,TotalRetentionDianSinIva,TotalPaySinIva} =UseRoundRetentionSinIva({Price:sumWithInitial})
   const {SubtotalDianIpoconsumo,TotalPayipoconsumo} =UseAroundIpoconsumo({Price:sumWithInitialMinibar})
 
+  console.log({sumWithInitial})
 
   useEffect(() => {
 		if (socket) {
@@ -174,14 +175,16 @@ const Dian =() => {
 , [filteredItems, valueSTotalProduct]);
 
  
+
     const itemRetention = useMemo(() => {
       if(filteredItems.some((item) =>item.taxes)){
         return   filteredItems?.map(item => ({
           code: `${item.code}`,
           description: `${item.name}`,
           quantity: 1,
-          price:SubtotalDianIpoconsumo,
+          price:SubtotalDian,
           discount: 0.00,
+           taxpayer: "Company",
           taxes: [{
             id: item?.taxes[0]?.id || 0
           }, {
@@ -257,6 +260,7 @@ const Dian =() => {
     const DateExit = moment().utc().format('YYYY-MM-DD')
     const DateStart = moment(resultDashboard.Fecha_inicio).utc().format('YYYY-MM-DD')
     const DateFinish = moment(resultDashboard.Fecha_final).utc().format('YYYY-MM-DD')
+
 
 
     const response= {
