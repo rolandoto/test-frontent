@@ -66,27 +66,11 @@ const TableInvoinceDian =() =>{
                     </TableHead>
                     <TableBody>
                     {InvonceByIdReservation.map((itemByIdReservation) =>{
-
+                            
                       const Fecha =  moment(itemByIdReservation.Fecha).utc().format('YYYY/MM/DD')
 
-                      const GnerarPdf = async () => {
-                        try {
-                            const itemPdf = await getPdfSigo({ id: itemByIdReservation.ID_facturacion, token: Dian.access_token });
-                    
-                            if (itemPdf?.Status !== 500) {
-                                toast.success("Factura descargada");
-                        
-                                const byteCharacters = atob(itemPdf?.base64.split(",")[1] || itemPdf?.base64); 
-                                const byteArray = new Uint8Array([...byteCharacters].map(c => c.charCodeAt(0)));
-                                const fileURL = URL.createObjectURL(new Blob([byteArray], { type: "application/pdf" }));
-                                window.open(fileURL, "_blank");
-                            } else {
-                                toast.error("Error al descargar");
-                            }
-                        } catch (error) {
-                            toast.error("Error al obtener el PDF");
-                            console.error("Error en GnerarPdf:", error);
-                        }
+                    const GnerarPdf = async () => {
+                        window.open(itemByIdReservation.ID_facturacion, "_blank");
                     };
 
                       return (
